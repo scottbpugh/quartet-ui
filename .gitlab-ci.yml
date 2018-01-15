@@ -1,0 +1,37 @@
+image: electronuserland/builder:wine
+
+stages:
+  - test
+  #  - build-docs
+  - build
+
+test:
+  stage: test
+  script:
+    - npm prune
+    - npm update -q
+    - npm test
+
+#pages:
+#  stage: build-docs
+#  script:
+#    - export PYTHONPATH=$PYTHONPATH:$CI_PROJECT_DIR
+#    - pip install sphinx sphinx_rtd_theme pygments ipython
+#    - make docs
+#    - mv docs/_build/html public/
+#  artifacts:
+#    paths:
+#      - public
+#  only:
+#    - master
+
+build:
+  stage: build
+  script:
+    - npm prune
+    - npm update -q
+    - npm install -g electron-builder
+    - npm run dist
+  artifacts:
+    paths:
+      - dist

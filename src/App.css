@@ -1,0 +1,27 @@
+.wrapper, html, body, #root, .App {
+    height:100%;
+    margin:0;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.main-container {
+    flex:2;
+    display: flex;
+}
+.left-panel {
+  padding:10px;
+    flex :0 0 240px;
+    background:#394B59;
+    color:#FFF;
+}
+.right-panel {
+    padding:10px;
+    flex: 1 1;
+    background:#EEE;
+}
+
+.tags .tag:not(:last-child) {
+    margin-right:5px;
+}
