@@ -27,7 +27,6 @@ import {
   Card,
   Tag
 } from "@blueprintjs/core";
-
 import "@blueprintjs/core/dist/blueprint.css";
 
 class App extends Component {
@@ -53,23 +52,7 @@ class App extends Component {
             </NavbarGroup>
           </Navbar>
         </header>
-        <div className="wrapper">
-          <div className="main-container">
-            <div className="left-panel" />
-            <div className="right-panel">
-              <Card interactive={true} elevation={Card.ELEVATION_TWO}>
-                <h5>GTIN With Us!</h5>
-                <p>QU4RTET will rule the world so get a headstart now!</p>
-                <div className="tags">
-                  <Tag className="tag">Awesome</Tag>
-                  <Tag className="tag">Performant</Tag>
-                  <Tag className="tag">Open Source</Tag>
-                  <Tag className="tag">GS1 Compliant</Tag>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </div>
+        <div className="wrapper">{this.props.children}</div>
       </div>
     );
   }

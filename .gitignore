@@ -12,6 +12,9 @@
 # distributions (mac, win, linux, ...)
 /dist
 
+# built docs
+/public/docs
+
 # misc
 .DS_Store
 .env.local

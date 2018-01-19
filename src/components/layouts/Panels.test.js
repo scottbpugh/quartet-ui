@@ -17,17 +17,19 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-import configureStore from "./store";
-import {Provider} from "react-redux";
-import routes from "./routes";
-const initialState = {};
-const store = configureStore(initialState);
+import renderer from "react-test-renderer";
+import Panels from "./Panels";
 
-ReactDOM.render(
-  <Provider store={store}>{routes}</Provider>,
-  document.getElementById("root")
-);
-registerServiceWorker();
+// Recharts resizable chart prevents this from working. Skipping for now.
+it("renders correctly", () => {
+  const panels = renderer
+    .create(
+      <Panels
+        title="Test"
+        leftPanel={<h1>Something</h1>}
+        rightPanel={<h2>Something Else</h2>}
+      />
+    )
+    .toJSON();
+  expect(panels).toMatchSnapshot();
+});
