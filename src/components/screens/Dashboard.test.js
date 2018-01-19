@@ -15,19 +15,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-import configureStore from "./store";
-import {Provider} from "react-redux";
-import routes from "./routes";
-const initialState = {};
-const store = configureStore(initialState);
+import renderer from "react-test-renderer";
+import Dashboard from "./dashboard";
 
-ReactDOM.render(
-  <Provider store={store}>{routes}</Provider>,
-  document.getElementById("root")
-);
-registerServiceWorker();
+// Recharts resizable chart prevents this from working. Skipping for now.
+it.skip("renders correctly", () => {
+  const dashboard = renderer.create(<Dashboard />).toJSON();
+  expect(dashboard).toMatchSnapshot();
+});

@@ -16,31 +16,45 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-
-.wrapper, html, body, #root, .App {
-    height:100%;
-    margin:0;
+.cards-container {
+  display: flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
 }
-.wrapper {
-    display: flex;
-    flex-direction: column;
+.cards-container > * {
+  flex-grow:0.4;
+  width:45%;
+  margin-bottom:15px;
 }
-.main-container {
-    flex:2;
-    display: flex;
-}
-.left-panel {
-  padding:10px;
-    flex :0 0 240px;
-    background:#394B59;
-    color:#FFF;
-}
-.right-panel {
-    padding:10px;
-    flex: 1 1;
-    background:#EEE;
+.cards-container table {
+  width:100%;
 }
 
-.tags .tag:not(:last-child) {
-    margin-right:5px;
+.cards-container table td {
+  overflow:hidden;
+}
+
+.error-list {
+  list-style:none;
+  padding:10px 10px 0 0;
+}
+
+.error-list li {
+  padding:15px 0;
+  display:flex;
+  border-bottom:1px solid #EEE;
+}
+.error-list .pt-error-standard {
+  padding-right:10px;
+}
+.error-list span.error-msg {
+  margin-left:15px;
+  display:block;
+}
+
+.error-list .pt-icon-error {
+  color:#A82A2A;
+}
+.error-list .pt-icon-warning-sign {
+  color:#D9822B;
 }

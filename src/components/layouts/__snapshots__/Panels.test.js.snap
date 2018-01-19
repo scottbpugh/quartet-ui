@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="main-container"
+>
+  <div
+    className="left-panel"
+  >
+    <h4
+      className="pt-dark left-panel-title"
+    >
+      Test
+    </h4>
+    <h1>
+      Something
+    </h1>
+  </div>
+  <div
+    className="right-panel"
+  >
+    <h2>
+      Something Else
+    </h2>
+  </div>
+</div>
+`;

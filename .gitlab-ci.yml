@@ -20,7 +20,7 @@ image: electronuserland/builder:wine
 
 stages:
   - test
-  #  - build-docs
+  - build-docs
   - build
 
 test:
@@ -30,26 +30,27 @@ test:
     - npm update -q
     - npm test
 
-#pages:
-#  stage: build-docs
-#  script:
-#    - export PYTHONPATH=$PYTHONPATH:$CI_PROJECT_DIR
-#    - pip install sphinx sphinx_rtd_theme pygments ipython
-#    - make docs
-#    - mv docs/_build/html public/
-#  artifacts:
-#    paths:
-#      - public
-#  only:
-#    - master
+pages:
+  image: lduros/python-node:init
+  stage: build-docs
+  script:
+    - export PYTHONPATH=$PYTHONPATH:$CI_PROJECT_DIR
+    - pip install sphinx recommonmark sphinx_rtd_theme pygments ipython
+    - make html --directory=docs/
+    - mv docs/_build/html public/docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
 
 build:
   stage: build
   script:
-    - npm prune
-    - npm update -q
-    - npm install -g electron-builder
+    - npm install
     - npm run dist
   artifacts:
     paths:
       - dist
+  only:
+    - master

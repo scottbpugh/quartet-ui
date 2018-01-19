@@ -15,19 +15,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-import configureStore from "./store";
-import {Provider} from "react-redux";
-import routes from "./routes";
-const initialState = {};
-const store = configureStore(initialState);
+import {Switch, Route} from "react-router";
+import {BrowserRouter, Link} from "react-router-dom";
+import App from "./components/App";
+import Dashboard from "./components/screens/Dashboard";
 
-ReactDOM.render(
-  <Provider store={store}>{routes}</Provider>,
-  document.getElementById("root")
+export default (
+  <App>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Dashboard} />
+      </Switch>
+    </BrowserRouter>
+  </App>
 );
-registerServiceWorker();

@@ -5,12 +5,21 @@
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
     "@blueprintjs/datetime": "^1.25.1",
+    "history": "^4.7.2",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "1.0.17",
-    "redux": "^3.7.2"
+    "react-vis": "^1.8.1",
+    "recharts": "^1.0.0-beta.9",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-localstorage": "^0.4.1",
+    "redux-thunk": "^2.2.0"
   },
   "author": {
     "name": "Serial Lab",
@@ -30,9 +39,11 @@
   "devDependencies": {
     "electron": "^1.7.10",
     "electron-builder": "^19.52.1",
-    "electron-packager": "^10.1.1",
     "eslint-config-airbnb": "^16.1.0",
-    "foreman": "^2.0.0"
+    "foreman": "^2.0.0",
+    "jest": "^22.1.1",
+    "jest-cli": "^22.1.1",
+    "react-test-renderer": "^16.2.0"
   },
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",

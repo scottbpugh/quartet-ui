@@ -17,17 +17,25 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-import configureStore from "./store";
-import {Provider} from "react-redux";
-import routes from "./routes";
-const initialState = {};
-const store = configureStore(initialState);
+import {Icon, IconClasses} from "@blueprintjs/core";
 
-ReactDOM.render(
-  <Provider store={store}>{routes}</Provider>,
-  document.getElementById("root")
-);
-registerServiceWorker();
+// Fully stateless component.
+export default props => {
+  return (
+    <ul className="error-list">
+      <li>
+        <span className="pt-icon-standard pt-icon-error" />
+        <span className="error-msg">
+          An EPCIS document with invalid GTIN EPC URN could not be parsed.
+        </span>
+      </li>
+      <li>
+        <span className="pt-icon-standard pt-icon-warning-sign" />
+        <span className="error-msg">
+          An outbound EPCIS job to 172.112.10.27 timed out. A retry will be
+          performed in 14mn30s.
+        </span>
+      </li>
+    </ul>
+  );
+};
