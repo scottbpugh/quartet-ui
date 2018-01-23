@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React from "react";
 import {Switch, Route} from "react-router";
-import {BrowserRouter, Link} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import App from "./components/App";
 import Dashboard from "./components/screens/Dashboard";
 

@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React from "react";
 import renderer from "react-test-renderer";
-import Dashboard from "./dashboard";
+import Dashboard from "./Dashboard";
 
 // Recharts resizable chart prevents this from working. Skipping for now.
 it.skip("renders correctly", () => {

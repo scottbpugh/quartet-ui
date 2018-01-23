@@ -16,17 +16,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
+import React from "react";
 import "../cards/dashboard/cards.css";
-import {
-  Button,
-  Navbar,
-  NavbarGroup,
-  NavbarHeading,
-  NavbarDivider,
-  Card,
-  Tag
-} from "@blueprintjs/core";
+import {Card} from "@blueprintjs/core";
 import Panels from "../layouts/Panels";
 import LatestGTINs from "../cards/dashboard/LatestGTINs";
 import ItemsProcessedByDate from "../cards/dashboard/ItemsProcessedByDate";

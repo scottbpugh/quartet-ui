@@ -16,26 +16,46 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from "react";
-import {Icon, IconClasses} from "@blueprintjs/core";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {fetchNotifications} from "../../../reducers/dashboard";
 
-// Fully stateless component.
-export default props => {
+const Notification = ({id, type, msg}) => {
+  let classType =
+    type === "warning" ? `pt-icon-${type}-sign` : `pt-icon-${type}`;
   return (
-    <ul className="error-list">
-      <li>
-        <span className="pt-icon-standard pt-icon-error" />
-        <span className="error-msg">
-          An EPCIS document with invalid GTIN EPC URN could not be parsed.
-        </span>
-      </li>
-      <li>
-        <span className="pt-icon-standard pt-icon-warning-sign" />
-        <span className="error-msg">
-          An outbound EPCIS job to 172.112.10.27 timed out. A retry will be
-          performed in 14mn30s.
-        </span>
-      </li>
-    </ul>
+    <li>
+      <span className={`pt-icon-standard ${classType}`} />
+      <span className="error-msg">{msg}</span>
+    </li>
   );
 };
+
+class NotificationsDisplay extends Component {
+  componentDidMount() {
+    // check every 5 seconds for new notifications.
+    this.fetchNotifications = setInterval(() => {
+      this.props.fetchNotifications();
+    }, 5000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.fetchNotifications);
+  }
+  render() {
+    let notifications = this.props.dashboard.notifications || [];
+    return (
+      <ul className="error-list">
+        {notifications.map(notification => (
+          <Notification key={notification.id} {...notification} />
+        ))}
+      </ul>
+    );
+  }
+}
+
+export default connect(
+  state => ({dashboard: {notifications: state.dashboard.notifications}}),
+  {
+    fetchNotifications
+  }
+)(NotificationsDisplay);

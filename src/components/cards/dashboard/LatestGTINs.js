@@ -60,7 +60,6 @@ class LatestGTINs extends Component {
     }, 200);
   };
   render() {
-    let list = [];
     return (
       <table className="pt-table pt-striped">
         <thead>
