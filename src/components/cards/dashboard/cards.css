@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   flex-grow:0.4;
   width:45%;
   margin-bottom:15px;
+  overflow-y:scroll;
+  max-height:500px;
 }
 .cards-container table {
   width:100%;

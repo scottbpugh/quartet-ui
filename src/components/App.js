@@ -23,9 +23,7 @@ import {
   Navbar,
   NavbarGroup,
   NavbarHeading,
-  NavbarDivider,
-  Card,
-  Tag
+  NavbarDivider
 } from "@blueprintjs/core";
 import "@blueprintjs/core/dist/blueprint.css";
 

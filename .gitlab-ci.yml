@@ -41,6 +41,7 @@ pages:
   artifacts:
     paths:
       - public
+    expire_in: 1h
   only:
     - master
 
@@ -52,5 +53,6 @@ build:
   artifacts:
     paths:
       - dist
+    expire_in: 1h
   only:
     - master
