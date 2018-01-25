@@ -18,9 +18,8 @@
 
 import React from "react";
 import renderer from "react-test-renderer";
-import Panels from "./Panels";
+import {Panels} from "./Panels";
 
-// Recharts resizable chart prevents this from working. Skipping for now.
 it("renders correctly", () => {
   const panels = renderer
     .create(

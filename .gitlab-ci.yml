@@ -27,7 +27,7 @@ test:
   stage: test
   script:
     - npm prune
-    - npm update -q
+    - npm install
     - npm test
 
 pages:

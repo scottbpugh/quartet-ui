@@ -17,43 +17,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 
-.wrapper, html, body, #root, .App {
-    height:100%;
-    margin:0;
+.settings-form-container {
+  display: flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
 }
-.wrapper {
-    display: flex;
-    flex-direction: column;
-}
-.main-container {
-    flex:2;
-    display: flex;
-}
-.left-panel {
-  padding:10px;
-    flex :0 0 240px;
-    background:#394B59;
-    color:#FFF;
-}
-.left-panel-title {
-  padding-top:10px;
-  text-align:center;
-  background:#293742;
-  padding:20px;
-}
-.right-panel {
-    padding:10px;
-    flex: 1 1;
-    background:#EEE;
-}
-
-.tags .tag:not(:last-child) {
-    margin-right:5px;
-}
-
-.pt-card h5 {
-    padding:15px 10px;
-    text-align:center;
-    margin: 0px 0px 10px 0px;
-    border-radius: 3px;
+.settings-form-container > * {
+  flex-grow:0.2;
 }

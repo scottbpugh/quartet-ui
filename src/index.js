@@ -23,8 +23,14 @@ import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store";
 import {Provider} from "react-redux";
 import routes from "./routes";
+import {initialData} from "./components/screens/server/ServerSettings";
+//import {initialData as nrData} from "./plugins/number-range/src/components/PoolList";
 
-const initialState = {dashboard: {notifications: []}};
+const initialState = {
+  dashboard: {notifications: []},
+  serversettings: initialData,
+  numberrange: {pools: []}
+};
 
 const store = configureStore(initialState);
 

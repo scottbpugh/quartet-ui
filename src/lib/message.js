@@ -16,8 +16,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {createAction} from "redux-actions";
+import {Position, Toaster, Intent} from "@blueprintjs/core";
 
-export default {
-  loadNotifications: createAction("DASHBOARD_NOTIFICATIONS_LOAD")
+const msgToaster = Toaster.create({
+  className: "my-toaster",
+  position: Position.BOTTOM_RIGHT
+});
+const getIntent = type => {
+  switch (type) {
+    case "success":
+      return Intent.SUCCESS;
+    case "danger":
+    case "error":
+      return Intent.DANGER;
+    default:
+      return Intent.PRIMARY;
+  }
+};
+export const showMessage = msg => {
+  msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
 };
