@@ -16,8 +16,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {createAction} from "redux-actions";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {
+  Panels,
+  RightPanel,
+  LeftPanel
+} from "../../../../components/layouts/Panels";
 
-export default {
-  loadNotifications: createAction("DASHBOARD_NOTIFICATIONS_LOAD")
+export const initialData = {
+  pools: []
 };
+
+class _PoolList extends Component {
+  render() {
+    return (
+      <Panels title="Number Range Pools">
+        <LeftPanel>Test</LeftPanel>
+        <RightPanel>test</RightPanel>
+      </Panels>
+    );
+  }
+}
+
+export var PoolList = connect(
+  state => ({servers: state.serversettings.servers}),
+  {}
+)(_PoolList);

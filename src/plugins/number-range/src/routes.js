@@ -15,9 +15,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import {createAction} from "redux-actions";
-
-export default {
-  loadNotifications: createAction("DASHBOARD_NOTIFICATIONS_LOAD")
-};
+import React from "react";
+import {Route} from "react-router";
+import {PoolList} from "./components/PoolList";
+/**
+ * Default - Returns an array of routes to be appended to main Switch.
+ *
+ * @return {array} An array of routes to be appended to main app.
+ */
+export default (() => {
+  return [<Route path="/number-range/pools" component={PoolList} />];
+})();

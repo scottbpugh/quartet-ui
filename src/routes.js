@@ -20,13 +20,17 @@ import {Switch, Route} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import App from "./components/App";
 import Dashboard from "./components/screens/Dashboard";
+import {ServerSettings} from "./components/screens/server/ServerSettings";
+import numberRangeRoutes from "./plugins/number-range/src/routes";
 
 export default (
-  <App>
-    <BrowserRouter>
-      <Switch>
+  <BrowserRouter>
+    <Switch>
+      <App>
         <Route exact path="/" component={Dashboard} />
-      </Switch>
-    </BrowserRouter>
-  </App>
+        <Route path="/server-settings" component={ServerSettings} />
+        {numberRangeRoutes}
+      </App>
+    </Switch>
+  </BrowserRouter>
 );

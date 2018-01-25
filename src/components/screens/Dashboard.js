@@ -19,7 +19,7 @@
 import React from "react";
 import "../cards/dashboard/cards.css";
 import {Card} from "@blueprintjs/core";
-import Panels from "../layouts/Panels";
+import {Panels} from "../layouts/Panels";
 import LatestGTINs from "../cards/dashboard/LatestGTINs";
 import ItemsProcessedByDate from "../cards/dashboard/ItemsProcessedByDate";
 import NotificationsDisplay from "../cards/dashboard/NotificationsDisplay";

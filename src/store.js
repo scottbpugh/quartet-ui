@@ -15,6 +15,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import {createStore, applyMiddleware, combineReducers, compose} from "redux";
 import {
   routerMiddleware,
@@ -24,6 +25,8 @@ import {
 import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "./reducers/dashboard";
+import serversettings from "./reducers/serversettings";
+import pools from "./plugins/number-range/src/reducers/numberrange";
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -41,7 +44,9 @@ export default function configureStore(initialState, routerHistory) {
   );
   const rootReducer = combineReducers({
     routing,
-    dashboard
+    dashboard,
+    serversettings,
+    pools: pools
   });
   return createStore(rootReducer, initialState, enhancer);
 }

@@ -26,6 +26,8 @@ import {
   NavbarDivider
 } from "@blueprintjs/core";
 import "@blueprintjs/core/dist/blueprint.css";
+import {withRouter} from "react-router-dom";
+import NavLink from "./layouts/elements/NavLink";
 
 class App extends Component {
   render() {
@@ -37,16 +39,15 @@ class App extends Component {
               <NavbarHeading>QU4RTET</NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
-              <Button className="pt-minimal" iconName="home">
+              <NavLink to="/" iconName="home">
                 Dashboard
-              </Button>
-              <Button className="pt-minimal" iconName="document">
-                Files
-              </Button>
+              </NavLink>
+              <NavLink to="/server-settings" iconName="cloud">
+                Servers
+              </NavLink>
+
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
-              <Button className="pt-minimal" iconName="notifications" />
-              <Button className="pt-minimal" iconName="cog" />
             </NavbarGroup>
           </Navbar>
         </header>
@@ -56,4 +57,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

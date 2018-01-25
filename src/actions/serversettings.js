@@ -19,5 +19,6 @@
 import {createAction} from "redux-actions";
 
 export default {
-  loadNotifications: createAction("DASHBOARD_NOTIFICATIONS_LOAD")
+  saveServerSettings: createAction("SERVER_SETTINGS_SAVE"),
+  updateServerForm: createAction("SERVER_SETTINGS_UPDATE_FORM")
 };

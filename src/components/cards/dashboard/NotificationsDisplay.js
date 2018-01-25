@@ -20,6 +20,16 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchNotifications} from "../../../reducers/dashboard";
 
+/**
+ * Notification - Description
+ *
+ * @param {object}   Obj         Wrapper.
+ * @param {string}   Obj.id      the element id.
+ * @param {string}   Obj.type    The type of icon.
+ * @param {string}   Obj.msg     The text message.
+ *
+ * @return {ReactElement} a list item element
+ */
 const Notification = ({id, type, msg}) => {
   let classType =
     type === "warning" ? `pt-icon-${type}-sign` : `pt-icon-${type}`;
@@ -31,6 +41,10 @@ const Notification = ({id, type, msg}) => {
   );
 };
 
+/**
+ * NotificationsDisplay - Displays notifications.
+ * @extends Component
+ */
 class NotificationsDisplay extends Component {
   componentDidMount() {
     // check every 5 seconds for new notifications.
@@ -42,7 +56,7 @@ class NotificationsDisplay extends Component {
     clearInterval(this.fetchNotifications);
   }
   render() {
-    let notifications = this.props.dashboard.notifications || [];
+    let notifications = this.props.notifications || [];
     return (
       <ul className="error-list">
         {notifications.map(notification => (
@@ -53,9 +67,6 @@ class NotificationsDisplay extends Component {
   }
 }
 
-export default connect(
-  state => ({dashboard: {notifications: state.dashboard.notifications}}),
-  {
-    fetchNotifications
-  }
-)(NotificationsDisplay);
+export default connect(state => state.dashboard, {
+  fetchNotifications
+})(NotificationsDisplay);

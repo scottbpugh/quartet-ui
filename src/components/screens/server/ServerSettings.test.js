@@ -16,8 +16,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {createAction} from "redux-actions";
+import React, {Component} from "react";
+import renderer from "react-test-renderer";
+import {ServerSettings, initialData} from "./ServerSettings";
+import configureStore from "redux-mock-store";
 
-export default {
-  loadNotifications: createAction("DASHBOARD_NOTIFICATIONS_LOAD")
-};
+const mockStore = configureStore();
+let wrapper;
+let store;
+
+it("renders correctly", () => {
+  store = mockStore({serversettings: initialData});
+  const serverSettings = renderer
+    .create(<ServerSettings store={store} />)
+    .toJSON();
+  expect(serverSettings).toMatchSnapshot();
+});
