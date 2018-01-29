@@ -21,9 +21,142 @@ import PropTypes from "prop-types";
 import {Panels} from "../../layouts/Panels";
 import "./server-settings.css";
 import {FormGroup, Switch, Card, Button} from "@blueprintjs/core";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {saveServer, updateValue} from "../../../reducers/serversettings";
+import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
 
+const formStructure = (initialValues = {}) => ({
+  serverSettingName: {
+    wrapper: {
+      helperText:
+        "The label that will be used for this server connection setting.",
+      label: "Server Setting Name",
+      labelFor: "serversetting-name"
+    },
+    input: {
+      id: "serversetting-name",
+      name: "serverSettingName",
+      className: "pt-input",
+      placeholder: "Server/Connection Name",
+      type: "text",
+      value: initialValues.serverSettingName || "",
+      elemtype: "input"
+    }
+  },
+  serverID: {
+    input: {
+      id: "server-id",
+      name: "serverID",
+      className: "pt-input",
+      type: "hidden",
+      elemtype: "input",
+      defaultValue: initialValues.serverID || ""
+    }
+  },
+  serverName: {
+    wrapper: {
+      helperText:
+        "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10.",
+      label: "Server Hostname",
+      labelFor: "server-name"
+    },
+    input: {
+      id: "server-name",
+      name: "serverName",
+      className: "pt-input",
+      placeholder: "Server Hostname",
+      required: true,
+      value: initialValues.serverName || "",
+      type: "text",
+      elemtype: "input"
+    }
+  },
+  port: {
+    wrapper: {
+      helperText: "A port to connect to. Example, 80, 8080, 443, ...",
+      label: "Port Number",
+      labelFor: "port-number"
+    },
+    input: {
+      id: "port-number",
+      name: "port",
+      type: "number",
+      min: "1",
+      max: "65000",
+      className: "pt-input",
+      placeholder: "Port Number",
+      required: true,
+      value: initialValues.port || "",
+      elemtype: "input"
+    }
+  },
+  path: {
+    wrapper: {
+      helperText: "A path required to interact with API (Optional)",
+      label: "Root Path",
+      labelFor: "root-path"
+    },
+    input: {
+      id: "root-path",
+      name: "path",
+      className: "pt-input",
+      placeholder: "Root Path",
+      value: initialValues.path || "",
+      type: "text",
+      elemtype: "input"
+    }
+  },
+  ssl: {
+    wrapper: {
+      helperText: "SSL/TLS encryption",
+      label: "SSL/TLS",
+      labelFor: "ssl"
+    },
+    input: {
+      name: "ssl",
+      Label: "SSL/TLS",
+      type: "checkbox",
+      checked: initialValues.ssl || false,
+      elemtype: "Switch"
+    }
+  },
+  username: {
+    wrapper: {
+      helperText: "Basic Auth Username",
+      label: "Username",
+      name: "username",
+      labelFor: "username"
+    },
+    input: {
+      id: "username",
+      name: "username",
+      className: "pt-input",
+      placeholder: "Username",
+      required: true,
+      value: initialValues.username || "",
+      type: "text",
+      elemtype: "input"
+    }
+  },
+  password: {
+    wrapper: {
+      helperText: "Basic Auth Password",
+      label: "Password",
+      name: "password",
+      labelFor: "password"
+    },
+    input: {
+      id: "password",
+      name: "password",
+      className: "pt-input",
+      placeholder: "Password",
+      type: "password",
+      required: true,
+      elemtype: "input",
+      value: initialValues.password || ""
+    }
+  }
+});
 /**
  * ServerForm - Description
  *
@@ -81,82 +214,118 @@ const ServerForm = (formData, saveHandler, updateHandler) => {
 };
 
 class _ServerSettings extends Component {
-  validateForm = formData => {};
+  constructor(props) {
+    super(props);
+    this.state = {postData: {}};
+  }
 
   saveServer = evt => {
     evt.preventDefault();
     let form = evt.target;
-    let formData = {};
+    let postData = {};
 
     for (let item of form) {
       if (item.name) {
-        formData[item.name] = item.value;
+        postData[item.name] = item.value;
       }
     }
-    this.props.saveServer(formData);
+    this.props.saveServer(postData);
+  };
+  componentDidMount() {
+    console.log("triggered", this.props.match.params.serverID);
+    this.loadCurrentServer(this.props.match.params.serverID);
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log("triggered", this.props.match.params.serverID);
+    this.loadCurrentServer(nextProps.match.params.serverID);
+  }
+  loadCurrentServer = serverID => {
+    if (serverID) {
+      console.log("servers are", this.props.servers);
+      if (serverID in this.props.servers) {
+        this.setState({postData: {...this.props.servers[serverID]}}, () => {});
+      }
+    }
   };
 
   updateValue = evt => {
+    this.setState(
+      {
+        postData: {...this.state.postData, [evt.target.name]: evt.target.value}
+      },
+      () => {
+        console.log("state is", this.state);
+      }
+    );
+    // validation should happen here.
     if (evt.target.type === "checkbox") {
       // for checkboxes we passed checked prop instead.
-      this.props.updateValue(evt.target.name, evt.target.checked);
+      //this.props.updateValue(evt.target.name, evt.target.checked);
     } else {
-      this.props.updateValue(evt.target.name, evt.target.value);
+      //this.props.updateValue(evt.target.name, evt.target.value);
     }
   };
 
-  testInput = evt => {
-    evt.preventDefault();
+  SettingsForm = props => {
+    return (
+      <div className="settings-form-container">
+        <Card>
+          <h5>Connect to a Server</h5>
+          {ServerForm(
+            formStructure(this.state.postData),
+            this.saveServer.bind(this),
+            this.updateValue.bind(this)
+          )}
+        </Card>
+        <Card>
+          <h5>Connection test &amp; Server Info</h5>
+        </Card>
+      </div>
+    );
   };
 
   render() {
+    console.log("state is", this.state);
     const SettingsMenu = props => {
-      let serverList = props.servers.map((server, index) => {
-        return <li key={index}>{server.serverSettingName}</li>;
+      let serverList = Object.keys(props.servers).map(key => {
+        return (
+          <li key={props.servers[key].serverID}>
+            <Link to={`/server-settings/${props.servers[key].serverID}`}>
+              {props.servers[key].serverSettingName}
+            </Link>
+          </li>
+        );
       });
-      return <ul>{serverList}</ul>;
-    }; // leaving empty for now.
-
-    const SettingsForm = props => {
-      let formData = this.props.formData;
       return (
-        <div className="settings-form-container">
-          <Card>
-            <h5>Connect to a Server</h5>
-            {ServerForm(
-              formData,
-              this.saveServer.bind(this),
-              this.updateValue.bind(this)
-            )}
-          </Card>
-          <Card>
-            <h5>Connection test &amp; Server Info</h5>
-          </Card>
+        <div>
+          <ul>{serverList}</ul>
+          <Link to="/server-settings/">
+            <button>New Server</button>
+          </Link>
         </div>
       );
-    };
+    }; // leaving empty for now.
+
     return (
       <Panels
         title="Server Settings"
         leftPanel={SettingsMenu(this.props)}
-        rightPanel={SettingsForm()}
+        rightPanel={this.SettingsForm()}
       />
     );
   }
 }
 
 _ServerSettings.propTypes = {
-  servers: PropTypes.array,
-  formData: PropTypes.object
+  servers: PropTypes.array
 };
 
 export var ServerSettings = connect(
   state => ({
-    servers: state.serversettings.servers,
-    formData: state.serversettings.formData
+    servers: state.serversettings.servers
   }),
   {
     saveServer,
-    updateValue
+    loadCurrentServer
   }
 )(_ServerSettings);

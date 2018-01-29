@@ -28,180 +28,43 @@ import uuidv4 from "uuid/v4";
  *
  * It is a JSON-serializable object representing the form
  */
-export const initialData = () => ({
-  servers: [],
-  currentServer: null,
-  formData: {
-    serverSettingName: {
-      wrapper: {
-        helperText:
-          "The label that will be used for this server connection setting.",
-        label: "Server Setting Name",
-        labelFor: "serversetting-name"
-      },
-      input: {
-        id: "serversetting-name",
-        name: "serverSettingName",
-        className: "pt-input",
-        placeholder: "Server/Connection Name",
-        type: "text",
-        value: "",
-        elemtype: "input"
-      }
-    },
-    serverID: {
-      input: {
-        id: "server-id",
-        name: "serverID",
-        className: "pt-input",
-        type: "hidden",
-        elemtype: "input",
-        value: ""
-      }
-    },
-    serverName: {
-      wrapper: {
-        helperText:
-          "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10.",
-        label: "Server Hostname",
-        labelFor: "server-name"
-      },
-      input: {
-        id: "server-name",
-        name: "serverName",
-        className: "pt-input",
-        placeholder: "Server Hostname",
-        required: true,
-        value: "",
-        type: "text",
-        elemtype: "input"
-      }
-    },
-    port: {
-      wrapper: {
-        helperText: "A port to connect to. Example, 80, 8080, 443, ...",
-        label: "Port Number",
-        labelFor: "port-number"
-      },
-      input: {
-        id: "port-number",
-        name: "port",
-        type: "number",
-        min: "1",
-        max: "65000",
-        className: "pt-input",
-        placeholder: "Port Number",
-        required: true,
-        value: "",
-        elemtype: "input"
-      }
-    },
-    path: {
-      wrapper: {
-        helperText: "A path required to interact with API (Optional)",
-        label: "Root Path",
-        labelFor: "root-path"
-      },
-      input: {
-        id: "root-path",
-        name: "path",
-        className: "pt-input",
-        placeholder: "Root Path",
-        value: "",
-        type: "text",
-        elemtype: "input"
-      }
-    },
-    ssl: {
-      wrapper: {
-        helperText: "SSL/TLS encryption",
-        label: "SSL/TLS",
-        labelFor: "ssl"
-      },
-      input: {
-        name: "ssl",
-        Label: "SSL/TLS",
-        value: false,
-        type: "checkbox",
-        checked: false,
-        elemtype: "Switch"
-      }
-    },
-    username: {
-      wrapper: {
-        helperText: "Basic Auth Username",
-        label: "Username",
-        name: "username",
-        labelFor: "username"
-      },
-      input: {
-        id: "username",
-        name: "username",
-        className: "pt-input",
-        placeholder: "Username",
-        required: true,
-        value: "",
-        type: "text",
-        elemtype: "input"
-      }
-    },
-    password: {
-      wrapper: {
-        helperText: "Basic Auth Password",
-        label: "Password",
-        name: "password",
-        labelFor: "password"
-      },
-      input: {
-        id: "password",
-        name: "password",
-        className: "pt-input",
-        placeholder: "Password",
-        type: "password",
-        required: true,
-        elemtype: "input"
-      }
-    }
-  }
-});
+export const initialData = () => {
+  let _initialData = {
+    servers: {}, // uuid key to objects
+    currentServer: null
+  };
+  return _initialData;
+};
 
 export const saveServer = postData => {
   return dispatch => {
-    debugger;
     showMessage({type: "success", msg: "Your server settings were saved."});
-    postData.serverID = uuidv4(); // assign programatically.
+    if (!postData.serverID) {
+      postData.serverID = uuidv4();
+    }
     return dispatch({type: actions.saveServerSettings, payload: postData});
   };
 };
 
-export const updateValue = (name, value) => {
+export const loadCurrentServer = serverData => {
   return dispatch => {
-    return dispatch({type: actions.updateServerForm, payload: {name, value}});
+    return dispatch({type: actions.loadCurrentServer, payload: serverData});
   };
 };
 
 export default handleActions(
   {
+    [actions.loadCurrentServer]: (state, action) => {
+      return {
+        ...state,
+        formData: initialData(action.payload).formData
+      };
+    },
     [actions.saveServerSettings]: (state, action) => {
       return {
         ...state,
-        servers: state.servers.concat(action.payload),
+        servers: {...state.servers, [action.payload.serverID]: action.payload},
         formData: initialData().formData
-      };
-    },
-    [actions.updateServerForm]: (state, action) => {
-      return {
-        ...state,
-        formData: {
-          ...state.formData,
-          [action.payload.name]: {
-            ...state.formData[action.payload.name],
-            input: {
-              ...state.formData[action.payload.name].input,
-              ...action.payload
-            }
-          }
-        }
       };
     }
   },
