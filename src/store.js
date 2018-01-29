@@ -26,7 +26,7 @@ import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "./reducers/dashboard";
 import serversettings from "./reducers/serversettings";
-import pools from "./plugins/number-range/src/reducers/numberrange";
+import numberrange from "./plugins/number-range/src/reducers/numberrange";
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -46,7 +46,7 @@ export default function configureStore(initialState, routerHistory) {
     routing,
     dashboard,
     serversettings,
-    pools: pools
+    numberrange
   });
   return createStore(rootReducer, initialState, enhancer);
 }

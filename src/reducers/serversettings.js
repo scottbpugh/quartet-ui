@@ -20,6 +20,140 @@ import {handleActions} from "redux-actions";
 import actions from "../actions/serversettings";
 import {showMessage} from "../lib/message";
 
+/**
+ * initialData - Returns the initial data for
+ * the Redux store for this form.
+ * Used in index.js to initialized the store.
+ *
+ * It is a JSON-serializable object representing the form
+ */
+export const initialData = () => ({
+  servers: [],
+  currentServer: null,
+  formData: {
+    serverSettingName: {
+      wrapper: {
+        helperText:
+          "The label that will be used for this server connection setting.",
+        label: "Server Setting Name",
+        labelFor: "serversetting-name"
+      },
+      input: {
+        id: "serversetting-name",
+        name: "serverSettingName",
+        className: "pt-input",
+        placeholder: "Server/Connection Name",
+        type: "text",
+        value: "",
+        elemtype: "input"
+      }
+    },
+    serverName: {
+      wrapper: {
+        helperText:
+          "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10.",
+        label: "Server Hostname",
+        labelFor: "server-name"
+      },
+      input: {
+        id: "server-name",
+        name: "serverName",
+        className: "pt-input",
+        placeholder: "Server Hostname",
+        required: true,
+        value: "",
+        type: "text",
+        elemtype: "input"
+      }
+    },
+    port: {
+      wrapper: {
+        helperText: "A port to connect to. Example, 80, 8080, 443, ...",
+        label: "Port Number",
+        labelFor: "port-number"
+      },
+      input: {
+        id: "port-number",
+        name: "port",
+        type: "number",
+        min: "1",
+        max: "65000",
+        className: "pt-input",
+        placeholder: "Port Number",
+        required: true,
+        value: "",
+        elemtype: "input"
+      }
+    },
+    path: {
+      wrapper: {
+        helperText: "A path required to interact with API (Optional)",
+        label: "Root Path",
+        labelFor: "root-path"
+      },
+      input: {
+        id: "root-path",
+        name: "path",
+        className: "pt-input",
+        placeholder: "Root Path",
+        value: "",
+        type: "text",
+        elemtype: "input"
+      }
+    },
+    ssl: {
+      wrapper: {
+        helperText: "SSL/TLS encryption",
+        label: "SSL/TLS",
+        labelFor: "ssl"
+      },
+      input: {
+        name: "ssl",
+        Label: "SSL/TLS",
+        value: false,
+        type: "checkbox",
+        checked: false,
+        elemtype: "Switch"
+      }
+    },
+    username: {
+      wrapper: {
+        helperText: "Basic Auth Username",
+        label: "Username",
+        name: "username",
+        labelFor: "username"
+      },
+      input: {
+        id: "username",
+        name: "username",
+        className: "pt-input",
+        placeholder: "Username",
+        required: true,
+        value: "",
+        type: "text",
+        elemtype: "input"
+      }
+    },
+    password: {
+      wrapper: {
+        helperText: "Basic Auth Password",
+        label: "Password",
+        name: "password",
+        labelFor: "password"
+      },
+      input: {
+        id: "password",
+        name: "password",
+        className: "pt-input",
+        placeholder: "Password",
+        type: "password",
+        required: true,
+        elemtype: "input"
+      }
+    }
+  }
+});
+
 export const saveServer = formData => {
   return dispatch => {
     showMessage({type: "success", msg: "Your server settings were saved."});
@@ -38,7 +172,8 @@ export default handleActions(
     [actions.saveServerSettings]: (state, action) => {
       return {
         ...state,
-        servers: state.servers.concat(action.payload)
+        servers: state.servers.concat(action.payload),
+        formData: initialData().formData
       };
     },
     [actions.updateServerForm]: (state, action) => {

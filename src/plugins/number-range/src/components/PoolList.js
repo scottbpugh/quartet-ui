@@ -23,23 +23,73 @@ import {
   RightPanel,
   LeftPanel
 } from "../../../../components/layouts/Panels";
+import {loadPools} from "../reducers/numberrange";
+import {Card} from "@blueprintjs/core";
 
-export const initialData = {
-  pools: []
-};
+class ServerPools extends Component {
+  render() {
+    return (
+      <Card>
+        <h4>Server: {this.props.serverName}</h4>
+        <div>
+          <table className="pt-table pt-bordered pt-striped">
+            <thead>
+              <tr>
+                <th>Created on</th>
+                <th>Readable Name</th>
+                <th>Machine Name</th>
+                <th>Status</th>
+                <th>Request Threshold</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.pools.map(pool => (
+                <tr>
+                  <td>{pool.created_date}</td>
+                  <td>{pool.readable_name}</td>
+                  <td>{pool.machine_name}</td>
+                  <td>{pool.active ? "active" : "inactive"}</td>
+                  <td>{pool.request_threshold}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    );
+  }
+}
 
 class _PoolList extends Component {
+  componentDidMount() {
+    if (this.props.servers.length > 0) {
+      for (let server of this.props.servers) {
+        this.props.loadPools(server);
+      }
+    }
+  }
   render() {
     return (
       <Panels title="Number Range Pools">
-        <LeftPanel>Test</LeftPanel>
-        <RightPanel>test</RightPanel>
+        <LeftPanel>
+          <ul>{Object.keys(this.props.pools).map(key => <li>{key}</li>)}</ul>
+        </LeftPanel>
+        <RightPanel>
+          {Object.keys(this.props.pools).map((key, index) => (
+            <ServerPools serverName={key} pools={this.props.pools[key]} />
+          ))}
+        </RightPanel>
       </Panels>
     );
   }
 }
 
 export var PoolList = connect(
-  state => ({servers: state.serversettings.servers}),
-  {}
+  state => {
+    return {
+      servers: state.serversettings.servers,
+      pools: state.numberrange.pools
+    };
+  },
+  {loadPools}
 )(_PoolList);

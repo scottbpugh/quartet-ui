@@ -18,18 +18,32 @@
 
 import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
+import {getPools} from "../lib/serialbox-api";
 
-export const loadPools = pools => ({
-  type: actions.loadPools,
-  payload: {pools: pools}
+export const initialData = () => ({
+  pools: []
 });
+
+export const loadPools = server => {
+  return dispatch => {
+    getPools(server).then(pools =>
+      dispatch({
+        type: actions.loadPools,
+        payload: {[server.serverSettingName]: pools}
+      })
+    );
+  };
+};
 
 export default handleActions(
   {
     [actions.loadPools]: (state, action) => {
       return {
         ...state,
-        ...action.payload
+        pools: {
+          ...state.pools,
+          ...action.payload
+        }
       };
     }
   },
