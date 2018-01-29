@@ -19,6 +19,7 @@
 import {handleActions} from "redux-actions";
 import actions from "../actions/serversettings";
 import {showMessage} from "../lib/message";
+import uuidv4 from "uuid/v4";
 
 /**
  * initialData - Returns the initial data for
@@ -46,6 +47,16 @@ export const initialData = () => ({
         type: "text",
         value: "",
         elemtype: "input"
+      }
+    },
+    serverID: {
+      input: {
+        id: "server-id",
+        name: "serverID",
+        className: "pt-input",
+        type: "hidden",
+        elemtype: "input",
+        value: ""
       }
     },
     serverName: {
@@ -154,10 +165,12 @@ export const initialData = () => ({
   }
 });
 
-export const saveServer = formData => {
+export const saveServer = postData => {
   return dispatch => {
+    debugger;
     showMessage({type: "success", msg: "Your server settings were saved."});
-    return dispatch({type: actions.saveServerSettings, payload: formData});
+    postData.serverID = uuidv4(); // assign programatically.
+    return dispatch({type: actions.saveServerSettings, payload: postData});
   };
 };
 

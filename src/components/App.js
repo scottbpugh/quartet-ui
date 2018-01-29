@@ -45,7 +45,9 @@ class App extends Component {
               <NavLink to="/server-settings" iconName="cloud">
                 Servers
               </NavLink>
-
+              <NavLink to="/number-range/pools" iconName="cloud">
+                Number Range
+              </NavLink>
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
             </NavbarGroup>

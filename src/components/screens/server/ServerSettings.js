@@ -56,7 +56,8 @@ const ServerForm = (formData, saveHandler, updateHandler) => {
         />
       );
     }
-    formElems.push(
+    // using simple div when no wrapper (hidden input, ...)
+    let formGroup = data.wrapper ? (
       <FormGroup
         helperText={data.wrapper.helperText}
         label={data.wrapper.label}
@@ -64,7 +65,10 @@ const ServerForm = (formData, saveHandler, updateHandler) => {
         key={data.wrapper.labelFor}>
         {elem}
       </FormGroup>
+    ) : (
+      <div>{elem}</div>
     );
+    formElems.push(formGroup);
   }
   return (
     <form onSubmit={saveHandler}>

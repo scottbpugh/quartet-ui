@@ -37,7 +37,7 @@ export const getPools = server => {
     credentials: "include",
     mode: "cors"
   };
-  let url = `${protocol}://${hostname}/${path}pools/`;
+  let url = `${protocol}://${hostname}:${port}/${path}pools/`;
   console.log(url);
   let request = new Request(url, initReq);
   return fetch(url, initReq)
@@ -48,6 +48,7 @@ export const getPools = server => {
       return data;
     })
     .catch(error => {
+      debugger;
       return error;
     });
 };
