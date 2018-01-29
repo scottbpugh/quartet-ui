@@ -249,14 +249,9 @@ class _ServerSettings extends Component {
   };
 
   updateValue = evt => {
-    this.setState(
-      {
-        postData: {...this.state.postData, [evt.target.name]: evt.target.value}
-      },
-      () => {
-        console.log("state is", this.state);
-      }
-    );
+    this.setState({
+      postData: {...this.state.postData, [evt.target.name]: evt.target.value}
+    });
     // validation should happen here.
     if (evt.target.type === "checkbox") {
       // for checkboxes we passed checked prop instead.
@@ -283,33 +278,30 @@ class _ServerSettings extends Component {
       </div>
     );
   };
-
-  render() {
-    console.log("state is", this.state);
-    const SettingsMenu = props => {
-      let serverList = Object.keys(props.servers).map(key => {
-        return (
-          <li key={props.servers[key].serverID}>
-            <Link to={`/server-settings/${props.servers[key].serverID}`}>
-              {props.servers[key].serverSettingName}
-            </Link>
-          </li>
-        );
-      });
+  SettingsMenu = props => {
+    let serverList = Object.keys(props.servers).map(key => {
       return (
-        <div>
-          <ul>{serverList}</ul>
-          <Link to="/server-settings/">
-            <button>New Server</button>
+        <li key={props.servers[key].serverID}>
+          <Link to={`/server-settings/${props.servers[key].serverID}`}>
+            {props.servers[key].serverSettingName}
           </Link>
-        </div>
+        </li>
       );
-    }; // leaving empty for now.
-
+    });
+    return (
+      <div>
+        <ul>{serverList}</ul>
+        <Link to="/server-settings/">
+          <button>New Server</button>
+        </Link>
+      </div>
+    );
+  }; // leaving empty for now.
+  render() {
     return (
       <Panels
         title="Server Settings"
-        leftPanel={SettingsMenu(this.props)}
+        leftPanel={this.SettingsMenu(this.props)}
         rightPanel={this.SettingsForm()}
       />
     );

@@ -63,9 +63,9 @@ class ServerPools extends Component {
 
 class _PoolList extends Component {
   componentDidMount() {
-    if (this.props.servers.length > 0) {
-      for (let server of this.props.servers) {
-        this.props.loadPools(server);
+    if (Object.keys(this.props.servers).length > 0) {
+      for (let key in this.props.servers) {
+        this.props.loadPools(this.props.servers[key]);
       }
     }
   }
