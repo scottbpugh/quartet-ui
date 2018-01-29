@@ -21,6 +21,7 @@ import renderer from "react-test-renderer";
 import {ServerSettings} from "./ServerSettings";
 import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
+import {withRouter} from "react-router-dom";
 
 const mockStore = configureStore();
 let wrapper;

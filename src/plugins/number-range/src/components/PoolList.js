@@ -29,6 +29,7 @@ import moment from "moment";
 
 class ServerPools extends Component {
   render() {
+    console.log("this.props.pools is", this.props.pools);
     return (
       <Card>
         <h4>Server: {this.props.serverName}</h4>
@@ -44,15 +45,17 @@ class ServerPools extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.pools.map(pool => (
-                <tr>
-                  <td>{moment(pool.created_date).format("LL")}</td>
-                  <td>{pool.readable_name}</td>
-                  <td>{pool.machine_name}</td>
-                  <td>{pool.active ? "active" : "inactive"}</td>
-                  <td>{pool.request_threshold}</td>
-                </tr>
-              ))}
+              {Array.isArray(this.props.pools)
+                ? this.props.pools.map(pool => (
+                    <tr>
+                      <td>{moment(pool.created_date).format("LL")}</td>
+                      <td>{pool.readable_name}</td>
+                      <td>{pool.machine_name}</td>
+                      <td>{pool.active ? "active" : "inactive"}</td>
+                      <td>{pool.request_threshold}</td>
+                    </tr>
+                  ))
+                : null}
             </tbody>
           </table>
         </div>

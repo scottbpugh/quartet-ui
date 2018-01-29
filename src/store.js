@@ -41,7 +41,7 @@ export default function configureStore(initialState, routerHistory) {
   })();
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState()
+    persistState(["serversettings"])
   );
   const rootReducer = combineReducers({
     routing,

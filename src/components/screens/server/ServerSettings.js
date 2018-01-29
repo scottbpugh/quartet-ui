@@ -309,7 +309,7 @@ class _ServerSettings extends Component {
 }
 
 _ServerSettings.propTypes = {
-  servers: PropTypes.array
+  servers: PropTypes.object
 };
 
 export var ServerSettings = connect(
