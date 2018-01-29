@@ -25,6 +25,7 @@ import {
 } from "../../../../components/layouts/Panels";
 import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
+import moment from "moment";
 
 class ServerPools extends Component {
   render() {
@@ -45,7 +46,7 @@ class ServerPools extends Component {
             <tbody>
               {this.props.pools.map(pool => (
                 <tr>
-                  <td>{pool.created_date}</td>
+                  <td>{moment(pool.created_date).format("LL")}</td>
                   <td>{pool.readable_name}</td>
                   <td>{pool.machine_name}</td>
                   <td>{pool.active ? "active" : "inactive"}</td>
@@ -75,9 +76,11 @@ class _PoolList extends Component {
           <ul>{Object.keys(this.props.pools).map(key => <li>{key}</li>)}</ul>
         </LeftPanel>
         <RightPanel>
-          {Object.keys(this.props.pools).map((key, index) => (
-            <ServerPools serverName={key} pools={this.props.pools[key]} />
-          ))}
+          <div className="cards-container">
+            {Object.keys(this.props.pools).map((key, index) => (
+              <ServerPools serverName={key} pools={this.props.pools[key]} />
+            ))}
+          </div>
         </RightPanel>
       </Panels>
     );

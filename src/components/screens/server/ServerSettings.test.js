@@ -18,7 +18,8 @@
 
 import React, {Component} from "react";
 import renderer from "react-test-renderer";
-import {ServerSettings, initialData} from "./ServerSettings";
+import {ServerSettings} from "./ServerSettings";
+import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
 
 const mockStore = configureStore();
@@ -26,7 +27,7 @@ let wrapper;
 let store;
 
 it("renders correctly", () => {
-  store = mockStore({serversettings: initialData});
+  store = mockStore({serversettings: initialData()});
   const serverSettings = renderer
     .create(<ServerSettings store={store} />)
     .toJSON();
