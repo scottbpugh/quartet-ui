@@ -38,8 +38,6 @@ export const getPools = server => {
     mode: "cors"
   };
   let url = `${protocol}://${hostname}:${port}/${path}pools/`;
-  console.log(url);
-  let request = new Request(url, initReq);
   return fetch(url, initReq)
     .then(resp => {
       return resp.json();
