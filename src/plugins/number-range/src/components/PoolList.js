@@ -91,7 +91,7 @@ class _PoolList extends Component {
     }
   }
   render() {
-    let nr = this.props.numberrange;
+    let nr = this.props.nr;
     return (
       <Panels title="Number Range Pools">
         <LeftPanel>
@@ -119,7 +119,7 @@ export var PoolList = connect(
   state => {
     return {
       servers: state.serversettings.servers,
-      numberrange: state.numberrange
+      nr: state.numberrange.servers
     };
   },
   {loadPools}

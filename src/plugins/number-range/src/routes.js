@@ -29,7 +29,7 @@ export default (() => {
   return [
     <Route path="/number-range/pools" component={PoolList} />,
     <Route
-      path="/number-range/region-detail/:poolID"
+      path="/number-range/region-detail/:serverID/:region"
       component={RegionDetail}
     />
   ];
