@@ -48,3 +48,35 @@ export const getPools = server => {
       return error;
     });
 };
+
+export const getRegion = (server, regionName) => {
+  let protocol = server.ssl === "true" ? "https" : "http";
+  let hostname = server.serverName;
+  let port = server.port || 80;
+  let username = server.username;
+  let password = server.password;
+  let path = server.path + "";
+  let headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append(
+    "Authorization",
+    "Basic " + base64.encode(username + ":" + password)
+  );
+  let initReq = {
+    method: "GET",
+    headers: headers,
+    credentials: "include",
+    mode: "cors"
+  };
+  let url = `${protocol}://${hostname}:${port}/${path}sequential-region-detail/${regionName}/`;
+  return fetch(url, initReq)
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};

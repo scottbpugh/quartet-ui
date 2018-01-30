@@ -16,33 +16,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {handleActions} from "redux-actions";
-import actions from "../actions/pools";
-import {getPools} from "../lib/serialbox-api";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 
-export const initialData = () => ({});
+class _RegionDetail extends Component {
+  render() {
+    return <div>Cool</div>;
+  }
+}
 
-export const loadPools = server => {
-  return dispatch => {
-    getPools(server).then(pools =>
-      dispatch({
-        type: actions.loadPools,
-        payload: {
-          [server.serverID]: {pools: pools, server: server}
-        }
-      })
-    );
+export var RegionDetail = connect(state => {
+  return {
+    servers: state.serversettings.servers,
+    pools: state.numberrange.pools
   };
-};
-
-export default handleActions(
-  {
-    [actions.loadPools]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload
-      };
-    }
-  },
-  {}
-);
+}, {})(_RegionDetail);

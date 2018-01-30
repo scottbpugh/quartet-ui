@@ -26,12 +26,15 @@ import {
 import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import moment from "moment";
+import {Link} from "react-router-dom";
 
 class ServerPools extends Component {
   render() {
+    let serverName = this.props.server.serverSettingName;
+    let serverID = this.props.server.serverID;
     return (
       <Card>
-        <h4>Server: {this.props.serverName}</h4>
+        <h4>Server: {serverName}</h4>
         <div>
           <table className="pt-table pt-bordered pt-striped">
             <thead>
@@ -41,6 +44,7 @@ class ServerPools extends Component {
                 <th>Machine Name</th>
                 <th>Status</th>
                 <th>Request Threshold</th>
+                <th>Regions</th>
               </tr>
             </thead>
             <tbody>
@@ -49,9 +53,24 @@ class ServerPools extends Component {
                     <tr>
                       <td>{moment(pool.created_date).format("LL")}</td>
                       <td>{pool.readable_name}</td>
-                      <td>{pool.machine_name}</td>
+                      <td>
+                        <Link
+                          to={`/number-range/region-detail/${
+                            pool.machine_name
+                          }`}>
+                          {pool.machine_name}
+                        </Link>
+                      </td>
                       <td>{pool.active ? "active" : "inactive"}</td>
                       <td>{pool.request_threshold}</td>
+                      <td>
+                        {pool.sequentialregion_set.map(region => (
+                          <Link
+                            to={`/number-range/region-detail/${serverID}/${region}/`}>
+                            {region}
+                          </Link>
+                        ))}
+                      </td>
                     </tr>
                   ))
                 : null}
@@ -72,16 +91,23 @@ class _PoolList extends Component {
     }
   }
   render() {
+    let nr = this.props.numberrange;
     return (
       <Panels title="Number Range Pools">
         <LeftPanel>
-          <ul>{Object.keys(this.props.pools).map(key => <li>{key}</li>)}</ul>
+          <ul>
+            {Object.keys(nr).map(key => (
+              <li>{nr[key].server.serverSettingName}</li>
+            ))}
+          </ul>
         </LeftPanel>
         <RightPanel>
           <div className="cards-container">
-            {Object.keys(this.props.pools).map((key, index) => (
-              <ServerPools serverName={key} pools={this.props.pools[key]} />
-            ))}
+            <div>
+              {Object.keys(nr).map(key => (
+                <ServerPools server={nr[key].server} pools={nr[key].pools} />
+              ))}
+            </div>
           </div>
         </RightPanel>
       </Panels>
@@ -93,7 +119,7 @@ export var PoolList = connect(
   state => {
     return {
       servers: state.serversettings.servers,
-      pools: state.numberrange.pools
+      numberrange: state.numberrange
     };
   },
   {loadPools}

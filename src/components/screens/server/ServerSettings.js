@@ -40,7 +40,8 @@ const formStructure = (initialValues = {}) => ({
       placeholder: "Server/Connection Name",
       type: "text",
       value: initialValues.serverSettingName || "",
-      elemtype: "input"
+      elemtype: "input",
+      required: true
     }
   },
   serverID: {
