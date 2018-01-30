@@ -29,7 +29,6 @@ import moment from "moment";
 
 class ServerPools extends Component {
   render() {
-    console.log("this.props.pools is", this.props.pools);
     return (
       <Card>
         <h4>Server: {this.props.serverName}</h4>

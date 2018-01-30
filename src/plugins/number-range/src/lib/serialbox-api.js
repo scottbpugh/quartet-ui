@@ -25,7 +25,6 @@ export const getPools = server => {
   let password = server.password;
   let path = server.path + "";
   let headers = new Headers();
-  window.headers = headers;
   headers.append("Accept", "application/json");
   headers.append(
     "Authorization",
@@ -46,9 +45,6 @@ export const getPools = server => {
       return data;
     })
     .catch(error => {
-      debugger;
       return error;
     });
 };
-
-window.getPools = getPools;

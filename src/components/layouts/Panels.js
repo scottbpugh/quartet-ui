@@ -18,6 +18,13 @@
 
 import React from "react";
 
+/**
+ * LeftPanel
+ *
+ * @param {object} props Takes a title and children elems.
+ *
+ * @return {ReactElement} The left panel element.
+ */
 export const LeftPanel = props => (
   <div className="left-panel">
     <h4 className="pt-dark left-panel-title">{props.title}</h4>
@@ -25,6 +32,13 @@ export const LeftPanel = props => (
   </div>
 );
 
+/**
+ * RightPanel
+ *
+ * @param {object} props Children elements.
+ *
+ * @return {ReactElement} The right panel element.
+ */
 export const RightPanel = props => (
   <div className="right-panel">
     <div>{props.children}</div>

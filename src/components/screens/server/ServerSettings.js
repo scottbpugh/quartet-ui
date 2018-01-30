@@ -116,7 +116,10 @@ const formStructure = (initialValues = {}) => ({
       name: "ssl",
       Label: "SSL/TLS",
       type: "checkbox",
-      checked: initialValues.ssl || false,
+      checked:
+        initialValues.ssl === undefined || initialValues.ssl === false
+          ? false
+          : true,
       elemtype: "Switch"
     }
   },
@@ -160,7 +163,7 @@ const formStructure = (initialValues = {}) => ({
 /**
  * ServerForm - Description
  *
- * @param {Object} formData        check initialData().formData.
+ * @param {Object} formData        structure representing input.
  * @param {function} saveHandler   callback to save the form
  * @param {function} updateHandler callback to update/validate each input
  *
@@ -181,13 +184,7 @@ const ServerForm = (formData, saveHandler, updateHandler) => {
         />
       );
     } else if (data.input.elemtype === "Switch") {
-      elem = (
-        <Switch
-          {...data.input}
-          checked={data.input.value}
-          onChange={updateHandler}
-        />
-      );
+      elem = <Switch {...data.input} onChange={updateHandler} />;
     }
     // using simple div when no wrapper (hidden input, ...)
     let formGroup = data.wrapper ? (
@@ -225,21 +222,25 @@ class _ServerSettings extends Component {
     let postData = {};
 
     for (let item of form) {
-      if (item.name) {
+      if (item.name && item.type === "checkbox") {
+        postData[item.name] = item.checked;
+      } else if (item.name) {
         postData[item.name] = item.value;
       }
     }
     this.props.saveServer(postData);
   };
+
   componentDidMount() {
     this.loadCurrentServer(this.props.match.params.serverID);
   }
+
   componentWillReceiveProps(nextProps) {
     this.loadCurrentServer(nextProps.match.params.serverID);
   }
+
   loadCurrentServer = serverID => {
     if (serverID) {
-      console.log("servers are", this.props.servers);
       if (serverID in this.props.servers) {
         this.setState({postData: {...this.props.servers[serverID]}}, () => {});
       }
@@ -247,15 +248,22 @@ class _ServerSettings extends Component {
   };
 
   updateValue = evt => {
-    this.setState({
-      postData: {...this.state.postData, [evt.target.name]: evt.target.value}
-    });
     // validation should happen here.
     if (evt.target.type === "checkbox") {
       // for checkboxes we passed checked prop instead.
+      console.log("is checked", evt.target.checked);
+      this.setState({
+        postData: {
+          ...this.state.postData,
+          [evt.target.name]: evt.target.checked
+        }
+      });
       //this.props.updateValue(evt.target.name, evt.target.checked);
     } else {
       //this.props.updateValue(evt.target.name, evt.target.value);
+      this.setState({
+        postData: {...this.state.postData, [evt.target.name]: evt.target.value}
+      });
     }
   };
 
@@ -276,6 +284,7 @@ class _ServerSettings extends Component {
       </div>
     );
   };
+
   SettingsMenu = props => {
     let serverList = Object.keys(props.servers).map(key => {
       return (
@@ -294,7 +303,8 @@ class _ServerSettings extends Component {
         </Link>
       </div>
     );
-  }; // leaving empty for now.
+  };
+
   render() {
     return (
       <Panels
