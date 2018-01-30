@@ -232,11 +232,9 @@ class _ServerSettings extends Component {
     this.props.saveServer(postData);
   };
   componentDidMount() {
-    console.log("triggered", this.props.match.params.serverID);
     this.loadCurrentServer(this.props.match.params.serverID);
   }
   componentWillReceiveProps(nextProps) {
-    console.log("triggered", this.props.match.params.serverID);
     this.loadCurrentServer(nextProps.match.params.serverID);
   }
   loadCurrentServer = serverID => {
