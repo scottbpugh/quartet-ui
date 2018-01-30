@@ -21,13 +21,8 @@ import renderer from "react-test-renderer";
 import {ServerSettings} from "./ServerSettings";
 import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
-import {shallow, mount} from "enzyme";
-import Enzyme from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import toJson from "enzyme-to-json";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 
-Enzyme.configure({adapter: new Adapter()});
 const mockStore = configureStore();
 let wrapper;
 let store;
