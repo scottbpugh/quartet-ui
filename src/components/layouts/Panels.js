@@ -26,8 +26,8 @@ import React from "react";
  * @return {ReactElement} The left panel element.
  */
 export const LeftPanel = props => (
-  <div className="left-panel">
-    <h4 className="pt-dark left-panel-title">{props.title}</h4>
+  <div className="left-panel pt-dark">
+    <h4 className="left-panel-title">{props.title}</h4>
     <div>{props.children}</div>
   </div>
 );

@@ -17,6 +17,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
 
+/**
+ * getPools - Description
+ *
+ * @param {object} server A serversetting object.
+ *
+ * @return {object} A JSON object.
+ */
 export const getPools = server => {
   let protocol = server.ssl === "true" ? "https" : "http";
   let hostname = server.serverName;
@@ -36,7 +43,7 @@ export const getPools = server => {
     credentials: "include",
     mode: "cors"
   };
-  let url = `${protocol}://${hostname}:${port}/${path}pools/`;
+  let url = `${protocol}://${hostname}:${port}/${path}pools/?related=true`;
   return fetch(url, initReq)
     .then(resp => {
       return resp.json();
@@ -49,13 +56,36 @@ export const getPools = server => {
     });
 };
 
+/**
+ * getRegion - Description
+ *
+ * @param {object} server   A serversetting Object
+ * @param {string} regionName A region machine name
+ *
+ * @return {object} A JSON response.
+ */
 export const getRegion = (server, regionName) => {
   let protocol = server.ssl === "true" ? "https" : "http";
   let hostname = server.serverName;
   let port = server.port || 80;
+
+  let path = server.path + "";
+  let headers = new Headers();
+
+  let url = `${protocol}://${hostname}:${port}/${path}sequential-region-detail/${regionName}/`;
+  return getRegionByURL(server, url);
+};
+
+/**
+ * getRegionByURL - Similar to getRegion but no URL logic.
+ *
+ * @param {string} url A full URL to the API endpoint.
+ *
+ * @return {object} A JSON object.
+ */
+export const getRegionByURL = (server, url) => {
   let username = server.username;
   let password = server.password;
-  let path = server.path + "";
   let headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append(
@@ -68,7 +98,6 @@ export const getRegion = (server, regionName) => {
     credentials: "include",
     mode: "cors"
   };
-  let url = `${protocol}://${hostname}:${port}/${path}sequential-region-detail/${regionName}/`;
   return fetch(url, initReq)
     .then(resp => {
       return resp.json();
@@ -79,4 +108,12 @@ export const getRegion = (server, regionName) => {
     .catch(error => {
       return error;
     });
+};
+
+export const getRegions = (server, pool) => {
+  let promises = [];
+  for (let url of pool.sequentialregion_set) {
+    promises.push(getRegionByURL(server, url));
+  }
+  return Promise.all(promises);
 };

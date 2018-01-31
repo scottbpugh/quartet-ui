@@ -64,12 +64,12 @@ class ServerPools extends Component {
                       <td>{pool.active ? "active" : "inactive"}</td>
                       <td>{pool.request_threshold}</td>
                       <td>
-                        {pool.sequentialregion_set.map(region => (
-                          <Link
-                            to={`/number-range/region-detail/${serverID}/${region}/`}>
-                            {region}
-                          </Link>
-                        ))}
+                        <Link
+                          to={`/number-range/region-detail/${serverID}/${
+                            pool.machine_name
+                          }/`}>
+                          {pool.sequentialregion_set.length} regions
+                        </Link>
                       </td>
                     </tr>
                   ))

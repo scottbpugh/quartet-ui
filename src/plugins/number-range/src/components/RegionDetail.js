@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {loadRegion} from "../reducers/numberrange";
+import {loadRegions} from "../reducers/numberrange";
 import {
   Panels,
   RightPanel,
@@ -26,61 +26,77 @@ import {
 } from "../../../../components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
 import moment from "moment";
-
-const t = {
-  pool: "poolbot",
-  created_date: "2018-01-29T23:01:34.586281Z",
-  modified_date: "2018-01-29T23:01:34.586309Z",
-  readable_name: "test",
-  machine_name: "test",
-  active: true,
-  order: 1,
-  start: 1,
-  end: 10000,
-  state: 1
-};
+import RegionRange from "./RegionRange";
+import "../style.css";
 
 class _RegionDetail extends Component {
-  componentDidMount() {
-    this.props.loadRegion(
-      this.props.servers[this.props.match.params.serverID],
-      this.props.match.params.region
-    );
+  constructor(props) {
+    super(props);
+    this.state = {alloc: 0};
+    this.currentPool = {readable_name: ""};
   }
+  componentDidMount() {
+    let nrServer = this.props.nr[this.props.match.params.serverID];
+    for (let pool of nrServer.pools) {
+      if (pool.machine_name == this.props.match.params.pool) {
+        this.currentPool = pool;
+      }
+    }
+    this.props.loadRegions(nrServer.server, this.currentPool);
+  }
+  previewAlloc = evt => {
+    this.setState({alloc: Number(evt.target.value)});
+  };
   render() {
-    let region = this.props.region;
+    let regions = this.props.currentRegions;
+
     return (
-      <Panels title="Pool Region">
-        <LeftPanel />
+      <Panels title={`Pool ${this.currentPool.readable_name} Regions`}>
+        <LeftPanel>
+          <div className="mini-form">
+            <h6>Pool Allocation</h6>
+            <input
+              placeholder="allocate"
+              className="pt-input"
+              type="number"
+              defaultValue={1}
+              min={1}
+              max={100000}
+              style={{width: 200}}
+              onChange={this.previewAlloc.bind(this)}
+            />
+            <button className="pt-button">Allocate to Pool</button>
+          </div>
+          <div className="mini-form">
+            <h6>Add a New Region</h6>
+          </div>
+        </LeftPanel>
 
         <RightPanel>
           <div className="cards-container">
-            <Card>
-              <h5>Region Name</h5>
-              {region.readable_name}
-            </Card>
-            <Card>
-              <h5>Created Date</h5>
-              {moment(region.created_date).format("LL")}
-            </Card>
-            <Card>
-              <h5>Active</h5>
-              {region.active}
-            </Card>
-            <Card>
-              <h5>Range</h5>
-              Start: {region.start}
-              <br />
-              End: {region.end}
-              <br />
-              State: {region.state}
-              <br />
-            </Card>
+            {regions.map(region => (
+              <Card key={region.machine_name}>
+                <h5>{region.readable_name}</h5>
+                <ul>
+                  <li>{moment(region.created_date).format("LL")}</li>
+                  <li>{region.active ? "Active" : "Inactive"}</li>
+                  <li>
+                    {region.start} to {region.end}
+                  </li>
+                  <li>{region.state}</li>
+                </ul>
+                <RegionRange
+                  start={region.start}
+                  end={region.end}
+                  state={region.state}
+                  alloc={this.state.alloc}
+                />
+              </Card>
+            ))}
           </div>
         </RightPanel>
       </Panels>
     );
-
     //<div>{JSON.stringify(this.props.region)}</div>;
   }
 }
@@ -89,8 +105,9 @@ export var RegionDetail = connect(
   (state, ownProps) => {
     return {
       servers: state.serversettings.servers,
-      region: state.numberrange.region
+      currentRegions: state.numberrange.currentRegions,
+      nr: state.numberrange.servers
     };
   },
-  {loadRegion}
+  {loadRegions}
 )(_RegionDetail);

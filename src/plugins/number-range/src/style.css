@@ -1,0 +1,19 @@
+.bar {
+  height: 21px;
+  transition: all 5s ease;
+  cursor: pointer;
+  font-family: Helvetica, sans-serif;
+}
+.unused {
+  fill: #B3CFFF;
+}
+.used {
+  fill:#1F4B99;
+}
+.allocating {
+  fill: rgba(0, 0, 0, 0.5);
+}
+.barchart text {
+  fill: #fff;
+  stroke: none;
+}

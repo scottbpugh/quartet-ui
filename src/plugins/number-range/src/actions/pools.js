@@ -2,5 +2,6 @@ import {createAction} from "redux-actions";
 
 export default {
   loadPools: createAction("NUMBER_RANGE_LOAD_POOLS"),
-  loadRegion: createAction("NUMBER_RANGE_LOAD_REGION")
+  loadRegion: createAction("NUMBER_RANGE_LOAD_REGION"),
+  loadRegions: createAction("NUMBER_RANGE_LOAD_REGIONS")
 };

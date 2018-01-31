@@ -28,6 +28,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   overflow-y:scroll;
   max-height:500px;
 }
+
+.auto-cards-container {
+  display: flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}
+.auto-cards-container > * {
+  flex-grow:0.4;
+  margin-bottom:15px;
+  overflow-y:scroll;
+  max-height:500px;
+}
+
 .cards-container table {
   width:100%;
 }

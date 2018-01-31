@@ -18,9 +18,13 @@
 
 import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
-import {getPools, getRegion} from "../lib/serialbox-api";
+import {getPools, getRegion, getRegions} from "../lib/serialbox-api";
 
-export const initialData = () => ({servers: {}, region: {}});
+export const initialData = () => ({
+  servers: {},
+  region: {},
+  currentRegions: []
+});
 
 export const loadPools = server => {
   return dispatch => {
@@ -46,6 +50,17 @@ export const loadRegion = (server, regionName) => {
   };
 };
 
+export const loadRegions = (server, pool) => {
+  return dispatch => {
+    getRegions(server, pool).then(regions => {
+      dispatch({
+        type: actions.loadRegions,
+        payload: regions
+      });
+    });
+  };
+};
+
 export default handleActions(
   {
     [actions.loadPools]: (state, action) => {
@@ -61,6 +76,12 @@ export default handleActions(
       return {
         ...state,
         region: action.payload
+      };
+    },
+    [actions.loadRegions]: (state, action) => {
+      return {
+        ...state,
+        currentRegions: action.payload
       };
     }
   },
