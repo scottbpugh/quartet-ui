@@ -15,10 +15,6 @@ export default class RegionRange extends Component {
         height="150"
         aria-labelledby="title desc"
         role="img">
-        <title id="title">A bar chart showing information</title>
-        <desc id="desc">
-          4 apples; 8 bananas; 15 kiwis; 16 oranges; 23 lemons
-        </desc>
         <g className="barchart">
           <g className="bar">
             <rect className="unused" width="400" height="40" />
