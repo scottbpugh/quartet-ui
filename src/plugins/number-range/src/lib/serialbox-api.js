@@ -117,3 +117,5 @@ export const getRegions = (server, pool) => {
   }
   return Promise.all(promises);
 };
+
+export const allocate = (server, pool, value) => {};

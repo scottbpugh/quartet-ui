@@ -18,7 +18,7 @@
 
 import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
-import {getPools, getRegion, getRegions} from "../lib/serialbox-api";
+import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
 
 export const initialData = () => ({
   servers: {},
@@ -57,6 +57,14 @@ export const loadRegions = (server, pool) => {
         type: actions.loadRegions,
         payload: regions
       });
+    });
+  };
+};
+
+export const allocate = (server, pool, value) => {
+  return dispatch => {
+    allocate(server, pool, value).then(resp => {
+      dispatch({type: actions.allocate});
     });
   };
 };
