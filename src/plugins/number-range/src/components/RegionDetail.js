@@ -48,7 +48,7 @@ class _RegionDetail extends Component {
     let nrServer = this.props.nr[this.props.match.params.serverID];
     this.currentServer = nrServer.server;
     for (let pool of nrServer.pools) {
-      if (pool.machine_name == this.props.match.params.pool) {
+      if (pool.machine_name === this.props.match.params.pool) {
         this.currentPool = pool;
       }
     }
@@ -69,7 +69,7 @@ class _RegionDetail extends Component {
     nextProps.currentRegions.map((region, index) => {
       if (
         this.props.currentRegions[index] &&
-        region.state != this.props.currentRegions[index].state
+        region.state !== this.props.currentRegions[index].state
       ) {
         this.setState({lastUpdated: region.machine_name}, () => {
           window.setTimeout(() => {
@@ -77,6 +77,7 @@ class _RegionDetail extends Component {
           }, 3000);
         });
       }
+      return null;
     });
   }
   componentDidUpdate() {}

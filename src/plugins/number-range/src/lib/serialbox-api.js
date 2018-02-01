@@ -52,8 +52,6 @@ const prepURL = server => {
   let protocol = server.ssl === "true" ? "https" : "http";
   let hostname = server.serverName;
   let port = server.port || 80;
-  let username = server.username;
-  let password = server.password;
   let path = server.path + "";
   return `${protocol}://${hostname}:${port}/${path}`;
 };
