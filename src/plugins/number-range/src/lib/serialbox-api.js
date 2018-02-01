@@ -18,11 +18,11 @@
 import base64 from "base-64";
 
 /**
- * prepHeaders - Description
+ * prepHeaders - Prepares the headers to be sent.
  *
- * @param {type} server Description
+ * @param {object} server A server setting object
  *
- * @return {type} Description
+ * @return {object} A request init object with headers.
  */
 const prepHeaders = server => {
   let username = server.username;
@@ -94,6 +94,7 @@ export const getRegion = (server, regionName) => {
 /**
  * getRegionByURL - Similar to getRegion but no URL logic.
  *
+ * @param {object} server Server setting object.
  * @param {string} url A full URL to the API endpoint.
  *
  * @return {object} A JSON object.
@@ -111,14 +112,37 @@ export const getRegionByURL = (server, url) => {
     });
 };
 
+/**
+ * getRegions - Description
+ *
+ * @param {object} server Server setting object.
+ * @param {object} pool   Pool object
+ *
+ * @return {Promise} A promise
+ */
 export const getRegions = (server, pool) => {
   let promises = [];
   for (let url of pool.sequentialregion_set) {
     promises.push(getRegionByURL(server, url));
   }
-  return Promise.all(promises);
+  return Promise.all(promises)
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
 };
 
+/**
+ * allocate - Allocates numbers to pool
+ *
+ * @param {object} server A server setting object
+ * @param {object} pool   A pool object
+ * @param {integer} value  A numeric value.
+ *
+ * @return {object} A JSON response.
+ */
 export const allocate = (server, pool, value) => {
   return fetch(`${prepURL(server)}allocate/${pool.machine_name}/${value}/`)
     .then(resp => {

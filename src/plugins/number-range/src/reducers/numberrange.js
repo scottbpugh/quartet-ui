@@ -54,6 +54,7 @@ export const loadRegion = (server, regionName) => {
 export const loadRegions = (server, pool) => {
   return dispatch => {
     getRegions(server, pool).then(regions => {
+      console.log("regions", regions, "type of", typeof regions);
       dispatch({
         type: actions.loadRegions,
         payload: regions
