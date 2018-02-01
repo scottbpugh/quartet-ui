@@ -19,6 +19,7 @@
 import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
 import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
+import {showMessage} from "../../../../lib/message";
 
 export const initialData = () => ({
   servers: {},
@@ -61,10 +62,29 @@ export const loadRegions = (server, pool) => {
   };
 };
 
-export const allocate = (server, pool, value) => {
+export const setAllocation = (server, pool, value) => {
   return dispatch => {
-    allocate(server, pool, value).then(resp => {
-      dispatch({type: actions.allocate});
+    allocate(server, pool, value).then(data => {
+      // let's take a look at the data.
+      if (data.detail) {
+        // looks like an error.
+        showMessage({type: "error", msg: data.detail});
+      } else if (data.fulfilled === true) {
+        showMessage({
+          type: "success",
+          msg: `${data.size_granted} allocated to region ${
+            data.region
+          }. Range is  ${data.numbers}`
+        });
+      }
+      dispatch({type: actions.allocate, payload: data});
+      // reload regions.
+      getRegions(server, pool).then(regions => {
+        dispatch({
+          type: actions.loadRegions,
+          payload: regions
+        });
+      });
     });
   };
 };
@@ -90,6 +110,12 @@ export default handleActions(
       return {
         ...state,
         currentRegions: action.payload
+      };
+    },
+    [actions.allocate]: (state, action) => {
+      return {
+        ...state,
+        allocationDetail: action.payload
       };
     }
   },

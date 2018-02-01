@@ -27,26 +27,59 @@ import {
 import {Card} from "@blueprintjs/core";
 import moment from "moment";
 import RegionRange from "./RegionRange";
+import {setAllocation} from "../reducers/numberrange";
 import "../style.css";
+import classNames from "classnames";
 
+/**
+ * _RegionDetail - Description
+ * @extends Component
+ */
 class _RegionDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {alloc: 0};
+    this.state = {alloc: 1, lastUpdated: null};
+    // these two properties below make it easy to retrieve
+    // and trigger actions.
     this.currentPool = {readable_name: ""};
+    this.currentServer = {};
   }
   componentDidMount() {
     let nrServer = this.props.nr[this.props.match.params.serverID];
+    this.currentServer = nrServer.server;
     for (let pool of nrServer.pools) {
       if (pool.machine_name == this.props.match.params.pool) {
         this.currentPool = pool;
       }
     }
-    this.props.loadRegions(nrServer.server, this.currentPool);
+    this.props.loadRegions(this.currentServer, this.currentPool);
   }
   previewAlloc = evt => {
     this.setState({alloc: Number(evt.target.value)});
   };
+  setAllocation = evt => {
+    this.props.setAllocation(
+      this.currentServer,
+      this.currentPool,
+      this.state.alloc
+    );
+  };
+  componentWillReceiveProps(nextProps) {
+    // shake card for the last updated region.
+    nextProps.currentRegions.map((region, index) => {
+      if (
+        this.props.currentRegions[index] &&
+        region.state != this.props.currentRegions[index].state
+      ) {
+        this.setState({lastUpdated: region.machine_name}, () => {
+          window.setTimeout(() => {
+            this.setState({lastUpdated: null});
+          }, 3000);
+        });
+      }
+    });
+  }
+  componentDidUpdate() {}
   render() {
     let regions = this.props.currentRegions;
 
@@ -65,7 +98,9 @@ class _RegionDetail extends Component {
               style={{width: 200}}
               onChange={this.previewAlloc.bind(this)}
             />
-            <button className="pt-button">Allocate to Pool</button>
+            <button onClick={this.setAllocation} className="pt-button">
+              Allocate to Pool
+            </button>
           </div>
           <div className="mini-form">
             <h6>Add a New Region</h6>
@@ -73,17 +108,23 @@ class _RegionDetail extends Component {
         </LeftPanel>
 
         <RightPanel>
-          <div className="cards-container">
+          <div className="auto-cards-container">
             {regions.map(region => (
-              <Card key={region.machine_name}>
+              <Card
+                className={classNames({
+                  "pt-elevation-4": true,
+                  "region-detail": true,
+                  updated: this.state.lastUpdated === region.machine_name
+                })}
+                key={region.machine_name}>
                 <h5>{region.readable_name}</h5>
                 <ul>
-                  <li>{moment(region.created_date).format("LL")}</li>
-                  <li>{region.active ? "Active" : "Inactive"}</li>
+                  <li>Created: {moment(region.created_date).format("LL")}</li>
+                  <li>Status: {region.active ? "Active" : "Inactive"}</li>
                   <li>
-                    {region.start} to {region.end}
+                    Range: {region.start} to {region.end}
                   </li>
-                  <li>{region.state}</li>
+                  <li>State: {region.state}</li>
                 </ul>
                 <RegionRange
                   start={region.start}
@@ -109,5 +150,5 @@ export var RegionDetail = connect(
       nr: state.numberrange.servers
     };
   },
-  {loadRegions}
+  {loadRegions, setAllocation}
 )(_RegionDetail);

@@ -32,7 +32,7 @@ import NavLink from "./layouts/elements/NavLink";
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App pt-ui-text">
         <header>
           <Navbar className=".pt-dark">
             <NavbarGroup>

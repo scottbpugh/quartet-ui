@@ -18,6 +18,47 @@
 import base64 from "base-64";
 
 /**
+ * prepHeaders - Description
+ *
+ * @param {type} server Description
+ *
+ * @return {type} Description
+ */
+const prepHeaders = server => {
+  let username = server.username;
+  let password = server.password;
+  let headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append(
+    "Authorization",
+    "Basic " + base64.encode(username + ":" + password)
+  );
+  return {
+    method: "GET",
+    headers: headers,
+    credentials: "include",
+    mode: "cors"
+  };
+};
+
+/**
+ * prepURL - Description
+ *
+ * @param {object} server key/val pairs settings
+ *
+ * @return {string} Root URL
+ */
+const prepURL = server => {
+  let protocol = server.ssl === "true" ? "https" : "http";
+  let hostname = server.serverName;
+  let port = server.port || 80;
+  let username = server.username;
+  let password = server.password;
+  let path = server.path + "";
+  return `${protocol}://${hostname}:${port}/${path}`;
+};
+
+/**
  * getPools - Description
  *
  * @param {object} server A serversetting object.
@@ -25,26 +66,7 @@ import base64 from "base-64";
  * @return {object} A JSON object.
  */
 export const getPools = server => {
-  let protocol = server.ssl === "true" ? "https" : "http";
-  let hostname = server.serverName;
-  let port = server.port || 80;
-  let username = server.username;
-  let password = server.password;
-  let path = server.path + "";
-  let headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append(
-    "Authorization",
-    "Basic " + base64.encode(username + ":" + password)
-  );
-  let initReq = {
-    method: "GET",
-    headers: headers,
-    credentials: "include",
-    mode: "cors"
-  };
-  let url = `${protocol}://${hostname}:${port}/${path}pools/?related=true`;
-  return fetch(url, initReq)
+  return fetch(`${prepURL(server)}pools/?related=true`, prepHeaders(server))
     .then(resp => {
       return resp.json();
     })
@@ -65,15 +87,10 @@ export const getPools = server => {
  * @return {object} A JSON response.
  */
 export const getRegion = (server, regionName) => {
-  let protocol = server.ssl === "true" ? "https" : "http";
-  let hostname = server.serverName;
-  let port = server.port || 80;
-
-  let path = server.path + "";
-  let headers = new Headers();
-
-  let url = `${protocol}://${hostname}:${port}/${path}sequential-region-detail/${regionName}/`;
-  return getRegionByURL(server, url);
+  return getRegionByURL(
+    server,
+    `${prepURL(server)}sequential-region-detail/${regionName}/`
+  );
 };
 
 /**
@@ -84,21 +101,7 @@ export const getRegion = (server, regionName) => {
  * @return {object} A JSON object.
  */
 export const getRegionByURL = (server, url) => {
-  let username = server.username;
-  let password = server.password;
-  let headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append(
-    "Authorization",
-    "Basic " + base64.encode(username + ":" + password)
-  );
-  let initReq = {
-    method: "GET",
-    headers: headers,
-    credentials: "include",
-    mode: "cors"
-  };
-  return fetch(url, initReq)
+  return fetch(url, prepHeaders(server))
     .then(resp => {
       return resp.json();
     })
@@ -118,4 +121,15 @@ export const getRegions = (server, pool) => {
   return Promise.all(promises);
 };
 
-export const allocate = (server, pool, value) => {};
+export const allocate = (server, pool, value) => {
+  return fetch(`${prepURL(server)}allocate/${pool.machine_name}/${value}/`)
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};

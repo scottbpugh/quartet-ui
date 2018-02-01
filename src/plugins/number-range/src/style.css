@@ -17,3 +17,61 @@
   fill: #fff;
   stroke: none;
 }
+.region-detail {
+  position:relative;
+  padding-bottom:70px;
+}
+.region-detail ul {
+  padding:0;
+  margin:0;
+}
+
+
+.region-detail.updated {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.region-detail ul li {
+  list-style:none;
+  border-radius:5px;
+  display:block;
+  padding:15px 10px;
+  text-align:center;
+  margin:10px 40px;
+  background:#EBEBEB;
+}
+.region-detail .visual {
+  position:absolute;
+  bottom:0;
+  left:0;
+  background: #111744;
+  width:100%;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  height:60px;
+}
+.region-detail svg {
+  display:block;
+  margin:10px 0 10px 50px;
+}
