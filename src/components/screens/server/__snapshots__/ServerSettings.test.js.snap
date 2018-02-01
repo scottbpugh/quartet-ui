@@ -59,7 +59,7 @@ exports[`renders correctly 1`] = `
                 name="serverSettingName"
                 onChange={[Function]}
                 placeholder="Server/Connection Name"
-                required={false}
+                required={true}
                 style={
                   Object {
                     "width": 300,
@@ -217,7 +217,7 @@ exports[`renders correctly 1`] = `
               >
                 <input
                   Label="SSL/TLS"
-                  checked={undefined}
+                  checked={false}
                   elemtype="Switch"
                   name="ssl"
                   onChange={[Function]}
