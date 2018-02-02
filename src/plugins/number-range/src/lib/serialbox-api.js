@@ -24,7 +24,7 @@ import base64 from "base-64";
  *
  * @return {object} A request init object with headers.
  */
-const prepHeaders = server => {
+const prepHeaders = (server, method = "GET") => {
   let username = server.username;
   let password = server.password;
   let headers = new Headers();
@@ -34,7 +34,7 @@ const prepHeaders = server => {
     "Basic " + base64.encode(username + ":" + password)
   );
   return {
-    method: "GET",
+    method: method,
     headers: headers,
     credentials: "include",
     mode: "cors"
@@ -145,6 +145,22 @@ export const getRegions = (server, pool) => {
  */
 export const allocate = (server, pool, value) => {
   return fetch(`${prepURL(server)}allocate/${pool.machine_name}/${value}/`)
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};
+
+export const getRegionFormStructure = server => {
+  return fetch(
+    `${prepURL(server)}sequential-region-create/`,
+    prepHeaders(server, "OPTIONS")
+  )
     .then(resp => {
       return resp.json();
     })

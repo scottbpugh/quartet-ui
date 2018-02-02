@@ -30,6 +30,7 @@ import RegionRange from "./RegionRange";
 import {setAllocation} from "../reducers/numberrange";
 import "../style.css";
 import classNames from "classnames";
+import RegionForm from "./RegionForm";
 
 /**
  * _RegionDetail - Description
@@ -80,7 +81,9 @@ class _RegionDetail extends Component {
       return null;
     });
   }
-  componentDidUpdate() {}
+  submit = values => {
+    console.log(values);
+  };
   render() {
     let regions = this.props.currentRegions;
 
@@ -136,6 +139,7 @@ class _RegionDetail extends Component {
               </Card>
             ))}
           </div>
+          <RegionForm server={this.currentServer} onSubmit={this.submit} />
         </RightPanel>
       </Panels>
     );

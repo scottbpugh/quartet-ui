@@ -18,12 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 
 .wrapper, html, body, #root, .App {
-    height:100%;
+    min-height:100%;
     margin:0;
+    height:100%;
 }
 .wrapper {
     display: flex;
     flex-direction: column;
+    height:100%;
 }
 .main-container {
     flex:2;
@@ -45,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     padding:10px;
     flex: 1 1;
     background:#EEE;
+    min-height:100%;
 }
 
 .tags .tag:not(:last-child) {
