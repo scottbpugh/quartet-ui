@@ -22,6 +22,7 @@ import {ServerSettings} from "./ServerSettings";
 import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
+import {IntlProvider, intlReducer} from "react-intl-redux";
 
 const mockStore = configureStore();
 let wrapper;
@@ -38,9 +39,11 @@ it("renders correctly", () => {
   };
   const serverSettings = renderer
     .create(
-      <Router>
-        <ServerSettings {...props} store={store} />
-      </Router>
+      <IntlProvider store={store}>
+        <Router>
+          <ServerSettings {...props} store={store} />
+        </Router>
+      </IntlProvider>
     )
     .toJSON();
   expect(serverSettings).toMatchSnapshot();

@@ -10,7 +10,9 @@ exports[`renders correctly 1`] = `
     <h4
       className="pt-dark left-panel-title"
     >
-      Server Settings
+      <span>
+        Server Settings
+      </span>
     </h4>
     <div>
       <ul />
