@@ -12,7 +12,7 @@ export default {
     app: {
       nav: {
         servers: "Serveurs",
-        numberRange: "Plage de numeros",
+        numberRange: "Plage de numéros",
         dashboard: "Tableau de bord"
       }
     }
