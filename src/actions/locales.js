@@ -16,20 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import {withRouter} from "react-router-dom";
-import {IntlProvider} from "react-intl-redux";
+import {createAction} from "redux-actions";
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(
-    withRouter(
-      <IntlProvider>
-        <App />
-      </IntlProvider>
-    ),
-    div
-  );
-});
+export default {
+  switchLocale: createAction("LOCALES_SWITCH")
+};
