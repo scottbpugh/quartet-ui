@@ -16,29 +16,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-export default {
-  "en-US": {
-    app: {
-      nav: {
-        servers: "Servers",
-        numberRange: "Number Ranges",
-        dashboard: "Dashboard"
-      },
-      serverSettings: {
-        serverSettings: "Server Settings"
-      }
+export function flattenMessages(nestedMessages, prefix = "") {
+  return Object.keys(nestedMessages).reduce((messages, key) => {
+    let value = nestedMessages[key];
+    let prefixedKey = prefix ? `${prefix}.${key}` : key;
+
+    if (typeof value === "string") {
+      messages[prefixedKey] = value;
+    } else {
+      Object.assign(messages, flattenMessages(value, prefixedKey));
     }
-  },
-  "fr-FR": {
-    app: {
-      nav: {
-        servers: "Serveurs",
-        numberRange: "Plage de numéros",
-        dashboard: "Tableau de bord"
-      },
-      serverSettings: {
-        serverSettings: "Paramètres serveur"
-      }
-    }
-  }
-};
+
+    return messages;
+  }, {});
+}
+

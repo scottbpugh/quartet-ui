@@ -24,6 +24,7 @@ import {FormGroup, Switch, Card, Button} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
+import {FormattedMessage} from "react-intl";
 
 const formStructure = (initialValues = {}) => ({
   serverSettingName: {
@@ -309,7 +310,12 @@ class _ServerSettings extends Component {
   render() {
     return (
       <Panels
-        title="Server Settings"
+        title={
+          <FormattedMessage
+            id="app.serverSettings.serverSettings"
+            defaultMessage="Server Settings"
+          />
+        }
         leftPanel={this.SettingsMenu(this.props)}
         rightPanel={this.SettingsForm()}
       />

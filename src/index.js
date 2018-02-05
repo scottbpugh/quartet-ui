@@ -26,13 +26,27 @@ import routes from "./routes";
 import {initialData} from "./reducers/serversettings";
 import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
 import {IntlProvider, intlReducer} from "react-intl-redux";
+import {addLocaleData} from "react-intl";
+
+import en from "react-intl/locale-data/en";
+import fr from "react-intl/locale-data/fr";
+import messages from "./messages";
+import {flattenMessages} from "./lib/flattenMessages";
+
+let locale = "fr-FR";
 
 const initialState = {
   dashboard: {notifications: []},
   serversettings: initialData(),
-  numberrange: nrData()
+  numberrange: nrData(),
+  intl: {
+    defaultLocale: "en-US",
+    locale: locale,
+    messages: flattenMessages(messages[locale])
+  }
 };
 
+addLocaleData([...en, ...fr]);
 const store = configureStore(initialState);
 
 ReactDOM.render(
