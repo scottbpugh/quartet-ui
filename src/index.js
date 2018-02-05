@@ -25,6 +25,7 @@ import {Provider} from "react-redux";
 import routes from "./routes";
 import {initialData} from "./reducers/serversettings";
 import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
+import {IntlProvider, intlReducer} from "react-intl-redux";
 
 const initialState = {
   dashboard: {notifications: []},
@@ -35,7 +36,9 @@ const initialState = {
 const store = configureStore(initialState);
 
 ReactDOM.render(
-  <Provider store={store}>{routes}</Provider>,
+  <Provider store={store}>
+    <IntlProvider>{routes}</IntlProvider>
+  </Provider>,
   document.getElementById("root")
 );
 registerServiceWorker();
