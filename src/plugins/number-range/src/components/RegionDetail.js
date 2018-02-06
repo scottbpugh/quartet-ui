@@ -25,7 +25,6 @@ import {
   LeftPanel
 } from "../../../../components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import moment from "moment";
 import RegionRange from "./RegionRange";
 import {setAllocation} from "../reducers/numberrange";
 import "../style.css";
