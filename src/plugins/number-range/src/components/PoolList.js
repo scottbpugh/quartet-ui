@@ -27,6 +27,7 @@ import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
+import NRTree from "./NRTree";
 
 class ServerPools extends Component {
   render() {
@@ -159,11 +160,7 @@ class _PoolList extends Component {
           />
         }>
         <LeftPanel>
-          <ul>
-            {Object.keys(nr).map(key => (
-              <li>{nr[key].server.serverSettingName}</li>
-            ))}
-          </ul>
+          <NRTree nr={nr} />
         </LeftPanel>
         <RightPanel>
           <div className="cards-container">
