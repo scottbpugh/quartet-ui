@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {FormattedNumber} from "react-intl";
 
 export default class RegionRange extends Component {
   render() {
@@ -24,7 +25,16 @@ export default class RegionRange extends Component {
               <rect className="used" width={percent} height="40" />
             </g>
             <text x="50%" y="25" textAnchor="middle">
-              {correctedStart}/{range}
+              <FormattedNumber value={correctedStart}>
+                {value => {
+                  return value;
+                }}
+              </FormattedNumber>/
+              <FormattedNumber value={range}>
+                {value => {
+                  return value;
+                }}
+              </FormattedNumber>
             </text>
           </g>
         </svg>

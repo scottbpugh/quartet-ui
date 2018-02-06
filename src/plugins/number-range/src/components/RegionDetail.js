@@ -109,9 +109,13 @@ class _RegionDetail extends Component {
             </button>
           </div>
           <div className="mini-form">
-            <h6>
+            <button
+              className="pt-button"
+              onClick={e => {
+                alert("pressed");
+              }}>
               <FormattedMessage id="plugins.numberRange.addRegion" />
-            </h6>
+            </button>
           </div>
         </LeftPanel>
 
@@ -149,7 +153,7 @@ class _RegionDetail extends Component {
                   </li>
                   <li>
                     <FormattedMessage id="plugins.numberRange.state" />:{" "}
-                    {region.state}
+                    <FormattedNumber value={region.state} />
                   </li>
                 </ul>
                 <RegionRange

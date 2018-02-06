@@ -81,7 +81,7 @@ export default {
         range: "Plage",
         to: "à",
         state: "État",
-        addRegion: "Ajouter une nouvelle région"
+        addRegion: "Ajouter une région"
       }
     }
   }
