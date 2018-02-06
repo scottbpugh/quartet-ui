@@ -43,7 +43,11 @@ export default {
         regions: "Regions",
         numberRangePools: "Number Range Pools",
         active: "active",
-        inactive: "inactive"
+        inactive: "inactive",
+        range: "Range",
+        to: "to",
+        state: "State",
+        addRegion: "Add a New Region"
       }
     }
   },
@@ -73,7 +77,11 @@ export default {
         regions: "Régions",
         numberRangePools: "Groupes de plages de numéros",
         active: "actif",
-        inactive: "inactif"
+        inactive: "inactif",
+        range: "Plage",
+        to: "à",
+        state: "État",
+        addRegion: "Ajouter une nouvelle région"
       }
     }
   }
