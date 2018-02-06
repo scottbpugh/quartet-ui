@@ -29,6 +29,7 @@ import serversettings from "./reducers/serversettings";
 import numberrange from "./plugins/number-range/src/reducers/numberrange";
 import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";
+import locale from "./reducers/locales";
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -50,7 +51,8 @@ export default function configureStore(initialState, routerHistory) {
     serversettings,
     numberrange,
     form: reduxFormReducer,
-    intl: intlReducer
+    intl: intlReducer,
+    locale: locale
   });
   return createStore(rootReducer, initialState, enhancer);
 }

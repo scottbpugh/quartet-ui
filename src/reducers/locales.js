@@ -16,13 +16,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import {handleActions} from "redux-actions";
 import actions from "../actions/locales";
+import {updateIntl} from "react-intl-redux";
+import {flattenMessages} from "../lib/flattenMessages";
+import messages from "../messages";
 
-export default handleActions({
-  [actions.switchLocale]: (state, action) => {
-    return {
-      ...state,
-      ...action.payload
-    };
-  }
-});
+export const switchLocale = newLocale => {
+  return dispatch => {
+    return dispatch(
+      updateIntl({
+        locale: newLocale,
+        messages: flattenMessages(messages[newLocale])
+      })
+    );
+  };
+};
+
+export default handleActions(
+  {
+    [actions.switchLocale]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload
+      };
+    }
+  },
+  {}
+);

@@ -29,6 +29,7 @@ import "@blueprintjs/core/dist/blueprint.css";
 import {withRouter} from "react-router-dom";
 import NavLink from "./layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
+import {SwitchLocale} from "./layouts/elements/SwitchLocale";
 
 class App extends Component {
   render() {
@@ -49,6 +50,7 @@ class App extends Component {
               <NavLink to="/number-range/pools" iconName="cloud">
                 <FormattedMessage id="app.nav.numberRange" />
               </NavLink>
+              <SwitchLocale />
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
             </NavbarGroup>
