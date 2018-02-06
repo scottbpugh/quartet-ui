@@ -26,7 +26,10 @@ import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "./reducers/dashboard";
 import serversettings from "./reducers/serversettings";
-import pools from "./plugins/number-range/src/reducers/numberrange";
+import numberrange from "./plugins/number-range/src/reducers/numberrange";
+import {reducer as reduxFormReducer} from "redux-form";
+import {intlReducer} from "react-intl-redux";
+import locale from "./reducers/locales";
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -40,13 +43,16 @@ export default function configureStore(initialState, routerHistory) {
   })();
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState()
+    persistState(["serversettings", "numberrange", "intl"])
   );
   const rootReducer = combineReducers({
     routing,
     dashboard,
     serversettings,
-    pools: pools
+    numberrange,
+    form: reduxFormReducer,
+    intl: intlReducer,
+    locale: locale
   });
   return createStore(rootReducer, initialState, enhancer);
 }

@@ -28,7 +28,7 @@ export default (
     <Switch>
       <App>
         <Route exact path="/" component={Dashboard} />
-        <Route path="/server-settings" component={ServerSettings} />
+        <Route path="/server-settings/:serverID?" component={ServerSettings} />
         {numberRangeRoutes}
       </App>
     </Switch>

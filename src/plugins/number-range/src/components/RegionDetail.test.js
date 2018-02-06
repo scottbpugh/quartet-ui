@@ -18,32 +18,37 @@
 
 import React, {Component} from "react";
 import renderer from "react-test-renderer";
-import {ServerSettings} from "./ServerSettings";
-import {initialData} from "../../../reducers/serversettings";
+import {RegionDetail} from "./RegionDetail";
+import {initialData} from "../../../../reducers/serversettings";
+import {initialData as initialDataNR} from "../reducers/numberrange";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
-import {IntlProvider, intlReducer} from "react-intl-redux";
 
 const mockStore = configureStore();
 let wrapper;
 let store;
 
-it("renders correctly", () => {
-  store = mockStore({serversettings: initialData()});
+it.skip("renders correctly", () => {
+  store = mockStore({
+    serversettings: initialData(),
+    numberrange: {
+      servers: {fakeid: {server: null, pools: []}},
+      region: {},
+      currentRegions: []
+    }
+  });
   const props = {
     match: {
       params: {
-        serverID: null
+        serverID: "fakeid"
       }
     }
   };
   const serverSettings = renderer
     .create(
-      <IntlProvider store={store}>
-        <Router>
-          <ServerSettings {...props} store={store} />
-        </Router>
-      </IntlProvider>
+      <Router>
+        <RegionDetail {...props} store={store} />
+      </Router>
     )
     .toJSON();
   expect(serverSettings).toMatchSnapshot();

@@ -19,41 +19,52 @@
 import {handleActions} from "redux-actions";
 import actions from "../actions/serversettings";
 import {showMessage} from "../lib/message";
+import uuidv4 from "uuid/v4";
 
-export const saveServer = formData => {
+/**
+ * initialData - Returns the initial data for
+ * the Redux store for this form.
+ * Used in index.js to initialized the store.
+ *
+ * It is a JSON-serializable object representing the form
+ */
+export const initialData = () => {
+  let _initialData = {
+    servers: {}, // uuid key to objects
+    currentServer: null
+  };
+  return _initialData;
+};
+
+export const saveServer = postData => {
   return dispatch => {
     showMessage({type: "success", msg: "Your server settings were saved."});
-    return dispatch({type: actions.saveServerSettings, payload: formData});
+    if (!postData.serverID) {
+      postData.serverID = uuidv4();
+    }
+    return dispatch({type: actions.saveServerSettings, payload: postData});
   };
 };
 
-export const updateValue = (name, value) => {
+export const loadCurrentServer = serverData => {
   return dispatch => {
-    return dispatch({type: actions.updateServerForm, payload: {name, value}});
+    return dispatch({type: actions.loadCurrentServer, payload: serverData});
   };
 };
 
 export default handleActions(
   {
+    [actions.loadCurrentServer]: (state, action) => {
+      return {
+        ...state,
+        formData: initialData(action.payload).formData
+      };
+    },
     [actions.saveServerSettings]: (state, action) => {
       return {
         ...state,
-        servers: state.servers.concat(action.payload)
-      };
-    },
-    [actions.updateServerForm]: (state, action) => {
-      return {
-        ...state,
-        formData: {
-          ...state.formData,
-          [action.payload.name]: {
-            ...state.formData[action.payload.name],
-            input: {
-              ...state.formData[action.payload.name].input,
-              ...action.payload
-            }
-          }
-        }
+        servers: {...state.servers, [action.payload.serverID]: action.payload},
+        formData: initialData().formData
       };
     }
   },

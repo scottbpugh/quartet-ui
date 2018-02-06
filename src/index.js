@@ -23,19 +23,36 @@ import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store";
 import {Provider} from "react-redux";
 import routes from "./routes";
-import {initialData} from "./components/screens/server/ServerSettings";
-//import {initialData as nrData} from "./plugins/number-range/src/components/PoolList";
+import {initialData} from "./reducers/serversettings";
+import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
+import {IntlProvider} from "react-intl-redux";
+import {addLocaleData} from "react-intl";
+
+import en from "react-intl/locale-data/en";
+import fr from "react-intl/locale-data/fr";
+import messages from "./messages";
+import {flattenMessages} from "./lib/flattenMessages";
+
+let locale = "fr-FR";
 
 const initialState = {
   dashboard: {notifications: []},
-  serversettings: initialData,
-  numberrange: {pools: []}
+  serversettings: initialData(),
+  numberrange: nrData(),
+  intl: {
+    defaultLocale: "en-US",
+    locale: locale,
+    messages: flattenMessages(messages[locale])
+  }
 };
 
+addLocaleData([...en, ...fr]);
 const store = configureStore(initialState);
 
 ReactDOM.render(
-  <Provider store={store}>{routes}</Provider>,
+  <Provider store={store}>
+    <IntlProvider>{routes}</IntlProvider>
+  </Provider>,
   document.getElementById("root")
 );
 registerServiceWorker();

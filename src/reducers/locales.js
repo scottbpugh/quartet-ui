@@ -15,22 +15,32 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React from "react";
-import {Route} from "react-router";
-import {PoolList} from "./components/PoolList";
-import {RegionDetail} from "./components/RegionDetail";
 
-/**
- * Default - Returns an array of routes to be appended to main Switch.
- *
- * @return {array} An array of routes to be appended to main app.
- */
-export default (() => {
-  return [
-    <Route path="/number-range/pools" component={PoolList} />,
-    <Route
-      path="/number-range/region-detail/:serverID/:pool"
-      component={RegionDetail}
-    />
-  ];
-})();
+import {handleActions} from "redux-actions";
+import actions from "../actions/locales";
+import {updateIntl} from "react-intl-redux";
+import {flattenMessages} from "../lib/flattenMessages";
+import messages from "../messages";
+
+export const switchLocale = newLocale => {
+  return dispatch => {
+    return dispatch(
+      updateIntl({
+        locale: newLocale,
+        messages: flattenMessages(messages[newLocale])
+      })
+    );
+  };
+};
+
+export default handleActions(
+  {
+    [actions.switchLocale]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload
+      };
+    }
+  },
+  {}
+);

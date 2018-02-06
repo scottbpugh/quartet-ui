@@ -10,9 +10,21 @@ exports[`renders correctly 1`] = `
     <h4
       className="pt-dark left-panel-title"
     >
-      Server Settings
+      <span>
+        Server Settings
+      </span>
     </h4>
-    <ul />
+    <div>
+      <ul />
+      <a
+        href="/server-settings/"
+        onClick={[Function]}
+      >
+        <button>
+          New Server
+        </button>
+      </a>
+    </div>
   </div>
   <div
     className="right-panel"
@@ -49,7 +61,7 @@ exports[`renders correctly 1`] = `
                 name="serverSettingName"
                 onChange={[Function]}
                 placeholder="Server/Connection Name"
-                required={false}
+                required={true}
                 style={
                   Object {
                     "width": 300,
@@ -64,6 +76,23 @@ exports[`renders correctly 1`] = `
                 The label that will be used for this server connection setting.
               </div>
             </div>
+          </div>
+          <div>
+            <input
+              className="pt-input"
+              defaultValue=""
+              elemtype="input"
+              id="server-id"
+              name="serverID"
+              onChange={[Function]}
+              required={false}
+              style={
+                Object {
+                  "width": 300,
+                }
+              }
+              type="hidden"
+            />
           </div>
           <div
             className="pt-form-group"
@@ -195,7 +224,6 @@ exports[`renders correctly 1`] = `
                   name="ssl"
                   onChange={[Function]}
                   type="checkbox"
-                  value={false}
                 />
                 <span
                   className="pt-control-indicator"
@@ -269,6 +297,7 @@ exports[`renders correctly 1`] = `
                   }
                 }
                 type="password"
+                value=""
               />
               <div
                 className="pt-form-helper-text"

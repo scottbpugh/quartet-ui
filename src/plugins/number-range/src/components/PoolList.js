@@ -23,23 +23,168 @@ import {
   RightPanel,
   LeftPanel
 } from "../../../../components/layouts/Panels";
+import {loadPools} from "../reducers/numberrange";
+import {Card} from "@blueprintjs/core";
+import {Link} from "react-router-dom";
+import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
 
-export const initialData = {
-  pools: []
-};
+class ServerPools extends Component {
+  render() {
+    let serverName = this.props.server.serverSettingName;
+    let serverID = this.props.server.serverID;
+    return (
+      <Card>
+        <h4>
+          <FormattedMessage id="app.nav.server" defaultMessage="Server" />:{" "}
+          {serverName}
+        </h4>
+        <div>
+          <table className="pt-table pt-bordered pt-striped">
+            <thead>
+              <tr>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.createdOn"
+                    defaultMessage="Created on"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.readableName"
+                    defaultMessage="Readable Name"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.machineName"
+                    defaultMessage="Machine Name"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.status"
+                    defaultMessage="Status"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.requestThreshold"
+                    defaultMessage="Request Threshold"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.regions"
+                    defaultMessage="Regions"
+                  />
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(this.props.pools)
+                ? this.props.pools.map(pool => (
+                    <tr>
+                      <td>
+                        <FormattedDate
+                          value={pool.created_date}
+                          day="numeric"
+                          month="long"
+                          year="numeric"
+                        />
+                      </td>
+                      <td>{pool.readable_name}</td>
+                      <td>
+                        <Link
+                          to={`/number-range/region-detail/${
+                            pool.machine_name
+                          }`}>
+                          {pool.machine_name}
+                        </Link>
+                      </td>
+                      <td>
+                        {pool.active ? (
+                          <FormattedMessage
+                            id="plugins.numberRange.active"
+                            defaultMessage="active"
+                          />
+                        ) : (
+                          <FormattedMessage
+                            id="plugins.numberRange.inactive"
+                            defaultMessage="inactive"
+                          />
+                        )}
+                      </td>
+                      <td>
+                        <FormattedNumber value={pool.request_threshold} />
+                      </td>
+                      <td>
+                        <Link
+                          to={`/number-range/region-detail/${serverID}/${
+                            pool.machine_name
+                          }/`}>
+                          {pool.sequentialregion_set.length}{" "}
+                          <FormattedMessage
+                            id="plugins.numberRange.regions"
+                            defaultMessage="regions"
+                          />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                : null}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    );
+  }
+}
 
 class _PoolList extends Component {
+  componentDidMount() {
+    if (Object.keys(this.props.servers).length > 0) {
+      for (let key in this.props.servers) {
+        this.props.loadPools(this.props.servers[key]);
+      }
+    }
+  }
   render() {
+    let nr = this.props.nr;
     return (
-      <Panels title="Number Range Pools">
-        <LeftPanel>Test</LeftPanel>
-        <RightPanel>test</RightPanel>
+      <Panels
+        title={
+          <FormattedMessage
+            id="plugins.numberRange.numberRangePools"
+            defaultMessage="Number Range Pools"
+          />
+        }>
+        <LeftPanel>
+          <ul>
+            {Object.keys(nr).map(key => (
+              <li>{nr[key].server.serverSettingName}</li>
+            ))}
+          </ul>
+        </LeftPanel>
+        <RightPanel>
+          <div className="cards-container">
+            <div>
+              {Object.keys(nr).map(key => (
+                <ServerPools server={nr[key].server} pools={nr[key].pools} />
+              ))}
+            </div>
+          </div>
+        </RightPanel>
       </Panels>
     );
   }
 }
 
 export var PoolList = connect(
-  state => ({servers: state.serversettings.servers}),
-  {}
+  state => {
+    return {
+      servers: state.serversettings.servers,
+      nr: state.numberrange.servers
+    };
+  },
+  {loadPools}
 )(_PoolList);

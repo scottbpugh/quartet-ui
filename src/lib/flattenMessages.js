@@ -15,22 +15,19 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React from "react";
-import {Route} from "react-router";
-import {PoolList} from "./components/PoolList";
-import {RegionDetail} from "./components/RegionDetail";
 
-/**
- * Default - Returns an array of routes to be appended to main Switch.
- *
- * @return {array} An array of routes to be appended to main app.
- */
-export default (() => {
-  return [
-    <Route path="/number-range/pools" component={PoolList} />,
-    <Route
-      path="/number-range/region-detail/:serverID/:pool"
-      component={RegionDetail}
-    />
-  ];
-})();
+export function flattenMessages(nestedMessages, prefix = "") {
+  return Object.keys(nestedMessages).reduce((messages, key) => {
+    let value = nestedMessages[key];
+    let prefixedKey = prefix ? `${prefix}.${key}` : key;
+
+    if (typeof value === "string") {
+      messages[prefixedKey] = value;
+    } else {
+      Object.assign(messages, flattenMessages(value, prefixedKey));
+    }
+
+    return messages;
+  }, {});
+}
+

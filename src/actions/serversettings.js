@@ -20,5 +20,5 @@ import {createAction} from "redux-actions";
 
 export default {
   saveServerSettings: createAction("SERVER_SETTINGS_SAVE"),
-  updateServerForm: createAction("SERVER_SETTINGS_UPDATE_FORM")
+  loadCurrentServer: createAction("SERVER_SETTINGS_LOAD_SERVER")
 };
