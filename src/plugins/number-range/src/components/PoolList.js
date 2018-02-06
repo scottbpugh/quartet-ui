@@ -27,6 +27,7 @@ import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import moment from "moment";
 import {Link} from "react-router-dom";
+import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
 
 class ServerPools extends Component {
   render() {
@@ -34,24 +35,64 @@ class ServerPools extends Component {
     let serverID = this.props.server.serverID;
     return (
       <Card>
-        <h4>Server: {serverName}</h4>
+        <h4>
+          <FormattedMessage id="app.nav.server" defaultMessage="Server" />:{" "}
+          {serverName}
+        </h4>
         <div>
           <table className="pt-table pt-bordered pt-striped">
             <thead>
               <tr>
-                <th>Created on</th>
-                <th>Readable Name</th>
-                <th>Machine Name</th>
-                <th>Status</th>
-                <th>Request Threshold</th>
-                <th>Regions</th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.createdOn"
+                    defaultMessage="Created on"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.readableName"
+                    defaultMessage="Readable Name"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.machineName"
+                    defaultMessage="Machine Name"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.status"
+                    defaultMessage="Status"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.requestThreshold"
+                    defaultMessage="Request Threshold"
+                  />
+                </th>
+                <th>
+                  <FormattedMessage
+                    id="plugins.numberRange.regions"
+                    defaultMessage="Regions"
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(this.props.pools)
                 ? this.props.pools.map(pool => (
                     <tr>
-                      <td>{moment(pool.created_date).format("LL")}</td>
+                      <td>
+                        <FormattedDate
+                          value={pool.created_date}
+                          day="numeric"
+                          month="long"
+                          year="numeric"
+                        />
+                      </td>
                       <td>{pool.readable_name}</td>
                       <td>
                         <Link
@@ -61,14 +102,32 @@ class ServerPools extends Component {
                           {pool.machine_name}
                         </Link>
                       </td>
-                      <td>{pool.active ? "active" : "inactive"}</td>
-                      <td>{pool.request_threshold}</td>
+                      <td>
+                        {pool.active ? (
+                          <FormattedMessage
+                            id="plugins.numberRange.active"
+                            defaultMessage="active"
+                          />
+                        ) : (
+                          <FormattedMessage
+                            id="plugins.numberRange.inactive"
+                            defaultMessage="inactive"
+                          />
+                        )}
+                      </td>
+                      <td>
+                        <FormattedNumber value={pool.request_threshold} />
+                      </td>
                       <td>
                         <Link
                           to={`/number-range/region-detail/${serverID}/${
                             pool.machine_name
                           }/`}>
-                          {pool.sequentialregion_set.length} regions
+                          {pool.sequentialregion_set.length}{" "}
+                          <FormattedMessage
+                            id="plugins.numberRange.regions"
+                            defaultMessage="regions"
+                          />
                         </Link>
                       </td>
                     </tr>
@@ -93,7 +152,13 @@ class _PoolList extends Component {
   render() {
     let nr = this.props.nr;
     return (
-      <Panels title="Number Range Pools">
+      <Panels
+        title={
+          <FormattedMessage
+            id="plugins.numberRange.numberRangePools"
+            defaultMessage="Number Range Pools"
+          />
+        }>
         <LeftPanel>
           <ul>
             {Object.keys(nr).map(key => (

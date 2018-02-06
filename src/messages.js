@@ -22,10 +22,28 @@ export default {
       nav: {
         servers: "Servers",
         numberRange: "Number Ranges",
-        dashboard: "Dashboard"
+        dashboard: "Dashboard",
+        server: "Server"
       },
       serverSettings: {
         serverSettings: "Server Settings"
+      }
+    },
+    plugins: {
+      numberRange: {
+        pool: "Pool",
+        region: "Region",
+        allocation: "Allocation",
+        allocateButton: "Allocate to Pool",
+        createdOn: "Created On",
+        readableName: "Readable Name",
+        machineName: "Machine Name",
+        status: "Status",
+        requestThreshold: "Request Threshold",
+        regions: "Regions",
+        numberRangePools: "Number Range Pools",
+        active: "active",
+        inactive: "inactive"
       }
     }
   },
@@ -34,10 +52,28 @@ export default {
       nav: {
         servers: "Serveurs",
         numberRange: "Plage de numéros",
-        dashboard: "Tableau de bord"
+        dashboard: "Tableau de bord",
+        server: "Serveur"
       },
       serverSettings: {
         serverSettings: "Paramètres serveur"
+      }
+    },
+    plugins: {
+      numberRange: {
+        pool: "Groupe",
+        region: "Région",
+        allocation: "Attribution",
+        allocateButton: "Attribuer au groupe",
+        createdOn: "Créé le",
+        readableName: "Nom",
+        machineName: "Nom machine",
+        status: "Statut",
+        requestThreshold: "Seuil de requêtes",
+        regions: "Régions",
+        numberRangePools: "Groupes de plages de numéros",
+        active: "actif",
+        inactive: "inactif"
       }
     }
   }
