@@ -20,7 +20,6 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import messages from "../../../messages";
-import {flattenMessages} from "../../../lib/flattenMessages";
 import {switchLocale} from "../../../reducers/locales";
 
 class _SwitchLocale extends Component {

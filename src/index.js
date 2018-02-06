@@ -25,7 +25,7 @@ import {Provider} from "react-redux";
 import routes from "./routes";
 import {initialData} from "./reducers/serversettings";
 import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
-import {IntlProvider, intlReducer} from "react-intl-redux";
+import {IntlProvider} from "react-intl-redux";
 import {addLocaleData} from "react-intl";
 
 import en from "react-intl/locale-data/en";

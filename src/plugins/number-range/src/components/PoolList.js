@@ -25,7 +25,6 @@ import {
 } from "../../../../components/layouts/Panels";
 import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
-import moment from "moment";
 import {Link} from "react-router-dom";
 import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
 

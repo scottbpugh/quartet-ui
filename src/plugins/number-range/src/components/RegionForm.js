@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {Field, reduxForm} from "redux-form";
 import {getRegionFormStructure} from "../lib/serialbox-api";
-import {FormGroup, Switch, Card, Button} from "@blueprintjs/core";
+import {FormGroup} from "@blueprintjs/core";
 
 class _RegionForm extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class _RegionForm extends Component {
   componentWillReceiveProps(nextProps) {
     // quick check to ensure we have a valid server.
     if (
-      this.state.formStructure.length == 0 &&
+      this.state.formStructure.length === 0 &&
       nextProps.server &&
       nextProps.server.serverSettingName
     ) {
@@ -48,6 +48,7 @@ class _RegionForm extends Component {
             if (fieldObj) {
               return fieldObj;
             }
+            return false;
           });
         this.setState({
           formStructure: formStructure
@@ -85,6 +86,7 @@ class _RegionForm extends Component {
         if (field) {
           return field;
         }
+        return false;
       });
 
     return (
