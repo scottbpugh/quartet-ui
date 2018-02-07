@@ -96,7 +96,7 @@ class ServerPools extends Component {
                       <td>{pool.readable_name}</td>
                       <td>
                         <Link
-                          to={`/number-range/region-detail/${
+                          to={`/number-range/region-detail/${serverID}/${
                             pool.machine_name
                           }`}>
                           {pool.machine_name}
