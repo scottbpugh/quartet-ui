@@ -26,14 +26,21 @@ class _RegionForm extends Component {
     super(props);
     this.state = {formStructure: []};
   }
+  componentDidMount() {
+    this.constructForm(this.props);
+  }
   componentWillReceiveProps(nextProps) {
     // quick check to ensure we have a valid server.
+    this.constructForm(nextProps);
+  }
+  constructForm(props) {
+    // is only triggered once when the form isn't populated.
     if (
       this.state.formStructure.length === 0 &&
-      nextProps.server &&
-      nextProps.server.serverSettingName
+      props.server &&
+      props.server.serverSettingName
     ) {
-      getRegionFormStructure(nextProps.server).then(data => {
+      getRegionFormStructure(props.server).then(data => {
         // parse the values and filter to the one that are not readonly.
         let postFields = data.actions.POST;
         let formStructure = Object.keys(postFields)
