@@ -51,18 +51,21 @@ class _RegionDetail extends Component {
     this.currentServer = {};
   }
   componentDidMount() {
-    let nrServer = this.props.nr[this.props.match.params.serverID];
+    this.loadPoolDetail(this.props);
+  }
+  previewAlloc = evt => {
+    this.setState({alloc: Number(evt.target.value)});
+  };
+  loadPoolDetail(props) {
+    let nrServer = props.nr[props.match.params.serverID];
     this.currentServer = nrServer.server;
     for (let pool of nrServer.pools) {
-      if (pool.machine_name === this.props.match.params.pool) {
+      if (pool.machine_name === props.match.params.pool) {
         this.currentPool = pool;
       }
     }
     this.props.loadRegions(this.currentServer, this.currentPool);
   }
-  previewAlloc = evt => {
-    this.setState({alloc: Number(evt.target.value)});
-  };
   setAllocation = evt => {
     this.props.setAllocation(
       this.currentServer,
@@ -71,6 +74,9 @@ class _RegionDetail extends Component {
     );
   };
   componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.pool != this.props.match.params.pool) {
+      this.loadPoolDetail(nextProps);
+    }
     // shake card for the last updated region.
     nextProps.currentRegions.map((region, index) => {
       if (

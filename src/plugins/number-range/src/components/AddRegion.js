@@ -27,6 +27,7 @@ import {withRouter} from "react-router-dom";
 import {Card} from "@blueprintjs/core";
 import NRTree from "./NRTree";
 import RegionForm from "./RegionForm";
+import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
 
 class _AddRegion extends Component {
   constructor(props) {
@@ -44,19 +45,22 @@ class _AddRegion extends Component {
     console.log(e);
   }
   render() {
-    console.log(this.currentServer);
-    console.log(this.currentPool);
     return (
-      <Panels title={"Add a Region"}>
+      <Panels title={<FormattedMessage id="plugins.numberRange.addRegion" />}>
         <LeftPanel>
           <NRTree nr={this.props.nr} />
         </LeftPanel>
         <RightPanel>
-          <RegionForm
-            server={this.currentServer.server}
-            pool={this.currentPool}
-            onSubmit={this.submit}
-          />
+          <Card>
+            <h5>
+              <FormattedMessage id="plugins.numberRange.addRegion" />
+            </h5>
+            <RegionForm
+              server={this.currentServer.server}
+              pool={this.currentPool}
+              onSubmit={this.submit}
+            />
+          </Card>
         </RightPanel>
       </Panels>
     );

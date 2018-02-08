@@ -21,6 +21,73 @@ import {Field, reduxForm} from "redux-form";
 import {getRegionFormStructure} from "../lib/serialbox-api";
 import {FormGroup} from "@blueprintjs/core";
 
+const required = value => (value ? undefined : "Required");
+const maxLength = max => value =>
+  value && value.length > max ? `Must be ${max} characters or less` : undefined;
+const minLength = min => value =>
+  value && value.length < min ? `Must be ${min} characters or more` : undefined;
+
+const number = value =>
+  value && isNaN(Number(value)) ? "Must be a number" : undefined;
+const minValue = min => value =>
+  value && value < min ? `Must be at least ${min}` : undefined;
+const maxValue = max => value =>
+  value && value > max ? `Must be less or equal to ${max}` : undefined;
+/*
+class Switcher extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isChecked: props.isChecked};
+  }
+  handleCheck = evt => {
+    console.log(evt);
+  };
+  render() {
+    return (
+      <Switch defaultChecked={this.state.isChecked} label={this.props.label} />
+    );
+  }
+}*/
+
+const defaultField = ({
+  input,
+  fieldData,
+  type,
+  meta: {touched, error, warning}
+}) => {
+  let inputField = "";
+  if (fieldData.description.type === "boolean") {
+    inputField = (
+      <label className="pt-control pt-switch">
+        <input {...input} type="checkbox" name={fieldData.name} />
+        <span className="pt-control-indicator" />
+        {fieldData.description.label}
+      </label>
+    );
+  } else {
+    inputField = (
+      <input
+        {...input}
+        name={fieldData.name}
+        type={type}
+        className="pt-input"
+        width={300}
+      />
+    );
+  }
+  return (
+    <FormGroup
+      helperText={fieldData.description.help_text}
+      label={fieldData.description.label}
+      required={fieldData.description.required}>
+      {inputField}
+      {touched &&
+        ((error && <span>{error}</span>) ||
+          (warning && <span>{warning}</span>))}
+    </FormGroup>
+  );
+};
+
 class _RegionForm extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +120,7 @@ class _RegionForm extends Component {
           })
           .filter(fieldObj => {
             if (fieldObj) {
-              return fieldObj;
+              return true;
             }
             return false;
           });
@@ -63,30 +130,51 @@ class _RegionForm extends Component {
       });
     }
   }
+  getValidators(field) {
+    console.log(field);
+    let validate = []; // Dynamically build this.
+    if (field.description.required === true) {
+      validate.push(required);
+    }
+    if (field.description.max_length) {
+      validate.push(maxLength(Number(field.description.max_length)));
+    }
+    if (
+      field.description.min_value &&
+      Number(field.description.min_value) > -10000
+    ) {
+      validate.push(minValue(Number(field.description.min_value)));
+    }
+    if (
+      field.description.max_value &&
+      Number(field.description.max_value) < 10000
+    ) {
+      validate.push(maxValue(Number(field.description.max_value)));
+    }
+    return validate;
+  }
   render() {
     const {handleSubmit} = this.props;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
         if (field.description.type === "integer") {
-          type = "numeric";
-        } else if (field.description.type === "booler") {
+          type = "number";
+        } else if (field.description.type === "boolean") {
           type = "checkbox";
         }
         return (
-          <FormGroup
-            helperText={field.description.help_text}
-            label={field.description.label}
-            required={field.description.required}>
-            <Field
-              name={field.name}
-              component="input"
-              type={type}
-              key={field.description.name}
-              className="pt-input"
-              width={300}
-            />
-          </FormGroup>
+          <Field
+            key={field.description.name}
+            name={field.name}
+            fieldData={field}
+            component={defaultField}
+            type={type}
+            key={field.description.name}
+            className="pt-input"
+            width={300}
+            validate={this.getValidators(field)}
+          />
         );
       })
       .filter(field => {
@@ -106,7 +194,7 @@ class _RegionForm extends Component {
 }
 
 let RegionForm = reduxForm({
-  form: "region"
+  form: "addRegion"
 })(_RegionForm);
 
 export default RegionForm;
