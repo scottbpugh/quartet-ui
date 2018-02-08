@@ -19,7 +19,8 @@
 import React, {Component} from "react";
 import {Field, reduxForm, change} from "redux-form";
 import {getRegionFormStructure} from "../lib/serialbox-api";
-import {FormGroup} from "@blueprintjs/core";
+import {FormGroup, Intent} from "@blueprintjs/core";
+import classNames from "classnames";
 
 const required = value => (value ? undefined : "Required");
 const maxLength = max => value =>
@@ -40,11 +41,23 @@ const defaultField = ({
   type,
   meta: {touched, error, warning}
 }) => {
+  let intent = "";
+  let intentClass = "";
+  if (touched && error) {
+    intent = Intent.DANGER;
+    intentClass = "pt-intent-danger";
+  }
   let inputField = "";
   if (fieldData.description.type === "boolean") {
     inputField = (
       <label className="pt-control pt-switch">
-        <input {...input} type="checkbox" name={fieldData.name} />
+        <input
+          {...input}
+          type="checkbox"
+          name={fieldData.name}
+          className={intent}
+          intent={intent}
+        />
         <span className="pt-control-indicator" />
         {fieldData.description.label}
       </label>
@@ -57,18 +70,21 @@ const defaultField = ({
         type={type}
         className="pt-input"
         width={300}
+        className={classNames({"pt-input": true, [intentClass]: true})}
+        intent={intent}
       />
     );
   }
+
+  let helperInstruction = fieldData.description.help_text || "";
+  let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
   return (
     <FormGroup
-      helperText={fieldData.description.help_text}
+      helperText={helperText}
       label={fieldData.description.label}
-      required={fieldData.description.required}>
+      required={fieldData.description.required}
+      intent={intent}>
       {inputField}
-      {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
     </FormGroup>
   );
 };
@@ -114,8 +130,11 @@ class _RegionForm extends Component {
             formStructure: formStructure
           },
           () => {
+            // After state has been rendered,
             // initialize checkboxes as false by default to prevent them
             // from being missing in post.
+            // Same technique might be needed to set initial values
+            // asynchronously in the future.
             for (let field of Object.keys(postFields)) {
               if (postFields[field].type === "boolean") {
                 props.dispatch(change("addRegion", field, false));
