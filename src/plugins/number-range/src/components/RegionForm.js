@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Field, reduxForm} from "redux-form";
+import {Field, reduxForm, change} from "redux-form";
 import {getRegionFormStructure} from "../lib/serialbox-api";
 import {FormGroup} from "@blueprintjs/core";
 
@@ -33,21 +33,6 @@ const minValue = min => value =>
   value && value < min ? `Must be at least ${min}` : undefined;
 const maxValue = max => value =>
   value && value > max ? `Must be less or equal to ${max}` : undefined;
-/*
-class Switcher extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {isChecked: props.isChecked};
-  }
-  handleCheck = evt => {
-    console.log(evt);
-  };
-  render() {
-    return (
-      <Switch defaultChecked={this.state.isChecked} label={this.props.label} />
-    );
-  }
-}*/
 
 const defaultField = ({
   input,
@@ -124,9 +109,20 @@ class _RegionForm extends Component {
             }
             return false;
           });
-        this.setState({
-          formStructure: formStructure
-        });
+        this.setState(
+          {
+            formStructure: formStructure
+          },
+          () => {
+            // initialize checkboxes as false by default to prevent them
+            // from being missing in post.
+            for (let field of Object.keys(postFields)) {
+              if (postFields[field].type === "boolean") {
+                props.dispatch(change("addRegion", field, false));
+              }
+            }
+          }
+        );
       });
     }
   }
