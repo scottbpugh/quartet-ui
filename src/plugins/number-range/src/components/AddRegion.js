@@ -41,9 +41,7 @@ class _AddRegion extends Component {
     }
   }
   componentDidMount() {}
-  submit(e) {
-    console.log(e);
-  }
+
   render() {
     return (
       <Panels title={<FormattedMessage id="plugins.numberRange.addRegion" />}>
@@ -58,7 +56,6 @@ class _AddRegion extends Component {
             <RegionForm
               server={this.currentServer.server}
               pool={this.currentPool}
-              onSubmit={this.submit}
             />
           </Card>
         </RightPanel>

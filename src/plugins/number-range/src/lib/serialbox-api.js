@@ -29,6 +29,7 @@ const prepHeaders = (server, method = "GET") => {
   let password = server.password;
   let headers = new Headers();
   headers.append("Accept", "application/json");
+  headers.append("Content-Type", "application/json");
   headers.append(
     "Authorization",
     "Basic " + base64.encode(username + ":" + password)
@@ -170,4 +171,22 @@ export const getRegionFormStructure = server => {
     .catch(error => {
       return error;
     });
+};
+
+export const postAddRegion = (server, postValues) => {
+  let headers = prepHeaders(server, "POST");
+  headers.body = JSON.stringify(postValues);
+  return new Promise((resolve, reject) => {
+    fetch(`${prepURL(server)}sequential-region-create/`, headers)
+      .then(resp => {
+        if (!resp.ok) {
+          reject(resp);
+        } else {
+          resolve(resp);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 };

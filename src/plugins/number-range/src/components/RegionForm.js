@@ -21,6 +21,8 @@ import {Field, reduxForm, change} from "redux-form";
 import {getRegionFormStructure} from "../lib/serialbox-api";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
+import {postAddRegion} from "../lib/serialbox-api";
+import {SubmissionError} from "redux-form";
 
 const required = value => (value ? undefined : "Required");
 const maxLength = max => value =>
@@ -35,6 +37,7 @@ const minValue = min => value =>
 const maxValue = max => value =>
   value && value > max ? `Must be less or equal to ${max}` : undefined;
 
+// see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 const defaultField = ({
   input,
   fieldData,
@@ -72,6 +75,7 @@ const defaultField = ({
         width={300}
         className={classNames({"pt-input": true, [intentClass]: true})}
         intent={intent}
+        required={fieldData.description.required}
       />
     );
   }
@@ -145,7 +149,7 @@ class _RegionForm extends Component {
       });
     }
   }
-  getValidators(field) {
+  getSyncValidators(field) {
     console.log(field);
     let validate = []; // Dynamically build this.
     if (field.description.required === true) {
@@ -168,6 +172,25 @@ class _RegionForm extends Component {
     }
     return validate;
   }
+  // Handles the RegionForm post.
+  submit = postValues => {
+    return postAddRegion(this.props.server, postValues)
+      .then(resp => {
+        return resp.json();
+      })
+      .then(data => {
+        // we handle the success here.
+        console.log("DATA IS HERE", data);
+      })
+      .catch(error => {
+        return error.json();
+      })
+      .then(data => {
+        // We handle the error info in JSON here.
+        throw new SubmissionError(data);
+        console.log("my error is here", data);
+      });
+  };
   render() {
     const {handleSubmit} = this.props;
     let form = this.state.formStructure
@@ -188,7 +211,7 @@ class _RegionForm extends Component {
             key={field.description.name}
             className="pt-input"
             width={300}
-            validate={this.getValidators(field)}
+            validate={this.getSyncValidators(field)}
           />
         );
       })
@@ -198,9 +221,8 @@ class _RegionForm extends Component {
         }
         return false;
       });
-
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(this.submit)}>
         {form}
         <button type="submit">Submit</button>
       </form>
