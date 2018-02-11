@@ -20,6 +20,7 @@ import {Route} from "react-router";
 import {PoolList} from "./components/PoolList";
 import {RegionDetail} from "./components/RegionDetail";
 import {AddRegion} from "./components/AddRegion";
+import {AddPool} from "./components/AddPool";
 
 /**
  * Default - Returns an array of routes to be appended to main Switch.
@@ -36,6 +37,7 @@ export default (() => {
     <Route
       path="/number-range/add-region/:serverID/:pool"
       component={AddRegion}
-    />
+    />,
+    <Route path="/number-range/add-pool/:serverID" component={AddPool} />
   ];
 })();

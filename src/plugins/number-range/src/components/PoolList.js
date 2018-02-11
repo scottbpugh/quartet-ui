@@ -40,6 +40,15 @@ class ServerPools extends Component {
           {serverName}
         </h4>
         <div>
+          <button
+            className="pt-button"
+            onClick={e => {
+              this.props.history.push(`/number-range/add-pool/${serverID}/`);
+            }}>
+            <FormattedMessage id="plugins.numberRange.addPool" />
+          </button>
+        </div>
+        <div>
           <table className="pt-table pt-bordered pt-striped">
             <thead>
               <tr>
@@ -166,7 +175,11 @@ class _PoolList extends Component {
           <div className="cards-container">
             <div>
               {Object.keys(nr).map(key => (
-                <ServerPools server={nr[key].server} pools={nr[key].pools} />
+                <ServerPools
+                  history={this.props.history}
+                  server={nr[key].server}
+                  pools={nr[key].pools}
+                />
               ))}
             </div>
           </div>

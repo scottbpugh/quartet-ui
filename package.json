@@ -27,7 +27,9 @@
     "redux-form-website-template": "0.0.98",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
-    "validator": "^9.2.0"
+    "request": "^2.83.0",
+    "validator": "^9.2.0",
+    "zlfetch": "^1.0.0"
   },
   "author": {
     "name": "Serial Lab",

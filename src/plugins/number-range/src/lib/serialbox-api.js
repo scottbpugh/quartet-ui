@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
+import request from "request";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -173,20 +174,33 @@ export const getRegionFormStructure = server => {
     });
 };
 
+export const getPoolFormStructure = server => {
+  return fetch(`${prepURL(server)}pool-create/`, prepHeaders(server, "OPTIONS"))
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};
+
 export const postAddRegion = (server, postValues) => {
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return new Promise((resolve, reject) => {
-    fetch(`${prepURL(server)}sequential-region-create/`, headers)
-      .then(resp => {
-        if (!resp.ok) {
-          reject(resp);
-        } else {
-          resolve(resp);
-        }
-      })
-      .catch(error => {
-        reject(error);
-      });
+  return fetch(`${prepURL(server)}sequential-region-create/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
+};
+
+export const postAddPool = (server, postValues) => {
+  let headers = prepHeaders(server, "POST");
+  headers.body = JSON.stringify(postValues);
+  return fetch(`${prepURL(server)}pool-create/`, headers).then(resp => {
+    return resp;
   });
 };

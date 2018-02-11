@@ -34,7 +34,7 @@ export default {
         pool: "Pool",
         region: "Region",
         allocation: "Allocation",
-        allocateButton: "Allocate to Pool",
+        allocateButton: "Allocate from Pool",
         createdOn: "Created On",
         readableName: "Readable Name",
         machineName: "Machine Name",
@@ -47,7 +47,8 @@ export default {
         range: "Range",
         to: "to",
         state: "State",
-        addRegion: "Add a New Region"
+        addRegion: "Add a New Region",
+        addPool: "Add a New Pool"
       }
     }
   },
@@ -81,7 +82,8 @@ export default {
         range: "Plage",
         to: "à",
         state: "État",
-        addRegion: "Ajouter une région"
+        addRegion: "Ajouter une région",
+        addPool: "Ajouter un Groupe"
       }
     }
   }

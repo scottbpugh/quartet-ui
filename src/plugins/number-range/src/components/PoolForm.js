@@ -18,10 +18,10 @@
 
 import React, {Component} from "react";
 import {Field, reduxForm, change} from "redux-form";
-import {getRegionFormStructure} from "../lib/serialbox-api";
+import {getPoolFormStructure} from "../lib/serialbox-api";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
-import {postAddRegion} from "../lib/serialbox-api";
+import {postAddPool} from "../lib/serialbox-api";
 import {SubmissionError, setSubmitFailed} from "redux-form";
 import {showMessage} from "../../../../lib/message";
 import request from "request";
@@ -54,7 +54,23 @@ const defaultField = ({
   }
   let meta = {touched, error, warning};
   let inputField = "";
-  if (fieldData.description.type === "boolean") {
+  if (fieldData.description.type === "field") {
+    inputField = (
+      <div style={{display: "none"}}>
+        <label className="pt-control pt-switch">
+          <input
+            {...input}
+            type="hidden"
+            name={fieldData.name}
+            className={intent}
+            intent={intent}
+          />
+          <span className="pt-control-indicator" />
+          {fieldData.description.label}
+        </label>
+      </div>
+    );
+  } else if (fieldData.description.type === "boolean") {
     inputField = (
       <label className="pt-control pt-switch">
         <input
@@ -96,7 +112,7 @@ const defaultField = ({
   );
 };
 
-class _RegionForm extends Component {
+class _PoolForm extends Component {
   constructor(props) {
     super(props);
     this.state = {formStructure: []};
@@ -116,7 +132,7 @@ class _RegionForm extends Component {
       props.server &&
       props.server.serverSettingName
     ) {
-      getRegionFormStructure(props.server).then(data => {
+      getPoolFormStructure(props.server).then(data => {
         // parse the values and filter to the one that are not readonly.
         let postFields = data.actions.POST;
         let formStructure = Object.keys(postFields)
@@ -180,7 +196,7 @@ class _RegionForm extends Component {
   }
   // Handles the RegionForm post.
   submit = postValues => {
-    return postAddRegion(this.props.server, postValues)
+    return postAddPool(this.props.server, postValues)
       .then(resp => {
         return Promise.all([resp, resp.json()]);
       })
@@ -245,8 +261,8 @@ class _RegionForm extends Component {
   }
 }
 
-let RegionForm = reduxForm({
-  form: "addRegion"
-})(_RegionForm);
+let PoolForm = reduxForm({
+  form: "addPool"
+})(_PoolForm);
 
-export default RegionForm;
+export default PoolForm;
