@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <div className="App pt-ui-text">
         <header>
-          <Navbar className=".pt-dark">
+          <Navbar className="pt-fixed-top">
             <NavbarGroup>
               <NavbarHeading>QU4RTET</NavbarHeading>
             </NavbarGroup>

@@ -271,17 +271,14 @@ class _ServerSettings extends Component {
 
   SettingsForm = props => {
     return (
-      <div className="settings-form-container">
-        <Card>
+      <div className="large-cards-container">
+        <Card className="pt-elevation-4 form-card">
           <h5>Connect to a Server</h5>
           {ServerForm(
             formStructure(this.state.postData),
             this.saveServer.bind(this),
             this.updateValue.bind(this)
           )}
-        </Card>
-        <Card>
-          <h5>Connection test &amp; Server Info</h5>
         </Card>
       </div>
     );
@@ -300,9 +297,18 @@ class _ServerSettings extends Component {
     return (
       <div>
         <ul>{serverList}</ul>
-        <Link to="/server-settings/">
-          <button>New Server</button>
-        </Link>
+        <div className="mini-form">
+          <button
+            className="pt-button"
+            onClick={e => {
+              this.props.history.push("/server-settings/");
+            }}>
+            <FormattedMessage
+              id="plugins.numberRange.addServer"
+              defaultMessage="Add a New Server"
+            />
+          </button>
+        </div>
       </div>
     );
   };

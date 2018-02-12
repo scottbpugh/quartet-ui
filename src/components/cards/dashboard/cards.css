@@ -27,13 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin-bottom:15px;
   overflow-y:scroll;
   max-height:500px;
+  position:relative;
+  padding-top:60px;
 }
 
 .auto-cards-container .pt-card {
   padding-top:60px;
 }
 
-.auto-cards-container h5, .large-cards-container h5 {
+.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5 {
   background: #EEE;
   top:0;
   position: absolute;
@@ -43,6 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin-bottom:20px;
   border-top-left-radius:4px;
   border-top-right-radius:4px;
+}
+
+.form-card {
+  padding:0 25px 20px;
 }
 
 .large-cards-container {
@@ -84,6 +90,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .cards-container table td {
   overflow:hidden;
 }
+
+
 
 .error-list {
   list-style:none;

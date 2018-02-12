@@ -238,7 +238,10 @@ class _RegionForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.submit)}>
         {form}
-        <button type="submit" disabled={this.props.submitting}>
+        <button
+          className="pt-button pt-intent-primary"
+          type="submit"
+          disabled={this.props.submitting}>
           Submit
         </button>
       </form>

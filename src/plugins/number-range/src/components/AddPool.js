@@ -42,15 +42,17 @@ class _AddPool extends Component {
           <NRTree nr={this.props.nr} />
         </LeftPanel>
         <RightPanel>
-          <Card>
-            <h5>
-              <FormattedMessage id="plugins.numberRange.addPool" />
-            </h5>
-            <PoolForm
-              server={this.currentServer.server}
-              history={this.props.history}
-            />
-          </Card>
+          <div className="large-cards-container">
+            <Card className="pt-elevation-4 form-card">
+              <h5>
+                <FormattedMessage id="plugins.numberRange.addPool" />
+              </h5>
+              <PoolForm
+                server={this.currentServer.server}
+                history={this.props.history}
+              />
+            </Card>
+          </div>
         </RightPanel>
       </Panels>
     );

@@ -104,7 +104,11 @@ const defaultField = ({
   return (
     <FormGroup
       helperText={helperText}
-      label={fieldData.description.label}
+      label={
+        fieldData.description.type !== "field"
+          ? fieldData.description.label
+          : null
+      }
       required={fieldData.description.required}
       intent={intent}>
       {inputField}
@@ -255,7 +259,10 @@ class _PoolForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.submit)}>
         {form}
-        <button type="submit" disabled={this.props.submitting}>
+        <button
+          className="pt-button pt-intent-primary"
+          type="submit"
+          disabled={this.props.submitting}>
           Submit
         </button>
       </form>

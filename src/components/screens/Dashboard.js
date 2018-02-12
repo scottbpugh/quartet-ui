@@ -28,19 +28,19 @@ import {FormattedMessage} from "react-intl";
 const DashboardLeft = props => <div />; // leaving empty for now.
 const DashboardRight = props => (
   <div className="cards-container">
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Notifications</h5>
       <NotificationsDisplay />
     </Card>
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Items processed by month</h5>
       <ItemsProcessedByDate />
     </Card>
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Latest items processed</h5>
       <LatestGTINs />
     </Card>
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Item Lookup</h5>
       <ItemLookup />
     </Card>

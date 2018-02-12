@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     flex-direction: column;
     height:auto;
     min-height:100%;
+    margin-top:50px;
 }
 .main-container {
     flex:2;
@@ -47,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .right-panel {
     padding:10px;
     flex: 1 1;
-    background:#EEE;
+    background:#E1E8ED;
     min-height:100%;
 }
 
