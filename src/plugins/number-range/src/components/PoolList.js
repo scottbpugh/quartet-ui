@@ -34,22 +34,21 @@ class ServerPools extends Component {
     let serverName = this.props.server.serverSettingName;
     let serverID = this.props.server.serverID;
     return (
-      <Card>
-        <h4>
-          <FormattedMessage id="app.nav.server" defaultMessage="Server" />:{" "}
-          {serverName}
-        </h4>
-        <div>
+      <Card className="pt-elevation-4">
+        <h5>
           <button
-            className="pt-button"
+            className="pt-button add-pool-button pt-intent-primary"
             onClick={e => {
               this.props.history.push(`/number-range/add-pool/${serverID}/`);
             }}>
             <FormattedMessage id="plugins.numberRange.addPool" />
           </button>
-        </div>
+          <FormattedMessage id="app.nav.server" defaultMessage="Server" />:{" "}
+          {serverName}
+        </h5>
+        <div />
         <div>
-          <table className="pt-table pt-bordered pt-striped">
+          <table className="pool-list-table pt-table pt-bordered pt-striped">
             <thead>
               <tr>
                 <th>

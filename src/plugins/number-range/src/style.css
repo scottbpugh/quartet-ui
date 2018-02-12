@@ -75,3 +75,12 @@
   display:block;
   margin:10px 0 10px 50px;
 }
+
+.pool-list-table {
+  margin-top:10px;
+}
+.add-pool-button {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
