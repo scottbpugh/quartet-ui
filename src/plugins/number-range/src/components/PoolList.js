@@ -172,16 +172,14 @@ class _PoolList extends Component {
           <NRTree nr={nr} />
         </LeftPanel>
         <RightPanel>
-          <div className="cards-container">
-            <div>
-              {Object.keys(nr).map(key => (
-                <ServerPools
-                  history={this.props.history}
-                  server={nr[key].server}
-                  pools={nr[key].pools}
-                />
-              ))}
-            </div>
+          <div className="large-cards-container">
+            {Object.keys(nr).map(key => (
+              <ServerPools
+                history={this.props.history}
+                server={nr[key].server}
+                pools={nr[key].pools}
+              />
+            ))}
           </div>
         </RightPanel>
       </Panels>

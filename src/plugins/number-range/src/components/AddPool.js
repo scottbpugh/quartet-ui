@@ -46,7 +46,10 @@ class _AddPool extends Component {
             <h5>
               <FormattedMessage id="plugins.numberRange.addPool" />
             </h5>
-            <PoolForm server={this.currentServer.server} />
+            <PoolForm
+              server={this.currentServer.server}
+              history={this.props.history}
+            />
           </Card>
         </RightPanel>
       </Panels>

@@ -25,7 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .wrapper {
     display: flex;
     flex-direction: column;
-    height:100%;
+    height:auto;
+    min-height:100%;
 }
 .main-container {
     flex:2;

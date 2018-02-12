@@ -56,6 +56,7 @@ class _AddRegion extends Component {
             <RegionForm
               server={this.currentServer.server}
               pool={this.currentPool}
+              history={this.props.history}
             />
           </Card>
         </RightPanel>

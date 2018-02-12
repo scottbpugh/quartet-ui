@@ -208,7 +208,9 @@ class _PoolForm extends Component {
               msg: "New region created successfully",
               type: "success"
             });
+            this.props.history.push("/number-range/pools");
           }
+
           return proms[1];
         } else {
           // We handle the error info in JSON here.
