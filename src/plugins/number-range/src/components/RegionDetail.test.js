@@ -23,12 +23,14 @@ import {initialData} from "../../../../reducers/serversettings";
 import {initialData as initialDataNR} from "../reducers/numberrange";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
+import {IntlProvider} from "react-intl";
+import returnComponentWithIntl from "../../../../tools/intl-test-helper";
 
 const mockStore = configureStore();
 let wrapper;
 let store;
 
-it.skip("renders correctly", () => {
+it("renders correctly", () => {
   store = mockStore({
     serversettings: initialData(),
     numberrange: {
@@ -46,9 +48,11 @@ it.skip("renders correctly", () => {
   };
   const serverSettings = renderer
     .create(
-      <Router>
-        <RegionDetail {...props} store={store} />
-      </Router>
+      returnComponentWithIntl(
+        <Router>
+          <RegionDetail {...props} store={store} />
+        </Router>
+      )
     )
     .toJSON();
   expect(serverSettings).toMatchSnapshot();
