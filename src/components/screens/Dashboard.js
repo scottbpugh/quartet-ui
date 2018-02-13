@@ -25,6 +25,7 @@ import ItemsProcessedByDate from "../cards/dashboard/ItemsProcessedByDate";
 import NotificationsDisplay from "../cards/dashboard/NotificationsDisplay";
 import ItemLookup from "../cards/dashboard/ItemLookup";
 import {FormattedMessage} from "react-intl";
+
 const DashboardLeft = props => <div />; // leaving empty for now.
 const DashboardRight = props => (
   <div className="cards-container">

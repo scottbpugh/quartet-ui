@@ -16,24 +16,28 @@ exports[`renders correctly 1`] = `
     </h4>
     <div>
       <ul />
-      <a
-        href="/server-settings/"
-        onClick={[Function]}
+      <div
+        className="mini-form"
       >
-        <button>
-          New Server
+        <button
+          className="pt-button"
+          onClick={[Function]}
+        >
+          <span>
+            Add a New Server
+          </span>
         </button>
-      </a>
+      </div>
     </div>
   </div>
   <div
     className="right-panel"
   >
     <div
-      className="settings-form-container"
+      className="large-cards-container"
     >
       <div
-        className="pt-card pt-elevation-0"
+        className="pt-card pt-elevation-0 pt-elevation-4 form-card"
         onClick={undefined}
       >
         <h5>
@@ -319,14 +323,6 @@ exports[`renders correctly 1`] = `
             </span>
           </button>
         </form>
-      </div>
-      <div
-        className="pt-card pt-elevation-0"
-        onClick={undefined}
-      >
-        <h5>
-          Connection test & Server Info
-        </h5>
       </div>
     </div>
   </div>
