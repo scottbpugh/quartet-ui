@@ -30,10 +30,8 @@ import thunk from "redux-thunk";
 const middlewares = [thunk]; // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares);
 let wrapper;
-let store;
-
-it("renders correctly a pool with no region", () => {
-  store = mockStore({
+const getStore = () =>
+  mockStore({
     serversettings: initialData(),
     numberrange: {
       servers: {
@@ -65,6 +63,8 @@ it("renders correctly a pool with no region", () => {
       currentRegions: []
     }
   });
+
+it("renders correctly a pool with no region", () => {
   const props = {
     match: {
       params: {
@@ -80,7 +80,7 @@ it("renders correctly a pool with no region", () => {
       returnComponentWithIntl(
         <Router initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
           <RegionDetail
-            store={store}
+            store={getStore()}
             match={{params: {serverID: "fakeid", pool: "fakepool"}}}
           />
         </Router>
