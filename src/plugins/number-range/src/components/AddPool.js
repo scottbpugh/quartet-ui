@@ -23,11 +23,10 @@ import {
   RightPanel,
   LeftPanel
 } from "../../../../components/layouts/Panels";
-import {withRouter} from "react-router-dom";
 import {Card} from "@blueprintjs/core";
 import NRTree from "./NRTree";
 import PoolForm from "./PoolForm";
-import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
+import {FormattedMessage} from "react-intl";
 
 class _AddPool extends Component {
   constructor(props) {

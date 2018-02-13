@@ -31,7 +31,6 @@ import "../style.css";
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
 import NRTree from "./NRTree";
-import PropTypes from "prop-types";
 
 /**
  * _RegionDetail - Description
@@ -73,7 +72,7 @@ class _RegionDetail extends Component {
     );
   };
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.pool != this.props.match.params.pool) {
+    if (nextProps.match.params.pool !== this.props.match.params.pool) {
       console.log("me next props", typeof nextProps);
       this.loadPoolDetail(nextProps);
     }

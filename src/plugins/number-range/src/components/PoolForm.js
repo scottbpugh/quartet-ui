@@ -22,22 +22,14 @@ import {getPoolFormStructure} from "../lib/serialbox-api";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
 import {postAddPool} from "../lib/serialbox-api";
-import {SubmissionError, setSubmitFailed} from "redux-form";
+import {SubmissionError} from "redux-form";
 import {showMessage} from "../../../../lib/message";
-import request from "request";
-
-const required = value => (value ? undefined : "Required");
-const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
-const minLength = min => value =>
-  value && value.length < min ? `Must be ${min} characters or more` : undefined;
-
-const number = value =>
-  value && isNaN(Number(value)) ? "Must be a number" : undefined;
-const minValue = min => value =>
-  value && value < min ? `Must be at least ${min}` : undefined;
-const maxValue = max => value =>
-  value && value > max ? `Must be less or equal to ${max}` : undefined;
+import {
+  required,
+  maxLength,
+  minValue,
+  maxValue
+} from "../../../../lib/forms/validators";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 const defaultField = ({
@@ -52,7 +44,6 @@ const defaultField = ({
     intent = Intent.DANGER;
     intentClass = "pt-intent-danger";
   }
-  let meta = {touched, error, warning};
   let inputField = "";
   if (fieldData.description.type === "field") {
     inputField = (
@@ -90,7 +81,6 @@ const defaultField = ({
         {...input}
         name={fieldData.name}
         type={type}
-        className="pt-input"
         width={300}
         className={classNames({"pt-input": true, [intentClass]: true})}
         required={fieldData.description.required}
@@ -207,7 +197,7 @@ class _PoolForm extends Component {
       .then(proms => {
         // we handle the success here.
         if (proms[0].ok) {
-          if (proms[0].status == 201) {
+          if (proms[0].status === 201) {
             showMessage({
               msg: "New region created successfully",
               type: "success"
