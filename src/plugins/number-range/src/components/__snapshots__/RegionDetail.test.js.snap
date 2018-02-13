@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="main-container"
+>
+  <div
+    className="left-panel pt-dark"
+  >
+    <h4
+      className="left-panel-title"
+    >
+      Pool  Regions
+    </h4>
+    <div>
+      <div
+        className="mini-form"
+      >
+        <h6>
+          <span>
+            Allocation
+          </span>
+        </h6>
+        <input
+          className="pt-input"
+          defaultValue={1}
+          max={100000}
+          min={1}
+          onChange={[Function]}
+          placeholder="allocate"
+          style={
+            Object {
+              "width": 200,
+            }
+          }
+          type="number"
+        />
+        <button
+          className="pt-button"
+          onClick={[Function]}
+        >
+          <span>
+            Allocate from Pool
+          </span>
+        </button>
+      </div>
+      <div
+        className="mini-form"
+      >
+        <button
+          className="pt-button"
+          onClick={[Function]}
+        >
+          <span>
+            Add a New Region
+          </span>
+        </button>
+      </div>
+      <div
+        className="pt-tree"
+      >
+        <ul
+          className="pt-tree-node-list pt-tree-root"
+        >
+          <li
+            className="pt-tree-node"
+          >
+            <div
+              className="pt-tree-node-content pt-tree-node-content-0"
+              onClick={[Function]}
+              onContextMenu={[Function]}
+              onDoubleClick={[Function]}
+            >
+              <span
+                className="pt-tree-node-caret pt-icon-standard pt-tree-node-caret-closed"
+                onClick={[Function]}
+              />
+              <span
+                className="pt-tree-node-label"
+              >
+                fake server
+              </span>
+            </div>
+            <div
+              className="pt-collapse"
+              style={
+                Object {
+                  "height": undefined,
+                  "overflowY": undefined,
+                  "transition": undefined,
+                }
+              }
+            >
+              <div
+                aria-hidden={false}
+                className="pt-collapse-body"
+                style={
+                  Object {
+                    "transform": "translateY(-0px)",
+                    "transition": undefined,
+                  }
+                }
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div
+    className="right-panel"
+  >
+    <div>
+      <div
+        className="auto-cards-container"
+      />
+    </div>
+  </div>
+</div>
+`;

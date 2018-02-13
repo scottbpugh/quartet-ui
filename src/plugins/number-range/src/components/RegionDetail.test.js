@@ -32,7 +32,7 @@ const mockStore = configureStore(middlewares);
 let wrapper;
 let store;
 
-it("renders correctly", () => {
+it("renders correctly a pool with no region", () => {
   store = mockStore({
     serversettings: initialData(),
     numberrange: {
@@ -48,7 +48,17 @@ it("renders correctly", () => {
             ssl: false,
             path: ""
           },
-          pools: []
+          pools: [
+            {
+              sequentialregion_set: [],
+              created_date: "2018-02-12T14:56:11.462232Z",
+              modified_date: "2018-02-12T14:56:11.462279Z",
+              readable_name: "Fake Pool",
+              machine_name: "fakepool",
+              active: true,
+              request_threshold: 50000
+            }
+          ]
         }
       },
       region: {},
@@ -62,11 +72,17 @@ it("renders correctly", () => {
       }
     }
   };
+  window.fetch = () => {
+    console.log("called");
+  };
   const regionDetailScreen = renderer
     .create(
       returnComponentWithIntl(
         <Router initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
-          <RegionDetail store={store} match={{params: {serverID: "fakeid"}}} />
+          <RegionDetail
+            store={store}
+            match={{params: {serverID: "fakeid", pool: "fakepool"}}}
+          />
         </Router>
       )
     )
