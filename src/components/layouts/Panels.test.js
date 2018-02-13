@@ -18,9 +18,9 @@
 
 import React from "react";
 import renderer from "react-test-renderer";
-import {Panels} from "./Panels";
+import {Panels, LeftPanel, RightPanel} from "./Panels";
 
-it("renders correctly", () => {
+it("renders attribute components correctly", () => {
   const panels = renderer
     .create(
       <Panels
@@ -32,3 +32,20 @@ it("renders correctly", () => {
     .toJSON();
   expect(panels).toMatchSnapshot();
 });
+
+it("renders nested components correctly", () => {
+  const panels = renderer
+    .create(
+      <Panels title="Test">
+        <LeftPanel>
+          <h1>Something</h1>
+        </LeftPanel>
+        <RightPanel>
+          <h2>Something Else</h2>
+        </RightPanel>
+      </Panels>
+    )
+    .toJSON();
+  expect(panels).toMatchSnapshot();
+});
+

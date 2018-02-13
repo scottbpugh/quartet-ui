@@ -22,11 +22,13 @@ import {RegionDetail} from "./RegionDetail";
 import {initialData} from "../../../../reducers/serversettings";
 import {initialData as initialDataNR} from "../reducers/numberrange";
 import configureStore from "redux-mock-store";
-import {MemoryRouter as Router, withRouter} from "react-router-dom";
+import {MemoryRouter as Router, withRouter, Switch} from "react-router-dom";
 import {IntlProvider} from "react-intl";
 import returnComponentWithIntl from "../../../../tools/intl-test-helper";
+import thunk from "redux-thunk";
 
-const mockStore = configureStore();
+const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const mockStore = configureStore(middlewares);
 let wrapper;
 let store;
 
@@ -34,7 +36,21 @@ it("renders correctly", () => {
   store = mockStore({
     serversettings: initialData(),
     numberrange: {
-      servers: {fakeid: {server: null, pools: []}},
+      servers: {
+        fakeid: {
+          server: {
+            serverID: "fakeid",
+            password: "toor",
+            username: "root",
+            port: "80",
+            serverName: "localhost",
+            serverSettingName: "fake server",
+            ssl: false,
+            path: ""
+          },
+          pools: []
+        }
+      },
       region: {},
       currentRegions: []
     }
@@ -46,14 +62,14 @@ it("renders correctly", () => {
       }
     }
   };
-  const serverSettings = renderer
+  const regionDetailScreen = renderer
     .create(
       returnComponentWithIntl(
-        <Router>
-          <RegionDetail {...props} store={store} />
+        <Router initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
+          <RegionDetail store={store} match={{params: {serverID: "fakeid"}}} />
         </Router>
       )
     )
     .toJSON();
-  expect(serverSettings).toMatchSnapshot();
+  expect(regionDetailScreen).toMatchSnapshot();
 });

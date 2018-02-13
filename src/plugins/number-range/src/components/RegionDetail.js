@@ -32,16 +32,15 @@ import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
 import NRTree from "./NRTree";
 import PropTypes from "prop-types";
-import {withRouter} from "react-router-dom";
 
 /**
  * _RegionDetail - Description
  * @extends Component
  */
 class _RegionDetail extends Component {
-  static propTypes = {
+  /*static propTypes = {
     history: PropTypes.object.isRequired
-  };
+  };*/
   constructor(props) {
     super(props);
     this.state = {alloc: 1, lastUpdated: null};
@@ -75,6 +74,7 @@ class _RegionDetail extends Component {
   };
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.pool != this.props.match.params.pool) {
+      console.log("me next props", typeof nextProps);
       this.loadPoolDetail(nextProps);
     }
     // shake card for the last updated region.
@@ -92,9 +92,7 @@ class _RegionDetail extends Component {
       return null;
     });
   }
-  submit = values => {
-    console.log(values);
-  };
+
   render() {
     let regions = this.props.currentRegions;
 
@@ -193,9 +191,8 @@ export var RegionDetail = connect(
     return {
       servers: state.serversettings.servers,
       currentRegions: state.numberrange.currentRegions,
-      nr: state.numberrange.servers,
-      history: ownProps.history
+      nr: state.numberrange.servers
     };
   },
   {loadRegions, setAllocation}
-)(withRouter(_RegionDetail));
+)(_RegionDetail);
