@@ -29,14 +29,14 @@ export const initialData = () => ({
 
 export const loadPools = server => {
   return dispatch => {
-    getPools(server).then(pools =>
+    getPools(server).then(pools => {
       dispatch({
         type: actions.loadPools,
         payload: {
           [server.serverID]: {pools: pools, server: server}
         }
-      })
-    );
+      });
+    });
   };
 };
 

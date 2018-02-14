@@ -73,8 +73,8 @@ class _RegionDetail extends Component {
   };
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.pool !== this.props.match.params.pool) {
-      console.log("me next props", typeof nextProps);
       this.loadPoolDetail(nextProps);
+      return;
     }
     // shake card for the last updated region.
     nextProps.currentRegions.map((region, index) => {
@@ -82,6 +82,12 @@ class _RegionDetail extends Component {
         this.props.currentRegions[index] &&
         region.state !== this.props.currentRegions[index].state
       ) {
+        console.log(
+          "new state",
+          region.state,
+          "old state",
+          this.props.currentRegions[index].state
+        );
         this.setState({lastUpdated: region.machine_name}, () => {
           window.setTimeout(() => {
             this.setState({lastUpdated: null});

@@ -39,6 +39,9 @@ export const initialData = () => {
 export const saveServer = postData => {
   return dispatch => {
     showMessage({type: "success", msg: "Your server settings were saved."});
+    let server = {...postData};
+    server.plugins = [];
+    server.plugins.push("number-range");
     if (!postData.serverID) {
       postData.serverID = uuidv4();
     }

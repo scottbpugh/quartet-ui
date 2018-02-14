@@ -90,7 +90,7 @@ class ServerPools extends Component {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(this.props.pools)
+              {Array.isArray(this.props.pools) && this.props.pools.length > 0
                 ? this.props.pools.map(pool => (
                     <tr>
                       <td>

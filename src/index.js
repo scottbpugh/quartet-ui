@@ -46,6 +46,8 @@ const initialState = {
   }
 };
 
+console.log("initialState is", JSON.stringify(initialState));
+
 addLocaleData([...en, ...fr]);
 const store = configureStore(initialState);
 

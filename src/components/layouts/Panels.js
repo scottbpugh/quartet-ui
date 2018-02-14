@@ -17,6 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
+import {NavTree} from "./elements/NavTree";
+import {ActionControls} from "./elements/ActionControls";
+import {FormattedMessage} from "react-intl";
 
 /**
  * LeftPanel
@@ -67,11 +70,16 @@ export const Panels = props => {
       </div>
     );
   }
+
   // otherwise expect props leftPanel, title, and right Panel
   return (
     <div className="main-container">
-      <div className="left-panel">
-        <h4 className="pt-dark left-panel-title">{props.title}</h4>
+      <div className="left-panel pt-dark">
+        <h4 className="left-panel-title">{props.title}</h4>
+        <div>
+          <ActionControls />
+          <NavTree />
+        </div>
         {props.leftPanel}
       </div>
       <div className="right-panel">{props.rightPanel}</div>

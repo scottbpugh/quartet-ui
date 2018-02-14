@@ -32,16 +32,19 @@ class _NRTree extends Component {
   getTree(props) {
     let nr = props.nr;
     let treeContents = Object.keys(nr).map(key => {
-      let children = nr[key].pools.map(pool => {
-        return {
-          key: pool.machine_name,
-          label: pool.readable_name,
-          childType: "pool",
-          path: `/number-range/region-detail/${nr[key].server.serverID}/${
-            pool.machine_name
-          }`
-        };
-      });
+      let children = [];
+      if (Array.isArray(nr[key].pools)) {
+        children = nr[key].pools.map(pool => {
+          return {
+            key: pool.machine_name,
+            label: pool.readable_name,
+            childType: "pool",
+            path: `/number-range/region-detail/${nr[key].server.serverID}/${
+              pool.machine_name
+            }`
+          };
+        });
+      }
       return {
         key: nr[key].server.serverID,
         label: nr[key].server.serverSettingName,
