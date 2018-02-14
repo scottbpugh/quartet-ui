@@ -26,7 +26,6 @@ export const initialData = () => {
 };
 
 export const loadPageTitle = title => {
-  debugger;
   return dispatch => {
     return dispatch({type: actions.loadPageTitle, payload: title});
   };

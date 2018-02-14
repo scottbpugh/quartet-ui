@@ -69,7 +69,6 @@ class _App extends Component {
                 <FormattedMessage id={this.props.pageTitle} />
               </h4>
               <div>
-                <ActionControls />
                 <NavTree />
               </div>
             </div>

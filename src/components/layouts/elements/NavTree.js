@@ -100,7 +100,7 @@ class _NavTree extends Component {
   render() {
     return (
       <div className="tree-wrapper">
-        <div className="">
+        <div className="leftbar-group">
           <div className="pt-button-group pt-minimal">
             <AddServerButton history={this.props.history} />
             <Button tabindex="0" iconName="pt-icon-timeline-area-chart" />
@@ -127,7 +127,9 @@ class _NavTree extends Component {
             />*/}
           </div>
         </div>
-        <Tree>{this.getTree()}</Tree>
+        <div className="leftbar-group">
+          <Tree>{this.getTree()}</Tree>
+        </div>
       </div>
     );
   }

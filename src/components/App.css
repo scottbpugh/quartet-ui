@@ -75,5 +75,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .context {
   position: absolute;
-  
+}
+
+.leftbar-group {
+  width: 100%;
+  min-height:30px;
+  border-radius: 5px;
+  background: #30404D;
+  margin-top:10px;
 }
