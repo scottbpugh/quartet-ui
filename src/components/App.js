@@ -30,8 +30,14 @@ import {withRouter} from "react-router-dom";
 import NavLink from "./layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
 import {SwitchLocale} from "./layouts/elements/SwitchLocale";
+import {NavTree} from "./layouts/elements/NavTree";
+import {ActionControls} from "./layouts/elements/ActionControls";
+import {connect} from "react-redux";
+import {loadPageTitle} from "../reducers/layout";
 
-class App extends Component {
+class _App extends Component {
+  componentDidMount() {}
+  componentWillReceiveProps(nextProps) {}
   render() {
     return (
       <div className="App pt-ui-text">
@@ -56,10 +62,28 @@ class App extends Component {
             </NavbarGroup>
           </Navbar>
         </header>
-        <div className="wrapper">{this.props.children}</div>
+        <div className="wrapper">
+          <div className="main-container">
+            <div className="left-panel pt-dark">
+              <h4 className="left-panel-title pt-dark">
+                <FormattedMessage id={this.props.pageTitle} />
+              </h4>
+              <div>
+                <ActionControls />
+                <NavTree />
+              </div>
+            </div>
+            {this.props.children}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
+const App = connect(state => {
+  return {
+    pageTitle: state.layout.pageTitle
+  };
+}, {})(_App);
 export default withRouter(App);

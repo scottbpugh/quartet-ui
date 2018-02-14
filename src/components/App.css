@@ -70,3 +70,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .mini-form button {
   margin:10px;
 }
+.hidden {
+  display: none !important;
+}
+.context {
+  position: absolute;
+  
+}

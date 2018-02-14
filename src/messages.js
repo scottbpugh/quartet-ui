@@ -26,7 +26,8 @@ export default {
         server: "Server"
       },
       serverSettings: {
-        serverSettings: "Server Settings"
+        serverSettings: "Server Settings",
+        addAServer: "Add a New Server"
       }
     },
     plugins: {
@@ -61,7 +62,8 @@ export default {
         server: "Serveur"
       },
       serverSettings: {
-        serverSettings: "Paramètres serveur"
+        serverSettings: "Paramètres serveur",
+        addAServer: "Ajouter un serveur"
       }
     },
     plugins: {

@@ -16,10 +16,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from "react";
-import {NavTree} from "./elements/NavTree";
-import {ActionControls} from "./elements/ActionControls";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
+import {loadPageTitle} from "../../reducers/layout";
 
 /**
  * LeftPanel
@@ -56,33 +56,36 @@ export const RightPanel = props => (
  *
  * @return {ReactElement} The layout element
  */
-export const Panels = props => {
-  if (props.children && props.children.length === 2) {
-    // dynamically pass title
-    let titledLeftPanel = React.cloneElement(props.children[0], {
-      title: props.title
-    });
-    // nested object version.
-    return (
-      <div className="main-container">
-        {titledLeftPanel}
-        {props.children[1]}
-      </div>
-    );
+class _Panels extends Component {
+  componentDidMount() {
+    if (typeof this.props.title === "object") {
+      // this is a formatted message
+      this.props.loadPageTitle(this.props.title.props.id);
+    } else {
+      // treating it as a string
+      this.props.loadPageTitle(this.props.title);
+    }
   }
+  render() {
+    if (this.props.children && this.props.children.length === 2) {
+      // dynamically pass title
+      let titledLeftPanel = React.cloneElement(this.props.children[0], {
+        title: this.props.pageTitle
+      });
+      // nested object version.
+      return <div className="main-container">{this.props.children[1]}</div>;
+    }
 
-  // otherwise expect props leftPanel, title, and right Panel
-  return (
-    <div className="main-container">
-      <div className="left-panel pt-dark">
-        <h4 className="left-panel-title">{props.title}</h4>
-        <div>
-          <ActionControls />
-          <NavTree />
-        </div>
-        {props.leftPanel}
-      </div>
-      <div className="right-panel">{props.rightPanel}</div>
-    </div>
-  );
-};
+    // otherwise expect props leftPanel, title, and right Panel
+    return <div className="right-panel">{this.props.rightPanel}</div>;
+  }
+}
+
+export const Panels = connect(
+  (state, ownProps) => {
+    return {
+      pageTitle: state.layout.pageTitle
+    };
+  },
+  {loadPageTitle}
+)(_Panels);

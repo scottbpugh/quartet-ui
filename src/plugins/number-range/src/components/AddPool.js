@@ -37,9 +37,6 @@ class _AddPool extends Component {
   render() {
     return (
       <Panels title={<FormattedMessage id="plugins.numberRange.addPool" />}>
-        <LeftPanel>
-          <NRTree nr={this.props.nr} />
-        </LeftPanel>
         <RightPanel>
           <div className="large-cards-container">
             <Card className="pt-elevation-4 form-card">

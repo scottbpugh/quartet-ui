@@ -16,32 +16,39 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-div.tree-wrapper {
+.tree-wrapper {
   margin-top:10px;
   display:flex;
   flex-direction:column;
   align-items:flex-start;
 }
 
-ul.tree-root li {
+.tree-root li {
   list-style-type: none;
   margin:16px 0;
   padding:0;
 }
 
-ul.tree-root {
+.tree-root {
   padding:0;
   margin:0 5px;
+  padding:0;
 }
 
-span.tree-node-label {
+.tree-node-label {
   padding: 0 0 0 30px;
 }
 
-li.tree-node-server {
+.tree-node-server {
   background-image: url("/icons/QU4RTET-16x16.svg");
   background-repeat:no-repeat;
   background-position: 18px;
+}
+
+.tree-buttons {
+  width:100%;
+  height:30px;
+  margin-top:10px;
 }
 
 .tree-add-button {

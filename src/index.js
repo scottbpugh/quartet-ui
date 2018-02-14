@@ -25,6 +25,7 @@ import {Provider} from "react-redux";
 import routes from "./routes";
 import {initialData} from "./reducers/serversettings";
 import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
+import {initialData as layoutInitialData} from "./reducers/layout";
 import {IntlProvider} from "react-intl-redux";
 import {addLocaleData} from "react-intl";
 
@@ -43,7 +44,8 @@ const initialState = {
     defaultLocale: "en-US",
     locale: locale,
     messages: flattenMessages(messages[locale])
-  }
+  },
+  layout: layoutInitialData()
 };
 
 console.log("initialState is", JSON.stringify(initialState));

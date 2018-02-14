@@ -294,23 +294,7 @@ class _ServerSettings extends Component {
         </li>
       );
     });
-    return (
-      <div>
-        <ul>{serverList}</ul>
-        <div className="mini-form">
-          <button
-            className="pt-button"
-            onClick={e => {
-              this.props.history.push("/server-settings/");
-            }}>
-            <FormattedMessage
-              id="plugins.numberRange.addServer"
-              defaultMessage="Add a New Server"
-            />
-          </button>
-        </div>
-      </div>
-    );
+    return <div />;
   };
 
   render() {

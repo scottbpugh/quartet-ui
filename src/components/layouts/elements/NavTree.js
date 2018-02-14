@@ -24,6 +24,8 @@ import {NavItems} from "../../../plugins/number-range/src/components/NavItems";
 import {ActionControls} from "./ActionControls";
 import "./NavTree.css";
 import classNames from "classnames";
+import {Menu, MenuItem, Popover, Position, Button} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 
 class TreeNode extends Component {
   render() {
@@ -47,11 +49,39 @@ class Tree extends Component {
   }
 }
 
-class _NavTree extends Component {
-  static propTypes = {
-    history: PropTypes.object.isRequired
-  };
+class AddServerButton extends Component {
+  goTo(path) {
+    this.props.history.push(path);
+  }
+  render() {
+    const addMenu = (
+      <Menu className="menu-padding-fix">
+        <MenuItem
+          text={<FormattedMessage id="app.serverSettings.addAServer" />}
+          onClick={this.goTo.bind(this, "/server-settings/")}
+        />
+      </Menu>
+    );
+    return (
+      <div>
+        <Popover content={addMenu} position={Position.RIGHT_CENTER}>
+          <button
+            onClick={this.displayMenu}
+            tabindex="0"
+            className="pt-button pt-icon-add">
+            {/*
+              <FormattedMessage
+                id="plugins.numberRange.addServer"
+                defaultMessage="Add a New Server"
+              />*/}
+          </button>
+        </Popover>
+      </div>
+    );
+  }
+}
 
+class _NavTree extends Component {
   constructor(props) {
     super(props);
   }
@@ -70,13 +100,33 @@ class _NavTree extends Component {
   render() {
     return (
       <div className="tree-wrapper">
-        <button className="pt-button pt-icon-add tree-add-button">
-          {/*
-              <FormattedMessage
-                id="plugins.numberRange.addServer"
-                defaultMessage="Add a New Server"
-              />*/}
-        </button>
+        <div className="">
+          <div className="pt-button-group pt-minimal">
+            <AddServerButton history={this.props.history} />
+            <Button tabindex="0" iconName="pt-icon-timeline-area-chart" />
+            {/*
+            <button
+              className="pt-button pt-icon-control"
+              tabindex="0"
+              role="button"
+            />
+            <button
+              className="pt-button pt-icon-graph"
+              tabindex="0"
+              role="button"
+            />
+            <button
+              className="pt-button pt-icon-camera"
+              tabindex="0"
+              role="button"
+            />
+            <button
+              className="pt-button pt-icon-map"
+              tabindex="0"
+              role="button"
+            />*/}
+          </div>
+        </div>
         <Tree>{this.getTree()}</Tree>
       </div>
     );
@@ -85,4 +135,4 @@ class _NavTree extends Component {
 
 export const NavTree = connect((state, ownProps) => {
   return {servers: state.serversettings.servers};
-}, {})(_NavTree);
+}, {})(withRouter(_NavTree));
