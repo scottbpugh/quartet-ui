@@ -16,10 +16,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {createAction} from "redux-actions";
+// From https://lazamar.github.io/dispatching-from-inside-of-reducers/
 
-export default {
-  saveServerSettings: createAction("SERVER_SETTINGS_SAVE"),
-  loadCurrentServer: createAction("SERVER_SETTINGS_LOAD_SERVER"),
-  serverUpdated: createAction("SERVER_SETTINGS_SERVER_UPDATED")
+export const asyncDispatchMiddleware = store => next => action => {
+  let syncActivityFinished = false;
+  let actionQueue = [];
+
+  function flushQueue() {
+    actionQueue.forEach(a => store.dispatch(a)); // flush queue
+    actionQueue = [];
+  }
+
+  function asyncDispatch(asyncAction) {
+    actionQueue = actionQueue.concat([asyncAction]);
+
+    if (syncActivityFinished) {
+      flushQueue();
+    }
+  }
+
+  const actionWithAsyncDispatch = Object.assign({}, action, {asyncDispatch});
+
+  next(actionWithAsyncDispatch);
+  syncActivityFinished = true;
+  flushQueue();
 };
+
+export default asyncDispatchMiddleware;

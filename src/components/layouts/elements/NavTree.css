@@ -27,24 +27,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   list-style-type: none;
   margin:16px 0;
   padding:0;
+  cursor:pointer;
 }
 
+.tree-root a {
+  color:#EEE;
+}
+.tree-root a:hover {
+  color:#EEE;
+}
 .tree-root {
   padding:0;
   margin:0 5px;
-  padding:0;
 }
 
+.tree-root ul {
+  padding:0 0 0 10px;
+}
+
+
 .tree-node-label {
-  padding: 0 0 0 30px;
+  padding: 0 0 0 15px;
+  display:inline-block;
+  margin-left: 10px;
 }
 
 .tree-node-server {
   background-image: url("/icons/QU4RTET-16x16.svg");
+  background-size: 16px 16px;
   background-repeat:no-repeat;
-  background-position: 18px;
+  background-position: 18px top;
 }
 
+.tree-node-pool {
+  background-image: url("/icons/pool-24.svg");
+  background-size: 16px 16px;
+  background-repeat:no-repeat;
+  background-position: 18px top;
+}
+.tree-node-plugin {
+
+}
 .tree-buttons {
   width:100%;
   height:30px;
@@ -53,4 +76,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .tree-add-button {
   float:right;
+}
+
+.collapsed ul {
+  /*  display:none;*/
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
+}
+
+.swing {
+
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: translate(0, -40px);
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+}
+
+.slide-enter.slide-enter-active {
+  opacity:1;
+  transform:none;
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+}
+
+.slide-exit {
+  opacity:1;
+  transform:none;
+  transition : all .2s ease;
+}
+
+.slide-exit.slide-exit-active {
+  opacity:0;
+  transform: translate(0, -40px);
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+}
+.arrow-straight {
+  display:inline-block;
+  transform-origin:8px 8px;
+  transform: none;
+  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+}
+.arrow-rotated {
+  display:inline-block;
+  transform-origin:8px 8px;
+  transform: rotate(90deg);
+  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
 }

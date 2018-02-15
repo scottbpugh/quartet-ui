@@ -20,28 +20,107 @@ import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {NavItems} from "../../../plugins/number-range/src/components/NavItems";
 import {ActionControls} from "./ActionControls";
 import "./NavTree.css";
 import classNames from "classnames";
-import {Menu, MenuItem, Popover, Position, Button} from "@blueprintjs/core";
+import {
+  Menu,
+  MenuItem,
+  Popover,
+  Position,
+  Button,
+  Icon
+} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import {loadPools} from "../../../plugins/number-range/src/reducers/numberrange";
+import {NavPluginRoot} from "../../../plugins/number-range/src/components/NavItems";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
+import "velocity-animate";
+import "velocity-animate/velocity.ui";
+import {VelocityTransitionGroup} from "velocity-react";
 
-class TreeNode extends Component {
+export class CustomIcon extends Component {
   render() {
+    return <span className={classNames({"pt-icon-standard": true})} />;
+  }
+}
+
+const Fade = ({children, ...props}) => (
+  <CSSTransition {...props} timeout={200} classNames="slide">
+    {children}
+  </CSSTransition>
+);
+
+class SubTree extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <ul className="swing">
+        <TransitionGroup>
+          {!this.props.collapsed
+            ? this.props.children.map((item, i) => {
+                return <Fade key={i}>{item}</Fade>;
+              })
+            : null}
+        </TransitionGroup>
+      </ul>
+    );
+  }
+}
+
+class _TreeNode extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {childrenNodes: [], collapsed: true};
+  }
+  toggleChildren = evt => {
+    this.setState({collapsed: !this.state.collapsed}, () => {
+      // go to path, for detail...
+      this.go();
+    });
+  };
+  go = () => {
+    if (this.props.path) {
+      this.props.history.push(this.props.path);
+    }
+  };
+  render() {
+    let expandable = this.props.childrenNodes.length > 0 ? true : false;
     return (
       <li
         className={classNames({
-          "pt-icon-chevron-right": true,
           arrow: true,
-          "tree-node-server": true
+          [`tree-node-${this.props.nodeType}`]: true,
+          collapsed: this.state.collapsed
         })}>
-        <span className="tree-node-label">{this.props.children}</span>
-        <ul>{this.props.childrenNodes}</ul>
+        <a onClick={this.toggleChildren}>
+          <span
+            className={classNames({
+              "arrow-straight": this.state.collapsed,
+              "arrow-rotated": !this.state.collapsed
+            })}>
+            <Icon
+              iconName="pt-icon-chevron-right"
+              style={{visibility: expandable ? "visible" : "hidden"}}
+            />
+          </span>
+        </a>
+
+        <a onClick={this.go}>
+          <span className="tree-node-label">{this.props.children}</span>
+        </a>
+        <SubTree collapsed={this.state.collapsed}>
+          {this.props.childrenNodes}
+        </SubTree>
       </li>
     );
   }
 }
+
+export const TreeNode = withRouter(_TreeNode);
 
 class Tree extends Component {
   render() {
@@ -85,16 +164,32 @@ class _NavTree extends Component {
   constructor(props) {
     super(props);
   }
-
+  componentDidMount() {
+    if (Object.keys(this.props.servers).length > 0) {
+      for (let key in this.props.servers) {
+        this.props.loadPools(this.props.servers[key]);
+      }
+    }
+  }
+  componentWillReceiveProps(nextProps) {}
   getTree() {
     const {servers} = this.props;
-
+    console.log(this.props);
     return Object.keys(servers).map(serverID => {
-      return (
-        <TreeNode key={serverID}>
-          {servers[serverID].serverSettingName}
-        </TreeNode>
-      );
+      console.log("Iterating on", servers[serverID].serverSettingName);
+      if (this.props.nr[serverID]) {
+        let children = NavPluginRoot(this.props.nr[serverID].pools, serverID);
+
+        return (
+          <TreeNode
+            key={serverID}
+            nodeType="server"
+            childrenNodes={children ? children : []}>
+            {servers[serverID].serverSettingName}
+          </TreeNode>
+        );
+      }
+      return null;
     });
   }
   render() {
@@ -103,7 +198,7 @@ class _NavTree extends Component {
         <div className="leftbar-group">
           <div className="pt-button-group pt-minimal">
             <AddServerButton history={this.props.history} />
-            <Button tabindex="0" iconName="pt-icon-timeline-area-chart" />
+            <Button iconName="pt-icon-timeline-area-chart" />
             {/*
             <button
               className="pt-button pt-icon-control"
@@ -127,7 +222,7 @@ class _NavTree extends Component {
             />*/}
           </div>
         </div>
-        <div className="leftbar-group">
+        <div className="">
           <Tree>{this.getTree()}</Tree>
         </div>
       </div>
@@ -135,6 +230,12 @@ class _NavTree extends Component {
   }
 }
 
-export const NavTree = connect((state, ownProps) => {
-  return {servers: state.serversettings.servers};
-}, {})(withRouter(_NavTree));
+export const NavTree = connect(
+  (state, ownProps) => {
+    return {
+      servers: state.serversettings.servers,
+      nr: state.numberrange.servers
+    };
+  },
+  {loadPools}
+)(withRouter(_NavTree));

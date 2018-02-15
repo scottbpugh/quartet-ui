@@ -172,13 +172,11 @@ class _PoolList extends Component {
         </LeftPanel>
         <RightPanel>
           <div className="large-cards-container">
-            {Object.keys(nr).map(key => (
-              <ServerPools
-                history={this.props.history}
-                server={nr[key].server}
-                pools={nr[key].pools}
-              />
-            ))}
+            <ServerPools
+              history={this.props.history}
+              server={nr[this.props.match.params.serverID].server}
+              pools={nr[this.props.match.params.serverID].pools}
+            />
           </div>
         </RightPanel>
       </Panels>

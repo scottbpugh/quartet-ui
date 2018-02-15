@@ -20,6 +20,7 @@ import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
 import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
 import {showMessage} from "../../../../lib/message";
+import serverActions from "../../../../actions/serversettings";
 
 export const initialData = () => ({
   servers: {},
@@ -117,6 +118,16 @@ export default handleActions(
       return {
         ...state,
         allocationDetail: action.payload
+      };
+    },
+    [serverActions.serverUpdated]: (state, action) => {
+      // we want to reload pools when new server is saved.
+      console.log(
+        "SERVER ADDED OR UPDATED. Number Range will fetch data on this server."
+      );
+      action.asyncDispatch(loadPools(action.payload));
+      return {
+        ...state
       };
     }
   },

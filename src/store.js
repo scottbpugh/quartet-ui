@@ -31,10 +31,11 @@ import layout from "./reducers/layout";
 import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";
 import locale from "./reducers/locales";
+import asyncDispatchMiddleware from "./middlewares/asyncDispatchMiddleware";
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
-  const middlewares = [thunk, router];
+  const middlewares = [thunk, router, asyncDispatchMiddleware];
   const composeEnhancers = (() => {
     const compose_ = window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
     if (process.env.NODE_ENV === "development" && compose_) {

@@ -18,18 +18,36 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {Tree} from "@blueprintjs/core";
+import {Tree, Icon} from "@blueprintjs/core";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {TreeNode} from "../../../../components/layouts/elements/NavTree";
 
-export const NavItems = props => {
-  return props.nr[props.server.serverID].pools.map(pool => {
-    return {
-      key: pool.machine_name,
-      label: pool.readable_name,
-      path: `/number-range/region-detail/${props.server.serverID}/${
-        pool.machine_name
-      }`
-    };
+export const NavItems = (pools, serverID) => {
+  if (!Array.isArray(pools)) {
+    return [];
+  }
+  return pools.map(pool => {
+    return (
+      <TreeNode
+        key={pool.machine_name}
+        path={`/number-range/region-detail/${serverID}/${pool.machine_name}`}
+        nodeType="pool"
+        childrenNodes={[]}>
+        {pool.readable_name}
+      </TreeNode>
+    );
   });
+};
+
+export const NavPluginRoot = (pools, serverID) => {
+  let children = NavItems(pools, serverID);
+  return [
+    <TreeNode
+      nodeType="plugin"
+      childrenNodes={children}
+      path={`/number-range/pools/${serverID}`}>
+      Serial Number Pools
+    </TreeNode>
+  ];
 };

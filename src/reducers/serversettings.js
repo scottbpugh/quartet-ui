@@ -45,7 +45,8 @@ export const saveServer = postData => {
     if (!postData.serverID) {
       postData.serverID = uuidv4();
     }
-    return dispatch({type: actions.saveServerSettings, payload: postData});
+    dispatch({type: actions.saveServerSettings, payload: postData});
+    return dispatch({type: actions.serverUpdated, payload: postData});
   };
 };
 
