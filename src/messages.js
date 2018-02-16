@@ -49,7 +49,8 @@ export default {
         to: "to",
         state: "State",
         addRegion: "Add a New Region",
-        addPool: "Add a New Pool"
+        addPool: "Add a New Pool",
+        noRegionInPool: "There is currently no region in this pool."
       }
     }
   },
@@ -85,7 +86,8 @@ export default {
         to: "à",
         state: "État",
         addRegion: "Ajouter une région",
-        addPool: "Ajouter un Groupe"
+        addPool: "Ajouter un Groupe",
+        noRegionInPool: "Il n'existe aucune region dans ce groupe."
       }
     }
   }
