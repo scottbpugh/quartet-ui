@@ -50,7 +50,8 @@ export default {
         state: "State",
         addRegion: "Add a New Region",
         addPool: "Add a New Pool",
-        noRegionInPool: "There is currently no region in this pool."
+        noRegionInPool: "There is currently no region in this pool.",
+        regionDetailTitle: "Pool {poolName} Regions"
       }
     }
   },
@@ -87,7 +88,8 @@ export default {
         state: "État",
         addRegion: "Ajouter une région",
         addPool: "Ajouter un Groupe",
-        noRegionInPool: "Il n'existe aucune region dans ce groupe."
+        noRegionInPool: "Il n'existe aucune region dans ce groupe.",
+        regionDetailTitle: "Regions du groupe {poolName}"
       }
     }
   }

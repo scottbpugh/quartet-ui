@@ -102,96 +102,65 @@ class _RegionDetail extends Component {
     let regions = this.props.currentRegions;
 
     return (
-      <Panels title={`Pool ${this.currentPool.readable_name} Regions`}>
-        <LeftPanel>
-          <div className="mini-form">
-            <h6>
-              <FormattedMessage id="plugins.numberRange.allocation" />
-            </h6>
-            <input
-              placeholder="allocate"
-              className="pt-input"
-              type="number"
-              defaultValue={1}
-              min={1}
-              max={100000}
-              style={{width: 200}}
-              onChange={this.previewAlloc.bind(this)}
-            />
-            <button onClick={this.setAllocation} className="pt-button">
-              <FormattedMessage id="plugins.numberRange.allocateButton" />
-            </button>
-          </div>
-          <div className="mini-form">
-            <button
-              className="pt-button"
-              onClick={e => {
-                this.props.history.push(
-                  `/number-range/add-region/${this.currentServer.serverID}/${
-                    this.currentPool.machine_name
-                  }`
-                );
-              }}>
-              <FormattedMessage id="plugins.numberRange.addRegion" />
-            </button>
-          </div>
-          <NRTree nr={this.props.nr} />
-        </LeftPanel>
-
-        <RightPanel>
-          <div className="auto-cards-container">
-            {regions.length > 0 ? (
-              regions.map(region => (
-                <Card
-                  className={classNames({
-                    "pt-elevation-4": true,
-                    "region-detail": true,
-                    updated: this.state.lastUpdated === region.machine_name
-                  })}
-                  key={region.machine_name}>
-                  <h5>{region.readable_name}</h5>
-                  <ul>
-                    <li>
-                      <FormattedMessage id="plugins.numberRange.createdOn" />:{" "}
-                      <FormattedDate value={region.created_date} />
-                    </li>
-                    <li>
-                      <FormattedMessage id="plugins.numberRange.status" />:{" "}
-                      {region.active ? (
-                        <FormattedMessage id="plugins.numberRange.active" />
-                      ) : (
-                        <FormattedMessage id="plugins.numberRange.inactive" />
-                      )}
-                    </li>
-                    <li>
-                      <FormattedMessage
-                        id="plugins.numberRange.range"
-                        defaultMessage="Range"
-                      />: <FormattedNumber value={region.start} />{" "}
-                      <FormattedMessage id="plugins.numberRange.to" />{" "}
-                      <FormattedNumber value={region.end} />
-                    </li>
-                    <li>
-                      <FormattedMessage id="plugins.numberRange.state" />:{" "}
-                      <FormattedNumber value={region.state} />
-                    </li>
-                  </ul>
-                  <RegionRange
-                    start={region.start}
-                    end={region.end}
-                    state={region.state}
-                    alloc={this.state.alloc}
-                  />
-                </Card>
-              ))
-            ) : (
-              <Callout>
-                <FormattedMessage id="plugins.numberRange.noRegionInPool" />
-              </Callout>
-            )}
-          </div>
-        </RightPanel>
-      </Panels>
+      <RightPanel
+        title={
+          <FormattedMessage
+            id="plugins.numberRange.regionDetailTitle"
+            values={{poolName: this.currentPool.readable_name}}
+          />
+        }>
+        <div className="auto-cards-container">
+          {regions.length > 0 ? (
+            regions.map(region => (
+              <Card
+                className={classNames({
+                  "pt-elevation-4": true,
+                  "region-detail": true,
+                  updated: this.state.lastUpdated === region.machine_name
+                })}
+                key={region.machine_name}>
+                <h5>{region.readable_name}</h5>
+                <ul>
+                  <li>
+                    <FormattedMessage id="plugins.numberRange.createdOn" />:{" "}
+                    <FormattedDate value={region.created_date} />
+                  </li>
+                  <li>
+                    <FormattedMessage id="plugins.numberRange.status" />:{" "}
+                    {region.active ? (
+                      <FormattedMessage id="plugins.numberRange.active" />
+                    ) : (
+                      <FormattedMessage id="plugins.numberRange.inactive" />
+                    )}
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="plugins.numberRange.range"
+                      defaultMessage="Range"
+                    />: <FormattedNumber value={region.start} />{" "}
+                    <FormattedMessage id="plugins.numberRange.to" />{" "}
+                    <FormattedNumber value={region.end} />
+                  </li>
+                  <li>
+                    <FormattedMessage id="plugins.numberRange.state" />:{" "}
+                    <FormattedNumber value={region.state} />
+                  </li>
+                </ul>
+                <RegionRange
+                  start={region.start}
+                  end={region.end}
+                  state={region.state}
+                  alloc={this.state.alloc}
+                />
+              </Card>
+            ))
+          ) : (
+            <Callout>
+              <FormattedMessage id="plugins.numberRange.noRegionInPool" />
+            </Callout>
+          )}
+        </div>
+      </RightPanel>
     );
     //<div>{JSON.stringify(this.props.region)}</div>;
   }

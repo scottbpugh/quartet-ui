@@ -21,7 +21,7 @@ import actions from "../actions/layout";
 
 export const initialData = () => {
   return {
-    pageTitle: "Main"
+    pageTitle: {id: "Main", values: {}}
   };
 };
 

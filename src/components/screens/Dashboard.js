@@ -19,14 +19,13 @@
 import React from "react";
 import "../cards/dashboard/cards.css";
 import {Card} from "@blueprintjs/core";
-import {Panels} from "../layouts/Panels";
+import {RightPanel} from "../layouts/Panels";
 import LatestGTINs from "../cards/dashboard/LatestGTINs";
 import ItemsProcessedByDate from "../cards/dashboard/ItemsProcessedByDate";
 import NotificationsDisplay from "../cards/dashboard/NotificationsDisplay";
 import ItemLookup from "../cards/dashboard/ItemLookup";
 import {FormattedMessage} from "react-intl";
 
-const DashboardLeft = props => <div />; // leaving empty for now.
 const DashboardRight = props => (
   <div className="cards-container">
     <Card className="pt-elevation-3">
@@ -50,10 +49,8 @@ const DashboardRight = props => (
 
 export default props => {
   return (
-    <Panels
-      title={<FormattedMessage id="app.nav.dashboard" />}
-      leftPanel={DashboardLeft()}
-      rightPanel={DashboardRight()}
-    />
+    <RightPanel title={<FormattedMessage id="app.nav.dashboard" />}>
+      {DashboardRight()}
+    </RightPanel>
   );
 };

@@ -18,11 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {
-  Panels,
-  RightPanel,
-  LeftPanel
-} from "../../../../components/layouts/Panels";
+import {RightPanel} from "../../../../components/layouts/Panels";
 import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
@@ -160,26 +156,21 @@ class _PoolList extends Component {
   render() {
     let nr = this.props.nr;
     return (
-      <Panels
+      <RightPanel
         title={
           <FormattedMessage
             id="plugins.numberRange.numberRangePools"
             defaultMessage="Number Range Pools"
           />
         }>
-        <LeftPanel>
-          <NRTree nr={nr} />
-        </LeftPanel>
-        <RightPanel>
-          <div className="large-cards-container">
-            <ServerPools
-              history={this.props.history}
-              server={nr[this.props.match.params.serverID].server}
-              pools={nr[this.props.match.params.serverID].pools}
-            />
-          </div>
-        </RightPanel>
-      </Panels>
+        <div className="large-cards-container">
+          <ServerPools
+            history={this.props.history}
+            server={nr[this.props.match.params.serverID].server}
+            pools={nr[this.props.match.params.serverID].pools}
+          />
+        </div>
+      </RightPanel>
     );
   }
 }

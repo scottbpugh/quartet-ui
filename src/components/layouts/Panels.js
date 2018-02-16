@@ -28,12 +28,28 @@ import {loadPageTitle} from "../../reducers/layout";
  *
  * @return {ReactElement} The left panel element.
  */
-export const LeftPanel = props => (
-  <div className="left-panel pt-dark">
-    <h4 className="left-panel-title">{props.title}</h4>
-    <div>{props.children}</div>
-  </div>
-);
+class _LeftPanel extends Component {
+  render() {
+    return (
+      <div className="left-panel pt-dark">
+        <h4 className="left-panel-title">
+          {/* We use a new message from passed props because Redux uses plain objects. */}
+          <FormattedMessage {...this.props.pageTitle} />
+        </h4>
+        <div>{this.props.children}</div>
+      </div>
+    );
+  }
+}
+
+export const LeftPanel = connect(
+  (state, ownProps) => {
+    return {
+      pageTitle: state.layout.pageTitle
+    };
+  },
+  {loadPageTitle}
+)(_LeftPanel);
 
 /**
  * RightPanel
@@ -42,11 +58,37 @@ export const LeftPanel = props => (
  *
  * @return {ReactElement} The right panel element.
  */
-export const RightPanel = props => (
-  <div className="right-panel">
-    <div>{props.children}</div>
-  </div>
-);
+class _RightPanel extends Component {
+  componentDidMount() {
+    //this.props.loadPageTitle(this.props.title.props.id);
+    this.props.loadPageTitle({...this.props.title.props});
+  }
+  componentWillReceiveProps(nextProps) {
+    if (
+      JSON.stringify(nextProps.title.props) !==
+      JSON.stringify(this.props.pageTitle)
+    ) {
+      // formattedMessage props have changed.
+      this.props.loadPageTitle({...nextProps.title.props});
+    }
+  }
+  render() {
+    return (
+      <div className="right-panel">
+        <div>{this.props.children}</div>
+      </div>
+    );
+  }
+}
+
+export const RightPanel = connect(
+  (state, ownProps) => {
+    return {
+      pageTitle: state.layout.pageTitle
+    };
+  },
+  {loadPageTitle}
+)(_RightPanel);
 
 /**
  * Default - function returning a left/right panel layout.
@@ -57,27 +99,8 @@ export const RightPanel = props => (
  * @return {ReactElement} The layout element
  */
 class _Panels extends Component {
-  componentDidMount() {
-    if (typeof this.props.title === "object") {
-      // this is a formatted message
-      this.props.loadPageTitle(this.props.title.props.id);
-    } else {
-      // treating it as a string
-      this.props.loadPageTitle(this.props.title);
-    }
-  }
   render() {
-    if (this.props.children && this.props.children.length === 2) {
-      // dynamically pass title
-      let titledLeftPanel = React.cloneElement(this.props.children[0], {
-        title: this.props.pageTitle
-      });
-      // nested object version.
-      return <div className="main-container">{this.props.children[1]}</div>;
-    }
-
-    // otherwise expect props leftPanel, title, and right Panel
-    return <div className="right-panel">{this.props.rightPanel}</div>;
+    return <div className="main-container">{this.props.children}</div>;
   }
 }
 

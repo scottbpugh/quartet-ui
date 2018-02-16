@@ -174,9 +174,7 @@ class _NavTree extends Component {
   componentWillReceiveProps(nextProps) {}
   getTree() {
     const {servers} = this.props;
-    console.log(this.props);
     return Object.keys(servers).map(serverID => {
-      console.log("Iterating on", servers[serverID].serverSettingName);
       if (this.props.nr[serverID]) {
         let children = NavPluginRoot(this.props.nr[serverID].pools, serverID);
 

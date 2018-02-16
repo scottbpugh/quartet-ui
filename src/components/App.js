@@ -34,6 +34,7 @@ import {NavTree} from "./layouts/elements/NavTree";
 import {ActionControls} from "./layouts/elements/ActionControls";
 import {connect} from "react-redux";
 import {loadPageTitle} from "../reducers/layout";
+import {LeftPanel, Panels} from "./layouts/Panels";
 
 class _App extends Component {
   componentDidMount() {}
@@ -53,9 +54,6 @@ class _App extends Component {
               <NavLink to="/server-settings" iconName="cloud">
                 <FormattedMessage id="app.nav.servers" />
               </NavLink>
-              <NavLink to="/number-range/pools" iconName="cloud">
-                <FormattedMessage id="app.nav.numberRange" />
-              </NavLink>
               <SwitchLocale />
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
@@ -63,17 +61,14 @@ class _App extends Component {
           </Navbar>
         </header>
         <div className="wrapper">
-          <div className="main-container">
-            <div className="left-panel pt-dark">
-              <h4 className="left-panel-title pt-dark">
-                <FormattedMessage id={this.props.pageTitle} />
-              </h4>
+          <Panels>
+            <LeftPanel>
               <div>
                 <NavTree />
               </div>
-            </div>
+            </LeftPanel>
             {this.props.children}
-          </div>
+          </Panels>
         </div>
       </div>
     );

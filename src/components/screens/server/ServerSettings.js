@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Panels} from "../../layouts/Panels";
+import {RightPanel} from "../../layouts/Panels";
 import "./server-settings.css";
 import {FormGroup, Switch, Card, Button} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
@@ -299,16 +299,15 @@ class _ServerSettings extends Component {
 
   render() {
     return (
-      <Panels
+      <RightPanel
         title={
           <FormattedMessage
             id="app.serverSettings.serverSettings"
             defaultMessage="Server Settings"
           />
-        }
-        leftPanel={this.SettingsMenu(this.props)}
-        rightPanel={this.SettingsForm()}
-      />
+        }>
+        {this.SettingsForm()}
+      </RightPanel>
     );
   }
 }
