@@ -35,6 +35,7 @@ import {FormattedMessage} from "react-intl";
 import {loadPools} from "../../../plugins/number-range/src/reducers/numberrange";
 import {NavPluginRoot} from "../../../plugins/number-range/src/components/NavItems";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
+import {getRegisteredComponent} from "../../../plugins/pluginRegistration";
 
 export class CustomIcon extends Component {
   render() {
@@ -173,7 +174,23 @@ class _NavTree extends Component {
     const {servers} = this.props;
     return Object.keys(servers).map(serverID => {
       if (this.props.nr[serverID]) {
-        let children = NavPluginRoot(this.props.nr[serverID].pools, serverID);
+        /*let children = [
+          <NavPluginRoot
+            pools={this.props.nr[serverID].pools}
+            serverID={serverID}
+          />
+        ];*/
+        let children = this.props.navTreeItems.map(component => {
+          let ComponentName = getRegisteredComponent(
+            component.pluginComponentName
+          );
+          return (
+            <ComponentName
+              pools={this.props.nr[serverID].pools}
+              serverID={serverID}
+            />
+          );
+        });
 
         return (
           <TreeNode
@@ -193,28 +210,6 @@ class _NavTree extends Component {
         <div className="leftbar-group">
           <div className="pt-button-group pt-minimal">
             <AddServerButton history={this.props.history} />
-            <Button iconName="pt-icon-timeline-area-chart" />
-            {/*
-            <button
-              className="pt-button pt-icon-control"
-              tabindex="0"
-              role="button"
-            />
-            <button
-              className="pt-button pt-icon-graph"
-              tabindex="0"
-              role="button"
-            />
-            <button
-              className="pt-button pt-icon-camera"
-              tabindex="0"
-              role="button"
-            />
-            <button
-              className="pt-button pt-icon-map"
-              tabindex="0"
-              role="button"
-            />*/}
           </div>
         </div>
         <div className="">
@@ -229,7 +224,8 @@ export const NavTree = connect(
   (state, ownProps) => {
     return {
       servers: state.serversettings.servers,
-      nr: state.numberrange.servers
+      nr: state.numberrange.servers,
+      navTreeItems: state.plugins.navTreeItems
     };
   },
   {loadPools}

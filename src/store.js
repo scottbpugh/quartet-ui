@@ -32,6 +32,7 @@ import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";
 import locale from "./reducers/locales";
 import asyncDispatchMiddleware from "./middlewares/asyncDispatchMiddleware";
+import pluginReducer from "./reducers/plugins";
 
 export default function configureStore(initialState, routerHistory) {
   const router = routerMiddleware(routerHistory);
@@ -55,7 +56,8 @@ export default function configureStore(initialState, routerHistory) {
     form: reduxFormReducer,
     intl: intlReducer,
     locale: locale,
-    layout: layout
+    layout: layout,
+    plugins: pluginReducer
   });
   return createStore(rootReducer, initialState, enhancer);
 }

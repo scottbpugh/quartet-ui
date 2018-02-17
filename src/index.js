@@ -34,6 +34,8 @@ import fr from "react-intl/locale-data/fr";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
 import App from "./components/App";
+import {initialData as pluginInitialData} from "./reducers/plugins";
+
 let locale = "fr-FR";
 
 const initialState = {
@@ -45,7 +47,8 @@ const initialState = {
     locale: locale,
     messages: flattenMessages(messages[locale])
   },
-  layout: layoutInitialData()
+  layout: layoutInitialData(),
+  plugins: pluginInitialData()
 };
 
 console.log("initialState is", JSON.stringify(initialState));
