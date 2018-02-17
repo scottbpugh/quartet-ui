@@ -24,6 +24,7 @@ import {connect} from "react-redux";
 import {TreeNode} from "../../../../components/layouts/elements/NavTree";
 import {registerComponent} from "../../../pluginRegistration";
 import actions from "../../../../actions/plugins";
+import {loadPools} from "../reducers/numberrange";
 
 export const NavItems = (pools, serverID) => {
   if (!Array.isArray(pools)) {
@@ -42,12 +43,21 @@ export const NavItems = (pools, serverID) => {
   });
 };
 
-export class NavPluginRoot extends Component {
+export class _NavPluginRoot extends Component {
   static get PLUGIN_COMPONENT_NAME() {
     return "NumberRangeNavRoot";
   }
+  componentDidMount() {
+    if (
+      Object.keys(this.props.servers).length > 0 &&
+      this.props.serverID in this.props.servers
+    ) {
+      this.props.loadPools(this.props.servers[this.props.serverID]);
+    }
+  }
   render() {
-    let {pools, serverID} = this.props;
+    let {serverID} = this.props;
+    let pools = this.props.nr[serverID] ? this.props.nr[serverID].pools : [];
     let children = NavItems(pools, serverID);
     return (
       <TreeNode
@@ -59,5 +69,15 @@ export class NavPluginRoot extends Component {
     );
   }
 }
+
+export const NavPluginRoot = connect(
+  (state, ownProps) => {
+    return {
+      servers: state.serversettings.servers,
+      nr: state.numberrange.servers
+    };
+  },
+  {loadPools}
+)(_NavPluginRoot);
 
 registerComponent("NumberRange", NavPluginRoot, actions.addToTreeServers);

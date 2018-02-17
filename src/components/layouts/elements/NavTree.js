@@ -32,7 +32,7 @@ import {
   Icon
 } from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
-import {loadPools} from "../../../plugins/number-range/src/reducers/numberrange";
+
 import {NavPluginRoot} from "../../../plugins/number-range/src/components/NavItems";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {getRegisteredComponent} from "../../../plugins/pluginRegistration";
@@ -163,45 +163,33 @@ class _NavTree extends Component {
     super(props);
   }
   componentDidMount() {
-    if (Object.keys(this.props.servers).length > 0) {
-      for (let key in this.props.servers) {
-        this.props.loadPools(this.props.servers[key]);
-      }
-    }
+    this.tree = this.getTree();
   }
   componentWillReceiveProps(nextProps) {}
   getTree() {
     const {servers} = this.props;
     return Object.keys(servers).map(serverID => {
-      if (this.props.nr[serverID]) {
-        /*let children = [
+      /*let children = [
           <NavPluginRoot
             pools={this.props.nr[serverID].pools}
             serverID={serverID}
           />
         ];*/
-        let children = this.props.navTreeItems.map(component => {
-          let ComponentName = getRegisteredComponent(
-            component.pluginComponentName
-          );
-          return (
-            <ComponentName
-              pools={this.props.nr[serverID].pools}
-              serverID={serverID}
-            />
-          );
-        });
-
-        return (
-          <TreeNode
-            key={serverID}
-            nodeType="server"
-            childrenNodes={children ? children : []}>
-            {servers[serverID].serverSettingName}
-          </TreeNode>
+      let children = this.props.navTreeItems.map(component => {
+        let ComponentName = getRegisteredComponent(
+          component.pluginComponentName
         );
-      }
-      return null;
+        return <ComponentName serverID={serverID} />;
+      });
+
+      return (
+        <TreeNode
+          key={serverID}
+          nodeType="server"
+          childrenNodes={children ? children : []}>
+          {servers[serverID].serverSettingName}
+        </TreeNode>
+      );
     });
   }
   render() {
@@ -220,13 +208,10 @@ class _NavTree extends Component {
   }
 }
 
-export const NavTree = connect(
-  (state, ownProps) => {
-    return {
-      servers: state.serversettings.servers,
-      nr: state.numberrange.servers,
-      navTreeItems: state.plugins.navTreeItems
-    };
-  },
-  {loadPools}
-)(withRouter(_NavTree));
+export const NavTree = connect((state, ownProps) => {
+  return {
+    servers: state.serversettings.servers,
+    nr: state.numberrange.servers,
+    navTreeItems: state.plugins.navTreeItems
+  };
+}, {})(withRouter(_NavTree));

@@ -64,7 +64,7 @@ export const registerComponent = (pluginName, component, injectAction) => {
 };
 
 export const getRegisteredComponents = () => {
-  return _registeredComponents;
+  return {..._registeredComponents};
 };
 export const getRegisteredComponent = fullPluginComponentName => {
   return _registeredComponents[fullPluginComponentName].component;
