@@ -77,7 +77,7 @@ class _RegionDetail extends Component {
       return;
     }
     // shake card for the last updated region.
-    nextProps.currentRegions.map((region, index) => {
+    /*nextProps.currentRegions.map((region, index) => {
       if (
         this.props.currentRegions[index] &&
         region.state !== this.props.currentRegions[index].state
@@ -95,7 +95,7 @@ class _RegionDetail extends Component {
         });
       }
       return null;
-    });
+    });*/
   }
 
   render() {

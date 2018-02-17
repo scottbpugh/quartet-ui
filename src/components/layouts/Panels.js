@@ -15,12 +15,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {loadPageTitle} from "../../reducers/layout";
-
+import {Fade} from "./elements/NavTree";
+import Velocity from "velocity-animate";
+require("velocity-animate/velocity.ui");
 /**
  * LeftPanel
  *
@@ -63,6 +66,8 @@ class _RightPanel extends Component {
     //this.props.loadPageTitle(this.props.title.props.id);
     this.props.loadPageTitle({...this.props.title.props});
   }
+
+  componentWillUnmount() {}
   componentWillReceiveProps(nextProps) {
     if (
       JSON.stringify(nextProps.title.props) !==
@@ -75,7 +80,7 @@ class _RightPanel extends Component {
   render() {
     return (
       <div className="right-panel">
-        <div>{this.props.children}</div>
+        <div ref="rightPanel">{this.props.children}</div>
       </div>
     );
   }

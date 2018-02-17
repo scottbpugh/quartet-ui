@@ -35,9 +35,6 @@ import {FormattedMessage} from "react-intl";
 import {loadPools} from "../../../plugins/number-range/src/reducers/numberrange";
 import {NavPluginRoot} from "../../../plugins/number-range/src/components/NavItems";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import "velocity-animate";
-import "velocity-animate/velocity.ui";
-import {VelocityTransitionGroup} from "velocity-react";
 
 export class CustomIcon extends Component {
   render() {
@@ -45,7 +42,7 @@ export class CustomIcon extends Component {
   }
 }
 
-const Fade = ({children, ...props}) => (
+export const Fade = ({children, ...props}) => (
   <CSSTransition {...props} timeout={200} classNames="slide">
     {children}
   </CSSTransition>

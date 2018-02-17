@@ -22,18 +22,18 @@ import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store";
 import {Provider} from "react-redux";
-import routes from "./routes";
+import QSwitch from "./routes";
 import {initialData} from "./reducers/serversettings";
 import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
 import {initialData as layoutInitialData} from "./reducers/layout";
 import {IntlProvider} from "react-intl-redux";
 import {addLocaleData} from "react-intl";
-
+import {BrowserRouter} from "react-router-dom";
 import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
-
+import App from "./components/App";
 let locale = "fr-FR";
 
 const initialState = {
@@ -55,7 +55,11 @@ const store = configureStore(initialState);
 
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider>{routes}</IntlProvider>
+    <IntlProvider>
+      <BrowserRouter>
+        <QSwitch />
+      </BrowserRouter>
+    </IntlProvider>
   </Provider>,
   document.getElementById("root")
 );

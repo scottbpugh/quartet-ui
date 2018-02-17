@@ -35,10 +35,12 @@ import {ActionControls} from "./layouts/elements/ActionControls";
 import {connect} from "react-redux";
 import {loadPageTitle} from "../reducers/layout";
 import {LeftPanel, Panels} from "./layouts/Panels";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 class _App extends Component {
   componentDidMount() {}
   componentWillReceiveProps(nextProps) {}
+
   render() {
     return (
       <div className="App pt-ui-text">
@@ -60,13 +62,15 @@ class _App extends Component {
             </NavbarGroup>
           </Navbar>
         </header>
+
         <div className="wrapper">
           <Panels>
-            <LeftPanel>
+            <LeftPanel key="leftpanel">
               <div>
                 <NavTree />
               </div>
             </LeftPanel>
+
             {this.props.children}
           </Panels>
         </div>

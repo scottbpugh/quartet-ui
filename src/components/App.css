@@ -84,3 +84,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin-top:10px;
   transition: all 0.2s ease;
 }
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
+}

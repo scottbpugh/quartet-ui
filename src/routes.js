@@ -17,20 +17,26 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React from "react";
 import {Switch, Route} from "react-router";
-import {BrowserRouter} from "react-router-dom";
+import {withRouter, BrowserRouter} from "react-router-dom";
 import App from "./components/App";
 import Dashboard from "./components/screens/Dashboard";
 import {ServerSettings} from "./components/screens/server/ServerSettings";
 import numberRangeRoutes from "./plugins/number-range/src/routes";
 
-export default (
-  <BrowserRouter>
-    <Switch>
-      <App>
-        <Route exact path="/" component={Dashboard} />
-        <Route path="/server-settings/:serverID?" component={ServerSettings} />
-        {numberRangeRoutes}
-      </App>
-    </Switch>
-  </BrowserRouter>
-);
+const QSwitch = ({location}) => {
+  let routes = [
+    <Route key="dashboard" exact path="/" component={Dashboard} />,
+    <Route
+      key="serversettings"
+      path="/server-settings/:serverID?"
+      component={ServerSettings}
+    />
+  ];
+  routes = routes.concat(numberRangeRoutes);
+  return (
+    <App>
+      <Switch>{routes}</Switch>
+    </App>
+  );
+};
+export default withRouter(QSwitch);

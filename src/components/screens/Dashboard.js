@@ -49,7 +49,9 @@ const DashboardRight = props => (
 
 export default props => {
   return (
-    <RightPanel title={<FormattedMessage id="app.nav.dashboard" />}>
+    <RightPanel
+      key="dashboard"
+      title={<FormattedMessage id="app.nav.dashboard" />}>
       {DashboardRight()}
     </RightPanel>
   );
