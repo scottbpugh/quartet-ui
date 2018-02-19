@@ -42,7 +42,7 @@ const _installedPlugins = {};
   Please be considerate of others and use your plugin name in your path,
   e.g.: <Route path="/number-range/pools:serverID component={PoolList}/>
 */
-const _registeredRoutes = [];
+const _registeredRoutes = {};
 
 /**
  * registerComponent - Description
@@ -115,4 +115,22 @@ export const getRegisteredComponent = fullPluginComponentName => {
  *
  * @return {type} Description
  */
-export const registerRoutes = (pluginName, routes) => {};
+export const registerRoutes = (pluginName, routes) => {
+  _registeredRoutes[pluginName] = routes;
+};
+
+export const unregisterRoutes = pluginName => {
+  delete _registeredRoutes[pluginName];
+};
+
+export const getRegisteredRoutes = () => {
+  return {..._registeredRoutes};
+};
+
+export const getArrayRoutes = () => {
+  let routes = [];
+  for (let plugin in _registeredRoutes) {
+    routes = routes.concat(_registeredRoutes[plugin]);
+  }
+  return routes;
+};

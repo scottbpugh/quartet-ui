@@ -15,17 +15,22 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React from "react";
+import React, {Component} from "react";
 import {Switch, Route} from "react-router";
 import {withRouter, BrowserRouter} from "react-router-dom";
 import App from "components/App";
 import Dashboard from "components/screens/Dashboard";
 import {ServerSettings} from "components/screens/server/ServerSettings";
-import numberRangeRoutes from "plugins/number-range/src/routes";
 import {PluginList} from "components/screens/plugins/PluginList";
+import {connect} from "react-redux";
+import {
+  getRegisteredComponents,
+  getUnregisteredComponents,
+  getArrayRoutes
+} from "plugins/pluginRegistration";
 
-const QSwitch = ({location}) => {
-  let routes = [
+const coreRoutes = () => {
+  return [
     <Route key="dashboard" exact path="/" component={Dashboard} />,
     <Route
       key="serversettings"
@@ -34,11 +39,71 @@ const QSwitch = ({location}) => {
     />,
     <Route key="pluginList" path="/plugins" component={PluginList} />
   ];
-  routes = routes.concat(numberRangeRoutes);
-  return (
-    <App>
-      <Switch>{routes}</Switch>
-    </App>
-  );
 };
+/**
+ * _QSwitch - Loads routes, and dynamic plugin-based components.
+ * @extends Component
+ */
+class _QSwitch extends Component {
+  constructor(props) {
+    super(props);
+    this.routes = coreRoutes();
+  }
+  processPlugins() {
+    // add new routes
+    this.routes = coreRoutes().concat(getArrayRoutes());
+    console.log("The Routes", this.routes);
+    // add new components.
+    let pluginComponents = getRegisteredComponents();
+    for (let pluginComponentName in pluginComponents) {
+      let entry = pluginComponents[pluginComponentName];
+      this.props.dispatch({
+        type: entry.action,
+        payload: {
+          pluginName: entry.pluginName,
+          pluginComponentName: pluginComponentName
+        }
+      });
+    }
+    // remove unregistered componments.
+    let disabledPluginComponents = getUnregisteredComponents();
+    for (let pluginComponentName in disabledPluginComponents) {
+      let entry = disabledPluginComponents[pluginComponentName];
+      this.props.dispatch({
+        type: entry.action,
+        payload: {
+          pluginName: entry.pluginName,
+          pluginComponentName: pluginComponentName
+        }
+      });
+    }
+  }
+  componentDidMount() {
+    this.processPlugins();
+  }
+  componentWillReceiveProps(nextProps) {
+    if (
+      JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
+    ) {
+      this.processPlugins();
+    }
+  }
+  render() {
+    let {location} = this.props;
+
+    return (
+      <App>
+        <Switch>{this.routes}</Switch>
+      </App>
+    );
+  }
+}
+const QSwitch = connect(
+  state => {
+    return {plugins: state.plugins.plugins};
+  },
+  dispatch => {
+    return {dispatch: dispatch};
+  }
+)(_QSwitch);
 export default withRouter(QSwitch);

@@ -42,51 +42,7 @@ import {
 } from "../plugins/pluginRegistration";
 
 class _App extends Component {
-  componentDidMount() {
-    // inject components.
-
-    let pluginComponents = getRegisteredComponents();
-    for (let pluginComponentName in pluginComponents) {
-      let entry = pluginComponents[pluginComponentName];
-      this.props.dispatch({
-        type: entry.action,
-        payload: {
-          pluginName: entry.pluginName,
-          pluginComponentName: pluginComponentName
-        }
-      });
-    }
-  }
-  componentWillReceiveProps(nextProps) {
-    if (
-      JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
-    ) {
-      // add new components.
-      let pluginComponents = getRegisteredComponents();
-      for (let pluginComponentName in pluginComponents) {
-        let entry = pluginComponents[pluginComponentName];
-        this.props.dispatch({
-          type: entry.action,
-          payload: {
-            pluginName: entry.pluginName,
-            pluginComponentName: pluginComponentName
-          }
-        });
-      }
-      // remove unregistered componments.
-      let disabledPluginComponents = getUnregisteredComponents();
-      for (let pluginComponentName in disabledPluginComponents) {
-        let entry = disabledPluginComponents[pluginComponentName];
-        this.props.dispatch({
-          type: entry.action,
-          payload: {
-            pluginName: entry.pluginName,
-            pluginComponentName: pluginComponentName
-          }
-        });
-      }
-    }
-  }
+  componentWillReceiveProps(nextProps) {}
   render() {
     return (
       <div className="App pt-ui-text">

@@ -33,7 +33,6 @@ import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
-import App from "./components/App";
 import {initialData as pluginInitialData} from "./reducers/plugins";
 
 let locale = "en-US";

@@ -15,21 +15,28 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import {registerComponent, unregisterComponent} from "../../pluginRegistration";
+import {
+  registerComponent,
+  unregisterComponent,
+  registerRoutes,
+  unregisterRoutes
+} from "../../pluginRegistration";
 import actions from "../../../actions/plugins";
 import {loadPools} from "./reducers/numberrange";
 import {NavPluginRoot} from "./components/NavItems";
+import routes from "./routes";
+
+const PLUGIN_NAME = "NumberRange";
 
 export const enablePlugin = () => {
-  //var NavItems = require("./components/NavItems.js");
-  registerComponent("NumberRange", NavPluginRoot, actions.addToTreeServers);
+  registerRoutes(PLUGIN_NAME, routes);
+  registerComponent(PLUGIN_NAME, NavPluginRoot, actions.addToTreeServers);
 };
 
 export const disablePlugin = () => {
-  //var NavItems = require("./components/NavItems.js");
-
+  unregisterRoutes(PLUGIN_NAME);
   unregisterComponent(
-    "NumberRange",
+    PLUGIN_NAME,
     NavPluginRoot,
     actions.removeFromTreeServers
   );

@@ -29,15 +29,25 @@ import {AddPool} from "./components/AddPool";
  */
 export default (() => {
   return [
-    <Route path="/number-range/pools/:serverID" component={PoolList} />,
     <Route
+      key="poolList"
+      path="/number-range/pools/:serverID"
+      component={PoolList}
+    />,
+    <Route
+      key="regionDetail"
       path="/number-range/region-detail/:serverID/:pool"
       component={RegionDetail}
     />,
     <Route
+      key="addRegion"
       path="/number-range/add-region/:serverID/:pool"
       component={AddRegion}
     />,
-    <Route path="/number-range/add-pool/:serverID" component={AddPool} />
+    <Route
+      key="addPool"
+      path="/number-range/add-pool/:serverID"
+      component={AddPool}
+    />
   ];
 })();
