@@ -51,7 +51,7 @@ class Plugin extends Component {
           ) : (
             <Button onClick={this.handleDisable.bind(this)}>Disable</Button>
           )}
-          <p>{this.props.plugin.description}></p>
+          <p>{this.props.plugin.description}</p>
         </div>
       </Card>
     );

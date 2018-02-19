@@ -100,7 +100,7 @@ class _QSwitch extends Component {
 }
 const QSwitch = connect(
   state => {
-    return {plugins: state.plugins.plugins};
+    return {plugins: state.plugins.plugins, intl: state.intl};
   },
   dispatch => {
     return {dispatch: dispatch};

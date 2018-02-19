@@ -32,21 +32,19 @@ class _AddPool extends Component {
   componentDidMount() {}
   render() {
     return (
-      <Panels title={<FormattedMessage id="plugins.numberRange.addPool" />}>
-        <RightPanel>
-          <div className="large-cards-container">
-            <Card className="pt-elevation-4 form-card">
-              <h5>
-                <FormattedMessage id="plugins.numberRange.addPool" />
-              </h5>
-              <PoolForm
-                server={this.currentServer.server}
-                history={this.props.history}
-              />
-            </Card>
-          </div>
-        </RightPanel>
-      </Panels>
+      <RightPanel title={<FormattedMessage id="plugins.numberRange.addPool" />}>
+        <div className="large-cards-container">
+          <Card className="pt-elevation-4 form-card">
+            <h5>
+              <FormattedMessage id="plugins.numberRange.addPool" />
+            </h5>
+            <PoolForm
+              server={this.currentServer.server}
+              history={this.props.history}
+            />
+          </Card>
+        </div>
+      </RightPanel>
     );
   }
 }

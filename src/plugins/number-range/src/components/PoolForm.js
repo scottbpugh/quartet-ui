@@ -25,6 +25,8 @@ import {postAddPool} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";
 import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
+import {loadPools} from "../reducers/numberrange";
+import {connect} from "react-redux";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 const defaultField = ({
@@ -197,9 +199,11 @@ class _PoolForm extends Component {
               msg: "New region created successfully",
               type: "success"
             });
-            this.props.history.push("/number-range/pools");
+            this.props.history.push(
+              "/number-range/pools/" + this.props.server.serverID
+            );
           }
-
+          this.props.loadPools(this.props.server);
           return proms[1];
         } else {
           // We handle the error info in JSON here.
@@ -259,4 +263,12 @@ let PoolForm = reduxForm({
   form: "addPool"
 })(_PoolForm);
 
-export default PoolForm;
+export default connect(
+  (state, ownProps) => {
+    return {
+      servers: state.serversettings.servers,
+      nr: state.numberrange.servers
+    };
+  },
+  {loadPools}
+)(PoolForm);
