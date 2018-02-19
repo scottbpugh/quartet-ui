@@ -106,7 +106,7 @@ class _RegionDetail extends Component {
           />
         }>
         <div className="auto-cards-container">
-          {regions.length > 0 ? (
+          {regions && regions.length > 0 ? (
             regions.map(region => (
               <Card
                 className={classNames({

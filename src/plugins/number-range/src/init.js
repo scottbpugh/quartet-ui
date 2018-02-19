@@ -19,16 +19,24 @@ import {
   registerComponent,
   unregisterComponent,
   registerRoutes,
-  unregisterRoutes
+  unregisterRoutes,
+  pluginRegistry
 } from "../../pluginRegistration";
 import actions from "../../../actions/plugins";
 import {loadPools} from "./reducers/numberrange";
 import {NavPluginRoot} from "./components/NavItems";
 import routes from "./routes";
+import reducer, {initialData} from "./reducers/numberrange";
 
 const PLUGIN_NAME = "NumberRange";
 
 export const enablePlugin = () => {
+  pluginRegistry.registerReducer(
+    PLUGIN_NAME,
+    "numberrange",
+    reducer,
+    initialData()
+  );
   registerRoutes(PLUGIN_NAME, routes);
   registerComponent(PLUGIN_NAME, NavPluginRoot, actions.addToTreeServers);
 };

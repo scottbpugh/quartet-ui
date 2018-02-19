@@ -55,7 +55,10 @@ export class _NavPluginRoot extends Component {
   }
   render() {
     let {serverID} = this.props;
-    let pools = this.props.nr[serverID] ? this.props.nr[serverID].pools : [];
+    let pools =
+      this.props.nr && this.props.nr[serverID]
+        ? this.props.nr[serverID].pools
+        : [];
     let children = NavItems(pools, serverID);
     return (
       <TreeNode

@@ -201,7 +201,6 @@ class _NavTree extends Component {
 export const NavTree = connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers,
-    nr: state.numberrange.servers,
     navTreeItems: state.plugins.navTreeItems
   };
 }, {})(withRouter(_NavTree));

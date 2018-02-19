@@ -105,7 +105,9 @@ export const getRegisteredComponents = () => {
   return {..._registeredComponents};
 };
 export const getRegisteredComponent = fullPluginComponentName => {
-  return _registeredComponents[fullPluginComponentName].component;
+  try {
+    return _registeredComponents[fullPluginComponentName].component;
+  } catch (e) {}
 };
 /**
  * registerRoutes - Will add routes using the pluginName/ as part of the path.
@@ -134,3 +136,31 @@ export const getArrayRoutes = () => {
   }
   return routes;
 };
+
+class PluginRegistry {
+  constructor() {
+    this._emitChange = null;
+    this._reducers = {};
+    this._initialData = {};
+  }
+  setInitialData(name, dataObject) {
+    this._initialData[name] = dataObject;
+  }
+  getInitialData() {
+    return {...this._initialData};
+  }
+  getReducers() {
+    return {...this._reducers};
+  }
+  registerReducer(pluginName, name, reducer, initialData) {
+    this.setInitialData(name, initialData);
+    this._reducers = {...this._reducers, [name]: reducer};
+    if (this._emitChange) {
+      this._emitChange(this.getReducers());
+    }
+  }
+  setChangeListener(listener) {
+    this._emitChange = listener;
+  }
+}
+export const pluginRegistry = new PluginRegistry();
