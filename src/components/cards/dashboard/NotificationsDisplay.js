@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchNotifications} from "../../../reducers/dashboard";
+import {fetchNotifications} from "reducers/dashboard";
 
 /**
  * Notification - Description

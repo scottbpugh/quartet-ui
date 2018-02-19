@@ -17,8 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {handleActions} from "redux-actions";
-import actions from "../actions/serversettings";
-import {showMessage} from "../lib/message";
+import actions from "actions/serversettings";
+import {showMessage} from "lib/message";
 import uuidv4 from "uuid/v4";
 
 /**

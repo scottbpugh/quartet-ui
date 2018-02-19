@@ -33,7 +33,7 @@ import {
 } from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import {getRegisteredComponent} from "../../../plugins/pluginRegistration";
+import {getRegisteredComponent} from "plugins/pluginRegistration";
 
 export class CustomIcon extends Component {
   render() {

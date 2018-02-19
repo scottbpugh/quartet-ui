@@ -18,11 +18,11 @@
 import React from "react";
 import {Switch, Route} from "react-router";
 import {withRouter, BrowserRouter} from "react-router-dom";
-import App from "./components/App";
-import Dashboard from "./components/screens/Dashboard";
-import {ServerSettings} from "./components/screens/server/ServerSettings";
-import numberRangeRoutes from "./plugins/number-range/src/routes";
-import {PluginList} from "./components/screens/plugins/PluginList";
+import App from "components/App";
+import Dashboard from "components/screens/Dashboard";
+import {ServerSettings} from "components/screens/server/ServerSettings";
+import numberRangeRoutes from "plugins/number-range/src/routes";
+import {PluginList} from "components/screens/plugins/PluginList";
 
 const QSwitch = ({location}) => {
   let routes = [

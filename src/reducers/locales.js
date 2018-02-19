@@ -17,10 +17,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {handleActions} from "redux-actions";
-import actions from "../actions/locales";
+import actions from "actions/locales";
 import {updateIntl} from "react-intl-redux";
-import {flattenMessages} from "../lib/flattenMessages";
-import messages from "../messages";
+import {flattenMessages} from "lib/flattenMessages";
+import messages from "messages";
 
 export const switchLocale = newLocale => {
   return dispatch => {

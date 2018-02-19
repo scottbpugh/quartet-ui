@@ -16,8 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {handleActions} from "redux-actions";
-import actions from "../actions/plugins";
-import {registerComponent} from "../plugins/pluginRegistration";
+import actions from "actions/plugins";
+import {registerComponent} from "plugins/pluginRegistration";
 
 export const initialData = () => {
   return {

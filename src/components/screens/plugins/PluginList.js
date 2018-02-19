@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {RightPanel} from "../../layouts/Panels";
+import {RightPanel} from "components/layouts/Panels";
 import {FormattedMesasge} from "react-intl";
 import {Card, Button} from "@blueprintjs/core";
 import {setEnablePlugin, setDisablePlugin} from "reducers/plugins";

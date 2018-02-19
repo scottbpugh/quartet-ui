@@ -21,7 +21,7 @@ import {withRouter} from "react-router-dom";
 import {Tree, Icon} from "@blueprintjs/core";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {TreeNode} from "../../../../components/layouts/elements/NavTree";
+import {TreeNode} from "components/layouts/elements/NavTree";
 import {loadPools} from "../reducers/numberrange";
 
 export const NavItems = (pools, serverID) => {

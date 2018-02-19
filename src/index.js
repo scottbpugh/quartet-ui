@@ -36,8 +36,7 @@ import {flattenMessages} from "./lib/flattenMessages";
 import App from "./components/App";
 import {initialData as pluginInitialData} from "./reducers/plugins";
 
-let locale = "fr-FR";
-console.log("cwd", process.cwd());
+let locale = "en-US";
 
 const initialState = {
   dashboard: {notifications: []},

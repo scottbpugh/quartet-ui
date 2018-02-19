@@ -17,13 +17,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import "../cards/dashboard/cards.css";
+import "components/cards/dashboard/cards.css";
 import {Card} from "@blueprintjs/core";
-import {RightPanel} from "../layouts/Panels";
-import LatestGTINs from "../cards/dashboard/LatestGTINs";
-import ItemsProcessedByDate from "../cards/dashboard/ItemsProcessedByDate";
-import NotificationsDisplay from "../cards/dashboard/NotificationsDisplay";
-import ItemLookup from "../cards/dashboard/ItemLookup";
+import {RightPanel} from "components/layouts/Panels";
+import LatestGTINs from "components/cards/dashboard/LatestGTINs";
+import ItemsProcessedByDate from "components/cards/dashboard/ItemsProcessedByDate";
+import NotificationsDisplay from "components/cards/dashboard/NotificationsDisplay";
+import ItemLookup from "components/cards/dashboard/ItemLookup";
 import {FormattedMessage} from "react-intl";
 
 const DashboardRight = props => (

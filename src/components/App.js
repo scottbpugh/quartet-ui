@@ -27,14 +27,14 @@ import {
 } from "@blueprintjs/core";
 import "@blueprintjs/core/dist/blueprint.css";
 import {withRouter} from "react-router-dom";
-import NavLink from "./layouts/elements/NavLink";
+import NavLink from "components/layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
-import {SwitchLocale} from "./layouts/elements/SwitchLocale";
-import {NavTree} from "./layouts/elements/NavTree";
-import {ActionControls} from "./layouts/elements/ActionControls";
+import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
+import {NavTree} from "components/layouts/elements/NavTree";
+import {ActionControls} from "components/layouts/elements/ActionControls";
 import {connect} from "react-redux";
-import {loadPageTitle} from "../reducers/layout";
-import {LeftPanel, Panels} from "./layouts/Panels";
+import {loadPageTitle} from "reducers/layout";
+import {LeftPanel, Panels} from "components/layouts/Panels";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {
   getRegisteredComponents,

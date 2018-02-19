@@ -23,13 +23,8 @@ import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
 import {postAddPool} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
-import {showMessage} from "../../../../lib/message";
-import {
-  required,
-  maxLength,
-  minValue,
-  maxValue
-} from "../../../../lib/forms/validators";
+import {showMessage} from "lib/message";
+import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 const defaultField = ({

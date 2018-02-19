@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {RightPanel} from "../../../../components/layouts/Panels";
+import {RightPanel} from "components/layouts/Panels";
 import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import {Link} from "react-router-dom";

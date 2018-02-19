@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {handleActions} from "redux-actions";
-import actions from "../actions/layout";
+import actions from "actions/layout";
 
 export const initialData = () => {
   return {
