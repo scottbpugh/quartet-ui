@@ -142,6 +142,22 @@ class PluginRegistry {
     this._emitChange = null;
     this._reducers = {};
     this._initialData = {};
+    this._messages = {"en-US": {plugins: {}}, "fr-FR": {plugins: {}}};
+  }
+  setMessages(messages) {
+    for (let language in messages) {
+      if (language in this._messages) {
+        this._messages[language].plugins = {
+          ...this._messages[language].plugins,
+          ...messages[language].plugins
+        };
+      } else {
+        this._messages[language] = {plugins: {...messages.plugins}};
+      }
+    }
+  }
+  getMessages() {
+    return {...this._messages};
   }
   setInitialData(name, dataObject) {
     this._initialData[name] = dataObject;

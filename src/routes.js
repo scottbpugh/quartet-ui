@@ -28,6 +28,7 @@ import {
   getUnregisteredComponents,
   getArrayRoutes
 } from "plugins/pluginRegistration";
+import {updateMessages} from "reducers/locales";
 
 const coreRoutes = () => {
   return [
@@ -40,8 +41,9 @@ const coreRoutes = () => {
     <Route key="pluginList" path="/plugins" component={PluginList} />
   ];
 };
+
 /**
- * _QSwitch - Loads routes, and dynamic plugin-based components.
+ * _QSwitch - Loads routes, internationalization of plugins, and dynamic plugin-based components.
  * @extends Component
  */
 class _QSwitch extends Component {
@@ -52,7 +54,6 @@ class _QSwitch extends Component {
   processPlugins() {
     // add new routes
     this.routes = coreRoutes().concat(getArrayRoutes());
-    console.log("The Routes", this.routes);
     // add new components.
     let pluginComponents = getRegisteredComponents();
     for (let pluginComponentName in pluginComponents) {
@@ -65,6 +66,7 @@ class _QSwitch extends Component {
         }
       });
     }
+    this.props.dispatch(updateMessages(this.props.intl.locale));
     // remove unregistered componments.
     let disabledPluginComponents = getUnregisteredComponents();
     for (let pluginComponentName in disabledPluginComponents) {

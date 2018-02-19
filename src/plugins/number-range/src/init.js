@@ -27,6 +27,7 @@ import {loadPools} from "./reducers/numberrange";
 import {NavPluginRoot} from "./components/NavItems";
 import routes from "./routes";
 import reducer, {initialData} from "./reducers/numberrange";
+import messages from "./messages";
 
 const PLUGIN_NAME = "NumberRange";
 
@@ -37,6 +38,7 @@ export const enablePlugin = () => {
     reducer,
     initialData()
   );
+  pluginRegistry.setMessages(messages);
   registerRoutes(PLUGIN_NAME, routes);
   registerComponent(PLUGIN_NAME, NavPluginRoot, actions.addToTreeServers);
 };

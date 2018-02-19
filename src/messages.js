@@ -31,30 +31,7 @@ export default {
         addAServer: "Add a New Server"
       }
     },
-    plugins: {
-      numberRange: {
-        pool: "Pool",
-        region: "Region",
-        allocation: "Allocation",
-        allocateButton: "Allocate from Pool",
-        createdOn: "Created On",
-        readableName: "Readable Name",
-        machineName: "Machine Name",
-        status: "Status",
-        requestThreshold: "Request Threshold",
-        regions: "Regions",
-        numberRangePools: "Number Range Pools",
-        active: "active",
-        inactive: "inactive",
-        range: "Range",
-        to: "to",
-        state: "State",
-        addRegion: "Add a New Region",
-        addPool: "Add a New Pool",
-        noRegionInPool: "There is currently no region in this pool.",
-        regionDetailTitle: "Pool {poolName} Regions"
-      }
-    }
+    plugins: {}
   },
   "fr-FR": {
     app: {
@@ -70,29 +47,6 @@ export default {
         addAServer: "Ajouter un serveur"
       }
     },
-    plugins: {
-      numberRange: {
-        pool: "Groupe",
-        region: "Région",
-        allocation: "Attribution",
-        allocateButton: "Attribuer au groupe",
-        createdOn: "Créé le",
-        readableName: "Nom",
-        machineName: "Nom machine",
-        status: "Statut",
-        requestThreshold: "Seuil de requêtes",
-        regions: "Régions",
-        numberRangePools: "Groupes de plages de numéros",
-        active: "actif",
-        inactive: "inactif",
-        range: "Plage",
-        to: "à",
-        state: "État",
-        addRegion: "Ajouter une région",
-        addPool: "Ajouter un Groupe",
-        noRegionInPool: "Il n'existe aucune region dans ce groupe.",
-        regionDetailTitle: "Regions du groupe {poolName}"
-      }
-    }
+    plugins: {}
   }
 };

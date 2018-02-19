@@ -21,6 +21,33 @@ import actions from "actions/locales";
 import {updateIntl} from "react-intl-redux";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
+import {pluginRegistry} from "plugins/pluginRegistration";
+
+export const updateMessages = locale => {
+  let coreMessages = {...messages};
+  let newMessages = pluginRegistry.getMessages();
+  for (let language in newMessages) {
+    if (language in messages) {
+      coreMessages[language].plugins = {
+        ...coreMessages[language].plugins,
+        ...newMessages[language].plugins
+      };
+      console.log("plugin now", coreMessages[language].plugins);
+    } else {
+      coreMessages[language] = {plugins: {...newMessages[language].plugins}};
+    }
+  }
+  console.log("Core Messages are now", coreMessages);
+  return dispatch => {
+    console.log("Dispatch triggered");
+    return dispatch(
+      updateIntl({
+        locale: locale,
+        messages: flattenMessages(coreMessages[locale])
+      })
+    );
+  };
+};
 
 export const switchLocale = newLocale => {
   return dispatch => {
