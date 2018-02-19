@@ -37,6 +37,7 @@ import App from "./components/App";
 import {initialData as pluginInitialData} from "./reducers/plugins";
 
 let locale = "fr-FR";
+console.log("cwd", process.cwd());
 
 const initialState = {
   dashboard: {notifications: []},

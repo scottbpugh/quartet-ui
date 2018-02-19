@@ -21,16 +21,75 @@ import {registerComponent} from "../plugins/pluginRegistration";
 
 export const initialData = () => {
   return {
-    navTreeItems: []
+    navTreeItems: [],
+    plugins: {
+      NumberRange: {
+        core: true,
+        enabled: false,
+        initPath: "number-range/src/init.js",
+        readableName: "Serial Number Range Management",
+        pluginName: "NumberRange",
+        description: `
+                The Serial Number Range Management plugin offers users the
+                ability to interact with SerialBox, the backend solution for
+                your serial number range management requirements.
+
+                Among other things, this plugin offers the ability to create
+                pools and serial number ranges as well as allocate numbers on
+                the fly from the QU4RTET interface.
+            `
+      }
+    }
   };
 };
 
+export const setEnablePlugin = pluginEntries => {
+  return dispatch => {
+    for (let plugin in pluginEntries) {
+      console.log("My PluginEntires", pluginEntries);
+      pluginEntries[plugin].enabled = true;
+    }
+    return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
+  };
+};
+export const setDisablePlugin = pluginEntries => {
+  return dispatch => {
+    for (let plugin in pluginEntries) {
+      console.log("My plugin entries", pluginEntries);
+      pluginEntries[plugin].enabled = false;
+    }
+    return dispatch({type: actions.pluginDisabled, payload: pluginEntries});
+  };
+};
 export default handleActions(
   {
     [actions.addToTreeServers]: (state, action) => {
       return {
         ...state,
-        navTreeItems: [...state.navTreeItems, action.payload]
+        navTreeItems: {
+          ...state.navTreeItems,
+          [action.payload.pluginComponentName]: {...action.payload}
+        }
+      };
+    },
+    [actions.removeFromTreeServers]: (state, action) => {
+      let navTreeItems = {...state.navTreeItems};
+      delete navTreeItems[action.payload.pluginComponentName];
+      return {
+        ...state,
+        navTreeItems: navTreeItems
+      };
+    },
+    [actions.pluginEnabled]: (state, action) => {
+      return {
+        ...state,
+        plugins: {...state.plugins, ...action.payload}
+      };
+    },
+    [actions.pluginDisabled]: (state, action) => {
+      return {
+        ...state,
+        plugins: {...state.plugins, ...action.payload}
       };
     }
   },

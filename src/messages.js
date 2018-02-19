@@ -23,7 +23,8 @@ export default {
         servers: "Servers",
         numberRange: "Number Ranges",
         dashboard: "Dashboard",
-        server: "Server"
+        server: "Server",
+        plugins: "Plugins"
       },
       serverSettings: {
         serverSettings: "Server Settings",
@@ -61,7 +62,8 @@ export default {
         servers: "Serveurs",
         numberRange: "Plage de numéros",
         dashboard: "Tableau de bord",
-        server: "Serveur"
+        server: "Serveur",
+        plugins: "Plugins"
       },
       serverSettings: {
         serverSettings: "Paramètres serveur",

@@ -32,8 +32,6 @@ import {
   Icon
 } from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
-
-import {NavPluginRoot} from "../../../plugins/number-range/src/components/NavItems";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {getRegisteredComponent} from "../../../plugins/pluginRegistration";
 
@@ -166,22 +164,14 @@ class _NavTree extends Component {
     this.tree = this.getTree();
   }
   componentWillReceiveProps(nextProps) {}
-  getTree() {
+  getTree = () => {
     const {servers} = this.props;
+    const props = this.props;
     return Object.keys(servers).map(serverID => {
-      /*let children = [
-          <NavPluginRoot
-            pools={this.props.nr[serverID].pools}
-            serverID={serverID}
-          />
-        ];*/
-      let children = this.props.navTreeItems.map(component => {
-        let ComponentName = getRegisteredComponent(
-          component.pluginComponentName
-        );
+      let children = Object.keys(props.navTreeItems).map(component => {
+        let ComponentName = getRegisteredComponent(component);
         return <ComponentName serverID={serverID} />;
       });
-
       return (
         <TreeNode
           key={serverID}
@@ -191,7 +181,7 @@ class _NavTree extends Component {
         </TreeNode>
       );
     });
-  }
+  };
   render() {
     return (
       <div className="tree-wrapper">

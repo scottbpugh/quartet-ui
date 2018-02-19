@@ -36,7 +36,10 @@ import {connect} from "react-redux";
 import {loadPageTitle} from "../reducers/layout";
 import {LeftPanel, Panels} from "./layouts/Panels";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import {getRegisteredComponents} from "../plugins/pluginRegistration";
+import {
+  getRegisteredComponents,
+  getUnregisteredComponents
+} from "../plugins/pluginRegistration";
 
 class _App extends Component {
   componentDidMount() {
@@ -54,8 +57,36 @@ class _App extends Component {
       });
     }
   }
-  componentWillReceiveProps(nextProps) {}
-
+  componentWillReceiveProps(nextProps) {
+    if (
+      JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
+    ) {
+      // add new components.
+      let pluginComponents = getRegisteredComponents();
+      for (let pluginComponentName in pluginComponents) {
+        let entry = pluginComponents[pluginComponentName];
+        this.props.dispatch({
+          type: entry.action,
+          payload: {
+            pluginName: entry.pluginName,
+            pluginComponentName: pluginComponentName
+          }
+        });
+      }
+      // remove unregistered componments.
+      let disabledPluginComponents = getUnregisteredComponents();
+      for (let pluginComponentName in disabledPluginComponents) {
+        let entry = disabledPluginComponents[pluginComponentName];
+        this.props.dispatch({
+          type: entry.action,
+          payload: {
+            pluginName: entry.pluginName,
+            pluginComponentName: pluginComponentName
+          }
+        });
+      }
+    }
+  }
   render() {
     return (
       <div className="App pt-ui-text">
@@ -71,6 +102,9 @@ class _App extends Component {
               <NavLink to="/server-settings" iconName="cloud">
                 <FormattedMessage id="app.nav.servers" />
               </NavLink>
+              <NavLink to="/plugins" iconName="pt-icon-exchange">
+                <FormattedMessage id="app.nav.plugins" />
+              </NavLink>
               <SwitchLocale />
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
@@ -85,7 +119,6 @@ class _App extends Component {
                 <NavTree />
               </div>
             </LeftPanel>
-
             {this.props.children}
           </Panels>
         </div>
@@ -97,7 +130,8 @@ class _App extends Component {
 const App = connect(
   state => {
     return {
-      pageTitle: state.layout.pageTitle
+      pageTitle: state.layout.pageTitle,
+      plugins: state.plugins.plugins
     };
   },
   dispatch => {

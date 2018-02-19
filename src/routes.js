@@ -22,6 +22,7 @@ import App from "./components/App";
 import Dashboard from "./components/screens/Dashboard";
 import {ServerSettings} from "./components/screens/server/ServerSettings";
 import numberRangeRoutes from "./plugins/number-range/src/routes";
+import {PluginList} from "./components/screens/plugins/PluginList";
 
 const QSwitch = ({location}) => {
   let routes = [
@@ -30,7 +31,8 @@ const QSwitch = ({location}) => {
       key="serversettings"
       path="/server-settings/:serverID?"
       component={ServerSettings}
-    />
+    />,
+    <Route key="pluginList" path="/plugins" component={PluginList} />
   ];
   routes = routes.concat(numberRangeRoutes);
   return (

@@ -22,8 +22,6 @@ import {Tree, Icon} from "@blueprintjs/core";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {TreeNode} from "../../../../components/layouts/elements/NavTree";
-import {registerComponent} from "../../../pluginRegistration";
-import actions from "../../../../actions/plugins";
 import {loadPools} from "../reducers/numberrange";
 
 export const NavItems = (pools, serverID) => {
@@ -79,5 +77,3 @@ export const NavPluginRoot = connect(
   },
   {loadPools}
 )(_NavPluginRoot);
-
-registerComponent("NumberRange", NavPluginRoot, actions.addToTreeServers);

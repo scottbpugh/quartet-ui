@@ -15,12 +15,22 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import {registerComponent, unregisterComponent} from "../../pluginRegistration";
+import actions from "../../../actions/plugins";
+import {loadPools} from "./reducers/numberrange";
+import {NavPluginRoot} from "./components/NavItems";
 
-import {createAction} from "redux-actions";
+export const enablePlugin = () => {
+  //var NavItems = require("./components/NavItems.js");
+  registerComponent("NumberRange", NavPluginRoot, actions.addToTreeServers);
+};
 
-export default {
-  addToTreeServers: createAction("PLUGINS_ADD_TO_TREE_SERVERS"),
-  removeFromTreeServers: createAction("PLUGINS_REMOVE_FROM_TREE_SERVERS"),
-  pluginEnabled: createAction("PLUGINS_NEW_PLUGIN_ENABLED"),
-  pluginDisabled: createAction("PLUGINS_PLUGIN_DISABLED")
+export const disablePlugin = () => {
+  //var NavItems = require("./components/NavItems.js");
+
+  unregisterComponent(
+    "NumberRange",
+    NavPluginRoot,
+    actions.removeFromTreeServers
+  );
 };
