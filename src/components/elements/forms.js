@@ -58,7 +58,10 @@ export const DefaultField = ({
     intentClass = "pt-intent-danger";
   }
   let inputField = "";
-  if (fieldData.description.type === "field") {
+  if (
+    fieldData.description.type === "field" ||
+    fieldData.description.type === "hidden"
+  ) {
     inputField = (
       <div style={{display: "none"}}>
         <label className="pt-control pt-switch">
@@ -102,20 +105,24 @@ export const DefaultField = ({
   }
 
   let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
-
+  let helperText = error
+    ? `${error} - ${helperInstruction}`
+    : helperInstruction;
+  const shouldHide =
+    fieldData.description.type === "field" ||
+    fieldData.description.type === "hidden";
+  const style = {};
+  style.display = shouldHide ? "none" : "block";
   return (
-    <FormGroup
-      helperText={helperText}
-      label={
-        fieldData.description.type !== "field"
-          ? fieldData.description.label
-          : null
-      }
-      required={fieldData.description.required}
-      intent={intent}>
-      {inputField}
-    </FormGroup>
+    <div style={style}>
+      <FormGroup
+        helperText={helperText}
+        label={fieldData.description.label}
+        required={fieldData.description.required}
+        intent={intent}>
+        {inputField}
+      </FormGroup>
+    </div>
   );
 };
 

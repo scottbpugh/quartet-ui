@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
+import {showMessage} from "lib/message";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -53,7 +54,7 @@ const prepURL = server => {
   let protocol = server.ssl === "true" ? "https" : "http";
   let hostname = server.serverName;
   let port = server.port || 80;
-  let path = server.path + "";
+  let path = server.path ? server.path : "";
   return `${protocol}://${hostname}:${port}/${path}`;
 };
 
@@ -65,7 +66,8 @@ const prepURL = server => {
  * @return {object} A JSON object.
  */
 export const getPools = server => {
-  return fetch(`${prepURL(server)}pools/?related=true`, prepHeaders(server))
+  const url = `${prepURL(server)}pools/?related=true`;
+  return fetch(url, prepHeaders(server))
     .then(resp => {
       return resp.json();
     })
@@ -73,6 +75,12 @@ export const getPools = server => {
       return data;
     })
     .catch(error => {
+      showMessage({
+        type: "danger",
+        msg: `An error occurred while attempting to fetch pools from ${
+          server.serverSettingName
+        }`
+      });
       return error;
     });
 };

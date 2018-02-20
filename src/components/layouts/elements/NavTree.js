@@ -172,6 +172,7 @@ class _NavTree extends Component {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName serverID={serverID} />;
       });
+      debugger;
       return (
         <TreeNode
           key={serverID}

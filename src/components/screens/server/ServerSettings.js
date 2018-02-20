@@ -30,7 +30,7 @@ import {Field, reduxForm, change} from "redux-form";
 
 const formStructure = (initialValues = {}) => [
   {
-    name: "serverSettingsName",
+    name: "serverSettingName",
     description: {
       type: "text",
       required: true,
@@ -126,6 +126,7 @@ const formStructure = (initialValues = {}) => [
 class _ServerForm extends Component {
   submit = postValues => {
     debugger;
+    this.props.saveServer(postValues);
   };
   render() {
     const {handleSubmit, formData} = this.props;
@@ -157,28 +158,18 @@ class _ServerForm extends Component {
     );
   }
 }
-const ServerForm = reduxForm({form: "serverForm"})(_ServerForm);
+const ServerForm = connect(
+  state => ({
+    servers: state.serversettings.servers
+  }),
+  {saveServer, loadCurrentServer}
+)(reduxForm({form: "serverForm"})(_ServerForm));
 
 class _ServerSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {postData: {}};
   }
-
-  saveServer = evt => {
-    evt.preventDefault();
-    let form = evt.target;
-    let postData = {};
-
-    for (let item of form) {
-      if (item.name && item.type === "checkbox") {
-        postData[item.name] = item.checked;
-      } else if (item.name) {
-        postData[item.name] = item.value;
-      }
-    }
-    this.props.saveServer(postData);
-  };
 
   componentDidMount() {
     this.loadCurrentServer(this.props.match.params.serverID);
@@ -221,11 +212,7 @@ class _ServerSettings extends Component {
       <div className="large-cards-container">
         <Card className="pt-elevation-4 form-card">
           <h5>Connect to a Server</h5>
-          <ServerForm
-            formData={formStructure()}
-            saveHandler={this.saveServer.bind(this)}
-            updateHandler={this.updateValue.bind(this)}
-          />
+          <ServerForm formData={formStructure()} />
         </Card>
       </div>
     );
