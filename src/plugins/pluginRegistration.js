@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React from "react";
 import {Route} from "react-router";
+import {injectIntl} from "react-intl";
 
 /**
  * PluginRegistry - Holds references to various plugin objects
@@ -135,7 +136,9 @@ class PluginRegistry {
 
   getRegisteredComponent = fullPluginComponentName => {
     try {
-      return this._registeredComponents[fullPluginComponentName].component;
+      return injectIntl(
+        this._registeredComponents[fullPluginComponentName].component
+      );
     } catch (e) {}
   };
 

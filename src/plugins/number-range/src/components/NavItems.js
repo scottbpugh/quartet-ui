@@ -18,19 +18,35 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {Tree, Icon} from "@blueprintjs/core";
+import {Menu, MenuItem, Tree, Icon} from "@blueprintjs/core";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
 import {loadPools} from "../reducers/numberrange";
+import {FormattedMessage} from "react-intl";
 
-export const NavItems = (pools, serverID) => {
-  if (!Array.isArray(pools)) {
-    return [];
+class NavItem extends Component {
+  renderContextMenu() {
+    return (
+      <Menu>
+        <MenuItem
+          text={this.props.intl.formatMessage({
+            id: "plugins.numberRange.addRegion"
+          })}
+        />
+        <MenuItem
+          text={this.props.intl.formatMessage({
+            id: "plugins.numberRange.allocateButton"
+          })}
+        />
+      </Menu>
+    );
   }
-  return pools.map(pool => {
+  render() {
+    const {pool, serverID, intl} = this.props;
     return (
       <TreeNode
+        onContextMenu={this.renderContextMenu.bind(this)}
         key={pool.machine_name}
         path={`/number-range/region-detail/${serverID}/${pool.machine_name}`}
         nodeType="pool"
@@ -38,6 +54,16 @@ export const NavItems = (pools, serverID) => {
         {pool.readable_name}
       </TreeNode>
     );
+  }
+}
+
+export const NavItems = (pools, serverID, intl) => {
+  if (!Array.isArray(pools)) {
+    return [];
+  }
+  return pools.map(pool => {
+    // passing intl down to use formatMessage and translate...
+    return <NavItem pool={pool} serverID={serverID} intl={intl} />;
   });
 };
 
@@ -53,19 +79,31 @@ export class _NavPluginRoot extends Component {
       this.props.loadPools(this.props.servers[this.props.serverID]);
     }
   }
+  renderContextMenu = () => {
+    return (
+      <Menu>
+        <MenuItem
+          text={this.props.intl.formatMessage({
+            id: "plugins.numberRange.addPool"
+          })}
+        />
+      </Menu>
+    );
+  };
   render() {
     let {serverID} = this.props;
     let pools =
       this.props.nr && this.props.nr[serverID]
         ? this.props.nr[serverID].pools
         : [];
-    let children = NavItems(pools, serverID);
+    let children = NavItems(pools, serverID, this.props.intl);
     return (
       <TreeNode
+        onContextMenu={this.renderContextMenu}
         nodeType="plugin"
         childrenNodes={children}
         path={`/number-range/pools/${serverID}`}>
-        Serial Number Pools
+        <FormattedMessage id="plugins.numberRange.navItemsTitle" />
       </TreeNode>
     );
   }

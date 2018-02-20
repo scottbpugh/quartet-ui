@@ -15,13 +15,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+import React, {Component} from "react";
 import {Position, Toaster, Intent} from "@blueprintjs/core";
 
 const msgToaster = Toaster.create({
   className: "my-toaster",
   position: Position.BOTTOM_RIGHT
 });
+
 const getIntent = type => {
   switch (type) {
     case "success":
@@ -33,6 +34,9 @@ const getIntent = type => {
       return Intent.PRIMARY;
   }
 };
+
 export const showMessage = msg => {
-  msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
+  if (msg.msg) {
+    msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
+  }
 };

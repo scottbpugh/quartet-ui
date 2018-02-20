@@ -24,6 +24,7 @@ import {ActionControls} from "./ActionControls";
 import "./NavTree.css";
 import classNames from "classnames";
 import {
+  ContextMenuTarget,
   Menu,
   MenuItem,
   Popover,
@@ -34,6 +35,7 @@ import {
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {injectIntl, intlShape} from "react-intl";
 
 export class CustomIcon extends Component {
   render() {
@@ -83,6 +85,18 @@ class _TreeNode extends Component {
       this.props.history.push(this.props.path);
     }
   };
+
+  /**
+   * renderContextMenu - Use onContextMenu={} to display a menu.
+   *
+   * @return {type} Description
+   */
+
+  renderContextMenu() {
+    if ("onContextMenu" in this.props) {
+      return this.props.onContextMenu();
+    }
+  }
   render() {
     let expandable = this.props.childrenNodes.length > 0 ? true : false;
     return (
@@ -116,6 +130,7 @@ class _TreeNode extends Component {
   }
 }
 
+ContextMenuTarget(_TreeNode);
 export const TreeNode = withRouter(_TreeNode);
 
 class Tree extends Component {
@@ -172,7 +187,6 @@ class _NavTree extends Component {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName serverID={serverID} />;
       });
-      debugger;
       return (
         <TreeNode
           key={serverID}
@@ -202,6 +216,7 @@ class _NavTree extends Component {
 export const NavTree = connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers,
-    navTreeItems: state.plugins.navTreeItems
+    navTreeItems: state.plugins.navTreeItems,
+    intl: state.intl
   };
 }, {})(withRouter(_NavTree));
