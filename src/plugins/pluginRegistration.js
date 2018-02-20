@@ -18,131 +18,35 @@
 import React from "react";
 import {Route} from "react-router";
 
-/* Holds all the components from plugins that can be injected
-  into the core components (buttons, context menus, ...)
-  Use an event dispatch to tie them to a component (navtree, ...)
-  For the sake of simplicity we don't have an object for each type
-  of component. plugin name and component name are concatenated together for ease of access.
-  */
-const _registeredComponents = {};
-
-/*
- We keep an entry previously registered and remove into _unregisteredComponents.
- This is to remove it from the parent elements where it has been added (e.g.: NavTreeItems, ButtonControls, etc, ...)
-*/
-const _unregisteredComponents = {};
-/*
-  Holds a reference to all the plugins installed.
-  Key is the name of the plugin.
-*/
-const _installedPlugins = {};
-
-/*
-  Holds all the plugin routes and can replace an existing route.
-  Please be considerate of others and use your plugin name in your path,
-  e.g.: <Route path="/number-range/pools:serverID component={PoolList}/>
-*/
-const _registeredRoutes = {};
-
-/**
- * registerComponent - Description
- *
- * @param {type} pluginName   Description
- * @param {type} component    Description
- * @param {type} injectAction Description
- *
- * @return {type} Description
- */
-export const registerComponent = (pluginName, component, injectAction) => {
-  if (!pluginName || !component) {
-    throw new Error(
-      "You must enter a valid pluginName string as well as a reference to a component to register a component."
-    );
-  }
-  _registeredComponents[
-    `plugin_${pluginName}_${component.PLUGIN_COMPONENT_NAME}`
-  ] = {
-    pluginName: pluginName,
-    component: component,
-    action: injectAction
-  };
-  try {
-    // attempt to remove components from unregistered, if the plugin was enabled/disabled prior.
-    delete _unregisteredComponents[
-      `plugin_${pluginName}_${component.PLUGIN_COMPONENT_NAME}`
-    ];
-  } catch (e) {
-    // ignore if this is the first time.
-  }
-};
-export const unregisterComponent = (pluginName, component, injectAction) => {
-  if (!pluginName || !component) {
-    throw new Error(
-      "You must enter a valid pluginName string as well as a reference to a component to register a component."
-    );
-  }
-  let fullPluginComponentName = `plugin_${pluginName}_${
-    component.PLUGIN_COMPONENT_NAME
-  }`;
-  _unregisteredComponents[fullPluginComponentName] = {
-    pluginName: pluginName,
-    component: component,
-    action: injectAction
-  };
-
-  try {
-    delete _registeredComponents[
-      `plugin_${pluginName}_${component.PLUGIN_COMPONENT_NAME}`
-    ];
-  } catch (e) {
-    //don't bother if it doesn't exist.
-  }
-};
-export const getUnregisteredComponents = () => {
-  return {..._unregisteredComponents};
-};
-export const getRegisteredComponents = () => {
-  return {..._registeredComponents};
-};
-export const getRegisteredComponent = fullPluginComponentName => {
-  try {
-    return _registeredComponents[fullPluginComponentName].component;
-  } catch (e) {}
-};
-/**
- * registerRoutes - Will add routes using the pluginName/ as part of the path.
- *
- * @param {type} pluginName Description
- * @param {type} routes     Description
- *
- * @return {type} Description
- */
-export const registerRoutes = (pluginName, routes) => {
-  _registeredRoutes[pluginName] = routes;
-};
-
-export const unregisterRoutes = pluginName => {
-  delete _registeredRoutes[pluginName];
-};
-
-export const getRegisteredRoutes = () => {
-  return {..._registeredRoutes};
-};
-
-export const getArrayRoutes = () => {
-  let routes = [];
-  for (let plugin in _registeredRoutes) {
-    routes = routes.concat(_registeredRoutes[plugin]);
-  }
-  return routes;
-};
-
 class PluginRegistry {
   constructor() {
     this._emitChange = null;
     this._reducers = {};
     this._initialData = {};
+    /*
+    Holds all the localization messages for plugins, when they are enabled.
+    */
     this._messages = {"en-US": {plugins: {}}, "fr-FR": {plugins: {}}};
+    /* Holds all the components from plugins that can be injected
+    into the core components (buttons, context menus, ...)
+    Use an event dispatch to tie them to a component (navtree, ...)
+    For the sake of simplicity we don't have an object for each type
+    of component. plugin name and component name are concatenated together for ease of access.
+    */
+    this._registeredComponents = {};
+
+    /*
+    We keep an entry previously registered and remove into _unregisteredComponents.
+    This is to remove it from the parent elements where it has been added (e.g.: NavTreeItems, ButtonControls, etc, ...)
+    */
+    this._unregisteredComponents = {};
+
+    /*
+    Holds all the plugin routes and can replace an existing route.
+    Please be considerate of others and use your plugin name in your path,
+    e.g.: <Route path="/number-range/pools:serverID component={PoolList}/>
+    */
+    this._registeredRoutes = {};
   }
   setMessages(messages) {
     for (let language in messages) {
@@ -156,6 +60,81 @@ class PluginRegistry {
       }
     }
   }
+  registerComponent = (pluginName, component, injectAction) => {
+    if (!pluginName || !component) {
+      throw new Error(
+        "You must enter a valid pluginName string as well as a reference to a component to register a component."
+      );
+    }
+    this._registeredComponents[
+      `plugin_${pluginName}_${component.PLUGIN_COMPONENT_NAME}`
+    ] = {
+      pluginName: pluginName,
+      component: component,
+      action: injectAction
+    };
+    try {
+      // attempt to remove components from unregistered, if the plugin was enabled/disabled prior.
+      delete this._unregisteredComponents[
+        `plugin_${pluginName}_${component.PLUGIN_COMPONENT_NAME}`
+      ];
+    } catch (e) {
+      // ignore if this is the first time.
+    }
+  };
+  unregisterComponent = (pluginName, component, injectAction) => {
+    if (!pluginName || !component) {
+      throw new Error(
+        "You must enter a valid pluginName string as well as a reference to a component to register a component."
+      );
+    }
+    let fullPluginComponentName = `plugin_${pluginName}_${
+      component.PLUGIN_COMPONENT_NAME
+    }`;
+    this._unregisteredComponents[fullPluginComponentName] = {
+      pluginName: pluginName,
+      component: component,
+      action: injectAction
+    };
+
+    try {
+      delete this._registeredComponents[
+        `plugin_${pluginName}_${component.PLUGIN_COMPONENT_NAME}`
+      ];
+    } catch (e) {
+      //don't bother if it doesn't exist.
+    }
+  };
+  getUnregisteredComponents = () => {
+    return {...this._unregisteredComponents};
+  };
+  getRegisteredComponents = () => {
+    return {...this._registeredComponents};
+  };
+  getRegisteredComponent = fullPluginComponentName => {
+    try {
+      return this._registeredComponents[fullPluginComponentName].component;
+    } catch (e) {}
+  };
+  registerRoutes = (pluginName, routes) => {
+    this._registeredRoutes[pluginName] = routes;
+  };
+
+  unregisterRoutes = pluginName => {
+    delete this._registeredRoutes[pluginName];
+  };
+
+  getRegisteredRoutes = () => {
+    return {...this._registeredRoutes};
+  };
+
+  getArrayRoutes = () => {
+    let routes = [];
+    for (let plugin in this._registeredRoutes) {
+      routes = routes.concat(this._registeredRoutes[plugin]);
+    }
+    return routes;
+  };
   getMessages() {
     return {...this._messages};
   }

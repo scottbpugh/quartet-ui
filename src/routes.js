@@ -23,11 +23,7 @@ import Dashboard from "components/screens/Dashboard";
 import {ServerSettings} from "components/screens/server/ServerSettings";
 import {PluginList} from "components/screens/plugins/PluginList";
 import {connect} from "react-redux";
-import {
-  getRegisteredComponents,
-  getUnregisteredComponents,
-  getArrayRoutes
-} from "plugins/pluginRegistration";
+import {pluginRegistry} from "plugins/pluginRegistration";
 import {updateMessages} from "reducers/locales";
 
 const coreRoutes = () => {
@@ -53,9 +49,9 @@ class _RouteSwitcher extends Component {
   }
   processPlugins() {
     // add new routes
-    this.routes = coreRoutes().concat(getArrayRoutes());
+    this.routes = coreRoutes().concat(pluginRegistry.getArrayRoutes());
     // add new components.
-    let pluginComponents = getRegisteredComponents();
+    let pluginComponents = pluginRegistry.getRegisteredComponents();
     for (let pluginComponentName in pluginComponents) {
       let entry = pluginComponents[pluginComponentName];
       this.props.dispatch({
@@ -68,7 +64,7 @@ class _RouteSwitcher extends Component {
     }
     this.props.dispatch(updateMessages(this.props.intl.locale));
     // remove unregistered componments.
-    let disabledPluginComponents = getUnregisteredComponents();
+    let disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
     for (let pluginComponentName in disabledPluginComponents) {
       let entry = disabledPluginComponents[pluginComponentName];
       this.props.dispatch({

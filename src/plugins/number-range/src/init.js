@@ -15,13 +15,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import {
-  registerComponent,
-  unregisterComponent,
-  registerRoutes,
-  unregisterRoutes,
-  pluginRegistry
-} from "../../pluginRegistration";
+import {pluginRegistry} from "../../pluginRegistration";
 import actions from "../../../actions/plugins";
 import {loadPools} from "./reducers/numberrange";
 import {NavPluginRoot} from "./components/NavItems";
@@ -39,13 +33,17 @@ export const enablePlugin = () => {
     initialData()
   );
   pluginRegistry.setMessages(messages);
-  registerRoutes(PLUGIN_NAME, routes);
-  registerComponent(PLUGIN_NAME, NavPluginRoot, actions.addToTreeServers);
+  pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
+  pluginRegistry.registerComponent(
+    PLUGIN_NAME,
+    NavPluginRoot,
+    actions.addToTreeServers
+  );
 };
 
 export const disablePlugin = () => {
-  unregisterRoutes(PLUGIN_NAME);
-  unregisterComponent(
+  pluginRegistry.unregisterRoutes(PLUGIN_NAME);
+  pluginRegistry.unregisterComponent(
     PLUGIN_NAME,
     NavPluginRoot,
     actions.removeFromTreeServers

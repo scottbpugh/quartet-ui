@@ -33,7 +33,7 @@ import {
 } from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import {getRegisteredComponent} from "plugins/pluginRegistration";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 export class CustomIcon extends Component {
   render() {
@@ -169,7 +169,7 @@ class _NavTree extends Component {
     const props = this.props;
     return Object.keys(servers).map(serverID => {
       let children = Object.keys(props.navTreeItems).map(component => {
-        let ComponentName = getRegisteredComponent(component);
+        let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName serverID={serverID} />;
       });
       return (
