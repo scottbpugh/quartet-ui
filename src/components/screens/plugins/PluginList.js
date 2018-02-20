@@ -22,6 +22,7 @@ import {FormattedMesasge} from "react-intl";
 import {Card, Button} from "@blueprintjs/core";
 import {setEnablePlugin, setDisablePlugin} from "reducers/plugins";
 import {connect} from "react-redux";
+import "./PluginList.css";
 
 class Plugin extends Component {
   getPluginModule = () => {
@@ -43,14 +44,32 @@ class Plugin extends Component {
   };
   render() {
     return (
-      <Card>
-        <h5>{this.props.plugin.readableName}</h5>
-        <div className="pt-callout pt-intent-primary">
+      <Card className="pt-elevation-4">
+        <h5>
+          {this.props.plugin.readableName}{" "}
           {!this.props.plugin.enabled ? (
-            <Button onClick={this.handleEnable.bind(this)}>Enable</Button>
+            <Button
+              iconName="pt-icon-add"
+              className="pt-button add-plugin-button pt-intent-primary"
+              onClick={this.handleEnable.bind(this)}>
+              Enable
+            </Button>
           ) : (
-            <Button onClick={this.handleDisable.bind(this)}>Disable</Button>
+            <Button
+              iconName="pt-icon-remove"
+              className="pt-button add-plugin-button pt-intent-primary"
+              onClick={this.handleDisable.bind(this)}>
+              Disable
+            </Button>
           )}
+        </h5>
+
+        <div className="pt-callout pt-intent-primary pt-callout-plugin">
+          <img
+            className="plugin-screenshot"
+            src="/plugin-screenshots/number-range.png"
+            title=""
+          />
           <p>{this.props.plugin.description}</p>
         </div>
       </Card>
@@ -62,7 +81,6 @@ export class _PluginList extends Component {
   render() {
     return (
       <RightPanel title={<formattedMessage id="app.nav.plugins" />}>
-        <h5>All Plugins</h5>
         <div className="cards-container">
           {Object.keys(this.props.plugins).map(pluginName => {
             return (

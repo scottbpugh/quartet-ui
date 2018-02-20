@@ -32,9 +32,6 @@ import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
  * @extends Component
  */
 class _RegionDetail extends Component {
-  /*static propTypes = {
-    history: PropTypes.object.isRequired
-  };*/
   constructor(props) {
     super(props);
     this.state = {alloc: 1, lastUpdated: null};
