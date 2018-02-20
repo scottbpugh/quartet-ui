@@ -36,7 +36,7 @@ export const initialData = () => {
                 ability to interact with SerialBox, the backend solution for
                 your serial number range management requirements.
 
-                Among other things, this plugin offers the ability to create
+                Among other functions, this plugin offers the ability to create
                 pools and serial number ranges as well as allocate numbers on
                 the fly from the QU4RTET interface.
             `

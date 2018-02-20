@@ -19,67 +19,11 @@
 import React, {Component} from "react";
 import {Field, reduxForm, change} from "redux-form";
 import {getRegionFormStructure} from "../lib/serialbox-api";
-import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
 import {postAddRegion} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";
-import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
-
-// see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
-const defaultField = ({
-  input,
-  fieldData,
-  type,
-  meta: {touched, error, warning}
-}) => {
-  let intent = "";
-  let intentClass = "";
-  if (touched && error) {
-    intent = Intent.DANGER;
-    intentClass = "pt-intent-danger";
-  }
-  let inputField = "";
-  if (fieldData.description.type === "boolean") {
-    inputField = (
-      <label className="pt-control pt-switch">
-        <input
-          {...input}
-          type="checkbox"
-          name={fieldData.name}
-          className={intent}
-          intent={intent}
-        />
-        <span className="pt-control-indicator" />
-        {fieldData.description.label}
-      </label>
-    );
-  } else {
-    inputField = (
-      <input
-        {...input}
-        name={fieldData.name}
-        type={type}
-        width={300}
-        className={classNames({"pt-input": true, [intentClass]: true})}
-        required={fieldData.description.required}
-      />
-    );
-  }
-
-  let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
-
-  return (
-    <FormGroup
-      helperText={helperText}
-      label={fieldData.description.label}
-      required={fieldData.description.required}
-      intent={intent}>
-      {inputField}
-    </FormGroup>
-  );
-};
+import {DefaultField, getSyncValidators} from "components/elements/forms";
 
 class _RegionForm extends Component {
   constructor(props) {
@@ -115,7 +59,7 @@ class _RegionForm extends Component {
           .filter(fieldObj => {
             if (fieldObj) {
               // create sync validation arrays.
-              fieldObj.validate = this.getSyncValidators(fieldObj);
+              fieldObj.validate = getSyncValidators(fieldObj);
               return true;
             }
             return false;
@@ -140,29 +84,7 @@ class _RegionForm extends Component {
       });
     }
   }
-  getSyncValidators(field) {
-    let validate = []; // Dynamically build this.
-    //validate.push(required);
-    if (field.description.required === true) {
-      validate.push(required);
-    }
-    if (field.description.max_length) {
-      validate.push(maxLength(Number(field.description.max_length)));
-    }
-    if (
-      field.description.min_value &&
-      Number(field.description.min_value) > -10000
-    ) {
-      validate.push(minValue(Number(field.description.min_value)));
-    }
-    if (
-      field.description.max_value &&
-      Number(field.description.max_value) < 10000
-    ) {
-      validate.push(maxValue(Number(field.description.max_value)));
-    }
-    return validate;
-  }
+
   // Handles the RegionForm post.
   submit = postValues => {
     return postAddRegion(this.props.server, postValues)
@@ -206,7 +128,7 @@ class _RegionForm extends Component {
             key={field.name}
             name={field.name}
             fieldData={field}
-            component={defaultField}
+            component={DefaultField}
             type={type}
             className="pt-input"
             width={300}
