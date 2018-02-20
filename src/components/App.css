@@ -27,11 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     flex-direction: column;
     height:auto;
     min-height:100%;
-    margin-top:50px;
 }
 .main-container {
     flex:2;
     display: flex;
+    margin-top:50px;
 }
 .left-panel {
   padding:10px;
