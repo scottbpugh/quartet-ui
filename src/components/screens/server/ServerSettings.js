@@ -124,14 +124,12 @@ const formStructure = (initialValues = {}) => [
  * @return {ReactElement} A form element with a series of inputs based on formData.
  */
 class _ServerForm extends Component {
-  submit = postValues => {
-    debugger;
-    this.props.saveServer(postValues);
-  };
-  render() {
-    const {handleSubmit, formData} = this.props;
-    let formElems = formData.map(field => {
+  componentDidMount() {
+    this.formElems = this.props.formData.map(field => {
       field.validate = getSyncValidators(field);
+      if (field.name === "serverSettingName") {
+        field.validate.push(this.validateServerName.bind(this));
+      }
       return (
         <Field
           key={field.name}
@@ -145,9 +143,25 @@ class _ServerForm extends Component {
         />
       );
     });
+  }
+  submit = postValues => {
+    this.props.saveServer(postValues);
+  };
+  validateServerName = value => {
+    let serverSettingNames = Object.keys(this.props.servers).map(server => {
+      return this.props.servers[server].serverSettingName.toLowerCase().trim();
+    });
+    if (serverSettingNames.includes(value.toLowerCase().trim())) {
+      return "Server Setting Name already used.";
+    }
+    return undefined;
+  };
+  render() {
+    const {handleSubmit, formData} = this.props;
+
     return (
       <form onSubmit={handleSubmit(this.submit)}>
-        {formElems}
+        {this.formElems}
         <Button
           type="submit"
           className="pt-button pt-intent-primary"

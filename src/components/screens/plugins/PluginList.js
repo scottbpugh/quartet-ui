@@ -23,18 +23,21 @@ import {Card, Button} from "@blueprintjs/core";
 import {setEnablePlugin, setDisablePlugin} from "reducers/plugins";
 import {connect} from "react-redux";
 import "./PluginList.css";
+import pluginRepo from "plugins/plugins-repo";
+import {updateMessages} from "reducers/locales";
 
 class Plugin extends Component {
   getPluginModule = () => {
     // need to allow node-module imports in the future. But for
     // core plugins, path is relative.
-    return require("plugins/" + this.props.plugin.initPath);
+    return require("plugins/" + this.props.pluginEntry.initPath);
   };
   handleEnable = evt => {
     this.getPluginModule().enablePlugin();
     this.props.setEnablePlugin({
       [this.props.pluginName]: {...this.props.plugin}
     });
+    this.props.updateMessages(this.props.locale);
   };
   handleDisable = evt => {
     this.getPluginModule().disablePlugin();
@@ -46,8 +49,8 @@ class Plugin extends Component {
     return (
       <Card className="pt-elevation-4">
         <h5>
-          {this.props.plugin.readableName}{" "}
-          {!this.props.plugin.enabled ? (
+          {this.props.pluginEntry.readableName}{" "}
+          {!this.props.plugin || !this.props.plugin.enabled ? (
             <Button
               iconName="pt-icon-add"
               className="pt-button add-plugin-button pt-intent-primary"
@@ -67,10 +70,10 @@ class Plugin extends Component {
         <div className="pt-callout pt-intent-primary pt-callout-plugin">
           <img
             className="plugin-screenshot"
-            src={this.props.plugin.preview}
-            title={this.props.plugin.readableName}
+            src={this.props.pluginEntry.preview}
+            title={this.props.pluginEntry.readableName}
           />
-          <p>{this.props.plugin.description}</p>
+          <p>{this.props.pluginEntry.description}</p>
         </div>
       </Card>
     );
@@ -82,12 +85,12 @@ export class _PluginList extends Component {
     return (
       <RightPanel title={<formattedMessage id="app.nav.plugins" />}>
         <div className="cards-container">
-          {Object.keys(this.props.plugins).map(pluginName => {
+          {Object.keys(pluginRepo).map(pluginName => {
             return (
               <Plugin
-                setEnablePlugin={this.props.setEnablePlugin}
-                setDisablePlugin={this.props.setDisablePlugin}
+                {...this.props}
                 pluginName={pluginName}
+                pluginEntry={pluginRepo[pluginName]}
                 plugin={this.props.plugins[pluginName]}
               />
             );
@@ -101,8 +104,9 @@ export class _PluginList extends Component {
 export const PluginList = connect(
   (state, ownProps) => {
     return {
-      plugins: state.plugins.plugins
+      plugins: state.plugins.plugins,
+      locale: state.intl.locale
     };
   },
-  {setEnablePlugin, setDisablePlugin}
+  {setEnablePlugin, setDisablePlugin, updateMessages}
 )(_PluginList);

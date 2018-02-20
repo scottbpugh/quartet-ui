@@ -34,8 +34,8 @@ require("velocity-animate/velocity.ui");
 class _LeftPanel extends Component {
   render() {
     return (
-      <div className="left-panel pt-dark">
-        <h4 className="left-panel-title">
+      <div className="left-panel">
+        <h4 className="left-panel-title pt-dark">
           {/* We use a new message from passed props because Redux uses plain objects. */}
           <FormattedMessage {...this.props.pageTitle} />
         </h4>

@@ -55,9 +55,6 @@ class _App extends Component {
               <NavLink to="/" iconName="home">
                 <FormattedMessage id="app.nav.dashboard" />
               </NavLink>
-              <NavLink to="/server-settings" iconName="cloud">
-                <FormattedMessage id="app.nav.servers" />
-              </NavLink>
               <NavLink to="/plugins" iconName="pt-icon-exchange">
                 <FormattedMessage id="app.nav.plugins" />
               </NavLink>

@@ -19,29 +19,12 @@ import {handleActions} from "redux-actions";
 import actions from "actions/plugins";
 import {registerComponent} from "plugins/pluginRegistration";
 import {showMessage} from "lib/message";
+import pluginRepo from "plugins/plugins-repo";
 
 export const initialData = () => {
   return {
     navTreeItems: [],
-    plugins: {
-      NumberRange: {
-        core: true,
-        enabled: false,
-        preview: "/plugin-screenshots/number-range.png",
-        initPath: "number-range/src/init.js",
-        readableName: "Serial Number Range Management",
-        pluginName: "NumberRange",
-        description: `
-                The Serial Number Range Management plugin offers users the
-                ability to interact with SerialBox, the backend solution for
-                your serial number range management requirements.
-
-                Among other functions, this plugin offers the ability to create
-                pools and serial number ranges as well as allocate numbers on
-                the fly from the QU4RTET interface.
-            `
-      }
-    }
+    plugins: {}
   };
 };
 

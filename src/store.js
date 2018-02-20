@@ -33,7 +33,6 @@ import {intlReducer} from "react-intl-redux";
 import locale from "reducers/locales";
 import asyncDispatchMiddleware from "middlewares/asyncDispatchMiddleware";
 import pluginReducer from "reducers/plugins";
-
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
@@ -98,11 +97,11 @@ export default function configureStore(coreInitialState, routerHistory) {
   });
   // enable previously enabled plugins.
   let state = store.getState();
+  const pluginRepo = require("plugins/plugins-repo");
   for (let pluginName in state.plugins.plugins) {
     if (state.plugins.plugins[pluginName].enabled === true) {
-      console.log("Loading", pluginName);
       let plugin = require("plugins/" +
-        state.plugins.plugins[pluginName].initPath);
+        pluginRepo.default[pluginName].initPath);
       plugin.enablePlugin();
     }
   }

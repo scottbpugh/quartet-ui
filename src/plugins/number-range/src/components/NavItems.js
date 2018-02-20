@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {Menu, MenuItem, Tree, Icon} from "@blueprintjs/core";
+import {Menu, MenuItem, MenuDivider, Tree, Icon} from "@blueprintjs/core";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
@@ -29,6 +29,8 @@ class NavItem extends Component {
   renderContextMenu() {
     return (
       <Menu>
+        <MenuDivider title={this.props.pool.readable_name} />
+        <MenuDivider />
         <MenuItem
           text={this.props.intl.formatMessage({
             id: "plugins.numberRange.addRegion"
@@ -80,8 +82,11 @@ export class _NavPluginRoot extends Component {
     }
   }
   renderContextMenu = () => {
+    const {servers, serverID} = this.props;
     return (
       <Menu>
+        <MenuDivider title={servers[serverID].serverSettingName} />
+        <MenuDivider />
         <MenuItem
           text={this.props.intl.formatMessage({
             id: "plugins.numberRange.addPool"

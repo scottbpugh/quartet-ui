@@ -92,8 +92,9 @@ class _TreeNode extends Component {
    * @return {type} Description
    */
 
-  renderContextMenu() {
+  renderContextMenu(e) {
     if ("onContextMenu" in this.props) {
+      e.preventDefault();
       return this.props.onContextMenu();
     }
   }
