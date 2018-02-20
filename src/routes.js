@@ -46,7 +46,7 @@ const coreRoutes = () => {
  * _QSwitch - Loads routes, internationalization of plugins, and dynamic plugin-based components.
  * @extends Component
  */
-class _QSwitch extends Component {
+class _RouteSwitcher extends Component {
   constructor(props) {
     super(props);
     this.routes = coreRoutes();
@@ -92,7 +92,6 @@ class _QSwitch extends Component {
   }
   render() {
     let {location} = this.props;
-
     return (
       <App>
         <Switch>{this.routes}</Switch>
@@ -100,12 +99,12 @@ class _QSwitch extends Component {
     );
   }
 }
-const QSwitch = connect(
+const RouteSwitcher = connect(
   state => {
     return {plugins: state.plugins.plugins, intl: state.intl};
   },
   dispatch => {
     return {dispatch: dispatch};
   }
-)(_QSwitch);
-export default withRouter(QSwitch);
+)(_RouteSwitcher);
+export default withRouter(RouteSwitcher);

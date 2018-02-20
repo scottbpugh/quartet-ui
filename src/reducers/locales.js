@@ -32,14 +32,11 @@ export const updateMessages = locale => {
         ...coreMessages[language].plugins,
         ...newMessages[language].plugins
       };
-      console.log("plugin now", coreMessages[language].plugins);
     } else {
       coreMessages[language] = {plugins: {...newMessages[language].plugins}};
     }
   }
-  console.log("Core Messages are now", coreMessages);
   return dispatch => {
-    console.log("Dispatch triggered");
     return dispatch(
       updateIntl({
         locale: locale,
