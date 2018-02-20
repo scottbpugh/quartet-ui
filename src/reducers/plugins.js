@@ -18,6 +18,7 @@
 import {handleActions} from "redux-actions";
 import actions from "actions/plugins";
 import {registerComponent} from "plugins/pluginRegistration";
+import {showMessage} from "lib/message";
 
 export const initialData = () => {
   return {
@@ -26,6 +27,7 @@ export const initialData = () => {
       NumberRange: {
         core: true,
         enabled: false,
+        preview: "/plugin-screenshots/number-range.png",
         initPath: "number-range/src/init.js",
         readableName: "Serial Number Range Management",
         pluginName: "NumberRange",
@@ -46,18 +48,18 @@ export const initialData = () => {
 export const setEnablePlugin = pluginEntries => {
   return dispatch => {
     for (let plugin in pluginEntries) {
-      console.log("My PluginEntires", pluginEntries);
       pluginEntries[plugin].enabled = true;
     }
+    showMessage({type: "success", msg: `Plugin enabled.`});
     return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
   };
 };
 export const setDisablePlugin = pluginEntries => {
   return dispatch => {
     for (let plugin in pluginEntries) {
-      console.log("My plugin entries", pluginEntries);
       pluginEntries[plugin].enabled = false;
     }
+    showMessage({type: "success", msg: "Plugin disabled."});
     return dispatch({type: actions.pluginDisabled, payload: pluginEntries});
   };
 };

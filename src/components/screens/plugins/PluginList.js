@@ -67,8 +67,8 @@ class Plugin extends Component {
         <div className="pt-callout pt-intent-primary pt-callout-plugin">
           <img
             className="plugin-screenshot"
-            src="/plugin-screenshots/number-range.png"
-            title=""
+            src={this.props.plugin.preview}
+            title={this.props.plugin.readableName}
           />
           <p>{this.props.plugin.description}</p>
         </div>
