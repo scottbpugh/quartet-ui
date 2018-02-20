@@ -18,9 +18,8 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Panels, RightPanel, LeftPanel} from "components/layouts/Panels";
+import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import NRTree from "./NRTree";
 import RegionForm from "./RegionForm";
 import {FormattedMessage} from "react-intl";
 
@@ -39,25 +38,21 @@ class _AddRegion extends Component {
 
   render() {
     return (
-      <Panels title={<FormattedMessage id="plugins.numberRange.addRegion" />}>
-        <LeftPanel>
-          <NRTree nr={this.props.nr} />
-        </LeftPanel>
-        <RightPanel>
-          <div className="large-cards-container">
-            <Card className="pt-elevation-4 form-card">
-              <h5>
-                <FormattedMessage id="plugins.numberRange.addRegion" />
-              </h5>
-              <RegionForm
-                server={this.currentServer.server}
-                pool={this.currentPool}
-                history={this.props.history}
-              />
-            </Card>
-          </div>
-        </RightPanel>
-      </Panels>
+      <RightPanel
+        title={<FormattedMessage id="plugins.numberRange.addRegion" />}>
+        <div className="large-cards-container">
+          <Card className="pt-elevation-4 form-card">
+            <h5>
+              <FormattedMessage id="plugins.numberRange.addRegion" />
+            </h5>
+            <RegionForm
+              server={this.currentServer.server}
+              pool={this.currentPool}
+              history={this.props.history}
+            />
+          </Card>
+        </div>
+      </RightPanel>
     );
   }
 }

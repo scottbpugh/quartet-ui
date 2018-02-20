@@ -22,7 +22,7 @@ import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store";
 import {Provider} from "react-redux";
-import QSwitch from "./routes";
+import RouteSwitcher from "./routes";
 
 import {IntlProvider} from "react-intl-redux";
 
@@ -56,8 +56,6 @@ const initialState = {
   plugins: pluginInitialData()
 };
 
-console.log("initialState is", JSON.stringify(initialState));
-
 addLocaleData([...en, ...fr]);
 const store = configureStore(initialState);
 
@@ -65,7 +63,7 @@ ReactDOM.render(
   <Provider store={store}>
     <IntlProvider>
       <BrowserRouter>
-        <QSwitch />
+        <RouteSwitcher />
       </BrowserRouter>
     </IntlProvider>
   </Provider>,

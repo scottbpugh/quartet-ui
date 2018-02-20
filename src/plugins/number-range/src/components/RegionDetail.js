@@ -26,7 +26,6 @@ import {setAllocation} from "../reducers/numberrange";
 import "../style.css";
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
-import NRTree from "./NRTree";
 
 /**
  * _RegionDetail - Description

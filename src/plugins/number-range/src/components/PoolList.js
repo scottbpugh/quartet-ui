@@ -23,7 +23,6 @@ import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
-import NRTree from "./NRTree";
 
 class ServerPools extends Component {
   render() {
