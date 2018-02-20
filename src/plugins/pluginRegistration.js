@@ -18,15 +18,31 @@
 import React from "react";
 import {Route} from "react-router";
 
+/**
+ * PluginRegistry - Holds references to various plugin objects
+ * such as routes, reducers, components, and localization messages.
+ * Also emits an event when a reducer is added.
+ */
 class PluginRegistry {
   constructor() {
     this._emitChange = null;
+
+    /*
+    Holds references to reducers that come from plugins.
+    */
     this._reducers = {};
+
+    /*
+    initialData isn't currently used due to a bug. All plugin state start as {}.
+    Code your components to handle an empty object, or fix the combine function in the main store.js
+    */
     this._initialData = {};
+
     /*
     Holds all the localization messages for plugins, when they are enabled.
     */
     this._messages = {"en-US": {plugins: {}}, "fr-FR": {plugins: {}}};
+
     /* Holds all the components from plugins that can be injected
     into the core components (buttons, context menus, ...)
     Use an event dispatch to tie them to a component (navtree, ...)
@@ -48,6 +64,7 @@ class PluginRegistry {
     */
     this._registeredRoutes = {};
   }
+
   setMessages(messages) {
     for (let language in messages) {
       if (language in this._messages) {
@@ -60,6 +77,7 @@ class PluginRegistry {
       }
     }
   }
+
   registerComponent = (pluginName, component, injectAction) => {
     if (!pluginName || !component) {
       throw new Error(
@@ -82,6 +100,7 @@ class PluginRegistry {
       // ignore if this is the first time.
     }
   };
+
   unregisterComponent = (pluginName, component, injectAction) => {
     if (!pluginName || !component) {
       throw new Error(
@@ -105,17 +124,21 @@ class PluginRegistry {
       //don't bother if it doesn't exist.
     }
   };
+
   getUnregisteredComponents = () => {
     return {...this._unregisteredComponents};
   };
+
   getRegisteredComponents = () => {
     return {...this._registeredComponents};
   };
+
   getRegisteredComponent = fullPluginComponentName => {
     try {
       return this._registeredComponents[fullPluginComponentName].component;
     } catch (e) {}
   };
+
   registerRoutes = (pluginName, routes) => {
     this._registeredRoutes[pluginName] = routes;
   };
@@ -135,18 +158,23 @@ class PluginRegistry {
     }
     return routes;
   };
+
   getMessages() {
     return {...this._messages};
   }
+
   setInitialData(name, dataObject) {
     this._initialData[name] = dataObject;
   }
+
   getInitialData() {
     return {...this._initialData};
   }
+
   getReducers() {
     return {...this._reducers};
   }
+
   registerReducer(pluginName, name, reducer, initialData) {
     this.setInitialData(name, initialData);
     this._reducers = {...this._reducers, [name]: reducer};
@@ -154,8 +182,11 @@ class PluginRegistry {
       this._emitChange(this.getReducers());
     }
   }
+
   setChangeListener(listener) {
     this._emitChange = listener;
   }
 }
+
+// export only a singleton. Entire app and all plugins share one PluginRegistry object.
 export const pluginRegistry = new PluginRegistry();
