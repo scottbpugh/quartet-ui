@@ -156,6 +156,7 @@ This is used to display the proper level of indentation in the tree.
 The path prop is used to redirect the user to a route when using the left click.
 The active prop is used to highlight the node when it meets conditions of your choice.
 For instance, in the case of the Serial Number Range pool tree node, it will be highlighted when the location pathname matches the same serverID as the serial number node as well as the pool machine name:
+
     const {pool, serverID} = this.props;
     let regexp = new RegExp(`/${serverID}/${pool.machine_name}/?$`);
     this.setState({active: regexp.test(this.props.currentPath)});
