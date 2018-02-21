@@ -36,7 +36,7 @@ const newIntl = {
   ...initialState.intl,
   messages: flattenMessages({...messages[locale], ...nrmessages[locale]})
 };
-console.log(JSON.stringify(newIntl));
+
 const pluginData = {
   ...initialState,
   serversettings: {servers: {fakeid: {serverID: "fakeid"}}},

@@ -23,13 +23,11 @@ import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 import {IntlProvider, intlReducer} from "react-intl-redux";
-
-const mockStore = configureStore();
-let wrapper;
-let store;
+import {Provider} from "react-redux";
+import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 
 it("renders correctly", () => {
-  store = mockStore({serversettings: initialData()});
+  let store = mockStore(initialState);
   const props = {
     match: {
       params: {
@@ -39,11 +37,13 @@ it("renders correctly", () => {
   };
   const serverSettings = renderer
     .create(
-      <IntlProvider store={store}>
-        <Router>
-          <ServerSettings {...props} store={store} />
-        </Router>
-      </IntlProvider>
+      <TestWrapper>
+        <Provider store={store}>
+          <Router>
+            <ServerSettings {...props} store={store} />
+          </Router>
+        </Provider>
+      </TestWrapper>
     )
     .toJSON();
   expect(serverSettings).toMatchSnapshot();
