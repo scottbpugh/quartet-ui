@@ -20,13 +20,12 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {RightPanel} from "../../layouts/Panels";
 import "./server-settings.css";
-import {FormGroup, Switch, Card, Button} from "@blueprintjs/core";
-import {Link} from "react-router-dom";
+import {Card, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
 import {FormattedMessage} from "react-intl";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {Field, reduxForm, change} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 
 const formStructure = (initialValues = {}) => [
   {
@@ -157,7 +156,7 @@ class _ServerForm extends Component {
     return undefined;
   };
   render() {
-    const {handleSubmit, formData} = this.props;
+    const {handleSubmit} = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.submit)}>
@@ -230,19 +229,6 @@ class _ServerSettings extends Component {
         </Card>
       </div>
     );
-  };
-
-  SettingsMenu = props => {
-    let serverList = Object.keys(props.servers).map(key => {
-      return (
-        <li key={props.servers[key].serverID}>
-          <Link to={`/server-settings/${props.servers[key].serverID}`}>
-            {props.servers[key].serverSettingName}
-          </Link>
-        </li>
-      );
-    });
-    return <div />;
   };
 
   render() {

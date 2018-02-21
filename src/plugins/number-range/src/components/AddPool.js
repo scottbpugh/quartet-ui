@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Panels, RightPanel, LeftPanel} from "components/layouts/Panels";
+import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
 import PoolForm from "./PoolForm";
 import {FormattedMessage} from "react-intl";

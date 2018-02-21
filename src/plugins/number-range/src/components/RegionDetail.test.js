@@ -16,16 +16,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
+import React from "react";
 import renderer from "react-test-renderer";
 import {RegionDetail} from "./RegionDetail";
-import {initialData} from "../../../../reducers/serversettings";
-import {initialData as initialDataNR} from "../reducers/numberrange";
-import configureStore from "redux-mock-store";
-import {MemoryRouter as Router, withRouter, Switch} from "react-router-dom";
-import {IntlProvider} from "react-intl";
-import returnComponentWithIntl from "../../../../tools/intl-test-helper";
-import thunk from "redux-thunk";
+import {MemoryRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {flattenMessages} from "lib/flattenMessages";
@@ -75,14 +69,6 @@ const pluginData = {
 const store = mockStore(pluginData);
 
 it("renders correctly a pool with no region", () => {
-  const props = {
-    match: {
-      params: {
-        serverID: "fakeid"
-      }
-    }
-  };
-
   window.fetch = jest
     .fn()
     .mockImplementation(() => Promise.resolve({ok: true}));

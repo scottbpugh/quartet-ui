@@ -18,9 +18,7 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionControls} from "./ActionControls";
 import "./NavTree.css";
 import classNames from "classnames";
 import {
@@ -29,13 +27,11 @@ import {
   MenuItem,
   Popover,
   Position,
-  Button,
   Icon
 } from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {injectIntl, intlShape} from "react-intl";
 
 export class CustomIcon extends Component {
   render() {
@@ -50,10 +46,6 @@ export const Fade = ({children, ...props}) => (
 );
 
 class SubTree extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <TransitionGroup
@@ -202,7 +194,6 @@ class _NavTree extends Component {
   getTree = props => {
     const {servers} = props;
     return Object.keys(servers).map(serverID => {
-      let regexp = new RegExp(`\/${serverID}\/?`);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName depth={1} key={component} serverID={serverID} />;

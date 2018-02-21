@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {loadPools, loadRegions} from "../reducers/numberrange";
-import {Panels, RightPanel, LeftPanel} from "components/layouts/Panels";
+import {RightPanel} from "components/layouts/Panels";
 import {Card, Callout} from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
 import {setAllocation} from "../reducers/numberrange";

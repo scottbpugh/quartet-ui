@@ -18,7 +18,6 @@
 
 import React, {Component} from "react";
 import {RightPanel} from "components/layouts/Panels";
-import {FormattedMesasge} from "react-intl";
 import {Card, Button} from "@blueprintjs/core";
 import {setEnablePlugin, setDisablePlugin} from "reducers/plugins";
 import {connect} from "react-redux";
@@ -72,6 +71,7 @@ class Plugin extends Component {
             className="plugin-screenshot"
             src={this.props.pluginEntry.preview}
             title={this.props.pluginEntry.readableName}
+            alt={this.props.pluginEntry.readableName}
           />
           <p>{this.props.pluginEntry.description}</p>
         </div>

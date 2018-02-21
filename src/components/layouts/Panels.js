@@ -15,15 +15,11 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import {CSSTransition, TransitionGroup} from "react-transition-group";
-
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {loadPageTitle} from "../../reducers/layout";
-import {Fade} from "./elements/NavTree";
-import Velocity from "velocity-animate";
-require("velocity-animate/velocity.ui");
+
 /**
  * LeftPanel
  *

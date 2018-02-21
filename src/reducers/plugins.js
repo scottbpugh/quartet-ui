@@ -17,9 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {handleActions} from "redux-actions";
 import actions from "actions/plugins";
-import {registerComponent} from "plugins/pluginRegistration";
 import {showMessage} from "lib/message";
-import pluginRepo from "plugins/plugins-repo";
 
 export const initialData = () => {
   return {

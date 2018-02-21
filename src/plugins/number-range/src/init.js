@@ -17,7 +17,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {pluginRegistry} from "../../pluginRegistration";
 import actions from "../../../actions/plugins";
-import {loadPools} from "./reducers/numberrange";
 import {NavPluginRoot} from "./components/NavItems";
 import routes from "./routes";
 import reducer, {initialData} from "./reducers/numberrange";

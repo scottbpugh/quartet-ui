@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
 import {Switch, Route} from "react-router";
-import {withRouter, BrowserRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import App from "components/App";
 import Dashboard from "components/screens/Dashboard";
 import {ServerSettings} from "components/screens/server/ServerSettings";
@@ -87,7 +87,6 @@ class _RouteSwitcher extends Component {
     }
   }
   render() {
-    let {location} = this.props;
     return (
       <App>
         <Switch>{this.routes}</Switch>

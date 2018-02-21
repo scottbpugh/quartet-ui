@@ -22,7 +22,6 @@ import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "reducers/dashboard";
 import serversettings from "reducers/serversettings";
-import numberrange from "plugins/number-range/src/reducers/numberrange";
 import layout from "reducers/layout";
 import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";

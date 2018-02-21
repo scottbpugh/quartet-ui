@@ -19,7 +19,6 @@
 import React, {Component} from "react";
 import {Field, reduxForm, change} from "redux-form";
 import {getPoolFormStructure} from "../lib/serialbox-api";
-import classNames from "classnames";
 import {postAddPool} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";

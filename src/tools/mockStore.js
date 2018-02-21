@@ -17,10 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import renderer from "react-test-renderer";
 
 import {IntlProvider} from "react-intl";
-import {addLocaleData, FormattedMessage} from "react-intl";
+import {addLocaleData} from "react-intl";
 import messages from "messages";
 import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
@@ -47,7 +46,7 @@ export const initialState = {
 export const mockStore = configureStore(middlewares);
 
 export const TestWrapper = ({locale, messages, children}) => {
-  if (locale == undefined) {
+  if (locale === undefined) {
     locale = defaultLocale;
   }
   if (messages === undefined) {

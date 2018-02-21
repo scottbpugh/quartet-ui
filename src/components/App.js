@@ -31,15 +31,8 @@ import NavLink from "components/layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
 import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
 import {NavTree} from "components/layouts/elements/NavTree";
-import {ActionControls} from "components/layouts/elements/ActionControls";
 import {connect} from "react-redux";
-import {loadPageTitle} from "reducers/layout";
 import {LeftPanel, Panels} from "components/layouts/Panels";
-import {CSSTransition, TransitionGroup} from "react-transition-group";
-import {
-  getRegisteredComponents,
-  getUnregisteredComponents
-} from "../plugins/pluginRegistration";
 
 class _App extends Component {
   componentWillReceiveProps(nextProps) {}

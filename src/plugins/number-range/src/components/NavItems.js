@@ -18,15 +18,7 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {
-  Menu,
-  MenuItem,
-  MenuDivider,
-  Tree,
-  Icon,
-  Dialog
-} from "@blueprintjs/core";
-import PropTypes from "prop-types";
+import {Menu, MenuItem, MenuDivider, Dialog} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
 import {loadPools, setAllocation} from "../reducers/numberrange";
@@ -93,7 +85,7 @@ class _PoolItem extends Component {
     // for some reason this.props.location.pathname doesn't get updated.
     // window.location.pathname does.
     const {pool, serverID} = this.props;
-    let regexp = new RegExp(`\/${serverID}\/${pool.machine_name}\/?$`);
+    let regexp = new RegExp(`/${serverID}/${pool.machine_name}/?$`);
     this.setState({active: regexp.test(currentPath)});
   }
   componentDidMount() {
@@ -103,7 +95,7 @@ class _PoolItem extends Component {
     this.activateNode(nextProps.currentPath);
   }
   render() {
-    const {pool, serverID, intl} = this.props;
+    const {pool, serverID} = this.props;
     return (
       <TreeNode
         onContextMenu={this.renderContextMenu.bind(this)}
@@ -193,7 +185,7 @@ export class _NavPluginRoot extends Component {
     // for some reason this.props.location.pathname doesn't get updated.
     // window.location.pathname does.
     const {serverID} = this.props;
-    let regexp = new RegExp(`\/${serverID}\/?`);
+    let regexp = new RegExp(`/${serverID}/?`);
     this.setState({active: regexp.test(currentPath)});
   }
   renderContextMenu = () => {
