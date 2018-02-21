@@ -67,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   background-position: 2px 3px;
 }
 
-.tree-node-pool {
+.tree-node-pool, .tree-node-plugin {
   background-image: url("/icons/pool-24.svg");
   background-size: 16px 16px;
   background-repeat:no-repeat;
