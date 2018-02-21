@@ -18,7 +18,6 @@
 
 import React from "react";
 import renderer from "react-test-renderer";
-import {Panels, LeftPanel, RightPanel} from "./Panels";
 
 import {IntlProvider} from "react-intl";
 import {addLocaleData, FormattedMessage} from "react-intl";
@@ -29,25 +28,28 @@ import {flattenMessages} from "lib/flattenMessages";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
-import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+addLocaleData([...en, ...fr]);
+let locale = "en-US";
+const middlewares = [thunk];
 
-it("renders nested components correctly", () => {
-  let store = mockStore(initialState);
-  const panels = renderer
-    .create(
-      <TestWrapper>
-        <Panels store={store}>
-          <LeftPanel store={store}>
-            <h1>Something</h1>
-          </LeftPanel>
-          <RightPanel
-            title={<FormattedMessage id="app.nav.servers" />}
-            store={store}>
-            <h2>Something Else</h2>
-          </RightPanel>
-        </Panels>
-      </TestWrapper>
-    )
-    .toJSON();
-  expect(panels).toMatchSnapshot();
-});
+export const initialState = {
+  dashboard: {notifications: []},
+  serversettings: {},
+  intl: {
+    defaultLocale: "en-US",
+    locale: locale,
+    messages: flattenMessages(messages[locale])
+  },
+  layout: {pageTitle: {id: "app.nav.servers"}},
+  plugins: {}
+};
+
+export const mockStore = configureStore(middlewares);
+
+export const TestWrapper = ({children}) => {
+  return (
+    <IntlProvider locale={locale} messages={initialState.intl.messages}>
+      {children}
+    </IntlProvider>
+  );
+};
