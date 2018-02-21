@@ -101,7 +101,7 @@ For a plugin to be used, QU4RTET expects an init.js file located at the root of 
 * enablePlugin
 * disablePlugin
 
-enablePlugin is called when a plugin is enabled from the PluginList component as well as during the initialization phase of the QU4RTET application. disabledPlugin is called only when the user decides to disable the application from the PluginList screen.
+As their name indicate, enablePlugin is called when a plugin is enabled from the PluginList component as well as during the initialization phase of the QU4RTET application. disablePlugin is called only when the user decides to disable the application from the PluginList screen.
 
 In the enablePlugin function, register your reducer, set your messages, and register your navigation tree nodes that you want to see appear under the Server nodes of the nav tree in the left panel.
 
