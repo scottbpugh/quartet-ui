@@ -199,6 +199,7 @@ You must pass the intl prop explicitely for items used in props.childrenNodes to
 Currently, the list of plugins available is strictly offline and they are contained within the src/plugins/ directory of quartet-ui.
 Eventually, non-core plugins will be enabled and installed through npm or another package manager and the metadata on the plugins should be available through a remote server providing a list formatted in JSON for the plugins (after review and approval.)
 To add your core plugin to the list of plugins that can be installed, add an entry in the default export object of the src/plugins/plugin-repo.js file with the following key/value pairs:
+    
     NumberRange: {
       core: true,
       preview: "/plugin-screenshots/number-range.png",
