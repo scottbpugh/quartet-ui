@@ -69,6 +69,7 @@ class _App extends Component {
           <Panels>
             <LeftPanel key="leftpanel">
               <div>
+                {/* Important not to rerender this component on router changes. */}
                 <NavTree />
               </div>
             </LeftPanel>
@@ -84,6 +85,7 @@ const App = connect(
   state => {
     return {
       pageTitle: state.layout.pageTitle,
+      currentPath: state.layout.currentPath,
       plugins: state.plugins.plugins
     };
   },

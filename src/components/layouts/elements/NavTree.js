@@ -77,7 +77,7 @@ class _TreeNode extends Component {
   toggleChildren = evt => {
     this.setState({collapsed: !this.state.collapsed}, () => {
       // go to path, for detail...
-      this.go();
+      //this.go();
     });
   };
   go = () => {
@@ -99,6 +99,7 @@ class _TreeNode extends Component {
     }
   }
   render() {
+    console.log("active", this.props.active);
     let expandable = this.props.childrenNodes.length > 0 ? true : false;
     return (
       <li
@@ -107,7 +108,7 @@ class _TreeNode extends Component {
           [`tree-node-${this.props.nodeType}`]: true,
           collapsed: this.state.collapsed
         })}>
-        <a onClick={this.toggleChildren}>
+        <a className="tree-node-link" onClick={this.toggleChildren}>
           <span
             className={classNames({
               "arrow-straight": this.state.collapsed,
@@ -120,7 +121,12 @@ class _TreeNode extends Component {
           </span>
         </a>
 
-        <a onClick={this.go}>
+        <a
+          onClick={this.go}
+          className={classNames({
+            "tree-node-link": true,
+            "tree-node-active": this.props.active || false
+          })}>
           <span className="tree-node-label">{this.props.children}</span>
         </a>
         <SubTree collapsed={this.state.collapsed}>
@@ -175,18 +181,21 @@ class AddServerButton extends Component {
 class _NavTree extends Component {
   constructor(props) {
     super(props);
+    this.tree = this.getTree(props);
   }
   componentDidMount() {
-    this.tree = this.getTree();
+    this.tree = this.getTree(this.props);
   }
-  componentWillReceiveProps(nextProps) {}
-  getTree = () => {
-    const {servers} = this.props;
-    const props = this.props;
+  componentWillReceiveProps(nextProps) {
+    this.tree = this.getTree(nextProps);
+  }
+  getTree = props => {
+    const {servers} = props;
     return Object.keys(servers).map(serverID => {
+      let regexp = new RegExp(`\/${serverID}\/?`);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
-        return <ComponentName serverID={serverID} />;
+        return <ComponentName key={component} serverID={serverID} />;
       });
       return (
         <TreeNode
@@ -207,7 +216,7 @@ class _NavTree extends Component {
           </div>
         </div>
         <div className="">
-          <Tree>{this.getTree()}</Tree>
+          <Tree>{this.tree}</Tree>
         </div>
       </div>
     );

@@ -78,6 +78,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   float:right;
 }
 
+.tree-node-active {
+  /* Turning this off for now */
+  /*color:#8EC549 !important;*/
+  color:#3289C1 !important;
+}
+
+.tree-node-link {
+
+}
+
 .collapsed ul {
   /*  display:none;*/
 }

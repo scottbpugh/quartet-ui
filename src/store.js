@@ -17,11 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {createStore, applyMiddleware, combineReducers, compose} from "redux";
-import {
-  routerMiddleware,
-  routerReducer as routing,
-  push
-} from "react-router-redux";
+
 import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "reducers/dashboard";
@@ -37,13 +33,12 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
 
-export default function configureStore(coreInitialState, routerHistory) {
-  const router = routerMiddleware(routerHistory);
-  const middlewares = [thunk, router, asyncDispatchMiddleware];
+export default function configureStore(coreInitialState) {
+  const middlewares = [thunk, asyncDispatchMiddleware];
   const composeEnhancers = (() => {
     const compose_ = window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
     if (process.env.NODE_ENV === "development" && compose_) {
-      return compose_({push});
+      return compose_({});
     }
     return compose;
   })();
@@ -56,7 +51,6 @@ export default function configureStore(coreInitialState, routerHistory) {
     ...pluginRegistry.getInitialData()
   };
   const coreReducers = {
-    routing,
     dashboard,
     serversettings,
     form: reduxFormReducer,

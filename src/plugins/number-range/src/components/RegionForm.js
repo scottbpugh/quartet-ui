@@ -24,6 +24,9 @@ import {postAddRegion} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
+import {connect} from "react-redux";
+import {loadPools} from "../reducers/numberrange";
+import {withRouter} from "react-router-dom";
 
 class _RegionForm extends Component {
   constructor(props) {
@@ -87,6 +90,7 @@ class _RegionForm extends Component {
 
   // Handles the RegionForm post.
   submit = postValues => {
+    postValues.pool = this.props.pool.machine_name;
     return postAddRegion(this.props.server, postValues)
       .then(resp => {
         return Promise.all([resp, resp.json()]);
@@ -99,7 +103,15 @@ class _RegionForm extends Component {
               msg: "New region created successfully",
               type: "success"
             });
-            this.props.history.push("/number-range/pools");
+
+            setTimeout(() => {
+              // tiny bit of padding.
+              this.props.history.push(
+                `/number-range/region-detail/${this.props.server.serverID}/${
+                  this.props.pool.machine_name
+                }`
+              );
+            }, 10);
           }
           return proms[1];
         } else {
@@ -117,6 +129,11 @@ class _RegionForm extends Component {
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
+        if (field.name === "pool") {
+          // we'll populate dynamically based on path.
+          field.description.required = false;
+          field.validate = [];
+        }
         if (field.description.type === "integer") {
           type = "number";
         } else if (field.description.type === "boolean") {
@@ -160,4 +177,6 @@ let RegionForm = reduxForm({
   form: "addRegion"
 })(_RegionForm);
 
-export default RegionForm;
+export default connect(state => ({nr: state.numberrange.servers}), {loadPools})(
+  withRouter(RegionForm)
+);

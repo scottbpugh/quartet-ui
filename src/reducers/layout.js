@@ -21,7 +21,8 @@ import actions from "actions/layout";
 
 export const initialData = () => {
   return {
-    pageTitle: {id: "Main", values: {}}
+    pageTitle: {id: "Main", values: {}},
+    currentPath: window.location.pathname
   };
 };
 
@@ -36,7 +37,9 @@ export default handleActions(
     [actions.loadPageTitle]: (state, action) => {
       return {
         ...state,
-        pageTitle: action.payload
+        pageTitle: action.payload,
+        // keeping track of path for nav purposes.
+        currentPath: window.location.pathname
       };
     }
   },

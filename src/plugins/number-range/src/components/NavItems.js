@@ -18,31 +18,89 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {Menu, MenuItem, MenuDivider, Tree, Icon} from "@blueprintjs/core";
+import {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  Tree,
+  Icon,
+  Dialog
+} from "@blueprintjs/core";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
-import {loadPools} from "../reducers/numberrange";
+import {loadPools, setAllocation} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
 
-class NavItem extends Component {
+class _PoolItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAllocationOpen: false,
+      alloc: 0,
+      active: false
+    };
+  }
+  goTo = path => {
+    this.props.history.push(path);
+  };
+  toggleAllocation = () => {
+    const {pool, serverID} = this.props;
+    // redirect to pool regions if not already there.
+    this.goTo(`/number-range/region-detail/${serverID}/${pool.machine_name}`);
+    this.setState({isAllocationOpen: !this.state.isAllocationOpen});
+  };
   renderContextMenu() {
+    const {serverID, pool} = this.props;
+
     return (
       <Menu>
-        <MenuDivider title={this.props.pool.readable_name} />
+        <MenuDivider title={pool.readable_name} />
         <MenuDivider />
         <MenuItem
-          text={this.props.intl.formatMessage({
+          onClick={this.goTo.bind(
+            this,
+            `/number-range/add-region/${serverID}/${pool.machine_name}`
+          )}
+          text={`${this.props.intl.formatMessage({
             id: "plugins.numberRange.addRegion"
-          })}
+          })}`}
         />
         <MenuItem
+          onClick={this.toggleAllocation}
           text={this.props.intl.formatMessage({
             id: "plugins.numberRange.allocateButton"
           })}
         />
       </Menu>
     );
+  }
+  setAllocation = evt => {
+    evt.preventDefault();
+    const {pool, serverID} = this.props;
+    this.props.setAllocation(
+      this.props.servers[serverID],
+      pool,
+      this.state.alloc
+    );
+    this.toggleAllocation();
+  };
+  allocChange = evt => {
+    this.setState({alloc: evt.target.value});
+  };
+  activateNode(currentPath) {
+    // set active state if in current path.
+    // for some reason this.props.location.pathname doesn't get updated.
+    // window.location.pathname does.
+    const {pool, serverID} = this.props;
+    let regexp = new RegExp(`\/${serverID}\/${pool.machine_name}\/?$`);
+    this.setState({active: regexp.test(currentPath)});
+  }
+  componentDidMount() {
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
   }
   render() {
     const {pool, serverID, intl} = this.props;
@@ -52,12 +110,49 @@ class NavItem extends Component {
         key={pool.machine_name}
         path={`/number-range/region-detail/${serverID}/${pool.machine_name}`}
         nodeType="pool"
+        active={this.state.active}
+        collapsed={this.state.collapsed}
         childrenNodes={[]}>
+        <Dialog
+          isOpen={this.state.isAllocationOpen}
+          onClose={this.toggleAllocation}
+          title={`${this.props.intl.formatMessage({
+            id: "plugins.numberRange.allocateButton"
+          })} ${pool.readable_name}`}>
+          <div className="pt-dialog-body">
+            <form onSubmit={this.setAllocation} className="mini-form">
+              <input
+                placeholder="allocate"
+                className="pt-input"
+                type="number"
+                defaultValue={1}
+                value={this.state.alloc}
+                onChange={this.allocChange}
+                min={1}
+                max={100000}
+                style={{width: 200}}
+              />
+              <button type="submit" className="pt-button">
+                <FormattedMessage id="plugins.numberRange.allocateButton" />
+              </button>
+            </form>
+          </div>
+        </Dialog>
         {pool.readable_name}
       </TreeNode>
     );
   }
 }
+const PoolItem = connect(
+  state => {
+    return {
+      currentRegions: state.numberrange.currentRegions,
+      servers: state.serversettings.servers,
+      currentPath: state.layout.currentPath
+    };
+  },
+  {setAllocation}
+)(withRouter(_PoolItem));
 
 export const NavItems = (pools, serverID, intl) => {
   if (!Array.isArray(pools)) {
@@ -65,14 +160,21 @@ export const NavItems = (pools, serverID, intl) => {
   }
   return pools.map(pool => {
     // passing intl down to use formatMessage and translate...
-    return <NavItem pool={pool} serverID={serverID} intl={intl} />;
+    return <PoolItem pool={pool} serverID={serverID} intl={intl} />;
   });
 };
 
 export class _NavPluginRoot extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {active: false};
+  }
   static get PLUGIN_COMPONENT_NAME() {
     return "NumberRangeNavRoot";
   }
+  goTo = path => {
+    this.props.history.push(path);
+  };
   componentDidMount() {
     if (
       Object.keys(this.props.servers).length > 0 &&
@@ -80,6 +182,18 @@ export class _NavPluginRoot extends Component {
     ) {
       this.props.loadPools(this.props.servers[this.props.serverID]);
     }
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
+  activateNode(currentPath) {
+    // set active state if in current path.
+    // for some reason this.props.location.pathname doesn't get updated.
+    // window.location.pathname does.
+    const {serverID} = this.props;
+    let regexp = new RegExp(`\/${serverID}\/?`);
+    this.setState({active: regexp.test(currentPath)});
   }
   renderContextMenu = () => {
     const {servers, serverID} = this.props;
@@ -88,6 +202,7 @@ export class _NavPluginRoot extends Component {
         <MenuDivider title={servers[serverID].serverSettingName} />
         <MenuDivider />
         <MenuItem
+          onClick={this.goTo.bind(this, `/number-range/add-pool/${serverID}`)}
           text={this.props.intl.formatMessage({
             id: "plugins.numberRange.addPool"
           })}
@@ -107,6 +222,7 @@ export class _NavPluginRoot extends Component {
         onContextMenu={this.renderContextMenu}
         nodeType="plugin"
         childrenNodes={children}
+        active={this.state.active}
         path={`/number-range/pools/${serverID}`}>
         <FormattedMessage id="plugins.numberRange.navItemsTitle" />
       </TreeNode>
@@ -118,8 +234,9 @@ export const NavPluginRoot = connect(
   (state, ownProps) => {
     return {
       servers: state.serversettings.servers,
-      nr: state.numberrange.servers
+      nr: state.numberrange.servers,
+      currentPath: state.layout.currentPath
     };
   },
   {loadPools}
-)(_NavPluginRoot);
+)(withRouter(_NavPluginRoot));
