@@ -112,6 +112,7 @@ class _PoolItem extends Component {
         nodeType="pool"
         active={this.state.active}
         collapsed={this.state.collapsed}
+        depth={this.props.depth}
         childrenNodes={[]}>
         <Dialog
           isOpen={this.state.isAllocationOpen}
@@ -221,6 +222,7 @@ export class _NavPluginRoot extends Component {
       <TreeNode
         onContextMenu={this.renderContextMenu}
         nodeType="plugin"
+        depth={this.props.depth}
         childrenNodes={children}
         active={this.state.active}
         path={`/number-range/pools/${serverID}`}>

@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     margin-top:50px;
 }
 .left-panel {
-  padding:10px;
+    padding:0;
     flex :0 0 240px;
     background:#394B59;
     color:#FFF;

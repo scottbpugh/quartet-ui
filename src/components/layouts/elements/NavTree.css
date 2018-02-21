@@ -25,9 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .tree-root li {
   list-style-type: none;
-  margin:16px 0;
+  margin:0;
   padding:0;
   cursor:pointer;
+  position:relative;
+  width:100%;
 }
 
 .tree-root a {
@@ -38,42 +40,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .tree-root {
   padding:0;
-  margin:0 5px;
+  margin:0;
+  width:100%;
+  display:block;
 }
 
 .tree-root ul {
-  padding:0 0 0 10px;
+  padding:0;
 }
 
+.tree-node-icon {
+  width:30px;
 
+}
 .tree-node-label {
   padding: 0 0 0 15px;
   display:inline-block;
   margin-left: 10px;
+  white-space: nowrap;
 }
 
 .tree-node-server {
   background-image: url("/icons/QU4RTET-16x16.svg");
   background-size: 16px 16px;
   background-repeat:no-repeat;
-  background-position: 18px top;
+  background-position: 2px 3px;
 }
 
 .tree-node-pool {
   background-image: url("/icons/pool-24.svg");
   background-size: 16px 16px;
   background-repeat:no-repeat;
-  background-position: 18px top;
-}
-.tree-node-plugin {
-
+  background-position: 2px 2px;
 }
 .tree-buttons {
   width:100%;
   height:30px;
   margin-top:10px;
 }
-
+.tree-node-link {
+  height:100px;
+}
 .tree-add-button {
   float:right;
 }
@@ -81,13 +88,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-node-active {
   /* Turning this off for now */
   /*color:#8EC549 !important;*/
-  color:#3289C1 !important;
+  width:100%;
+  left:0;
 }
 
-.tree-node-link {
 
+.tree-node-content {
+  height:30px;
+  padding: 5px 0px 5px 23px;
 }
-
+.tree-node-content-active {
+  background: rgba(0, 0, 0, 0.2);
+}
+.tree-node-depth-0 {
+  padding-left:10px;
+}
+.tree-node-depth-1 {
+  padding-left:20px;
+}
+.tree-node-depth-2 {
+  padding-left:30px
+}
+.tree-node-depth-3 {
+  padding-left:40px;
+}
 .collapsed ul {
   /*  display:none;*/
 }

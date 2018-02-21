@@ -56,15 +56,15 @@ class SubTree extends Component {
 
   render() {
     return (
-      <ul className="swing">
-        <TransitionGroup>
-          {!this.props.collapsed
-            ? this.props.children.map((item, i) => {
-                return <Fade key={i}>{item}</Fade>;
-              })
-            : null}
-        </TransitionGroup>
-      </ul>
+      <TransitionGroup
+        component="ul"
+        style={{margin: 0, padding: 0, width: "100%", display: "block"}}>
+        {!this.props.collapsed
+          ? this.props.children.map((item, i) => {
+              return <Fade key={i}>{item}</Fade>;
+            })
+          : null}
+      </TransitionGroup>
     );
   }
 }
@@ -80,7 +80,9 @@ class _TreeNode extends Component {
       //this.go();
     });
   };
-  go = () => {
+  go = e => {
+    e.stopPropagation(); // prevent parent go to be triggered.
+    e.preventDefault();
     if (this.props.path) {
       this.props.history.push(this.props.path);
     }
@@ -99,39 +101,47 @@ class _TreeNode extends Component {
     }
   }
   render() {
-    console.log("active", this.props.active);
     let expandable = this.props.childrenNodes.length > 0 ? true : false;
+    let childrenNodes = this.props.childrenNodes.map(elem => {
+      console.log("depth + 1", this.props.depth + 1, this.props.depth);
+      return React.cloneElement(elem, {depth: this.props.depth + 1});
+    });
     return (
       <li
         className={classNames({
           arrow: true,
-          [`tree-node-${this.props.nodeType}`]: true,
           collapsed: this.state.collapsed
-        })}>
-        <a className="tree-node-link" onClick={this.toggleChildren}>
-          <span
-            className={classNames({
-              "arrow-straight": this.state.collapsed,
-              "arrow-rotated": !this.state.collapsed
-            })}>
-            <Icon
-              iconName="pt-icon-chevron-right"
-              style={{visibility: expandable ? "visible" : "hidden"}}
-            />
-          </span>
-        </a>
-
-        <a
-          onClick={this.go}
+        })}
+        onClick={this.go}>
+        <div
           className={classNames({
-            "tree-node-link": true,
-            "tree-node-active": this.props.active || false
+            "tree-node-content": true,
+            "tree-node-content-active": this.props.active || false,
+            [`tree-node-depth-${this.props.depth}`]: true
           })}>
-          <span className="tree-node-label">{this.props.children}</span>
-        </a>
-        <SubTree collapsed={this.state.collapsed}>
-          {this.props.childrenNodes}
-        </SubTree>
+          <a className="tree-node-link" onClick={this.toggleChildren}>
+            <span
+              className={classNames({
+                "arrow-straight": this.state.collapsed,
+                "arrow-rotated": !this.state.collapsed
+              })}>
+              <Icon
+                iconName="pt-icon-chevron-right"
+                style={{visibility: expandable ? "visible" : "hidden"}}
+              />
+            </span>
+          </a>
+
+          <a
+            className={classNames({
+              [`tree-node-${this.props.nodeType}`]: true,
+              "tree-node-link": true,
+              "tree-node-active": this.props.active || false
+            })}>
+            <span className="tree-node-label">{this.props.children}</span>
+          </a>
+        </div>
+        <SubTree collapsed={this.state.collapsed}>{childrenNodes}</SubTree>
       </li>
     );
   }
@@ -195,12 +205,13 @@ class _NavTree extends Component {
       let regexp = new RegExp(`\/${serverID}\/?`);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
-        return <ComponentName key={component} serverID={serverID} />;
+        return <ComponentName depth={1} key={component} serverID={serverID} />;
       });
       return (
         <TreeNode
           key={serverID}
           nodeType="server"
+          depth={0}
           childrenNodes={children ? children : []}>
           {servers[serverID].serverSettingName}
         </TreeNode>
@@ -215,7 +226,7 @@ class _NavTree extends Component {
             <AddServerButton history={this.props.history} />
           </div>
         </div>
-        <div className="">
+        <div style={{width: "100%"}}>
           <Tree>{this.tree}</Tree>
         </div>
       </div>
