@@ -107,23 +107,22 @@ In the enablePlugin function, register your reducer, set your messages, and regi
 
 Here is an example of the enablePlugin function definition for the serial number range plugin:
 
-const PLUGIN_NAME = "NumberRange";
+    const PLUGIN_NAME = "NumberRange";
 
-export const enablePlugin = () => {
-pluginRegistry.registerReducer(
-PLUGIN_NAME,
-"numberrange",
-reducer,
-initialData()
-);
-pluginRegistry.setMessages(messages);
-pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
-pluginRegistry.registerComponent(
-PLUGIN_NAME,
-NavPluginRoot,
-actions.addToTreeServers
-);
-};
+    export const enablePlugin = () => {
+      pluginRegistry.registerReducer(
+      PLUGIN_NAME,
+      "numberrange",
+      reducer,
+      initialData()
+      );
+      pluginRegistry.setMessages(messages);
+      pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
+      pluginRegistry.registerComponent(
+      PLUGIN_NAME,
+      NavPluginRoot,
+      actions.addToTreeServers);
+    };
 
 All of the elements registered will be injected dynamically at runtime.
 To register a component, you can use an action from the plugin reducer, such as addToTreeServers. This action will be dispatched from the core application to add your component. You should not dispatch actions directly from the init.js file, only pass them to be used at the discretion of the core application.
