@@ -130,12 +130,14 @@ Disabling the plugin removes the elements added to the core. Currently, removing
 
 ### Injecting tree nodes into the left sidebar tree
 You can pass treenodes to be displayed under the Servers nodes using the addToTreeServers action and the registerComponent method from the pluginRegistry.
+
     pluginRegistry.registerComponent(
       PLUGIN_NAME,
       MyPluginTreeNode,
       actions.addToTreeServers);
 
 Your component should return a valid single <TreeNode> component, but it can contain many layers of children nodes.
+
       <TreeNode
         onContextMenu={this.renderContextMenu}
         nodeType="plugin"
