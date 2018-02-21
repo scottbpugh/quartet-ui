@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -18,11 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {
-  Panels,
-  RightPanel,
-  LeftPanel
-} from "../../../../components/layouts/Panels";
+import {RightPanel} from "components/layouts/Panels";
 import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
@@ -33,13 +29,21 @@ class ServerPools extends Component {
     let serverName = this.props.server.serverSettingName;
     let serverID = this.props.server.serverID;
     return (
-      <Card>
-        <h4>
+      <Card className="pt-elevation-4">
+        <h5>
+          <button
+            className="pt-button add-pool-button pt-intent-primary"
+            onClick={e => {
+              this.props.history.push(`/number-range/add-pool/${serverID}/`);
+            }}>
+            <FormattedMessage id="plugins.numberRange.addPool" />
+          </button>
           <FormattedMessage id="app.nav.server" defaultMessage="Server" />:{" "}
           {serverName}
-        </h4>
+        </h5>
+        <div />
         <div>
-          <table className="pt-table pt-bordered pt-striped">
+          <table className="pool-list-table pt-table pt-bordered pt-striped">
             <thead>
               <tr>
                 <th>
@@ -81,7 +85,7 @@ class ServerPools extends Component {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(this.props.pools)
+              {Array.isArray(this.props.pools) && this.props.pools.length > 0
                 ? this.props.pools.map(pool => (
                     <tr>
                       <td>
@@ -95,7 +99,7 @@ class ServerPools extends Component {
                       <td>{pool.readable_name}</td>
                       <td>
                         <Link
-                          to={`/number-range/region-detail/${
+                          to={`/number-range/region-detail/${serverID}/${
                             pool.machine_name
                           }`}>
                           {pool.machine_name}
@@ -143,38 +147,29 @@ class ServerPools extends Component {
 class _PoolList extends Component {
   componentDidMount() {
     if (Object.keys(this.props.servers).length > 0) {
-      for (let key in this.props.servers) {
-        this.props.loadPools(this.props.servers[key]);
-      }
+      this.props.loadPools(
+        this.props.servers[this.props.match.params.serverID]
+      );
     }
   }
   render() {
     let nr = this.props.nr;
     return (
-      <Panels
+      <RightPanel
         title={
           <FormattedMessage
             id="plugins.numberRange.numberRangePools"
             defaultMessage="Number Range Pools"
           />
         }>
-        <LeftPanel>
-          <ul>
-            {Object.keys(nr).map(key => (
-              <li>{nr[key].server.serverSettingName}</li>
-            ))}
-          </ul>
-        </LeftPanel>
-        <RightPanel>
-          <div className="cards-container">
-            <div>
-              {Object.keys(nr).map(key => (
-                <ServerPools server={nr[key].server} pools={nr[key].pools} />
-              ))}
-            </div>
-          </div>
-        </RightPanel>
-      </Panels>
+        <div className="large-cards-container">
+          <ServerPools
+            history={this.props.history}
+            server={nr[this.props.match.params.serverID].server}
+            pools={nr[this.props.match.params.serverID].pools}
+          />
+        </div>
+      </RightPanel>
     );
   }
 }

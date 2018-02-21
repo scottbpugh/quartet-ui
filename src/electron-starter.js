@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -15,7 +15,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 const electron = require("electron");
 // Module to control application life.
 const app = electron.app;

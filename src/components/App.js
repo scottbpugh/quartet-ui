@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -27,16 +27,20 @@ import {
 } from "@blueprintjs/core";
 import "@blueprintjs/core/dist/blueprint.css";
 import {withRouter} from "react-router-dom";
-import NavLink from "./layouts/elements/NavLink";
+import NavLink from "components/layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
-import {SwitchLocale} from "./layouts/elements/SwitchLocale";
+import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
+import {NavTree} from "components/layouts/elements/NavTree";
+import {connect} from "react-redux";
+import {LeftPanel, Panels} from "components/layouts/Panels";
 
-class App extends Component {
+class _App extends Component {
+  componentWillReceiveProps(nextProps) {}
   render() {
     return (
       <div className="App pt-ui-text">
         <header>
-          <Navbar className=".pt-dark">
+          <Navbar className="pt-fixed-top">
             <NavbarGroup>
               <NavbarHeading>QU4RTET</NavbarHeading>
             </NavbarGroup>
@@ -44,11 +48,8 @@ class App extends Component {
               <NavLink to="/" iconName="home">
                 <FormattedMessage id="app.nav.dashboard" />
               </NavLink>
-              <NavLink to="/server-settings" iconName="cloud">
-                <FormattedMessage id="app.nav.servers" />
-              </NavLink>
-              <NavLink to="/number-range/pools" iconName="cloud">
-                <FormattedMessage id="app.nav.numberRange" />
+              <NavLink to="/plugins" iconName="pt-icon-exchange">
+                <FormattedMessage id="app.nav.plugins" />
               </NavLink>
               <SwitchLocale />
               <NavbarDivider />
@@ -56,10 +57,33 @@ class App extends Component {
             </NavbarGroup>
           </Navbar>
         </header>
-        <div className="wrapper">{this.props.children}</div>
+
+        <div className="wrapper">
+          <Panels>
+            <LeftPanel key="leftpanel">
+              <div>
+                {/* Important not to rerender this component on router changes. */}
+                <NavTree />
+              </div>
+            </LeftPanel>
+            {this.props.children}
+          </Panels>
+        </div>
       </div>
     );
   }
 }
 
+const App = connect(
+  state => {
+    return {
+      pageTitle: state.layout.pageTitle,
+      currentPath: state.layout.currentPath,
+      plugins: state.plugins.plugins
+    };
+  },
+  dispatch => {
+    return {dispatch: dispatch};
+  }
+)(_App);
 export default withRouter(App);

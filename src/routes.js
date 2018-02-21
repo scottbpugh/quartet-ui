@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -15,22 +15,91 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React from "react";
+import React, {Component} from "react";
 import {Switch, Route} from "react-router";
-import {BrowserRouter} from "react-router-dom";
-import App from "./components/App";
-import Dashboard from "./components/screens/Dashboard";
-import {ServerSettings} from "./components/screens/server/ServerSettings";
-import numberRangeRoutes from "./plugins/number-range/src/routes";
+import {withRouter} from "react-router-dom";
+import App from "components/App";
+import Dashboard from "components/screens/Dashboard";
+import {ServerSettings} from "components/screens/server/ServerSettings";
+import {PluginList} from "components/screens/plugins/PluginList";
+import {connect} from "react-redux";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {updateMessages} from "reducers/locales";
 
-export default (
-  <BrowserRouter>
-    <Switch>
+const coreRoutes = () => {
+  return [
+    <Route key="dashboard" exact path="/" component={Dashboard} />,
+    <Route
+      key="serversettings"
+      path="/server-settings/:serverID?"
+      component={ServerSettings}
+    />,
+    <Route key="pluginList" path="/plugins" component={PluginList} />
+  ];
+};
+
+/**
+ * _QSwitch - Loads routes, internationalization of plugins, and dynamic plugin-based components.
+ * @extends Component
+ */
+class _RouteSwitcher extends Component {
+  constructor(props) {
+    super(props);
+    this.routes = coreRoutes();
+  }
+  processPlugins() {
+    // add new routes
+    this.routes = coreRoutes().concat(pluginRegistry.getArrayRoutes());
+    // add new components.
+    let pluginComponents = pluginRegistry.getRegisteredComponents();
+    for (let pluginComponentName in pluginComponents) {
+      let entry = pluginComponents[pluginComponentName];
+      this.props.dispatch({
+        type: entry.action,
+        payload: {
+          pluginName: entry.pluginName,
+          pluginComponentName: pluginComponentName
+        }
+      });
+    }
+    this.props.dispatch(updateMessages(this.props.intl.locale));
+    // remove unregistered componments.
+    let disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
+    for (let pluginComponentName in disabledPluginComponents) {
+      let entry = disabledPluginComponents[pluginComponentName];
+      this.props.dispatch({
+        type: entry.action,
+        payload: {
+          pluginName: entry.pluginName,
+          pluginComponentName: pluginComponentName
+        }
+      });
+    }
+  }
+  componentDidMount() {
+    this.processPlugins();
+  }
+  componentWillReceiveProps(nextProps) {
+    if (
+      JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
+    ) {
+      this.processPlugins();
+    }
+  }
+  render() {
+    return (
       <App>
-        <Route exact path="/" component={Dashboard} />
-        <Route path="/server-settings/:serverID?" component={ServerSettings} />
-        {numberRangeRoutes}
+        <Switch>{this.routes}</Switch>
       </App>
-    </Switch>
-  </BrowserRouter>
-);
+    );
+  }
+}
+const RouteSwitcher = connect(
+  state => {
+    return {plugins: state.plugins.plugins, intl: state.intl};
+  },
+  dispatch => {
+    return {dispatch: dispatch};
+  }
+)(_RouteSwitcher);
+export default withRouter(RouteSwitcher);

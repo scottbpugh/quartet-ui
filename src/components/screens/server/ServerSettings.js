@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -18,150 +18,101 @@
 
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Panels} from "../../layouts/Panels";
+import {RightPanel} from "../../layouts/Panels";
 import "./server-settings.css";
-import {FormGroup, Switch, Card, Button} from "@blueprintjs/core";
-import {Link} from "react-router-dom";
+import {Card, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
 import {FormattedMessage} from "react-intl";
+import {DefaultField, getSyncValidators} from "components/elements/forms";
+import {Field, reduxForm} from "redux-form";
 
-const formStructure = (initialValues = {}) => ({
-  serverSettingName: {
-    wrapper: {
-      helperText:
-        "The label that will be used for this server connection setting.",
+const formStructure = (initialValues = {}) => [
+  {
+    name: "serverSettingName",
+    description: {
+      type: "text",
+      required: true,
+      read_only: false,
       label: "Server Setting Name",
-      labelFor: "serversetting-name"
-    },
-    input: {
-      id: "serversetting-name",
-      name: "serverSettingName",
-      className: "pt-input",
-      placeholder: "Server/Connection Name",
-      type: "text",
-      value: initialValues.serverSettingName || "",
-      elemtype: "input",
-      required: true
+      help_text:
+        "The label that will be used for this server connection setting."
     }
   },
-  serverID: {
-    input: {
-      id: "server-id",
-      name: "serverID",
-      className: "pt-input",
+  {
+    name: "serverID",
+    description: {
       type: "hidden",
-      elemtype: "input",
-      defaultValue: initialValues.serverID || ""
+      required: false,
+      read_only: false,
+      label: "Server ID",
+      help_text: "Hidden Server ID"
     }
   },
-  serverName: {
-    wrapper: {
-      helperText:
-        "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10.",
+  {
+    name: "serverName",
+    description: {
+      type: "text",
+      required: true,
+      read_only: false,
       label: "Server Hostname",
-      labelFor: "server-name"
-    },
-    input: {
-      id: "server-name",
-      name: "serverName",
-      className: "pt-input",
-      placeholder: "Server Hostname",
-      required: true,
-      value: initialValues.serverName || "",
-      type: "text",
-      elemtype: "input"
+      help_text:
+        "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10."
     }
   },
-  port: {
-    wrapper: {
-      helperText: "A port to connect to. Example, 80, 8080, 443, ...",
-      label: "Port Number",
-      labelFor: "port-number"
-    },
-    input: {
-      id: "port-number",
-      name: "port",
+  {
+    name: "port",
+    description: {
       type: "number",
-      min: "1",
-      max: "65000",
-      className: "pt-input",
-      placeholder: "Port Number",
       required: true,
-      value: initialValues.port || "",
-      elemtype: "input"
+      read_only: false,
+      label: "Port Number",
+      min_value: 1,
+      max_value: 65535,
+      help_text: "A port to connect to. Example, 80, 8080, 443, ..."
     }
   },
-  path: {
-    wrapper: {
-      helperText: "A path required to interact with API (Optional)",
+  {
+    name: "path",
+    description: {
+      type: "text",
+      required: false,
+      read_only: false,
       label: "Root Path",
-      labelFor: "root-path"
-    },
-    input: {
-      id: "root-path",
-      name: "path",
-      className: "pt-input",
-      placeholder: "Root Path",
-      value: initialValues.path || "",
-      type: "text",
-      elemtype: "input"
+      helperText: "A path to interact with API (Optional), example /api"
     }
   },
-  ssl: {
-    wrapper: {
-      helperText: "SSL/TLS encryption",
+  {
+    name: "ssl",
+    description: {
+      type: "boolean",
+      required: false,
+      read_only: false,
       label: "SSL/TLS",
-      labelFor: "ssl"
-    },
-    input: {
-      name: "ssl",
-      Label: "SSL/TLS",
-      type: "checkbox",
-      checked:
-        initialValues.ssl === undefined || initialValues.ssl === false
-          ? false
-          : true,
-      elemtype: "Switch"
+      helperText: "SSL/TLS encryption"
     }
   },
-  username: {
-    wrapper: {
-      helperText: "Basic Auth Username",
-      label: "Username",
-      name: "username",
-      labelFor: "username"
-    },
-    input: {
-      id: "username",
-      name: "username",
-      className: "pt-input",
-      placeholder: "Username",
-      required: true,
-      value: initialValues.username || "",
+  {
+    name: "username",
+    description: {
       type: "text",
-      elemtype: "input"
+      required: true,
+      read_only: false,
+      label: "Username",
+      help_text: "Basic Auth Username"
     }
   },
-  password: {
-    wrapper: {
-      helperText: "Basic Auth Password",
-      label: "Password",
-      name: "password",
-      labelFor: "password"
-    },
-    input: {
-      id: "password",
-      name: "password",
-      className: "pt-input",
-      placeholder: "Password",
+  {
+    name: "password",
+    description: {
       type: "password",
       required: true,
-      elemtype: "input",
-      value: initialValues.password || ""
+      read_only: false,
+      label: "Password",
+      help_text: "Basic Auth Password"
     }
   }
-});
+];
 /**
  * ServerForm - Description
  *
@@ -171,67 +122,67 @@ const formStructure = (initialValues = {}) => ({
  *
  * @return {ReactElement} A form element with a series of inputs based on formData.
  */
-const ServerForm = (formData, saveHandler, updateHandler) => {
-  const formElems = [];
-  for (let key in formData) {
-    let data = formData[key];
-    let elem;
-    if (data.input.elemtype === "input") {
-      elem = (
-        <input
-          {...data.input}
-          style={{width: 300}}
-          required={data.input.required || false}
-          onChange={updateHandler}
+class _ServerForm extends Component {
+  componentDidMount() {
+    this.formElems = this.props.formData.map(field => {
+      field.validate = getSyncValidators(field);
+      if (field.name === "serverSettingName") {
+        field.validate.push(this.validateServerName.bind(this));
+      }
+      return (
+        <Field
+          key={field.name}
+          name={field.name}
+          fieldData={field}
+          component={DefaultField}
+          type={field.description.type}
+          className="pt-input"
+          width={300}
+          validate={field.validate}
         />
       );
-    } else if (data.input.elemtype === "Switch") {
-      elem = <Switch {...data.input} onChange={updateHandler} />;
-    }
-    // using simple div when no wrapper (hidden input, ...)
-    let formGroup = data.wrapper ? (
-      <FormGroup
-        helperText={data.wrapper.helperText}
-        label={data.wrapper.label}
-        labelFor={data.wrapper.labelFor}
-        key={data.wrapper.labelFor}>
-        {elem}
-      </FormGroup>
-    ) : (
-      <div>{elem}</div>
-    );
-    formElems.push(formGroup);
+    });
   }
-  return (
-    <form onSubmit={saveHandler}>
-      {formElems}
-      <Button type="submit" iconName="add">
-        Add Server
-      </Button>
-    </form>
-  );
-};
+  submit = postValues => {
+    this.props.saveServer(postValues);
+  };
+  validateServerName = value => {
+    let serverSettingNames = Object.keys(this.props.servers).map(server => {
+      return this.props.servers[server].serverSettingName.toLowerCase().trim();
+    });
+    if (serverSettingNames.includes(value.toLowerCase().trim())) {
+      return "Server Setting Name already used.";
+    }
+    return undefined;
+  };
+  render() {
+    const {handleSubmit} = this.props;
+
+    return (
+      <form onSubmit={handleSubmit(this.submit)}>
+        {this.formElems}
+        <Button
+          type="submit"
+          className="pt-button pt-intent-primary"
+          iconName="add">
+          Add Server
+        </Button>
+      </form>
+    );
+  }
+}
+const ServerForm = connect(
+  state => ({
+    servers: state.serversettings.servers
+  }),
+  {saveServer, loadCurrentServer}
+)(reduxForm({form: "serverForm"})(_ServerForm));
 
 class _ServerSettings extends Component {
   constructor(props) {
     super(props);
     this.state = {postData: {}};
   }
-
-  saveServer = evt => {
-    evt.preventDefault();
-    let form = evt.target;
-    let postData = {};
-
-    for (let item of form) {
-      if (item.name && item.type === "checkbox") {
-        postData[item.name] = item.checked;
-      } else if (item.name) {
-        postData[item.name] = item.value;
-      }
-    }
-    this.props.saveServer(postData);
-  };
 
   componentDidMount() {
     this.loadCurrentServer(this.props.match.params.serverID);
@@ -253,7 +204,7 @@ class _ServerSettings extends Component {
     // validation should happen here.
     if (evt.target.type === "checkbox") {
       // for checkboxes we passed checked prop instead.
-      console.log("is checked", evt.target.checked);
+
       this.setState({
         postData: {
           ...this.state.postData,
@@ -271,54 +222,26 @@ class _ServerSettings extends Component {
 
   SettingsForm = props => {
     return (
-      <div className="settings-form-container">
-        <Card>
+      <div className="large-cards-container">
+        <Card className="pt-elevation-4 form-card">
           <h5>Connect to a Server</h5>
-          {ServerForm(
-            formStructure(this.state.postData),
-            this.saveServer.bind(this),
-            this.updateValue.bind(this)
-          )}
+          <ServerForm formData={formStructure()} />
         </Card>
-        <Card>
-          <h5>Connection test &amp; Server Info</h5>
-        </Card>
-      </div>
-    );
-  };
-
-  SettingsMenu = props => {
-    let serverList = Object.keys(props.servers).map(key => {
-      return (
-        <li key={props.servers[key].serverID}>
-          <Link to={`/server-settings/${props.servers[key].serverID}`}>
-            {props.servers[key].serverSettingName}
-          </Link>
-        </li>
-      );
-    });
-    return (
-      <div>
-        <ul>{serverList}</ul>
-        <Link to="/server-settings/">
-          <button>New Server</button>
-        </Link>
       </div>
     );
   };
 
   render() {
     return (
-      <Panels
+      <RightPanel
         title={
           <FormattedMessage
             id="app.serverSettings.serverSettings"
             defaultMessage="Server Settings"
           />
-        }
-        leftPanel={this.SettingsMenu(this.props)}
-        rightPanel={this.SettingsForm()}
-      />
+        }>
+        {this.SettingsForm()}
+      </RightPanel>
     );
   }
 }

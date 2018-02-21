@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -20,5 +20,6 @@ import {createAction} from "redux-actions";
 
 export default {
   saveServerSettings: createAction("SERVER_SETTINGS_SAVE"),
-  loadCurrentServer: createAction("SERVER_SETTINGS_LOAD_SERVER")
+  loadCurrentServer: createAction("SERVER_SETTINGS_LOAD_SERVER"),
+  serverUpdated: createAction("SERVER_SETTINGS_SERVER_UPDATED")
 };

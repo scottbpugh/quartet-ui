@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -23,33 +23,15 @@ export default {
         servers: "Servers",
         numberRange: "Number Ranges",
         dashboard: "Dashboard",
-        server: "Server"
+        server: "Server",
+        plugins: "Plugins"
       },
       serverSettings: {
-        serverSettings: "Server Settings"
+        serverSettings: "Server Settings",
+        addAServer: "Add a New Server"
       }
     },
-    plugins: {
-      numberRange: {
-        pool: "Pool",
-        region: "Region",
-        allocation: "Allocation",
-        allocateButton: "Allocate to Pool",
-        createdOn: "Created On",
-        readableName: "Readable Name",
-        machineName: "Machine Name",
-        status: "Status",
-        requestThreshold: "Request Threshold",
-        regions: "Regions",
-        numberRangePools: "Number Range Pools",
-        active: "active",
-        inactive: "inactive",
-        range: "Range",
-        to: "to",
-        state: "State",
-        addRegion: "Add a New Region"
-      }
-    }
+    plugins: {}
   },
   "fr-FR": {
     app: {
@@ -57,32 +39,14 @@ export default {
         servers: "Serveurs",
         numberRange: "Plage de numéros",
         dashboard: "Tableau de bord",
-        server: "Serveur"
+        server: "Serveur",
+        plugins: "Plugins"
       },
       serverSettings: {
-        serverSettings: "Paramètres serveur"
+        serverSettings: "Paramètres serveur",
+        addAServer: "Ajouter un serveur"
       }
     },
-    plugins: {
-      numberRange: {
-        pool: "Groupe",
-        region: "Région",
-        allocation: "Attribution",
-        allocateButton: "Attribuer au groupe",
-        createdOn: "Créé le",
-        readableName: "Nom",
-        machineName: "Nom machine",
-        status: "Statut",
-        requestThreshold: "Seuil de requêtes",
-        regions: "Régions",
-        numberRangePools: "Groupes de plages de numéros",
-        active: "actif",
-        inactive: "inactif",
-        range: "Plage",
-        to: "à",
-        state: "État",
-        addRegion: "Ajouter une région"
-      }
-    }
+    plugins: {}
   }
 };

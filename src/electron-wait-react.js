@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -28,7 +28,6 @@ const tryConnection = () =>
   client.connect({port: port}, () => {
     client.end();
     if (!startedElectron) {
-      console.log("starting electron");
       startedElectron = true;
       const exec = require("child_process").exec;
       exec("npm run electron");

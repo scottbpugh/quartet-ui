@@ -1,0 +1,175 @@
+/* Copyright (c) 2018 Serial Lab
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+.tree-wrapper {
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.tree-root li {
+  list-style-type: none;
+  margin:0;
+  padding:0;
+  cursor:pointer;
+  position:relative;
+  width:100%;
+}
+
+.tree-root a {
+  color:#EEE;
+}
+.tree-root a:hover {
+  color:#EEE;
+}
+.tree-root {
+  padding:0;
+  margin:0;
+  width:100%;
+  display:block;
+}
+
+.tree-root ul {
+  padding:0;
+}
+
+.tree-node-icon {
+  width:30px;
+
+}
+.tree-node-label {
+  padding: 0 0 0 15px;
+  display:inline-block;
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+.tree-node-server {
+  background-image: url("/icons/QU4RTET-16x16.svg");
+  background-size: 16px 16px;
+  background-repeat:no-repeat;
+  background-position: 2px 3px;
+}
+
+.tree-node-pool, .tree-node-plugin {
+  background-image: url("/icons/pool-24.svg");
+  background-size: 16px 16px;
+  background-repeat:no-repeat;
+  background-position: 2px 2px;
+}
+.tree-buttons {
+  width:100%;
+  height:30px;
+  margin-top:10px;
+}
+.tree-node-link {
+  height:100px;
+}
+.tree-add-button {
+  float:right;
+}
+
+.tree-node-active {
+  /* Turning this off for now */
+  /*color:#8EC549 !important;*/
+  width:100%;
+  left:0;
+}
+
+
+.tree-node-content {
+  height:30px;
+  padding: 5px 0px 5px 23px;
+}
+.tree-node-content-active {
+  background: rgba(0, 0, 0, 0.2);
+}
+.tree-node-depth-0 {
+  padding-left:10px;
+}
+.tree-node-depth-1 {
+  padding-left:20px;
+}
+.tree-node-depth-2 {
+  padding-left:30px
+}
+.tree-node-depth-3 {
+  padding-left:40px;
+}
+.collapsed ul {
+  /*  display:none;*/
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
+}
+
+.swing {
+
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: translate(0, -40px);
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+}
+
+.slide-enter.slide-enter-active {
+  opacity:1;
+  transform:none;
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+}
+
+.slide-exit {
+  opacity:1;
+  transform:none;
+  transition : all .2s ease;
+}
+
+.slide-exit.slide-exit-active {
+  opacity:0;
+  transform: translate(0, -40px);
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+}
+.arrow-straight {
+  display:inline-block;
+  transform-origin:8px 8px;
+  transform: none;
+  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+}
+.arrow-rotated {
+  display:inline-block;
+  transform-origin:8px 8px;
+  transform: rotate(90deg);
+  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+}

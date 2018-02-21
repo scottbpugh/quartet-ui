@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -17,30 +17,30 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
-import "../cards/dashboard/cards.css";
+import "components/cards/dashboard/cards.css";
 import {Card} from "@blueprintjs/core";
-import {Panels} from "../layouts/Panels";
-import LatestGTINs from "../cards/dashboard/LatestGTINs";
-import ItemsProcessedByDate from "../cards/dashboard/ItemsProcessedByDate";
-import NotificationsDisplay from "../cards/dashboard/NotificationsDisplay";
-import ItemLookup from "../cards/dashboard/ItemLookup";
+import {RightPanel} from "components/layouts/Panels";
+import LatestGTINs from "components/cards/dashboard/LatestGTINs";
+import ItemsProcessedByDate from "components/cards/dashboard/ItemsProcessedByDate";
+import NotificationsDisplay from "components/cards/dashboard/NotificationsDisplay";
+import ItemLookup from "components/cards/dashboard/ItemLookup";
 import {FormattedMessage} from "react-intl";
-const DashboardLeft = props => <div />; // leaving empty for now.
+
 const DashboardRight = props => (
   <div className="cards-container">
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Notifications</h5>
       <NotificationsDisplay />
     </Card>
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Items processed by month</h5>
       <ItemsProcessedByDate />
     </Card>
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Latest items processed</h5>
       <LatestGTINs />
     </Card>
-    <Card>
+    <Card className="pt-elevation-3">
       <h5>Item Lookup</h5>
       <ItemLookup />
     </Card>
@@ -49,10 +49,10 @@ const DashboardRight = props => (
 
 export default props => {
   return (
-    <Panels
-      title={<FormattedMessage id="app.nav.dashboard" />}
-      leftPanel={DashboardLeft()}
-      rightPanel={DashboardRight()}
-    />
+    <RightPanel
+      key="dashboard"
+      title={<FormattedMessage id="app.nav.dashboard" />}>
+      {DashboardRight()}
+    </RightPanel>
   );
 };

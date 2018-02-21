@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -17,8 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {handleActions} from "redux-actions";
-import actions from "../actions/serversettings";
-import {showMessage} from "../lib/message";
+import actions from "actions/serversettings";
+import {showMessage} from "lib/message";
 import uuidv4 from "uuid/v4";
 
 /**
@@ -39,10 +39,14 @@ export const initialData = () => {
 export const saveServer = postData => {
   return dispatch => {
     showMessage({type: "success", msg: "Your server settings were saved."});
+    let server = {...postData};
+    server.plugins = [];
+    server.plugins.push("number-range");
     if (!postData.serverID) {
       postData.serverID = uuidv4();
     }
-    return dispatch({type: actions.saveServerSettings, payload: postData});
+    dispatch({type: actions.saveServerSettings, payload: postData});
+    return dispatch({type: actions.serverUpdated, payload: postData});
   };
 };
 

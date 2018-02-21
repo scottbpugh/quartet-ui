@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`renders nested components correctly 1`] = `
 <div
   className="main-container"
 >
@@ -8,20 +8,26 @@ exports[`renders correctly 1`] = `
     className="left-panel"
   >
     <h4
-      className="pt-dark left-panel-title"
+      className="left-panel-title pt-dark"
     >
-      Test
+      <span>
+        Servers
+      </span>
     </h4>
-    <h1>
-      Something
-    </h1>
+    <div>
+      <h1>
+        Something
+      </h1>
+    </div>
   </div>
   <div
     className="right-panel"
   >
-    <h2>
-      Something Else
-    </h2>
+    <div>
+      <h2>
+        Something Else
+      </h2>
+    </div>
   </div>
 </div>
 `;

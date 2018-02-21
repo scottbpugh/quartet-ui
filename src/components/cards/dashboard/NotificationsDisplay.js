@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchNotifications} from "../../../reducers/dashboard";
+import {fetchNotifications} from "reducers/dashboard";
 
 /**
  * Notification - Description

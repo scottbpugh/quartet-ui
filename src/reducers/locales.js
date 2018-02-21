@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -17,10 +17,34 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {handleActions} from "redux-actions";
-import actions from "../actions/locales";
+import actions from "actions/locales";
 import {updateIntl} from "react-intl-redux";
-import {flattenMessages} from "../lib/flattenMessages";
-import messages from "../messages";
+import {flattenMessages} from "lib/flattenMessages";
+import messages from "messages";
+import {pluginRegistry} from "plugins/pluginRegistration";
+
+export const updateMessages = locale => {
+  let coreMessages = {...messages};
+  let newMessages = pluginRegistry.getMessages();
+  for (let language in newMessages) {
+    if (language in messages) {
+      coreMessages[language].plugins = {
+        ...coreMessages[language].plugins,
+        ...newMessages[language].plugins
+      };
+    } else {
+      coreMessages[language] = {plugins: {...newMessages[language].plugins}};
+    }
+  }
+  return dispatch => {
+    return dispatch(
+      updateIntl({
+        locale: locale,
+        messages: flattenMessages(coreMessages[locale])
+      })
+    );
+  };
+};
 
 export const switchLocale = newLocale => {
   return dispatch => {

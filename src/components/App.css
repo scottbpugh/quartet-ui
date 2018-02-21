@@ -25,14 +25,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .wrapper {
     display: flex;
     flex-direction: column;
-    height:100%;
+    height:auto;
+    min-height:100%;
 }
 .main-container {
     flex:2;
     display: flex;
+    margin-top:50px;
 }
 .left-panel {
-  padding:10px;
+    padding:0;
     flex :0 0 240px;
     background:#394B59;
     color:#FFF;
@@ -46,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .right-panel {
     padding:10px;
     flex: 1 1;
-    background:#EEE;
+    background:#E1E8ED;
     min-height:100%;
 }
 
@@ -67,4 +69,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .mini-form button {
   margin:10px;
+}
+.hidden {
+  display: none !important;
+}
+.context {
+  position: absolute;
+}
+
+.leftbar-group {
+  width: 100%;
+  border-radius: 5px;
+  background: #30404D;
+  margin-top:10px;
+  transition: all 0.2s ease;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
 }

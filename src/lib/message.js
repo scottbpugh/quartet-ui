@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -22,6 +22,7 @@ const msgToaster = Toaster.create({
   className: "my-toaster",
   position: Position.BOTTOM_RIGHT
 });
+
 const getIntent = type => {
   switch (type) {
     case "success":
@@ -33,6 +34,9 @@ const getIntent = type => {
       return Intent.PRIMARY;
   }
 };
+
 export const showMessage = msg => {
-  msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
+  if (msg.msg) {
+    msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
+  }
 };

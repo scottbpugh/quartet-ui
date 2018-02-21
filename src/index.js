@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -22,28 +22,38 @@ import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 import configureStore from "./store";
 import {Provider} from "react-redux";
-import routes from "./routes";
-import {initialData} from "./reducers/serversettings";
-import {initialData as nrData} from "./plugins/number-range/src/reducers/numberrange.js";
+import RouteSwitcher from "./routes";
+
 import {IntlProvider} from "react-intl-redux";
-import {addLocaleData} from "react-intl";
+
+import {BrowserRouter} from "react-router-dom";
 
 import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
+import {addLocaleData} from "react-intl";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
+import {initialData as pluginInitialData} from "./reducers/plugins";
 
-let locale = "fr-FR";
+// initial data objects
+import {initialData} from "./reducers/serversettings";
+
+import {initialData as layoutInitialData} from "./reducers/layout";
+
+addLocaleData([...en, ...fr]);
+
+let locale = "en-US";
 
 const initialState = {
   dashboard: {notifications: []},
   serversettings: initialData(),
-  numberrange: nrData(),
   intl: {
     defaultLocale: "en-US",
     locale: locale,
     messages: flattenMessages(messages[locale])
-  }
+  },
+  layout: layoutInitialData(),
+  plugins: pluginInitialData()
 };
 
 addLocaleData([...en, ...fr]);
@@ -51,7 +61,11 @@ const store = configureStore(initialState);
 
 ReactDOM.render(
   <Provider store={store}>
-    <IntlProvider>{routes}</IntlProvider>
+    <IntlProvider>
+      <BrowserRouter>
+        <RouteSwitcher />
+      </BrowserRouter>
+    </IntlProvider>
   </Provider>,
   document.getElementById("root")
 );

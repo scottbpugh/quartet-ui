@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -18,16 +18,35 @@
 
 import React from "react";
 import renderer from "react-test-renderer";
-import {Panels} from "./Panels";
+import {Panels, LeftPanel, RightPanel} from "./Panels";
 
-it("renders correctly", () => {
+import {IntlProvider} from "react-intl";
+import {addLocaleData, FormattedMessage} from "react-intl";
+import messages from "messages";
+import en from "react-intl/locale-data/en";
+import fr from "react-intl/locale-data/fr";
+import {flattenMessages} from "lib/flattenMessages";
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+
+import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+
+it("renders nested components correctly", () => {
+  let store = mockStore(initialState);
   const panels = renderer
     .create(
-      <Panels
-        title="Test"
-        leftPanel={<h1>Something</h1>}
-        rightPanel={<h2>Something Else</h2>}
-      />
+      <TestWrapper>
+        <Panels store={store}>
+          <LeftPanel store={store}>
+            <h1>Something</h1>
+          </LeftPanel>
+          <RightPanel
+            title={<FormattedMessage id="app.nav.servers" />}
+            store={store}>
+            <h2>Something Else</h2>
+          </RightPanel>
+        </Panels>
+      </TestWrapper>
     )
     .toJSON();
   expect(panels).toMatchSnapshot();

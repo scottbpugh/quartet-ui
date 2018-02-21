@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
+import {showMessage} from "lib/message";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -29,6 +30,7 @@ const prepHeaders = (server, method = "GET") => {
   let password = server.password;
   let headers = new Headers();
   headers.append("Accept", "application/json");
+  headers.append("Content-Type", "application/json");
   headers.append(
     "Authorization",
     "Basic " + base64.encode(username + ":" + password)
@@ -52,7 +54,7 @@ const prepURL = server => {
   let protocol = server.ssl === "true" ? "https" : "http";
   let hostname = server.serverName;
   let port = server.port || 80;
-  let path = server.path + "";
+  let path = server.path ? server.path : "";
   return `${protocol}://${hostname}:${port}/${path}`;
 };
 
@@ -64,7 +66,8 @@ const prepURL = server => {
  * @return {object} A JSON object.
  */
 export const getPools = server => {
-  return fetch(`${prepURL(server)}pools/?related=true`, prepHeaders(server))
+  const url = `${prepURL(server)}pools/?related=true`;
+  return fetch(url, prepHeaders(server))
     .then(resp => {
       return resp.json();
     })
@@ -72,6 +75,12 @@ export const getPools = server => {
       return data;
     })
     .catch(error => {
+      showMessage({
+        type: "danger",
+        msg: `An error occurred while attempting to fetch pools from ${
+          server.serverSettingName
+        }`
+      });
       return error;
     });
 };
@@ -170,4 +179,35 @@ export const getRegionFormStructure = server => {
     .catch(error => {
       return error;
     });
+};
+
+export const getPoolFormStructure = server => {
+  return fetch(`${prepURL(server)}pool-create/`, prepHeaders(server, "OPTIONS"))
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};
+
+export const postAddRegion = (server, postValues) => {
+  let headers = prepHeaders(server, "POST");
+  headers.body = JSON.stringify(postValues);
+  return fetch(`${prepURL(server)}sequential-region-create/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
+};
+
+export const postAddPool = (server, postValues) => {
+  let headers = prepHeaders(server, "POST");
+  headers.body = JSON.stringify(postValues);
+  return fetch(`${prepURL(server)}pool-create/`, headers).then(resp => {
+    return resp;
+  });
 };

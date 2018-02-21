@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -20,6 +20,7 @@ import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
 import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
 import {showMessage} from "../../../../lib/message";
+import serverActions from "../../../../actions/serversettings";
 
 export const initialData = () => ({
   servers: {},
@@ -29,14 +30,14 @@ export const initialData = () => ({
 
 export const loadPools = server => {
   return dispatch => {
-    getPools(server).then(pools =>
+    getPools(server).then(pools => {
       dispatch({
         type: actions.loadPools,
         payload: {
           [server.serverID]: {pools: pools, server: server}
         }
-      })
-    );
+      });
+    });
   };
 };
 
@@ -54,7 +55,6 @@ export const loadRegion = (server, regionName) => {
 export const loadRegions = (server, pool) => {
   return dispatch => {
     getRegions(server, pool).then(regions => {
-      console.log("regions", regions, "type of", typeof regions);
       dispatch({
         type: actions.loadRegions,
         payload: regions
@@ -117,6 +117,16 @@ export default handleActions(
       return {
         ...state,
         allocationDetail: action.payload
+      };
+    },
+    [serverActions.serverUpdated]: (state, action) => {
+      // we want to reload pools when new server is saved.
+      console.log(
+        "SERVER ADDED OR UPDATED. Number Range will fetch data on this server."
+      );
+      action.asyncDispatch(loadPools(action.payload));
+      return {
+        ...state
       };
     }
   },

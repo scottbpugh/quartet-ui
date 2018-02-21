@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -17,8 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {handleActions} from "redux-actions";
-import {getNotifications} from "../lib/dashboardServices";
-import actions from "../actions/dashboard";
+import {getNotifications} from "lib/dashboardServices";
+import actions from "actions/dashboard";
 
 export const fetchNotifications = () => {
   return dispatch => {

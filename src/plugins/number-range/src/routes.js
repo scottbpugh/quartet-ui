@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -19,6 +19,8 @@ import React from "react";
 import {Route} from "react-router";
 import {PoolList} from "./components/PoolList";
 import {RegionDetail} from "./components/RegionDetail";
+import {AddRegion} from "./components/AddRegion";
+import {AddPool} from "./components/AddPool";
 
 /**
  * Default - Returns an array of routes to be appended to main Switch.
@@ -27,10 +29,25 @@ import {RegionDetail} from "./components/RegionDetail";
  */
 export default (() => {
   return [
-    <Route path="/number-range/pools" component={PoolList} />,
     <Route
+      key="poolList"
+      path="/number-range/pools/:serverID"
+      component={PoolList}
+    />,
+    <Route
+      key="regionDetail"
       path="/number-range/region-detail/:serverID/:pool"
       component={RegionDetail}
+    />,
+    <Route
+      key="addRegion"
+      path="/number-range/add-region/:serverID/:pool"
+      component={AddRegion}
+    />,
+    <Route
+      key="addPool"
+      path="/number-range/add-pool/:serverID"
+      component={AddPool}
     />
   ];
 })();

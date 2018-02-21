@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -15,8 +15,10 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import React from "react";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {FormattedMessage} from "react-intl";
+import {loadPageTitle} from "../../reducers/layout";
 
 /**
  * LeftPanel
@@ -25,12 +27,28 @@ import React from "react";
  *
  * @return {ReactElement} The left panel element.
  */
-export const LeftPanel = props => (
-  <div className="left-panel pt-dark">
-    <h4 className="left-panel-title">{props.title}</h4>
-    <div>{props.children}</div>
-  </div>
-);
+class _LeftPanel extends Component {
+  render() {
+    return (
+      <div className="left-panel">
+        <h4 className="left-panel-title pt-dark">
+          {/* We use a new message from passed props because Redux uses plain objects. */}
+          <FormattedMessage {...this.props.pageTitle} />
+        </h4>
+        <div>{this.props.children}</div>
+      </div>
+    );
+  }
+}
+
+export const LeftPanel = connect(
+  (state, ownProps) => {
+    return {
+      pageTitle: state.layout.pageTitle
+    };
+  },
+  {loadPageTitle}
+)(_LeftPanel);
 
 /**
  * RightPanel
@@ -39,11 +57,39 @@ export const LeftPanel = props => (
  *
  * @return {ReactElement} The right panel element.
  */
-export const RightPanel = props => (
-  <div className="right-panel">
-    <div>{props.children}</div>
-  </div>
-);
+class _RightPanel extends Component {
+  componentDidMount() {
+    //this.props.loadPageTitle(this.props.title.props.id);
+    this.props.loadPageTitle({...this.props.title.props});
+  }
+
+  componentWillUnmount() {}
+  componentWillReceiveProps(nextProps) {
+    if (
+      JSON.stringify(nextProps.title.props) !==
+      JSON.stringify(this.props.pageTitle)
+    ) {
+      // formattedMessage props have changed.
+      this.props.loadPageTitle({...nextProps.title.props});
+    }
+  }
+  render() {
+    return (
+      <div className="right-panel">
+        <div ref="rightPanel">{this.props.children}</div>
+      </div>
+    );
+  }
+}
+
+export const RightPanel = connect(
+  (state, ownProps) => {
+    return {
+      pageTitle: state.layout.pageTitle
+    };
+  },
+  {loadPageTitle}
+)(_RightPanel);
 
 /**
  * Default - function returning a left/right panel layout.
@@ -53,28 +99,17 @@ export const RightPanel = props => (
  *
  * @return {ReactElement} The layout element
  */
-export const Panels = props => {
-  if (props.children && props.children.length === 2) {
-    // dynamically pass title
-    let titledLeftPanel = React.cloneElement(props.children[0], {
-      title: props.title
-    });
-    // nested object version.
-    return (
-      <div className="main-container">
-        {titledLeftPanel}
-        {props.children[1]}
-      </div>
-    );
+class _Panels extends Component {
+  render() {
+    return <div className="main-container">{this.props.children}</div>;
   }
-  // otherwise expect props leftPanel, title, and right Panel
-  return (
-    <div className="main-container">
-      <div className="left-panel">
-        <h4 className="pt-dark left-panel-title">{props.title}</h4>
-        {props.leftPanel}
-      </div>
-      <div className="right-panel">{props.rightPanel}</div>
-    </div>
-  );
-};
+}
+
+export const Panels = connect(
+  (state, ownProps) => {
+    return {
+      pageTitle: state.layout.pageTitle
+    };
+  },
+  {loadPageTitle}
+)(_Panels);

@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -18,19 +18,15 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {loadRegions} from "../reducers/numberrange";
-import {
-  Panels,
-  RightPanel,
-  LeftPanel
-} from "../../../../components/layouts/Panels";
-import {Card} from "@blueprintjs/core";
+import {loadPools, loadRegions} from "../reducers/numberrange";
+import {RightPanel} from "components/layouts/Panels";
+import {Card, Callout} from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
 import {setAllocation} from "../reducers/numberrange";
 import "../style.css";
 import classNames from "classnames";
-import RegionForm from "./RegionForm";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
+
 /**
  * _RegionDetail - Description
  * @extends Component
@@ -45,32 +41,32 @@ class _RegionDetail extends Component {
     this.currentServer = {};
   }
   componentDidMount() {
-    let nrServer = this.props.nr[this.props.match.params.serverID];
-    this.currentServer = nrServer.server;
-    for (let pool of nrServer.pools) {
-      if (pool.machine_name === this.props.match.params.pool) {
-        this.currentPool = pool;
-      }
-    }
-    this.props.loadRegions(this.currentServer, this.currentPool);
+    this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
+    this.loadPoolDetail(this.props);
   }
-  previewAlloc = evt => {
-    this.setState({alloc: Number(evt.target.value)});
-  };
-  setAllocation = evt => {
-    this.props.setAllocation(
-      this.currentServer,
-      this.currentPool,
-      this.state.alloc
-    );
-  };
   componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.pool !== this.props.match.params.pool) {
+      this.loadPoolDetail(nextProps);
+      return;
+    }
+    if (
+      JSON.stringify(this.props.nr[nextProps.match.params.serverID]) !==
+      JSON.stringify(nextProps.nr[nextProps.match.params.serverID])
+    ) {
+      this.props.loadPools(nextProps.servers[nextProps.match.params.serverID]);
+    }
     // shake card for the last updated region.
-    nextProps.currentRegions.map((region, index) => {
+    /*nextProps.currentRegions.map((region, index) => {
       if (
         this.props.currentRegions[index] &&
         region.state !== this.props.currentRegions[index].state
       ) {
+        console.log(
+          "new state",
+          region.state,
+          "old state",
+          this.props.currentRegions[index].state
+        );
         this.setState({lastUpdated: region.machine_name}, () => {
           window.setTimeout(() => {
             this.setState({lastUpdated: null});
@@ -78,49 +74,44 @@ class _RegionDetail extends Component {
         });
       }
       return null;
-    });
+    });*/
   }
-  submit = values => {
-    console.log(values);
+  previewAlloc = evt => {
+    this.setState({alloc: Number(evt.target.value)});
   };
+  loadPoolDetail(props) {
+    let nrServer = props.nr[props.match.params.serverID];
+    this.currentServer = nrServer.server;
+    for (let pool of nrServer.pools) {
+      if (pool.machine_name === props.match.params.pool) {
+        this.currentPool = pool;
+      }
+    }
+    this.props.loadPools(this.currentServer, this.currentPool);
+    this.props.loadRegions(this.currentServer, this.currentPool);
+  }
+  setAllocation = evt => {
+    this.props.setAllocation(
+      this.currentServer,
+      this.currentPool,
+      this.state.alloc
+    );
+  };
+
   render() {
     let regions = this.props.currentRegions;
 
     return (
-      <Panels title={`Pool ${this.currentPool.readable_name} Regions`}>
-        <LeftPanel>
-          <div className="mini-form">
-            <h6>
-              <FormattedMessage id="plugins.numberRange.allocation" />
-            </h6>
-            <input
-              placeholder="allocate"
-              className="pt-input"
-              type="number"
-              defaultValue={1}
-              min={1}
-              max={100000}
-              style={{width: 200}}
-              onChange={this.previewAlloc.bind(this)}
-            />
-            <button onClick={this.setAllocation} className="pt-button">
-              <FormattedMessage id="plugins.numberRange.allocateButton" />
-            </button>
-          </div>
-          <div className="mini-form">
-            <button
-              className="pt-button"
-              onClick={e => {
-                alert("pressed");
-              }}>
-              <FormattedMessage id="plugins.numberRange.addRegion" />
-            </button>
-          </div>
-        </LeftPanel>
-
-        <RightPanel>
-          <div className="auto-cards-container">
-            {regions.map(region => (
+      <RightPanel
+        title={
+          <FormattedMessage
+            id="plugins.numberRange.regionDetailTitle"
+            values={{poolName: this.currentPool.readable_name}}
+          />
+        }>
+        <div className="auto-cards-container">
+          {regions && regions.length > 0 ? (
+            regions.map(region => (
               <Card
                 className={classNames({
                   "pt-elevation-4": true,
@@ -162,11 +153,14 @@ class _RegionDetail extends Component {
                   alloc={this.state.alloc}
                 />
               </Card>
-            ))}
-          </div>
-          <RegionForm server={this.currentServer} onSubmit={this.submit} />
-        </RightPanel>
-      </Panels>
+            ))
+          ) : (
+            <Callout>
+              <FormattedMessage id="plugins.numberRange.noRegionInPool" />
+            </Callout>
+          )}
+        </div>
+      </RightPanel>
     );
     //<div>{JSON.stringify(this.props.region)}</div>;
   }
@@ -180,5 +174,5 @@ export var RegionDetail = connect(
       nr: state.numberrange.servers
     };
   },
-  {loadRegions, setAllocation}
+  {loadPools, loadRegions, setAllocation}
 )(_RegionDetail);
