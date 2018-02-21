@@ -194,3 +194,30 @@ This is particularly useful for the onContextMenu event handler, to provide tran
     };
     
 You must pass the intl prop explicitely for items used in props.childrenNodes to benefit from it for deeper layers of the tree.
+
+### Getting your plugin available in the PluginList component
+Currently, the list of plugins available is strictly offline and they are contained within the src/plugins/ directory of quartet-ui.
+Eventually, non-core plugins will be enabled and installed through npm or another package manager and the metadata on the plugins should be available through a remote server providing a list formatted in JSON for the plugins (after review and approval.)
+To add your core plugin to the list of plugins that can be installed, add an entry in the default export object of the src/plugins/plugin-repo.js file with the following key/value pairs:
+    NumberRange: {
+      core: true,
+      preview: "/plugin-screenshots/number-range.png",
+      initPath: "number-range/src/init.js",
+      readableName: "Serial Number Range Management",
+      pluginName: "NumberRange",
+      description: `
+                The Serial Number Range Management plugin offers users the
+                ability to interact with SerialBox, the backend solution for
+                your serial number range management requirements.
+
+                Among other functions, this plugin offers the ability to create
+                pools and serial number ranges as well as allocate numbers on
+                the fly from the QU4RTET interface.
+            `
+       }
+    };
+    
+The plugin will then appear in the list of plugins that you can enable and disable from the <PluginList/> component.
+Clicking the Enable button will trigger enablePlugin function in init.js and plugin-specific actions from the core plugin reducer.
+The state of the plugin enabled is added to the redux store and saved persistently in the localstorage.
+Further restart of the app trigger the enablePlugin function from the custom init.js and adds the routes, reducer, and components registered there.
