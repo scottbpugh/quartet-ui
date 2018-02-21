@@ -111,17 +111,16 @@ Here is an example of the enablePlugin function definition for the serial number
 
     export const enablePlugin = () => {
       pluginRegistry.registerReducer(
-      PLUGIN_NAME,
-      "numberrange",
-      reducer,
-      initialData()
-      );
+        PLUGIN_NAME,
+        "numberrange",
+        reducer,
+        initialData());
       pluginRegistry.setMessages(messages);
       pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
       pluginRegistry.registerComponent(
-      PLUGIN_NAME,
-      NavPluginRoot,
-      actions.addToTreeServers);
+        PLUGIN_NAME,
+        NavPluginRoot,
+        actions.addToTreeServers);
     };
 
 All of the elements registered will be injected dynamically at runtime.
