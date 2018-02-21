@@ -178,17 +178,19 @@ The top component injected in the tree also gets this.props.intl passed to it. T
 This is particularly useful for the onContextMenu event handler, to provide translations for the BlueprintJS MenuItem label:
   
     renderContextMenu = () => {
-      const {servers, serverID} = this.props;
+      const {servers, serverID, intl} = this.props;
       return (
         <Menu>
           <MenuDivider title={servers[serverID].serverSettingName} />
           <MenuDivider />
           <MenuItem
             onClick={this.goTo.bind(this, `/number-range/add-pool/${serverID}`)}
-            text={this.props.intl.formatMessage({
+            text={intl.formatMessage({
               id: "plugins.numberRange.addPool"
             })}
           />
         </Menu>
         );
     };
+    
+You must pass the intl prop explicitely for items used in props.childrenNodes to benefit from it for deeper layers of the tree.
