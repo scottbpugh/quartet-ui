@@ -95,7 +95,6 @@ class _TreeNode extends Component {
   render() {
     let expandable = this.props.childrenNodes.length > 0 ? true : false;
     let childrenNodes = this.props.childrenNodes.map(elem => {
-      console.log("depth + 1", this.props.depth + 1, this.props.depth);
       return React.cloneElement(elem, {depth: this.props.depth + 1});
     });
     return (
