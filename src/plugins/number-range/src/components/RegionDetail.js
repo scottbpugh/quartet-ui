@@ -41,6 +41,11 @@ class _RegionDetail extends Component {
     this.currentServer = {};
   }
   componentDidMount() {
+    console.log(
+      "SERVERS",
+      this.props.servers,
+      this.props.match.params.serverID
+    );
     this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
     this.loadPoolDetail(this.props);
   }

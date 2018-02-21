@@ -26,43 +26,53 @@ import {MemoryRouter as Router, withRouter, Switch} from "react-router-dom";
 import {IntlProvider} from "react-intl";
 import returnComponentWithIntl from "../../../../tools/intl-test-helper";
 import thunk from "redux-thunk";
+import {Provider} from "react-redux";
+import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+import {flattenMessages} from "lib/flattenMessages";
+import messages from "messages";
+import nrmessages from "../messages";
+let locale = "en-US";
+const newIntl = {
+  ...initialState.intl,
+  messages: flattenMessages({...messages[locale], ...nrmessages[locale]})
+};
+console.log(JSON.stringify(newIntl));
+const pluginData = {
+  ...initialState,
+  serversettings: {servers: {fakeid: {serverID: "fakeid"}}},
+  numberrange: {
+    servers: {
+      fakeid: {
+        server: {
+          serverID: "fakeid",
+          password: "toor",
+          username: "root",
+          port: "80",
+          serverName: "localhost",
+          serverSettingName: "fake server",
+          ssl: false,
+          path: ""
+        },
+        pools: [
+          {
+            sequentialregion_set: [],
+            created_date: "2018-02-12T14:56:11.462232Z",
+            modified_date: "2018-02-12T14:56:11.462279Z",
+            readable_name: "Fake Pool",
+            machine_name: "fakepool",
+            active: true,
+            request_threshold: 50000
+          }
+        ]
+      }
+    },
+    region: {},
+    currentRegions: []
+  },
+  intl: newIntl
+};
 
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
-const mockStore = configureStore(middlewares);
-let wrapper;
-const getStore = () =>
-  mockStore({
-    serversettings: initialData(),
-    numberrange: {
-      servers: {
-        fakeid: {
-          server: {
-            serverID: "fakeid",
-            password: "toor",
-            username: "root",
-            port: "80",
-            serverName: "localhost",
-            serverSettingName: "fake server",
-            ssl: false,
-            path: ""
-          },
-          pools: [
-            {
-              sequentialregion_set: [],
-              created_date: "2018-02-12T14:56:11.462232Z",
-              modified_date: "2018-02-12T14:56:11.462279Z",
-              readable_name: "Fake Pool",
-              machine_name: "fakepool",
-              active: true,
-              request_threshold: 50000
-            }
-          ]
-        }
-      },
-      region: {},
-      currentRegions: []
-    }
-  });
+const store = mockStore(pluginData);
 
 it("renders correctly a pool with no region", () => {
   const props = {
@@ -72,19 +82,25 @@ it("renders correctly a pool with no region", () => {
       }
     }
   };
-  window.fetch = () => {
-    console.log("called");
-  };
+
+  window.fetch = jest
+    .fn()
+    .mockImplementation(() => Promise.resolve({ok: true}));
+
   const regionDetailScreen = renderer
     .create(
-      returnComponentWithIntl(
-        <Router initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
-          <RegionDetail
-            store={getStore()}
-            match={{params: {serverID: "fakeid", pool: "fakepool"}}}
-          />
-        </Router>
-      )
+      <TestWrapper locale={locale} messages={newIntl.messages}>
+        <Provider store={store}>
+          <Router
+            store={store}
+            initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
+            <RegionDetail
+              store={store}
+              match={{params: {serverID: "fakeid", pool: "fakepool"}}}
+            />
+          </Router>
+        </Provider>
+      </TestWrapper>
     )
     .toJSON();
   expect(regionDetailScreen).toMatchSnapshot();

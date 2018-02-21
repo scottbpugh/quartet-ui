@@ -29,16 +29,16 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
 addLocaleData([...en, ...fr]);
-let locale = "en-US";
+let defaultLocale = "en-US";
 const middlewares = [thunk];
 
 export const initialState = {
   dashboard: {notifications: []},
   serversettings: {},
   intl: {
-    defaultLocale: "en-US",
-    locale: locale,
-    messages: flattenMessages(messages[locale])
+    defaultLocale: defaultLocale,
+    locale: defaultLocale,
+    messages: flattenMessages(messages[defaultLocale])
   },
   layout: {pageTitle: {id: "app.nav.servers"}},
   plugins: {}
@@ -46,9 +46,15 @@ export const initialState = {
 
 export const mockStore = configureStore(middlewares);
 
-export const TestWrapper = ({children}) => {
+export const TestWrapper = ({locale, messages, children}) => {
+  if (locale == undefined) {
+    locale = defaultLocale;
+  }
+  if (messages === undefined) {
+    messages = initialState.intl.messages;
+  }
   return (
-    <IntlProvider locale={locale} messages={initialState.intl.messages}>
+    <IntlProvider locale={locale} messages={messages}>
       {children}
     </IntlProvider>
   );
