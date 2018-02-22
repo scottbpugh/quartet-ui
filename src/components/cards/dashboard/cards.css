@@ -46,6 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   border-top-right-radius:4px;
 }
 
+.pt-dark .auto-cards-container h5, .pt-dark .large-cards-container h5, .pt-dark .cards-container h5, .pt-dark .form-card h5 {
+  background: #293742;
+}
+
 .form-card {
   padding:0 25px 20px;
 }

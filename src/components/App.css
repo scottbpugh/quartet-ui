@@ -48,8 +48,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .right-panel {
     padding:10px;
     flex: 1 1;
-    background:#E1E8ED;
     min-height:100%;
+}
+
+.pt-dark .right-panel {
+  background:#394B59;
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
 }
 
 .tags .tag:not(:last-child) {

@@ -111,7 +111,8 @@ class _PoolItem extends Component {
           onClose={this.toggleAllocation}
           title={`${this.props.intl.formatMessage({
             id: "plugins.numberRange.allocateButton"
-          })} ${pool.readable_name}`}>
+          })} ${pool.readable_name}`}
+          className="pt-dark">
           <div className="pt-dialog-body">
             <form onSubmit={this.setAllocation} className="mini-form">
               <input

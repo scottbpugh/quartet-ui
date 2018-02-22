@@ -153,7 +153,7 @@ class AddServerButton extends Component {
   }
   render() {
     const addMenu = (
-      <Menu className="menu-padding-fix">
+      <Menu className="menu-padding-fix pt-dark">
         <MenuItem
           text={<FormattedMessage id="app.serverSettings.addAServer" />}
           onClick={this.goTo.bind(this, "/server-settings/")}
@@ -162,7 +162,10 @@ class AddServerButton extends Component {
     );
     return (
       <div>
-        <Popover content={addMenu} position={Position.RIGHT_CENTER}>
+        <Popover
+          className="pt-dark"
+          content={addMenu}
+          position={Position.RIGHT_CENTER}>
           <button
             onClick={this.displayMenu}
             tabindex="0"

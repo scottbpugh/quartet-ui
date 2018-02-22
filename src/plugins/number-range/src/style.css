@@ -26,7 +26,6 @@
   margin:0;
 }
 
-
 .region-detail.updated {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
@@ -59,7 +58,10 @@
   padding:15px 10px;
   text-align:center;
   margin:10px 40px;
-  background:#EBEBEB;
+  background:#EBEBEB
+}
+.pt-dark .region-detail ul li {
+  background-color: rgba(138, 155, 168, 0.2);
 }
 .region-detail .visual {
   position:absolute;

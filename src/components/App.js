@@ -35,14 +35,25 @@ import {connect} from "react-redux";
 import {LeftPanel, Panels} from "components/layouts/Panels";
 
 class _App extends Component {
+  componentDidMount() {
+    // redirect to / first thing. Fix for electron build.
+    if (process.env.NODE_ENV === "production") {
+      this.props.history.push("/");
+    }
+  }
   componentWillReceiveProps(nextProps) {}
   render() {
     return (
-      <div className="App pt-ui-text">
+      <div className="App pt-ui-text pt-dark">
         <header>
-          <Navbar className="pt-fixed-top">
+          <Navbar className="pt-fixed-top pt-dark">
             <NavbarGroup>
-              <NavbarHeading>QU4RTET</NavbarHeading>
+              <NavbarHeading>
+                <img
+                  src="/qu4rtet-logo.png"
+                  style={{width: "50%", height: "50%"}}
+                />
+              </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
               <NavLink to="/" iconName="home">
@@ -58,7 +69,7 @@ class _App extends Component {
           </Navbar>
         </header>
 
-        <div className="wrapper">
+        <div className="wrapper pt-dark">
           <Panels>
             <LeftPanel key="leftpanel">
               <div>
