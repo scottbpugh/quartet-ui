@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     flex :0 0 240px;
     background:#394B59;
     color:#FFF;
+
 }
 .left-panel-title {
   padding-top:10px;
@@ -49,11 +50,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     padding:10px;
     flex: 1 1;
     min-height:100%;
+    z-index:9;
+    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
+    background:#EEE;
 }
 
 .pt-dark .right-panel {
   background:#394B59;
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
+
 }
 
 .tags .tag:not(:last-child) {

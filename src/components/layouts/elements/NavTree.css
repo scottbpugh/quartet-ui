@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-root a:hover {
   color:#EEE;
 }
+
 .tree-root {
   padding:0;
   margin:0;
@@ -92,14 +93,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   left:0;
 }
 
-
 .tree-node-content {
   height:30px;
   padding: 5px 0px 5px 23px;
 }
 .tree-node-content-active {
-  background: rgba(0, 0, 0, 0.2);
+  background: #1E7DBB;
 }
+.pt-dark .tree-node-content-active {
+  /*background: #1E7DBB;*/
+  /* Using logo green color */
+  background: #8DC449;
+}
+.tree-root .tree-node-content-active a {
+  color:#202B33;
+}
+
 .tree-node-depth-0 {
   padding-left:10px;
 }
@@ -132,10 +141,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
-}
-
-.swing {
-
 }
 
 .slide-enter {

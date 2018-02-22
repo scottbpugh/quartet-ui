@@ -18,30 +18,26 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {switchTheme} from "reducers/layout";
 
-import messages from "messages";
-import {switchLocale} from "reducers/locales";
+const themes = ["light", "dark"];
 
-class _SwitchLocale extends Component {
+class _SwitchTheme extends Component {
   render() {
-    const {currentLocale} = this.props;
+    const {currentTheme} = this.props;
     return (
       <div className="pt-select">
         <select
-          value={currentLocale}
-          onChange={e => this.props.switchLocale(e.target.value)}>
-          {Object.keys(messages).map(locale => (
-            <option key={locale}>{locale}</option>
-          ))}
+          value={currentTheme}
+          onChange={e => this.props.switchTheme(e.target.value)}>
+          {themes.map(theme => <option key={theme}>{theme}</option>)}
         </select>
       </div>
     );
   }
 }
 
-export var SwitchLocale = connect(
-  state => ({
-    currentLocale: state.intl.locale
-  }),
-  {switchLocale}
-)(_SwitchLocale);
+export const SwitchTheme = connect(
+  state => ({currentTheme: state.layout.theme}),
+  {switchTheme}
+)(_SwitchTheme);

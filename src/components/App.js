@@ -30,9 +30,11 @@ import {withRouter} from "react-router-dom";
 import NavLink from "components/layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
 import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
+import {SwitchTheme} from "components/layouts/elements/SwitchTheme";
 import {NavTree} from "components/layouts/elements/NavTree";
 import {connect} from "react-redux";
 import {LeftPanel, Panels} from "components/layouts/Panels";
+import classNames from "classnames";
 
 class _App extends Component {
   componentDidMount() {
@@ -44,9 +46,14 @@ class _App extends Component {
   componentWillReceiveProps(nextProps) {}
   render() {
     return (
-      <div className="App pt-ui-text pt-dark">
+      <div
+        className={classNames({
+          App: true,
+          "pt-ui-text": true,
+          "pt-dark": this.props.theme === "dark" ? true : false
+        })}>
         <header>
-          <Navbar className="pt-fixed-top pt-dark">
+          <Navbar className="pt-fixed-top">
             <NavbarGroup>
               <NavbarHeading>
                 <img
@@ -63,13 +70,14 @@ class _App extends Component {
                 <FormattedMessage id="app.nav.plugins" />
               </NavLink>
               <SwitchLocale />
+              <SwitchTheme />
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
             </NavbarGroup>
           </Navbar>
         </header>
 
-        <div className="wrapper pt-dark">
+        <div className="wrapper">
           <Panels>
             <LeftPanel key="leftpanel">
               <div>
@@ -90,7 +98,8 @@ const App = connect(
     return {
       pageTitle: state.layout.pageTitle,
       currentPath: state.layout.currentPath,
-      plugins: state.plugins.plugins
+      plugins: state.plugins.plugins,
+      theme: state.layout.theme
     };
   },
   dispatch => {
