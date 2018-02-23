@@ -38,7 +38,6 @@ class ServerPools extends Component {
             }}>
             <FormattedMessage id="plugins.numberRange.addPool" />
           </button>
-          <FormattedMessage id="app.nav.server" defaultMessage="Server" />:{" "}
           {serverName}
         </h5>
         <div />
