@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="right-panel"
+>
+  <div>
+    <div
+      className="cards-container"
+    >
+      <div
+        className="pt-card pt-elevation-0 pt-elevation-4"
+        onClick={undefined}
+      >
+        <h5>
+          Serial Number Range Management
+           
+          <button
+            className="pt-button pt-icon-add pt-button add-plugin-button pt-intent-primary"
+            disabled={undefined}
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="button"
+          >
+            <span>
+              Enable
+            </span>
+          </button>
+        </h5>
+        <div
+          className="pt-callout pt-intent-primary pt-callout-plugin"
+        >
+          <img
+            alt="Serial Number Range Management"
+            className="plugin-screenshot"
+            src="/plugin-screenshots/number-range.png"
+            title="Serial Number Range Management"
+          />
+          <p>
+            
+                            The Serial Number Range Management plugin offers users the
+                            ability to interact with SerialBox, the backend solution for
+                            your serial number range management requirements.
+            
+                            Among other functions, this plugin offers the ability to create
+                            pools and serial number ranges as well as allocate numbers on
+                            the fly from the QU4RTET interface.
+                        
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

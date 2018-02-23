@@ -39,9 +39,11 @@ import classNames from "classnames";
 class _App extends Component {
   componentDidMount() {
     // redirect to / first thing. Fix for electron build.
-    if (this.props.currentPath) {
-      this.props.history.push(this.props.currentPath);
-    } else if (process.env.NODE_ENV === "production") {
+    // While it was tempting to redirect to the currentPath persisted
+    // through local storage. It can be dangerous if items or plugins have been
+    // removed from the db/disabled as plugins.
+    if (process.env.NODE_ENV !== "development") {
+      console.log("Hello");
       this.props.history.push("/");
     }
   }

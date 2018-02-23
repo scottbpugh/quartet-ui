@@ -40,7 +40,7 @@ export const initialState = {
     messages: flattenMessages(messages[defaultLocale])
   },
   layout: {pageTitle: {id: "app.nav.servers"}},
-  plugins: {}
+  plugins: {plugins: {}, navTreeItems: []}
 };
 
 export const mockStore = configureStore(middlewares);
