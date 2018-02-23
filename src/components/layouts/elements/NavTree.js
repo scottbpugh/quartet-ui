@@ -79,7 +79,6 @@ class _TreeNode extends Component {
       this.props.history.push(this.props.path);
     }
   };
-
   /**
    * renderContextMenu - Use onContextMenu={} to display a menu.
    *
@@ -153,7 +152,7 @@ class AddServerButton extends Component {
   }
   render() {
     console.log("THEME IS", this.props.theme);
-    let isDark = this.props.theme === "heaven-light" ? false : true;
+    let isDark = this.props.theme === "polar" ? false : true;
     const addMenu = (
       <Menu
         className={classNames({

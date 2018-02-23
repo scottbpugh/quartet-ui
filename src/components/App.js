@@ -56,13 +56,13 @@ class _App extends Component {
             : false,
           contrasted: this.props.theme === "contrasted" ? true : false,
           "dark-brown": this.props.theme === "dark-brown" ? true : false,
-          "heaven-light": this.props.theme === "heaven-light" ? true : false
+          polar: this.props.theme === "polar" ? true : false
         })}>
         <header>
           <Navbar
             className={classNames({
               "pt-fixed-top": true,
-              "pt-dark": this.props.theme === "heaven-light" ? false : true
+              "pt-dark": this.props.theme === "polar" ? false : true
             })}>
             <NavbarGroup>
               <NavbarHeading>

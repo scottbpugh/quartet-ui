@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-root a:hover {
   color:#EEE;
 }
-.heaven-light .tree-root a, .heaven-light .tree-root a:hover {
+.polar .tree-root a, .polar .tree-root a:hover {
   color:#444;
 }
 .tree-root {

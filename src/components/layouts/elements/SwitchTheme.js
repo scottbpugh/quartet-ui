@@ -19,13 +19,22 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {switchTheme} from "reducers/layout";
+import {FormattedMessage} from "react-intl";
 
 const themes = [
-  {name: "Light Panel", id: "light"},
-  {name: "Dark Theme", id: "dark"},
-  {name: "Contrasted Theme", id: "contrasted"},
-  {name: "Dark Brown", id: "dark-brown"},
-  {name: "Am I in Heaven?", id: "heaven-light"}
+  {msgId: "app.themes.lightTheme", name: "Light Theme", id: "light"},
+  {msgId: "app.themes.darkTheme", name: "Dark Theme", id: "dark"},
+  {
+    msgId: "app.themes.contrastedTheme",
+    name: "Contrasted Theme",
+    id: "contrasted"
+  },
+  {
+    msgId: "app.themes.darkBrownTheme",
+    name: "Dark Brown Theme",
+    id: "dark-brown"
+  },
+  {msgId: "app.themes.polarTheme", name: "Polar Theme", id: "polar"}
 ];
 
 class _SwitchTheme extends Component {
@@ -38,7 +47,7 @@ class _SwitchTheme extends Component {
           onChange={e => this.props.switchTheme(e.target.value)}>
           {themes.map(theme => (
             <option key={theme.id} value={theme.id}>
-              {theme.name}
+              <FormattedMessage id={theme.msgId} defaultMessage={theme.name} />
             </option>
           ))}
         </select>
@@ -48,6 +57,6 @@ class _SwitchTheme extends Component {
 }
 
 export const SwitchTheme = connect(
-  state => ({currentTheme: state.layout.theme}),
+  state => ({currentTheme: state.layout.theme, locale: state.intl.locale}),
   {switchTheme}
 )(_SwitchTheme);
