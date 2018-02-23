@@ -38,7 +38,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     flex :0 0 240px;
     background:#394B59;
     color:#FFF;
-
+}
+.heaven-light .left-panel {
+  background:#EEF1F3;
+  color:#444;
+}
+.heaven-light .left-panel-title {
+  background:#EEE;
+  color:#444;
 }
 .left-panel-title {
   padding-top:10px;
@@ -52,12 +59,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     min-height:100%;
     z-index:9;
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
-    background:#EEE;
+    background:#F5F8FA;
 }
-
+.heaven-light .right-panel {
+    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
+}
+.contrasted .right-panel {
+  background:#282B30;
+}
 .pt-dark .right-panel {
   background:#394B59;
-
+}
+.dark-brown .right-panel {
+  background:#282B30;
 }
 
 .tags .tag:not(:last-child) {
@@ -83,14 +97,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .context {
   position: absolute;
-}
-
-.leftbar-group {
-  width: 100%;
-  border-radius: 5px;
-  background: #30404D;
-  margin-top:10px;
-  transition: all 0.2s ease;
 }
 
 .fade-enter {

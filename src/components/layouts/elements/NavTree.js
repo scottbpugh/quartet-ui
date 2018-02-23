@@ -152,8 +152,14 @@ class AddServerButton extends Component {
     this.props.history.push(path);
   }
   render() {
+    console.log("THEME IS", this.props.theme);
+    let isDark = this.props.theme === "heaven-light" ? false : true;
     const addMenu = (
-      <Menu className="menu-padding-fix pt-dark">
+      <Menu
+        className={classNames({
+          "menu-padding-fix": true,
+          "pt-dark": isDark
+        })}>
         <MenuItem
           text={<FormattedMessage id="app.serverSettings.addAServer" />}
           onClick={this.goTo.bind(this, "/server-settings/")}
@@ -163,7 +169,7 @@ class AddServerButton extends Component {
     return (
       <div>
         <Popover
-          className="pt-dark"
+          className={classNames({"pt-dark": isDark})}
           content={addMenu}
           position={Position.RIGHT_CENTER}>
           <button
@@ -216,7 +222,10 @@ class _NavTree extends Component {
       <div className="tree-wrapper">
         <div className="leftbar-group">
           <div className="pt-button-group pt-minimal">
-            <AddServerButton history={this.props.history} />
+            <AddServerButton
+              theme={this.props.theme}
+              history={this.props.history}
+            />
           </div>
         </div>
         <div style={{width: "100%"}}>
@@ -231,6 +240,7 @@ export const NavTree = connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers,
     navTreeItems: state.plugins.navTreeItems,
-    intl: state.intl
+    intl: state.intl,
+    theme: state.layout.theme
   };
 }, {})(withRouter(_NavTree));

@@ -20,7 +20,13 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {switchTheme} from "reducers/layout";
 
-const themes = ["light", "dark"];
+const themes = [
+  {name: "Light Panel", id: "light"},
+  {name: "Dark Theme", id: "dark"},
+  {name: "Contrasted Theme", id: "contrasted"},
+  {name: "Dark Brown", id: "dark-brown"},
+  {name: "Am I in Heaven?", id: "heaven-light"}
+];
 
 class _SwitchTheme extends Component {
   render() {
@@ -30,7 +36,11 @@ class _SwitchTheme extends Component {
         <select
           value={currentTheme}
           onChange={e => this.props.switchTheme(e.target.value)}>
-          {themes.map(theme => <option key={theme}>{theme}</option>)}
+          {themes.map(theme => (
+            <option key={theme.id} value={theme.id}>
+              {theme.name}
+            </option>
+          ))}
         </select>
       </div>
     );

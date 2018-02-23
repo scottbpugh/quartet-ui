@@ -23,10 +23,11 @@ import {RightPanel} from "components/layouts/Panels";
 import {Card, Callout} from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
 import {setAllocation} from "../reducers/numberrange";
-import "../style.css";
+
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
 
+import "../style.css";
 /**
  * _RegionDetail - Description
  * @extends Component
@@ -156,7 +157,9 @@ class _RegionDetail extends Component {
             ))
           ) : (
             <Callout>
-              <FormattedMessage id="plugins.numberRange.noRegionInPool" />
+              <div className="pt-running-text">
+                <FormattedMessage id="plugins.numberRange.noRegionInPool" />
+              </div>
             </Callout>
           )}
         </div>

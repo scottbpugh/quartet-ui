@@ -114,7 +114,7 @@ class _PoolItem extends Component {
             id: "plugins.numberRange.allocateButton"
           })} ${pool.readable_name}`}
           className={classNames({
-            "pt-dark": this.props.theme === "dark" ? true : false
+            "pt-dark": this.props.theme.startsWith("dark") ? true : false
           })}>
           <div className="pt-dialog-body">
             <form onSubmit={this.setAllocation} className="mini-form">

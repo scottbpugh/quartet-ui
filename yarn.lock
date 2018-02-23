@@ -6833,6 +6833,10 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
+roboto-fontface@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/roboto-fontface/-/roboto-fontface-0.9.0.tgz#4829eeffc0502f09b88c7f3980fa3b304eda4c49"
+
 rst-selector-parser@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/rst-selector-parser/-/rst-selector-parser-2.2.3.tgz#81b230ea2fcc6066c89e3472de794285d9b03d91"
@@ -7558,9 +7562,21 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typeface-heebo@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-heebo/-/typeface-heebo-0.0.54.tgz#56c9ca61b45d9d9ed575dec25647031a00025a51"
+
+typeface-karla@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-karla/-/typeface-karla-0.0.54.tgz#f59d09b329a378db2161a3ecd6e6a0054699b579"
+
 ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
+
+ubuntu-fontface@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/ubuntu-fontface/-/ubuntu-fontface-0.1.13.tgz#8ebbb3defc1e2cbbc9ddbe48025433946279c09b"
 
 uglify-js@3.3.x, uglify-js@^3.0.13:
   version "3.3.8"

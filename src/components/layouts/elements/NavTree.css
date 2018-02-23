@@ -38,7 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-root a:hover {
   color:#EEE;
 }
-
+.heaven-light .tree-root a, .heaven-light .tree-root a:hover {
+  color:#444;
+}
 .tree-root {
   padding:0;
   margin:0;
@@ -98,13 +100,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   padding: 5px 0px 5px 23px;
 }
 .tree-node-content-active {
-  background: #1E7DBB;
-}
-.pt-dark .tree-node-content-active {
   /*background: #1E7DBB;*/
-  /* Using logo green color */
-  background: #8DC449;
+    background: #8DC449;
 }
+/*
+.pt-dark .tree-node-content-active {
+  /*background: #1E7DBB;
+  /* Using logo green color
+  background: #8DC449;
+}*/
 .tree-root .tree-node-content-active a {
   color:#202B33;
 }
@@ -177,4 +181,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   transform-origin:8px 8px;
   transform: rotate(90deg);
   transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+}
+.leftbar-group {
+  background: none;
 }

@@ -39,7 +39,9 @@ import classNames from "classnames";
 class _App extends Component {
   componentDidMount() {
     // redirect to / first thing. Fix for electron build.
-    if (process.env.NODE_ENV === "production") {
+    if (this.props.currentPath) {
+      this.props.history.push(this.props.currentPath);
+    } else if (process.env.NODE_ENV === "production") {
       this.props.history.push("/");
     }
   }
@@ -49,11 +51,19 @@ class _App extends Component {
       <div
         className={classNames({
           App: true,
-          "pt-ui-text": true,
-          "pt-dark": this.props.theme === "dark" ? true : false
+          "pt-dark": ["dark", "dark-brown"].includes(this.props.theme)
+            ? true
+            : false,
+          contrasted: this.props.theme === "contrasted" ? true : false,
+          "dark-brown": this.props.theme === "dark-brown" ? true : false,
+          "heaven-light": this.props.theme === "heaven-light" ? true : false
         })}>
         <header>
-          <Navbar className="pt-fixed-top">
+          <Navbar
+            className={classNames({
+              "pt-fixed-top": true,
+              "pt-dark": this.props.theme === "heaven-light" ? false : true
+            })}>
             <NavbarGroup>
               <NavbarHeading>
                 <img
@@ -69,7 +79,9 @@ class _App extends Component {
               <NavLink to="/plugins" iconName="pt-icon-exchange">
                 <FormattedMessage id="app.nav.plugins" />
               </NavLink>
+              <NavbarDivider />
               <SwitchLocale />
+              <NavbarDivider />
               <SwitchTheme />
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
