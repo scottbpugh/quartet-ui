@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="pt-select"
+>
+  <select
+    onChange={[Function]}
+    value={undefined}
+  >
+    <option
+      value="light"
+    >
+      <span>
+        Light Theme
+      </span>
+    </option>
+    <option
+      value="dark"
+    >
+      <span>
+        Dark Theme
+      </span>
+    </option>
+    <option
+      value="contrasted"
+    >
+      <span>
+        Contrasted Theme
+      </span>
+    </option>
+    <option
+      value="dark-brown"
+    >
+      <span>
+        Dark Brown Theme
+      </span>
+    </option>
+    <option
+      value="polar"
+    >
+      <span>
+        Polar Theme
+      </span>
+    </option>
+  </select>
+</div>
+`;
