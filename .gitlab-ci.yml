@@ -43,9 +43,3 @@ pages:
     expire_in: 1h
   only:
     - master
-
-build:
-  stage: build
-  script:
-    - npm install
-    - npm run dist
