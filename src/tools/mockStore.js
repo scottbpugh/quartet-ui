@@ -34,17 +34,7 @@ const middlewares = [thunk];
 export const initialState = {
   dashboard: {notifications: []},
   serversettings: {
-    servers: {
-      "824ae2dd-2411-4adf-a846-d9b310a33d4b": {
-        serverSettingName: "Server #1",
-        serverName: "localhost",
-        port: "80",
-        ssl: false,
-        username: "root",
-        password: "toor",
-        serverID: "824ae2dd-2411-4adf-a846-d9b310a33d4b"
-      }
-    }
+    servers: {}
   },
   intl: {
     defaultLocale: defaultLocale,
@@ -70,4 +60,3 @@ export const TestWrapper = ({locale, messages, children}) => {
     </IntlProvider>
   );
 };
-

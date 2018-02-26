@@ -33,46 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     display: flex;
     margin-top:50px;
 }
-.left-panel {
-    padding:0;
-    flex :0 0 240px;
-    background:#394B59;
-    color:#FFF;
-}
-.polar .left-panel {
-  background:#EEF1F3;
-  color:#444;
-}
-.polar .left-panel-title {
-  background:#EEE;
-  color:#444;
-}
-.left-panel-title {
-  padding-top:10px;
-  text-align:center;
-  background:#293742;
-  padding:20px;
-}
-.right-panel {
-    padding:10px;
-    flex: 1 1;
-    min-height:100%;
-    z-index:9;
-    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
-    background:#F5F8FA;
-}
-.polar .right-panel {
-    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.02), 0 4px 8px rgba(16, 22, 26, 0.04), 0 18px 46px 6px rgba(16, 22, 26, 0.1);
-}
-.contrasted .right-panel {
-  background:#282B30;
-}
-.pt-dark .right-panel {
-  background:#394B59;
-}
-.dark-brown .right-panel {
-  background:#282B30;
-}
 
 .tags .tag:not(:last-child) {
     margin-right:5px;
