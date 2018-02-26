@@ -55,8 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .dark-brown .right-panel {
   background:#282B30;
 }
-
 .react-resizable-handle {
     height:100%;
     cursor: ew-resize;
+}
+.contrasted .pt-callout {
+  background:#F5F8FA;
 }
