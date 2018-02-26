@@ -151,7 +151,6 @@ class AddServerButton extends Component {
     this.props.history.push(path);
   }
   render() {
-    console.log("THEME IS", this.props.theme);
     let isDark = this.props.theme === "polar" ? false : true;
     const addMenu = (
       <Menu

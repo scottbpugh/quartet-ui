@@ -43,7 +43,6 @@ class _App extends Component {
     // through local storage. It can be dangerous if items or plugins have been
     // removed from the db/disabled as plugins.
     if (process.env.NODE_ENV !== "development") {
-      console.log("Hello");
       this.props.history.push("/");
     }
   }
