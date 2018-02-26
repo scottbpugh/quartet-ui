@@ -50,9 +50,3 @@ build:
   script:
     - npm install
     - npm run dist
-  artifacts:
-    paths:
-      - dist
-    expire_in: 1h
-  only:
-    - master
