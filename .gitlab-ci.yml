@@ -21,7 +21,6 @@ image: electronuserland/builder:wine
 stages:
   - test
   - build-docs
-  - build
 
 test:
   stage: test
