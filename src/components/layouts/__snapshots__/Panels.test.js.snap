@@ -5,7 +5,13 @@ exports[`renders nested components correctly 1`] = `
   className="main-container"
 >
   <div
-    className="left-panel"
+    className="left-panel react-resizable"
+    style={
+      Object {
+        "height": "undefinedpx",
+        "width": "300px",
+      }
+    }
   >
     <h4
       className="left-panel-title pt-dark"
@@ -14,11 +20,31 @@ exports[`renders nested components correctly 1`] = `
         Servers
       </span>
     </h4>
-    <div>
+    <div
+      style={
+        Object {
+          "overflow-x": "hidden",
+          "overflow-y": "visible",
+          "white-space": "nowrap",
+        }
+      }
+    >
       <h1>
         Something
       </h1>
     </div>
+    <span
+      className="react-resizable-handle"
+      onMouseDown={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "touchAction": "none",
+        }
+      }
+    />
   </div>
   <div
     className="right-panel"

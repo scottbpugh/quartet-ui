@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="tree-wrapper"
+>
+  <div
+    className="leftbar-group"
+  >
+    <div
+      className="pt-button-group pt-minimal"
+    >
+      <div>
+        <span
+          className="pt-popover-target pt-dark"
+          onClick={[Function]}
+        >
+          <button
+            className="pt-button pt-icon-add"
+            onClick={undefined}
+            tabIndex={undefined}
+            tabindex="0"
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <ul
+      className="tree-root"
+    />
+  </div>
+</div>
+`;

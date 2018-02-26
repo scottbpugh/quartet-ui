@@ -34,7 +34,8 @@ import {addLocaleData} from "react-intl";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
 import {initialData as pluginInitialData} from "./reducers/plugins";
-
+import "ubuntu-fontface/ubuntu.css";
+import "typeface-heebo";
 // initial data objects
 import {initialData} from "./reducers/serversettings";
 

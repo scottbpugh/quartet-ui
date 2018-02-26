@@ -33,24 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     display: flex;
     margin-top:50px;
 }
-.left-panel {
-    padding:0;
-    flex :0 0 240px;
-    background:#394B59;
-    color:#FFF;
-}
-.left-panel-title {
-  padding-top:10px;
-  text-align:center;
-  background:#293742;
-  padding:20px;
-}
-.right-panel {
-    padding:10px;
-    flex: 1 1;
-    background:#E1E8ED;
-    min-height:100%;
-}
 
 .tags .tag:not(:last-child) {
     margin-right:5px;
@@ -75,14 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .context {
   position: absolute;
-}
-
-.leftbar-group {
-  width: 100%;
-  border-radius: 5px;
-  background: #30404D;
-  margin-top:10px;
-  transition: all 0.2s ease;
 }
 
 .fade-enter {

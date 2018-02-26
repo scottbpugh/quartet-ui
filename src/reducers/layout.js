@@ -22,13 +22,21 @@ import actions from "actions/layout";
 export const initialData = () => {
   return {
     pageTitle: {id: "Main", values: {}},
-    currentPath: window.location.pathname
+    currentPath: window.location.pathname,
+    theme: "light"
   };
 };
 
 export const loadPageTitle = title => {
   return dispatch => {
     return dispatch({type: actions.loadPageTitle, payload: title});
+  };
+};
+
+export const switchTheme = themeName => {
+  // currently either light or dark.
+  return dispatch => {
+    return dispatch({type: actions.switchTheme, payload: themeName});
   };
 };
 
@@ -40,6 +48,12 @@ export default handleActions(
         pageTitle: action.payload,
         // keeping track of path for nav purposes.
         currentPath: window.location.pathname
+      };
+    },
+    [actions.switchTheme]: (state, action) => {
+      return {
+        ...state,
+        theme: action.payload
       };
     }
   },

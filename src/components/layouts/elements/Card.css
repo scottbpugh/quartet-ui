@@ -1,4 +1,4 @@
-/* Copyright (c) 2018 Serial Lab
+/* Copyright (c) 2018 SerialLab Corp.
 
 GNU GENERAL PUBLIC LICENSE
    Version 3, 29 June 2007
@@ -15,14 +15,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
-
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body, pt-button {
-  /* Make font more consistent across all OSes */
-  font-family: 'heebo' !important;
-}

@@ -89,6 +89,7 @@ export class _PluginList extends Component {
             return (
               <Plugin
                 {...this.props}
+                key={pluginName}
                 pluginName={pluginName}
                 pluginEntry={pluginRepo[pluginName]}
                 plugin={this.props.plugins[pluginName]}

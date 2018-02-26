@@ -30,19 +30,49 @@ import {withRouter} from "react-router-dom";
 import NavLink from "components/layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
 import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
+import {SwitchTheme} from "components/layouts/elements/SwitchTheme";
 import {NavTree} from "components/layouts/elements/NavTree";
 import {connect} from "react-redux";
 import {LeftPanel, Panels} from "components/layouts/Panels";
+import classNames from "classnames";
 
 class _App extends Component {
+  componentDidMount() {
+    // redirect to / first thing. Fix for electron build.
+    // While it was tempting to redirect to the currentPath persisted
+    // through local storage. It can be dangerous if items or plugins have been
+    // removed from the db/disabled as plugins.
+    if (process.env.NODE_ENV !== "development") {
+      this.props.history.push("/");
+    }
+  }
   componentWillReceiveProps(nextProps) {}
+
   render() {
     return (
-      <div className="App pt-ui-text">
+      <div
+        className={classNames({
+          App: true,
+          "pt-dark": ["dark", "dark-brown"].includes(this.props.theme)
+            ? true
+            : false,
+          contrasted: this.props.theme === "contrasted" ? true : false,
+          "dark-brown": this.props.theme === "dark-brown" ? true : false,
+          polar: this.props.theme === "polar" ? true : false
+        })}>
         <header>
-          <Navbar className="pt-fixed-top">
+          <Navbar
+            className={classNames({
+              "pt-fixed-top": true,
+              "pt-dark": this.props.theme === "polar" ? false : true
+            })}>
             <NavbarGroup>
-              <NavbarHeading>QU4RTET</NavbarHeading>
+              <NavbarHeading>
+                <img
+                  src="/qu4rtet-logo.png"
+                  style={{width: "50%", height: "50%"}}
+                />
+              </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
               <NavLink to="/" iconName="home">
@@ -51,7 +81,10 @@ class _App extends Component {
               <NavLink to="/plugins" iconName="pt-icon-exchange">
                 <FormattedMessage id="app.nav.plugins" />
               </NavLink>
+              <NavbarDivider />
               <SwitchLocale />
+              <NavbarDivider />
+              <SwitchTheme />
               <NavbarDivider />
               <Button className="pt-minimal" iconName="user" />
             </NavbarGroup>
@@ -61,10 +94,8 @@ class _App extends Component {
         <div className="wrapper">
           <Panels>
             <LeftPanel key="leftpanel">
-              <div>
-                {/* Important not to rerender this component on router changes. */}
-                <NavTree />
-              </div>
+              {/* Important not to rerender this component on router changes. */}
+              <NavTree />
             </LeftPanel>
             {this.props.children}
           </Panels>
@@ -79,7 +110,8 @@ const App = connect(
     return {
       pageTitle: state.layout.pageTitle,
       currentPath: state.layout.currentPath,
-      plugins: state.plugins.plugins
+      plugins: state.plugins.plugins,
+      theme: state.layout.theme
     };
   },
   dispatch => {

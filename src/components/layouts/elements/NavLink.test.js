@@ -17,31 +17,27 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {connect} from "react-redux";
+import renderer from "react-test-renderer";
+import NavLink from "./NavLink";
+import {MemoryRouter as Router} from "react-router-dom";
+import {Provider} from "react-redux";
+import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 
-import messages from "messages";
-import {switchLocale} from "reducers/locales";
-
-class _SwitchLocale extends Component {
-  render() {
-    const {currentLocale} = this.props;
-    return (
-      <div className="pt-select">
-        <select
-          value={currentLocale}
-          onChange={e => this.props.switchLocale(e.target.value)}>
-          {Object.keys(messages).map(locale => (
-            <option key={locale}>{locale}</option>
-          ))}
-        </select>
-      </div>
-    );
-  }
-}
-
-export var SwitchLocale = connect(
-  state => ({
-    currentLocale: state.intl.locale
-  }),
-  {switchLocale}
-)(_SwitchLocale);
+it("renders correctly", () => {
+  let store = mockStore(initialState);
+  const props = {to: "/", iconName: "pt-icon-test"};
+  const navLink = renderer
+    .create(
+      <TestWrapper>
+        <Provider store={store}>
+          <Router>
+            <NavLink {...props} store={store}>
+              <span>Something here.</span>
+            </NavLink>
+          </Router>
+        </Provider>
+      </TestWrapper>
+    )
+    .toJSON();
+  expect(navLink).toMatchSnapshot();
+});

@@ -11,9 +11,13 @@ exports[`renders correctly a pool with no region 1`] = `
       <div
         className="pt-callout"
       >
-        <span>
-          There is currently no region in this pool.
-        </span>
+        <div
+          className="pt-running-text"
+        >
+          <span>
+            There is currently no region in this pool.
+          </span>
+        </div>
       </div>
     </div>
   </div>

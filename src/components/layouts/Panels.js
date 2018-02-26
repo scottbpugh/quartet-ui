@@ -19,6 +19,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {loadPageTitle} from "../../reducers/layout";
+import "react-resizable/css/styles.css";
+import {Resizable, ResizableBox} from "react-resizable";
+import "./panels.css";
 
 /**
  * LeftPanel
@@ -30,13 +33,22 @@ import {loadPageTitle} from "../../reducers/layout";
 class _LeftPanel extends Component {
   render() {
     return (
-      <div className="left-panel">
+      <ResizableBox className="left-panel" axis="x" width={300}>
+        {/*<div className="left-panel">*/}
         <h4 className="left-panel-title pt-dark">
           {/* We use a new message from passed props because Redux uses plain objects. */}
           <FormattedMessage {...this.props.pageTitle} />
         </h4>
-        <div>{this.props.children}</div>
-      </div>
+        <div
+          style={{
+            "overflow-x": "hidden",
+            "overflow-y": "visible",
+            "white-space": "nowrap"
+          }}>
+          {this.props.children}
+        </div>
+        {/*</div>*/}
+      </ResizableBox>
     );
   }
 }

@@ -29,8 +29,16 @@ export default {
       serverSettings: {
         serverSettings: "Server Settings",
         addAServer: "Add a New Server"
+      },
+      themes: {
+        lightTheme: "Light Theme",
+        darkTheme: "Dark Theme",
+        contrastedTheme: "Contrasted Theme",
+        darkBrownTheme: "Dark Brown Theme",
+        polarTheme: "Polar Theme"
       }
     },
+
     plugins: {}
   },
   "fr-FR": {
@@ -45,8 +53,16 @@ export default {
       serverSettings: {
         serverSettings: "Paramètres serveur",
         addAServer: "Ajouter un serveur"
+      },
+      themes: {
+        lightTheme: "Thème clair",
+        darkTheme: "Thème sombre",
+        contrastedTheme: "Thème contrasté",
+        darkBrownTheme: "Thème marron sombre",
+        polarTheme: "Thème polaire"
       }
     },
+
     plugins: {}
   }
 };

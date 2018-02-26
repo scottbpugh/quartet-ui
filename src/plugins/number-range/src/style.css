@@ -1,22 +1,4 @@
-.bar {
-  height: 21px;
-  transition: all 5s ease;
-  cursor: pointer;
-  font-family: Helvetica, sans-serif;
-}
-.unused {
-  fill: #B3CFFF;
-}
-.used {
-  fill:#1F4B99;
-}
-.allocating {
-  fill: rgba(0, 0, 0, 0.5);
-}
-.barchart text {
-  fill: #fff;
-  stroke: none;
-}
+
 .region-detail {
   position:relative;
   padding-bottom:70px;
@@ -25,7 +7,6 @@
   padding:0;
   margin:0;
 }
-
 
 .region-detail.updated {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
@@ -59,13 +40,18 @@
   padding:15px 10px;
   text-align:center;
   margin:10px 40px;
-  background:#EBEBEB;
+  background:#EBEBEB
 }
+.pt-dark .region-detail ul li {
+  background-color: rgba(138, 155, 168, 0.2);
+}
+
 .region-detail .visual {
   position:absolute;
   bottom:0;
   left:0;
-  background: #111744;
+
+
   width:100%;
   border-bottom-left-radius:5px;
   border-bottom-right-radius:5px;
@@ -75,7 +61,27 @@
   display:block;
   margin:10px 0 10px 50px;
 }
-
+.bar {
+  height: 21px;
+  transition: all 5s ease;
+  cursor: pointer;
+  font-family: Helvetica, sans-serif;
+}
+.unused {
+  fill:#B6D94C;
+  /*fill:#FFC940;*/
+}
+.used {
+  fill:#8DC449;
+  /*fill:#D99E0B;*/
+}
+.allocating {
+  fill: rgba(0, 0, 0, 0.5);
+}
+.barchart text {
+  fill: #fff;
+  stroke: none;
+}
 .pool-list-table {
   margin-top:10px;
 }

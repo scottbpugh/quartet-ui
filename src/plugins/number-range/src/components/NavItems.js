@@ -23,6 +23,7 @@ import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
 import {loadPools, setAllocation} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
+import classNames from "classnames";
 
 class _PoolItem extends Component {
   constructor(props) {
@@ -111,7 +112,10 @@ class _PoolItem extends Component {
           onClose={this.toggleAllocation}
           title={`${this.props.intl.formatMessage({
             id: "plugins.numberRange.allocateButton"
-          })} ${pool.readable_name}`}>
+          })} ${pool.readable_name}`}
+          className={classNames({
+            "pt-dark": this.props.theme.startsWith("dark") ? true : false
+          })}>
           <div className="pt-dialog-body">
             <form onSubmit={this.setAllocation} className="mini-form">
               <input
@@ -141,7 +145,8 @@ const PoolItem = connect(
     return {
       currentRegions: state.numberrange.currentRegions,
       servers: state.serversettings.servers,
-      currentPath: state.layout.currentPath
+      currentPath: state.layout.currentPath,
+      theme: state.layout.theme
     };
   },
   {setAllocation}

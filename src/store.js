@@ -43,7 +43,7 @@ export default function configureStore(coreInitialState) {
   })();
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState(["serversettings", "intl", "numberrange", "plugins"])
+    persistState(["serversettings", "intl", "numberrange", "plugins", "layout"])
   );
   const initialState = {
     ...coreInitialState,
