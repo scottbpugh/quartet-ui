@@ -39,7 +39,14 @@ class _LeftPanel extends Component {
           {/* We use a new message from passed props because Redux uses plain objects. */}
           <FormattedMessage {...this.props.pageTitle} />
         </h4>
-        <div>{this.props.children}</div>
+        <div
+          style={{
+            "overflow-x": "hidden",
+            "overflow-y": "visible",
+            "white-space": "nowrap"
+          }}>
+          {this.props.children}
+        </div>
         {/*</div>*/}
       </ResizableBox>
     );

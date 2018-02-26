@@ -35,8 +35,6 @@ import {NavTree} from "components/layouts/elements/NavTree";
 import {connect} from "react-redux";
 import {LeftPanel, Panels} from "components/layouts/Panels";
 import classNames from "classnames";
-import "react-resizable/css/styles.css";
-import {Resizable, ResizableBox} from "react-resizable";
 
 class _App extends Component {
   componentDidMount() {
@@ -50,9 +48,7 @@ class _App extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {}
-  handleResize = evt => {
-    console.log(evt);
-  };
+
   render() {
     return (
       <div
@@ -99,10 +95,8 @@ class _App extends Component {
         <div className="wrapper">
           <Panels>
             <LeftPanel key="leftpanel">
-              <div>
-                {/* Important not to rerender this component on router changes. */}
-                <NavTree />
-              </div>
+              {/* Important not to rerender this component on router changes. */}
+              <NavTree />
             </LeftPanel>
             {this.props.children}
           </Panels>
