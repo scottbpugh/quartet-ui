@@ -28,6 +28,12 @@ class PluginRegistry {
     this._emitChange = null;
 
     /*
+     * Holds references to server objects (core lib/servers.js Server class)
+     * Is used to retrieve api objects, server settings etc by core and plugins.
+     */
+    this._servers = {};
+
+    /*
     Holds references to reducers that come from plugins.
     */
     this._reducers = {};
@@ -183,6 +189,18 @@ class PluginRegistry {
     if (this._emitChange) {
       this._emitChange(this.getReducers());
     }
+  }
+
+  registerServer(pluginName, serverID, serverRef) {
+    this._servers[serverID] = {
+      pluginName: pluginName,
+      serverID: serverID,
+      server: serverRef
+    };
+  }
+
+  getServer(serverID) {
+    return this._server[serverID];
   }
 
   setChangeListener(listener) {

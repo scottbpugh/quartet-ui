@@ -40,7 +40,7 @@ class _App extends Component {
   componentDidMount() {
     // redirect to / first thing. Fix for electron build.
     // While it was tempting to redirect to the currentPath persisted
-    // through local storage. It can be dangerous if items or plugins have been
+    // through local storage, it can be dangerous if items or plugins have been
     // removed from the db/disabled as plugins.
     if (process.env.NODE_ENV !== "development") {
       this.props.history.push("/");

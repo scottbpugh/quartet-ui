@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
 import {showMessage} from "lib/message";
+import {prepServerURL} from "lib/servers";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -44,21 +45,6 @@ const prepHeaders = (server, method = "GET") => {
 };
 
 /**
- * prepURL - Description
- *
- * @param {object} server key/val pairs settings
- *
- * @return {string} Root URL
- */
-const prepURL = server => {
-  let protocol = server.ssl === "true" ? "https" : "http";
-  let hostname = server.serverName;
-  let port = server.port || 80;
-  let path = server.path ? server.path : "";
-  return `${protocol}://${hostname}:${port}/${path}`;
-};
-
-/**
  * getPools - Description
  *
  * @param {object} server A serversetting object.
@@ -66,7 +52,7 @@ const prepURL = server => {
  * @return {object} A JSON object.
  */
 export const getPools = server => {
-  const url = `${prepURL(server)}pools/?related=true`;
+  const url = `${prepServerURL(server)}pools/?related=true`;
   return fetch(url, prepHeaders(server))
     .then(resp => {
       return resp.json();
@@ -96,7 +82,7 @@ export const getPools = server => {
 export const getRegion = (server, regionName) => {
   return getRegionByURL(
     server,
-    `${prepURL(server)}sequential-region-detail/${regionName}/`
+    `${prepServerURL(server)}sequential-region-detail/${regionName}/`
   );
 };
 
@@ -153,7 +139,9 @@ export const getRegions = (server, pool) => {
  * @return {object} A JSON response.
  */
 export const allocate = (server, pool, value) => {
-  return fetch(`${prepURL(server)}allocate/${pool.machine_name}/${value}/`)
+  return fetch(
+    `${prepServerURL(server)}allocate/${pool.machine_name}/${value}/`
+  )
     .then(resp => {
       return resp.json();
     })
@@ -167,7 +155,7 @@ export const allocate = (server, pool, value) => {
 
 export const getRegionFormStructure = server => {
   return fetch(
-    `${prepURL(server)}sequential-region-create/`,
+    `${prepServerURL(server)}sequential-region-create/`,
     prepHeaders(server, "OPTIONS")
   )
     .then(resp => {
@@ -182,7 +170,10 @@ export const getRegionFormStructure = server => {
 };
 
 export const getPoolFormStructure = server => {
-  return fetch(`${prepURL(server)}pool-create/`, prepHeaders(server, "OPTIONS"))
+  return fetch(
+    `${prepServerURL(server)}pool-create/`,
+    prepHeaders(server, "OPTIONS")
+  )
     .then(resp => {
       return resp.json();
     })
@@ -197,17 +188,18 @@ export const getPoolFormStructure = server => {
 export const postAddRegion = (server, postValues) => {
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return fetch(`${prepURL(server)}sequential-region-create/`, headers).then(
-    resp => {
-      return resp;
-    }
-  );
+  return fetch(
+    `${prepServerURL(server)}sequential-region-create/`,
+    headers
+  ).then(resp => {
+    return resp;
+  });
 };
 
 export const postAddPool = (server, postValues) => {
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return fetch(`${prepURL(server)}pool-create/`, headers).then(resp => {
+  return fetch(`${prepServerURL(server)}pool-create/`, headers).then(resp => {
     return resp;
   });
 };
