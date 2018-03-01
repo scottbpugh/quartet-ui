@@ -41,12 +41,12 @@ test("builds the correct URL with path", () => {
 test("changing server settings changes URL", () => {
   const myServer = new Server(mockServerData);
   expect(myServer.url).toBe("http://localhost:80/");
-  myServer.serverSettings = {
+  myServer.setServerData({
     ...mockServerData,
     port: "443",
     ssl: true,
     path: "my-ssl-path/"
-  };
+  });
   expect(myServer.url).toBe("https://localhost:443/my-ssl-path/");
 });
 /*
@@ -58,4 +58,3 @@ test("client is properly returned with getClient", () => {
   });
 });
 */
-

@@ -37,7 +37,6 @@ export class Server {
     }
     */
     this.setServerData(serverSettings);
-    this.url = this.getServerURL();
     // make saved server object available to core and plugins.
     pluginRegistry.registerServer(this);
   }
@@ -55,6 +54,7 @@ export class Server {
       username,
       password
     */
+    // allow for partial updates.
     for (let key in serverSettings) {
       if (serverSettings[key] !== "" || serverSettings[key] !== undefined) {
         this[key] = serverSettings[key];
@@ -63,6 +63,7 @@ export class Server {
     this.protocol = this.ssl === true ? "https" : "http";
     this.port = !this.port ? 80 : this.port;
     this.path = !this.path && !serverSettings.path ? "" : this.path;
+    this.url = this.getServerURL();
     this._client = null;
     this.manifest = null;
   };
