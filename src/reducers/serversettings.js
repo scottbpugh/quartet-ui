@@ -20,6 +20,8 @@ import {handleActions} from "redux-actions";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
 import uuidv4 from "uuid/v4";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {Server} from "lib/servers";
 
 /**
  * initialData - Returns the initial data for
@@ -46,6 +48,7 @@ export const saveServer = postData => {
       postData.serverID = uuidv4();
     }
     dispatch({type: actions.saveServerSettings, payload: postData});
+    pluginRegistry.registerServer(new Server(postData));
     return dispatch({type: actions.serverUpdated, payload: postData});
   };
 };
