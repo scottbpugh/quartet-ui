@@ -22,10 +22,9 @@ import {loadPools, loadRegions} from "../reducers/numberrange";
 import {RightPanel} from "components/layouts/Panels";
 import {Card, Callout} from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
-import {setAllocation} from "../reducers/numberrange";
-
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 import "../style.css";
 /**
@@ -42,7 +41,7 @@ class _RegionDetail extends Component {
     this.currentServer = {};
   }
   componentDidMount() {
-    this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
+    //this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
     this.loadPoolDetail(this.props);
   }
   componentWillReceiveProps(nextProps) {
@@ -54,7 +53,7 @@ class _RegionDetail extends Component {
       JSON.stringify(this.props.nr[nextProps.match.params.serverID]) !==
       JSON.stringify(nextProps.nr[nextProps.match.params.serverID])
     ) {
-      this.props.loadPools(nextProps.servers[nextProps.match.params.serverID]);
+      //this.props.loadPools(nextProps.servers[nextProps.match.params.serverID]);
     }
     // shake card for the last updated region.
     /*nextProps.currentRegions.map((region, index) => {
@@ -88,16 +87,12 @@ class _RegionDetail extends Component {
         this.currentPool = pool;
       }
     }
-    this.props.loadPools(this.currentServer, this.currentPool);
-    this.props.loadRegions(this.currentServer, this.currentPool);
-  }
-  setAllocation = evt => {
-    this.props.setAllocation(
-      this.currentServer,
-      this.currentPool,
-      this.state.alloc
+    //this.props.loadPools(this.currentServer, this.currentPool);
+    this.props.loadRegions(
+      pluginRegistry.getServer(props.match.params.serverID),
+      this.currentPool
     );
-  };
+  }
 
   render() {
     let regions = this.props.currentRegions;
@@ -177,5 +172,5 @@ export var RegionDetail = connect(
       nr: state.numberrange.servers
     };
   },
-  {loadPools, loadRegions, setAllocation}
+  {loadPools, loadRegions}
 )(_RegionDetail);

@@ -114,6 +114,8 @@ export default handleActions(
       };
     },
     [actions.allocate]: (state, action) => {
+      // reload pools after
+      action.asyncDispatch(loadPools(action.payload));
       return {
         ...state,
         allocationDetail: action.payload

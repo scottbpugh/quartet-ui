@@ -25,6 +25,7 @@ import {showMessage} from "lib/message";
 import {loadPools} from "../reducers/numberrange";
 import {connect} from "react-redux";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 class _PoolForm extends Component {
   constructor(props) {
@@ -87,7 +88,10 @@ class _PoolForm extends Component {
   }
   // Handles the RegionForm post.
   submit = postValues => {
-    return postAddPool(this.props.server, postValues)
+    return postAddPool(
+      pluginRegistry.getServer(this.props.server.serverID),
+      postValues
+    )
       .then(resp => {
         return Promise.all([resp, resp.json()]);
       })
@@ -103,7 +107,9 @@ class _PoolForm extends Component {
               "/number-range/pools/" + this.props.server.serverID
             );
           }
-          this.props.loadPools(this.props.server);
+          this.props.loadPools(
+            pluginRegistry.getServer(this.props.server.serverID)
+          );
           return proms[1];
         } else {
           // We handle the error info in JSON here.

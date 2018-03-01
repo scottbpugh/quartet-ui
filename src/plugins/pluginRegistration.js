@@ -191,16 +191,12 @@ class PluginRegistry {
     }
   }
 
-  registerServer(pluginName, serverID, serverRef) {
-    this._servers[serverID] = {
-      pluginName: pluginName,
-      serverID: serverID,
-      server: serverRef
-    };
+  registerServer(serverRef) {
+    this._servers[serverRef.serverID] = serverRef;
   }
 
   getServer(serverID) {
-    return this._server[serverID];
+    return this._servers[serverID];
   }
 
   setChangeListener(listener) {

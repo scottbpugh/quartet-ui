@@ -23,6 +23,7 @@ import {loadPools} from "../reducers/numberrange";
 import {Card} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 class ServerPools extends Component {
   render() {
@@ -147,7 +148,7 @@ class _PoolList extends Component {
   componentDidMount() {
     if (Object.keys(this.props.servers).length > 0) {
       this.props.loadPools(
-        this.props.servers[this.props.match.params.serverID]
+        pluginRegistry.getServer(this.props.match.params.serverID)
       );
     }
   }

@@ -24,6 +24,7 @@ import {TreeNode} from "components/layouts/elements/NavTree";
 import {loadPools, setAllocation} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
 import classNames from "classnames";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 class _PoolItem extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class _PoolItem extends Component {
     evt.preventDefault();
     const {pool, serverID} = this.props;
     this.props.setAllocation(
-      this.props.servers[serverID],
+      pluginRegistry.getServer(serverID),
       pool,
       this.state.alloc
     );
@@ -178,7 +179,7 @@ export class _NavPluginRoot extends Component {
       Object.keys(this.props.servers).length > 0 &&
       this.props.serverID in this.props.servers
     ) {
-      this.props.loadPools(this.props.servers[this.props.serverID]);
+      this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
     this.activateNode(this.props.currentPath);
   }

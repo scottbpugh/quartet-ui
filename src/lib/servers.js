@@ -18,74 +18,100 @@
 import Swagger from "swagger-client";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
-const APP_NAME = "core";
-
 /**
  * Server - Holds data about a server and its settings, API client, ...
  */
 export class Server {
   constructor(serverSettings) {
-    this.serverID = serverSettings.serverID;
-    this.serverSettings = serverSettings;
-    this.client = null;
-    // make server object available to core and plugins.
-    pluginRegistry.registerServer(APP_NAME, this.serverID, this);
+    /*
+    Following object should be passed.
+    {
+      serverSettingName,
+      serverName,
+      port,
+      ssl,
+      serverID,
+      path,
+      username,
+      password
+    }
+    */
+    this.setServerData(serverSettings);
+    this.url = this.getServerURL();
+    // make saved server object available to core and plugins.
+    pluginRegistry.registerServer(this);
   }
 
-  set serverSettings(serverSettings) {
-    this._serverSettings = serverSettings;
-    this.prepServerURL(this._serverSettings);
-  }
+  setServerData = serverSettings => {
+    /*
+    Following object should be passed.
+    {
+      serverSettingName,
+      serverName,
+      port,
+      ssl,
+      serverID,
+      path,
+      username,
+      password
+    */
+    for (let key in serverSettings) {
+      if (serverSettings[key] !== "" || serverSettings[key] !== undefined) {
+        this[key] = serverSettings[key];
+      }
+    }
+    this.protocol = this.ssl === true ? "https" : "http";
+    this.port = !this.port ? 80 : this.port;
+    this.path = !this.path && !serverSettings.path ? "" : this.path;
+    this._client = null;
+    this.manifest = null;
+  };
 
-  get serverSettings() {
-    return this._serverSettings;
-  }
+  getServerURL = () => {
+    return `${this.protocol}://${this.serverName}:${this.port}/${this.path}`;
+  };
 
-  prepServerURL = serverSettings => {
-    this.protocol = serverSettings.ssl === true ? "https" : "http";
-    this.hostname = serverSettings.serverName;
-    this.port = serverSettings.port || 80;
-    this.path = serverSettings.path ? serverSettings.path : "";
-    this.url = `${this.protocol}://${this.hostname}:${this.port}/${this.path}`;
-    return this.url;
+  parseSchema = () => {
+    return new Promise((resolve, reject) => {
+      Swagger(this.url + "schema/")
+        .then(client => {
+          // swagger-js client is available.
+          // client.spec / client.originalSpec / client.errors
+          resolve(client);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  };
+
+  getClient = () => {
+    return new Promise((resolve, reject) => {
+      if (this._client) {
+        resolve(this._client);
+      } else {
+        // we don't have a client yet.
+        // Fetch it.
+        this.parseSchema().then(client => {
+          this._client = client;
+          resolve(this._client);
+        });
+      }
+    });
+  };
+
+  getManifest = () => {
+    new Promise((resolve, reject) => {
+      if (!this.manifest) {
+        this.getClient().then(client => {
+          client.apis.manifest.quartet_manifest_list().then(result => {
+            this.manifest = result.body;
+            resolve(result.body);
+          });
+        });
+      } else {
+        resolve(this.manifest);
+      }
+    });
   };
 }
-
-/**
- * prepServerURL - Helper function to generate a URL.
- *
- * @param {object} server key/val pairs settings
- *
- * @return {string} Root URL
- */
-export const prepServerURL = server => {
-  let protocol = server.ssl === "true" ? "https" : "http";
-  let hostname = server.serverName;
-  let port = server.port || 80;
-  let path = server.path ? server.path : "";
-  return `${protocol}://${hostname}:${port}/${path}`;
-};
-
-/**
- * parseSchema - Parses the Swagger 2.0 schema to generate apis dynamically.
- *
- * @param {type} server Server setting object or partial object.
- *
- * @return {type}
- */
-export const parseSchema = server => {
-  // http://localhost:8000/schema/
-  const url = prepServerURL(server);
-};
-
-/**
- * parseManifest - Gets the Qu4rtet manifest.
- *
- * @param {type} server Description
- *
- * @return {type} Description
- */
-export const parseManifest = server => {
-  //http://localhost:8000/manifest/quartet-manifest/
-  // in this case server may be a full server object or just a stub with only host, port, path, and SSL on/off
-};

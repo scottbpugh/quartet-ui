@@ -199,7 +199,9 @@ class _NavTree extends Component {
   }
   getTree = props => {
     const {servers} = props;
-    return Object.keys(servers).map(serverID => {
+    return Object.keys(pluginRegistry._servers).map(serverID => {
+      const server = pluginRegistry.getServer(serverID);
+      console.log("the server", server);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName depth={1} key={component} serverID={serverID} />;
@@ -210,7 +212,7 @@ class _NavTree extends Component {
           nodeType="server"
           depth={0}
           childrenNodes={children ? children : []}>
-          {servers[serverID].serverSettingName}
+          {server.serverSettingName}
         </TreeNode>
       );
     });
