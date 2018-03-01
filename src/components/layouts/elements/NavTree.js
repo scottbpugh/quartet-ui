@@ -186,6 +186,52 @@ class AddServerButton extends Component {
   }
 }
 
+class _ServerNode extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {active: false};
+  }
+  componentDidMount() {
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
+  activateNode(currentPath) {
+    // set active state if in current path.
+    // for some reason this.props.location.pathname doesn't get updated.
+    // window.location.pathname does.
+    const {serverID} = this.props.server;
+    let regexp = new RegExp(`/${serverID}/?`);
+    this.setState({active: regexp.test(currentPath)});
+  }
+  render() {
+    const {server, childrenNodes, children} = this.props;
+    return (
+      <TreeNode
+        key={server.serverID}
+        nodeType="server"
+        depth={0}
+        active={this.state.active}
+        childrenNodes={childrenNodes ? childrenNodes : []}>
+        {children}
+      </TreeNode>
+    );
+  }
+}
+
+const ServerNode = connect((state, ownProps) => {
+  return {
+    currentPath: state.layout.currentPath
+  };
+}, {})(withRouter(_ServerNode));
+
+/*
+  Nav tree doesn't rerender for every path change. This is to keep the correct state
+  in terms of expansions (expanded nodes are not all necessarily the current one.)
+  At some point we might want to move the expanded state to redux to make it persistent
+  across sessions.
+*/
 class _NavTree extends Component {
   constructor(props) {
     super(props);
@@ -201,19 +247,19 @@ class _NavTree extends Component {
     const {servers} = props;
     return Object.keys(pluginRegistry._servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
-      console.log("the server", server);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName depth={1} key={component} serverID={serverID} />;
       });
       return (
-        <TreeNode
+        <ServerNode
+          server={server}
           key={serverID}
           nodeType="server"
           depth={0}
           childrenNodes={children ? children : []}>
           {server.serverSettingName}
-        </TreeNode>
+        </ServerNode>
       );
     });
   };

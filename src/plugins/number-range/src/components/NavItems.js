@@ -181,10 +181,12 @@ export class _NavPluginRoot extends Component {
     ) {
       this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
-    this.activateNode(this.props.currentPath);
+    // turning off active for root plugin item because it looks like too much green.
+    //this.activateNode(this.props.currentPath);
   }
   componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
+    // turning off active for root plugin item because it looks like too much green.
+    //this.activateNode(nextProps.currentPath);
   }
   activateNode(currentPath) {
     // set active state if in current path.
