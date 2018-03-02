@@ -203,7 +203,9 @@ class _ServerNode extends Component {
     // window.location.pathname does.
     const {serverID} = this.props.server;
     let regexp = new RegExp(`/${serverID}/?`);
-    this.setState({active: regexp.test(currentPath)});
+    this.setState({active: regexp.test(currentPath)}, () => {
+      console.log("done redrawing with", this.state.active);
+    });
   }
   render() {
     const {server, childrenNodes, children} = this.props;
@@ -212,6 +214,7 @@ class _ServerNode extends Component {
         key={server.serverID}
         nodeType="server"
         depth={0}
+        path={`/server-details/${server.serverID}`}
         active={this.state.active}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}

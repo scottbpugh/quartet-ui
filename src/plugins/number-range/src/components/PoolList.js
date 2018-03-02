@@ -146,14 +146,11 @@ class ServerPools extends Component {
 
 class _PoolList extends Component {
   componentDidMount() {
-    if (Object.keys(this.props.servers).length > 0) {
-      this.props.loadPools(
-        pluginRegistry.getServer(this.props.match.params.serverID)
-      );
-    }
+    let {server} = this.props;
+    this.props.loadPools(pluginRegistry.getServer(server.serverID));
   }
   render() {
-    let nr = this.props.nr;
+    let {server, pools} = this.props;
     return (
       <RightPanel
         title={
@@ -165,8 +162,8 @@ class _PoolList extends Component {
         <div className="large-cards-container">
           <ServerPools
             history={this.props.history}
-            server={nr[this.props.match.params.serverID].server}
-            pools={nr[this.props.match.params.serverID].pools}
+            server={server}
+            pools={pools}
           />
         </div>
       </RightPanel>
@@ -175,10 +172,10 @@ class _PoolList extends Component {
 }
 
 export var PoolList = connect(
-  state => {
+  (state, ownProps) => {
     return {
-      servers: state.serversettings.servers,
-      nr: state.numberrange.servers
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      pools: state.numberrange.servers[ownProps.match.params.serverID].pools
     };
   },
   {loadPools}

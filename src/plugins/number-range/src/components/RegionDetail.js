@@ -38,7 +38,6 @@ class _RegionDetail extends Component {
     // these two properties below make it easy to retrieve
     // and trigger actions.
     this.currentPool = {readable_name: ""};
-    this.currentServer = {};
   }
   componentDidMount() {
     //this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
@@ -49,47 +48,22 @@ class _RegionDetail extends Component {
       this.loadPoolDetail(nextProps);
       return;
     }
-    if (
-      JSON.stringify(this.props.nr[nextProps.match.params.serverID]) !==
-      JSON.stringify(nextProps.nr[nextProps.match.params.serverID])
-    ) {
+    if (JSON.stringify(this.currentPool) !== JSON.stringify(this.currentPool)) {
       //this.props.loadPools(nextProps.servers[nextProps.match.params.serverID]);
     }
-    // shake card for the last updated region.
-    /*nextProps.currentRegions.map((region, index) => {
-      if (
-        this.props.currentRegions[index] &&
-        region.state !== this.props.currentRegions[index].state
-      ) {
-        console.log(
-          "new state",
-          region.state,
-          "old state",
-          this.props.currentRegions[index].state
-        );
-        this.setState({lastUpdated: region.machine_name}, () => {
-          window.setTimeout(() => {
-            this.setState({lastUpdated: null});
-          }, 3000);
-        });
-      }
-      return null;
-    });*/
   }
   previewAlloc = evt => {
     this.setState({alloc: Number(evt.target.value)});
   };
   loadPoolDetail(props) {
-    let nrServer = props.nr[props.match.params.serverID];
-    this.currentServer = nrServer.server;
-    for (let pool of nrServer.pools) {
+    for (let pool of this.props.pools) {
       if (pool.machine_name === props.match.params.pool) {
         this.currentPool = pool;
       }
     }
     //this.props.loadPools(this.currentServer, this.currentPool);
     this.props.loadRegions(
-      pluginRegistry.getServer(props.match.params.serverID),
+      pluginRegistry.getServer(props.server.serverID),
       this.currentPool
     );
   }
@@ -167,9 +141,9 @@ class _RegionDetail extends Component {
 export var RegionDetail = connect(
   (state, ownProps) => {
     return {
-      servers: state.serversettings.servers,
-      currentRegions: state.numberrange.currentRegions,
-      nr: state.numberrange.servers
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      pools: state.numberrange.servers[ownProps.match.params.serverID].pools,
+      currentRegions: state.numberrange.currentRegions
     };
   },
   {loadPools, loadRegions}
