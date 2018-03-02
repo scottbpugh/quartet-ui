@@ -61,7 +61,6 @@ class _RegionDetail extends Component {
         this.currentPool = pool;
       }
     }
-    //this.props.loadPools(this.currentServer, this.currentPool);
     this.props.loadRegions(
       pluginRegistry.getServer(props.server.serverID),
       this.currentPool
