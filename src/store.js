@@ -53,7 +53,7 @@ const initialState = {
   layout: layoutInitialData(),
   plugins: pluginInitialData()
 };
-
+console.log("INitial data is", initialData());
 /* You can import this in pure JS classes, like Server to dispatch actions. */
 export const store = configureStore(initialState);
 

@@ -19,7 +19,7 @@ import {Server} from "./servers";
 
 const mockServerData = {
   serverSettingName: "Server #1",
-  serverName: "localhost",
+  hostname: "localhost",
   port: "80",
   ssl: false,
   username: "root",

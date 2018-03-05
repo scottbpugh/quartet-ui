@@ -21,8 +21,16 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {Card, Intent, Tag, Icon, Button} from "@blueprintjs/core";
+import "./server-details.css";
+import {Server} from "lib/servers";
+import {ServerForm} from "./ServerSettings";
 
 class _ServerDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {editMode: false};
+  }
   componentDidMount() {
     console.log("current server", this.props.match.params.serverID);
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
@@ -38,6 +46,9 @@ class _ServerDetails extends Component {
       serverObject.listApps();
     }
   }
+  toggleEditMode = () => {
+    this.setState({editMode: !this.state.editMode});
+  };
   render() {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     return (
@@ -48,19 +59,63 @@ class _ServerDetails extends Component {
             defaultMessage="Server Details"
           />
         }>
-        <ul>
-          {serverObject
-            ? serverObject.getArrayFields().map(elem => {
-                return (
-                  <li>
-                    {elem.name}
-                    {elem.value}
-                  </li>
-                );
-              })
-            : null}
-          {serverObject ? JSON.stringify(serverObject.appList) : null}
-        </ul>
+        {serverObject ? (
+          <div className="cards-container">
+            <Card className="pt-elevation-4">
+              <h5>
+                Settings
+                <Button
+                  onClick={this.toggleEditMode}
+                  className="pt-intent-primary add-pool-button"
+                  iconName="pt-icon-edit">
+                  Edit
+                </Button>
+              </h5>
+              {this.state.editMode ? (
+                <ServerForm
+                  defaultValues={serverObject.toJSON()}
+                  formData={serverObject.getFormStructure()}
+                />
+              ) : (
+                <div>
+                  <h6>{serverObject.url}</h6>
+                  <table className="pt-table pt-bordered pt-striped">
+                    <thead>
+                      <tr>
+                        <th />
+                        <th />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {serverObject.getArrayFields().map(elem => {
+                        return (
+                          <tr key={elem.name}>
+                            <td>{elem.name}</td>
+                            <td>{elem.value}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </Card>
+
+            <Card className="pt-elevation-4">
+              <h5>Services Enabled</h5>
+              <div className="service-list">
+                {serverObject.appList
+                  .filter(service => {
+                    // remove empty string.
+                    return service;
+                  })
+                  .map(service => {
+                    return <span>{service}</span>;
+                  })}
+              </div>
+            </Card>
+          </div>
+        ) : null}
       </RightPanel>
     );
   }

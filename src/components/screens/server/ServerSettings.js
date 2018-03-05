@@ -39,7 +39,25 @@ import {Server} from "lib/servers";
  */
 class _ServerForm extends Component {
   componentDidMount() {
+    if (this.props.defaultValues) {
+      this.props.initialize(this.props.defaultValues);
+    }
+  }
+  submit = postValues => {
+    this.props.saveServer(postValues);
+  };
+  validateServerName = value => {
+    let serverSettingNames = Object.keys(this.props.servers).map(server => {
+      return this.props.servers[server].serverSettingName.toLowerCase().trim();
+    });
+    if (serverSettingNames.includes(value.toLowerCase().trim())) {
+      return "Server Setting Name already used.";
+    }
+    return undefined;
+  };
+  render() {
     this.formElems = this.props.formData.map(field => {
+      console.log("Field is", field);
       field.validate = getSyncValidators(field);
       if (field.name === "serverSettingName") {
         field.validate.push(this.validateServerName.bind(this));
@@ -57,22 +75,8 @@ class _ServerForm extends Component {
         />
       );
     });
-  }
-  submit = postValues => {
-    this.props.saveServer(postValues);
-  };
-  validateServerName = value => {
-    let serverSettingNames = Object.keys(this.props.servers).map(server => {
-      return this.props.servers[server].serverSettingName.toLowerCase().trim();
-    });
-    if (serverSettingNames.includes(value.toLowerCase().trim())) {
-      return "Server Setting Name already used.";
-    }
-    return undefined;
-  };
-  render() {
     const {handleSubmit} = this.props;
-
+    console.log("FormElems", this.formElems);
     return (
       <form onSubmit={handleSubmit(this.submit)}>
         {this.formElems}
@@ -86,7 +90,7 @@ class _ServerForm extends Component {
     );
   }
 }
-const ServerForm = connect(
+export const ServerForm = connect(
   state => ({
     servers: state.serversettings.servers
   }),

@@ -3095,6 +3095,12 @@ fd-slicer@~1.0.1:
   dependencies:
     pend "~1.2.0"
 
+feather-icons@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/feather-icons/-/feather-icons-4.7.0.tgz#78b4c78022f091b94e57b1b6fc81721a76387cfd"
+  dependencies:
+    classnames "^2.2.5"
+
 figures@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-2.0.0.tgz#3ab1a2d2a62c8bfb431a0c94cb797a2fce27c962"
@@ -6246,6 +6252,10 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
+react-feather@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-feather/-/react-feather-1.0.8.tgz#69b13d5c729949f194d33201dee91bab67fa31a2"
+
 react-intl-redux@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-intl-redux/-/react-intl-redux-0.7.0.tgz#614f481c7f53fb7cd81a88b49de8c0e4059fd181"
@@ -6261,7 +6271,20 @@ react-intl@^2.4.0:
     intl-relativeformat "^2.0.0"
     invariant "^2.1.1"
 
-react-motion@^0.4.8:
+react-motion-flip-animated@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-motion-flip-animated/-/react-motion-flip-animated-0.0.4.tgz#31f345f71b9c934fa1b6315db981005bd185b23b"
+  dependencies:
+    invariant "^2.2.2"
+
+react-motion-flip@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-motion-flip/-/react-motion-flip-1.0.2.tgz#d8a6530176810c614dae2cae3b001e89096df807"
+  dependencies:
+    raf "^3.2.0"
+    react-motion "^0.4.3"
+
+react-motion@^0.4.3, react-motion@^0.4.8:
   version "0.4.8"
   resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.4.8.tgz#23bb2dd27c2d8e00d229e45572d105efcf40a35e"
   dependencies:

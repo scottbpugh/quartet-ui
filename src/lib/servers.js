@@ -68,11 +68,15 @@ export class Server {
     this.url = this.getServerURL();
     this._client = null;
     this.manifest = null;
-    this.appList = null;
+    this.appList = [];
+  };
+  getFormStructure = () => {
+    return Server.getFormStructure(this.toJSON());
   };
   static getFormStructure = (initialValues = {}) => [
     {
       name: "serverSettingName",
+      defaultValue: initialValues.serverSettingName || null,
       description: {
         type: "text",
         required: true,
@@ -84,6 +88,7 @@ export class Server {
     },
     {
       name: "serverID",
+      defaultValue: initialValues.serverID || null,
       description: {
         type: "hidden",
         required: false,
@@ -94,6 +99,7 @@ export class Server {
     },
     {
       name: "hostname",
+      defaultValue: initialValues.hostname || null,
       description: {
         type: "text",
         required: true,
@@ -105,6 +111,7 @@ export class Server {
     },
     {
       name: "port",
+      defaultValue: initialValues.port || null,
       description: {
         type: "number",
         required: true,
@@ -117,6 +124,7 @@ export class Server {
     },
     {
       name: "path",
+      defaultValue: initialValues.path || "",
       description: {
         type: "text",
         required: false,
@@ -127,6 +135,7 @@ export class Server {
     },
     {
       name: "ssl",
+      defaultValue: initialValues.ssl || false,
       description: {
         type: "boolean",
         required: false,
@@ -137,6 +146,7 @@ export class Server {
     },
     {
       name: "username",
+      defaultValue: initialValues.username || null,
       description: {
         type: "text",
         required: false,
@@ -147,6 +157,7 @@ export class Server {
     },
     {
       name: "password",
+      defaultValue: initialValues.password || null,
       description: {
         type: "password",
         required: false,
@@ -184,7 +195,9 @@ export class Server {
       hostname: this.hostname,
       serverSettingName: this.serverSettingName,
       url: this.url,
-      appList: this.appList
+      appList: this.appList,
+      username: this.username,
+      password: this.password
     };
   }
 
@@ -207,15 +220,25 @@ export class Server {
   };
 
   listApps = () => {
-    if (!this.appList) {
-      this.getClient().then(client => {
-        this.appList = Object.keys(client.apis);
-        // let redux know we got our data
-        store.dispatch({
-          type: actions.appsListUpdated,
-          payload: this.toJSON()
+    if (this.appList.length === 0) {
+      this.getClient()
+        .then(client => {
+          this.appList = Object.keys(client.apis);
+          // let redux know we got our data
+          store.dispatch({
+            type: actions.appsListUpdated,
+            payload: this.toJSON()
+          });
+        })
+        .catch(error => {
+          // handle legacy.
+          this.appList = ["serialbox"];
+          // let redux know we got our data
+          store.dispatch({
+            type: actions.appsListUpdated,
+            payload: this.toJSON()
+          });
         });
-      });
     }
   };
 
@@ -226,10 +249,14 @@ export class Server {
       } else {
         // we don't have a client yet.
         // Fetch it.
-        this.parseSchema().then(client => {
-          this._client = client;
-          resolve(this._client);
-        });
+        this.parseSchema()
+          .then(client => {
+            this._client = client;
+            resolve(this._client);
+          })
+          .catch(error => {
+            reject(error);
+          });
       }
     });
   };

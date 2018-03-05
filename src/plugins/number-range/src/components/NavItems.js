@@ -141,6 +141,7 @@ class _PoolItem extends Component {
     );
   }
 }
+
 const PoolItem = connect(
   state => {
     return {
@@ -171,14 +172,16 @@ export class _NavPluginRoot extends Component {
   static get PLUGIN_COMPONENT_NAME() {
     return "NumberRangeNavRoot";
   }
+  serverHasSerialbox() {
+    return pluginRegistry
+      .getServer(this.props.serverID)
+      .appList.includes("serialbox");
+  }
   goTo = path => {
     this.props.history.push(path);
   };
   componentDidMount() {
-    if (
-      Object.keys(this.props.servers).length > 0 &&
-      this.props.serverID in this.props.servers
-    ) {
+    if (this.props.server && this.serverHasSerialbox()) {
       this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
     // turning off active for root plugin item because it looks like too much green.
@@ -212,31 +215,35 @@ export class _NavPluginRoot extends Component {
     );
   };
   render() {
-    let {serverID} = this.props;
-    let pools =
-      this.props.nr && this.props.nr[serverID]
-        ? this.props.nr[serverID].pools
-        : [];
-    let children = NavItems(pools, serverID, this.props.intl);
-    return (
-      <TreeNode
-        onContextMenu={this.renderContextMenu}
-        nodeType="plugin"
-        depth={this.props.depth}
-        childrenNodes={children}
-        active={this.state.active}
-        path={`/number-range/pools/${serverID}`}>
-        <FormattedMessage id="plugins.numberRange.navItemsTitle" />
-      </TreeNode>
-    );
+    let {serverID, pools} = this.props;
+    if (this.props.server && this.serverHasSerialbox()) {
+      let children = NavItems(pools, serverID, this.props.intl);
+      return (
+        <TreeNode
+          onContextMenu={this.renderContextMenu}
+          nodeType="plugin"
+          depth={this.props.depth}
+          childrenNodes={children}
+          active={this.state.active}
+          path={`/number-range/pools/${serverID}`}>
+          <FormattedMessage id="plugins.numberRange.navItemsTitle" />
+        </TreeNode>
+      );
+    } else {
+      return <div />;
+    }
   }
 }
 
 export const NavPluginRoot = connect(
   (state, ownProps) => {
     return {
-      servers: state.serversettings.servers,
-      nr: state.numberrange.servers,
+      server: state.serversettings.servers[ownProps.serverID],
+      pools:
+        state.numberrange.servers &&
+        state.numberrange.servers[ownProps.serverID]
+          ? state.numberrange.servers[ownProps.serverID].pools
+          : [],
       currentPath: state.layout.currentPath
     };
   },
