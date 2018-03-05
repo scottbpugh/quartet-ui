@@ -48,8 +48,12 @@ export const saveServer = postData => {
       postData.serverID = uuidv4();
     }
     dispatch({type: actions.saveServerSettings, payload: postData});
-    pluginRegistry.registerServer(new Server(postData));
-    return dispatch({type: actions.serverUpdated, payload: postData});
+    const newServer = new Server(postData);
+    pluginRegistry.registerServer(newServer);
+    return dispatch({
+      type: actions.serverUpdated,
+      payload: JSON.stringify(newServer)
+    });
   };
 };
 
@@ -72,6 +76,12 @@ export default handleActions(
         ...state,
         servers: {...state.servers, [action.payload.serverID]: action.payload},
         formData: initialData().formData
+      };
+    },
+    [actions.appsListUpdated]: (state, action) => {
+      return {
+        ...state,
+        servers: {...state.servers, [action.payload.serverID]: action.payload}
       };
     }
   },

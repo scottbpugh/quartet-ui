@@ -25,12 +25,37 @@ import serversettings from "reducers/serversettings";
 import layout from "reducers/layout";
 import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";
-import locale from "reducers/locales";
 import asyncDispatchMiddleware from "middlewares/asyncDispatchMiddleware";
 import pluginReducer from "reducers/plugins";
 import {pluginRegistry} from "plugins/pluginRegistration";
-
+// initial data objects
+import en from "react-intl/locale-data/en";
+import fr from "react-intl/locale-data/fr";
+import {addLocaleData} from "react-intl";
+import messages from "./messages";
+import {flattenMessages} from "./lib/flattenMessages";
+import {initialData as pluginInitialData} from "./reducers/plugins";
+import {initialData} from "./reducers/serversettings";
+import {initialData as layoutInitialData} from "./reducers/layout";
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
+
+addLocaleData([...en, ...fr]);
+let locale = "en-US";
+
+const initialState = {
+  dashboard: {notifications: []},
+  serversettings: initialData(),
+  intl: {
+    defaultLocale: locale,
+    locale: locale,
+    messages: flattenMessages(messages[locale])
+  },
+  layout: layoutInitialData(),
+  plugins: pluginInitialData()
+};
+
+/* You can import this in pure JS classes, like Server to dispatch actions. */
+export const store = configureStore(initialState);
 
 export default function configureStore(coreInitialState) {
   const middlewares = [thunk, asyncDispatchMiddleware];

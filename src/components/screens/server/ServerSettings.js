@@ -26,93 +26,8 @@ import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
 import {FormattedMessage} from "react-intl";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm} from "redux-form";
+import {Server} from "lib/servers";
 
-const formStructure = (initialValues = {}) => [
-  {
-    name: "serverSettingName",
-    description: {
-      type: "text",
-      required: true,
-      read_only: false,
-      label: "Server Setting Name",
-      help_text:
-        "The label that will be used for this server connection setting."
-    }
-  },
-  {
-    name: "serverID",
-    description: {
-      type: "hidden",
-      required: false,
-      read_only: false,
-      label: "Server ID",
-      help_text: "Hidden Server ID"
-    }
-  },
-  {
-    name: "serverName",
-    description: {
-      type: "text",
-      required: true,
-      read_only: false,
-      label: "Server Hostname",
-      help_text:
-        "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10."
-    }
-  },
-  {
-    name: "port",
-    description: {
-      type: "number",
-      required: true,
-      read_only: false,
-      label: "Port Number",
-      min_value: 1,
-      max_value: 65535,
-      help_text: "A port to connect to. Example, 80, 8080, 443, ..."
-    }
-  },
-  {
-    name: "path",
-    description: {
-      type: "text",
-      required: false,
-      read_only: false,
-      label: "Root Path",
-      helperText: "A path to interact with API (Optional), example /api"
-    }
-  },
-  {
-    name: "ssl",
-    description: {
-      type: "boolean",
-      required: false,
-      read_only: false,
-      label: "SSL/TLS",
-      helperText: "SSL/TLS encryption"
-    }
-  },
-  {
-    name: "username",
-    description: {
-      type: "text",
-      required: true,
-      read_only: false,
-      label: "Username",
-      help_text: "Basic Auth Username"
-    }
-  },
-  {
-    name: "password",
-    description: {
-      type: "password",
-      required: true,
-      read_only: false,
-      label: "Password",
-      help_text: "Basic Auth Password"
-    }
-  }
-];
 /**
  * ServerForm - Description
  *
@@ -225,7 +140,7 @@ class _ServerSettings extends Component {
       <div className="large-cards-container">
         <Card className="pt-elevation-4 form-card">
           <h5>Connect to a Server</h5>
-          <ServerForm formData={formStructure()} />
+          <ServerForm formData={Server.getFormStructure()} />
         </Card>
       </div>
     );

@@ -20,16 +20,26 @@ import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 class _ServerDetails extends Component {
   componentDidMount() {
     console.log("current server", this.props.match.params.serverID);
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    if (serverObject) {
+      serverObject.listApps();
+    }
   }
   componentWillReceiveProps(nextProps) {
     console.log("current server", this.props.server, nextProps.server);
     console.log("next server", nextProps.match.params.serverID);
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    if (serverObject) {
+      serverObject.listApps();
+    }
   }
   render() {
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     return (
       <RightPanel
         title={
@@ -37,8 +47,21 @@ class _ServerDetails extends Component {
             id="nav.app.serverDetails"
             defaultMessage="Server Details"
           />
-        }
-      />
+        }>
+        <ul>
+          {serverObject
+            ? serverObject.getArrayFields().map(elem => {
+                return (
+                  <li>
+                    {elem.name}
+                    {elem.value}
+                  </li>
+                );
+              })
+            : null}
+          {serverObject ? JSON.stringify(serverObject.appList) : null}
+        </ul>
+      </RightPanel>
     );
   }
 }

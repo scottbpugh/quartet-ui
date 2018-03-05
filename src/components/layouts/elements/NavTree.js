@@ -25,6 +25,7 @@ import {
   ContextMenuTarget,
   Menu,
   MenuItem,
+  MenuDivider,
   Popover,
   Position,
   Icon
@@ -32,6 +33,7 @@ import {
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {injectIntl} from "react-intl";
 
 export class CustomIcon extends Component {
   render() {
@@ -197,6 +199,31 @@ class _ServerNode extends Component {
   componentWillReceiveProps(nextProps) {
     this.activateNode(nextProps.currentPath);
   }
+  renderContextMenu() {
+    const {serverID, pool} = this.props;
+
+    return (
+      <Menu>
+        <MenuDivider title={this.props.server.serverSettingName} />
+        <MenuDivider />
+        <MenuItem
+          text={`${this.props.intl.formatMessage({
+            id: "register.user"
+          })}`}
+        />
+        <MenuItem
+          text={`${this.props.intl.formatMessage({
+            id: "logout"
+          })}`}
+        />
+        <MenuItem
+          text={`${this.props.intl.formatMessage({
+            id: "password reset"
+          })}`}
+        />
+      </Menu>
+    );
+  }
   activateNode(currentPath) {
     // set active state if in current path.
     // for some reason this.props.location.pathname doesn't get updated.
@@ -212,6 +239,7 @@ class _ServerNode extends Component {
     return (
       <TreeNode
         key={server.serverID}
+        onContextMenu={this.renderContextMenu.bind(this)}
         nodeType="server"
         depth={0}
         path={`/server-details/${server.serverID}`}
@@ -227,7 +255,7 @@ const ServerNode = connect((state, ownProps) => {
   return {
     currentPath: state.layout.currentPath
   };
-}, {})(withRouter(_ServerNode));
+}, {})(injectIntl(withRouter(_ServerNode)));
 
 /*
   Nav tree doesn't rerender for every path change. This is to keep the correct state

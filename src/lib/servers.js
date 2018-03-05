@@ -17,6 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import Swagger from "swagger-client";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {store} from "store";
+import actions from "actions/serversettings";
 
 /**
  * Server - Holds data about a server and its settings, API client, ...
@@ -27,7 +29,7 @@ export class Server {
     Following object should be passed.
     {
       serverSettingName,
-      serverName,
+      hostname,
       port,
       ssl,
       serverID,
@@ -46,7 +48,7 @@ export class Server {
     Following object should be passed.
     {
       serverSettingName,
-      serverName,
+      hostname,
       port,
       ssl,
       serverID,
@@ -66,10 +68,128 @@ export class Server {
     this.url = this.getServerURL();
     this._client = null;
     this.manifest = null;
+    this.appList = null;
+  };
+  static getFormStructure = (initialValues = {}) => [
+    {
+      name: "serverSettingName",
+      description: {
+        type: "text",
+        required: true,
+        read_only: false,
+        label: "Server Setting Name",
+        help_text:
+          "The label that will be used for this server connection setting."
+      }
+    },
+    {
+      name: "serverID",
+      description: {
+        type: "hidden",
+        required: false,
+        read_only: false,
+        label: "Server ID",
+        help_text: "Hidden Server ID"
+      }
+    },
+    {
+      name: "hostname",
+      description: {
+        type: "text",
+        required: true,
+        read_only: false,
+        label: "Server Hostname",
+        help_text:
+          "A hostname or IP address, example localhost, serial-box.com, or 192.168.5.10."
+      }
+    },
+    {
+      name: "port",
+      description: {
+        type: "number",
+        required: true,
+        read_only: false,
+        label: "Port Number",
+        min_value: 1,
+        max_value: 65535,
+        help_text: "A port to connect to. Example, 80, 8080, 443, ..."
+      }
+    },
+    {
+      name: "path",
+      description: {
+        type: "text",
+        required: false,
+        read_only: false,
+        label: "Root Path",
+        helperText: "A path to interact with API (Optional), example /api"
+      }
+    },
+    {
+      name: "ssl",
+      description: {
+        type: "boolean",
+        required: false,
+        read_only: false,
+        label: "SSL/TLS",
+        helperText: "SSL/TLS encryption"
+      }
+    },
+    {
+      name: "username",
+      description: {
+        type: "text",
+        required: false,
+        read_only: false,
+        label: "Username",
+        help_text: "Basic Auth Username"
+      }
+    },
+    {
+      name: "password",
+      description: {
+        type: "password",
+        required: false,
+        read_only: false,
+        label: "Password",
+        help_text: "Basic Auth Password"
+      }
+    }
+  ];
+  getArrayFields = () => {
+    return [
+      {name: "protocol", value: this.protocol, editable: true},
+      {name: "port", value: this.port, editable: true},
+      {name: "path", value: this.path, editable: true},
+      {name: "ssl", value: this.ssl, editable: true},
+      {name: "url", value: this.url, editable: false},
+      {name: "hostname", value: this.hostname, editable: true},
+      {
+        name: "serverSettingsName",
+        value: this.serverSettingName,
+        editable: true
+      },
+      {name: "username", value: this.username},
+      {name: "serverID", value: this.serverID}
+    ];
   };
 
+  toJSON() {
+    return {
+      serverID: this.serverID,
+      protocol: this.protocol,
+      port: this.port,
+      path: this.path,
+      ssl: this.ssl,
+      hostname: this.hostname,
+      serverSettingName: this.serverSettingName,
+      url: this.url,
+      appList: this.appList
+    };
+  }
+
   getServerURL = () => {
-    return `${this.protocol}://${this.serverName}:${this.port}/${this.path}`;
+    return `${this.protocol}://${this.hostname}:${this.port}/${this.path}`;
   };
 
   parseSchema = () => {
@@ -84,6 +204,19 @@ export class Server {
           reject(error);
         });
     });
+  };
+
+  listApps = () => {
+    if (!this.appList) {
+      this.getClient().then(client => {
+        this.appList = Object.keys(client.apis);
+        // let redux know we got our data
+        store.dispatch({
+          type: actions.appsListUpdated,
+          payload: this.toJSON()
+        });
+      });
+    }
   };
 
   getClient = () => {
