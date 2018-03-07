@@ -18,30 +18,26 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Dialog, Button, Intent} from "@blueprintjs/core";
+import {RegisterForm} from "./RegisterForm";
+import classNames from "classnames";
 
 export class RegisterUserDialog extends Component {
   constructor(props) {
     super(props);
   }
-  toggleDialog() {}
   render() {
-    const {intl} = this.props;
+    const {intl, isOpen, server, theme} = this.props;
     return (
       <Dialog
-        iconName="inbox"
+        iconName="user"
         isOpen={this.props.isOpen}
-        onClose={this.toggleDialog}
+        onClose={this.props.closeDialog}
+        className={classNames({
+          "pt-dark": this.props.theme.startsWith("dark") ? true : false
+        })}
         title={intl.formatMessage({id: "app.servers.registerUser"})}>
-        <div className="pt-dialog-body">Some content</div>
-        <div className="pt-dialog-footer">
-          <div className="pt-dialog-footer-actions">
-            <Button text="Secondary" />
-            <Button
-              intent={Intent.PRIMARY}
-              onClick={this.toggleDialog}
-              text="Primary"
-            />
-          </div>
+        <div className="pt-dialog-body">
+          <RegisterForm isOpen={isOpen} server={server} />
         </div>
       </Dialog>
     );

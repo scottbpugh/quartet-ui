@@ -238,7 +238,10 @@ class _ServerNode extends Component {
         {children}
         <RegisterUserDialog
           intl={intl}
+          server={server}
+          closeDialog={this.toggleRegisterDialog.bind(this)}
           isOpen={this.state.registerDialogOpen}
+          theme={this.props.theme}
         />
       </TreeNode>
     );
@@ -247,7 +250,8 @@ class _ServerNode extends Component {
 
 const ServerNode = connect((state, ownProps) => {
   return {
-    currentPath: state.layout.currentPath
+    currentPath: state.layout.currentPath,
+    theme: state.layout.theme
   };
 }, {})(injectIntl(withRouter(_ServerNode)));
 
