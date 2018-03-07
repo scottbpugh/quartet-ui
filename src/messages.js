@@ -36,6 +36,10 @@ export default {
         contrastedTheme: "Contrasted Theme",
         darkBrownTheme: "Dark Brown Theme",
         polarTheme: "Polar Theme"
+      },
+      servers: {
+        addServer: "Add Server",
+        updateServer: "Update Server"
       }
     },
 
@@ -60,6 +64,10 @@ export default {
         contrastedTheme: "Thème contrasté",
         darkBrownTheme: "Thème marron sombre",
         polarTheme: "Thème polaire"
+      },
+      servers: {
+        addServer: "Ajouter le serveur",
+        updateServer: "Sauvegarder"
       }
     },
 

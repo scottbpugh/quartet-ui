@@ -27,75 +27,7 @@ import {FormattedMessage} from "react-intl";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm} from "redux-form";
 import {Server} from "lib/servers";
-
-/**
- * ServerForm - Description
- *
- * @param {Object} formData        structure representing input.
- * @param {function} saveHandler   callback to save the form
- * @param {function} updateHandler callback to update/validate each input
- *
- * @return {ReactElement} A form element with a series of inputs based on formData.
- */
-class _ServerForm extends Component {
-  componentDidMount() {
-    if (this.props.defaultValues) {
-      this.props.initialize(this.props.defaultValues);
-    }
-  }
-  submit = postValues => {
-    this.props.saveServer(postValues);
-  };
-  validateServerName = value => {
-    let serverSettingNames = Object.keys(this.props.servers).map(server => {
-      return this.props.servers[server].serverSettingName.toLowerCase().trim();
-    });
-    if (serverSettingNames.includes(value.toLowerCase().trim())) {
-      return "Server Setting Name already used.";
-    }
-    return undefined;
-  };
-  render() {
-    this.formElems = this.props.formData.map(field => {
-      console.log("Field is", field);
-      field.validate = getSyncValidators(field);
-      if (field.name === "serverSettingName") {
-        field.validate.push(this.validateServerName.bind(this));
-      }
-      return (
-        <Field
-          key={field.name}
-          name={field.name}
-          fieldData={field}
-          component={DefaultField}
-          type={field.description.type}
-          className="pt-input"
-          width={300}
-          validate={field.validate}
-        />
-      );
-    });
-    const {handleSubmit} = this.props;
-    console.log("FormElems", this.formElems);
-    return (
-      <form onSubmit={handleSubmit(this.submit)}>
-        {this.formElems}
-        <Button
-          type="submit"
-          className="pt-button pt-intent-primary"
-          iconName="add">
-          Add Server
-        </Button>
-      </form>
-    );
-  }
-}
-export const ServerForm = connect(
-  state => ({
-    servers: state.serversettings.servers
-  }),
-  {saveServer, loadCurrentServer}
-)(reduxForm({form: "serverForm"})(_ServerForm));
+import {ServerForm} from "./ServerForm";
 
 class _ServerSettings extends Component {
   constructor(props) {
@@ -144,7 +76,10 @@ class _ServerSettings extends Component {
       <div className="large-cards-container">
         <Card className="pt-elevation-4 form-card">
           <h5>Connect to a Server</h5>
-          <ServerForm formData={Server.getFormStructure()} />
+          <ServerForm
+            formData={Server.getFormStructure()}
+            saveButtonMsg={<FormattedMessage id="app.servers.addServer" />}
+          />
         </Card>
       </div>
     );

@@ -24,7 +24,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import {Card, Intent, Tag, Icon, Button} from "@blueprintjs/core";
 import "./server-details.css";
 import {Server} from "lib/servers";
-import {ServerForm} from "./ServerSettings";
+import {ServerForm} from "./ServerForm";
 
 class _ServerDetails extends Component {
   constructor(props) {
@@ -75,6 +75,9 @@ class _ServerDetails extends Component {
                 <ServerForm
                   defaultValues={serverObject.toJSON()}
                   formData={serverObject.getFormStructure()}
+                  saveButtonMsg={
+                    <FormattedMessage id="app.servers.updateServer" />
+                  }
                 />
               ) : (
                 <div>
@@ -88,10 +91,11 @@ class _ServerDetails extends Component {
                     </thead>
                     <tbody>
                       {serverObject.getArrayFields().map(elem => {
+                        console.log(elem);
                         return (
                           <tr key={elem.name}>
                             <td>{elem.name}</td>
-                            <td>{elem.value}</td>
+                            <td>{"" + elem.value}</td>
                           </tr>
                         );
                       })}

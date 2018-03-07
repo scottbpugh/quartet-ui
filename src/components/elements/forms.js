@@ -84,6 +84,7 @@ export const DefaultField = ({
           {...input}
           type="checkbox"
           name={fieldData.name}
+          defaultChecked={fieldData.defaultValue}
           className={intent}
           intent={intent}
         />
