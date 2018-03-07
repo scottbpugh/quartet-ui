@@ -34,6 +34,8 @@ import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {injectIntl} from "react-intl";
+import {ServerMenu} from "./ServerMenu";
+import {RegisterUserDialog} from "components/screens/auth/RegisterUser";
 
 export class CustomIcon extends Component {
   render() {
@@ -191,7 +193,7 @@ class AddServerButton extends Component {
 class _ServerNode extends Component {
   constructor(props) {
     super(props);
-    this.state = {active: false};
+    this.state = {active: false, registerDialogOpen: false};
   }
   componentDidMount() {
     this.activateNode(this.props.currentPath);
@@ -200,30 +202,18 @@ class _ServerNode extends Component {
     this.activateNode(nextProps.currentPath);
   }
   renderContextMenu() {
-    const {serverID, pool} = this.props;
-
+    const {server, intl} = this.props;
     return (
-      <Menu>
-        <MenuDivider title={this.props.server.serverSettingName} />
-        <MenuDivider />
-        <MenuItem
-          text={`${this.props.intl.formatMessage({
-            id: "register.user"
-          })}`}
-        />
-        <MenuItem
-          text={`${this.props.intl.formatMessage({
-            id: "logout"
-          })}`}
-        />
-        <MenuItem
-          text={`${this.props.intl.formatMessage({
-            id: "password reset"
-          })}`}
-        />
-      </Menu>
+      <ServerMenu
+        toggleRegisterDialog={this.toggleRegisterDialog}
+        intl={intl}
+        server={server}
+      />
     );
   }
+  toggleRegisterDialog = () => {
+    this.setState({registerDialogOpen: !this.state.registerDialogOpen});
+  };
   activateNode(currentPath) {
     // set active state if in current path.
     // for some reason this.props.location.pathname doesn't get updated.
@@ -235,7 +225,7 @@ class _ServerNode extends Component {
     });
   }
   render() {
-    const {server, childrenNodes, children} = this.props;
+    const {server, intl, childrenNodes, children} = this.props;
     return (
       <TreeNode
         key={server.serverID}
@@ -246,6 +236,10 @@ class _ServerNode extends Component {
         active={this.state.active}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}
+        <RegisterUserDialog
+          intl={intl}
+          isOpen={this.state.registerDialogOpen}
+        />
       </TreeNode>
     );
   }

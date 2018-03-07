@@ -39,7 +39,8 @@ export default {
       },
       servers: {
         addServer: "Add Server",
-        updateServer: "Update Server"
+        updateServer: "Update Server",
+        registerUser: "Register User"
       }
     },
 
@@ -67,7 +68,8 @@ export default {
       },
       servers: {
         addServer: "Ajouter le serveur",
-        updateServer: "Sauvegarder"
+        updateServer: "Sauvegarder",
+        registerUser: "Ajouter un utilisateur"
       }
     },
 
