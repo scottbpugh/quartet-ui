@@ -40,7 +40,8 @@ export default {
       servers: {
         addServer: "Add Server",
         updateServer: "Update Server",
-        registerUser: "Register User"
+        registerUser: "Register User",
+        verifyUser: "Verify User"
       }
     },
 
@@ -69,10 +70,10 @@ export default {
       servers: {
         addServer: "Ajouter le serveur",
         updateServer: "Sauvegarder",
-        registerUser: "Ajouter un utilisateur"
+        registerUser: "Ajouter un utilisateur",
+        verifyUser: "Vérifier un utilisateur"
       }
     },
-
     plugins: {}
   }
 };

@@ -16,17 +16,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {ServerMenu} from "./ServerMenu";
-import {TreeNode} from "components/layouts/elements/NavTree";
-import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
 import {injectIntl} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
+import {ServerMenu} from "./ServerMenu";
+import {TreeNode} from "components/layouts/elements/NavTree";
+import {VerifyUserDialog} from "components/screens/auth/VerifyUserDialog";
 
 class _ServerNode extends Component {
   constructor(props) {
     super(props);
-    this.state = {active: false, registerDialogOpen: false};
+    this.state = {
+      active: false,
+      registerDialogOpen: false,
+      verifyDialogOpen: false
+    };
   }
   componentDidMount() {
     this.activateNode(this.props.currentPath);
@@ -39,6 +44,7 @@ class _ServerNode extends Component {
     return (
       <ServerMenu
         toggleRegisterDialog={this.toggleRegisterDialog}
+        toggleVerifyDialog={this.toggleVerifyDialog}
         intl={intl}
         server={server}
       />
@@ -46,6 +52,9 @@ class _ServerNode extends Component {
   }
   toggleRegisterDialog = () => {
     this.setState({registerDialogOpen: !this.state.registerDialogOpen});
+  };
+  toggleVerifyDialog = () => {
+    this.setState({verifyDialogOpen: !this.state.verifyDialogOpen});
   };
   activateNode(currentPath) {
     // set active state if in current path.
@@ -74,6 +83,13 @@ class _ServerNode extends Component {
           server={server}
           closeDialog={this.toggleRegisterDialog.bind(this)}
           isOpen={this.state.registerDialogOpen}
+          theme={this.props.theme}
+        />
+        <VerifyUserDialog
+          intl={intl}
+          server={server}
+          closeDialog={this.toggleVerifyDialog.bind(this)}
+          isOpen={this.state.verifyDialogOpen}
           theme={this.props.theme}
         />
       </TreeNode>

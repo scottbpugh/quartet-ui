@@ -25,7 +25,7 @@ export class ServerMenu extends Component {
   }
 
   render() {
-    const {server, intl, toggleRegisterDialog} = this.props;
+    const {server, intl, toggleRegisterDialog, toggleVerifyDialog} = this.props;
 
     return (
       <Menu>
@@ -35,6 +35,12 @@ export class ServerMenu extends Component {
           onClick={toggleRegisterDialog}
           text={`${intl.formatMessage({
             id: "app.servers.registerUser"
+          })}`}
+        />
+        <MenuItem
+          onClick={toggleVerifyDialog}
+          text={`${intl.formatMessage({
+            id: "app.servers.verifyUser"
           })}`}
         />
         <MenuItem

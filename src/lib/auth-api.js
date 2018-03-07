@@ -57,3 +57,19 @@ export const getRegistrationFormStructure = server => {
       return error;
     });
 };
+
+export const getVerifyUserFormStructure = server => {
+  return fetch(
+    `${server.url}rest-auth/registration/verify-email/`,
+    prepHeaders(server, "OPTIONS")
+  )
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};

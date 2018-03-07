@@ -200,10 +200,10 @@ export class _NavPluginRoot extends Component {
     this.setState({active: regexp.test(currentPath)});
   }
   renderContextMenu = () => {
-    const {servers, serverID} = this.props;
+    const {server, serverID} = this.props;
     return (
       <Menu>
-        <MenuDivider title={servers[serverID].serverSettingName} />
+        <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
         <MenuItem
           onClick={this.goTo.bind(this, `/number-range/add-pool/${serverID}`)}
