@@ -34,8 +34,9 @@ import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {injectIntl} from "react-intl";
-import {ServerMenu} from "./ServerMenu";
-import {RegisterUserDialog} from "components/screens/auth/RegisterUser";
+import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
+import {ServerNode} from "components/screens/server/ServerNode";
+import {AddServerButton} from "components/screens/server/AddServerButton";
 
 export class CustomIcon extends Component {
   render() {
@@ -149,111 +150,6 @@ class Tree extends Component {
     return <ul className="tree-root">{this.props.children}</ul>;
   }
 }
-
-class AddServerButton extends Component {
-  goTo(path) {
-    this.props.history.push(path);
-  }
-  render() {
-    let isDark = this.props.theme === "polar" ? false : true;
-    const addMenu = (
-      <Menu
-        className={classNames({
-          "menu-padding-fix": true,
-          "pt-dark": isDark
-        })}>
-        <MenuItem
-          text={<FormattedMessage id="app.serverSettings.addAServer" />}
-          onClick={this.goTo.bind(this, "/server-settings/")}
-        />
-      </Menu>
-    );
-    return (
-      <div>
-        <Popover
-          className={classNames({"pt-dark": isDark})}
-          content={addMenu}
-          position={Position.RIGHT_CENTER}>
-          <button
-            onClick={this.displayMenu}
-            tabindex="0"
-            className="pt-button pt-icon-add">
-            {/*
-              <FormattedMessage
-                id="plugins.numberRange.addServer"
-                defaultMessage="Add a New Server"
-              />*/}
-          </button>
-        </Popover>
-      </div>
-    );
-  }
-}
-
-class _ServerNode extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {active: false, registerDialogOpen: false};
-  }
-  componentDidMount() {
-    this.activateNode(this.props.currentPath);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
-  }
-  renderContextMenu() {
-    const {server, intl} = this.props;
-    return (
-      <ServerMenu
-        toggleRegisterDialog={this.toggleRegisterDialog}
-        intl={intl}
-        server={server}
-      />
-    );
-  }
-  toggleRegisterDialog = () => {
-    this.setState({registerDialogOpen: !this.state.registerDialogOpen});
-  };
-  activateNode(currentPath) {
-    // set active state if in current path.
-    // for some reason this.props.location.pathname doesn't get updated.
-    // window.location.pathname does.
-    const {serverID} = this.props.server;
-    let regexp = new RegExp(`/${serverID}/?`);
-    this.setState({active: regexp.test(currentPath)}, () => {
-      console.log("done redrawing with", this.state.active);
-    });
-  }
-  render() {
-    const {server, intl, childrenNodes, children} = this.props;
-    return (
-      <TreeNode
-        key={server.serverID}
-        onContextMenu={this.renderContextMenu.bind(this)}
-        nodeType="server"
-        depth={0}
-        path={`/server-details/${server.serverID}`}
-        active={this.state.active}
-        childrenNodes={childrenNodes ? childrenNodes : []}>
-        {children}
-        <RegisterUserDialog
-          intl={intl}
-          server={server}
-          closeDialog={this.toggleRegisterDialog.bind(this)}
-          isOpen={this.state.registerDialogOpen}
-          theme={this.props.theme}
-        />
-      </TreeNode>
-    );
-  }
-}
-
-const ServerNode = connect((state, ownProps) => {
-  return {
-    currentPath: state.layout.currentPath,
-    theme: state.layout.theme
-  };
-}, {})(injectIntl(withRouter(_ServerNode)));
 
 /*
   Nav tree doesn't rerender for every path change. This is to keep the correct state
