@@ -21,11 +21,17 @@ import {getRegistrationFormStructure} from "lib/auth-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm, change, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 
 class _RegisterForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {formStructure: []};
+    this.state = {
+      formStructure: [],
+      success: false,
+      successMessage: null,
+      username: null
+    };
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
@@ -36,7 +42,7 @@ class _RegisterForm extends Component {
   }
   submit = postValues => {
     const {server} = this.props;
-
+    var that = this;
     return server.getClient().then(client => {
       return client
         .execute({
@@ -45,7 +51,13 @@ class _RegisterForm extends Component {
             data: postValues
           }
         })
-        .then(result => {})
+        .then(result => {
+          that.setState({
+            success: true,
+            successMessage: result.body.detail,
+            username: postValues.username
+          });
+        })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
             if ("non_field_errors" in error.response.body) {
@@ -91,6 +103,7 @@ class _RegisterForm extends Component {
   }
   render() {
     const {error, handleSubmit, pristine, reset, submitting} = this.props;
+    const {success, successMessage} = this.state;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
@@ -125,20 +138,32 @@ class _RegisterForm extends Component {
         return false;
       });
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
-        {form}
-        {error ? (
-          <Callout iconName="warning" intent={Intent.DANGER}>
-            {error}
+      <div>
+        {success ? (
+          <Callout iconName="success" intent={Intent.SUCCESS}>
+            <FormattedMessage
+              id="app.servers.userCreated"
+              values={{username: this.state.username}}
+            />
+            {successMessage}
           </Callout>
-        ) : null}
-        <button
-          className="pt-button pt-intent-primary"
-          type="submit"
-          disabled={submitting}>
-          Submit
-        </button>
-      </form>
+        ) : (
+          <form onSubmit={handleSubmit(this.submit.bind(this))}>
+            {form}
+            {error ? (
+              <Callout iconName="warning" intent={Intent.DANGER}>
+                {error}
+              </Callout>
+            ) : null}
+            <button
+              className="pt-button pt-intent-primary"
+              type="submit"
+              disabled={submitting}>
+              Submit
+            </button>
+          </form>
+        )}
+      </div>
     );
   }
 }

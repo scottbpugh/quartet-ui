@@ -41,7 +41,8 @@ export default {
         addServer: "Add Server",
         updateServer: "Update Server",
         registerUser: "Register User",
-        verifyUser: "Verify User"
+        verifyUser: "Verify User",
+        userCreated: "User {username} successfully created."
       }
     },
 
@@ -71,7 +72,8 @@ export default {
         addServer: "Ajouter le serveur",
         updateServer: "Sauvegarder",
         registerUser: "Ajouter un utilisateur",
-        verifyUser: "Vérifier un utilisateur"
+        verifyUser: "Vérifier un utilisateur",
+        userCreated: "L'utilisateur {username} a été créé avec succès."
       }
     },
     plugins: {}
