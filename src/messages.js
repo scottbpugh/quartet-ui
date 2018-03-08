@@ -42,7 +42,8 @@ export default {
         updateServer: "Update Server",
         registerUser: "Register User",
         verifyUser: "Verify User",
-        userCreated: "User {username} successfully created."
+        userCreated: "User {username} successfully created.",
+        userVerified: "User successfully verified."
       }
     },
 
@@ -73,7 +74,8 @@ export default {
         updateServer: "Sauvegarder",
         registerUser: "Ajouter un utilisateur",
         verifyUser: "Vérifier un utilisateur",
-        userCreated: "L'utilisateur {username} a été créé avec succès."
+        userCreated: "L'utilisateur {username} a été créé avec succès.",
+        userVerified: "Compte d'utilisateur confirmé."
       }
     },
     plugins: {}

@@ -41,6 +41,10 @@ class _ServerDetails extends Component {
   componentWillReceiveProps(nextProps) {
     console.log("current server", this.props.server, nextProps.server);
     console.log("next server", nextProps.match.params.serverID);
+    if (this.props.server.serverID !== nextProps.server.serverID) {
+      // reset edit mode.
+      this.setState({editMode: false});
+    }
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     if (serverObject) {
       serverObject.listApps();

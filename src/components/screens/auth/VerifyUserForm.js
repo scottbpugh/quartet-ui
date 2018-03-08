@@ -19,12 +19,18 @@
 import React, {Component} from "react";
 import {getVerifyUserFormStructure} from "lib/auth-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {Field, reduxForm, change} from "redux-form";
+import {Field, reduxForm, change, SubmissionError} from "redux-form";
+import {Callout, Intent} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 
 class _VerifyUserForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {formStructure: []};
+    this.state = {
+      formStructure: [],
+      success: false,
+      successMessage: null
+    };
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
@@ -33,9 +39,42 @@ class _VerifyUserForm extends Component {
   componentWillReceiveProps(nextProps) {
     this.constructForm(nextProps);
   }
+  submit = postValues => {
+    const {server} = this.props;
+    var that = this;
+    return server.getClient().then(client => {
+      return client
+        .execute({
+          operationId: "registration_verify_email_create_0",
+          parameters: {
+            data: postValues
+          }
+        })
+        .then(result => {
+          that.setState({
+            success: true,
+            successMessage: result.body.detail
+          });
+        })
+        .catch(error => {
+          if (error.status > 399 && error.response && error.response.body) {
+            if ("detail" in error.response.body) {
+              // a form-wide error is present.
+              throw new SubmissionError({
+                ...error.response.body,
+                _error: error.response.body.detail
+              });
+            }
+            // we have an object with validation errors.
+            throw new SubmissionError(error.response.body);
+          }
+        });
+    });
+  };
   constructForm(props) {
     if (props.isOpen && !this.formStructureRetrieved) {
       getVerifyUserFormStructure(props.server).then(data => {
+        this.formStructureRetrieved = true;
         // parse the values and filter to the one that are not readonly.
         let postFields = data.actions.POST;
         let formStructure = Object.keys(postFields)
@@ -61,19 +100,20 @@ class _VerifyUserForm extends Component {
     }
   }
   render() {
-    const {handleSubmit} = this.props;
+    const {error, handleSubmit, pristine, reset, submitting} = this.props;
+    const {success, successMessage} = this.state;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
-        if (field.name === "pool") {
-          // we'll populate dynamically based on path.
-          field.description.required = false;
-          field.validate = [];
-        }
         if (field.description.type === "integer") {
           type = "number";
         } else if (field.description.type === "boolean") {
           type = "checkbox";
+        } else if (
+          field.description.type === "password" ||
+          field.name.includes("password")
+        ) {
+          type = "password";
         }
         //field.name = field.name.replace(/_/g, "");
         return (
@@ -81,8 +121,8 @@ class _VerifyUserForm extends Component {
             key={field.name}
             name={field.name}
             fieldData={field}
-            component={DefaultField}
             type={type}
+            component={DefaultField}
             className="pt-input"
             width={300}
             validate={field.validate}
@@ -96,15 +136,28 @@ class _VerifyUserForm extends Component {
         return false;
       });
     return (
-      <form onSubmit={this.submit}>
-        {form}
-        <button
-          className="pt-button pt-intent-primary"
-          type="submit"
-          disabled={this.props.submitting}>
-          Submit
-        </button>
-      </form>
+      <div>
+        {success ? (
+          <Callout iconName="pt-icon-saved" intent={Intent.SUCCESS}>
+            <FormattedMessage id="app.servers.userVerified" />
+          </Callout>
+        ) : (
+          <form onSubmit={handleSubmit(this.submit.bind(this))}>
+            {form}
+            <button
+              className="pt-button pt-intent-primary"
+              type="submit"
+              disabled={submitting}>
+              Submit
+            </button>
+            {error ? (
+              <Callout iconName="warning" intent={Intent.DANGER}>
+                {error}
+              </Callout>
+            ) : null}
+          </form>
+        )}
+      </div>
     );
   }
 }

@@ -140,7 +140,7 @@ class _RegisterForm extends Component {
     return (
       <div>
         {success ? (
-          <Callout iconName="success" intent={Intent.SUCCESS}>
+          <Callout iconName="pt-icon-saved" intent={Intent.SUCCESS}>
             <FormattedMessage
               id="app.servers.userCreated"
               values={{username: this.state.username}}
@@ -150,17 +150,18 @@ class _RegisterForm extends Component {
         ) : (
           <form onSubmit={handleSubmit(this.submit.bind(this))}>
             {form}
-            {error ? (
-              <Callout iconName="warning" intent={Intent.DANGER}>
-                {error}
-              </Callout>
-            ) : null}
+
             <button
               className="pt-button pt-intent-primary"
               type="submit"
               disabled={submitting}>
               Submit
             </button>
+            {error ? (
+              <Callout iconName="warning" intent={Intent.DANGER}>
+                {error}
+              </Callout>
+            ) : null}
           </form>
         )}
       </div>
