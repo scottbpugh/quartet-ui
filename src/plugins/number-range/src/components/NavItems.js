@@ -84,8 +84,7 @@ class _PoolItem extends Component {
   };
   activateNode(currentPath) {
     // set active state if in current path.
-    // for some reason this.props.location.pathname doesn't get updated.
-    // window.location.pathname does.
+    // using full current path as a shortcut to match anything.
     const {pool, serverID} = this.props;
     let regexp = new RegExp(`/${serverID}/${pool.machine_name}/?$`);
     this.setState({active: regexp.test(currentPath)});

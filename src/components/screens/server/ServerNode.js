@@ -34,10 +34,12 @@ class _ServerNode extends Component {
     };
   }
   componentDidMount() {
-    this.activateNode(this.props.currentPath);
+    console.log("HELLO");
+    this.activateNode(this.props.currentPath, this.props.server);
   }
   componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
+    console.log("HELLO");
+    this.activateNode(nextProps.currentPath, nextProps.server);
   }
   renderContextMenu() {
     const {server, intl} = this.props;
@@ -56,15 +58,17 @@ class _ServerNode extends Component {
   toggleVerifyDialog = () => {
     this.setState({verifyDialogOpen: !this.state.verifyDialogOpen});
   };
-  activateNode(currentPath) {
+  activateNode(currentPath, server) {
     // set active state if in current path.
     // for some reason this.props.location.pathname doesn't get updated.
     // window.location.pathname does.
-    const {serverID} = this.props.server;
-    let regexp = new RegExp(`/${serverID}/?`);
-    this.setState({active: regexp.test(currentPath)}, () => {
-      console.log("done redrawing with", this.state.active);
-    });
+    const {serverID} = server;
+    let regexp = new RegExp(`${serverID}`);
+    console.log(
+      `${serverID} is a match for currentPath ${currentPath}:`,
+      regexp.test(currentPath)
+    );
+    this.setState({active: regexp.test(currentPath)}, () => {});
   }
   render() {
     const {server, intl, childrenNodes, children} = this.props;

@@ -207,7 +207,9 @@ export class Server {
 
   parseSchema = () => {
     return new Promise((resolve, reject) => {
-      Swagger(this.url + "schema/")
+      Swagger({
+        url: `${this.url}schema/`
+      })
         .then(client => {
           // swagger-js client is available.
           // client.spec / client.originalSpec / client.errors

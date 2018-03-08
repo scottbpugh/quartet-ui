@@ -17,10 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Field, reduxForm, change} from "redux-form";
+import {Field, reduxForm, change, SubmissionError} from "redux-form";
 import {getPoolFormStructure} from "../lib/serialbox-api";
 import {postAddPool} from "../lib/serialbox-api";
-import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";
 import {loadPools} from "../reducers/numberrange";
 import {connect} from "react-redux";

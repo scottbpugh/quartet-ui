@@ -91,7 +91,6 @@ class _ServerDetails extends Component {
                     </thead>
                     <tbody>
                       {serverObject.getArrayFields().map(elem => {
-                        console.log(elem);
                         return (
                           <tr key={elem.name}>
                             <td>{elem.name}</td>

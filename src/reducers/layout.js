@@ -33,6 +33,14 @@ export const loadPageTitle = title => {
   };
 };
 
+export const routeLocationDidUpdate = param => {
+  return dispatch => {
+    return dispatch({
+      type: actions.locationDidUpdate,
+      payload: {...param}
+    });
+  };
+};
 export const switchTheme = themeName => {
   // currently either light or dark.
   return dispatch => {
@@ -45,9 +53,13 @@ export default handleActions(
     [actions.loadPageTitle]: (state, action) => {
       return {
         ...state,
-        pageTitle: action.payload,
-        // keeping track of path for nav purposes.
-        currentPath: window.location.pathname
+        pageTitle: action.payload
+      };
+    },
+    [actions.locationDidUpdate]: (state, action) => {
+      return {
+        ...state,
+        currentPath: action.payload.pathname
       };
     },
     [actions.switchTheme]: (state, action) => {

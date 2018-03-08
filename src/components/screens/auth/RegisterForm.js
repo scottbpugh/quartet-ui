@@ -19,7 +19,8 @@
 import React, {Component} from "react";
 import {getRegistrationFormStructure} from "lib/auth-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {Field, reduxForm, change} from "redux-form";
+import {Field, reduxForm, change, SubmissionError} from "redux-form";
+import {Callout, Intent} from "@blueprintjs/core";
 
 class _RegisterForm extends Component {
   constructor(props) {
@@ -33,9 +34,37 @@ class _RegisterForm extends Component {
   componentWillReceiveProps(nextProps) {
     this.constructForm(nextProps);
   }
+  submit = postValues => {
+    const {server} = this.props;
+
+    return server.getClient().then(client => {
+      return client
+        .execute({
+          operationId: "registration_create_0",
+          parameters: {
+            data: postValues
+          }
+        })
+        .then(result => {})
+        .catch(error => {
+          if (error.status === 400 && error.response && error.response.body) {
+            if ("non_field_errors" in error.response.body) {
+              // a form-wide error is present.
+              throw new SubmissionError({
+                ...error.response.body,
+                _error: error.response.body.non_field_errors
+              });
+            }
+            // we have an object with validation errors.
+            throw new SubmissionError(error.response.body);
+          }
+        });
+    });
+  };
   constructForm(props) {
     if (props.isOpen && !this.formStructureRetrieved) {
       getRegistrationFormStructure(props.server).then(data => {
+        this.formStructureRetrieved = true;
         // parse the values and filter to the one that are not readonly.
         let postFields = data.actions.POST;
         let formStructure = Object.keys(postFields)
@@ -61,19 +90,19 @@ class _RegisterForm extends Component {
     }
   }
   render() {
-    const {handleSubmit} = this.props;
+    const {error, handleSubmit, pristine, reset, submitting} = this.props;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
-        if (field.name === "pool") {
-          // we'll populate dynamically based on path.
-          field.description.required = false;
-          field.validate = [];
-        }
         if (field.description.type === "integer") {
           type = "number";
         } else if (field.description.type === "boolean") {
           type = "checkbox";
+        } else if (
+          field.description.type === "password" ||
+          field.name.includes("password")
+        ) {
+          type = "password";
         }
         //field.name = field.name.replace(/_/g, "");
         return (
@@ -81,8 +110,8 @@ class _RegisterForm extends Component {
             key={field.name}
             name={field.name}
             fieldData={field}
-            component={DefaultField}
             type={type}
+            component={DefaultField}
             className="pt-input"
             width={300}
             validate={field.validate}
@@ -96,12 +125,17 @@ class _RegisterForm extends Component {
         return false;
       });
     return (
-      <form onSubmit={this.submit}>
+      <form onSubmit={handleSubmit(this.submit)}>
         {form}
+        {error ? (
+          <Callout iconName="warning" intent={Intent.DANGER}>
+            {error}
+          </Callout>
+        ) : null}
         <button
           className="pt-button pt-intent-primary"
           type="submit"
-          disabled={this.props.submitting}>
+          disabled={submitting}>
           Submit
         </button>
       </form>

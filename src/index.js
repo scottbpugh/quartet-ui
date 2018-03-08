@@ -26,18 +26,25 @@ import RouteSwitcher from "./routes";
 
 import {IntlProvider} from "react-intl-redux";
 
-import {BrowserRouter} from "react-router-dom";
+import {Router} from "react-router-dom";
 import {store} from "./store";
 
+import {routeLocationDidUpdate} from "reducers/layout";
+import {createBrowserHistory} from "history";
 import "ubuntu-fontface/ubuntu.css";
 import "typeface-heebo";
+const browserHistory = createBrowserHistory();
+
+browserHistory.listen(location =>
+  store.dispatch(routeLocationDidUpdate(location))
+);
 
 ReactDOM.render(
   <Provider store={store}>
     <IntlProvider>
-      <BrowserRouter>
+      <Router history={browserHistory}>
         <RouteSwitcher />
-      </BrowserRouter>
+      </Router>
     </IntlProvider>
   </Provider>,
   document.getElementById("root")
