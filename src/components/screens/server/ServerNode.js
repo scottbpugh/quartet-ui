@@ -34,11 +34,9 @@ class _ServerNode extends Component {
     };
   }
   componentDidMount() {
-    console.log("HELLO");
     this.activateNode(this.props.currentPath, this.props.server);
   }
   componentWillReceiveProps(nextProps) {
-    console.log("HELLO");
     this.activateNode(nextProps.currentPath, nextProps.server);
   }
   renderContextMenu() {

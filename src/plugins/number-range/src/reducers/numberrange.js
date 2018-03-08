@@ -19,8 +19,8 @@
 import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
 import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
-import {showMessage} from "../../../../lib/message";
-import serverActions from "../../../../actions/serversettings";
+import {showMessage} from "lib/message";
+import serverActions from "actions/serversettings";
 
 export const initialData = () => ({
   servers: {},

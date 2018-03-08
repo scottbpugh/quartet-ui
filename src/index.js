@@ -35,9 +35,9 @@ import "ubuntu-fontface/ubuntu.css";
 import "typeface-heebo";
 const browserHistory = createBrowserHistory();
 
-browserHistory.listen(location =>
-  store.dispatch(routeLocationDidUpdate(location))
-);
+browserHistory.listen(location => {
+  store.dispatch(routeLocationDidUpdate(location));
+});
 
 ReactDOM.render(
   <Provider store={store}>

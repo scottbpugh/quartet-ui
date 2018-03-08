@@ -33,11 +33,11 @@ export const loadPageTitle = title => {
   };
 };
 
-export const routeLocationDidUpdate = param => {
+export const routeLocationDidUpdate = location => {
   return dispatch => {
     return dispatch({
       type: actions.locationDidUpdate,
-      payload: {...param}
+      payload: {...location}
     });
   };
 };
@@ -59,7 +59,8 @@ export default handleActions(
     [actions.locationDidUpdate]: (state, action) => {
       return {
         ...state,
-        currentPath: action.payload.pathname
+        currentPath: action.payload.pathname,
+        location: action.payload
       };
     },
     [actions.switchTheme]: (state, action) => {
