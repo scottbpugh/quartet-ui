@@ -53,6 +53,10 @@ class _ServerDetails extends Component {
   toggleEditMode = () => {
     this.setState({editMode: !this.state.editMode});
   };
+  submitCallback = () => {
+    // leave form on successful submit.
+    this.setState({editMode: false});
+  };
   render() {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     return (
@@ -82,6 +86,7 @@ class _ServerDetails extends Component {
                   saveButtonMsg={
                     <FormattedMessage id="app.servers.updateServer" />
                   }
+                  submitCallback={this.submitCallback}
                 />
               ) : (
                 <div>

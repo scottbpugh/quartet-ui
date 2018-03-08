@@ -30,45 +30,8 @@ import {Server} from "lib/servers";
 import {ServerForm} from "./ServerForm";
 
 class _ServerSettings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {postData: {}};
-  }
-
-  componentDidMount() {
-    this.loadCurrentServer(this.props.match.params.serverID);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.loadCurrentServer(nextProps.match.params.serverID);
-  }
-
-  loadCurrentServer = serverID => {
-    if (serverID) {
-      if (serverID in this.props.servers) {
-        this.setState({postData: {...this.props.servers[serverID]}}, () => {});
-      }
-    }
-  };
-
-  updateValue = evt => {
-    // validation should happen here.
-    if (evt.target.type === "checkbox") {
-      // for checkboxes we passed checked prop instead.
-
-      this.setState({
-        postData: {
-          ...this.state.postData,
-          [evt.target.name]: evt.target.checked
-        }
-      });
-      //this.props.updateValue(evt.target.name, evt.target.checked);
-    } else {
-      //this.props.updateValue(evt.target.name, evt.target.value);
-      this.setState({
-        postData: {...this.state.postData, [evt.target.name]: evt.target.value}
-      });
-    }
+  submitCallback = () => {
+    this.props.history.push();
   };
 
   SettingsForm = props => {
@@ -79,6 +42,7 @@ class _ServerSettings extends Component {
           <ServerForm
             formData={Server.getFormStructure()}
             saveButtonMsg={<FormattedMessage id="app.servers.addServer" />}
+            submitCallback={this.submitCallback}
           />
         </Card>
       </div>
@@ -104,12 +68,6 @@ _ServerSettings.propTypes = {
   servers: PropTypes.object
 };
 
-export var ServerSettings = connect(
-  state => ({
-    servers: state.serversettings.servers
-  }),
-  {
-    saveServer,
-    loadCurrentServer
-  }
-)(_ServerSettings);
+export var ServerSettings = connect(state => ({
+  servers: state.serversettings.servers
+}))(_ServerSettings);
