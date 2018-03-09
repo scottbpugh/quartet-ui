@@ -123,9 +123,6 @@ export default handleActions(
     },
     [serverActions.serverUpdated]: (state, action) => {
       // we want to reload pools when new server is saved.
-      console.log(
-        "SERVER ADDED OR UPDATED. Number Range will fetch data on this server."
-      );
       action.asyncDispatch(loadPools(action.payload));
       return {
         ...state

@@ -18,6 +18,8 @@
 import base64 from "base-64";
 import {showMessage} from "lib/message";
 
+const PREFIX_PATH = "serialbox/";
+
 /**
  * prepHeaders - Prepares the headers to be sent.
  *
@@ -38,7 +40,6 @@ const prepHeaders = (server, method = "GET") => {
   return {
     method: method,
     headers: headers,
-    credentials: "include",
     mode: "cors"
   };
 };
@@ -51,7 +52,7 @@ const prepHeaders = (server, method = "GET") => {
  * @return {object} A JSON object.
  */
 export const getPools = server => {
-  const url = `${server.url}pools/?related=true`;
+  const url = `${server.url}${PREFIX_PATH}pools/?related=true`;
   return fetch(url, prepHeaders(server))
     .then(resp => {
       return resp.json();
@@ -81,7 +82,7 @@ export const getPools = server => {
 export const getRegion = (server, regionName) => {
   return getRegionByURL(
     server,
-    `${server.url}sequential-region-detail/${regionName}/`
+    `${server.url}${PREFIX_PATH}sequential-region-detail/${regionName}/`
   );
 };
 
@@ -119,6 +120,11 @@ export const getRegions = (server, pool) => {
   for (let url of pool.sequentialregion_set) {
     promises.push(getRegionByURL(server, url));
   }
+  if (pool.randomizedregion_set) {
+    for (let url of pool.randomizedregion_set) {
+      promises.push(getRegionByURL(server, url));
+    }
+  }
   return Promise.all(promises)
     .then(data => {
       return data;
@@ -138,7 +144,9 @@ export const getRegions = (server, pool) => {
  * @return {object} A JSON response.
  */
 export const allocate = (server, pool, value) => {
-  return fetch(`${server.url}allocate/${pool.machine_name}/${value}/`)
+  return fetch(
+    `${server.url}${PREFIX_PATH}allocate/${pool.machine_name}/${value}/`
+  )
     .then(resp => {
       return resp.json();
     })
@@ -152,7 +160,23 @@ export const allocate = (server, pool, value) => {
 
 export const getRegionFormStructure = server => {
   return fetch(
-    `${server.url}sequential-region-create/`,
+    `${server.url}${PREFIX_PATH}sequential-region-create/`,
+    prepHeaders(server, "OPTIONS")
+  )
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};
+
+export const getRandomizedRegionFormStructure = server => {
+  return fetch(
+    `${server.url}${PREFIX_PATH}randomized-regions/`,
     prepHeaders(server, "OPTIONS")
   )
     .then(resp => {
@@ -167,7 +191,10 @@ export const getRegionFormStructure = server => {
 };
 
 export const getPoolFormStructure = server => {
-  return fetch(`${server.url}pool-create/`, prepHeaders(server, "OPTIONS"))
+  return fetch(
+    `${server.url}${PREFIX_PATH}pool-create/`,
+    prepHeaders(server, "OPTIONS")
+  )
     .then(resp => {
       return resp.json();
     })
@@ -182,15 +209,30 @@ export const getPoolFormStructure = server => {
 export const postAddRegion = (server, postValues) => {
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}sequential-region-create/`, headers).then(resp => {
+  return fetch(
+    `${server.url}${PREFIX_PATH}sequential-region-create/`,
+    headers
+  ).then(resp => {
     return resp;
   });
+};
+
+export const postAddRandomizedRegion = (server, postValues) => {
+  let headers = prepHeaders(server, "POST");
+  headers.body = JSON.stringify(postValues);
+  return fetch(`${server.url}${PREFIX_PATH}randomized-regions/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
 };
 
 export const postAddPool = (server, postValues) => {
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}pool-create/`, headers).then(resp => {
-    return resp;
-  });
+  return fetch(`${server.url}${PREFIX_PATH}pool-create/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
 };

@@ -20,6 +20,7 @@ import {Route} from "react-router";
 import {PoolList} from "./components/PoolList";
 import {RegionDetail} from "./components/RegionDetail";
 import {AddRegion} from "./components/AddRegion";
+import {AddRandomizedRegion} from "./components/AddRandomizedRegion";
 import {AddPool} from "./components/AddPool";
 
 /**
@@ -43,6 +44,11 @@ export default (() => {
       key="addRegion"
       path="/number-range/add-region/:serverID/:pool"
       component={AddRegion}
+    />,
+    <Route
+      key="addRandomRegion"
+      path="/number-range/add-randomized-region/:serverID/:pool"
+      component={AddRandomizedRegion}
     />,
     <Route
       key="addPool"

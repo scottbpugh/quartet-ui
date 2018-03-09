@@ -57,7 +57,18 @@ class _PoolItem extends Component {
             `/number-range/add-region/${serverID}/${pool.machine_name}`
           )}
           text={`${this.props.intl.formatMessage({
-            id: "plugins.numberRange.addRegion"
+            id: "plugins.numberRange.addSequentialRegion"
+          })}`}
+        />
+        <MenuItem
+          onClick={this.goTo.bind(
+            this,
+            `/number-range/add-randomized-region/${serverID}/${
+              pool.machine_name
+            }`
+          )}
+          text={`${this.props.intl.formatMessage({
+            id: "plugins.numberRange.addRandomizedRegion"
           })}`}
         />
         <MenuItem

@@ -62,10 +62,6 @@ class _ServerNode extends Component {
     // window.location.pathname does.
     const {serverID} = server;
     let regexp = new RegExp(`${serverID}`);
-    console.log(
-      `${serverID} is a match for currentPath ${currentPath}:`,
-      regexp.test(currentPath)
-    );
     this.setState({active: regexp.test(currentPath)}, () => {});
   }
   render() {

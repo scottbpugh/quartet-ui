@@ -234,7 +234,7 @@ export class Server {
         })
         .catch(error => {
           // handle legacy.
-          this.appList = ["serialbox"];
+          this.appList = [];
           // let redux know we got our data
           store.dispatch({
             type: actions.appsListUpdated,

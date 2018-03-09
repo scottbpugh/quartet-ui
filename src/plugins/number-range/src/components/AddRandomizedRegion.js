@@ -20,10 +20,10 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import RegionForm from "./RegionForm";
+import RandomizedRegionForm from "./RandomizedRegionForm";
 import {FormattedMessage} from "react-intl";
 
-class _AddRegion extends Component {
+class _AddRandomizedRegion extends Component {
   constructor(props) {
     super(props);
     this.currentServer = this.props.nr[this.props.match.params.serverID];
@@ -40,14 +40,14 @@ class _AddRegion extends Component {
     return (
       <RightPanel
         title={
-          <FormattedMessage id="plugins.numberRange.addSequentialRegion" />
+          <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
         }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
-              <FormattedMessage id="plugins.numberRange.addSequentialRegion" />
+              <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
             </h5>
-            <RegionForm
+            <RandomizedRegionForm
               server={this.currentServer.server}
               pool={this.currentPool}
               history={this.props.history}
@@ -59,9 +59,9 @@ class _AddRegion extends Component {
   }
 }
 
-export const AddRegion = connect((state, ownProps) => {
+export const AddRandomizedRegion = connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers,
     nr: state.numberrange.servers
   };
-}, {})(_AddRegion);
+}, {})(_AddRandomizedRegion);

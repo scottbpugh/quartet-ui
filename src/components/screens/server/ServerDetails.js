@@ -32,22 +32,19 @@ class _ServerDetails extends Component {
     this.state = {editMode: false};
   }
   componentDidMount() {
-    console.log("current server", this.props.match.params.serverID);
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     if (serverObject) {
       serverObject.listApps();
     }
   }
   componentWillReceiveProps(nextProps) {
-    console.log("current server", this.props.server, nextProps.server);
-    console.log("next server", nextProps.match.params.serverID);
     if (this.props.server.serverID !== nextProps.server.serverID) {
       // reset edit mode.
       this.setState({editMode: false});
-    }
-    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
-    if (serverObject) {
-      serverObject.listApps();
+      let serverObject = pluginRegistry.getServer(nextProps.serverID);
+      if (serverObject) {
+        serverObject.listApps();
+      }
     }
   }
   toggleEditMode = () => {

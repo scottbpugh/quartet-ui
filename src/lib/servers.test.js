@@ -49,12 +49,3 @@ test("changing server settings changes URL", () => {
   });
   expect(myServer.url).toBe("https://localhost:443/my-ssl-path/");
 });
-/*
-test("client is properly returned with getClient", () => {
-  console.log("Hello");
-  const myServer = new Server({...mockServerData, port: "8000"});
-  myServer.getClient().then(client => {
-    console.log(client.apis);
-  });
-});
-*/
