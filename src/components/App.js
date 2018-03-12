@@ -37,6 +37,8 @@ import {LeftPanel, Panels} from "components/layouts/Panels";
 import classNames from "classnames";
 import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import QuartetLogo from "./QuartetLogo";
+
 const CORE_APP = "core";
 
 // useful piece for testing. Never use this global in code.
@@ -85,10 +87,7 @@ class _App extends Component {
             })}>
             <NavbarGroup>
               <NavbarHeading>
-                <img
-                  src="/qu4rtet-logo.png"
-                  style={{width: "50%", height: "50%"}}
-                />
+                <QuartetLogo style={{width: "50%", height: "50%"}} />
               </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">

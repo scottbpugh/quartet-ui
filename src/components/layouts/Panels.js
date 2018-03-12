@@ -75,7 +75,9 @@ class _RightPanel extends Component {
     this.props.loadPageTitle({...this.props.title.props});
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    console.log("Will Unmount");
+  }
   componentWillReceiveProps(nextProps) {
     if (
       JSON.stringify(nextProps.title.props) !==
@@ -86,11 +88,8 @@ class _RightPanel extends Component {
     }
   }
   render() {
-    // use this.props.currentPath as key to force remount on param change.
-    // Prevents from having to do the nitty-gritty job on componentWillReceiveProps
-    // on each and every component to reload data etc, ...
     return (
-      <div key={this.props.currentPath} className="right-panel">
+      <div className="right-panel">
         <div ref="rightPanel">{this.props.children}</div>
       </div>
     );
@@ -117,14 +116,24 @@ export const RightPanel = connect(
  */
 class _Panels extends Component {
   render() {
-    return <div className="main-container">{this.props.children}</div>;
+    let clonedChildren = this.props.children.map((child, index) => {
+      if (index === 1) {
+        // Add a unique currentPath key to force unmounting of right panel
+        // whenever the path changes.
+        let newProps = {...child.props, key: this.props.currentPath};
+        return React.cloneElement(child, newProps);
+      }
+      return child;
+    });
+    return <div className="main-container">{clonedChildren}</div>;
   }
 }
 
 export const Panels = connect(
   (state, ownProps) => {
     return {
-      pageTitle: state.layout.pageTitle
+      pageTitle: state.layout.pageTitle,
+      currentPath: state.layout.currentPath
     };
   },
   {loadPageTitle}

@@ -36,8 +36,8 @@ export class RegionCard extends Component {
   constructor(props) {
     super(props);
     this.state = {hovered: false};
-    this.regionType = this.props.region.state ? "serial" : "randomized";
   }
+
   mouseIn = evt => {
     this.setState({hovered: true});
   };
@@ -45,8 +45,7 @@ export class RegionCard extends Component {
     this.setState({hovered: false});
   };
   goToEdit = evt => {
-    let formPath =
-      this.regionType == "serial" ? "add-region" : "add-randomized-region";
+    let formPath = region.state ? "add-region" : "add-randomized-region";
     this.props.history.push({
       pathname: `/number-range/${formPath}/${this.props.serverID}/${
         this.props.pool.machine_name
@@ -57,6 +56,7 @@ export class RegionCard extends Component {
   trashRegion = evt => {};
   render() {
     const {region, lastUpdated, alloc} = this.props;
+    let regionType = region.state ? "serial" : "randomized";
     return (
       <Card
         className={classNames({
@@ -68,7 +68,7 @@ export class RegionCard extends Component {
         <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
           <h5>
             <Tag className="tag-header" intent={Intent.PRIMARY}>
-              {this.regionType == "serial" ? (
+              {regionType == "serial" ? (
                 <FormattedMessage id="plugins.numberRange.serial" />
               ) : (
                 <FormattedMessage id="plugins.numberRange.randomized" />
