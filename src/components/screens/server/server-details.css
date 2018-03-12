@@ -29,15 +29,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .service-list li {
   display:block;
-  border-bottom: 2px solid #6B6B70;
-  padding:10px 20px 5px 15px;
+  border-bottom: 3px solid #6B6B70;
+  padding:10px 20px 0 10px;
   margin:10px 10px 30px 10px;
-  font-size:20px;
+  font-size:22px;
   position:relative;
   min-width:250px;
   font-variant: small-caps;
 }
 
+.pt-dark .service-list li {
+  border-bottom: 3px solid #DDD;
+}
+.pt-dark .service-list li span.icon-dot {
+  border: 2px solid #DDD;
+  background:#DDD;
+}
 .service-list li span.icon-dot {
   border-radius: 50%;
   width:40px;
@@ -45,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   border: 2px solid #6B6B70;
   display:block;
   position:absolute;
-  right:0;
-  top:50%;
-  background:#EEE;
+  right:-1px;
+  top:53%;
+  background:#6B6B70;
 }

@@ -247,7 +247,7 @@ export const postAddRegion = (server, postValues, edit = false) => {
 
 export const postAddRandomizedRegion = (server, postValues, edit = false) => {
   let method = "POST";
-  let endpoint = "randomized-regions/";
+  let endpoint = "randomized-regions";
   if (edit) {
     method = "PUT";
     endpoint = `randomized-regions/${postValues.machine_name}`;

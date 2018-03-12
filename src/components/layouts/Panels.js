@@ -86,8 +86,11 @@ class _RightPanel extends Component {
     }
   }
   render() {
+    // use this.props.currentPath as key to force remount on param change.
+    // Prevents from having to do the nitty-gritty job on componentWillReceiveProps
+    // on each and every component to reload data etc, ...
     return (
-      <div className="right-panel">
+      <div key={this.props.currentPath} className="right-panel">
         <div ref="rightPanel">{this.props.children}</div>
       </div>
     );
@@ -97,7 +100,8 @@ class _RightPanel extends Component {
 export const RightPanel = connect(
   (state, ownProps) => {
     return {
-      pageTitle: state.layout.pageTitle
+      pageTitle: state.layout.pageTitle,
+      currentPath: state.layout.currentPath
     };
   },
   {loadPageTitle}

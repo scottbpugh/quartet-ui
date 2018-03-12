@@ -21,6 +21,7 @@ import actions from "../actions/pools";
 import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import serverActions from "actions/serversettings";
+import base64 from "base-64";
 
 export const initialData = () => ({
   servers: {},
@@ -83,10 +84,16 @@ export const setAllocation = (server, pool, value) => {
       } else if (data.fulfilled === true) {
         showMessage({
           type: "success",
-          msg: `${data.size_granted} allocated to region ${
-            data.region
-          }. Range is  ${data.numbers}`
+          msg: `${data.size_granted} allocated to region ${data.region}.`
         });
+        // download the result.
+        let encodedResult = base64.encode(JSON.stringify(data));
+        let link = document.createElement("a");
+        link.download = `${pool.machine_name}-${data.region}-${
+          data.size_granted
+        }.json`;
+        link.href = `data:application/octet-stream;charset=utf-8;content-disposition:attachment;base64,${encodedResult}`;
+        link.click();
       }
       dispatch({type: actions.allocate, payload: data});
       // reload regions.

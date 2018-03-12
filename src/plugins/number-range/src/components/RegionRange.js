@@ -48,7 +48,13 @@ export default class RegionRange extends Component {
               <rect className="unused" width="300" height="40" rx="3" ry="3" />
             </g>
             <g className="bar">
-              <rect className="used" width={percent} height="40" />
+              <rect
+                className="used"
+                width={percent}
+                height="40"
+                rx="3"
+                ry="3"
+              />
             </g>
             <text x="50%" y="25" textAnchor="middle">
               <FormattedNumber value={correctedStart}>
