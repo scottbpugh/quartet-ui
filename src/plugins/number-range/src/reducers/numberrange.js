@@ -54,10 +54,20 @@ export const loadRegion = (server, regionName) => {
 
 export const loadRegions = (server, pool) => {
   return dispatch => {
-    getRegions(server, pool).then(regions => {
+    // first get all pools again to refresh pool list.
+    getPools(server).then(pools => {
       dispatch({
-        type: actions.loadRegions,
-        payload: regions
+        type: actions.loadPools,
+        payload: {
+          [server.serverID]: {pools: pools, server: server}
+        }
+      });
+      // second get region for given pool.
+      getRegions(server, pool).then(regions => {
+        dispatch({
+          type: actions.loadRegions,
+          payload: regions
+        });
       });
     });
   };
@@ -115,7 +125,7 @@ export default handleActions(
     },
     [actions.allocate]: (state, action) => {
       // reload pools after
-      action.asyncDispatch(loadPools(action.payload));
+      //action.asyncDispatch(loadPools(action.payload));
       return {
         ...state,
         allocationDetail: action.payload

@@ -41,7 +41,10 @@ export default {
         addPool: "Add a New Pool",
         noRegionInPool: "There is currently no region in this pool.",
         regionDetailTitle: "Pool {poolName} Regions",
-        navItemsTitle: "Serial Number Pools"
+        navItemsTitle: "Serial Number Pools",
+        current: "current",
+        serial: "Serial",
+        randomized: "Randomized"
       }
     }
   },
@@ -69,7 +72,8 @@ export default {
         addPool: "Ajouter un Groupe",
         noRegionInPool: "Il n'existe aucune region dans ce groupe.",
         regionDetailTitle: "Regions du groupe {poolName}",
-        navItemsTitle: "Numéros de série"
+        navItemsTitle: "Numéros de série",
+        current: "current"
       }
     }
   }

@@ -86,55 +86,64 @@ class ServerPools extends Component {
             </thead>
             <tbody>
               {Array.isArray(this.props.pools) && this.props.pools.length > 0
-                ? this.props.pools.map(pool => (
-                    <tr>
-                      <td>
-                        <FormattedDate
-                          value={pool.created_date}
-                          day="numeric"
-                          month="long"
-                          year="numeric"
-                        />
-                      </td>
-                      <td>{pool.readable_name}</td>
-                      <td>
-                        <Link
-                          to={`/number-range/region-detail/${serverID}/${
-                            pool.machine_name
-                          }`}>
-                          {pool.machine_name}
-                        </Link>
-                      </td>
-                      <td>
-                        {pool.active ? (
-                          <FormattedMessage
-                            id="plugins.numberRange.active"
-                            defaultMessage="active"
+                ? this.props.pools.map(pool => {
+                    let regionNumber = 0;
+                    if (Number(pool.sequentialregion_set.length)) {
+                      regionNumber = Number(pool.sequentialregion_set.length);
+                    }
+                    if (Number(pool.randomizedregion_set.length)) {
+                      regionNumber += Number(pool.randomizedregion_set.length);
+                    }
+                    return (
+                      <tr>
+                        <td>
+                          <FormattedDate
+                            value={pool.created_date}
+                            day="numeric"
+                            month="long"
+                            year="numeric"
                           />
-                        ) : (
-                          <FormattedMessage
-                            id="plugins.numberRange.inactive"
-                            defaultMessage="inactive"
-                          />
-                        )}
-                      </td>
-                      <td>
-                        <FormattedNumber value={pool.request_threshold} />
-                      </td>
-                      <td>
-                        <Link
-                          to={`/number-range/region-detail/${serverID}/${
-                            pool.machine_name
-                          }/`}>
-                          {pool.sequentialregion_set.length}{" "}
-                          <FormattedMessage
-                            id="plugins.numberRange.regions"
-                            defaultMessage="regions"
-                          />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
+                        </td>
+                        <td>{pool.readable_name}</td>
+                        <td>
+                          <Link
+                            to={`/number-range/region-detail/${serverID}/${
+                              pool.machine_name
+                            }`}>
+                            {pool.machine_name}
+                          </Link>
+                        </td>
+                        <td>
+                          {pool.active ? (
+                            <FormattedMessage
+                              id="plugins.numberRange.active"
+                              defaultMessage="active"
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="plugins.numberRange.inactive"
+                              defaultMessage="inactive"
+                            />
+                          )}
+                        </td>
+                        <td>
+                          <FormattedNumber value={pool.request_threshold} />
+                        </td>
+                        <td>
+                          <Link
+                            to={`/number-range/region-detail/${serverID}/${
+                              pool.machine_name
+                            }/`}>
+                            {regionNumber}{" "}
+                            <FormattedMessage
+                              id="plugins.numberRange.regions"
+                              defaultMessage="regions"
+                            />
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })
                 : null}
             </tbody>
           </table>

@@ -46,7 +46,7 @@ class _RegisterForm extends Component {
     return server.getClient().then(client => {
       return client
         .execute({
-          operationId: "registration_create_0",
+          operationId: "rest_auth_registration_create",
           parameters: {
             data: postValues
           }

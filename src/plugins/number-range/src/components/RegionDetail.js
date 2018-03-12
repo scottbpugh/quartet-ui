@@ -20,11 +20,20 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {loadPools, loadRegions} from "../reducers/numberrange";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Callout} from "@blueprintjs/core";
+import {
+  Card,
+  Callout,
+  Tag,
+  Intent,
+  Button,
+  ButtonGroup,
+  AnchorButton
+} from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {RegionCard} from "./RegionCard";
 
 import "../style.css";
 /**
@@ -81,47 +90,11 @@ class _RegionDetail extends Component {
         <div className="auto-cards-container">
           {regions && regions.length > 0 ? (
             regions.map(region => (
-              <Card
-                className={classNames({
-                  "pt-elevation-4": true,
-                  "region-detail": true,
-                  updated: this.state.lastUpdated === region.machine_name
-                })}
-                key={region.machine_name}>
-                <h5>{region.readable_name}</h5>
-                <ul>
-                  <li>
-                    <FormattedMessage id="plugins.numberRange.createdOn" />:{" "}
-                    <FormattedDate value={region.created_date} />
-                  </li>
-                  <li>
-                    <FormattedMessage id="plugins.numberRange.status" />:{" "}
-                    {region.active ? (
-                      <FormattedMessage id="plugins.numberRange.active" />
-                    ) : (
-                      <FormattedMessage id="plugins.numberRange.inactive" />
-                    )}
-                  </li>
-                  <li>
-                    <FormattedMessage
-                      id="plugins.numberRange.range"
-                      defaultMessage="Range"
-                    />: <FormattedNumber value={region.start} />{" "}
-                    <FormattedMessage id="plugins.numberRange.to" />{" "}
-                    <FormattedNumber value={region.end} />
-                  </li>
-                  <li>
-                    <FormattedMessage id="plugins.numberRange.state" />:{" "}
-                    <FormattedNumber value={region.state} />
-                  </li>
-                </ul>
-                <RegionRange
-                  start={region.start}
-                  end={region.end}
-                  state={region.state}
-                  alloc={this.state.alloc}
-                />
-              </Card>
+              <RegionCard
+                lastUpdated={this.state.lastUpdated}
+                region={region}
+                alloc={this.state.alloc}
+              />
             ))
           ) : (
             <Callout>

@@ -108,3 +108,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   right:10px;
   top: 7px;
 }
+.tag-header {
+  position:absolute;
+  top: 12px;
+  left:15px;
+}

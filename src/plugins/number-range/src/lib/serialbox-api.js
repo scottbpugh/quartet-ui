@@ -71,6 +71,28 @@ export const getPools = server => {
     });
 };
 
+export const getPoolDetail = (server, pool) => {
+  const url = `${server.url}${PREFIX_PATH}pool-detail/${
+    pool.machine_name
+  }/?related=true`;
+  return fetch(url, prepHeaders(server))
+    .then(resp => {
+      return resp.json();
+    })
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      showMessage({
+        type: "danger",
+        msg: `An error occurred while attempting to fetch pool ${
+          pool.detail
+        } from ${server.serverSettingName}`
+      });
+      return error;
+    });
+};
+
 /**
  * getRegion - Description
  *
@@ -145,7 +167,8 @@ export const getRegions = (server, pool) => {
  */
 export const allocate = (server, pool, value) => {
   return fetch(
-    `${server.url}${PREFIX_PATH}allocate/${pool.machine_name}/${value}/`
+    `${server.url}${PREFIX_PATH}allocate/${pool.machine_name}/${value}/`,
+    prepHeaders(server)
   )
     .then(resp => {
       return resp.json();

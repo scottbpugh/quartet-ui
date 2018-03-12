@@ -24,8 +24,16 @@ export default class RegionRange extends Component {
     let start = Number(this.props.start);
     let end = Number(this.props.end);
     let state = Number(this.props.state);
-    let range = end - start + 1;
-    let correctedStart = state - start;
+    let range = end - start;
+    let correctedStart = start;
+    let remaining = Number(this.props.remaining);
+    if (remaining) {
+      // randomized
+      correctedStart = end - remaining - start;
+    } else if (state) {
+      // serial
+      correctedStart = state - start;
+    }
     let percent = Math.ceil(correctedStart * 100 / (end - start) * 3);
     return (
       <div className="visual">
