@@ -229,31 +229,47 @@ export const getPoolFormStructure = server => {
     });
 };
 
-export const postAddRegion = (server, postValues) => {
-  let headers = prepHeaders(server, "POST");
+export const postAddRegion = (server, postValues, edit = false) => {
+  let method = "POST";
+  let endpoint = "sequential-region-create";
+  if (edit) {
+    method = "PUT";
+    endpoint = `sequential-region-modify/${postValues.machine_name}`;
+  }
+  let headers = prepHeaders(server, method);
   headers.body = JSON.stringify(postValues);
-  return fetch(
-    `${server.url}${PREFIX_PATH}sequential-region-create/`,
-    headers
-  ).then(resp => {
-    return resp;
-  });
-};
-
-export const postAddRandomizedRegion = (server, postValues) => {
-  let headers = prepHeaders(server, "POST");
-  headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}randomized-regions/`, headers).then(
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
     resp => {
       return resp;
     }
   );
 };
 
-export const postAddPool = (server, postValues) => {
+export const postAddRandomizedRegion = (server, postValues, edit = false) => {
+  let method = "POST";
+  let endpoint = "randomized-regions/";
+  if (edit) {
+    method = "PUT";
+    endpoint = `randomized-regions/${postValues.machine_name}`;
+  }
+  let headers = prepHeaders(server, method);
+  headers.body = JSON.stringify(postValues);
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
+};
+
+export const postAddPool = (server, postValues, edit = false) => {
+  let method = "POST";
+  let endpoint = "pool-create";
+  if (edit) {
+    method = "PUT";
+  }
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}pool-create/`, headers).then(
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
     resp => {
       return resp;
     }

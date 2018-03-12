@@ -45,7 +45,7 @@ export default class RegionRange extends Component {
           role="img">
           <g className="barchart">
             <g className="bar">
-              <rect className="unused" width="300" height="40" />
+              <rect className="unused" width="300" height="40" rx="3" ry="3" />
             </g>
             <g className="bar">
               <rect className="used" width={percent} height="40" />

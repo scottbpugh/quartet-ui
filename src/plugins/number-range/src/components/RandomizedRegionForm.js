@@ -82,6 +82,10 @@ class _RandomizedRegionForm extends Component {
                 props.dispatch(change("addRegion", field, false));
               }
             }
+            if (props.location.state && props.location.state.defaultValues) {
+              // fed existing values.
+              props.initialize(props.location.state.defaultValues);
+            }
           }
         );
       });
@@ -91,7 +95,11 @@ class _RandomizedRegionForm extends Component {
   // Handles the RegionForm post.
   submit = postValues => {
     postValues.pool = this.props.pool.machine_name;
-    return postAddRandomizedRegion(this.props.server, postValues)
+    let editMode =
+      this.props.location.state && this.props.location.state.editRegion
+        ? true
+        : false;
+    return postAddRandomizedRegion(this.props.server, postValues, editMode)
       .then(resp => {
         return Promise.all([resp, resp.json()]);
       })
@@ -103,16 +111,20 @@ class _RandomizedRegionForm extends Component {
               msg: "New region created successfully",
               type: "success"
             });
-
-            setTimeout(() => {
-              // tiny bit of padding.
-              this.props.history.push(
-                `/number-range/region-detail/${this.props.server.serverID}/${
-                  this.props.pool.machine_name
-                }`
-              );
-            }, 10);
+          } else if (proms[0].status === 200) {
+            showMessage({
+              msg: "Existing region updated successfully",
+              type: "success"
+            });
           }
+          setTimeout(() => {
+            // tiny bit of padding.
+            this.props.history.push(
+              `/number-range/region-detail/${this.props.server.serverID}/${
+                this.props.pool.machine_name
+              }`
+            );
+          }, 100);
           return proms[1];
         } else {
           // We handle the error info in JSON here.

@@ -29,11 +29,14 @@ import {
 import RegionRange from "./RegionRange";
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
+import {RegionForm} from "./RegionForm";
+import {RandomizedRegionForm} from "./RandomizedRegionForm";
 
 export class RegionCard extends Component {
   constructor(props) {
     super(props);
     this.state = {hovered: false};
+    this.regionType = this.props.region.state ? "serial" : "randomized";
   }
   mouseIn = evt => {
     this.setState({hovered: true});
@@ -41,6 +44,17 @@ export class RegionCard extends Component {
   mouseOut = evt => {
     this.setState({hovered: false});
   };
+  goToEdit = evt => {
+    let formPath =
+      this.regionType == "serial" ? "add-region" : "add-randomized-region";
+    this.props.history.push({
+      pathname: `/number-range/${formPath}/${this.props.serverID}/${
+        this.props.pool.machine_name
+      }`,
+      state: {defaultValues: this.props.region, editRegion: true}
+    });
+  };
+  trashRegion = evt => {};
   render() {
     const {region, lastUpdated, alloc} = this.props;
     return (
@@ -54,7 +68,7 @@ export class RegionCard extends Component {
         <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
           <h5>
             <Tag className="tag-header" intent={Intent.PRIMARY}>
-              {region.state ? (
+              {this.regionType == "serial" ? (
                 <FormattedMessage id="plugins.numberRange.serial" />
               ) : (
                 <FormattedMessage id="plugins.numberRange.randomized" />
@@ -63,8 +77,12 @@ export class RegionCard extends Component {
             {region.readable_name}{" "}
             {this.state.hovered ? (
               <ButtonGroup className="card-control" minimal={true} small={true}>
-                <Button small={true} iconName="edit" />
-                <Button small={true} iconName="trash" />
+                <Button small={true} iconName="edit" onClick={this.goToEdit} />
+                <Button
+                  small={true}
+                  iconName="trash"
+                  onClick={this.trashRegion}
+                />
               </ButtonGroup>
             ) : null}
           </h5>

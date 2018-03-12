@@ -94,6 +94,9 @@ class _RegionDetail extends Component {
                 lastUpdated={this.state.lastUpdated}
                 region={region}
                 alloc={this.state.alloc}
+                pool={this.currentPool}
+                serverID={this.props.server.serverID}
+                history={this.props.history}
               />
             ))
           ) : (

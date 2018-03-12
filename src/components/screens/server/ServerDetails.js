@@ -112,16 +112,21 @@ class _ServerDetails extends Component {
 
             <Card className="pt-elevation-4">
               <h5>Services Enabled</h5>
-              <div className="service-list">
+              <ul className="service-list">
                 {serverObject.appList
                   .filter(service => {
                     // remove empty string.
                     return service;
                   })
                   .map(service => {
-                    return <span>{service}</span>;
+                    return (
+                      <li>
+                        {service}
+                        <span className="icon-dot" />
+                      </li>
+                    );
                   })}
-              </div>
+              </ul>
             </Card>
           </div>
         ) : null}
