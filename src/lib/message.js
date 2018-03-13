@@ -30,6 +30,8 @@ const getIntent = type => {
     case "danger":
     case "error":
       return Intent.DANGER;
+    case "warning":
+      return Intent.WARNING;
     default:
       return Intent.PRIMARY;
   }

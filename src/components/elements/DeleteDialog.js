@@ -25,7 +25,7 @@ import {connect} from "react-redux";
  *
  *  Instantiate as follows, here the region example:
  *    <DeleteDialog
-          isOpen={this.state.myOpenBool}
+          isOpen={this.state.myOpenToggleBool}
           title={
             <FormattedMessage
               id="plugins.numberRange.deleteRegion"

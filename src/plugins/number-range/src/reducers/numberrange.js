@@ -91,6 +91,7 @@ export const deleteARegion = (server, pool, region) => {
       .then(response => {
         if (response.ok && response.status === 204) {
           dispatch(loadRegions(server, pool));
+          showMessage({type: "warning", msg: "Region deleted successfully"});
         }
       })
       .catch(error => {
