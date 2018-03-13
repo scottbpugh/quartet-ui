@@ -75,9 +75,6 @@ class _RightPanel extends Component {
     this.props.loadPageTitle({...this.props.title.props});
   }
 
-  componentWillUnmount() {
-    console.log("Will Unmount");
-  }
   componentWillReceiveProps(nextProps) {
     if (
       JSON.stringify(nextProps.title.props) !==
