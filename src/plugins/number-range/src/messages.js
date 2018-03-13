@@ -44,7 +44,9 @@ export default {
         navItemsTitle: "Serial Number Pools",
         current: "current",
         serial: "Serial",
-        randomized: "Randomized"
+        randomized: "Randomized",
+        deleteRegion: "Delete region {region.readable_name}",
+        deleteRegionConfirm: "Are you sure you want to delete this region?"
       }
     }
   },
@@ -73,7 +75,11 @@ export default {
         noRegionInPool: "Il n'existe aucune region dans ce groupe.",
         regionDetailTitle: "Regions du groupe {poolName}",
         navItemsTitle: "Numéros de série",
-        current: "current"
+        current: "current",
+        serial: "Serial",
+        randomized: "Randomized",
+        deleteRegion: "Delete region {regionName}",
+        deleteRegionConfirm: "Are you sure you want to delete this region?"
       }
     }
   }

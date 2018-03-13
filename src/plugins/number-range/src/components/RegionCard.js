@@ -156,11 +156,16 @@ export class _RegionCard extends Component {
           isOpen={this.state.dialogOpened}
           onClose={this.toggleDialog}>
           <div className="pt-dialog-header">
-            <h5>Delete region {region.readable_name}</h5>
+            <h5>
+              <FormattedMessage
+                id="plugins.numberRange.deleteRegion"
+                values={{regionName: region.readable_name}}
+              />
+            </h5>
           </div>
           <div className="pt-dialog-body">
             <Callout intent={Intent.DANGER}>
-              Are you sure you want to delete this region?
+              <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
             </Callout>
           </div>
           <div className="pt-dialog-footer">
