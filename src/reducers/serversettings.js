@@ -50,6 +50,7 @@ export const saveServer = postData => {
     dispatch({type: actions.saveServerSettings, payload: postData});
     const newServer = new Server(postData);
     pluginRegistry.registerServer(newServer);
+    newServer.listApps(); // refresh app list.
     return dispatch({
       type: actions.serverUpdated,
       payload: JSON.stringify(newServer)

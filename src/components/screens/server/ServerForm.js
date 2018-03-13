@@ -47,7 +47,7 @@ class _ServerForm extends Component {
     this.props.saveServer(postValues);
     if (this.props.submitCallback) {
       // defer to parent to do whatever it needs post saved.
-      this.props.submitCallback();
+      this.props.submitCallback(postValues);
     }
   };
   validateServerName = value => {

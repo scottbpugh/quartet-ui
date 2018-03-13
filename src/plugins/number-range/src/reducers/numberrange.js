@@ -22,6 +22,7 @@ import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import serverActions from "actions/serversettings";
 import base64 from "base-64";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 export const initialData = () => ({
   servers: {},
@@ -140,7 +141,9 @@ export default handleActions(
     },
     [serverActions.serverUpdated]: (state, action) => {
       // we want to reload pools when new server is saved.
-      action.asyncDispatch(loadPools(action.payload));
+      /*action.asyncDispatch(
+        loadPools(pluginRegistry.getServer(action.payload))
+      );*/
       return {
         ...state
       };

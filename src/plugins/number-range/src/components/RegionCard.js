@@ -45,7 +45,9 @@ export class RegionCard extends Component {
     this.setState({hovered: false});
   };
   goToEdit = evt => {
-    let formPath = region.state ? "add-region" : "add-randomized-region";
+    let {region} = this.props;
+    let formPath =
+      region && region.state ? "add-region" : "add-randomized-region";
     this.props.history.push({
       pathname: `/number-range/${formPath}/${this.props.serverID}/${
         this.props.pool.machine_name

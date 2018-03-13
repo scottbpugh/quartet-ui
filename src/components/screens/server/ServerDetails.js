@@ -38,14 +38,7 @@ class _ServerDetails extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.server.serverID !== nextProps.server.serverID) {
-      // reset edit mode.
-      this.setState({editMode: false});
-      let serverObject = pluginRegistry.getServer(nextProps.serverID);
-      if (serverObject) {
-        serverObject.listApps();
-      }
-    }
+    console.log(nextProps);
   }
   toggleEditMode = () => {
     this.setState({editMode: !this.state.editMode});
