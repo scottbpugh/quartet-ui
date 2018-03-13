@@ -35,11 +35,12 @@ import {RegionForm} from "./RegionForm";
 import {RandomizedRegionForm} from "./RandomizedRegionForm";
 import {deleteARegion} from "../reducers/numberrange";
 import {connect} from "react-redux";
+import {DeleteDialog} from "components/elements/DeleteDialog";
 
 export class _RegionCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {hovered: false, dialogOpened: false};
+    this.state = {hovered: false, showConfirmDialog: false};
   }
   componentDidMount() {
     //this.state = {hovered: false, dialogOpened: false};
@@ -61,14 +62,16 @@ export class _RegionCard extends Component {
       state: {defaultValues: this.props.region, editRegion: true}
     });
   };
+
+  toggleDialog = evt => {
+    this.setState({showConfirmDialog: !this.state.showConfirmDialog});
+  };
   trashRegion = evt => {
     const {deleteARegion, serverObject, pool, region} = this.props;
     this.toggleDialog();
     deleteARegion(serverObject, pool, region);
   };
-  toggleDialog = evt => {
-    this.setState({dialogOpened: !this.state.dialogOpened});
-  };
+
   render() {
     const {region, lastUpdated, alloc, theme} = this.props;
     let regionType = region.state ? "serial" : "randomized";
@@ -148,38 +151,20 @@ export class _RegionCard extends Component {
             />
           </div>
         </Card>
-        <Dialog
-          className={classNames({
-            "delete-region": true,
-            "pt-dark": theme.includes("dark")
-          })}
-          isOpen={this.state.dialogOpened}
-          onClose={this.toggleDialog}>
-          <div className="pt-dialog-header">
-            <h5>
-              <FormattedMessage
-                id="plugins.numberRange.deleteRegion"
-                values={{regionName: region.readable_name}}
-              />
-            </h5>
-          </div>
-          <div className="pt-dialog-body">
-            <Callout intent={Intent.DANGER}>
-              <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
-            </Callout>
-          </div>
-          <div className="pt-dialog-footer">
-            <div className="pt-dialog-footer-actions">
-              <Button
-                onClick={this.trashRegion}
-                iconName="trash"
-                intent={Intent.DANGER}>
-                Delete
-              </Button>
-              <Button onClick={this.toggleDialog}>Cancel</Button>
-            </div>
-          </div>
-        </Dialog>
+        <DeleteDialog
+          isOpen={this.state.showConfirmDialog}
+          toggle={this.toggleDialog.bind(this)}
+          title={
+            <FormattedMessage
+              id="plugins.numberRange.deleteRegion"
+              values={{regionName: region.readable_name}}
+            />
+          }
+          body={
+            <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
+          }
+          deleteAction={this.trashRegion.bind(this)}
+        />
       </div>
     );
   }
@@ -187,9 +172,7 @@ export class _RegionCard extends Component {
 
 export const RegionCard = connect(
   (state, ownProps) => {
-    return {
-      theme: state.layout.theme
-    };
+    return {};
   },
   {deleteARegion}
 )(_RegionCard);

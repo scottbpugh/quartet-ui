@@ -168,7 +168,7 @@ class _RegionForm extends Component {
       })
       .filter(field => {
         if (field) {
-          return field;
+          return true;
         }
         return false;
       });

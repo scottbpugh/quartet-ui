@@ -45,7 +45,7 @@ export default {
         current: "current",
         serial: "Serial",
         randomized: "Randomized",
-        deleteRegion: "Delete region {region.readable_name}",
+        deleteRegion: "Delete region {regionName}",
         deleteRegionConfirm: "Are you sure you want to delete this region?"
       }
     }

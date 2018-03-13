@@ -18,13 +18,21 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {Menu, MenuItem, MenuDivider, Dialog} from "@blueprintjs/core";
+import {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  Dialog,
+  Button,
+  ButtonGroup
+} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
 import {loadPools, setAllocation} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
 import classNames from "classnames";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {DeleteDialog} from "components/elements/DeleteDialog";
 
 class _PoolItem extends Component {
   constructor(props) {
@@ -32,7 +40,8 @@ class _PoolItem extends Component {
     this.state = {
       isAllocationOpen: false,
       alloc: 0,
-      active: false
+      active: false,
+      isConfirmDeleteOpen: false
     };
   }
   goTo = path => {
@@ -49,6 +58,14 @@ class _PoolItem extends Component {
 
     return (
       <Menu>
+        <ButtonGroup className="context-menu-control" minimal={true}>
+          <Button small={true} iconName="edit" />
+          <Button
+            small={true}
+            onClick={this.toggleConfirmDelete}
+            iconName="trash"
+          />
+        </ButtonGroup>
         <MenuDivider title={pool.readable_name} />
         <MenuDivider />
         <MenuItem
@@ -106,6 +123,9 @@ class _PoolItem extends Component {
   componentWillReceiveProps(nextProps) {
     this.activateNode(nextProps.currentPath);
   }
+  toggleConfirmDelete = evt => {
+    this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
+  };
   render() {
     const {pool, serverID} = this.props;
     return (
@@ -146,6 +166,20 @@ class _PoolItem extends Component {
             </form>
           </div>
         </Dialog>
+        <DeleteDialog
+          isOpen={this.state.isConfirmDeleteOpen}
+          title={
+            <FormattedMessage
+              id="plugins.numberRange.deleteRegion"
+              values={{regionName: pool.readable_name}}
+            />
+          }
+          body={
+            <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
+          }
+          toggle={this.toggleConfirmDelete.bind(this)}
+          deleteAction={() => {}}
+        />
         {pool.readable_name}
       </TreeNode>
     );

@@ -122,3 +122,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   right:10px;
   top: 7px;
 }
+.context-menu-control {
+  position:absolute;
+  top:2px;
+  right: 0;
+}

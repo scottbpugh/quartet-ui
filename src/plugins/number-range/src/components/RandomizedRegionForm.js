@@ -37,10 +37,6 @@ class _RandomizedRegionForm extends Component {
   componentDidMount() {
     this.constructForm(this.props);
   }
-  componentWillReceiveProps(nextProps) {
-    // quick check to ensure we have a valid server.
-    this.constructForm(nextProps);
-  }
   constructForm(props) {
     // is only triggered once when the form isn't populated.
     if (
@@ -167,7 +163,7 @@ class _RandomizedRegionForm extends Component {
       })
       .filter(field => {
         if (field) {
-          return field;
+          return true;
         }
         return false;
       });
