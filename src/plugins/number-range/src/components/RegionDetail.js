@@ -96,6 +96,9 @@ class _RegionDetail extends Component {
                 alloc={this.state.alloc}
                 pool={this.currentPool}
                 serverID={this.props.server.serverID}
+                serverObject={pluginRegistry.getServer(
+                  this.props.server.serverID
+                )}
                 history={this.props.history}
               />
             ))

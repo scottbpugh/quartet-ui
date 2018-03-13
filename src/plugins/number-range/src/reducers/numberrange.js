@@ -18,7 +18,13 @@
 
 import {handleActions} from "redux-actions";
 import actions from "../actions/pools";
-import {getPools, getRegion, getRegions, allocate} from "../lib/serialbox-api";
+import {
+  getPools,
+  getRegion,
+  getRegions,
+  allocate,
+  deleteRegion
+} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import serverActions from "actions/serversettings";
 import base64 from "base-64";
@@ -64,14 +70,32 @@ export const loadRegions = (server, pool) => {
           [server.serverID]: {pools: pools, server: server}
         }
       });
-      // second get region for given pool.
-      getRegions(server, pool).then(regions => {
+
+      // second get region for given pool (updated.)
+      let updatedPool = pools.find(aPool => {
+        return aPool.machine_name === pool.machine_name;
+      });
+      getRegions(server, updatedPool).then(regions => {
         dispatch({
           type: actions.loadRegions,
           payload: regions
         });
       });
     });
+  };
+};
+
+export const deleteARegion = (server, pool, region) => {
+  return dispatch => {
+    deleteRegion(server, region)
+      .then(response => {
+        if (response.ok && response.status === 204) {
+          dispatch(loadRegions(server, pool));
+        }
+      })
+      .catch(error => {
+        showMessage({type: "error", msg: error.detail});
+      });
   };
 };
 
@@ -139,6 +163,7 @@ export default handleActions(
         allocationDetail: action.payload
       };
     },
+
     [serverActions.serverUpdated]: (state, action) => {
       // we want to reload pools when new server is saved.
       /*action.asyncDispatch(

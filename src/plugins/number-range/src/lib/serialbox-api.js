@@ -261,6 +261,25 @@ export const postAddRandomizedRegion = (server, postValues, edit = false) => {
   );
 };
 
+export const deleteRegion = (server, region) => {
+  let method = "DELETE";
+  let endpoint = "";
+  if (region.state) {
+    // sequential
+    endpoint = `sequential-region-modify/${region.machine_name}`;
+  } else if (region.remaining || region.remaining === 0) {
+    // randomized
+    endpoint = `randomized-regions/${region.machine_name}`;
+  }
+  let headers = prepHeaders(server, method);
+  //headers.body = JSON.stringify(postValues);
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
+};
+
 export const postAddPool = (server, postValues, edit = false) => {
   let method = "POST";
   let endpoint = "pool-create";

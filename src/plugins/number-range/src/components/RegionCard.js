@@ -24,20 +24,26 @@ import {
   Intent,
   Button,
   ButtonGroup,
-  AnchorButton
+  AnchorButton,
+  Dialog,
+  Position
 } from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
 import {RegionForm} from "./RegionForm";
 import {RandomizedRegionForm} from "./RandomizedRegionForm";
+import {deleteARegion} from "../reducers/numberrange";
+import {connect} from "react-redux";
 
-export class RegionCard extends Component {
+export class _RegionCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {hovered: false};
+    this.state = {hovered: false, dialogOpened: false};
   }
-
+  componentDidMount() {
+    //this.state = {hovered: false, dialogOpened: false};
+  }
   mouseIn = evt => {
     this.setState({hovered: true});
   };
@@ -55,78 +61,130 @@ export class RegionCard extends Component {
       state: {defaultValues: this.props.region, editRegion: true}
     });
   };
-  trashRegion = evt => {};
+  trashRegion = evt => {
+    const {deleteARegion, serverObject, pool, region} = this.props;
+    this.toggleDialog();
+    deleteARegion(serverObject, pool, region);
+  };
+  toggleDialog = evt => {
+    this.setState({dialogOpened: !this.state.dialogOpened});
+  };
   render() {
-    const {region, lastUpdated, alloc} = this.props;
+    const {region, lastUpdated, alloc, theme} = this.props;
     let regionType = region.state ? "serial" : "randomized";
     return (
-      <Card
-        className={classNames({
-          "pt-elevation-4": true,
-          "region-detail": true,
-          updated: lastUpdated === region.machine_name
-        })}
-        key={region.machine_name}>
-        <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
-          <h5>
-            <Tag className="tag-header" intent={Intent.PRIMARY}>
-              {regionType == "serial" ? (
-                <FormattedMessage id="plugins.numberRange.serial" />
-              ) : (
-                <FormattedMessage id="plugins.numberRange.randomized" />
-              )}
-            </Tag>
-            {region.readable_name}{" "}
-            {this.state.hovered ? (
-              <ButtonGroup className="card-control" minimal={true} small={true}>
-                <Button small={true} iconName="edit" onClick={this.goToEdit} />
-                <Button
-                  small={true}
-                  iconName="trash"
-                  onClick={this.trashRegion}
-                />
-              </ButtonGroup>
-            ) : null}
-          </h5>
+      <div>
+        <Card
+          className={classNames({
+            "pt-elevation-4": true,
+            "region-detail": true,
+            updated: lastUpdated === region.machine_name
+          })}
+          key={region.machine_name}>
+          <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
+            <h5>
+              <Tag className="tag-header" intent={Intent.PRIMARY}>
+                {regionType == "serial" ? (
+                  <FormattedMessage id="plugins.numberRange.serial" />
+                ) : (
+                  <FormattedMessage id="plugins.numberRange.randomized" />
+                )}
+              </Tag>
+              {region.readable_name}{" "}
+              {this.state.hovered ? (
+                <ButtonGroup
+                  className="card-control"
+                  minimal={true}
+                  small={true}>
+                  <Button
+                    small={true}
+                    iconName="edit"
+                    onClick={this.goToEdit}
+                  />
+                  <Button
+                    small={true}
+                    iconName="trash"
+                    onClick={this.toggleDialog}
+                  />
+                </ButtonGroup>
+              ) : null}
+            </h5>
 
-          <ul>
-            <li>
-              <FormattedMessage id="plugins.numberRange.createdOn" />:{" "}
-              <FormattedDate value={region.created_date} />
-            </li>
-            <li>
-              <FormattedMessage id="plugins.numberRange.status" />:{" "}
-              {region.active ? (
-                <FormattedMessage id="plugins.numberRange.active" />
-              ) : (
-                <FormattedMessage id="plugins.numberRange.inactive" />
-              )}
-            </li>
-            <li>
-              <FormattedMessage
-                id="plugins.numberRange.range"
-                defaultMessage="Range"
-              />: <FormattedNumber value={region.min || region.start} />{" "}
-              <FormattedMessage id="plugins.numberRange.to" />{" "}
-              <FormattedNumber value={region.end || region.max} />
-            </li>
-            <li>
-              {region.state ? (
-                <FormattedMessage id="plugins.numberRange.state" />
-              ) : (
-                <FormattedMessage id="plugins.numberRange.current" />
-              )}: <FormattedNumber value={region.state || region.current} />
-            </li>
-          </ul>
-          <RegionRange
-            start={region.min || region.start}
-            end={region.end || region.max}
-            state={region.state}
-            remaining={region.remaining}
-            alloc={alloc}
-          />
-        </div>
-      </Card>
+            <ul>
+              <li>
+                <FormattedMessage id="plugins.numberRange.createdOn" />:{" "}
+                <FormattedDate value={region.created_date} />
+              </li>
+              <li>
+                <FormattedMessage id="plugins.numberRange.status" />:{" "}
+                {region.active ? (
+                  <FormattedMessage id="plugins.numberRange.active" />
+                ) : (
+                  <FormattedMessage id="plugins.numberRange.inactive" />
+                )}
+              </li>
+              <li>
+                <FormattedMessage
+                  id="plugins.numberRange.range"
+                  defaultMessage="Range"
+                />: <FormattedNumber value={region.min || region.start} />{" "}
+                <FormattedMessage id="plugins.numberRange.to" />{" "}
+                <FormattedNumber value={region.end || region.max} />
+              </li>
+              <li>
+                {region.state ? (
+                  <FormattedMessage id="plugins.numberRange.state" />
+                ) : (
+                  <FormattedMessage id="plugins.numberRange.current" />
+                )}: <FormattedNumber value={region.state || region.current} />
+              </li>
+            </ul>
+            <RegionRange
+              start={region.min || region.start}
+              end={region.end || region.max}
+              state={region.state}
+              remaining={region.remaining}
+              alloc={alloc}
+            />
+          </div>
+        </Card>
+        <Dialog
+          className={classNames({
+            "delete-region": true,
+            "pt-dark": theme.includes("dark")
+          })}
+          isOpen={this.state.dialogOpened}
+          onClose={this.toggleDialog}>
+          <div className="pt-dialog-header">
+            <h5>Delete region {region.readable_name}</h5>
+          </div>
+          <div className="pt-dialog-body">
+            <Callout intent={Intent.DANGER}>
+              Are you sure you want to delete this region?
+            </Callout>
+          </div>
+          <div className="pt-dialog-footer">
+            <div className="pt-dialog-footer-actions">
+              <Button
+                onClick={this.trashRegion}
+                iconName="trash"
+                intent={Intent.DANGER}>
+                Delete
+              </Button>
+              <Button onClick={this.toggleDialog}>Cancel</Button>
+            </div>
+          </div>
+        </Dialog>
+      </div>
     );
   }
 }
+
+export const RegionCard = connect(
+  (state, ownProps) => {
+    return {
+      theme: state.layout.theme
+    };
+  },
+  {deleteARegion}
+)(_RegionCard);
