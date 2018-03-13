@@ -204,11 +204,20 @@ export class Server {
   getServerURL = () => {
     return `${this.protocol}://${this.hostname}:${this.port}/${this.path}`;
   };
+  getServerURLWithCreds = () => {
+    return `${this.protocol}://${this.username}:${this.password}@${
+      this.hostname
+    }:${this.port}/${this.path}`;
+  };
 
   parseSchema = () => {
+    let url = this.url;
     return new Promise((resolve, reject) => {
       Swagger({
-        url: `${this.url}schema/`
+        url: `${url}schema/`
+        /*  authorizations: {
+          basic: new Swagger.PasswordAuthorization(this.username, this.password)
+        }*/
       })
         .then(client => {
           // swagger-js client is available.
