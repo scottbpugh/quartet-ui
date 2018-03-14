@@ -293,11 +293,7 @@ export const deletePool = (server, pool) => {
 };
 
 export const postAddPool = (server, postValues, edit = false) => {
-  let method = "POST";
   let endpoint = "pool-create";
-  if (edit) {
-    method = "PUT";
-  }
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(

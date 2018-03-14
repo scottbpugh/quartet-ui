@@ -21,21 +21,10 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import "./NavTree.css";
 import classNames from "classnames";
-import {
-  ContextMenuTarget,
-  Menu,
-  MenuItem,
-  MenuDivider,
-  Popover,
-  Position,
-  Icon,
-  Callout
-} from "@blueprintjs/core";
+import {ContextMenuTarget, Icon, Callout} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {injectIntl} from "react-intl";
-import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
 import {ServerNode} from "components/screens/server/ServerNode";
 import {AddServerButton} from "components/screens/server/AddServerButton";
 
@@ -170,7 +159,6 @@ class _NavTree extends Component {
     this.tree = this.getTree(nextProps);
   }
   getTree = props => {
-    const {servers} = props;
     let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
       let children = Object.keys(props.navTreeItems).map(component => {

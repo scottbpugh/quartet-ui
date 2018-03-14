@@ -20,18 +20,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {loadPools, loadRegions} from "../reducers/numberrange";
 import {RightPanel} from "components/layouts/Panels";
-import {
-  Card,
-  Callout,
-  Tag,
-  Intent,
-  Button,
-  ButtonGroup,
-  AnchorButton
-} from "@blueprintjs/core";
-import RegionRange from "./RegionRange";
-import classNames from "classnames";
-import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
+import {Callout} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {RegionCard} from "./RegionCard";
 
@@ -51,15 +41,6 @@ class _RegionDetail extends Component {
   componentDidMount() {
     //this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
     this.loadPoolDetail(this.props);
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.pool !== this.props.match.params.pool) {
-      this.loadPoolDetail(nextProps);
-      return;
-    }
-    if (JSON.stringify(this.currentPool) !== JSON.stringify(this.currentPool)) {
-      //this.props.loadPools(nextProps.servers[nextProps.match.params.serverID]);
-    }
   }
   previewAlloc = evt => {
     this.setState({alloc: Number(evt.target.value)});

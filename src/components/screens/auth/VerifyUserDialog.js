@@ -17,24 +17,20 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {connect} from "react-redux";
-import {Dialog, Button, Intent} from "@blueprintjs/core";
+import {Dialog} from "@blueprintjs/core";
 import {VerifyUserForm} from "./VerifyUserForm";
 import classNames from "classnames";
 
 export class VerifyUserDialog extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    const {intl, isOpen, server, theme} = this.props;
+    const {intl, isOpen, server, theme, closeDialog} = this.props;
     return (
       <Dialog
         iconName="user"
-        isOpen={this.props.isOpen}
-        onClose={this.props.closeDialog}
+        isOpen={isOpen}
+        onClose={closeDialog}
         className={classNames({
-          "pt-dark": this.props.theme.startsWith("dark") ? true : false
+          "pt-dark": theme.startsWith("dark") ? true : false
         })}
         title={`${intl.formatMessage({id: "app.servers.verifyUser"})} - ${
           server.serverSettingName

@@ -26,10 +26,6 @@ import {
 } from "@blueprintjs/core";
 
 export class ServerMenu extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       server,

@@ -20,7 +20,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {loadPageTitle} from "../../reducers/layout";
 import "react-resizable/css/styles.css";
-import {Resizable, ResizableBox} from "react-resizable";
+import {ResizableBox} from "react-resizable";
 import "./panels.css";
 
 /**

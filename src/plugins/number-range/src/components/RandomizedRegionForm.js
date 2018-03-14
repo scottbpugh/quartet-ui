@@ -26,7 +26,6 @@ import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {connect} from "react-redux";
 import {loadPools} from "../reducers/numberrange";
 import {withRouter} from "react-router-dom";
-import {pluginRegistry} from "plugins/pluginRegistration";
 
 class _RandomizedRegionForm extends Component {
   constructor(props) {

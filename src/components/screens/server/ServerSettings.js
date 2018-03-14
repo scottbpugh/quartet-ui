@@ -20,12 +20,9 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {RightPanel} from "../../layouts/Panels";
 import "./server-settings.css";
-import {Card, Button} from "@blueprintjs/core";
+import {Card} from "@blueprintjs/core";
 import {connect} from "react-redux";
-import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
 import {FormattedMessage} from "react-intl";
-import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {Field, reduxForm} from "redux-form";
 import {Server} from "lib/servers";
 import {ServerForm} from "./ServerForm";
 

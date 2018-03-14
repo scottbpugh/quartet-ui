@@ -29,7 +29,6 @@ import {
 import {showMessage} from "lib/message";
 import serverActions from "actions/serversettings";
 import base64 from "base-64";
-import {pluginRegistry} from "plugins/pluginRegistration";
 
 export const initialData = () => ({
   servers: {},

@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {getRegistrationFormStructure} from "lib/auth-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {Field, reduxForm, change, SubmissionError} from "redux-form";
+import {Field, reduxForm, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 
@@ -102,7 +102,7 @@ class _RegisterForm extends Component {
     }
   }
   render() {
-    const {error, handleSubmit, pristine, reset, submitting} = this.props;
+    const {error, handleSubmit, submitting} = this.props;
     const {success, successMessage} = this.state;
     let form = this.state.formStructure
       .map(field => {

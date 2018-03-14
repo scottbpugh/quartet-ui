@@ -16,15 +16,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {connect} from "react-redux";
-import {Dialog, Button, Intent} from "@blueprintjs/core";
+import {Dialog} from "@blueprintjs/core";
 import {RegisterForm} from "./RegisterForm";
 import classNames from "classnames";
 
 export class RegisterUserDialog extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {intl, isOpen, server, theme} = this.props;
     return (
@@ -33,7 +29,7 @@ export class RegisterUserDialog extends Component {
         isOpen={this.props.isOpen}
         onClose={this.props.closeDialog}
         className={classNames({
-          "pt-dark": this.props.theme.startsWith("dark") ? true : false
+          "pt-dark": theme.startsWith("dark") ? true : false
         })}
         title={`${intl.formatMessage({id: "app.servers.registerUser"})} - ${
           server.serverSettingName

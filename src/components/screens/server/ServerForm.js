@@ -17,16 +17,12 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import PropTypes from "prop-types";
-import {RightPanel} from "../../layouts/Panels";
 import "./server-settings.css";
-import {Card, Button} from "@blueprintjs/core";
+import {Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {saveServer} from "../../../reducers/serversettings";
-import {FormattedMessage} from "react-intl";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm} from "redux-form";
-import {Server} from "lib/servers";
 
 /**
  * ServerForm - Description

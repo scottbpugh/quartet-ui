@@ -25,7 +25,6 @@ import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
 import nrmessages from "../messages";
-import {Server} from "lib/servers";
 
 let locale = "en-US";
 const newIntl = {
@@ -74,7 +73,6 @@ it.skip("renders correctly a pool with no region", () => {
   window.fetch = jest
     .fn()
     .mockImplementation(() => Promise.resolve({ok: true}));
-  let pluginRegistry = require("plugins/pluginRegistration").pluginRegistry;
   const regionDetailScreen = renderer
     .create(
       <TestWrapper locale={locale} messages={newIntl.messages}>

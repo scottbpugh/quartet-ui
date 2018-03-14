@@ -17,22 +17,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {
-  Card,
-  Callout,
-  Tag,
-  Intent,
-  Button,
-  ButtonGroup,
-  AnchorButton,
-  Dialog,
-  Position
-} from "@blueprintjs/core";
+import {Card, Tag, Intent, Button, ButtonGroup} from "@blueprintjs/core";
 import RegionRange from "./RegionRange";
 import classNames from "classnames";
 import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
-import {RegionForm} from "./RegionForm";
-import {RandomizedRegionForm} from "./RandomizedRegionForm";
 import {deleteARegion} from "../reducers/numberrange";
 import {connect} from "react-redux";
 import {DeleteDialog} from "components/elements/DeleteDialog";
@@ -74,7 +62,7 @@ export class _RegionCard extends Component {
   };
 
   render() {
-    const {region, lastUpdated, alloc, theme} = this.props;
+    const {region, lastUpdated, alloc} = this.props;
     let regionType = region.state ? "serial" : "randomized";
     return (
       <div>
@@ -88,7 +76,7 @@ export class _RegionCard extends Component {
           <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
             <h5>
               <Tag className="tag-header" intent={Intent.PRIMARY}>
-                {regionType == "serial" ? (
+                {regionType === "serial" ? (
                   <FormattedMessage id="plugins.numberRange.serial" />
                 ) : (
                   <FormattedMessage id="plugins.numberRange.randomized" />

@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {getVerifyUserFormStructure} from "lib/auth-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {Field, reduxForm, change, SubmissionError} from "redux-form";
+import {Field, reduxForm, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 
@@ -100,8 +100,8 @@ class _VerifyUserForm extends Component {
     }
   }
   render() {
-    const {error, handleSubmit, pristine, reset, submitting} = this.props;
-    const {success, successMessage} = this.state;
+    const {error, handleSubmit, submitting} = this.props;
+    const {success} = this.state;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";

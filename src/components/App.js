@@ -39,8 +39,6 @@ import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import QuartetLogo from "./QuartetLogo";
 
-const CORE_APP = "core";
-
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
 
