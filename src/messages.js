@@ -46,7 +46,12 @@ export default {
         userVerified: "User successfully verified.",
         deleteServer: "Remove Server",
         deleteServerConfirm:
-          "Are you sure you want to remove this server? No data from this server will be deleted."
+          "Are you sure you want to remove this server? No data from this server will be deleted.",
+        noServerMsg:
+          "You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server."
+      },
+      plugins: {
+        addPlugin: "Add a Plugin"
       }
     },
 
@@ -81,7 +86,12 @@ export default {
         userVerified: "Compte d'utilisateur confirmé.",
         deleteServer: "Retirer le server",
         deleteServerConfirm:
-          "Are you sure you want to remove this server? No data from this server will be deleted."
+          "Are you sure you want to remove this server? No data from this server will be deleted.",
+        noServerMsg:
+          "You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server."
+      },
+      plugins: {
+        addPlugin: "Ajouter un plugin"
       }
     },
     plugins: {}

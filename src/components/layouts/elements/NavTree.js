@@ -28,7 +28,8 @@ import {
   MenuDivider,
   Popover,
   Position,
-  Icon
+  Icon,
+  Callout
 } from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
@@ -170,7 +171,7 @@ class _NavTree extends Component {
   }
   getTree = props => {
     const {servers} = props;
-    return Object.keys(pluginRegistry._servers).map(serverID => {
+    let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
@@ -187,6 +188,15 @@ class _NavTree extends Component {
         </ServerNode>
       );
     });
+    if (serverNodes.length === 0) {
+      // placeholder if no server.
+      return (
+        <Callout className="pt-icon-info-sign no-server-info">
+          <FormattedMessage id="app.servers.noServerMsg" />
+        </Callout>
+      );
+    }
+    return serverNodes;
   };
   render() {
     return (

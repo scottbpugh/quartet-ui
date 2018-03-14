@@ -58,6 +58,7 @@ export class ServerMenu extends Component {
             id: "app.servers.verifyUser"
           })}`}
         />
+        {/*
         <MenuItem
           text={`${intl.formatMessage({
             id: "app.servers.logout"
@@ -67,7 +68,7 @@ export class ServerMenu extends Component {
           text={`${intl.formatMessage({
             id: "app.servers.resetPassword"
           })}`}
-        />
+        />*/}
       </Menu>
     );
   }

@@ -48,9 +48,9 @@ const Notification = ({id, type, msg}) => {
 class NotificationsDisplay extends Component {
   componentDidMount() {
     // check every 5 seconds for new notifications.
-    this.fetchNotifications = setInterval(() => {
+    /*this.fetchNotifications = setInterval(() => {
       this.props.fetchNotifications();
-    }, 5000);
+    }, 5000);*/
   }
   componentWillUnmount() {
     clearInterval(this.fetchNotifications);

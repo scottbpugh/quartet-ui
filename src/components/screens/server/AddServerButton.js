@@ -36,6 +36,10 @@ export class AddServerButton extends Component {
           text={<FormattedMessage id="app.serverSettings.addAServer" />}
           onClick={this.goTo.bind(this, "/server-settings/")}
         />
+        <MenuItem
+          text={<FormattedMessage id="app.plugins.addPlugin" />}
+          onClick={this.goTo.bind(this, "/plugins")}
+        />
       </Menu>
     );
     return (

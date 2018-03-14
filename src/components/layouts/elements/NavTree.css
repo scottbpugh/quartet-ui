@@ -186,3 +186,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .leftbar-group {
   background: none;
 }
+.no-server-info {
+  width:75%;
+  position:relative;
+  white-space:normal;
+  margin:20% 12.5%;
+  min-width:100px;
+}
