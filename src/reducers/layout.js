@@ -23,7 +23,7 @@ export const initialData = () => {
   return {
     pageTitle: {id: "Main", values: {}},
     currentPath: window.location.pathname,
-    theme: "light"
+    theme: "dark-brown"
   };
 };
 
