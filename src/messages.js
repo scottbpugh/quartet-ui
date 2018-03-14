@@ -43,7 +43,10 @@ export default {
         registerUser: "Register User",
         verifyUser: "Verify User",
         userCreated: "User {username} successfully created.",
-        userVerified: "User successfully verified."
+        userVerified: "User successfully verified.",
+        deleteServer: "Remove Server",
+        deleteServerConfirm:
+          "Are you sure you want to remove this server? No data from this server will be deleted."
       }
     },
 
@@ -75,7 +78,10 @@ export default {
         registerUser: "Ajouter un utilisateur",
         verifyUser: "Vérifier un utilisateur",
         userCreated: "L'utilisateur {username} a été créé avec succès.",
-        userVerified: "Compte d'utilisateur confirmé."
+        userVerified: "Compte d'utilisateur confirmé.",
+        deleteServer: "Retirer le server",
+        deleteServerConfirm:
+          "Are you sure you want to remove this server? No data from this server will be deleted."
       }
     },
     plugins: {}

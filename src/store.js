@@ -21,7 +21,7 @@ import {createStore, applyMiddleware, combineReducers, compose} from "redux";
 import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "reducers/dashboard";
-import serversettings from "reducers/serversettings";
+import serversettings, {initialData} from "reducers/serversettings";
 import layout from "reducers/layout";
 import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";
@@ -35,7 +35,7 @@ import {addLocaleData} from "react-intl";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
 import {initialData as pluginInitialData} from "./reducers/plugins";
-import {initialData} from "./reducers/serversettings";
+/*import {initialData} from "./reducers/serversettings";*/
 import {initialData as layoutInitialData} from "./reducers/layout";
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
 
@@ -44,7 +44,7 @@ let locale = "en-US";
 
 const initialState = {
   dashboard: {notifications: []},
-  serversettings: initialData(),
+  serversettings: {servers: initialData()},
   intl: {
     defaultLocale: locale,
     locale: locale,

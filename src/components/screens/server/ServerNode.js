@@ -23,6 +23,10 @@ import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
 import {ServerMenu} from "./ServerMenu";
 import {TreeNode} from "components/layouts/elements/NavTree";
 import {VerifyUserDialog} from "components/screens/auth/VerifyUserDialog";
+import {DeleteDialog} from "components/elements/DeleteDialog";
+import {FormattedMessage} from "react-intl";
+import {deleteServer} from "reducers/serversettings";
+import {ContextMenu} from "@blueprintjs/core";
 
 class _ServerNode extends Component {
   constructor(props) {
@@ -30,7 +34,8 @@ class _ServerNode extends Component {
     this.state = {
       active: false,
       registerDialogOpen: false,
-      verifyDialogOpen: false
+      verifyDialogOpen: false,
+      confirmDeleteOpen: false
     };
   }
   componentDidMount() {
@@ -45,6 +50,7 @@ class _ServerNode extends Component {
       <ServerMenu
         toggleRegisterDialog={this.toggleRegisterDialog}
         toggleVerifyDialog={this.toggleVerifyDialog}
+        toggleConfirmDelete={this.toggleConfirmDelete}
         intl={intl}
         server={server}
       />
@@ -55,6 +61,15 @@ class _ServerNode extends Component {
   };
   toggleVerifyDialog = () => {
     this.setState({verifyDialogOpen: !this.state.verifyDialogOpen});
+  };
+  toggleConfirmDelete = () => {
+    this.setState({confirmDeleteOpen: !this.state.confirmDeleteOpen});
+  };
+  trashServer = () => {
+    this.toggleConfirmDelete();
+    ContextMenu.hide();
+    this.props.history.push("/");
+    this.props.deleteServer(this.props.server);
   };
   activateNode(currentPath, server) {
     // set active state if in current path.
@@ -90,14 +105,29 @@ class _ServerNode extends Component {
           isOpen={this.state.verifyDialogOpen}
           theme={this.props.theme}
         />
+        <DeleteDialog
+          isOpen={this.state.confirmDeleteOpen}
+          title={
+            <FormattedMessage
+              id="app.servers.deleteServer"
+              values={{serverName: server.serverSettingName}}
+            />
+          }
+          body={<FormattedMessage id="app.servers.deleteServerConfirm" />}
+          toggle={this.toggleConfirmDelete.bind(this)}
+          deleteAction={this.trashServer.bind(this)}
+        />
       </TreeNode>
     );
   }
 }
 
-export const ServerNode = connect((state, ownProps) => {
-  return {
-    currentPath: state.layout.currentPath,
-    theme: state.layout.theme
-  };
-}, {})(injectIntl(withRouter(_ServerNode)));
+export const ServerNode = connect(
+  (state, ownProps) => {
+    return {
+      currentPath: state.layout.currentPath,
+      theme: state.layout.theme
+    };
+  },
+  {deleteServer}
+)(injectIntl(withRouter(_ServerNode)));

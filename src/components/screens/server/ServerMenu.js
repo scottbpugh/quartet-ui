@@ -17,7 +17,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {MenuItem, MenuDivider, Menu} from "@blueprintjs/core";
+import {
+  MenuItem,
+  MenuDivider,
+  Menu,
+  ButtonGroup,
+  Button
+} from "@blueprintjs/core";
 
 export class ServerMenu extends Component {
   constructor(props) {
@@ -25,10 +31,19 @@ export class ServerMenu extends Component {
   }
 
   render() {
-    const {server, intl, toggleRegisterDialog, toggleVerifyDialog} = this.props;
+    const {
+      server,
+      intl,
+      toggleRegisterDialog,
+      toggleVerifyDialog,
+      toggleConfirmDelete
+    } = this.props;
 
     return (
       <Menu>
+        <ButtonGroup className="context-menu-control" minimal={true}>
+          <Button small={true} onClick={toggleConfirmDelete} iconName="trash" />
+        </ButtonGroup>
         <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
         <MenuItem

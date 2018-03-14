@@ -22,7 +22,7 @@ import {RightPanel} from "../../layouts/Panels";
 import "./server-settings.css";
 import {Card, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
-import {saveServer, loadCurrentServer} from "../../../reducers/serversettings";
+import {saveServer} from "../../../reducers/serversettings";
 import {FormattedMessage} from "react-intl";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm} from "redux-form";
@@ -96,5 +96,5 @@ export const ServerForm = connect(
   state => ({
     servers: state.serversettings.servers
   }),
-  {saveServer, loadCurrentServer}
+  {saveServer}
 )(reduxForm({form: "serverForm"})(_ServerForm));

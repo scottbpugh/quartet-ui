@@ -25,6 +25,8 @@ import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
 import nrmessages from "../messages";
+import {Server} from "lib/servers";
+
 let locale = "en-US";
 const newIntl = {
   ...initialState.intl,

@@ -194,7 +194,9 @@ class PluginRegistry {
   registerServer(serverRef) {
     this._servers[serverRef.serverID] = serverRef;
   }
-
+  removeServer(serverRef) {
+    delete this._servers[serverRef.serverID];
+  }
   getServer(serverID) {
     return this._servers[serverID];
   }

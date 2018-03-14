@@ -32,8 +32,7 @@ import {Server} from "lib/servers";
  */
 export const initialData = () => {
   let _initialData = {
-    servers: {}, // uuid key to objects
-    currentServer: null
+    servers: {} // uuid key to objects
   };
   return _initialData;
 };
@@ -58,20 +57,19 @@ export const saveServer = postData => {
   };
 };
 
-export const loadCurrentServer = serverData => {
+export const deleteServer = server => {
   return dispatch => {
-    return dispatch({type: actions.loadCurrentServer, payload: serverData});
+    pluginRegistry.removeServer(server);
+    showMessage({type: "warning", msg: "Server removed successfully."});
+    return dispatch({
+      type: actions.deleteServer,
+      payload: server.serverID
+    });
   };
 };
 
 export default handleActions(
   {
-    [actions.loadCurrentServer]: (state, action) => {
-      return {
-        ...state,
-        formData: initialData(action.payload).formData
-      };
-    },
     [actions.saveServerSettings]: (state, action) => {
       return {
         ...state,
@@ -83,6 +81,14 @@ export default handleActions(
       return {
         ...state,
         servers: {...state.servers, [action.payload.serverID]: action.payload}
+      };
+    },
+    [actions.deleteServer]: (state, action) => {
+      let servers = {...state.servers};
+      delete servers[action.payload]; // serverID
+      return {
+        ...state,
+        servers: servers
       };
     }
   },

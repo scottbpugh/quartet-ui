@@ -17,7 +17,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import Swagger from "swagger-client";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {store} from "store";
 import actions from "actions/serversettings";
 
 /**
@@ -39,6 +38,7 @@ export class Server {
     }
     */
     this.setServerData(serverSettings);
+    this.store = require("store").store;
     // make saved server object available to core and plugins.
     pluginRegistry.registerServer(this);
   }
@@ -236,7 +236,7 @@ export class Server {
         .then(client => {
           this.appList = Object.keys(client.apis);
           // let redux know we got our data
-          store.dispatch({
+          this.store.dispatch({
             type: actions.appsListUpdated,
             payload: this.toJSON()
           });
@@ -245,7 +245,7 @@ export class Server {
           // handle legacy.
           this.appList = [];
           // let redux know we got our data
-          store.dispatch({
+          this.store.dispatch({
             type: actions.appsListUpdated,
             payload: this.toJSON()
           });

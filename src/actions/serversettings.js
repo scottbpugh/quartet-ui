@@ -20,7 +20,7 @@ import {createAction} from "redux-actions";
 
 export default {
   saveServerSettings: createAction("SERVER_SETTINGS_SAVE"),
-  loadCurrentServer: createAction("SERVER_SETTINGS_LOAD_SERVER"),
   serverUpdated: createAction("SERVER_SETTINGS_SERVER_UPDATED"),
-  appsListUpdated: createAction("SERVER_SETTINGS_APPS_LIST_UPDATED")
+  appsListUpdated: createAction("SERVER_SETTINGS_APPS_LIST_UPDATED"),
+  deleteServer: createAction("SERVER_SETTINGS_DELETE_SERVER")
 };

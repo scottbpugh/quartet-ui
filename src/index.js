@@ -19,20 +19,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-
+import "typeface-heebo";
 import {Provider} from "react-redux";
-import RouteSwitcher from "./routes";
-
 import {IntlProvider} from "react-intl-redux";
-
 import {Router} from "react-router-dom";
+import RouteSwitcher from "./routes";
 import {store} from "./store";
-
 import {routeLocationDidUpdate} from "reducers/layout";
 import {createBrowserHistory} from "history";
-import "ubuntu-fontface/ubuntu.css";
-import "typeface-heebo";
+
 const browserHistory = createBrowserHistory();
 
 browserHistory.listen(location => {
@@ -49,4 +44,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-registerServiceWorker();
