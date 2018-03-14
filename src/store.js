@@ -35,7 +35,6 @@ import {addLocaleData} from "react-intl";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
 import {initialData as pluginInitialData} from "./reducers/plugins";
-/*import {initialData} from "./reducers/serversettings";*/
 import {initialData as layoutInitialData} from "./reducers/layout";
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
 

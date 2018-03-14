@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {Callout, Intent, Button, ButtonGroup, Dialog} from "@blueprintjs/core";
+import {Callout, Intent, Button, Dialog} from "@blueprintjs/core";
 import classNames from "classnames";
 import {connect} from "react-redux";
 
@@ -42,12 +42,6 @@ import {connect} from "react-redux";
  *
  * */
 class _DeleteDialog extends Component {
-  constructor(props) {
-    super(props);
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
   render() {
     const {title, body, deleteAction, theme, toggle} = this.props;
     return (
