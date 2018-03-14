@@ -46,6 +46,7 @@ export const saveServer = postData => {
     if (!postData.serverID) {
       postData.serverID = uuidv4();
     }
+    postData.hostname = postData.hostname.trim(); // prevent spaces.
     dispatch({type: actions.saveServerSettings, payload: postData});
     const newServer = new Server(postData);
     pluginRegistry.registerServer(newServer);

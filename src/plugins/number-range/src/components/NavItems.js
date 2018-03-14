@@ -152,6 +152,7 @@ class _PoolItem extends Component {
     this.toggleConfirmDelete();
     ContextMenu.hide();
     deleteAPool(serverObject, pool);
+    this.props.history.push(`/number-range/pools/${serverObject.serverID}`);
   };
   render() {
     const {pool, serverID} = this.props;

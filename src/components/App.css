@@ -76,3 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   opacity: 0.01;
   transition: opacity 800ms ease-in;
 }
+
+.add-incard-button {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}

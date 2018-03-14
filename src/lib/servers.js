@@ -19,6 +19,7 @@ import Swagger from "swagger-client";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
+import {prepHeadersAuth} from "lib/auth-api";
 
 /**
  * Server - Holds data about a server and its settings, API client, ...
@@ -212,30 +213,55 @@ export class Server {
   };
 
   parseSchema = () => {
-    let url = this.url;
-    try {
-      return new Promise((resolve, reject) => {
-        Swagger({
-          url: `${url}schema/`
-        })
-          .then(client => {
-            // swagger-js client is available.
-            // client.spec / client.originalSpec / client.errors
-            resolve(client);
-          })
-          .catch(error => {
-            showMessage({
-              type: "error",
-              msg: `An error occurred while requesting data from server ${
-                this.serverSettingName
-              }. Please check your settings and credentials. ${error}`
+    let {url, username, password} = this;
+    return new Promise((resolve, reject) => {
+      // workaround for Swagger not sending basic auth. We need to check those.
+      fetch(`${url}schema/`, prepHeadersAuth(this))
+        .then(result => {
+          if (result.ok && result.status === 200) {
+            Swagger(`${url}schema/`, {
+              securities: {
+                authorized: {
+                  basic: {username: username, password: password}
+                }
+              }
+            })
+              .then(client => {
+                // swagger-js client is available.
+                // client.spec / client.originalSpec / client.errors
+                resolve(client);
+              })
+              .catch(error => {
+                showMessage({
+                  type: "error",
+                  msg: `An error occurred while requesting data from server ${
+                    this.serverSettingName
+                  }. Please check your settings and credentials. ${error}`
+                });
+                reject(error);
+              });
+          } else {
+            result.json().then(data => {
+              showMessage({
+                type: "error",
+                msg: `An error occurred while requesting data from server ${
+                  this.serverSettingName
+                }.  ${data.detail}. Please check your settings and credentials.`
+              });
+              reject(result);
             });
-            reject(error);
+          }
+        })
+        .catch(error => {
+          showMessage({
+            type: "error",
+            msg: `An error occurred while requesting data from server ${
+              this.serverSettingName
+            }. ${error}. Please check your settings and credentials.`
           });
-      });
-    } catch (e) {
-      debugger;
-    }
+          reject(error);
+        });
+    });
   };
 
   listApps = () => {

@@ -61,7 +61,7 @@ class _ServerDetails extends Component {
                 Settings
                 <Button
                   onClick={this.toggleEditMode}
-                  className="pt-intent-primary add-pool-button"
+                  className="pt-intent-primary add-incard-button"
                   iconName="pt-icon-edit">
                   Edit
                 </Button>

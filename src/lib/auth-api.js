@@ -15,6 +15,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import base64 from "base-64";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -23,16 +24,29 @@
  *
  * @return {object} A request init object with headers.
  */
-const prepHeaders = (server, method = "GET") => {
+export const prepHeaders = (server, method = "GET") => {
   //let username = server.username;
   //let password = server.password;
   let headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Content-Type", "application/json");
-  /*headers.append(
+  return {
+    method: method,
+    headers: headers,
+    mode: "cors"
+  };
+};
+
+export const prepHeadersAuth = (server, method = "GET") => {
+  //let username = server.username;
+  //let password = server.password;
+  let headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Content-Type", "application/json");
+  headers.append(
     "Authorization",
-    "Basic " + base64.encode(username + ":" + password)
-  );*/
+    "Basic " + base64.encode(server.username + ":" + server.password)
+  );
   return {
     method: method,
     headers: headers,
