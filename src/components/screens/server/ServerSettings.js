@@ -30,8 +30,8 @@ import {Server} from "lib/servers";
 import {ServerForm} from "./ServerForm";
 
 class _ServerSettings extends Component {
-  submitCallback = () => {
-    this.props.history.push();
+  submitCallback = postValues => {
+    this.props.history.push(`/server-details/${postValues.serverID}`);
   };
 
   SettingsForm = props => {

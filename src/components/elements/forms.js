@@ -78,13 +78,17 @@ export const DefaultField = ({
       </div>
     );
   } else if (fieldData.description.type === "boolean") {
+    let val = false;
+    if (fieldData.defaultValue !== undefined) {
+      val = fieldData.defaultValue;
+    }
     inputField = (
       <label className="pt-control pt-switch">
         <input
           {...input}
           type="checkbox"
           name={fieldData.name}
-          defaultChecked={fieldData.defaultValue}
+          defaultChecked={val}
           className={intent}
           intent={intent}
         />

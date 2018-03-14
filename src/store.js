@@ -43,7 +43,7 @@ let locale = "en-US";
 
 const initialState = {
   dashboard: {notifications: []},
-  serversettings: {servers: initialData()},
+  serversettings: initialData(),
   intl: {
     defaultLocale: locale,
     locale: locale,

@@ -54,9 +54,24 @@ class _PoolItem extends Component {
     this.goTo(`/number-range/region-detail/${serverID}/${pool.machine_name}`);
     this.setState({isAllocationOpen: !this.state.isAllocationOpen});
   };
+  getAllowedRegionTypes = () => {
+    const {pool} = this.props;
+    if (pool.sequentialregion_set.length > 0) {
+      return {sequential: true, randomized: false};
+    }
+    if (pool.randomizedregion_set.length > 0) {
+      return {sequential: false, randomized: true};
+    }
+    if (
+      pool.sequentialregion_set.length === 0 &&
+      pool.randomizedregion_set.length === 0
+    ) {
+      return {sequential: true, randomized: true};
+    }
+  };
   renderContextMenu() {
     const {serverID, pool} = this.props;
-
+    const {sequential, randomized} = this.getAllowedRegionTypes();
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
@@ -69,26 +84,30 @@ class _PoolItem extends Component {
         </ButtonGroup>
         <MenuDivider title={pool.readable_name} />
         <MenuDivider />
-        <MenuItem
-          onClick={this.goTo.bind(
-            this,
-            `/number-range/add-region/${serverID}/${pool.machine_name}`
-          )}
-          text={`${this.props.intl.formatMessage({
-            id: "plugins.numberRange.addSequentialRegion"
-          })}`}
-        />
-        <MenuItem
-          onClick={this.goTo.bind(
-            this,
-            `/number-range/add-randomized-region/${serverID}/${
-              pool.machine_name
-            }`
-          )}
-          text={`${this.props.intl.formatMessage({
-            id: "plugins.numberRange.addRandomizedRegion"
-          })}`}
-        />
+        {sequential ? (
+          <MenuItem
+            onClick={this.goTo.bind(
+              this,
+              `/number-range/add-region/${serverID}/${pool.machine_name}`
+            )}
+            text={`${this.props.intl.formatMessage({
+              id: "plugins.numberRange.addSequentialRegion"
+            })}`}
+          />
+        ) : null}
+        {randomized ? (
+          <MenuItem
+            onClick={this.goTo.bind(
+              this,
+              `/number-range/add-randomized-region/${serverID}/${
+                pool.machine_name
+              }`
+            )}
+            text={`${this.props.intl.formatMessage({
+              id: "plugins.numberRange.addRandomizedRegion"
+            })}`}
+          />
+        ) : null}
         <MenuItem
           onClick={this.toggleAllocation}
           text={this.props.intl.formatMessage({

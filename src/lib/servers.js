@@ -18,6 +18,7 @@
 import Swagger from "swagger-client";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
+import {showMessage} from "lib/message";
 
 /**
  * Server - Holds data about a server and its settings, API client, ...
@@ -212,22 +213,29 @@ export class Server {
 
   parseSchema = () => {
     let url = this.url;
-    return new Promise((resolve, reject) => {
-      Swagger({
-        url: `${url}schema/`
-        /*  authorizations: {
-          basic: new Swagger.PasswordAuthorization(this.username, this.password)
-        }*/
-      })
-        .then(client => {
-          // swagger-js client is available.
-          // client.spec / client.originalSpec / client.errors
-          resolve(client);
+    try {
+      return new Promise((resolve, reject) => {
+        Swagger({
+          url: `${url}schema/`
         })
-        .catch(error => {
-          reject(error);
-        });
-    });
+          .then(client => {
+            // swagger-js client is available.
+            // client.spec / client.originalSpec / client.errors
+            resolve(client);
+          })
+          .catch(error => {
+            showMessage({
+              type: "error",
+              msg: `An error occurred while requesting data from server ${
+                this.serverSettingName
+              }. Please check your settings and credentials. ${error}`
+            });
+            reject(error);
+          });
+      });
+    } catch (e) {
+      debugger;
+    }
   };
 
   listApps = () => {
