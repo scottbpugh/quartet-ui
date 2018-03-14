@@ -280,6 +280,18 @@ export const deleteRegion = (server, region) => {
   );
 };
 
+export const deletePool = (server, pool) => {
+  let method = "DELETE";
+  let endpoint = `pool-modify/${pool.machine_name}`;
+  let headers = prepHeaders(server, method);
+  //headers.body = JSON.stringify(postValues);
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
+    resp => {
+      return resp;
+    }
+  );
+};
+
 export const postAddPool = (server, postValues, edit = false) => {
   let method = "POST";
   let endpoint = "pool-create";

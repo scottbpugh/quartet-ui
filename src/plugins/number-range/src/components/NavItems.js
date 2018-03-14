@@ -24,11 +24,12 @@ import {
   MenuDivider,
   Dialog,
   Button,
-  ButtonGroup
+  ButtonGroup,
+  ContextMenu
 } from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
-import {loadPools, setAllocation} from "../reducers/numberrange";
+import {loadPools, setAllocation, deleteAPool} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
 import classNames from "classnames";
 import {pluginRegistry} from "plugins/pluginRegistration";
@@ -126,6 +127,13 @@ class _PoolItem extends Component {
   toggleConfirmDelete = evt => {
     this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
   };
+  trashRegion = evt => {
+    const {serverID, pool, deleteAPool} = this.props;
+    const serverObject = pluginRegistry.getServer(serverID);
+    this.toggleConfirmDelete();
+    ContextMenu.hide();
+    deleteAPool(serverObject, pool);
+  };
   render() {
     const {pool, serverID} = this.props;
     return (
@@ -178,7 +186,7 @@ class _PoolItem extends Component {
             <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
           }
           toggle={this.toggleConfirmDelete.bind(this)}
-          deleteAction={() => {}}
+          deleteAction={this.trashRegion.bind(this)}
         />
         {pool.readable_name}
       </TreeNode>
@@ -195,7 +203,7 @@ const PoolItem = connect(
       theme: state.layout.theme
     };
   },
-  {setAllocation}
+  {setAllocation, deleteAPool}
 )(withRouter(_PoolItem));
 
 export const NavItems = (pools, serverID, intl) => {

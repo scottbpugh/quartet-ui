@@ -37,9 +37,6 @@ class _ServerDetails extends Component {
       serverObject.listApps();
     }
   }
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
   toggleEditMode = () => {
     this.setState({editMode: !this.state.editMode});
   };
@@ -88,6 +85,7 @@ class _ServerDetails extends Component {
                         <th />
                       </tr>
                     </thead>
+
                     <tbody>
                       {serverObject.getArrayFields().map(elem => {
                         return (
@@ -102,7 +100,6 @@ class _ServerDetails extends Component {
                 </div>
               )}
             </Card>
-
             <Card className="pt-elevation-4">
               <h5>Services Enabled</h5>
               <ul className="service-list">

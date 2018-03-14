@@ -66,6 +66,7 @@ export class _RegionCard extends Component {
   toggleDialog = evt => {
     this.setState({showConfirmDialog: !this.state.showConfirmDialog});
   };
+
   trashRegion = evt => {
     const {deleteARegion, serverObject, pool, region} = this.props;
     this.toggleDialog();

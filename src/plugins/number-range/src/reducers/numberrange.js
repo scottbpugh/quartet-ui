@@ -23,7 +23,8 @@ import {
   getRegion,
   getRegions,
   allocate,
-  deleteRegion
+  deleteRegion,
+  deletePool
 } from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import serverActions from "actions/serversettings";
@@ -92,6 +93,21 @@ export const deleteARegion = (server, pool, region) => {
         if (response.ok && response.status === 204) {
           dispatch(loadRegions(server, pool));
           showMessage({type: "warning", msg: "Region deleted successfully"});
+        }
+      })
+      .catch(error => {
+        showMessage({type: "error", msg: error.detail});
+      });
+  };
+};
+
+export const deleteAPool = (server, pool) => {
+  return dispatch => {
+    deletePool(server, pool)
+      .then(response => {
+        if (response.ok && response.status === 204) {
+          dispatch(loadPools(server, pool));
+          showMessage({type: "warning", msg: "Pool deleted successfully"});
         }
       })
       .catch(error => {
