@@ -45,9 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     border-radius: 3px;
 }
 
-.mini-form {
+.mini-form  {
+  margin:10px;
   text-align:center;
-  margin:30px;
 }
 .mini-form button {
   margin:10px;

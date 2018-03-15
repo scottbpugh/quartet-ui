@@ -25,7 +25,10 @@ import {
   Dialog,
   Button,
   ButtonGroup,
-  ContextMenu
+  ContextMenu,
+  RadioGroup,
+  Radio,
+  Label
 } from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
@@ -42,7 +45,8 @@ class _PoolItem extends Component {
       isAllocationOpen: false,
       alloc: 0,
       active: false,
-      isConfirmDeleteOpen: false
+      isConfirmDeleteOpen: false,
+      exportType: "json"
     };
   }
   goTo = path => {
@@ -123,7 +127,8 @@ class _PoolItem extends Component {
     this.props.setAllocation(
       pluginRegistry.getServer(serverID),
       pool,
-      this.state.alloc
+      this.state.alloc,
+      this.state.exportType
     );
     this.toggleAllocation();
   };
@@ -153,6 +158,9 @@ class _PoolItem extends Component {
     ContextMenu.hide();
     deleteAPool(serverObject, pool);
     this.props.history.push(`/number-range/pools/${serverObject.serverID}`);
+  };
+  handleExportChange = evt => {
+    this.setState({exportType: evt.target.value});
   };
   render() {
     const {pool, serverID} = this.props;
@@ -188,6 +196,17 @@ class _PoolItem extends Component {
                 max={100000}
                 style={{width: 200}}
               />
+              <div style={{marginTop: "30px", marginBottom: "20px"}}>
+                <RadioGroup
+                  inline={true}
+                  label="Export Type"
+                  onChange={this.handleExportChange}
+                  selectedValue={this.state.exportType}>
+                  <Radio label="JSON" value="json" />
+                  <Radio label="CSV" value="csv" />
+                  <Radio label="XML" value="xml" />
+                </RadioGroup>
+              </div>
               <button type="submit" className="pt-button">
                 <FormattedMessage id="plugins.numberRange.allocateButton" />
               </button>
