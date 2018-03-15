@@ -21,7 +21,7 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {Card, Button} from "@blueprintjs/core";
+import {Card, Button, Icon} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 
@@ -30,12 +30,13 @@ class _ServerDetails extends Component {
     super(props);
     this.state = {editMode: false};
   }
-  componentDidMount() {
+  componentDidMount() {}
+  fetchAppList = evt => {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     if (serverObject) {
       serverObject.listApps();
     }
-  }
+  };
   toggleEditMode = () => {
     this.setState({editMode: !this.state.editMode});
   };
@@ -45,6 +46,21 @@ class _ServerDetails extends Component {
   };
   render() {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    let services = this.props.server
+      ? this.props.server.appList
+          .filter(service => {
+            // remove empty string.
+            return service;
+          })
+          .map(service => {
+            return (
+              <li>
+                {service}
+                <span className="icon-dot" />
+              </li>
+            );
+          })
+      : [];
     return (
       <RightPanel
         title={
@@ -100,22 +116,24 @@ class _ServerDetails extends Component {
               )}
             </Card>
             <Card className="pt-elevation-4">
-              <h5>Services Enabled</h5>
-              <ul className="service-list">
-                {serverObject.appList
-                  .filter(service => {
-                    // remove empty string.
-                    return service;
-                  })
-                  .map(service => {
-                    return (
-                      <li>
-                        {service}
-                        <span className="icon-dot" />
-                      </li>
-                    );
-                  })}
-              </ul>
+              <h5>
+                Services Enabled{" "}
+                <Button
+                  onClick={this.fetchAppList}
+                  iconName="pt-icon-refresh add-incard-button"
+                />
+              </h5>
+              {services.length > 0 ? (
+                <ul className="service-list">{services}</ul>
+              ) : (
+                <div onClick={this.fetchAppList} className="centered-action">
+                  <Icon
+                    iconName="pt-icon-refresh"
+                    className="very-large-icon"
+                  />
+                  <span>Retry</span>
+                </div>
+              )}
             </Card>
           </div>
         ) : null}

@@ -265,26 +265,26 @@ export class Server {
   };
 
   listApps = () => {
-    if (this.appList.length === 0) {
-      this.getClient()
-        .then(client => {
-          this.appList = Object.keys(client.apis);
-          // let redux know we got our data
-          this.store.dispatch({
-            type: actions.appsListUpdated,
-            payload: this.toJSON()
-          });
-        })
-        .catch(error => {
-          // handle legacy.
-          this.appList = [];
-          // let redux know we got our data
-          this.store.dispatch({
-            type: actions.appsListUpdated,
-            payload: this.toJSON()
-          });
+    this.appList = [];
+    this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
+    this.getClient()
+      .then(client => {
+        this.appList = Object.keys(client.apis);
+        // let redux know we got our data
+        this.store.dispatch({
+          type: actions.appsListUpdated,
+          payload: this.toJSON()
         });
-    }
+      })
+      .catch(error => {
+        // handle legacy.
+        this.appList = [];
+        // let redux know we got our data
+        this.store.dispatch({
+          type: actions.appsListUpdated,
+          payload: this.toJSON()
+        });
+      });
   };
 
   getClient = () => {

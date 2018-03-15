@@ -91,6 +91,12 @@ export default handleActions(
         ...state,
         servers: servers
       };
+    },
+    [actions.resetAppList]: (state, action) => {
+      return {
+        ...state,
+        servers: {...state.servers, [action.payload.serverID]: action.payload}
+      };
     }
   },
   {}

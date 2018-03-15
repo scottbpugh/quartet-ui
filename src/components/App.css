@@ -82,3 +82,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   right:10px;
   top: 7px;
 }
+
+.very-large-icon {
+  font-size:60px !important;
+}
+
+.centered-action {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  align-content:center;
+  height:90%;
+  font-size:20px;
+  cursor:pointer;
+}

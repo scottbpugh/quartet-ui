@@ -22,5 +22,6 @@ export default {
   saveServerSettings: createAction("SERVER_SETTINGS_SAVE"),
   serverUpdated: createAction("SERVER_SETTINGS_SERVER_UPDATED"),
   appsListUpdated: createAction("SERVER_SETTINGS_APPS_LIST_UPDATED"),
+  resetAppList: createAction("SERVER_SETTINGS_RESET_APP_LIST"),
   deleteServer: createAction("SERVER_SETTINGS_DELETE_SERVER")
 };

@@ -60,7 +60,9 @@ class _App extends Component {
     // the class instances for their own API calls etc...
     const {servers} = this.props.serversettings;
     Object.keys(servers).forEach(serverID => {
-      pluginRegistry.registerServer(new Server(servers[serverID]));
+      let server = new Server(servers[serverID]);
+      pluginRegistry.registerServer(server);
+      server.listApps();
     });
   }
   componentWillReceiveProps(nextProps) {}
