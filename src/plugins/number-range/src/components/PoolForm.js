@@ -25,6 +25,7 @@ import {loadPools} from "../reducers/numberrange";
 import {connect} from "react-redux";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {withRouter} from "react-router";
 
 class _PoolForm extends Component {
   constructor(props) {
@@ -80,6 +81,14 @@ class _PoolForm extends Component {
                 props.dispatch(change("addRegion", field, false));
               }
             }
+            if (
+              props.location &&
+              props.location.state &&
+              props.location.state.defaultValues
+            ) {
+              // fed existing values.
+              props.initialize(props.location.state.defaultValues);
+            }
           }
         );
       });
@@ -87,9 +96,16 @@ class _PoolForm extends Component {
   }
   // Handles the RegionForm post.
   submit = postValues => {
+    let editMode =
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editPool
+        ? true
+        : false;
     return postAddPool(
       pluginRegistry.getServer(this.props.server.serverID),
-      postValues
+      postValues,
+      editMode
     )
       .then(resp => {
         return Promise.all([resp, resp.json()]);
@@ -99,16 +115,27 @@ class _PoolForm extends Component {
         if (proms[0].ok) {
           if (proms[0].status === 201) {
             showMessage({
-              msg: "New region created successfully",
+              msg: "New pool created successfully",
               type: "success"
             });
             this.props.history.push(
               "/number-range/pools/" + this.props.server.serverID
             );
+          } else if (proms[0].status === 200) {
+            showMessage({
+              msg: "Existing pool updated successfully",
+              type: "success"
+            });
           }
           this.props.loadPools(
             pluginRegistry.getServer(this.props.server.serverID)
           );
+          setTimeout(() => {
+            // tiny bit of padding.
+            this.props.history.push(
+              `/number-range/pools/${this.props.server.serverID}`
+            );
+          }, 100);
           return proms[1];
         } else {
           // We handle the error info in JSON here.
@@ -121,6 +148,12 @@ class _PoolForm extends Component {
       });
   };
   render() {
+    let editMode =
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editPool
+        ? true
+        : false;
     const {handleSubmit} = this.props;
     let form = this.state.formStructure
       .map(field => {
@@ -139,7 +172,6 @@ class _PoolForm extends Component {
             component={DefaultField}
             type={type}
             className="pt-input"
-            width={300}
             validate={field.validate}
           />
         );
@@ -176,4 +208,4 @@ export default connect(
     };
   },
   {loadPools}
-)(PoolForm);
+)(withRouter(PoolForm));

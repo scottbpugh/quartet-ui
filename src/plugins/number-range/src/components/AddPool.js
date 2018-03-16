@@ -30,12 +30,22 @@ class _AddPool extends Component {
   }
   componentDidMount() {}
   render() {
+    let editMode =
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editPool
+        ? true
+        : false;
     return (
       <RightPanel title={<FormattedMessage id="plugins.numberRange.addPool" />}>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
-              <FormattedMessage id="plugins.numberRange.addPool" />
+              {!editMode ? (
+                <FormattedMessage id="plugins.numberRange.addPool" />
+              ) : (
+                <FormattedMessage id="plugins.numberRange.editPool" />
+              )}
             </h5>
             <PoolForm
               server={this.currentServer.server}

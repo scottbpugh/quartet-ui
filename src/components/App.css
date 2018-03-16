@@ -97,3 +97,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   font-size:20px;
   cursor:pointer;
 }
+
+.form-card .pt-input {
+  width: 100%;
+}
+
+.form-card form {
+  padding:20px 5%;
+}
+
+.form-card form .pt-form-group {
+  margin: 20px 0;
+  padding-bottom:10px;
+}

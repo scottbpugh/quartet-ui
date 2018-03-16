@@ -73,13 +73,20 @@ class _PoolItem extends Component {
       return {sequential: true, randomized: true};
     }
   };
+  goToEdit = evt => {
+    let {pool} = this.props;
+    this.props.history.push({
+      pathname: `/number-range/add-pool/${this.props.serverID}/`,
+      state: {defaultValues: this.props.pool, editPool: true}
+    });
+  };
   renderContextMenu() {
     const {serverID, pool} = this.props;
     const {sequential, randomized} = this.getAllowedRegionTypes();
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} iconName="edit" />
+          <Button small={true} onClick={this.goToEdit} iconName="edit" />
           <Button
             small={true}
             onClick={this.toggleConfirmDelete}

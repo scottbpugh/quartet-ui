@@ -119,7 +119,43 @@ export const deleteAPool = (server, pool) => {
       });
   };
 };
-
+const generateFile = (server, pool, exportType, data) => {
+  if (data.numbers && typeof data.numbers === "string") {
+    // parse array of numbers.
+    data.numbers = JSON.parse(data.numbers);
+  }
+  let encodedResult = "";
+  // download the result.
+  if (exportType === "json") {
+    encodedResult = base64.encode(JSON.stringify(data));
+  } else if (exportType === "csv") {
+    let csvParser = new Parser();
+    let numberMap = data.numbers.map(number => {
+      return {
+        numbers: number
+      };
+    });
+    const csv = csvParser.parse(numberMap);
+    encodedResult = base64.encode(csv);
+  } else if (exportType === "xml") {
+    let numberMap = data.numbers.map(number => {
+      return {
+        number: number
+      };
+    });
+    data.numbers = numberMap;
+    let xml = jsonToXML(data);
+    encodedResult = base64.encode(
+      `<?xml version="1.0" encoding="UTF-8"?><root>${xml}</root>`
+    );
+  }
+  let link = document.createElement("a");
+  link.download = `${pool.machine_name}-${data.region}-${
+    data.size_granted
+  }.${exportType}`;
+  link.href = `data:application/octet-stream;charset=utf-8;content-disposition:attachment;base64,${encodedResult}`;
+  link.click();
+};
 export const setAllocation = (server, pool, value, exportType) => {
   return dispatch => {
     allocate(server, pool, value).then(data => {
@@ -133,42 +169,6 @@ export const setAllocation = (server, pool, value, exportType) => {
           type: "success",
           values: {size: data.size_granted, regionName: data.region}
         });
-
-        if (data.numbers && typeof data.numbers === "string") {
-          // parse array of numbers.
-          data.numbers = JSON.parse(data.numbers);
-        }
-        let encodedResult = "";
-        // download the result.
-        if (exportType === "json") {
-          encodedResult = base64.encode(JSON.stringify(data));
-        } else if (exportType === "csv") {
-          let csvParser = new Parser();
-          let numberMap = data.numbers.map(number => {
-            return {
-              numbers: number
-            };
-          });
-          const csv = csvParser.parse(numberMap);
-          encodedResult = base64.encode(csv);
-        } else if (exportType === "xml") {
-          let numberMap = data.numbers.map(number => {
-            return {
-              number: number
-            };
-          });
-          data.numbers = numberMap;
-          let xml = jsonToXML(data);
-          encodedResult = base64.encode(
-            `<?xml version="1.0" encoding="UTF-8"?><root>${xml}</root>`
-          );
-        }
-        let link = document.createElement("a");
-        link.download = `${pool.machine_name}-${data.region}-${
-          data.size_granted
-        }.${exportType}`;
-        link.href = `data:application/octet-stream;charset=utf-8;content-disposition:attachment;base64,${encodedResult}`;
-        link.click();
       }
       dispatch({type: actions.allocate, payload: data});
       // reload regions.
@@ -178,6 +178,18 @@ export const setAllocation = (server, pool, value, exportType) => {
           payload: regions
         });
       });
+      setTimeout(() => {
+        try {
+          if (data.size_granted) {
+            generateFile(server, pool, exportType, data);
+          }
+        } catch (error) {
+          showMessage({
+            id: "plugins.numberRange.errorFailedToGenerateFile",
+            type: "danger"
+          });
+        }
+      }, 500);
     });
   };
 };

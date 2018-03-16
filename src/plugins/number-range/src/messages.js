@@ -37,6 +37,7 @@ const defaultLocaleMsg = {
     addSequentialRegion: "Add a New Sequential Region",
     addRandomizedRegion: "Add a New Randomized Region",
     addPool: "Add a New Pool",
+    editPool: "Edit Pool",
     noRegionInPool: "There is currently no region in this pool.",
     regionDetailTitle: "Pool {poolName} Regions",
     navItemsTitle: "Serial Number Pools",
@@ -44,7 +45,8 @@ const defaultLocaleMsg = {
     serial: "Sequential",
     randomized: "Randomized",
     deleteRegion: "Delete region {regionName}",
-    allocatedSuccess: "{size} allocated to region {regionName}",
+    allocatedSuccess:
+      "{size} allocated to region {regionName}. You will be prompted to save the export file shortly.",
     regionDeletedSuccessfully: "Region deleted successfully",
     deleteRegionConfirm: "Are you sure you want to delete this region?",
     errorFetchPools:
@@ -57,7 +59,9 @@ const defaultLocaleMsg = {
     errorAllocating:
       "An error occurred while attempting to allocate from pool {poolName}. {error}",
     errorFormFetch:
-      "An error occurred while attempting to get this form from remote server {serverName}. {error}"
+      "An error occurred while attempting to get this form from remote server {serverName}. {error}",
+    errorFailedToGenerateFile:
+      "An error occurred when attempting to generate an export file from allocation."
   }
 };
 
