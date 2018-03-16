@@ -205,7 +205,6 @@ class PluginRegistry {
     // but we need it in certain lib methods in plugins to
     // send a message without cluttering each component
     // that use them.
-    debugger;
     this.intl = intl;
   }
   getIntl() {

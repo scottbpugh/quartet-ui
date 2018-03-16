@@ -43,7 +43,6 @@ const getIntent = type => {
 export const showMessage = msg => {
   // for errors etc out of a component context.
   const intl = pluginRegistry.getIntl();
-  debugger;
   if (msg.id) {
     msgToaster.show({
       message: intl.formatMessage({id: msg.id}, msg.values),

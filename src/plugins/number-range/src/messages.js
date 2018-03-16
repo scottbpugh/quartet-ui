@@ -95,7 +95,15 @@ export default {
         errorFetchPools:
           "An error occurred while attempting to fetch pools from {serverName}",
         errorVanilla:
-          "An error occurred while performing this operation. {error}"
+          "An error occurred while performing this operation. {error}",
+        errorFetchPool:
+          "An error occurred while attempting to fetch {poolName}. {error}",
+        errorFetchRegion:
+          "An error occurred while attempting to get region information. {error}",
+        errorAllocating:
+          "An error occurred while attempting to allocate from pool {poolName}. {error}",
+        errorFormFetch:
+          "An error occurred while attempting to get this form from remote server {serverName}. {error}"
       }
     }
   }
