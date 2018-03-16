@@ -19,6 +19,7 @@
 import {handleActions} from "redux-actions";
 import actions from "actions/locales";
 import {updateIntl} from "react-intl-redux";
+import {IntlProvider} from "react-intl";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
 import {pluginRegistry} from "plugins/pluginRegistration";
@@ -37,24 +38,38 @@ export const updateMessages = locale => {
     }
   }
   return dispatch => {
-    return dispatch(
+    const newMessages = flattenMessages(coreMessages[locale]);
+    let actionDispatched = dispatch(
       updateIntl({
         locale: locale,
-        messages: flattenMessages(coreMessages[locale])
+        messages: newMessages
       })
     );
+    updateRegistryIntl(locale, newMessages);
   };
 };
 
 export const switchLocale = newLocale => {
+  const newMessages = flattenMessages(messages[newLocale]);
   return dispatch => {
-    return dispatch(
+    let dispatchedAction = dispatch(
       updateIntl({
         locale: newLocale,
-        messages: flattenMessages(messages[newLocale])
+        messages: newMessages
       })
     );
+    updateRegistryIntl(newLocale, newMessages);
+    return dispatchedAction;
   };
+};
+
+// updates locale and messages.
+const updateRegistryIntl = (locale, messages) => {
+  const {intl} = new IntlProvider({
+    locale: locale,
+    messages: messages
+  }).getChildContext();
+  pluginRegistry.registerIntl(intl);
 };
 
 export default handleActions(

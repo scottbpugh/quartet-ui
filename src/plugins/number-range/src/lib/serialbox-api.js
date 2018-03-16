@@ -63,9 +63,8 @@ export const getPools = server => {
     .catch(error => {
       showMessage({
         type: "danger",
-        msg: `An error occurred while attempting to fetch pools from ${
-          server.serverSettingName
-        }`
+        id: "plugins.numberRange.errorFetchPools",
+        values: {serverName: server.serverSettingName}
       });
       return error;
     });
@@ -85,9 +84,8 @@ export const getPoolDetail = (server, pool) => {
     .catch(error => {
       showMessage({
         type: "danger",
-        msg: `An error occurred while attempting to fetch pool ${
-          pool.detail
-        } from ${server.serverSettingName}`
+        id: "plugins.numberRange.errorFetchPool",
+        values: {poolName: pool.readable_name, error: error}
       });
       return error;
     });
@@ -125,6 +123,11 @@ export const getRegionByURL = (server, url) => {
       return data;
     })
     .catch(error => {
+      showMessage({
+        type: "danger",
+        id: "plugins.numberRange.errorFetchRegion",
+        values: {error: error}
+      });
       return error;
     });
 };
@@ -152,6 +155,11 @@ export const getRegions = (server, pool) => {
       return data;
     })
     .catch(error => {
+      showMessage({
+        type: "danger",
+        id: "plugins.numberRange.errorFetchRegion",
+        values: {error: error}
+      });
       return error;
     });
 };
@@ -177,7 +185,12 @@ export const allocate = (server, pool, value) => {
       return data;
     })
     .catch(error => {
-      return error;
+      showMessage({
+        type: "danger",
+        id: "plugins.numberRange.errorAllocating",
+        values: {error: error, poolName: pool.readable_name}
+      });
+      throw error;
     });
 };
 
@@ -193,7 +206,12 @@ export const getRegionFormStructure = server => {
       return data;
     })
     .catch(error => {
-      return error;
+      showMessage({
+        type: "danger",
+        id: "plugins.numberRange.errorAllocating",
+        values: {error: error}
+      });
+      throw error;
     });
 };
 
@@ -209,7 +227,12 @@ export const getRandomizedRegionFormStructure = server => {
       return data;
     })
     .catch(error => {
-      return error;
+      showMessage({
+        type: "danger",
+        id: "plugins.numberRange.errorFormFetch",
+        values: {error: error, serverName: server.serverSettingName}
+      });
+      throw error;
     });
 };
 
@@ -225,7 +248,12 @@ export const getPoolFormStructure = server => {
       return data;
     })
     .catch(error => {
-      return error;
+      showMessage({
+        type: "danger",
+        id: "plugins.numberRange.errorFormFetch",
+        values: {error: error, serverName: server.serverSettingName}
+      });
+      throw error;
     });
 };
 
@@ -238,11 +266,17 @@ export const postAddRegion = (server, postValues, edit = false) => {
   }
   let headers = prepHeaders(server, method);
   headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
-    resp => {
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
+    .then(resp => {
       return resp;
-    }
-  );
+    })
+    .catch(error => {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: error}
+      });
+    });
 };
 
 export const postAddRandomizedRegion = (server, postValues, edit = false) => {
@@ -254,11 +288,18 @@ export const postAddRandomizedRegion = (server, postValues, edit = false) => {
   }
   let headers = prepHeaders(server, method);
   headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
-    resp => {
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
+    .then(resp => {
       return resp;
-    }
-  );
+    })
+    .catch(error => {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: error}
+      });
+      throw error;
+    });
 };
 
 export const deleteRegion = (server, region) => {
@@ -273,11 +314,18 @@ export const deleteRegion = (server, region) => {
   }
   let headers = prepHeaders(server, method);
   //headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
-    resp => {
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
+    .then(resp => {
       return resp;
-    }
-  );
+    })
+    .catch(error => {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: error}
+      });
+      throw error;
+    });
 };
 
 export const deletePool = (server, pool) => {
@@ -285,20 +333,34 @@ export const deletePool = (server, pool) => {
   let endpoint = `pool-modify/${pool.machine_name}`;
   let headers = prepHeaders(server, method);
   //headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
-    resp => {
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
+    .then(resp => {
       return resp;
-    }
-  );
+    })
+    .catch(error => {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: error}
+      });
+      throw error;
+    });
 };
 
 export const postAddPool = (server, postValues, edit = false) => {
   let endpoint = "pool-create";
   let headers = prepHeaders(server, "POST");
   headers.body = JSON.stringify(postValues);
-  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers).then(
-    resp => {
+  return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
+    .then(resp => {
       return resp;
-    }
-  );
+    })
+    .catch(error => {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: error}
+      });
+      throw error;
+    });
 };

@@ -38,12 +38,15 @@ import classNames from "classnames";
 import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import QuartetLogo from "./QuartetLogo";
+import {injectIntl} from "react-intl";
 
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
 
 class _App extends Component {
   componentDidMount() {
+    // make intl easily available to plugins.
+    pluginRegistry.registerIntl(this.props.intl);
     // redirect to / first thing. Fix for electron build.
     // While it was tempting to redirect to the currentPath persisted
     // through local storage, it can be dangerous if items or plugins have been
@@ -128,11 +131,12 @@ const App = connect(
       currentPath: state.layout.currentPath,
       plugins: state.plugins.plugins,
       theme: state.layout.theme,
-      serversettings: state.serversettings
+      serversettings: state.serversettings,
+      currentLocale: state.intl.locale
     };
   },
   dispatch => {
     return {dispatch: dispatch};
   }
 )(_App);
-export default withRouter(App);
+export default withRouter(injectIntl(App));

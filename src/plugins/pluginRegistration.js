@@ -200,7 +200,18 @@ class PluginRegistry {
   getServer(serverID) {
     return this._servers[serverID];
   }
-
+  registerIntl(intl) {
+    // not the best way to get a hold of the intl element,
+    // but we need it in certain lib methods in plugins to
+    // send a message without cluttering each component
+    // that use them.
+    debugger;
+    this.intl = intl;
+  }
+  getIntl() {
+    // might do some checks first here.
+    return this.intl;
+  }
   setChangeListener(listener) {
     this._emitChange = listener;
   }
