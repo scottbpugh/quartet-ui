@@ -86,7 +86,10 @@ class _RandomizedRegionForm extends Component {
       });
     }
   }
-
+  cancel = evt => {
+    evt.preventDefault();
+    this.props.history.goBack();
+  };
   // Handles the RegionForm post.
   submit = postValues => {
     postValues.pool = this.props.pool.machine_name;
@@ -169,11 +172,18 @@ class _RandomizedRegionForm extends Component {
     return (
       <form onSubmit={handleSubmit(this.submit)}>
         {form}
+
         <button
           className="pt-button pt-intent-primary"
           type="submit"
           disabled={this.props.submitting}>
           Submit
+        </button>
+        <button
+          style={{marginLeft: "10px"}}
+          className="pt-button"
+          onClick={this.cancel}>
+          Cancel
         </button>
       </form>
     );

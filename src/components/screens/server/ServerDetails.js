@@ -82,14 +82,16 @@ class _ServerDetails extends Component {
                 </Button>
               </h5>
               {this.state.editMode ? (
-                <ServerForm
-                  defaultValues={serverObject.toJSON()}
-                  formData={serverObject.getFormStructure()}
-                  saveButtonMsg={
-                    <FormattedMessage id="app.servers.updateServer" />
-                  }
-                  submitCallback={this.submitCallback}
-                />
+                <div className="form-card">
+                  <ServerForm
+                    defaultValues={serverObject.toJSON()}
+                    formData={serverObject.getFormStructure()}
+                    saveButtonMsg={
+                      <FormattedMessage id="app.servers.updateServer" />
+                    }
+                    submitCallback={this.submitCallback}
+                  />
+                </div>
               ) : (
                 <div>
                   <h6>{serverObject.url}</h6>

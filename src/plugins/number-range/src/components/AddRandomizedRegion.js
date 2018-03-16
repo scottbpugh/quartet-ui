@@ -34,18 +34,31 @@ class _AddRandomizedRegion extends Component {
       }
     }
   }
-  componentDidMount() {}
 
   render() {
+    let editMode =
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editRegion
+        ? true
+        : false;
     return (
       <RightPanel
         title={
-          <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
+          !editMode ? (
+            <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
+          ) : (
+            <FormattedMessage id="plugins.numberRange.editRandomizedRegion" />
+          )
         }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
-              <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
+              {!editMode ? (
+                <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
+              ) : (
+                <FormattedMessage id="plugins.numberRange.editRandomizedRegion" />
+              )}
             </h5>
             <RandomizedRegionForm
               server={this.currentServer.server}

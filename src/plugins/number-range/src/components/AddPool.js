@@ -37,7 +37,14 @@ class _AddPool extends Component {
         ? true
         : false;
     return (
-      <RightPanel title={<FormattedMessage id="plugins.numberRange.addPool" />}>
+      <RightPanel
+        title={
+          !editMode ? (
+            <FormattedMessage id="plugins.numberRange.addPool" />
+          ) : (
+            <FormattedMessage id="plugins.numberRange.editPool" />
+          )
+        }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>

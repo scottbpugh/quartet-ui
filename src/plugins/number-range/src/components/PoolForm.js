@@ -40,6 +40,10 @@ class _PoolForm extends Component {
     // quick check to ensure we have a valid server.
     this.constructForm(nextProps);
   }
+  cancel = evt => {
+    evt.preventDefault();
+    this.props.history.goBack();
+  };
   constructForm(props) {
     // is only triggered once when the form isn't populated.
     if (
@@ -99,7 +103,7 @@ class _PoolForm extends Component {
     let editMode =
       this.props.location &&
       this.props.location.state &&
-      this.props.location.state.editPool
+      this.props.location.state.editRegion
         ? true
         : false;
     return postAddPool(
@@ -190,6 +194,12 @@ class _PoolForm extends Component {
           type="submit"
           disabled={this.props.submitting}>
           Submit
+        </button>
+        <button
+          style={{marginLeft: "10px"}}
+          className="pt-button"
+          onClick={this.cancel}>
+          Cancel
         </button>
       </form>
     );
