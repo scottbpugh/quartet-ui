@@ -28,7 +28,9 @@ export default {
       },
       serverSettings: {
         serverSettings: "Server Settings",
-        addAServer: "Add a New Server"
+        addAServer: "Add a New Server",
+        serverSettingsSaved: "Your server settings were saved",
+        serverDeleted: "Server removed successfully"
       },
       themes: {
         lightTheme: "Light Theme",
@@ -48,10 +50,16 @@ export default {
         deleteServerConfirm:
           "Are you sure you want to remove this server? No data from this server will be deleted.",
         noServerMsg:
-          "You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server."
+          "You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server.",
+        errorFormFetch:
+          "An error occurred while attempting to get this form from remote server {serverName}. {error}",
+        errorServerFetch:
+          "An error occurred while requesting initial data from server {serverName}. Please check your settings and credentials. {error}"
       },
       plugins: {
-        addPlugin: "Add a Plugin"
+        addPlugin: "Add a Plugin",
+        pluginEnabled: "Plugin enabled",
+        pluginDisabled: "Plugin disabled"
       }
     },
 
@@ -84,11 +92,7 @@ export default {
         verifyUser: "Vérifier un utilisateur",
         userCreated: "L'utilisateur {username} a été créé avec succès.",
         userVerified: "Compte d'utilisateur confirmé.",
-        deleteServer: "Retirer le server",
-        deleteServerConfirm:
-          "Are you sure you want to remove this server? No data from this server will be deleted.",
-        noServerMsg:
-          "You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server."
+        deleteServer: "Retirer le server"
       },
       plugins: {
         addPlugin: "Ajouter un plugin"

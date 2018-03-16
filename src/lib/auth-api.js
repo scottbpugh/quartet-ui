@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
+import {showMessage} from "lib/message";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -66,7 +67,12 @@ export const getRegistrationFormStructure = server => {
       return data;
     })
     .catch(error => {
-      return error;
+      showMessage({
+        type: "danger",
+        id: "app.servers.errorFormFetch",
+        values: {error: error, serverName: server.serverSettingName}
+      });
+      throw error;
     });
 };
 
@@ -82,6 +88,11 @@ export const getVerifyUserFormStructure = server => {
       return data;
     })
     .catch(error => {
-      return error;
+      showMessage({
+        type: "danger",
+        id: "app.servers.errorFormFetch",
+        values: {error: error, serverName: server.serverSettingName}
+      });
+      throw error;
     });
 };

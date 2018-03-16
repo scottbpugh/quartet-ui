@@ -93,7 +93,10 @@ export const deleteARegion = (server, pool, region) => {
       .then(response => {
         if (response.ok && response.status === 204) {
           dispatch(loadRegions(server, pool));
-          showMessage({type: "warning", msg: "Region deleted successfully"});
+          showMessage({
+            id: "plugins.numberRange.regionDeletedSuccessfully",
+            type: "warning"
+          });
         }
       })
       .catch(error => {
@@ -126,8 +129,9 @@ export const setAllocation = (server, pool, value, exportType) => {
         showMessage({type: "error", msg: data.detail});
       } else if (data.fulfilled === true) {
         showMessage({
+          id: "plugins.numberRange.allocatedSuccess",
           type: "success",
-          msg: `${data.size_granted} allocated to region ${data.region}.`
+          values: {size: data.size_granted, regionName: data.region}
         });
 
         if (data.numbers && typeof data.numbers === "string") {

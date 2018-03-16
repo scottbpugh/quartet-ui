@@ -39,7 +39,7 @@ export const initialData = () => {
 
 export const saveServer = postData => {
   return dispatch => {
-    showMessage({type: "success", msg: "Your server settings were saved."});
+    showMessage({type: "success", id: "app.serverSettings.serverSaved"});
     let server = {...postData};
     server.plugins = [];
     server.plugins.push("number-range");
@@ -61,7 +61,7 @@ export const saveServer = postData => {
 export const deleteServer = server => {
   return dispatch => {
     pluginRegistry.removeServer(server);
-    showMessage({type: "warning", msg: "Server removed successfully."});
+    showMessage({type: "warning", id: "app.serverSettings.serverDeleted"});
     return dispatch({
       type: actions.deleteServer,
       payload: server.serverID

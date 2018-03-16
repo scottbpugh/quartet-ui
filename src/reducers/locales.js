@@ -67,7 +67,8 @@ export const switchLocale = newLocale => {
 const updateRegistryIntl = (locale, messages) => {
   const {intl} = new IntlProvider({
     locale: locale,
-    messages: messages
+    messages: messages,
+    defaultLocale: "en-US"
   }).getChildContext();
   pluginRegistry.registerIntl(intl);
 };

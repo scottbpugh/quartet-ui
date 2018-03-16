@@ -31,7 +31,7 @@ export const setEnablePlugin = pluginEntries => {
     for (let plugin in pluginEntries) {
       pluginEntries[plugin].enabled = true;
     }
-    showMessage({type: "success", msg: `Plugin enabled.`});
+    showMessage({type: "success", id: "app.plugins.pluginEnabled"});
     return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
   };
 };
@@ -40,7 +40,7 @@ export const setDisablePlugin = pluginEntries => {
     for (let plugin in pluginEntries) {
       pluginEntries[plugin].enabled = false;
     }
-    showMessage({type: "success", msg: "Plugin disabled."});
+    showMessage({type: "success", id: "app.plugins.pluginDisabled"});
     return dispatch({type: actions.pluginDisabled, payload: pluginEntries});
   };
 };

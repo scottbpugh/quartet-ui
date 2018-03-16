@@ -234,9 +234,8 @@ export class Server {
               .catch(error => {
                 showMessage({
                   type: "error",
-                  msg: `An error occurred while requesting data from server ${
-                    this.serverSettingName
-                  }. Please check your settings and credentials. ${error}`
+                  id: "app.servers.errorServerFetch",
+                  values: {serverName: this.serverSettingName, error: error}
                 });
                 reject(error);
               });
@@ -244,9 +243,11 @@ export class Server {
             result.json().then(data => {
               showMessage({
                 type: "error",
-                msg: `An error occurred while requesting data from server ${
-                  this.serverSettingName
-                }.  ${data.detail}. Please check your settings and credentials.`
+                id: "app.servers.errorServerFetch",
+                values: {
+                  serverName: this.serverSettingName,
+                  error: JSON.stringify(data)
+                }
               });
               reject(result);
             });
@@ -255,9 +256,8 @@ export class Server {
         .catch(error => {
           showMessage({
             type: "error",
-            msg: `An error occurred while requesting data from server ${
-              this.serverSettingName
-            }. ${error}. Please check your settings and credentials.`
+            id: "app.servers.errorServerFetch",
+            values: {serverName: this.serverSettingName, error: error}
           });
           reject(error);
         });
