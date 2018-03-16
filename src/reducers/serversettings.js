@@ -39,7 +39,10 @@ export const initialData = () => {
 
 export const saveServer = postData => {
   return dispatch => {
-    showMessage({type: "success", id: "app.serverSettings.serverSaved"});
+    showMessage({
+      type: "success",
+      id: "app.serverSettings.serverSettingsSaved"
+    });
     let server = {...postData};
     server.plugins = [];
     server.plugins.push("number-range");
