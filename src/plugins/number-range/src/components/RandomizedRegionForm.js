@@ -88,16 +88,25 @@ class _RandomizedRegionForm extends Component {
   }
   cancel = evt => {
     evt.preventDefault();
-    this.props.history.goBack();
+    const {params} = this.props.match;
+    this.props.history.push(
+      `/number-range/region-detail/${params.serverID}/${params.pool}`
+    );
+  };
+  isEditMode = () => {
+    return this.props.location.state && this.props.location.state.editRegion
+      ? true
+      : false;
   };
   // Handles the RegionForm post.
   submit = postValues => {
     postValues.pool = this.props.pool.machine_name;
-    let editMode =
-      this.props.location.state && this.props.location.state.editRegion
-        ? true
-        : false;
-    return postAddRandomizedRegion(this.props.server, postValues, editMode)
+
+    return postAddRandomizedRegion(
+      this.props.server,
+      postValues,
+      this.isEditMode()
+    )
       .then(resp => {
         return Promise.all([resp, resp.json()]);
       })
@@ -170,7 +179,7 @@ class _RandomizedRegionForm extends Component {
         return false;
       });
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
         {form}
 
         <button

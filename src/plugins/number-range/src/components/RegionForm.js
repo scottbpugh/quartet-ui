@@ -42,7 +42,10 @@ class _RegionForm extends Component {
   }
   cancel = evt => {
     evt.preventDefault();
-    this.props.history.goBack();
+    const {params} = this.props.match;
+    this.props.history.push(
+      `/number-range/region-detail/${params.serverID}/${params.pool}`
+    );
   };
   constructForm(props) {
     // is only triggered once when the form isn't populated.
@@ -94,15 +97,15 @@ class _RegionForm extends Component {
       });
     }
   }
-
+  isEditMode = () => {
+    return this.props.location.state && this.props.location.state.editRegion
+      ? true
+      : false;
+  };
   // Handles the RegionForm post.
   submit = postValues => {
     postValues.pool = this.props.pool.machine_name;
-    let editMode =
-      this.props.location.state && this.props.location.state.editRegion
-        ? true
-        : false;
-    return postAddRegion(this.props.server, postValues, editMode)
+    return postAddRegion(this.props.server, postValues, this.isEditMode())
       .then(resp => {
         return Promise.all([resp, resp.json()]);
       })
@@ -176,7 +179,7 @@ class _RegionForm extends Component {
         return false;
       });
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
         {form}
         <button
           className="pt-button pt-intent-primary"

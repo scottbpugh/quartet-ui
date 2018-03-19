@@ -42,7 +42,17 @@ class _PoolForm extends Component {
   }
   cancel = evt => {
     evt.preventDefault();
-    this.props.history.goBack();
+    if (this.isEditMode()) {
+      this.props.history.push(
+        `/number-range/region-detail/${this.props.match.params.serverID}/${
+          this.props.match.params.poolName
+        }`
+      );
+    } else {
+      this.props.history.push(
+        `/number-range/pools/${this.props.match.params.serverID}/`
+      );
+    }
   };
   constructForm(props) {
     // is only triggered once when the form isn't populated.
@@ -98,18 +108,19 @@ class _PoolForm extends Component {
       });
     }
   }
+  isEditMode = () => {
+    return this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editPool
+      ? true
+      : false;
+  };
   // Handles the RegionForm post.
   submit = postValues => {
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.editRegion
-        ? true
-        : false;
     return postAddPool(
       pluginRegistry.getServer(this.props.server.serverID),
       postValues,
-      editMode
+      this.isEditMode()
     )
       .then(resp => {
         return Promise.all([resp, resp.json()]);
@@ -152,12 +163,6 @@ class _PoolForm extends Component {
       });
   };
   render() {
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.editPool
-        ? true
-        : false;
     const {handleSubmit} = this.props;
     let form = this.state.formStructure
       .map(field => {

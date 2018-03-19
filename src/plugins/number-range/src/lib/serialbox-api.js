@@ -353,6 +353,14 @@ export const postAddPool = (server, postValues, edit = false) => {
   if (edit) {
     method = "PUT";
     endpoint = `pool-modify/${postValues.machine_name}`;
+
+    try {
+      // remove sets before submitting.
+      delete postValues.sequentialregion_set;
+      delete postValues.randomizedregion_set;
+    } catch (e) {
+      console.log(e);
+    }
   }
   let headers = prepHeaders(server, method);
   headers.body = JSON.stringify(postValues);

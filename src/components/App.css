@@ -97,7 +97,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   font-size:20px;
   cursor:pointer;
 }
-
+.form-card {
+  min-width:60%;
+}
 .form-card .pt-input {
   width: 100%;
 }
