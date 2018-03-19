@@ -45,9 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     border-radius: 3px;
 }
 
-.mini-form {
+.mini-form  {
+  margin:10px;
   text-align:center;
-  margin:30px;
 }
 .mini-form button {
   margin:10px;
@@ -75,4 +75,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity 800ms ease-in;
+}
+
+.add-incard-button {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+
+.very-large-icon {
+  font-size:60px !important;
+}
+
+.centered-action {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  align-content:center;
+  height:90%;
+  font-size:20px;
+  cursor:pointer;
+}
+.form-card {
+  min-width:60%;
+}
+.form-card .pt-input {
+  width: 100%;
+}
+
+.form-card form {
+  padding:10px 5%;
+}
+
+.form-card form .pt-form-group {
+  margin: 20px 0;
+  padding-bottom:10px;
 }

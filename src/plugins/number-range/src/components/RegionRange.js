@@ -24,8 +24,16 @@ export default class RegionRange extends Component {
     let start = Number(this.props.start);
     let end = Number(this.props.end);
     let state = Number(this.props.state);
-    let range = end - start + 1;
-    let correctedStart = state - start;
+    let range = end - start;
+    let correctedStart = start;
+    let remaining = Number(this.props.remaining);
+    if (remaining || remaining === 0) {
+      // randomized
+      correctedStart = end - start - remaining;
+    } else if (state) {
+      // serial
+      correctedStart = state - start;
+    }
     let percent = Math.ceil(correctedStart * 100 / (end - start) * 3);
     return (
       <div className="visual">
@@ -37,10 +45,16 @@ export default class RegionRange extends Component {
           role="img">
           <g className="barchart">
             <g className="bar">
-              <rect className="unused" width="300" height="40" />
+              <rect className="unused" width="300" height="40" rx="3" ry="3" />
             </g>
             <g className="bar">
-              <rect className="used" width={percent} height="40" />
+              <rect
+                className="used"
+                width={percent}
+                height="40"
+                rx="3"
+                ry="3"
+              />
             </g>
             <text x="50%" y="25" textAnchor="middle">
               <FormattedNumber value={correctedStart}>

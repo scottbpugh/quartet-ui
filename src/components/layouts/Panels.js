@@ -20,7 +20,7 @@ import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
 import {loadPageTitle} from "../../reducers/layout";
 import "react-resizable/css/styles.css";
-import {Resizable, ResizableBox} from "react-resizable";
+import {ResizableBox} from "react-resizable";
 import "./panels.css";
 
 /**
@@ -75,7 +75,6 @@ class _RightPanel extends Component {
     this.props.loadPageTitle({...this.props.title.props});
   }
 
-  componentWillUnmount() {}
   componentWillReceiveProps(nextProps) {
     if (
       JSON.stringify(nextProps.title.props) !==
@@ -97,7 +96,8 @@ class _RightPanel extends Component {
 export const RightPanel = connect(
   (state, ownProps) => {
     return {
-      pageTitle: state.layout.pageTitle
+      pageTitle: state.layout.pageTitle,
+      currentPath: state.layout.currentPath
     };
   },
   {loadPageTitle}
@@ -113,14 +113,24 @@ export const RightPanel = connect(
  */
 class _Panels extends Component {
   render() {
-    return <div className="main-container">{this.props.children}</div>;
+    let clonedChildren = this.props.children.map((child, index) => {
+      if (index === 1) {
+        // Add a unique currentPath key to force unmounting of right panel
+        // whenever the path changes.
+        let newProps = {...child.props, key: this.props.currentPath};
+        return React.cloneElement(child, newProps);
+      }
+      return child;
+    });
+    return <div className="main-container">{clonedChildren}</div>;
   }
 }
 
 export const Panels = connect(
   (state, ownProps) => {
     return {
-      pageTitle: state.layout.pageTitle
+      pageTitle: state.layout.pageTitle,
+      currentPath: state.layout.currentPath
     };
   },
   {loadPageTitle}

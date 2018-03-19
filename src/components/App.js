@@ -35,16 +35,38 @@ import {NavTree} from "components/layouts/elements/NavTree";
 import {connect} from "react-redux";
 import {LeftPanel, Panels} from "components/layouts/Panels";
 import classNames from "classnames";
+import {Server} from "lib/servers";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import QuartetLogo from "./QuartetLogo";
+import {injectIntl} from "react-intl";
+
+// useful piece for testing. Never use this global in code.
+window.pluginRegistry = pluginRegistry;
 
 class _App extends Component {
   componentDidMount() {
+    // make intl easily available to plugins.
+    pluginRegistry.registerIntl(this.props.intl);
     // redirect to / first thing. Fix for electron build.
     // While it was tempting to redirect to the currentPath persisted
-    // through local storage. It can be dangerous if items or plugins have been
+    // through local storage, it can be dangerous if items or plugins have been
     // removed from the db/disabled as plugins.
     if (process.env.NODE_ENV !== "development") {
       this.props.history.push("/");
     }
+    // load the necessary server data.
+    this.processServers();
+  }
+  processServers() {
+    // pull the server data from redux, instantiate Server classes based on this.
+    // Register them with the pluginRegistry so that core and plugins can use
+    // the class instances for their own API calls etc...
+    const {servers} = this.props.serversettings;
+    Object.keys(servers).forEach(serverID => {
+      let server = new Server(servers[serverID]);
+      pluginRegistry.registerServer(server);
+      server.listApps();
+    });
   }
   componentWillReceiveProps(nextProps) {}
 
@@ -68,10 +90,7 @@ class _App extends Component {
             })}>
             <NavbarGroup>
               <NavbarHeading>
-                <img
-                  src="/qu4rtet-logo.png"
-                  style={{width: "50%", height: "50%"}}
-                />
+                <QuartetLogo style={{width: "50%", height: "50%"}} />
               </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
@@ -111,11 +130,13 @@ const App = connect(
       pageTitle: state.layout.pageTitle,
       currentPath: state.layout.currentPath,
       plugins: state.plugins.plugins,
-      theme: state.layout.theme
+      theme: state.layout.theme,
+      serversettings: state.serversettings,
+      currentLocale: state.intl.locale
     };
   },
   dispatch => {
     return {dispatch: dispatch};
   }
 )(_App);
-export default withRouter(App);
+export default withRouter(injectIntl(App));

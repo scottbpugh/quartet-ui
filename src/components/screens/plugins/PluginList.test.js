@@ -36,7 +36,7 @@
 import React, {Component} from "react";
 import renderer from "react-test-renderer";
 import {PluginList} from "./PluginList";
-import {initialData} from "../../../reducers/serversettings";
+import {initialData} from "reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 import {IntlProvider, intlReducer} from "react-intl-redux";

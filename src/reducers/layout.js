@@ -23,7 +23,7 @@ export const initialData = () => {
   return {
     pageTitle: {id: "Main", values: {}},
     currentPath: window.location.pathname,
-    theme: "light"
+    theme: "dark-brown"
   };
 };
 
@@ -33,6 +33,14 @@ export const loadPageTitle = title => {
   };
 };
 
+export const routeLocationDidUpdate = location => {
+  return dispatch => {
+    return dispatch({
+      type: actions.locationDidUpdate,
+      payload: {...location}
+    });
+  };
+};
 export const switchTheme = themeName => {
   // currently either light or dark.
   return dispatch => {
@@ -45,9 +53,14 @@ export default handleActions(
     [actions.loadPageTitle]: (state, action) => {
       return {
         ...state,
-        pageTitle: action.payload,
-        // keeping track of path for nav purposes.
-        currentPath: window.location.pathname
+        pageTitle: action.payload
+      };
+    },
+    [actions.locationDidUpdate]: (state, action) => {
+      return {
+        ...state,
+        currentPath: action.payload.pathname,
+        location: action.payload
       };
     },
     [actions.switchTheme]: (state, action) => {

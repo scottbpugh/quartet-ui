@@ -20,12 +20,10 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {loadPools, loadRegions} from "../reducers/numberrange";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Callout} from "@blueprintjs/core";
-import RegionRange from "./RegionRange";
-import {setAllocation} from "../reducers/numberrange";
-
-import classNames from "classnames";
-import {FormattedDate, FormattedMessage, FormattedNumber} from "react-intl";
+import {Callout} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {RegionCard} from "./RegionCard";
 
 import "../style.css";
 /**
@@ -39,65 +37,25 @@ class _RegionDetail extends Component {
     // these two properties below make it easy to retrieve
     // and trigger actions.
     this.currentPool = {readable_name: ""};
-    this.currentServer = {};
   }
   componentDidMount() {
-    this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
+    //this.props.loadPools(this.props.servers[this.props.match.params.serverID]);
     this.loadPoolDetail(this.props);
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.pool !== this.props.match.params.pool) {
-      this.loadPoolDetail(nextProps);
-      return;
-    }
-    if (
-      JSON.stringify(this.props.nr[nextProps.match.params.serverID]) !==
-      JSON.stringify(nextProps.nr[nextProps.match.params.serverID])
-    ) {
-      this.props.loadPools(nextProps.servers[nextProps.match.params.serverID]);
-    }
-    // shake card for the last updated region.
-    /*nextProps.currentRegions.map((region, index) => {
-      if (
-        this.props.currentRegions[index] &&
-        region.state !== this.props.currentRegions[index].state
-      ) {
-        console.log(
-          "new state",
-          region.state,
-          "old state",
-          this.props.currentRegions[index].state
-        );
-        this.setState({lastUpdated: region.machine_name}, () => {
-          window.setTimeout(() => {
-            this.setState({lastUpdated: null});
-          }, 3000);
-        });
-      }
-      return null;
-    });*/
   }
   previewAlloc = evt => {
     this.setState({alloc: Number(evt.target.value)});
   };
   loadPoolDetail(props) {
-    let nrServer = props.nr[props.match.params.serverID];
-    this.currentServer = nrServer.server;
-    for (let pool of nrServer.pools) {
+    for (let pool of this.props.pools) {
       if (pool.machine_name === props.match.params.pool) {
         this.currentPool = pool;
       }
     }
-    this.props.loadPools(this.currentServer, this.currentPool);
-    this.props.loadRegions(this.currentServer, this.currentPool);
-  }
-  setAllocation = evt => {
-    this.props.setAllocation(
-      this.currentServer,
-      this.currentPool,
-      this.state.alloc
+    this.props.loadRegions(
+      pluginRegistry.getServer(props.server.serverID),
+      this.currentPool
     );
-  };
+  }
 
   render() {
     let regions = this.props.currentRegions;
@@ -113,47 +71,17 @@ class _RegionDetail extends Component {
         <div className="auto-cards-container">
           {regions && regions.length > 0 ? (
             regions.map(region => (
-              <Card
-                className={classNames({
-                  "pt-elevation-4": true,
-                  "region-detail": true,
-                  updated: this.state.lastUpdated === region.machine_name
-                })}
-                key={region.machine_name}>
-                <h5>{region.readable_name}</h5>
-                <ul>
-                  <li>
-                    <FormattedMessage id="plugins.numberRange.createdOn" />:{" "}
-                    <FormattedDate value={region.created_date} />
-                  </li>
-                  <li>
-                    <FormattedMessage id="plugins.numberRange.status" />:{" "}
-                    {region.active ? (
-                      <FormattedMessage id="plugins.numberRange.active" />
-                    ) : (
-                      <FormattedMessage id="plugins.numberRange.inactive" />
-                    )}
-                  </li>
-                  <li>
-                    <FormattedMessage
-                      id="plugins.numberRange.range"
-                      defaultMessage="Range"
-                    />: <FormattedNumber value={region.start} />{" "}
-                    <FormattedMessage id="plugins.numberRange.to" />{" "}
-                    <FormattedNumber value={region.end} />
-                  </li>
-                  <li>
-                    <FormattedMessage id="plugins.numberRange.state" />:{" "}
-                    <FormattedNumber value={region.state} />
-                  </li>
-                </ul>
-                <RegionRange
-                  start={region.start}
-                  end={region.end}
-                  state={region.state}
-                  alloc={this.state.alloc}
-                />
-              </Card>
+              <RegionCard
+                lastUpdated={this.state.lastUpdated}
+                region={region}
+                alloc={this.state.alloc}
+                pool={this.currentPool}
+                serverID={this.props.server.serverID}
+                serverObject={pluginRegistry.getServer(
+                  this.props.server.serverID
+                )}
+                history={this.props.history}
+              />
             ))
           ) : (
             <Callout>
@@ -172,10 +100,10 @@ class _RegionDetail extends Component {
 export var RegionDetail = connect(
   (state, ownProps) => {
     return {
-      servers: state.serversettings.servers,
-      currentRegions: state.numberrange.currentRegions,
-      nr: state.numberrange.servers
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      pools: state.numberrange.servers[ownProps.match.params.serverID].pools,
+      currentRegions: state.numberrange.currentRegions
     };
   },
-  {loadPools, loadRegions, setAllocation}
+  {loadPools, loadRegions}
 )(_RegionDetail);

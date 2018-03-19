@@ -25,6 +25,7 @@ import {PluginList} from "components/screens/plugins/PluginList";
 import {connect} from "react-redux";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {updateMessages} from "reducers/locales";
+import {ServerDetails} from "components/screens/server/ServerDetails";
 
 const coreRoutes = () => {
   return [
@@ -33,6 +34,11 @@ const coreRoutes = () => {
       key="serversettings"
       path="/server-settings/:serverID?"
       component={ServerSettings}
+    />,
+    <Route
+      key="serverdetails"
+      path="/server-details/:serverID?"
+      component={ServerDetails}
     />,
     <Route key="pluginList" path="/plugins" component={PluginList} />
   ];

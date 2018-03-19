@@ -40,6 +40,13 @@ class _RegionForm extends Component {
     // quick check to ensure we have a valid server.
     this.constructForm(nextProps);
   }
+  cancel = evt => {
+    evt.preventDefault();
+    const {params} = this.props.match;
+    this.props.history.push(
+      `/number-range/region-detail/${params.serverID}/${params.pool}`
+    );
+  };
   constructForm(props) {
     // is only triggered once when the form isn't populated.
     if (
@@ -81,16 +88,24 @@ class _RegionForm extends Component {
                 props.dispatch(change("addRegion", field, false));
               }
             }
+            if (props.location.state && props.location.state.defaultValues) {
+              // fed existing values.
+              props.initialize(props.location.state.defaultValues);
+            }
           }
         );
       });
     }
   }
-
+  isEditMode = () => {
+    return this.props.location.state && this.props.location.state.editRegion
+      ? true
+      : false;
+  };
   // Handles the RegionForm post.
   submit = postValues => {
     postValues.pool = this.props.pool.machine_name;
-    return postAddRegion(this.props.server, postValues)
+    return postAddRegion(this.props.server, postValues, this.isEditMode())
       .then(resp => {
         return Promise.all([resp, resp.json()]);
       })
@@ -102,16 +117,21 @@ class _RegionForm extends Component {
               msg: "New region created successfully",
               type: "success"
             });
-
-            setTimeout(() => {
-              // tiny bit of padding.
-              this.props.history.push(
-                `/number-range/region-detail/${this.props.server.serverID}/${
-                  this.props.pool.machine_name
-                }`
-              );
-            }, 10);
+          } else if (proms[0].status === 200) {
+            showMessage({
+              msg: "Existing region updated successfully",
+              type: "success"
+            });
           }
+          setTimeout(() => {
+            // tiny bit of padding.
+            this.props.history.push(
+              `/number-range/region-detail/${this.props.server.serverID}/${
+                this.props.pool.machine_name
+              }`
+            );
+          }, 100);
+
           return proms[1];
         } else {
           // We handle the error info in JSON here.
@@ -154,18 +174,24 @@ class _RegionForm extends Component {
       })
       .filter(field => {
         if (field) {
-          return field;
+          return true;
         }
         return false;
       });
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
         {form}
         <button
           className="pt-button pt-intent-primary"
           type="submit"
           disabled={this.props.submitting}>
           Submit
+        </button>
+        <button
+          style={{marginLeft: "10px"}}
+          className="pt-button"
+          onClick={this.cancel}>
+          Cancel
         </button>
       </form>
     );

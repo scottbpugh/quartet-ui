@@ -20,6 +20,8 @@ import {handleActions} from "redux-actions";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
 import uuidv4 from "uuid/v4";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {Server} from "lib/servers";
 
 /**
  * initialData - Returns the initial data for
@@ -30,45 +32,73 @@ import uuidv4 from "uuid/v4";
  */
 export const initialData = () => {
   let _initialData = {
-    servers: {}, // uuid key to objects
-    currentServer: null
+    servers: {} // uuid key to objects
   };
   return _initialData;
 };
 
 export const saveServer = postData => {
   return dispatch => {
-    showMessage({type: "success", msg: "Your server settings were saved."});
+    showMessage({
+      type: "success",
+      id: "app.serverSettings.serverSettingsSaved"
+    });
     let server = {...postData};
     server.plugins = [];
     server.plugins.push("number-range");
     if (!postData.serverID) {
       postData.serverID = uuidv4();
     }
+    postData.hostname = postData.hostname.trim(); // prevent spaces.
     dispatch({type: actions.saveServerSettings, payload: postData});
-    return dispatch({type: actions.serverUpdated, payload: postData});
+    const newServer = new Server(postData);
+    pluginRegistry.registerServer(newServer);
+    newServer.listApps(); // refresh app list.
+    return dispatch({
+      type: actions.serverUpdated,
+      payload: JSON.stringify(newServer)
+    });
   };
 };
 
-export const loadCurrentServer = serverData => {
+export const deleteServer = server => {
   return dispatch => {
-    return dispatch({type: actions.loadCurrentServer, payload: serverData});
+    pluginRegistry.removeServer(server);
+    showMessage({type: "warning", id: "app.serverSettings.serverDeleted"});
+    return dispatch({
+      type: actions.deleteServer,
+      payload: server.serverID
+    });
   };
 };
 
 export default handleActions(
   {
-    [actions.loadCurrentServer]: (state, action) => {
-      return {
-        ...state,
-        formData: initialData(action.payload).formData
-      };
-    },
     [actions.saveServerSettings]: (state, action) => {
       return {
         ...state,
         servers: {...state.servers, [action.payload.serverID]: action.payload},
         formData: initialData().formData
+      };
+    },
+    [actions.appsListUpdated]: (state, action) => {
+      return {
+        ...state,
+        servers: {...state.servers, [action.payload.serverID]: action.payload}
+      };
+    },
+    [actions.deleteServer]: (state, action) => {
+      let servers = {...state.servers};
+      delete servers[action.payload]; // serverID
+      return {
+        ...state,
+        servers: servers
+      };
+    },
+    [actions.resetAppList]: (state, action) => {
+      return {
+        ...state,
+        servers: {...state.servers, [action.payload.serverID]: action.payload}
       };
     }
   },

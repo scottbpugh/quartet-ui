@@ -34,16 +34,31 @@ class _AddRegion extends Component {
       }
     }
   }
-  componentDidMount() {}
 
   render() {
+    let editMode =
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editPool
+        ? true
+        : false;
     return (
       <RightPanel
-        title={<FormattedMessage id="plugins.numberRange.addRegion" />}>
+        title={
+          !editMode ? (
+            <FormattedMessage id="plugins.numberRange.addSequentialRegion" />
+          ) : (
+            <FormattedMessage id="plugins.numberRange.editSequentialRegion" />
+          )
+        }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
-              <FormattedMessage id="plugins.numberRange.addRegion" />
+              {!editMode ? (
+                <FormattedMessage id="plugins.numberRange.addSequentialRegion" />
+              ) : (
+                <FormattedMessage id="plugins.numberRange.editSequentialRegion" />
+              )}
             </h5>
             <RegionForm
               server={this.currentServer.server}

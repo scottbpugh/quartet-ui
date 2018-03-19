@@ -17,17 +17,17 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Field, reduxForm, change, SubmissionError} from "redux-form";
-import {getPoolFormStructure} from "../lib/serialbox-api";
-import {postAddPool} from "../lib/serialbox-api";
+import {Field, reduxForm, change} from "redux-form";
+import {getRandomizedRegionFormStructure} from "../lib/serialbox-api";
+import {postAddRandomizedRegion} from "../lib/serialbox-api";
+import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";
-import {loadPools} from "../reducers/numberrange";
-import {connect} from "react-redux";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
-import {pluginRegistry} from "plugins/pluginRegistration";
-import {withRouter} from "react-router";
+import {connect} from "react-redux";
+import {loadPools} from "../reducers/numberrange";
+import {withRouter} from "react-router-dom";
 
-class _PoolForm extends Component {
+class _RandomizedRegionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {formStructure: []};
@@ -36,24 +36,6 @@ class _PoolForm extends Component {
   componentDidMount() {
     this.constructForm(this.props);
   }
-  componentWillReceiveProps(nextProps) {
-    // quick check to ensure we have a valid server.
-    this.constructForm(nextProps);
-  }
-  cancel = evt => {
-    evt.preventDefault();
-    if (this.isEditMode()) {
-      this.props.history.push(
-        `/number-range/region-detail/${this.props.match.params.serverID}/${
-          this.props.match.params.poolName
-        }`
-      );
-    } else {
-      this.props.history.push(
-        `/number-range/pools/${this.props.match.params.serverID}/`
-      );
-    }
-  };
   constructForm(props) {
     // is only triggered once when the form isn't populated.
     if (
@@ -61,7 +43,7 @@ class _PoolForm extends Component {
       props.server &&
       props.server.serverSettingName
     ) {
-      getPoolFormStructure(props.server).then(data => {
+      getRandomizedRegionFormStructure(props.server).then(data => {
         // parse the values and filter to the one that are not readonly.
         let postFields = data.actions.POST;
         let formStructure = Object.keys(postFields)
@@ -95,11 +77,7 @@ class _PoolForm extends Component {
                 props.dispatch(change("addRegion", field, false));
               }
             }
-            if (
-              props.location &&
-              props.location.state &&
-              props.location.state.defaultValues
-            ) {
+            if (props.location.state && props.location.state.defaultValues) {
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
             }
@@ -108,17 +86,24 @@ class _PoolForm extends Component {
       });
     }
   }
+  cancel = evt => {
+    evt.preventDefault();
+    const {params} = this.props.match;
+    this.props.history.push(
+      `/number-range/region-detail/${params.serverID}/${params.pool}`
+    );
+  };
   isEditMode = () => {
-    return this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.editPool
+    return this.props.location.state && this.props.location.state.editRegion
       ? true
       : false;
   };
   // Handles the RegionForm post.
   submit = postValues => {
-    return postAddPool(
-      pluginRegistry.getServer(this.props.server.serverID),
+    postValues.pool = this.props.pool.machine_name;
+
+    return postAddRandomizedRegion(
+      this.props.server,
       postValues,
       this.isEditMode()
     )
@@ -130,25 +115,21 @@ class _PoolForm extends Component {
         if (proms[0].ok) {
           if (proms[0].status === 201) {
             showMessage({
-              msg: "New pool created successfully",
+              msg: "New region created successfully",
               type: "success"
             });
-            this.props.history.push(
-              "/number-range/pools/" + this.props.server.serverID
-            );
           } else if (proms[0].status === 200) {
             showMessage({
-              msg: "Existing pool updated successfully",
+              msg: "Existing region updated successfully",
               type: "success"
             });
           }
-          this.props.loadPools(
-            pluginRegistry.getServer(this.props.server.serverID)
-          );
           setTimeout(() => {
             // tiny bit of padding.
             this.props.history.push(
-              `/number-range/pools/${this.props.server.serverID}`
+              `/number-range/region-detail/${this.props.server.serverID}/${
+                this.props.pool.machine_name
+              }`
             );
           }, 100);
           return proms[1];
@@ -167,6 +148,11 @@ class _PoolForm extends Component {
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
+        if (field.name === "pool") {
+          // we'll populate dynamically based on path.
+          field.description.required = false;
+          field.validate = [];
+        }
         if (field.description.type === "integer") {
           type = "number";
         } else if (field.description.type === "boolean") {
@@ -181,19 +167,21 @@ class _PoolForm extends Component {
             component={DefaultField}
             type={type}
             className="pt-input"
+            width={300}
             validate={field.validate}
           />
         );
       })
       .filter(field => {
         if (field) {
-          return field;
+          return true;
         }
         return false;
       });
     return (
-      <form onSubmit={handleSubmit(this.submit)}>
+      <form onSubmit={handleSubmit(this.submit.bind(this))}>
         {form}
+
         <button
           className="pt-button pt-intent-primary"
           type="submit"
@@ -211,16 +199,10 @@ class _PoolForm extends Component {
   }
 }
 
-let PoolForm = reduxForm({
-  form: "addPool"
-})(_PoolForm);
+const RandomizedRegionForm = reduxForm({
+  form: "addRandomizedRegion"
+})(_RandomizedRegionForm);
 
-export default connect(
-  (state, ownProps) => {
-    return {
-      servers: state.serversettings.servers,
-      nr: state.numberrange.servers
-    };
-  },
-  {loadPools}
-)(withRouter(PoolForm));
+export default connect(state => ({nr: state.numberrange.servers}), {loadPools})(
+  withRouter(RandomizedRegionForm)
+);

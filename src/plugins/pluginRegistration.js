@@ -28,6 +28,12 @@ class PluginRegistry {
     this._emitChange = null;
 
     /*
+     * Holds references to server objects (core lib/servers.js Server class)
+     * Is used to retrieve api objects, server settings etc by core and plugins.
+     */
+    this._servers = {};
+
+    /*
     Holds references to reducers that come from plugins.
     */
     this._reducers = {};
@@ -185,6 +191,26 @@ class PluginRegistry {
     }
   }
 
+  registerServer(serverRef) {
+    this._servers[serverRef.serverID] = serverRef;
+  }
+  removeServer(serverRef) {
+    delete this._servers[serverRef.serverID];
+  }
+  getServer(serverID) {
+    return this._servers[serverID];
+  }
+  registerIntl(intl) {
+    // not the best way to get a hold of the intl element,
+    // but we need it in certain lib methods in plugins to
+    // send a message without cluttering each component
+    // that use them.
+    this.intl = intl;
+  }
+  getIntl() {
+    // might do some checks first here.
+    return this.intl;
+  }
   setChangeListener(listener) {
     this._emitChange = listener;
   }

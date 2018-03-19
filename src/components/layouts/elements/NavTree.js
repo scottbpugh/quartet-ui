@@ -21,17 +21,12 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import "./NavTree.css";
 import classNames from "classnames";
-import {
-  ContextMenuTarget,
-  Menu,
-  MenuItem,
-  Popover,
-  Position,
-  Icon
-} from "@blueprintjs/core";
+import {ContextMenuTarget, Icon, Callout} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {ServerNode} from "components/screens/server/ServerNode";
+import {AddServerButton} from "components/screens/server/AddServerButton";
 
 export class CustomIcon extends Component {
   render() {
@@ -146,46 +141,12 @@ class Tree extends Component {
   }
 }
 
-class AddServerButton extends Component {
-  goTo(path) {
-    this.props.history.push(path);
-  }
-  render() {
-    let isDark = this.props.theme === "polar" ? false : true;
-    const addMenu = (
-      <Menu
-        className={classNames({
-          "menu-padding-fix": true,
-          "pt-dark": isDark
-        })}>
-        <MenuItem
-          text={<FormattedMessage id="app.serverSettings.addAServer" />}
-          onClick={this.goTo.bind(this, "/server-settings/")}
-        />
-      </Menu>
-    );
-    return (
-      <div>
-        <Popover
-          className={classNames({"pt-dark": isDark})}
-          content={addMenu}
-          position={Position.RIGHT_CENTER}>
-          <button
-            onClick={this.displayMenu}
-            tabindex="0"
-            className="pt-button pt-icon-add">
-            {/*
-              <FormattedMessage
-                id="plugins.numberRange.addServer"
-                defaultMessage="Add a New Server"
-              />*/}
-          </button>
-        </Popover>
-      </div>
-    );
-  }
-}
-
+/*
+  Nav tree doesn't rerender for every path change. This is to keep the correct state
+  in terms of expansions (expanded nodes are not all necessarily the current one.)
+  At some point we might want to move the expanded state to redux to make it persistent
+  across sessions.
+*/
 class _NavTree extends Component {
   constructor(props) {
     super(props);
@@ -198,22 +159,32 @@ class _NavTree extends Component {
     this.tree = this.getTree(nextProps);
   }
   getTree = props => {
-    const {servers} = props;
-    return Object.keys(servers).map(serverID => {
+    let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
+      const server = pluginRegistry.getServer(serverID);
       let children = Object.keys(props.navTreeItems).map(component => {
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName depth={1} key={component} serverID={serverID} />;
       });
       return (
-        <TreeNode
+        <ServerNode
+          server={server}
           key={serverID}
           nodeType="server"
           depth={0}
           childrenNodes={children ? children : []}>
-          {servers[serverID].serverSettingName}
-        </TreeNode>
+          {server.serverSettingName}
+        </ServerNode>
       );
     });
+    if (serverNodes.length === 0) {
+      // placeholder if no server.
+      return (
+        <Callout className="pt-icon-info-sign no-server-info">
+          <FormattedMessage id="app.servers.noServerMsg" />
+        </Callout>
+      );
+    }
+    return serverNodes;
   };
   render() {
     return (

@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   flex-grow:0.4;
   width:40%;
   margin-bottom:15px;
-  max-height:500px;
   position:relative;
   padding-top:60px;
 }
@@ -117,4 +116,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .error-list .pt-icon-warning-sign {
   color:#D9822B;
+}
+.card-control {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+.context-menu-control {
+  position:absolute;
+  top:2px;
+  right: 0;
 }

@@ -78,12 +78,17 @@ export const DefaultField = ({
       </div>
     );
   } else if (fieldData.description.type === "boolean") {
+    let val = false;
+    if (fieldData.defaultValue !== undefined) {
+      val = fieldData.defaultValue;
+    }
     inputField = (
       <label className="pt-control pt-switch">
         <input
           {...input}
           type="checkbox"
           name={fieldData.name}
+          defaultChecked={val}
           className={intent}
           intent={intent}
         />
@@ -105,9 +110,7 @@ export const DefaultField = ({
   }
 
   let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error
-    ? `${error} - ${helperInstruction}`
-    : helperInstruction;
+  let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
   const shouldHide =
     fieldData.description.type === "field" ||
     fieldData.description.type === "hidden";

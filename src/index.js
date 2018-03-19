@@ -19,55 +19,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import registerServiceWorker from "./registerServiceWorker";
-import configureStore from "./store";
-import {Provider} from "react-redux";
-import RouteSwitcher from "./routes";
-
-import {IntlProvider} from "react-intl-redux";
-
-import {BrowserRouter} from "react-router-dom";
-
-import en from "react-intl/locale-data/en";
-import fr from "react-intl/locale-data/fr";
-import {addLocaleData} from "react-intl";
-import messages from "./messages";
-import {flattenMessages} from "./lib/flattenMessages";
-import {initialData as pluginInitialData} from "./reducers/plugins";
-import "ubuntu-fontface/ubuntu.css";
 import "typeface-heebo";
-// initial data objects
-import {initialData} from "./reducers/serversettings";
+import {Provider} from "react-redux";
+import {IntlProvider} from "react-intl-redux";
+import {Router} from "react-router-dom";
+import RouteSwitcher from "./routes";
+import {store} from "./store";
+import {routeLocationDidUpdate} from "reducers/layout";
+import {createBrowserHistory} from "history";
+import {showMessage} from "lib/message";
+const browserHistory = createBrowserHistory();
 
-import {initialData as layoutInitialData} from "./reducers/layout";
-
-addLocaleData([...en, ...fr]);
-
-let locale = "en-US";
-
-const initialState = {
-  dashboard: {notifications: []},
-  serversettings: initialData(),
-  intl: {
-    defaultLocale: "en-US",
-    locale: locale,
-    messages: flattenMessages(messages[locale])
-  },
-  layout: layoutInitialData(),
-  plugins: pluginInitialData()
-};
-
-addLocaleData([...en, ...fr]);
-const store = configureStore(initialState);
+browserHistory.listen(location => {
+  store.dispatch(routeLocationDidUpdate(location));
+});
 
 ReactDOM.render(
   <Provider store={store}>
     <IntlProvider>
-      <BrowserRouter>
+      <Router history={browserHistory}>
         <RouteSwitcher />
-      </BrowserRouter>
+      </Router>
     </IntlProvider>
   </Provider>,
   document.getElementById("root")
 );
-registerServiceWorker();

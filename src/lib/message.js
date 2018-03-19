@@ -17,6 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {Position, Toaster, Intent} from "@blueprintjs/core";
+import {injectIntl} from "react-intl";
+import React, {Component} from "react";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 const msgToaster = Toaster.create({
   className: "my-toaster",
@@ -30,13 +33,22 @@ const getIntent = type => {
     case "danger":
     case "error":
       return Intent.DANGER;
+    case "warning":
+      return Intent.WARNING;
     default:
       return Intent.PRIMARY;
   }
 };
 
 export const showMessage = msg => {
-  if (msg.msg) {
+  // for errors etc out of a component context.
+  const intl = pluginRegistry.getIntl();
+  if (msg.id) {
+    msgToaster.show({
+      message: intl.formatMessage({id: msg.id}, msg.values),
+      intent: getIntent(msg.type)
+    });
+  } else if (msg.msg) {
     msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
   }
 };

@@ -16,58 +16,89 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+const defaultLocaleMsg = {
+  numberRange: {
+    pool: "Pool",
+    region: "Region",
+    allocation: "Allocation",
+    allocateButton: "Allocate from Pool",
+    createdOn: "Created On",
+    readableName: "Readable Name",
+    machineName: "Machine Name",
+    status: "Status",
+    requestThreshold: "Request Threshold",
+    regions: "Regions",
+    numberRangePools: "Number Range Pools",
+    active: "active",
+    inactive: "inactive",
+    range: "Range",
+    to: "to",
+    state: "State",
+    addSequentialRegion: "Add a New Sequential Region",
+    editSequentialRegion: "Edit Sequential Region",
+    addRandomizedRegion: "Add a New Randomized Region",
+    editRandomizedRegion: "Edit Randomized Region",
+    addPool: "Add a New Pool",
+    editPool: "Edit Pool",
+    noRegionInPool: "There is currently no region in this pool.",
+    regionDetailTitle: "Pool {poolName} Regions",
+    navItemsTitle: "Serial Number Pools",
+    current: "current",
+    serial: "Sequential",
+    randomized: "Randomized",
+    deleteRegion: "Delete region {regionName}",
+    allocatedSuccess:
+      "{size} allocated to region {regionName}. You will be prompted to save the export file shortly.",
+    regionDeletedSuccessfully: "Region deleted successfully",
+    deleteRegionConfirm: "Are you sure you want to delete this region?",
+    errorFetchPools:
+      "An error occurred while attempting to fetch pools from {serverName}",
+    errorVanilla: "An error occurred while performing this operation. {error}",
+    errorFetchPool:
+      "An error occurred while attempting to fetch {poolName}. {error}",
+    errorFetchRegion:
+      "An error occurred while attempting to get region information. {error}",
+    errorAllocating:
+      "An error occurred while attempting to allocate from pool {poolName}. {error}",
+    errorFormFetch:
+      "An error occurred while attempting to get this form from remote server {serverName}. {error}",
+    errorFailedToGenerateFile:
+      "An error occurred when attempting to generate an export file from allocation."
+  }
+};
+
+const french = {
+  pool: "Groupe",
+  region: "Région",
+  allocation: "Attribution",
+  allocateButton: "Attribuer au groupe",
+  createdOn: "Créé le",
+  readableName: "Nom",
+  machineName: "Nom machine",
+  status: "Statut",
+  requestThreshold: "Seuil de requêtes",
+  regions: "Régions",
+  numberRangePools: "Groupes de plages de numéros",
+  active: "actif",
+  inactive: "inactif",
+  range: "Plage",
+  to: "à",
+  state: "État",
+  addSequentialRegion: "Add a New Sequential Region",
+  addRandomizedRegion: "Add a New Randomized Region",
+  addPool: "Ajouter un Groupe",
+  noRegionInPool: "Il n'existe aucune region dans ce groupe.",
+  regionDetailTitle: "Regions du groupe {poolName}",
+  navItemsTitle: "Numéros de série"
+};
+
 export default {
-  "en-US": {
-    plugins: {
-      numberRange: {
-        pool: "Pool",
-        region: "Region",
-        allocation: "Allocation",
-        allocateButton: "Allocate from Pool",
-        createdOn: "Created On",
-        readableName: "Readable Name",
-        machineName: "Machine Name",
-        status: "Status",
-        requestThreshold: "Request Threshold",
-        regions: "Regions",
-        numberRangePools: "Number Range Pools",
-        active: "active",
-        inactive: "inactive",
-        range: "Range",
-        to: "to",
-        state: "State",
-        addRegion: "Add a New Region",
-        addPool: "Add a New Pool",
-        noRegionInPool: "There is currently no region in this pool.",
-        regionDetailTitle: "Pool {poolName} Regions",
-        navItemsTitle: "Serial Number Pools"
-      }
-    }
-  },
+  "en-US": {plugins: {...defaultLocaleMsg}},
   "fr-FR": {
     plugins: {
       numberRange: {
-        pool: "Groupe",
-        region: "Région",
-        allocation: "Attribution",
-        allocateButton: "Attribuer au groupe",
-        createdOn: "Créé le",
-        readableName: "Nom",
-        machineName: "Nom machine",
-        status: "Statut",
-        requestThreshold: "Seuil de requêtes",
-        regions: "Régions",
-        numberRangePools: "Groupes de plages de numéros",
-        active: "actif",
-        inactive: "inactif",
-        range: "Plage",
-        to: "à",
-        state: "État",
-        addRegion: "Ajouter une région",
-        addPool: "Ajouter un Groupe",
-        noRegionInPool: "Il n'existe aucune region dans ce groupe.",
-        regionDetailTitle: "Regions du groupe {poolName}",
-        navItemsTitle: "Numéros de série"
+        ...defaultLocaleMsg.numberRange,
+        ...french
       }
     }
   }

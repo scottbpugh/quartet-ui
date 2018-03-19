@@ -21,16 +21,58 @@ import {createStore, applyMiddleware, combineReducers, compose} from "redux";
 import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
 import dashboard from "reducers/dashboard";
-import serversettings from "reducers/serversettings";
+import serversettings, {initialData} from "reducers/serversettings";
 import layout from "reducers/layout";
 import {reducer as reduxFormReducer} from "redux-form";
 import {intlReducer} from "react-intl-redux";
-import locale from "reducers/locales";
 import asyncDispatchMiddleware from "middlewares/asyncDispatchMiddleware";
 import pluginReducer from "reducers/plugins";
 import {pluginRegistry} from "plugins/pluginRegistration";
-
+// initial data objects
+import en from "react-intl/locale-data/en";
+import fr from "react-intl/locale-data/fr";
+import {addLocaleData} from "react-intl";
+import messages from "./messages";
+import {flattenMessages} from "./lib/flattenMessages";
+import {initialData as pluginInitialData} from "./reducers/plugins";
+import {initialData as layoutInitialData} from "./reducers/layout";
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
+
+addLocaleData([...en, ...fr]);
+let locale = "en-US";
+
+const initialState = {
+  dashboard: {
+    notifications: [
+      {
+        id: "93d2a5c2-0936-4798-80e2-14c3e8df2d96",
+        type: "error",
+        msg: "An EPCIS document with invalid GTIN EPC URN could not be parsed."
+      },
+      {
+        id: "e3660e15-6884-4668-8401-5da19399472d",
+        type: "warning",
+        msg:
+          "An outbound EPCIS job to 172.112.10.27 timed out. A retry will be performed in 14mn30s."
+      },
+      {
+        id: "4314dade-aefd-49cb-b695-1add8a6a1785",
+        type: "warning",
+        msg: "User lduros was locked out after too many invalid token attempts."
+      }
+    ]
+  },
+  serversettings: initialData(),
+  intl: {
+    defaultLocale: locale,
+    locale: locale,
+    messages: flattenMessages(messages[locale])
+  },
+  layout: layoutInitialData(),
+  plugins: pluginInitialData()
+};
+/* You can import this in pure JS classes, like Server to dispatch actions. */
+export const store = configureStore(initialState);
 
 export default function configureStore(coreInitialState) {
   const middlewares = [thunk, asyncDispatchMiddleware];

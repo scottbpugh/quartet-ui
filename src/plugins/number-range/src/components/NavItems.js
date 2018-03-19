@@ -18,12 +18,25 @@
 
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
-import {Menu, MenuItem, MenuDivider, Dialog} from "@blueprintjs/core";
+import {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  Dialog,
+  Button,
+  ButtonGroup,
+  ContextMenu,
+  RadioGroup,
+  Radio,
+  Label
+} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";
-import {loadPools, setAllocation} from "../reducers/numberrange";
+import {loadPools, setAllocation, deleteAPool} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
 import classNames from "classnames";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {DeleteDialog} from "components/elements/DeleteDialog";
 
 class _PoolItem extends Component {
   constructor(props) {
@@ -31,7 +44,9 @@ class _PoolItem extends Component {
     this.state = {
       isAllocationOpen: false,
       alloc: 0,
-      active: false
+      active: false,
+      isConfirmDeleteOpen: false,
+      exportType: "json"
     };
   }
   goTo = path => {
@@ -43,22 +58,70 @@ class _PoolItem extends Component {
     this.goTo(`/number-range/region-detail/${serverID}/${pool.machine_name}`);
     this.setState({isAllocationOpen: !this.state.isAllocationOpen});
   };
+  getAllowedRegionTypes = () => {
+    const {pool} = this.props;
+    if (pool.sequentialregion_set.length > 0) {
+      return {sequential: true, randomized: false};
+    }
+    if (pool.randomizedregion_set.length > 0) {
+      return {sequential: false, randomized: true};
+    }
+    if (
+      pool.sequentialregion_set.length === 0 &&
+      pool.randomizedregion_set.length === 0
+    ) {
+      return {sequential: true, randomized: true};
+    }
+  };
+  goToEdit = evt => {
+    let {pool} = this.props;
+    ContextMenu.hide();
+    this.props.history.push({
+      pathname: `/number-range/edit-pool/${this.props.serverID}/${
+        pool.machine_name
+      }`,
+      state: {defaultValues: this.props.pool, editPool: true}
+    });
+  };
   renderContextMenu() {
     const {serverID, pool} = this.props;
-
+    const {sequential, randomized} = this.getAllowedRegionTypes();
     return (
       <Menu>
+        <ButtonGroup className="context-menu-control" minimal={true}>
+          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button
+            small={true}
+            onClick={this.toggleConfirmDelete}
+            iconName="trash"
+          />
+        </ButtonGroup>
         <MenuDivider title={pool.readable_name} />
         <MenuDivider />
-        <MenuItem
-          onClick={this.goTo.bind(
-            this,
-            `/number-range/add-region/${serverID}/${pool.machine_name}`
-          )}
-          text={`${this.props.intl.formatMessage({
-            id: "plugins.numberRange.addRegion"
-          })}`}
-        />
+        {sequential ? (
+          <MenuItem
+            onClick={this.goTo.bind(
+              this,
+              `/number-range/add-region/${serverID}/${pool.machine_name}`
+            )}
+            text={`${this.props.intl.formatMessage({
+              id: "plugins.numberRange.addSequentialRegion"
+            })}`}
+          />
+        ) : null}
+        {randomized ? (
+          <MenuItem
+            onClick={this.goTo.bind(
+              this,
+              `/number-range/add-randomized-region/${serverID}/${
+                pool.machine_name
+              }`
+            )}
+            text={`${this.props.intl.formatMessage({
+              id: "plugins.numberRange.addRandomizedRegion"
+            })}`}
+          />
+        ) : null}
         <MenuItem
           onClick={this.toggleAllocation}
           text={this.props.intl.formatMessage({
@@ -72,9 +135,10 @@ class _PoolItem extends Component {
     evt.preventDefault();
     const {pool, serverID} = this.props;
     this.props.setAllocation(
-      this.props.servers[serverID],
+      pluginRegistry.getServer(serverID),
       pool,
-      this.state.alloc
+      this.state.alloc,
+      this.state.exportType
     );
     this.toggleAllocation();
   };
@@ -83,8 +147,7 @@ class _PoolItem extends Component {
   };
   activateNode(currentPath) {
     // set active state if in current path.
-    // for some reason this.props.location.pathname doesn't get updated.
-    // window.location.pathname does.
+    // using full current path as a shortcut to match anything.
     const {pool, serverID} = this.props;
     let regexp = new RegExp(`/${serverID}/${pool.machine_name}/?$`);
     this.setState({active: regexp.test(currentPath)});
@@ -95,6 +158,20 @@ class _PoolItem extends Component {
   componentWillReceiveProps(nextProps) {
     this.activateNode(nextProps.currentPath);
   }
+  toggleConfirmDelete = evt => {
+    this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
+  };
+  trashRegion = evt => {
+    const {serverID, pool, deleteAPool} = this.props;
+    const serverObject = pluginRegistry.getServer(serverID);
+    this.toggleConfirmDelete();
+    ContextMenu.hide();
+    deleteAPool(serverObject, pool);
+    this.props.history.push(`/number-range/pools/${serverObject.serverID}`);
+  };
+  handleExportChange = evt => {
+    this.setState({exportType: evt.target.value});
+  };
   render() {
     const {pool, serverID} = this.props;
     return (
@@ -129,17 +206,43 @@ class _PoolItem extends Component {
                 max={100000}
                 style={{width: 200}}
               />
+              <div style={{marginTop: "30px", marginBottom: "20px"}}>
+                <RadioGroup
+                  inline={true}
+                  label="Export Type"
+                  onChange={this.handleExportChange}
+                  selectedValue={this.state.exportType}>
+                  <Radio label="JSON" value="json" />
+                  <Radio label="CSV" value="csv" />
+                  <Radio label="XML" value="xml" />
+                </RadioGroup>
+              </div>
               <button type="submit" className="pt-button">
                 <FormattedMessage id="plugins.numberRange.allocateButton" />
               </button>
             </form>
           </div>
         </Dialog>
+        <DeleteDialog
+          isOpen={this.state.isConfirmDeleteOpen}
+          title={
+            <FormattedMessage
+              id="plugins.numberRange.deleteRegion"
+              values={{regionName: pool.readable_name}}
+            />
+          }
+          body={
+            <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
+          }
+          toggle={this.toggleConfirmDelete.bind(this)}
+          deleteAction={this.trashRegion.bind(this)}
+        />
         {pool.readable_name}
       </TreeNode>
     );
   }
 }
+
 const PoolItem = connect(
   state => {
     return {
@@ -149,7 +252,7 @@ const PoolItem = connect(
       theme: state.layout.theme
     };
   },
-  {setAllocation}
+  {setAllocation, deleteAPool}
 )(withRouter(_PoolItem));
 
 export const NavItems = (pools, serverID, intl) => {
@@ -170,20 +273,24 @@ export class _NavPluginRoot extends Component {
   static get PLUGIN_COMPONENT_NAME() {
     return "NumberRangeNavRoot";
   }
+  serverHasSerialbox() {
+    return pluginRegistry
+      .getServer(this.props.serverID)
+      .appList.includes("serialbox");
+  }
   goTo = path => {
     this.props.history.push(path);
   };
   componentDidMount() {
-    if (
-      Object.keys(this.props.servers).length > 0 &&
-      this.props.serverID in this.props.servers
-    ) {
-      this.props.loadPools(this.props.servers[this.props.serverID]);
+    if (this.props.server && this.serverHasSerialbox()) {
+      this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
-    this.activateNode(this.props.currentPath);
+    // turning off active for root plugin item because it looks like too much green.
+    //this.activateNode(this.props.currentPath);
   }
   componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
+    // turning off active for root plugin item because it looks like too much green.
+    //this.activateNode(nextProps.currentPath);
   }
   activateNode(currentPath) {
     // set active state if in current path.
@@ -194,10 +301,10 @@ export class _NavPluginRoot extends Component {
     this.setState({active: regexp.test(currentPath)});
   }
   renderContextMenu = () => {
-    const {servers, serverID} = this.props;
+    const {server, serverID} = this.props;
     return (
       <Menu>
-        <MenuDivider title={servers[serverID].serverSettingName} />
+        <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
         <MenuItem
           onClick={this.goTo.bind(this, `/number-range/add-pool/${serverID}`)}
@@ -209,31 +316,35 @@ export class _NavPluginRoot extends Component {
     );
   };
   render() {
-    let {serverID} = this.props;
-    let pools =
-      this.props.nr && this.props.nr[serverID]
-        ? this.props.nr[serverID].pools
-        : [];
-    let children = NavItems(pools, serverID, this.props.intl);
-    return (
-      <TreeNode
-        onContextMenu={this.renderContextMenu}
-        nodeType="plugin"
-        depth={this.props.depth}
-        childrenNodes={children}
-        active={this.state.active}
-        path={`/number-range/pools/${serverID}`}>
-        <FormattedMessage id="plugins.numberRange.navItemsTitle" />
-      </TreeNode>
-    );
+    let {serverID, pools} = this.props;
+    if (this.props.server && this.serverHasSerialbox()) {
+      let children = NavItems(pools, serverID, this.props.intl);
+      return (
+        <TreeNode
+          onContextMenu={this.renderContextMenu}
+          nodeType="plugin"
+          depth={this.props.depth}
+          childrenNodes={children}
+          active={this.state.active}
+          path={`/number-range/pools/${serverID}`}>
+          <FormattedMessage id="plugins.numberRange.navItemsTitle" />
+        </TreeNode>
+      );
+    } else {
+      return <div />;
+    }
   }
 }
 
 export const NavPluginRoot = connect(
   (state, ownProps) => {
     return {
-      servers: state.serversettings.servers,
-      nr: state.numberrange.servers,
+      server: state.serversettings.servers[ownProps.serverID],
+      pools:
+        state.numberrange.servers &&
+        state.numberrange.servers[ownProps.serverID]
+          ? state.numberrange.servers[ownProps.serverID].pools
+          : [],
       currentPath: state.layout.currentPath
     };
   },

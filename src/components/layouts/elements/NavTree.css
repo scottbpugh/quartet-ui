@@ -65,14 +65,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 
 .tree-node-server {
-  background-image: url("/inapp-icons/QU4RTET-16x16.svg");
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNS45OSI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM4ZGM2M2Y7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5RVTRSVEVULTE2eDE2PC90aXRsZT48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMS45MSAxMi44IDkuMyAwIDAgMCAwIDE1Ljk5IDAuMDQgMTUuOTkgMS4yMiAxMy45OSA0LjQgMTMuOTkgMy4yMiAxNS45OSAxMC42NSAxNS45OSAxMC42NSAxMi44IDEuOTEgMTIuOCIvPjxyZWN0IGNsYXNzPSJjbHMtMSIgeD0iMTMuODIiIHk9IjEyLjgiIHdpZHRoPSIyLjE4IiBoZWlnaHQ9IjMuMTkiLz48cmVjdCBjbGFzcz0iY2xzLTEiIHg9IjEzLjgyIiB3aWR0aD0iMi4xOCIgaGVpZ2h0PSI5LjYzIi8+PHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjEwLjY1IDkuNjMgMTAuNjUgMy4zNCA2LjY4IDkuNjMgMTAuNjUgOS42MyIvPjwvc3ZnPg==");
   background-size: 16px 16px;
   background-repeat:no-repeat;
   background-position: 2px 3px;
 }
 
 .tree-node-pool, .tree-node-plugin {
-  background-image: url("/inapp-icons/pool-24.svg");
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNGRkYiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnpNOCAxNy41Yy0xLjM4IDAtMi41LTEuMTItMi41LTIuNXMxLjEyLTIuNSAyLjUtMi41IDIuNSAxLjEyIDIuNSAyLjUtMS4xMiAyLjUtMi41IDIuNXpNOS41IDhjMC0xLjM4IDEuMTItMi41IDIuNS0yLjVzMi41IDEuMTIgMi41IDIuNS0xLjEyIDIuNS0yLjUgMi41UzkuNSA5LjM4IDkuNSA4em02LjUgOS41Yy0xLjM4IDAtMi41LTEuMTItMi41LTIuNXMxLjEyLTIuNSAyLjUtMi41IDIuNSAxLjEyIDIuNSAyLjUtMS4xMiAyLjUtMi41IDIuNXoiLz48L3N2Zz4K");
   background-size: 16px 16px;
   background-repeat:no-repeat;
   background-position: 2px 2px;
@@ -185,4 +185,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .leftbar-group {
   background: none;
+}
+.no-server-info {
+  width:75%;
+  position:relative;
+  white-space:normal;
+  margin:20% 12.5%;
+  min-width:100px;
 }

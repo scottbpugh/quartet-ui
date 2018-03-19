@@ -20,42 +20,49 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import PoolForm from "./PoolForm";
+import RandomizedRegionForm from "./RandomizedRegionForm";
 import {FormattedMessage} from "react-intl";
 
-class _AddPool extends Component {
+class _AddRandomizedRegion extends Component {
   constructor(props) {
     super(props);
     this.currentServer = this.props.nr[this.props.match.params.serverID];
+    for (let pool of this.currentServer.pools) {
+      // match pool.
+      if (pool.machine_name === this.props.match.params.pool) {
+        this.currentPool = pool;
+      }
+    }
   }
-  componentDidMount() {}
+
   render() {
     let editMode =
       this.props.location &&
       this.props.location.state &&
-      this.props.location.state.editPool
+      this.props.location.state.editRegion
         ? true
         : false;
     return (
       <RightPanel
         title={
           !editMode ? (
-            <FormattedMessage id="plugins.numberRange.addPool" />
+            <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
           ) : (
-            <FormattedMessage id="plugins.numberRange.editPool" />
+            <FormattedMessage id="plugins.numberRange.editRandomizedRegion" />
           )
         }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
               {!editMode ? (
-                <FormattedMessage id="plugins.numberRange.addPool" />
+                <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />
               ) : (
-                <FormattedMessage id="plugins.numberRange.editPool" />
+                <FormattedMessage id="plugins.numberRange.editRandomizedRegion" />
               )}
             </h5>
-            <PoolForm
+            <RandomizedRegionForm
               server={this.currentServer.server}
+              pool={this.currentPool}
               history={this.props.history}
             />
           </Card>
@@ -65,9 +72,9 @@ class _AddPool extends Component {
   }
 }
 
-export const AddPool = connect((state, ownProps) => {
+export const AddRandomizedRegion = connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers,
     nr: state.numberrange.servers
   };
-}, {})(_AddPool);
+}, {})(_AddRandomizedRegion);
