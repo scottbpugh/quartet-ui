@@ -16,7 +16,7 @@ exports[`renders correctly 1`] = `
           Serial Number Range Management
            
           <button
-            className="pt-button pt-icon-add pt-button add-plugin-button pt-intent-primary"
+            className="pt-button pt-icon-remove pt-button add-plugin-button pt-intent-primary"
             disabled={undefined}
             onClick={[Function]}
             onKeyDown={[Function]}
@@ -24,7 +24,7 @@ exports[`renders correctly 1`] = `
             type="button"
           >
             <span>
-              Enable
+              Disable
             </span>
           </button>
         </h5>

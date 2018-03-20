@@ -7,7 +7,7 @@ exports[`renders correctly 1`] = `
   onContextMenu={[Function]}
 >
   <div
-    className="tree-node-content tree-node-depth-0"
+    className="tree-node-content tree-node-content-active tree-node-depth-0"
   >
     <a
       className="tree-node-link"
@@ -27,7 +27,7 @@ exports[`renders correctly 1`] = `
       </span>
     </a>
     <a
-      className="tree-node-server tree-node-link"
+      className="tree-node-server tree-node-link tree-node-active"
     >
       <span
         className="tree-node-label"

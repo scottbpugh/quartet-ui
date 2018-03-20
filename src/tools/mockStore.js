@@ -27,6 +27,7 @@ import {flattenMessages} from "lib/flattenMessages";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import MockInitialState from "./mock-initial-state";
 
 addLocaleData([...en, ...fr]);
 let defaultLocale = "en-US";
@@ -56,7 +57,7 @@ class LocalStorageMock {
 
 export const localStorage = new LocalStorageMock();
 
-export const initialState = {
+/*export let initialState = {
   dashboard: {notifications: []},
   serversettings: {
     servers: {
@@ -82,7 +83,9 @@ export const initialState = {
   },
   layout: {pageTitle: {id: "app.nav.servers"}, theme: "dark-brown"},
   plugins: {plugins: {}, navTreeItems: []}
-};
+};*/
+
+export const initialState = MockInitialState;
 
 export const updateRegistryIntl = (locale, messages) => {
   const {intl} = new IntlProvider({

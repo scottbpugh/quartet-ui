@@ -18,8 +18,8 @@
 
 import React, {Component} from "react";
 import renderer from "react-test-renderer";
-import {ServerNode} from "./ServerNode";
-import {initialData} from "../../../reducers/serversettings";
+import {AddPool} from "./AddPool";
+import {initialData} from "reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 import {IntlProvider, intlReducer} from "react-intl-redux";
@@ -34,8 +34,9 @@ import {Server} from "lib/servers";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
-it("renders correctly", () => {
+it.skip("renders correctly", () => {
   let store = mockStore(initialState);
+
   const props = {
     match: {
       params: {
@@ -53,20 +54,16 @@ it("renders correctly", () => {
 
   updateRegistryIntl(initialState.intl.locale, initialState.intl.messages);
 
-  const serverNode = renderer
+  const addPool = renderer
     .create(
       <TestWrapper>
         <Provider store={store}>
           <Router>
-            <ServerNode
-              server={pluginRegistry.getServer(
-                "d0246781-67c6-474b-8ab0-29de61b6e6bb"
-              )}
-            />
+            <AddPool {...props} />
           </Router>
         </Provider>
       </TestWrapper>
     )
     .toJSON();
-  expect(serverNode).toMatchSnapshot();
+  expect(addPool).toMatchSnapshot();
 });
