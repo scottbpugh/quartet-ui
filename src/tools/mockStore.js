@@ -58,7 +58,21 @@ export const localStorage = new LocalStorageMock();
 export const initialState = {
   dashboard: {notifications: []},
   serversettings: {
-    servers: {}
+    servers: {
+      "d0246781-67c6-474b-8ab0-29de61b6e6bb": {
+        serverID: "d0246781-67c6-474b-8ab0-29de61b6e6bb",
+        protocol: "http",
+        port: "8000",
+        path: "",
+        ssl: false,
+        hostname: "localhost",
+        serverSettingName: "box 1",
+        url: "http://localhost:8000/",
+        appList: ["", "capture", "epcis", "manifest", "rest-auth", "serialbox"],
+        username: "admin",
+        password: "test"
+      }
+    }
   },
   intl: {
     defaultLocale: defaultLocale,
