@@ -26,6 +26,7 @@ import fr from "react-intl/locale-data/fr";
 import {flattenMessages} from "lib/flattenMessages";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 addLocaleData([...en, ...fr]);
 let defaultLocale = "en-US";
@@ -81,6 +82,15 @@ export const initialState = {
   },
   layout: {pageTitle: {id: "app.nav.servers"}},
   plugins: {plugins: {}, navTreeItems: []}
+};
+
+export const updateRegistryIntl = (locale, messages) => {
+  const {intl} = new IntlProvider({
+    locale: locale,
+    messages: messages,
+    defaultLocale: "en-US"
+  }).getChildContext();
+  pluginRegistry.registerIntl(intl);
 };
 
 export const mockStore = configureStore(middlewares);
