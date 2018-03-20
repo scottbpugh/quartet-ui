@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<li
+  className="arrow collapsed"
+  onClick={[Function]}
+  onContextMenu={[Function]}
+>
+  <div
+    className="tree-node-content tree-node-depth-0"
+  >
+    <a
+      className="tree-node-link"
+      onClick={[Function]}
+    >
+      <span
+        className="arrow-straight"
+      >
+        <span
+          className="pt-icon-standard pt-icon-chevron-right"
+          style={
+            Object {
+              "visibility": "hidden",
+            }
+          }
+        />
+      </span>
+    </a>
+    <a
+      className="tree-node-server tree-node-link"
+    >
+      <span
+        className="tree-node-label"
+      />
+    </a>
+  </div>
+  <ul
+    style={
+      Object {
+        "display": "block",
+        "margin": 0,
+        "padding": 0,
+        "width": "100%",
+      }
+    }
+  />
+</li>
+`;

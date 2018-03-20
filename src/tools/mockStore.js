@@ -80,7 +80,7 @@ export const initialState = {
     locale: defaultLocale,
     messages: flattenMessages(messages[defaultLocale])
   },
-  layout: {pageTitle: {id: "app.nav.servers"}},
+  layout: {pageTitle: {id: "app.nav.servers"}, theme: "dark-brown"},
   plugins: {plugins: {}, navTreeItems: []}
 };
 
