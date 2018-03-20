@@ -44,12 +44,6 @@ it("renders correctly", () => {
       ]
     )
   );
-  console.log(pluginRegistry.getServer("d0246781-67c6-474b-8ab0-29de61b6e6bb"));
-  console.log(
-    pluginRegistry
-      .getServer("d0246781-67c6-474b-8ab0-29de61b6e6bb")
-      .getArrayFields()
-  );
   const serverSettings = renderer
     .create(
       <TestWrapper>
