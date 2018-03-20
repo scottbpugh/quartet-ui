@@ -17,7 +17,7 @@ exports[`renders nested components correctly 1`] = `
       className="left-panel-title pt-dark"
     >
       <span>
-        Servers
+        Server Details
       </span>
     </h4>
     <div
