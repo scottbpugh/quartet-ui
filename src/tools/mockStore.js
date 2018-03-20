@@ -56,6 +56,10 @@ class LocalStorageMock {
 }
 
 export const localStorage = new LocalStorageMock();
+if (window && !window.localStorage) {
+  // add fake local storage for tests.
+  window.localStorage = localStorage;
+}
 
 /*export let initialState = {
   dashboard: {notifications: []},
