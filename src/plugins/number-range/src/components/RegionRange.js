@@ -25,13 +25,10 @@ export default class RegionRange extends Component {
     let end = Number(this.props.end);
     let state = Number(this.props.state);
     let range = end - start;
-    let correctedStart = start;
     let remaining = Number(this.props.remaining);
-    if (state) {
-      // serial
-      correctedStart = state - start;
+    if (remaining !== 0 && !remaining) {
+      remaining = range - state;
     }
-    let percent = Math.ceil(correctedStart * 100 / (end - start) * 3);
     return (
       <div className="visual">
         <svg
@@ -44,38 +41,15 @@ export default class RegionRange extends Component {
             <g className="bar">
               <rect className="unused" width="300" height="40" rx="3" ry="3" />
             </g>
-            <g className="bar">
-              <rect
-                className="used"
-                width={percent}
-                height="40"
-                rx="3"
-                ry="3"
-              />
-            </g>
-            {state ? (
-              <text x="50%" y="25" textAnchor="middle">
-                <FormattedNumber value={correctedStart}>
-                  {value => {
-                    return value;
-                  }}
-                </FormattedNumber>/
-                <FormattedNumber value={range}>
-                  {value => {
-                    return value;
-                  }}
-                </FormattedNumber>
-              </text>
-            ) : (
-              <text x="50%" y="25" textAnchor="middle">
-                remaining:{" "}
-                <FormattedNumber value={remaining}>
-                  {value => {
-                    return value;
-                  }}
-                </FormattedNumber>
-              </text>
-            )}
+
+            <text x="50%" y="25" textAnchor="middle">
+              remaining:{" "}
+              <FormattedNumber value={remaining}>
+                {value => {
+                  return value;
+                }}
+              </FormattedNumber>
+            </text>
           </g>
         </svg>
       </div>
