@@ -56,18 +56,29 @@ export default class RegionRange extends Component {
                 ry="3"
               />
             </g>
-            <text x="50%" y="25" textAnchor="middle">
-              <FormattedNumber value={correctedStart}>
-                {value => {
-                  return value;
-                }}
-              </FormattedNumber>/
-              <FormattedNumber value={range}>
-                {value => {
-                  return value;
-                }}
-              </FormattedNumber>
-            </text>
+            {state ? (
+              <text x="50%" y="25" textAnchor="middle">
+                <FormattedNumber value={correctedStart}>
+                  {value => {
+                    return value;
+                  }}
+                </FormattedNumber>/
+                <FormattedNumber value={range}>
+                  {value => {
+                    return value;
+                  }}
+                </FormattedNumber>
+              </text>
+            ) : (
+              <text x="50%" y="25" textAnchor="middle">
+                remaining:{" "}
+                <FormattedNumber value={remaining}>
+                  {value => {
+                    return value;
+                  }}
+                </FormattedNumber>
+              </text>
+            )}
           </g>
         </svg>
       </div>
