@@ -51,6 +51,8 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 }
 
 // This method will be called when Electron has finished

@@ -20,6 +20,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
 import {prepHeadersAuth} from "lib/auth-api";
+import base64 from "base-64";
 
 /**
  * Server - Holds data about a server and its settings, API client, ...
@@ -206,6 +207,7 @@ export class Server {
   getServerURL = () => {
     return `${this.protocol}://${this.hostname}:${this.port}/${this.path}`;
   };
+
   getServerURLWithCreds = () => {
     return `${this.protocol}://${this.username}:${this.password}@${
       this.hostname
@@ -215,43 +217,25 @@ export class Server {
   parseSchema = () => {
     let {url, username, password} = this;
     return new Promise((resolve, reject) => {
-      // workaround for Swagger not sending basic auth. We need to check those.
-      fetch(`${url}schema/`, prepHeadersAuth(this))
-        .then(result => {
-          if (result.ok && result.status === 200) {
-            Swagger(`${url}schema/`, {
-              securities: {
-                authorized: {
-                  basic: {username: username, password: password}
-                }
-              }
-            })
-              .then(client => {
-                // swagger-js client is available.
-                // client.spec / client.originalSpec / client.errors
-                resolve(client);
-              })
-              .catch(error => {
-                showMessage({
-                  type: "error",
-                  id: "app.servers.errorServerFetch",
-                  values: {serverName: this.serverSettingName, error: error}
-                });
-                reject(error);
-              });
-          } else {
-            result.json().then(data => {
-              showMessage({
-                type: "error",
-                id: "app.servers.errorServerFetch",
-                values: {
-                  serverName: this.serverSettingName,
-                  error: JSON.stringify(data)
-                }
-              });
-              reject(result);
-            });
+      Swagger(`${url}schema/`, {
+        securities: {
+          authorized: {
+            basic: {username: username, password: password}
           }
+        },
+        requestInterceptor: req => {
+          //if (req.url === url) {
+          let encodedBasicToken = base64.encode(username + ":" + password);
+          // we're fetching the definition
+          req.headers.Authorization = `Basic ${encodedBasicToken}`;
+          //}
+          return req;
+        }
+      })
+        .then(client => {
+          // swagger-js client is available.
+          // client.spec / client.originalSpec / client.errors
+          resolve(client);
         })
         .catch(error => {
           showMessage({
