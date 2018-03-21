@@ -220,9 +220,9 @@ export default handleActions(
     [actions.allocate]: (state, action) => {
       // reload pools after
       //action.asyncDispatch(loadPools(action.payload));
+      // don't pass allocation since it fails in redux.
       return {
-        ...state,
-        allocationDetail: action.payload
+        ...state
       };
     },
 

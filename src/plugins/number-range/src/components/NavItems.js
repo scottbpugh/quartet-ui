@@ -205,6 +205,7 @@ class _PoolItem extends Component {
                 min={1}
                 style={{width: 200}}
               />
+              {/* might want to use this later above: max={Number(pool.request_threshold)*/}
               <div style={{marginTop: "30px", marginBottom: "20px"}}>
                 <RadioGroup
                   inline={true}
