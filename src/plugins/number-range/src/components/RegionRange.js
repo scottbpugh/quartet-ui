@@ -17,7 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {FormattedNumber} from "react-intl";
+import {FormattedNumber, FormattedMessage} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 export default class RegionRange extends Component {
   render() {
@@ -43,7 +44,9 @@ export default class RegionRange extends Component {
             </g>
 
             <text x="50%" y="25" textAnchor="middle">
-              remaining:{" "}
+              {pluginRegistry
+                .getIntl()
+                .formatMessage({id: "plugins.numberRange.remaining"})}:{" "}
               <FormattedNumber value={remaining}>
                 {value => {
                   return value;

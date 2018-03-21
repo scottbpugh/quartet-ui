@@ -203,9 +203,9 @@ class _PoolItem extends Component {
                 value={this.state.alloc}
                 onChange={this.allocChange}
                 min={1}
+                max={Number(pool.request_threshold)}
                 style={{width: 200}}
               />
-              {/* might want to use this later above: max={Number(pool.request_threshold)*/}
               <div style={{marginTop: "30px", marginBottom: "20px"}}>
                 <RadioGroup
                   inline={true}
