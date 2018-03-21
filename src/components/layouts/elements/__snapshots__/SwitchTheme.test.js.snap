@@ -6,7 +6,7 @@ exports[`renders correctly 1`] = `
 >
   <select
     onChange={[Function]}
-    value={undefined}
+    value="dark-brown"
   >
     <option
       value="light"

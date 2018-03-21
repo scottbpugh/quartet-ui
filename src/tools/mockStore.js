@@ -26,6 +26,8 @@ import fr from "react-intl/locale-data/fr";
 import {flattenMessages} from "lib/flattenMessages";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import MockInitialState from "./mock-initial-state";
 
 addLocaleData([...en, ...fr]);
 let defaultLocale = "en-US";
@@ -54,19 +56,48 @@ class LocalStorageMock {
 }
 
 export const localStorage = new LocalStorageMock();
+if (window && !window.localStorage) {
+  // add fake local storage for tests.
+  window.localStorage = localStorage;
+}
 
-export const initialState = {
+/*export let initialState = {
   dashboard: {notifications: []},
   serversettings: {
-    servers: {}
+    servers: {
+      "d0246781-67c6-474b-8ab0-29de61b6e6bb": {
+        serverID: "d0246781-67c6-474b-8ab0-29de61b6e6bb",
+        protocol: "http",
+        port: "8000",
+        path: "",
+        ssl: false,
+        hostname: "localhost",
+        serverSettingName: "box 1",
+        url: "http://localhost:8000/",
+        appList: ["", "capture", "epcis", "manifest", "rest-auth", "serialbox"],
+        username: "admin",
+        password: "test"
+      }
+    }
   },
   intl: {
     defaultLocale: defaultLocale,
     locale: defaultLocale,
     messages: flattenMessages(messages[defaultLocale])
   },
-  layout: {pageTitle: {id: "app.nav.servers"}},
+  layout: {pageTitle: {id: "app.nav.servers"}, theme: "dark-brown"},
   plugins: {plugins: {}, navTreeItems: []}
+};*/
+
+export const initialState = MockInitialState;
+
+export const updateRegistryIntl = (locale, messages) => {
+  const {intl} = new IntlProvider({
+    locale: locale,
+    messages: messages,
+    defaultLocale: "en-US"
+  }).getChildContext();
+  pluginRegistry.registerIntl(intl);
 };
 
 export const mockStore = configureStore(middlewares);

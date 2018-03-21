@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <span
+    className="pt-popover-target pt-dark"
+    onClick={[Function]}
+  >
+    <button
+      className="pt-button pt-icon-add"
+      onClick={undefined}
+      tabIndex={undefined}
+      tabindex="0"
+    />
+  </span>
+</div>
+`;
