@@ -203,7 +203,7 @@ class _PoolItem extends Component {
                 value={this.state.alloc}
                 onChange={this.allocChange}
                 min={1}
-                max={100000}
+                max={Number(pool.request_threshold)}
                 style={{width: 200}}
               />
               <div style={{marginTop: "30px", marginBottom: "20px"}}>
