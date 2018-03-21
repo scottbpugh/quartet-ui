@@ -29,7 +29,7 @@ export default class RegionRange extends Component {
     let remaining = Number(this.props.remaining);
     if (remaining || remaining === 0) {
       // randomized
-      correctedStart = end - start - remaining;
+      correctedStart = remaining;
     } else if (state) {
       // serial
       correctedStart = state - start;

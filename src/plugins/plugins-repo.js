@@ -21,15 +21,5 @@ export default {
                 pools and serial number ranges as well as allocate numbers on
                 the fly from the QU4RTET interface.
             `
-  },
-  Capture: {
-    core: true,
-    initPath: "capture/src/init.js",
-    preview: "",
-    readableName: "Capture",
-    pluginName: "Capture",
-    description: `
-              The Capture Plugin.
-            `
   }
 };
