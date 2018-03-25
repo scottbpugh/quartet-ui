@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
+import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
 import {AddServerButton} from "./AddServerButton";
 import {initialData} from "../../../reducers/serversettings";
@@ -44,4 +45,3 @@ it("renders correctly", () => {
     .toJSON();
   expect(serverButton).toMatchSnapshot();
 });
-

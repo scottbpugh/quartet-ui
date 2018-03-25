@@ -23,13 +23,10 @@ const keytar = require("keytar");
 let registered = false;
 
 exports.setCredentialEvents = function(mainWindow) {
-  mainWindow.webContents.send("credentialsRetrieved", "hello there");
   const ipcMain = require("electron").ipcMain;
   const ipcRenderer = require("electron").ipcRenderer;
 
-  console.log("Registering credential events");
   ipcMain.on("setServerCredentials", (event, payload) => {
-    console.log("set Password payload", JSON.stringify(payload));
     keytar
       .setPassword("QU4RTET", payload.account, payload.password)
       .then(function() {
@@ -40,7 +37,6 @@ exports.setCredentialEvents = function(mainWindow) {
           });
         });
       });
-    console.log("Received payload", JSON.stringify(payload));
   });
   ipcMain.on("getServerCredentials", (event, account) => {
     keytar.getPassword("QU4RTET", account.account).then(function(password) {
