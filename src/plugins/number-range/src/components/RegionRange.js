@@ -17,7 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {FormattedNumber} from "react-intl";
+import {FormattedNumber, FormattedMessage} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 export default class RegionRange extends Component {
   render() {
@@ -25,16 +26,10 @@ export default class RegionRange extends Component {
     let end = Number(this.props.end);
     let state = Number(this.props.state);
     let range = end - start;
-    let correctedStart = start;
     let remaining = Number(this.props.remaining);
-    if (remaining || remaining === 0) {
-      // randomized
-      correctedStart = end - start - remaining;
-    } else if (state) {
-      // serial
-      correctedStart = state - start;
+    if (remaining !== 0 && !remaining) {
+      remaining = range - state;
     }
-    let percent = Math.ceil(correctedStart * 100 / (end - start) * 3);
     return (
       <div className="visual">
         <svg
@@ -47,22 +42,12 @@ export default class RegionRange extends Component {
             <g className="bar">
               <rect className="unused" width="300" height="40" rx="3" ry="3" />
             </g>
-            <g className="bar">
-              <rect
-                className="used"
-                width={percent}
-                height="40"
-                rx="3"
-                ry="3"
-              />
-            </g>
+
             <text x="50%" y="25" textAnchor="middle">
-              <FormattedNumber value={correctedStart}>
-                {value => {
-                  return value;
-                }}
-              </FormattedNumber>/
-              <FormattedNumber value={range}>
+              {pluginRegistry
+                .getIntl()
+                .formatMessage({id: "plugins.numberRange.remaining"})}:{" "}
+              <FormattedNumber value={remaining}>
                 {value => {
                   return value;
                 }}

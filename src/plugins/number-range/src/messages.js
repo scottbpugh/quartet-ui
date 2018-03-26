@@ -34,6 +34,7 @@ const defaultLocaleMsg = {
     range: "Range",
     to: "to",
     state: "State",
+
     addSequentialRegion: "Add a New Sequential Region",
     editSequentialRegion: "Edit Sequential Region",
     addRandomizedRegion: "Add a New Randomized Region",
@@ -43,7 +44,8 @@ const defaultLocaleMsg = {
     noRegionInPool: "There is currently no region in this pool.",
     regionDetailTitle: "Pool {poolName} Regions",
     navItemsTitle: "Serial Number Pools",
-    current: "current",
+    current: "Current",
+    remaining: "Remaining",
     serial: "Sequential",
     randomized: "Randomized",
     deleteRegion: "Delete region {regionName}",
@@ -89,7 +91,8 @@ const french = {
   addPool: "Ajouter un Groupe",
   noRegionInPool: "Il n'existe aucune region dans ce groupe.",
   regionDetailTitle: "Regions du groupe {poolName}",
-  navItemsTitle: "Numéros de série"
+  navItemsTitle: "Numéros de série",
+  remaining: "Restant"
 };
 
 export default {
