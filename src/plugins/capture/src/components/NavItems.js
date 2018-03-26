@@ -22,6 +22,20 @@ import {TreeNode} from "components/layouts/elements/NavTree";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  Dialog,
+  Button,
+  ButtonGroup,
+  ContextMenu,
+  RadioGroup,
+  Radio,
+  Label
+} from "@blueprintjs/core";
+import {loadRules} from "../reducers/capture";
+import {RuleItem} from "./RuleItem";
 
 class _NavPluginRoot extends Component {
   constructor(props) {
@@ -39,24 +53,78 @@ class _NavPluginRoot extends Component {
   goTo = path => {
     this.props.history.push(path);
   };
+  activateNode(currentPath) {
+    const {serverID} = this.props;
+    let regexp = new RegExp(`capture`);
+    this.setState({active: regexp.test(currentPath)});
+  }
   componentDidMount() {
     if (this.props.server && this.serverHasCapture()) {
+      this.props.loadRules(pluginRegistry.getServer(this.props.serverID));
+      this.activateNode(this.props.currentPath);
     }
   }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
+  renderContextMenu = () => {
+    const {server, serverID} = this.props;
+    return (
+      <Menu>
+        <MenuDivider title={server.serverSettingName} />
+        <MenuDivider />
+        <MenuItem
+          onClick={this.goTo.bind(this, `/capture/add-rule/${serverID}`)}
+          text={this.props.intl.formatMessage({
+            id: "plugins.capture.addRule"
+          })}
+        />
+      </Menu>
+    );
+  };
   render() {
+    const {serverID} = this.props;
+    if (this.serverHasCapture()) {
+      const {rules} = this.props;
+      let children = rules
+        ? rules.map(rule => {
+            return (
+              <RuleItem rule={rule} serverID={this.props.server.serverID} />
+            );
+          })
+        : [];
+      return (
+        <TreeNode
+          depth={this.props.depth}
+          active={this.state.active}
+          onContextMenu={this.renderContextMenu}
+          path={`/capture/rules/${serverID}`}
+          childrenNodes={children}>
+          <FormattedMessage id="plugins.capture.navItemsTitle" />
+        </TreeNode>
+      );
+    }
     return (
       <TreeNode
         depth={this.props.depth}
         active={this.state.active}
         childrenNodes={[]}>
-        Content
+        <i>No Capture detected on server</i>
       </TreeNode>
     );
   }
 }
 
-export const NavPluginRoot = connect((state, ownProps) => {
-  return {
-    server: state.serversettings.servers[ownProps.serverID]
-  };
-}, {})(withRouter(_NavPluginRoot));
+export const NavPluginRoot = connect(
+  (state, ownProps) => {
+    return {
+      server: state.serversettings.servers[ownProps.serverID],
+      rules:
+        state.capture.servers && state.capture.servers[ownProps.serverID]
+          ? state.capture.servers[ownProps.serverID].rules
+          : [],
+      currentPath: state.layout.currentPath
+    };
+  },
+  {loadRules}
+)(withRouter(_NavPluginRoot));

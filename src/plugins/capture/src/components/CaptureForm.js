@@ -15,28 +15,3 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React from "react";
-import {AddRule} from "./components/AddRule";
-import {AddStep} from "./components/AddStep";
-import {Route} from "react-router";
-import {RuleList} from "./components/RuleList";
-
-export default (() => {
-  return [
-    <Route
-      key="ruleList"
-      path="/capture/rules/:serverID"
-      component={RuleList}
-    />,
-    <Route
-      key="addRule"
-      path="/capture/add-rule/:serverID/:ruleName?"
-      component={AddRule}
-    />,
-    <Route
-      key="addStep"
-      path="/capture/add-step/:serverID/:ruleName"
-      component={AddStep}
-    />
-  ];
-})();

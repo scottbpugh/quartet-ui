@@ -18,12 +18,57 @@
 
 import {handleActions} from "redux-actions";
 import {showMessage} from "lib/message";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import actions from "../actions/capture";
 
 export const initialData = () => ({
-  tasks: {},
-  region: {},
-  currentRegions: []
+  servers: {}
 });
 
-export default {};
+export const loadRules = server => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.capture.capture_rules_list().then(result => {
+          // load steps (they are all loaded at once server-wide unfortunately...)
+          // this may become an issue in the future, if so, a new backend API endpoint
+          // needs to be added.
+          client.apis.capture.capture_steps_list().then(steps => {
+            let rules = result.body.map(rule => {
+              // add steps to the rule.
+              rule.steps = steps.body.filter(step => {
+                if (step.rule === rule.name) {
+                  return true;
+                }
+                return false;
+              });
+              return rule;
+            });
+            dispatch({
+              type: actions.loadRules,
+              payload: {
+                [server.serverID]: {rules: result.body}
+              }
+            });
+          });
+        });
+      });
+  };
+};
 
+export default handleActions(
+  {
+    [actions.loadRules]: (state, action) => {
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          ...action.payload
+        }
+      };
+    }
+  },
+  {}
+);

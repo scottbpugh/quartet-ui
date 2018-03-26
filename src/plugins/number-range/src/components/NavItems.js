@@ -283,21 +283,21 @@ export class _NavPluginRoot extends Component {
   };
   componentDidMount() {
     if (this.props.server && this.serverHasSerialbox()) {
+      // turning off active for root plugin item because it looks like too much green.
+      this.activateNode(this.props.currentPath);
       this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
-    // turning off active for root plugin item because it looks like too much green.
-    //this.activateNode(this.props.currentPath);
   }
   componentWillReceiveProps(nextProps) {
     // turning off active for root plugin item because it looks like too much green.
-    //this.activateNode(nextProps.currentPath);
+    this.activateNode(nextProps.currentPath);
   }
   activateNode(currentPath) {
     // set active state if in current path.
     // for some reason this.props.location.pathname doesn't get updated.
     // window.location.pathname does.
     const {serverID} = this.props;
-    let regexp = new RegExp(`/${serverID}/?`);
+    let regexp = new RegExp(`/number-range.*/${serverID}/?`);
     this.setState({active: regexp.test(currentPath)});
   }
   renderContextMenu = () => {
@@ -316,7 +316,7 @@ export class _NavPluginRoot extends Component {
     );
   };
   render() {
-    let {serverID, pools} = this.props;
+    const {serverID, pools} = this.props;
     if (this.props.server && this.serverHasSerialbox()) {
       let children = NavItems(pools, serverID, this.props.intl);
       return (
@@ -331,7 +331,14 @@ export class _NavPluginRoot extends Component {
         </TreeNode>
       );
     } else {
-      return <div />;
+      return (
+        <TreeNode
+          depth={this.props.depth}
+          active={this.state.active}
+          childrenNodes={[]}>
+          <i>No Number Range detected on server</i>
+        </TreeNode>
+      );
     }
   }
 }
