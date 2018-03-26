@@ -33,7 +33,8 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1600, height: 1200});
-
+  // Setting this to exchange credentials information
+  credManagement.setCredentialEvents(mainWindow);
   // and load the index.html of the app.
   const startUrl =
     process.env.ELECTRON_START_URL ||
@@ -42,8 +43,6 @@ function createWindow() {
       protocol: "file:",
       slashes: true
     });
-  // Setting this to exchange credentials information
-  credManagement.setCredentialEvents(mainWindow);
   mainWindow.loadURL(startUrl);
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

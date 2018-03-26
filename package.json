@@ -1,6 +1,6 @@
 {
   "name": "quartet-ui",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
@@ -54,7 +54,7 @@
     "name": "Serial Lab",
     "email": "loic.duros@gmail.com"
   },
-  "main": "src/electron-starter.js",
+  "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
     "start": "nf start",
@@ -62,7 +62,7 @@
     "dist": "npm run build && electron-builder -mwl",
     "test": "CI=true react-scripts test --env=jsdom",
     "electron": "electron .",
-    "electron-start": "node src/electron-wait-react",
+    "electron-start": "node public/electron-wait-react",
     "react-start": "BROWSER=none react-scripts start",
     "dev-server": "json-server -p 8080 ./dev/db.json"
   },
@@ -89,5 +89,6 @@
     "win": {
       "target": "NSIS"
     }
-  }
+  },
+  "postinstall": "electron-builder install-app-deps"
 }
