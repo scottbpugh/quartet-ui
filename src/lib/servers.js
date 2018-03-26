@@ -22,6 +22,17 @@ import {showMessage} from "lib/message";
 import {prepHeadersAuth} from "lib/auth-api";
 import base64 from "base-64";
 
+// all issues with fs see:
+// https://github.com/electron/electron/issues/9920
+
+const {ipcRenderer} = window.require("electron");
+
+/* Listen for global credentials notifications */
+ipcRenderer.on("credentialsRetrieved", (event, payload) => {
+  pluginRegistry.getServer(payload.account).setPassword(payload.password);
+  pluginRegistry.getServer(payload.account).listApps();
+});
+
 /**
  * Server - Holds data about a server and its settings, API client, ...
  */
@@ -37,15 +48,29 @@ export class Server {
       serverID,
       path,
       username,
-      password
+      password (optional, only required during create/update stage)
     }
     */
+    // used to check if password has already been requested.
     this.setServerData(serverSettings);
     this.store = require("store").store;
     // make saved server object available to core and plugins.
     pluginRegistry.registerServer(this);
   }
-
+  setCredentials = password => {
+    ipcRenderer.send("setServerCredentials", {
+      account: this.serverID,
+      password: password
+    });
+  };
+  getPassword = () => {
+    ipcRenderer.send("getServerCredentials", {account: this.serverID});
+  };
+  setPassword = password => {
+    this.password = password;
+    // refetch client/app list.
+    this.listApps();
+  };
   setServerData = serverSettings => {
     /*
     Following object should be passed.
@@ -64,6 +89,11 @@ export class Server {
       if (serverSettings[key] !== "" || serverSettings[key] !== undefined) {
         this[key] = serverSettings[key];
       }
+    }
+    if ("password" in serverSettings) {
+      this.setCredentials(serverSettings.password);
+    } else if (!this.passwordRequested) {
+      this.getPassword();
     }
     this.protocol = this.ssl === true ? "https" : "http";
     this.port = !this.port ? 80 : this.port;
@@ -152,7 +182,7 @@ export class Server {
       defaultValue: initialValues.username || null,
       description: {
         type: "text",
-        required: false,
+        required: true,
         read_only: false,
         label: "Username",
         help_text: "Basic Auth Username"
@@ -199,8 +229,7 @@ export class Server {
       serverSettingName: this.serverSettingName,
       url: this.url,
       appList: this.appList,
-      username: this.username,
-      password: this.password
+      username: this.username
     };
   }
 
@@ -249,6 +278,11 @@ export class Server {
   };
 
   listApps = () => {
+    if (!this.password) {
+      // fetch password first.
+      this.getPassword();
+      return;
+    }
     this.appList = [];
     this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
     this.getClient()
