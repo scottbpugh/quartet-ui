@@ -163,6 +163,7 @@ class _NavTree extends Component {
     let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
       let children = Object.keys(props.navTreeItems).map(component => {
+        console.log("component is", component);
         let ComponentName = pluginRegistry.getRegisteredComponent(component);
         return <ComponentName depth={1} key={component} serverID={serverID} />;
       });

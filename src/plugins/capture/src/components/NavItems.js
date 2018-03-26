@@ -17,9 +17,46 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {TreeNode} from "components/layouts/elements/NavTree";
+import {FormattedMessage} from "react-intl";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
-export class NavPluginRoot extends Component {
+class _NavPluginRoot extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {active: false};
+  }
+  static get PLUGIN_COMPONENT_NAME() {
+    return "CaptureNavRoot";
+  }
+  serverHasCapture() {
+    return pluginRegistry
+      .getServer(this.props.serverID)
+      .appList.includes("capture");
+  }
+  goTo = path => {
+    this.props.history.push(path);
+  };
+  componentDidMount() {
+    if (this.props.server && this.serverHasCapture()) {
+    }
+  }
   render() {
-    return <div />;
+    return (
+      <TreeNode
+        depth={this.props.depth}
+        active={this.state.active}
+        childrenNodes={[]}>
+        Content
+      </TreeNode>
+    );
   }
 }
+
+export const NavPluginRoot = connect((state, ownProps) => {
+  return {
+    server: state.serversettings.servers[ownProps.serverID]
+  };
+}, {})(withRouter(_NavPluginRoot));
