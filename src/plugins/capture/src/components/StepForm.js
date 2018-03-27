@@ -24,6 +24,7 @@ import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
+import {showMessage} from "lib/message";
 
 class _StepForm extends Component {
   constructor(props) {
@@ -56,11 +57,20 @@ class _StepForm extends Component {
           }
         })
         .then(result => {
-          that.setState({
-            success: true,
-            successMessage: result.body.detail,
-            username: postValues.username
-          });
+          if (result.status === 201) {
+            showMessage({
+              msg: "New step created successfully",
+              type: "success"
+            });
+          } else if (result.status === 200) {
+            showMessage({
+              msg: "Existing step updated successfully",
+              type: "success"
+            });
+          }
+          this.props.history.push(
+            "/capture/rules/" + this.props.server.serverID
+          );
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {

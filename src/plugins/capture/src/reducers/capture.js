@@ -60,6 +60,19 @@ export const loadRules = server => {
   };
 };
 
+export const deleteRule = (server, rule) => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.capture.capture_rules_delete(rule).then(result => {
+          return dispatch(loadRules(server));
+        });
+      });
+  };
+};
+
 export const loadTasks = server => {
   return dispatch => {
     pluginRegistry
@@ -74,6 +87,19 @@ export const loadTasks = server => {
               tasks: result.body
             }
           });
+        });
+      });
+  };
+};
+
+export const deleteStep = (server, step) => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.capture.capture_steps_delete(step).then(result => {
+          return dispatch(loadRules(server));
         });
       });
   };

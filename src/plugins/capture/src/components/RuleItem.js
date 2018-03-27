@@ -31,6 +31,10 @@ import {
 } from "@blueprintjs/core";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {withRouter} from "react-router";
+import {DeleteDialog} from "components/elements/DeleteDialog";
+import {FormattedMessage} from "react-intl";
+import {connect} from "react-redux";
+import {deleteRule, deleteStep} from "../reducers/capture";
 
 class StepItem extends Component {
   constructor(props) {
@@ -53,6 +57,17 @@ class StepItem extends Component {
   componentWillReceiveProps(nextProps) {
     this.activateNode(nextProps.currentPath);
   }
+  toggleConfirmDelete = evt => {
+    this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
+  };
+  trashStep = evt => {
+    const {serverID, step, deleteRule} = this.props;
+    const serverObject = pluginRegistry.getServer(serverID);
+    this.toggleConfirmDelete();
+    ContextMenu.hide();
+    this.props.deleteStep(serverObject, step);
+    this.props.history.push(`/capture/rules/${serverObject.serverID}`);
+  };
   goToEdit = evt => {
     evt.stopPropagation();
     evt.preventDefault();
@@ -65,6 +80,22 @@ class StepItem extends Component {
       state: {defaultValues: step, edit: true}
     });
   };
+  renderContextMenu() {
+    const {server, serverID, step} = this.props;
+    return (
+      <Menu>
+        <ButtonGroup className="context-menu-control" minimal={true}>
+          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button
+            small={true}
+            onClick={this.toggleConfirmDelete}
+            iconName="trash"
+          />
+        </ButtonGroup>
+        <MenuDivider title={step.name} />
+      </Menu>
+    );
+  }
   goTo = path => {
     this.props.history.push(path);
   };
@@ -73,11 +104,19 @@ class StepItem extends Component {
     return (
       <TreeNode
         depth={depth}
+        onContextMenu={this.renderContextMenu.bind(this)}
         onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         active={this.state.active}
         childrenNodes={[]}>
         {step.name}
+        <DeleteDialog
+          isOpen={this.state.isConfirmDeleteOpen}
+          title={<FormattedMessage id="plugins.capture.deleteStep" />}
+          body={<FormattedMessage id="plugins.capture.deleteStepConfirm" />}
+          toggle={this.toggleConfirmDelete.bind(this)}
+          deleteAction={this.trashStep.bind(this)}
+        />
       </TreeNode>
     );
   }
@@ -102,6 +141,14 @@ class _RuleItem extends Component {
   componentWillReceiveProps(nextProps) {
     this.activateNode(nextProps.currentPath);
   }
+  trashRule = evt => {
+    const {serverID, rule, deleteRule} = this.props;
+    const serverObject = pluginRegistry.getServer(serverID);
+    this.toggleConfirmDelete();
+    ContextMenu.hide();
+    deleteRule(serverObject, rule);
+    this.props.history.push(`/capture/rules/${serverObject.serverID}`);
+  };
   goTo = path => {
     this.props.history.push(path);
   };
@@ -115,10 +162,21 @@ class _RuleItem extends Component {
       state: {defaultValues: rule, edit: true}
     });
   };
+  toggleConfirmDelete = evt => {
+    this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
+  };
   renderContextMenu() {
     const {server, serverID, rule} = this.props;
     return (
       <Menu>
+        <ButtonGroup className="context-menu-control" minimal={true}>
+          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button
+            small={true}
+            onClick={this.toggleConfirmDelete}
+            iconName="trash"
+          />
+        </ButtonGroup>
         <MenuDivider title={rule.name} />
         <MenuDivider />
         <MenuItem
@@ -154,6 +212,7 @@ class _RuleItem extends Component {
           currentPath={currentPath}
           serverID={this.props.serverID}
           history={this.props.history}
+          deleteStep={this.props.deleteStep}
         />
       );
     });
@@ -166,9 +225,21 @@ class _RuleItem extends Component {
         active={this.state.active}
         childrenNodes={steps}>
         {rule.name}
+        <DeleteDialog
+          isOpen={this.state.isConfirmDeleteOpen}
+          title={<FormattedMessage id="plugins.capture.deleteRule" />}
+          body={<FormattedMessage id="plugins.capture.deleteRuleConfirm" />}
+          toggle={this.toggleConfirmDelete.bind(this)}
+          deleteAction={this.trashRule.bind(this)}
+        />
       </TreeNode>
     );
   }
 }
 
-export const RuleItem = withRouter(_RuleItem);
+export const RuleItem = connect(
+  state => {
+    return {};
+  },
+  {deleteRule, deleteStep}
+)(withRouter(_RuleItem));

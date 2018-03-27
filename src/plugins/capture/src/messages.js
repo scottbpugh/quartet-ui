@@ -23,7 +23,11 @@ const defaultLocaleMsg = {
     editRule: "Edit Existing Rule",
     addStep: "Add a New Step",
     editStep: "Edit Step",
-    addTask: "Create a New Task"
+    addTask: "Create a New Task",
+    deleteStep: "Delete Step",
+    deleteStepConfirm: "Are you sure you want to delete this step?",
+    deleteRule: "Delete Rule",
+    deleteRuleConfirm: "Are you sure you want to delete this rule?"
   }
 };
 

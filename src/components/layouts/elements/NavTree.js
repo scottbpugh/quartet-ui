@@ -63,6 +63,8 @@ class _TreeNode extends Component {
     this.state = {childrenNodes: [], collapsed: true};
   }
   toggleChildren = evt => {
+    evt.stopPropagation();
+    evt.preventDefault();
     this.setState({collapsed: !this.state.collapsed}, () => {
       // go to path, for detail...
       //this.go();
@@ -92,11 +94,12 @@ class _TreeNode extends Component {
     let childrenNodes = this.props.childrenNodes.map(elem => {
       return React.cloneElement(elem, {depth: this.props.depth + 1});
     });
+    let collapsed = this.state.collapsed && !this.props.active;
     return (
       <li
         className={classNames({
           arrow: true,
-          collapsed: this.state.collapsed
+          collapsed: collapsed
         })}
         onClick={this.props.onClick || this.go}>
         <div
@@ -108,8 +111,8 @@ class _TreeNode extends Component {
           <a className="tree-node-link" onClick={this.toggleChildren}>
             <span
               className={classNames({
-                "arrow-straight": this.state.collapsed,
-                "arrow-rotated": !this.state.collapsed
+                "arrow-straight": collapsed,
+                "arrow-rotated": !collapsed
               })}>
               <Icon
                 iconName="pt-icon-chevron-right"
@@ -127,7 +130,7 @@ class _TreeNode extends Component {
             <span className="tree-node-label">{this.props.children}</span>
           </a>
         </div>
-        <SubTree collapsed={this.state.collapsed}>{childrenNodes}</SubTree>
+        <SubTree collapsed={collapsed}>{childrenNodes}</SubTree>
       </li>
     );
   }
