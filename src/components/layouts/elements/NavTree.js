@@ -65,7 +65,7 @@ class _TreeNode extends Component {
   toggleChildren = evt => {
     evt.stopPropagation();
     evt.preventDefault();
-    this.setState({collapsed: !this.props.active && !this.state.collapsed});
+    this.setState({collapsed: !this.state.collapsed});
   };
   go = e => {
     e.stopPropagation(); // prevent parent go to be triggered.

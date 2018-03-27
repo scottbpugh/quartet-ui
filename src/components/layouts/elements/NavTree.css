@@ -176,19 +176,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .slide-exit {
   opacity:1;
   transform:none;
-  transition : all .8s ease;
+  transition : all 0.2s linear;
 }
 
 .slide-exit.slide-exit-active {
   opacity:0;
   transform: translate(0, -40px);
-  transition: all 0.8s cubic-bezier(.36,-0.64,.34,1.76);
+  transition: all 0.2s linear;
 }
 .arrow-straight {
   display:inline-block;
   transform-origin:8px 8px;
   transform: none;
-  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
 }
 .arrow-rotated {
   display:inline-block;
