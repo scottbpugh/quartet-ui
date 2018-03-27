@@ -107,7 +107,6 @@ class _StepForm extends Component {
     }
   }
   render() {
-    console.log("Da rule", this.props.rule);
     const {error, handleSubmit, submitting} = this.props;
     const {success, successMessage} = this.state;
     let form = this.state.formStructure

@@ -29,7 +29,6 @@ const {ipcRenderer} = window.require("electron");
 
 /* Listen for global credentials notifications */
 ipcRenderer.on("credentialsRetrieved", (event, payload) => {
-  console.log("credentialsRetrieved triggered", payload);
   pluginRegistry.getServer(payload.account).setPassword(payload.password);
   pluginRegistry.getServer(payload.account).listApps();
 });
@@ -290,13 +289,11 @@ export class Server {
       // prevent resetting race.
       return;
     }
-    console.log("resetting app list");
     this.appList = [];
     this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
     this.getClient()
       .then(client => {
         this.appList = Object.keys(client.apis);
-        console.log("app list set", this.appList);
         // let redux know we got our data
         this.store.dispatch({
           type: actions.appsListUpdated,

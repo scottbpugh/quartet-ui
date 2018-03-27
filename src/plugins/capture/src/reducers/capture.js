@@ -32,8 +32,8 @@ export const loadRules = server => {
       .getClient()
       .then(client => {
         client.apis.capture.capture_rules_list().then(result => {
-          // load steps (they are all loaded at once server-wide unfortunately...)
-          // this may become an issue in the future, if so, a new backend API endpoint
+          // load steps, all steps for all rules.
+          // This may become an issue in the future, if so, a new backend API endpoint
           // needs to be added.
           client.apis.capture.capture_steps_list().then(steps => {
             let rules = result.body.map(rule => {

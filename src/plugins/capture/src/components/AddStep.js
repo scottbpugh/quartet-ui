@@ -27,7 +27,6 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 class _AddStep extends Component {
   componentDidMount() {}
   render() {
-    console.log("THIS PROPS RULES", this.props.rules);
     let editMode =
       this.props.location &&
       this.props.location.state &&
