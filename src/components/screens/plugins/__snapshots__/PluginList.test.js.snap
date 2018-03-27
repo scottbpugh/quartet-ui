@@ -73,15 +73,40 @@ exports[`renders correctly 1`] = `
         <div
           className="pt-callout pt-intent-primary pt-callout-plugin"
         >
-          <img
-            alt="Capture"
-            className="plugin-screenshot"
-            src=""
-            title="Capture"
-          />
           <p>
             
                           The Capture Plugin.
+                        
+          </p>
+        </div>
+      </div>
+      <div
+        className="pt-card pt-elevation-0 pt-elevation-4"
+        onClick={undefined}
+      >
+        <h5>
+          Admin
+           
+          <button
+            className="pt-button pt-icon-add pt-button add-plugin-button pt-intent-primary"
+            disabled={undefined}
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="button"
+          >
+            <span>
+              Enable
+            </span>
+          </button>
+        </h5>
+        <div
+          className="pt-callout pt-intent-primary pt-callout-plugin"
+        >
+          <p>
+            
+                          The Admin plugin. Add a Django admin leaf in the tree.
+                          WARNING: This is an experimental debug plugin not meant for use outside of development.
                         
           </p>
         </div>
