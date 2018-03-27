@@ -18,6 +18,7 @@
 import React from "react";
 import {AddRule} from "./components/AddRule";
 import {AddStep} from "./components/AddStep";
+import {AddTask} from "./components/CreateTask";
 import {Route} from "react-router";
 import {RuleList} from "./components/RuleList";
 
@@ -37,6 +38,11 @@ export default (() => {
       key="addStep"
       path="/capture/add-step/:serverID/:ruleName"
       component={AddStep}
+    />,
+    <Route
+      key="createTask"
+      path="/capture/add-task/:serverID/:ruleName"
+      component={AddTask}
     />
   ];
 })();

@@ -21,7 +21,15 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {Card, Button, Icon, RadioGroup, Radio} from "@blueprintjs/core";
+import {
+  Card,
+  Button,
+  Icon,
+  RadioGroup,
+  Radio,
+  Tag,
+  Intent
+} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 
@@ -94,12 +102,22 @@ class _ServerDetails extends Component {
                 </div>
               ) : (
                 <div>
-                  <h6>{serverObject.url}</h6>
                   <table className="pt-table pt-bordered pt-striped">
                     <thead>
                       <tr>
-                        <th />
-                        <th />
+                        <th>Server API Endpoint</th>
+                        <th>
+                          <h6>
+                            <Tag intent={Intent.PRIMARY}>
+                              <a
+                                style={{color: "#FFF"}}
+                                href={serverObject.url}
+                                target="_blank">
+                                {serverObject.url}
+                              </a>
+                            </Tag>
+                          </h6>
+                        </th>
                       </tr>
                     </thead>
 

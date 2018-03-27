@@ -19,10 +19,11 @@
 const defaultLocaleMsg = {
   capture: {
     navItemsTitle: "Capture",
-    addRule: "Add a new Rule",
-    editRule: "Edit existing Rule",
-    addStep: "Create a Step",
-    editStep: "Edit a Step"
+    addRule: "Add a New Rule",
+    editRule: "Edit Existing Rule",
+    addStep: "Add a New Step",
+    editStep: "Edit Step",
+    addTask: "Create a New Task"
   }
 };
 

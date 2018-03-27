@@ -55,7 +55,7 @@ class _NavPluginRoot extends Component {
   };
   activateNode(currentPath) {
     const {serverID} = this.props;
-    let regexp = new RegExp(`capture`);
+    let regexp = new RegExp(`capture/.*/${serverID}`);
     this.setState({active: regexp.test(currentPath)});
   }
   componentDidMount() {
@@ -83,13 +83,17 @@ class _NavPluginRoot extends Component {
     );
   };
   render() {
-    const {serverID} = this.props;
+    const {serverID, currentPath} = this.props;
     if (this.serverHasCapture()) {
       const {rules} = this.props;
       let children = rules
         ? rules.map(rule => {
             return (
-              <RuleItem rule={rule} serverID={this.props.server.serverID} />
+              <RuleItem
+                currentPath={currentPath}
+                rule={rule}
+                serverID={this.props.server.serverID}
+              />
             );
           })
         : [];

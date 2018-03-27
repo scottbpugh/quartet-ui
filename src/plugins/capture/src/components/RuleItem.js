@@ -65,6 +65,17 @@ class _RuleItem extends Component {
       collapsed: true
     };
   }
+  activateNode(currentPath) {
+    const {serverID} = this.props;
+    let regexp = new RegExp(`capture/.*/${serverID}.*${this.props.rule.name}`);
+    this.setState({active: regexp.test(currentPath)});
+  }
+  componentDidMount() {
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
   goTo = path => {
     this.props.history.push(path);
   };
@@ -83,6 +94,15 @@ class _RuleItem extends Component {
             id: "plugins.capture.addStep"
           })}
         />
+        {/*<MenuItem
+          onClick={this.goTo.bind(
+            this,
+            `/capture/add-task/${serverID}/${rule.name}`
+          )}
+          text={pluginRegistry.getIntl().formatMessage({
+            id: "plugins.capture.addTask"
+          })}
+        />*/}
       </Menu>
     );
   }

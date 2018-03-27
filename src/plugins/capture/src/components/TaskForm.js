@@ -45,10 +45,12 @@ class _TaskForm extends Component {
   submit = postValues => {
     const {server} = this.props;
     var that = this;
+    // add rule name for parent rule programmatically.
+    postValues.rule = this.props.rule.name;
     return server.getClient().then(client => {
       return client
         .execute({
-          operationId: "rest_auth_registration_create",
+          operationId: "capture_Tasks_create",
           parameters: {
             data: postValues
           }
@@ -119,6 +121,11 @@ class _TaskForm extends Component {
         ) {
           type = "password";
         }
+        if (field.name === "rule") {
+          // don't add the rule input.
+          // add it programmatically instead.
+          return null;
+        }
         //field.name = field.name.replace(/_/g, "");
         return (
           <Field
@@ -180,3 +187,4 @@ export default connect((state, ownProps) => {
     servers: state.serversettings.servers
   };
 }, {})(withRouter(TaskForm));
+

@@ -20,10 +20,11 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadRules} from "../reducers/capture";
-import {Card} from "@blueprintjs/core";
+import {Card, Tag, Intent} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {FormattedMessage, FormattedDate, FormattedNumber} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import "./RuleList.css";
 
 class ServerRules extends Component {
   render() {
@@ -77,12 +78,20 @@ class ServerRules extends Component {
                 ? this.props.rules.map(rule => {
                     return (
                       <tr>
-                        <td>{rule.name}</td>
+                        <td>
+                          {rule.name.charAt(0).toUpperCase() +
+                            rule.name.slice(1)}
+                        </td>
                         <td>{rule.description}</td>
                         <td>
-                          <ol>
-                            {rule.steps.map(step => <li>{step.name}</li>)}
-                          </ol>
+                          {rule.steps.map(step => (
+                            <div>
+                              <Tag intent={Intent.PRIMARY} className="step">
+                                #{step.order} {step.name}
+                              </Tag>
+                              <br />
+                            </div>
+                          ))}
                         </td>
                         <td />
                       </tr>

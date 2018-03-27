@@ -43,7 +43,6 @@ class _StepForm extends Component {
     this.constructForm(nextProps);
   }
   submit = postValues => {
-    debugger;
     const {server} = this.props;
     var that = this;
     // add rule name for parent rule programmatically.
