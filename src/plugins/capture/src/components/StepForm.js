@@ -99,9 +99,21 @@ class _StepForm extends Component {
             }
             return false;
           });
-        this.setState({
-          formStructure: formStructure
-        });
+        this.setState(
+          {
+            formStructure: formStructure
+          },
+          () => {
+            if (
+              props.location &&
+              props.location.state &&
+              props.location.state.defaultValues
+            ) {
+              // fed existing values.
+              props.initialize(props.location.state.defaultValues);
+            }
+          }
+        );
       });
     }
   }

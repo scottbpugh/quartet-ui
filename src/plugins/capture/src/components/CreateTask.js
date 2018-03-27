@@ -30,7 +30,6 @@ class _AddTask extends Component {
     const rule = this.props.rules.find(rule => {
       return rule.name === this.props.match.params.ruleName;
     });
-    console.log("rule is", rule);
     let editMode =
       this.props.location &&
       this.props.location.state &&

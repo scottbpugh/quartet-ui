@@ -33,7 +33,7 @@ class _AddStep extends Component {
     let editMode =
       this.props.location &&
       this.props.location.state &&
-      this.props.location.state.editPool
+      this.props.location.state.edit
         ? true
         : false;
     return (

@@ -50,7 +50,7 @@ class _TaskForm extends Component {
     return server.getClient().then(client => {
       return client
         .execute({
-          operationId: "capture_Tasks_create",
+          operationId: "capture_tasks_create",
           parameters: {
             data: postValues
           }
@@ -187,4 +187,3 @@ export default connect((state, ownProps) => {
     servers: state.serversettings.servers
   };
 }, {})(withRouter(TaskForm));
-

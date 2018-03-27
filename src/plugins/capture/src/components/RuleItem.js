@@ -40,6 +40,31 @@ class StepItem extends Component {
       collapsed: true
     };
   }
+  activateNode(currentPath) {
+    const {serverID, step} = this.props;
+    let regexp = new RegExp(
+      `capture/.*/${serverID}.*${step.rule}.*${step.name}`
+    );
+    this.setState({active: regexp.test(currentPath)});
+  }
+  componentDidMount() {
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
+  goToEdit = evt => {
+    evt.stopPropagation();
+    evt.preventDefault();
+    let {step} = this.props;
+    ContextMenu.hide();
+    this.props.history.push({
+      pathname: `/capture/edit-step/${this.props.serverID}/${step.rule}/${
+        step.name
+      }`,
+      state: {defaultValues: step, edit: true}
+    });
+  };
   goTo = path => {
     this.props.history.push(path);
   };
@@ -48,6 +73,7 @@ class StepItem extends Component {
     return (
       <TreeNode
         depth={depth}
+        onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         active={this.state.active}
         childrenNodes={[]}>
@@ -79,6 +105,16 @@ class _RuleItem extends Component {
   goTo = path => {
     this.props.history.push(path);
   };
+  goToEdit = evt => {
+    evt.stopPropagation();
+    evt.preventDefault();
+    let {rule} = this.props;
+    ContextMenu.hide();
+    this.props.history.push({
+      pathname: `/capture/add-rule/${this.props.serverID}/${rule.name}`,
+      state: {defaultValues: rule, edit: true}
+    });
+  };
   renderContextMenu() {
     const {server, serverID, rule} = this.props;
     return (
@@ -94,27 +130,38 @@ class _RuleItem extends Component {
             id: "plugins.capture.addStep"
           })}
         />
-        {/*<MenuItem
+        <MenuItem
           onClick={this.goTo.bind(
             this,
             `/capture/add-task/${serverID}/${rule.name}`
           )}
-          text={pluginRegistry.getIntl().formatMessage({
-            id: "plugins.capture.addTask"
-          })}
-        />*/}
+          text={
+            pluginRegistry.getIntl().formatMessage({
+              id: "plugins.capture.addTask"
+            }) + " - Dev"
+          }
+        />
       </Menu>
     );
   }
   render() {
-    const {rule, depth} = this.props;
+    const {rule, depth, currentPath} = this.props;
     let steps = rule.steps.map(step => {
-      return <StepItem step={step} history={this.props.history} />;
+      return (
+        <StepItem
+          key={step.name}
+          step={step}
+          currentPath={currentPath}
+          serverID={this.props.serverID}
+          history={this.props.history}
+        />
+      );
     });
     return (
       <TreeNode
         onContextMenu={this.renderContextMenu.bind(this)}
         depth={depth}
+        onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         active={this.state.active}
         childrenNodes={steps}>

@@ -40,6 +40,11 @@ export default (() => {
       component={AddStep}
     />,
     <Route
+      key="editStep"
+      path="/capture/edit-step/:serverID/:ruleName/:stepName"
+      component={AddStep}
+    />,
+    <Route
       key="createTask"
       path="/capture/add-task/:serverID/:ruleName"
       component={AddTask}

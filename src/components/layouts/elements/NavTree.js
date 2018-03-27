@@ -98,7 +98,7 @@ class _TreeNode extends Component {
           arrow: true,
           collapsed: this.state.collapsed
         })}
-        onClick={this.go}>
+        onClick={this.props.onClick || this.go}>
         <div
           className={classNames({
             "tree-node-content": true,

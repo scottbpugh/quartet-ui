@@ -39,7 +39,7 @@ import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import QuartetLogo from "./QuartetLogo";
 import {injectIntl} from "react-intl";
-
+import actions from "actions/serversettings";
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
 
@@ -51,9 +51,9 @@ class _App extends Component {
     // While it was tempting to redirect to the currentPath persisted
     // through local storage, it can be dangerous if items or plugins have been
     // removed from the db/disabled as plugins.
-    if (process.env.NODE_ENV !== "development") {
-      this.props.history.push("/");
-    }
+    //if (process.env.NODE_ENV !== "development") {
+    this.props.history.push("/");
+    //}
     // load the necessary server data.
     this.processServers();
   }
@@ -65,6 +65,7 @@ class _App extends Component {
     Object.keys(servers).forEach(serverID => {
       let server = new Server(servers[serverID]);
       pluginRegistry.registerServer(server);
+
       server.listApps();
     });
   }

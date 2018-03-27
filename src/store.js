@@ -85,11 +85,11 @@ export default function configureStore(coreInitialState) {
   })();
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState(["serversettings", "intl", "numberrange", "plugins", "layout"])
+    persistState(["serversettings", "intl", "plugins", "layout"])
   );
   const initialState = {
     ...coreInitialState,
-    ...pluginRegistry.getInitialData()
+    capture: {servers: {}}
   };
   const coreReducers = {
     dashboard,
@@ -100,6 +100,20 @@ export default function configureStore(coreInitialState) {
     layout: layout,
     plugins: pluginReducer
   };
+
+  /*const combine = pluginReducers => {
+    const pluginsState = pluginRegistry.getInitialData();
+    const reducerNames = Object.keys(pluginReducers);
+    for (let item of reducerNames) {
+      pluginReducers[item] = state => {
+        if (state === undefined) {
+          state = {...pluginsState[item]};
+        }
+        return state;
+      };
+    }
+    return pluginReducers;
+  };*/
 
   const combine = pluginReducers => {
     const initialState = {
@@ -140,5 +154,6 @@ export default function configureStore(coreInitialState) {
       plugin.enablePlugin();
     }
   }
+  window.store = store;
   return store;
 }

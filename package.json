@@ -5,6 +5,7 @@
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
     "@blueprintjs/datetime": "^1.25.1",
+    "@blueprintjs/table": "^2.0.0",
     "animated": "^0.2.2",
     "base-64": "^0.1.0",
     "dev-server": "^0.0.2",
