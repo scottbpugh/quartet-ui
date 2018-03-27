@@ -69,8 +69,11 @@ class _TreeNode extends Component {
   };
   go = e => {
     e.stopPropagation(); // prevent parent go to be triggered.
-    e.preventDefault();
-    if (this.props.path) {
+    e.preventDefault;
+    this.toggleChildren(e);
+    if (this.props.onClick) {
+      this.props.onClick(e);
+    } else if (this.props.path) {
       this.props.history.push(this.props.path);
     }
   };
@@ -91,14 +94,14 @@ class _TreeNode extends Component {
     let childrenNodes = this.props.childrenNodes.map(elem => {
       return React.cloneElement(elem, {depth: this.props.depth + 1});
     });
-    let collapsed = this.state.collapsed && !this.props.active;
+    let collapsed = this.state.collapsed;
     return (
       <li
         className={classNames({
           arrow: true,
           collapsed: collapsed
         })}
-        onClick={this.props.onClick || this.go}>
+        onClick={this.go}>
         <div
           className={classNames({
             "tree-node-content": true,

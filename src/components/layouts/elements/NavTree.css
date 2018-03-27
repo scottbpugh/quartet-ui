@@ -176,13 +176,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .slide-exit {
   opacity:1;
   transform:none;
-  transition : all 0.2s linear;
+  transition : all 0.2s ease;
 }
 
 .slide-exit.slide-exit-active {
   opacity:0;
   transform: translate(0, -40px);
-  transition: all 0.2s linear;
+  transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
 }
 .arrow-straight {
   display:inline-block;
