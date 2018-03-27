@@ -108,7 +108,7 @@ class _TreeNode extends Component {
             "tree-node-content-active": this.props.active || false,
             [`tree-node-depth-${this.props.depth}`]: true
           })}>
-          <a className="tree-node-link" onClick={this.toggleChildren}>
+          <a onClick={this.toggleChildren}>
             <span
               className={classNames({
                 "arrow-straight": collapsed,
