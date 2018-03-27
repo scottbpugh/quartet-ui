@@ -60,15 +60,12 @@ class SubTree extends Component {
 class _TreeNode extends Component {
   constructor(props) {
     super(props);
-    this.state = {childrenNodes: [], collapsed: true};
+    this.state = {childrenNodes: [], collapsed: true, persistent: false};
   }
   toggleChildren = evt => {
     evt.stopPropagation();
     evt.preventDefault();
-    this.setState({collapsed: !this.state.collapsed}, () => {
-      // go to path, for detail...
-      //this.go();
-    });
+    this.setState({collapsed: !this.props.active && !this.state.collapsed});
   };
   go = e => {
     e.stopPropagation(); // prevent parent go to be triggered.
