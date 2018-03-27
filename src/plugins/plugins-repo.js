@@ -31,5 +31,16 @@ export default {
     description: `
               The Capture Plugin.
             `
+  },
+  admin: {
+    core: true,
+    initPath: "admin/src/init.js",
+    preview: "",
+    readableName: "Admin",
+    pluginName: "Admin",
+    description: `
+              The Admin plugin. Add a Django admin leaf in the tree.
+              WARNING: This is an experimental debug plugin not meant for use outside of development.
+            `
   }
 };

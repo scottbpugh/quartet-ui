@@ -27,7 +27,8 @@ const defaultLocaleMsg = {
     deleteStep: "Delete Step",
     deleteStepConfirm: "Are you sure you want to delete this step?",
     deleteRule: "Delete Rule",
-    deleteRuleConfirm: "Are you sure you want to delete this rule?"
+    deleteRuleConfirm: "Are you sure you want to delete this rule?",
+    uploadFile: "Upload File to"
   }
 };
 

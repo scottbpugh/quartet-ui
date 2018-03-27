@@ -88,8 +88,7 @@ export default function configureStore(coreInitialState) {
     persistState(["serversettings", "intl", "plugins", "layout"])
   );
   const initialState = {
-    ...coreInitialState,
-    capture: {servers: {}}
+    ...coreInitialState
   };
   const coreReducers = {
     dashboard,
