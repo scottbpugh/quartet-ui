@@ -62,7 +62,6 @@ class _RuleParamForm extends Component {
           parameters: parameters
         })
         .then(result => {
-          debugger;
           if (result.status === 201) {
             showMessage({
               msg: "New Rule Parameter created successfully",
