@@ -15,6 +15,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+const credManagement = require("./main-process/credentials-management");
+
 const electron = require("electron");
 // Module to control application life.
 const app = electron.app;
@@ -31,7 +33,8 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1600, height: 1200});
-
+  // Setting this to exchange credentials information
+  credManagement.setCredentialEvents(mainWindow);
   // and load the index.html of the app.
   const startUrl =
     process.env.ELECTRON_START_URL ||
@@ -41,9 +44,8 @@ function createWindow() {
       slashes: true
     });
   mainWindow.loadURL(startUrl);
-
-  // Open the DevTools, for debug only.
-  //mainWindow.webContents.openDevTools();
+  // Open the DevTools.
+  mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
@@ -75,6 +77,3 @@ app.on("activate", function() {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

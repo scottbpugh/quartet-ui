@@ -61,6 +61,15 @@ if (window && !window.localStorage) {
   window.localStorage = localStorage;
 }
 
+if (window && !window.require) {
+  // add fake require for ipcRenderer.
+  window.require = module => {
+    if (module === "electron") {
+      return {ipcRenderer: {on: () => {}, send: () => {}}};
+    }
+  };
+}
+
 /*export let initialState = {
   dashboard: {notifications: []},
   serversettings: {

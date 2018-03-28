@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
+import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import "./NavTree.css";

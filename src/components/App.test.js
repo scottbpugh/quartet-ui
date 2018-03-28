@@ -18,6 +18,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import App from "./App";
 import {withRouter} from "react-router-dom";
 import {IntlProvider} from "react-intl-redux";
