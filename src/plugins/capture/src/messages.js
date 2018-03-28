@@ -28,7 +28,10 @@ const defaultLocaleMsg = {
     deleteStepConfirm: "Are you sure you want to delete this step?",
     deleteRule: "Delete Rule",
     deleteRuleConfirm: "Are you sure you want to delete this rule?",
-    uploadFile: "Upload File to"
+    uploadFile: "File Upload",
+    uploadFileTitle: "{ruleName} File Upload",
+    createTask: "Create Task with File",
+    uploadedFile: "File uploaded for rule {ruleName}"
   }
 };
 

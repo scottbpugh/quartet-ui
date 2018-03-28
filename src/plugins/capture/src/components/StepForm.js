@@ -35,6 +35,7 @@ class _StepForm extends Component {
       successMessage: null,
       username: null
     };
+    this.step = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
@@ -44,17 +45,21 @@ class _StepForm extends Component {
     this.constructForm(nextProps);
   }
   submit = postValues => {
-    const {server} = this.props;
+    const {server, edit} = this.props;
     var that = this;
     // add rule name for parent rule programmatically.
     postValues.rule = this.props.rule.name;
+    let operationId = "capture_steps_create";
+    let parameters = {data: postValues};
+    if (edit) {
+      operationId = "capture_steps_update";
+      parameters.id = this.step.id;
+    }
     return server.getClient().then(client => {
       return client
         .execute({
-          operationId: "capture_steps_create",
-          parameters: {
-            data: postValues
-          }
+          operationId: operationId,
+          parameters: parameters
         })
         .then(result => {
           if (result.status === 201) {
@@ -119,6 +124,7 @@ class _StepForm extends Component {
               props.location.state &&
               props.location.state.defaultValues
             ) {
+              this.step = props.location.state.defaultValues;
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
             }

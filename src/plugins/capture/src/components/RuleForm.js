@@ -35,6 +35,7 @@ class _RuleForm extends Component {
       successMessage: null,
       username: null
     };
+    this.rule = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
@@ -44,15 +45,20 @@ class _RuleForm extends Component {
     this.constructForm(nextProps);
   }
   submit = postValues => {
-    const {server} = this.props;
+    const {server, edit} = this.props;
     var that = this;
+    let operationId = "capture_rules_create";
+    let parameters = {data: postValues};
+
+    if (edit) {
+      operationId = "capture_rules_update";
+      parameters.name = this.rule.name;
+    }
     return server.getClient().then(client => {
       return client
         .execute({
-          operationId: "capture_rules_create",
-          parameters: {
-            data: postValues
-          }
+          operationId: operationId,
+          parameters: parameters
         })
         .then(result => {
           if (result.status === 201) {
@@ -117,6 +123,7 @@ class _RuleForm extends Component {
               props.location.state &&
               props.location.state.defaultValues
             ) {
+              this.rule = props.location.state.defaultValues;
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
             }

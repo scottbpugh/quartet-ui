@@ -57,6 +57,7 @@ class _AddStep extends Component {
             </h5>
             <StepForm
               rule={rule}
+              edit={editMode}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />

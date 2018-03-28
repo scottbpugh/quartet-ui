@@ -27,7 +27,8 @@ import {
   ContextMenu,
   RadioGroup,
   Radio,
-  Label
+  Label,
+  FileUpload
 } from "@blueprintjs/core";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {withRouter} from "react-router";
@@ -36,6 +37,9 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {deleteRule, deleteStep} from "../reducers/capture";
 import {fileUpload} from "../lib/capture-api";
+import {formatMessage} from "react-intl";
+import classNames from "classnames";
+import {showMessage} from "lib/message";
 
 class StepItem extends Component {
   constructor(props) {
@@ -131,6 +135,12 @@ class _RuleItem extends Component {
       collapsed: true
     };
   }
+  toggleUpload = () => {
+    const {rule, serverID} = this.props;
+    // redirect to pool regions if not already there.
+    this.goTo(`/capture/rules/${serverID}`);
+    this.setState({isUploadOpen: !this.state.isUploadOpen});
+  };
   activateNode(currentPath) {
     const {serverID} = this.props;
     let regexp = new RegExp(`capture/.*/${serverID}.*${this.props.rule.name}`);
@@ -154,12 +164,16 @@ class _RuleItem extends Component {
     this.props.history.push(path);
   };
   uploadFile = evt => {
+    this.toggleUpload();
     fileUpload(
       pluginRegistry.getServer(this.props.serverID),
       this.props.rule,
-      "something crazy here"
-    ).then(res => {
-      debugger;
+      evt.target.files[0]
+    );
+    showMessage({
+      id: "plugins.capture.uploadedFile",
+      type: "success",
+      values: {ruleName: this.props.rule.name}
     });
   };
   goToEdit = evt => {
@@ -200,13 +214,13 @@ class _RuleItem extends Component {
         />
 
         <MenuItem
-          onClick={this.uploadFile}
+          onClick={this.toggleUpload}
           text={
+            rule.name +
+            " " +
             pluginRegistry.getIntl().formatMessage({
               id: "plugins.capture.uploadFile"
-            }) +
-            " " +
-            rule.name
+            })
           }
         />
         <MenuItem
@@ -253,6 +267,27 @@ class _RuleItem extends Component {
           toggle={this.toggleConfirmDelete.bind(this)}
           deleteAction={this.trashRule.bind(this)}
         />
+        <Dialog
+          isOpen={this.state.isUploadOpen}
+          onClose={this.toggleUpload}
+          title={
+            <FormattedMessage
+              id="plugins.capture.uploadFileTitle"
+              values={{ruleName: rule.name}}
+            />
+          }
+          className={classNames({
+            "pt-dark": this.props.theme.startsWith("dark") ? true : false
+          })}>
+          <div className="pt-dialog-body">
+            <div className="mini-form">
+              <FileUpload
+                text="Choose file..."
+                onInputChange={this.uploadFile}
+              />
+            </div>
+          </div>
+        </Dialog>
       </TreeNode>
     );
   }
@@ -260,7 +295,9 @@ class _RuleItem extends Component {
 
 export const RuleItem = connect(
   state => {
-    return {};
+    return {
+      theme: state.layout.theme
+    };
   },
   {deleteRule, deleteStep}
 )(withRouter(_RuleItem));

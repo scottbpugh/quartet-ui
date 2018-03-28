@@ -52,6 +52,7 @@ class _AddRule extends Component {
               )}
             </h5>
             <RuleForm
+              edit={editMode}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />

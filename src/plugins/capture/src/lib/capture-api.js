@@ -21,40 +21,31 @@ import {showMessage} from "lib/message";
 import base64 from "base-64";
 var request = require("request");
 
-export const fileUpload = (server, rule, data) => {
-  /*let payload = prepHeaders(server, "POST");
+export const fileUpload = (server, rule, fileObject) => {
+  const reader = new FileReader();
+  var data = new FormData();
   let headers = new Headers();
-  headers.append("Content-Type", "multipart/form-data");
-  //headers.append("Content-Type", "multipart/x-www-form-urlencoded");
   headers.append(
     "Authorization",
     "Basic " + base64.encode(server.username + ":" + server.password)
   );
-  payload.headers = headers;
-  //let formData = new FormData();
-  //formData.append("file", data);
-  //payload.body = formData;
-  payload.body = encodeURIComponent("file") + "=" + encodeURIComponent(data);
-  //payload.body = formData;*/
-  var formData = {
-    file: "hello",
-    attachments: ["test test"]
-  };
-  request.post({
-    url: `${server.url}capture/quartet-capture/?rule=${rule.name}`,
-    formData: formData
-  });
-  /*  return fetch(
-    `${server.url}capture/quartet-capture/?rule=${rule.name}`,
-    payload
+  data.append("file", fileObject);
+  fetch(
+    `${server.url}capture/quartet-capture/?rule=${
+      rule.name
+    }&run-immediately=true`,
+    {
+      method: "POST",
+      headers: headers,
+      body: data
+    }
   )
     .then(resp => {
-      debugger;
-      return resp.json();
+      resp.json().then(data => {
+        showMessage({type: "success", msg: data});
+      });
     })
-    .catch(e => {
-      debugger;
-    });*/
+    .catch(resp => {});
 };
 
 export const getRuleFormStructure = server => {
