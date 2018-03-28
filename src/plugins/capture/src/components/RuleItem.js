@@ -52,7 +52,7 @@ class StepItem extends Component {
   activateNode(currentPath) {
     const {serverID, step} = this.props;
     let regexp = new RegExp(
-      `capture/.*/${serverID}.*${step.rule}.*${step.name}`
+      `capture/.*/${serverID}.*/rule/${step.rule}.*/step/${step.name}$`
     );
     this.setState({active: regexp.test(currentPath)});
   }
@@ -79,9 +79,9 @@ class StepItem extends Component {
     let {step} = this.props;
     ContextMenu.hide();
     this.props.history.push({
-      pathname: `/capture/edit-step/${this.props.serverID}/${step.rule}/${
-        step.name
-      }`,
+      pathname: `/capture/edit-step/${this.props.serverID}/rule/${
+        step.rule
+      }/step/${step.name}`,
       state: {defaultValues: step, edit: true}
     });
   };
@@ -143,7 +143,9 @@ class _RuleItem extends Component {
   };
   activateNode(currentPath) {
     const {serverID} = this.props;
-    let regexp = new RegExp(`capture/.*/${serverID}.*${this.props.rule.name}`);
+    let regexp = new RegExp(
+      `capture/.*/${serverID}.*/rule/${this.props.rule.id}`
+    );
     this.setState({active: regexp.test(currentPath)});
   }
   componentDidMount() {
@@ -182,7 +184,7 @@ class _RuleItem extends Component {
     let {rule} = this.props;
     ContextMenu.hide();
     this.props.history.push({
-      pathname: `/capture/add-rule/${this.props.serverID}/${rule.name}`,
+      pathname: `/capture/add-rule/${this.props.serverID}/rule/${rule.id}`,
       state: {defaultValues: rule, edit: true}
     });
   };
@@ -206,13 +208,21 @@ class _RuleItem extends Component {
         <MenuItem
           onClick={this.goTo.bind(
             this,
-            `/capture/add-step/${serverID}/${rule.name}`
+            `/capture/add-step/${serverID}/rule/${rule.id}`
           )}
           text={pluginRegistry.getIntl().formatMessage({
             id: "plugins.capture.addStep"
           })}
         />
-
+        <MenuItem
+          onClick={this.goTo.bind(
+            this,
+            `/capture/add-rule-param/${serverID}/rule/${rule.id}`
+          )}
+          text={pluginRegistry.getIntl().formatMessage({
+            id: "plugins.capture.addRuleParam"
+          })}
+        />
         <MenuItem
           onClick={this.toggleUpload}
           text={
@@ -226,7 +236,7 @@ class _RuleItem extends Component {
         <MenuItem
           onClick={this.goTo.bind(
             this,
-            `/capture/add-task/${serverID}/${rule.name}`
+            `/capture/add-task/${serverID}/rule/${rule.id}`
           )}
           text={
             pluginRegistry.getIntl().formatMessage({

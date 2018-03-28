@@ -52,7 +52,7 @@ class _RuleForm extends Component {
 
     if (edit) {
       operationId = "capture_rules_update";
-      parameters.name = this.rule.name;
+      parameters.id = this.rule.id;
     }
     return server.getClient().then(client => {
       return client

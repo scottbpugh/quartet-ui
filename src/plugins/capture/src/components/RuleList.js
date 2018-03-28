@@ -102,7 +102,7 @@ class ServerRules extends Component {
                         <td>
                           {
                             tasks.filter(task => {
-                              return task.rule === rule.name;
+                              return task.rule === rule.id;
                             }).length
                           }
                         </td>
@@ -122,6 +122,7 @@ class ServerTasks extends Component {
   render() {
     let serverName = this.props.server.serverSettingName;
     let serverID = this.props.server.serverID;
+    const {rules, tasks} = this.props;
     return (
       <Card className="pt-elevation-4">
         <h5>{serverName} Tasks</h5>
@@ -179,8 +180,11 @@ class ServerTasks extends Component {
                     return (
                       <tr>
                         <td>
-                          {task.rule.charAt(0).toUpperCase() +
-                            task.rule.slice(1)}
+                          {rules
+                            ? rules.find(rule => {
+                                return Number(rule.id) === Number(task.rule);
+                              }).name
+                            : null}
                         </td>
                         <td>{task.name}</td>
                         <td>
@@ -203,10 +207,21 @@ class ServerTasks extends Component {
 }
 
 class _RuleList extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchTasks = null;
+  }
   componentDidMount() {
-    let {server} = this.props;
-    this.props.loadRules(pluginRegistry.getServer(server.serverID));
+    const {server} = this.props;
     this.props.loadTasks(pluginRegistry.getServer(server.serverID));
+    this.fetchTasks = setInterval(() => {
+      this.props.loadTasks(pluginRegistry.getServer(server.serverID));
+    }, 5000);
+    this.props.loadRules(pluginRegistry.getServer(server.serverID));
+  }
+  componentWillUnmount() {
+    clearInterval(this.fetchTasks);
+    this.fetchTasks = null;
   }
   render() {
     let {server, rules, tasks} = this.props;
@@ -219,7 +234,12 @@ class _RuleList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerTasks server={server} tasks={tasks} />
+          <ServerTasks
+            server={server}
+            rules={rules}
+            tasks={tasks}
+            loadTasks={this.props.loadTasks}
+          />
           <ServerRules
             history={this.props.history}
             server={server}

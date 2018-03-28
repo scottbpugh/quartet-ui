@@ -17,15 +17,16 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {getTaskFormStructure} from "../lib/capture-api";
+import {getRuleParamFormStructure} from "../lib/capture-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
+import {showMessage} from "lib/message";
 
-class _TaskForm extends Component {
+class _RuleParamForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,6 +35,7 @@ class _TaskForm extends Component {
       successMessage: null,
       username: null
     };
+    this.RuleParam = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
@@ -43,24 +45,38 @@ class _TaskForm extends Component {
     this.constructForm(nextProps);
   }
   submit = postValues => {
-    const {server} = this.props;
+    const {server, edit} = this.props;
     var that = this;
+    let operationId = "capture_rule_parameters_create";
     // add rule name for parent rule programmatically.
     postValues.rule = this.props.rule.id;
+    let parameters = {data: postValues};
+    if (edit) {
+      operationId = "capture_rule_parameters_update";
+      parameters.name = this.RuleParam.name;
+    }
     return server.getClient().then(client => {
       return client
         .execute({
-          operationId: "capture_tasks_create",
-          parameters: {
-            data: postValues
-          }
+          operationId: operationId,
+          parameters: parameters
         })
         .then(result => {
-          that.setState({
-            success: true,
-            successMessage: result.body.detail,
-            username: postValues.username
-          });
+          debugger;
+          if (result.status === 201) {
+            showMessage({
+              msg: "New Rule Parameter created successfully",
+              type: "success"
+            });
+          } else if (result.status === 200) {
+            showMessage({
+              msg: "Existing RuleParameter updated successfully",
+              type: "success"
+            });
+          }
+          this.props.history.push(
+            "/capture/rules/" + this.props.server.serverID
+          );
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
@@ -79,7 +95,7 @@ class _TaskForm extends Component {
   };
   constructForm(props) {
     if (!this.formStructureRetrieved) {
-      getTaskFormStructure(props.server).then(data => {
+      getRuleParamFormStructure(props.server).then(data => {
         this.formStructureRetrieved = true;
         // parse the values and filter to the one that are not readonly.
         let postFields = data.actions.POST;
@@ -99,9 +115,22 @@ class _TaskForm extends Component {
             }
             return false;
           });
-        this.setState({
-          formStructure: formStructure
-        });
+        this.setState(
+          {
+            formStructure: formStructure
+          },
+          () => {
+            if (
+              props.location &&
+              props.location.state &&
+              props.location.state.defaultValues
+            ) {
+              this.RuleParam = props.location.state.defaultValues;
+              // fed existing values.
+              props.initialize(props.location.state.defaultValues);
+            }
+          }
+        );
       });
     }
   }
@@ -178,12 +207,12 @@ class _TaskForm extends Component {
   }
 }
 
-const TaskForm = reduxForm({
-  form: "taskForm"
-})(_TaskForm);
+const RuleParamForm = reduxForm({
+  form: "ruleParamForm"
+})(_RuleParamForm);
 
 export default connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers
   };
-}, {})(withRouter(TaskForm));
+}, {})(withRouter(RuleParamForm));

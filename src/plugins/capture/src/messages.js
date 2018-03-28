@@ -31,7 +31,10 @@ const defaultLocaleMsg = {
     uploadFile: "File Upload",
     uploadFileTitle: "{ruleName} File Upload",
     createTask: "Create Task with File",
-    uploadedFile: "File uploaded for rule {ruleName}"
+    uploadedFile: "File uploaded for rule {ruleName}",
+    addRuleParam: "Add a New Rule Parameter",
+    processFileError:
+      "An error occurred while processing this file. Please check the QU4RTET server for more information."
   }
 };
 

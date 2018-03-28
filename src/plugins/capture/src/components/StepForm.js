@@ -48,7 +48,7 @@ class _StepForm extends Component {
     const {server, edit} = this.props;
     var that = this;
     // add rule name for parent rule programmatically.
-    postValues.rule = this.props.rule.name;
+    postValues.rule = this.props.rule.id;
     let operationId = "capture_steps_create";
     let parameters = {data: postValues};
     if (edit) {
@@ -73,6 +73,7 @@ class _StepForm extends Component {
               type: "success"
             });
           }
+
           this.props.history.push(
             "/capture/rules/" + this.props.server.serverID
           );

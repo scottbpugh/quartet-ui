@@ -40,7 +40,7 @@ export const loadRules = server => {
             let rules = result.body.map(rule => {
               // add steps to the rule.
               rule.steps = steps.body.filter(step => {
-                if (step.rule === rule.name) {
+                if (step.rule === rule.id) {
                   return true;
                 }
                 return false;

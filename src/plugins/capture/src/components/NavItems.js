@@ -74,7 +74,7 @@ class _NavPluginRoot extends Component {
         <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
         <MenuItem
-          onClick={this.goTo.bind(this, `/capture/add-rule/${serverID}`)}
+          onClick={this.goTo.bind(this, `/capture/add-rule/${serverID}/rule`)}
           text={this.props.intl.formatMessage({
             id: "plugins.capture.addRule"
           })}

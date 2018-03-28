@@ -1,4 +1,4 @@
-// Copyright (c) 2018 Serial Lab
+// Copyright (c) 2018 SerialLab Corp.
 //
 // GNU GENERAL PUBLIC LICENSE
 //    Version 3, 29 June 2007
@@ -20,11 +20,11 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import StepForm from "./StepForm";
+import RuleParamForm from "./RuleParamForm";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
-class _AddStep extends Component {
+class _AddRuleParam extends Component {
   componentDidMount() {}
   render() {
     const rule = this.props.rules.find(rule => {
@@ -40,24 +40,23 @@ class _AddStep extends Component {
       <RightPanel
         title={
           !editMode ? (
-            <FormattedMessage id="plugins.capture.addStep" />
+            <FormattedMessage id="plugins.capture.addRuleParam" />
           ) : (
-            <FormattedMessage id="plugins.capture.editStep" />
+            <FormattedMessage id="plugins.capture.editRuleParam" />
           )
         }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
               {!editMode ? (
-                <FormattedMessage id="plugins.capture.addStep" />
+                <FormattedMessage id="plugins.capture.addRuleParam" />
               ) : (
-                <FormattedMessage id="plugins.capture.editStep" />
-              )}{" "}
-              to {rule.name}
+                <FormattedMessage id="plugins.capture.editRuleParam" />
+              )}
             </h5>
-            <StepForm
-              rule={rule}
+            <RuleParamForm
               edit={editMode}
+              rule={rule}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />
@@ -68,11 +67,11 @@ class _AddStep extends Component {
   }
 }
 
-export const AddStep = connect((state, ownProps) => {
+export const AddRuleParam = connect((state, ownProps) => {
   return {
     server: state.serversettings.servers[ownProps.match.params.serverID],
     rules: state.capture.servers
       ? state.capture.servers[ownProps.match.params.serverID].rules
       : []
   };
-})(_AddStep);
+}, {})(_AddRuleParam);

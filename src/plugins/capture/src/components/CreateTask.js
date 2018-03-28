@@ -28,7 +28,7 @@ class _AddTask extends Component {
   componentDidMount() {}
   render() {
     const rule = this.props.rules.find(rule => {
-      return rule.name === this.props.match.params.ruleName;
+      return Number(rule.id) === Number(this.props.match.params.ruleID);
     });
     let editMode =
       this.props.location &&

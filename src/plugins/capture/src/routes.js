@@ -19,6 +19,7 @@ import React from "react";
 import {AddRule} from "./components/AddRule";
 import {AddStep} from "./components/AddStep";
 import {AddTask} from "./components/CreateTask";
+import {AddRuleParam} from "./components/AddRuleParam";
 import {Route} from "react-router";
 import {RuleList} from "./components/RuleList";
 
@@ -31,23 +32,28 @@ export default (() => {
     />,
     <Route
       key="addRule"
-      path="/capture/add-rule/:serverID/:ruleName?"
+      path="/capture/add-rule/:serverID/rule/:ruleID?"
       component={AddRule}
     />,
     <Route
       key="addStep"
-      path="/capture/add-step/:serverID/:ruleName"
+      path="/capture/add-step/:serverID/rule/:ruleID"
       component={AddStep}
     />,
     <Route
       key="editStep"
-      path="/capture/edit-step/:serverID/:ruleName/:stepName"
+      path="/capture/edit-step/:serverID/rule/:ruleID/step/:stepName"
       component={AddStep}
     />,
     <Route
       key="createTask"
-      path="/capture/add-task/:serverID/:ruleName"
+      path="/capture/add-task/:serverID/rule/:ruleID"
       component={AddTask}
+    />,
+    <Route
+      key="addRuleParam"
+      path="/capture/add-rule-param/:serverID/rule/:ruleID"
+      component={AddRuleParam}
     />
   ];
 })();

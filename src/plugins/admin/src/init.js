@@ -28,7 +28,6 @@ const PLUGIN_NAME = "Admin";
 export const enablePlugin = () => {
   pluginRegistry.registerReducer(PLUGIN_NAME, "admin", reducer, initialData());
   pluginRegistry.setMessages(messages);
-  console.log("routes", routes);
   pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
   pluginRegistry.registerComponent(
     PLUGIN_NAME,
