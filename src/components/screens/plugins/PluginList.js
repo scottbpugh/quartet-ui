@@ -67,12 +67,14 @@ class Plugin extends Component {
         </h5>
 
         <div className="pt-callout pt-intent-primary pt-callout-plugin">
-          <img
-            className="plugin-screenshot"
-            src={this.props.pluginEntry.preview}
-            title={this.props.pluginEntry.readableName}
-            alt={this.props.pluginEntry.readableName}
-          />
+          {this.props.pluginEntry.preview ? (
+            <img
+              className="plugin-screenshot"
+              src={this.props.pluginEntry.preview}
+              title={this.props.pluginEntry.readableName}
+              alt={this.props.pluginEntry.readableName}
+            />
+          ) : null}
           <p>{this.props.pluginEntry.description}</p>
         </div>
       </Card>

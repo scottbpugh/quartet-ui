@@ -1,10 +1,11 @@
 {
   "name": "quartet-ui",
-  "version": "0.1.8",
+  "version": "0.1.11",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
     "@blueprintjs/datetime": "^1.25.1",
+    "@blueprintjs/table": "^2.0.0",
     "animated": "^0.2.2",
     "base-64": "^0.1.0",
     "dev-server": "^0.0.2",
@@ -30,6 +31,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
+    "react-toolbox": "^2.0.0-beta.12",
     "react-transition-group": "^2.2.1",
     "react-treebeard": "^2.1.0",
     "react-vis": "^1.8.1",
@@ -41,6 +43,7 @@
     "redux-localstorage": "^0.4.1",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
+    "request": "^2.85.0",
     "roboto-fontface": "^0.9.0",
     "set-node-path": "^0.0.2",
     "swagger-client": "^3.5.0",
@@ -84,7 +87,7 @@
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "directories": {
-      "buildResources": "public"
+      "buildResources": "public/**/*"
     },
     "win": {
       "target": "NSIS"

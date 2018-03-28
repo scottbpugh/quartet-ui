@@ -60,18 +60,20 @@ class SubTree extends Component {
 class _TreeNode extends Component {
   constructor(props) {
     super(props);
-    this.state = {childrenNodes: [], collapsed: true};
+    this.state = {childrenNodes: [], collapsed: true, persistent: false};
   }
   toggleChildren = evt => {
-    this.setState({collapsed: !this.state.collapsed}, () => {
-      // go to path, for detail...
-      //this.go();
-    });
+    evt.stopPropagation();
+    evt.preventDefault();
+    this.setState({collapsed: !this.state.collapsed});
   };
   go = e => {
     e.stopPropagation(); // prevent parent go to be triggered.
-    e.preventDefault();
-    if (this.props.path) {
+    e.preventDefault;
+    this.toggleChildren(e);
+    if (this.props.onClick) {
+      this.props.onClick(e);
+    } else if (this.props.path) {
       this.props.history.push(this.props.path);
     }
   };
@@ -92,11 +94,12 @@ class _TreeNode extends Component {
     let childrenNodes = this.props.childrenNodes.map(elem => {
       return React.cloneElement(elem, {depth: this.props.depth + 1});
     });
+    let collapsed = this.state.collapsed;
     return (
       <li
         className={classNames({
           arrow: true,
-          collapsed: this.state.collapsed
+          collapsed: collapsed
         })}
         onClick={this.go}>
         <div
@@ -105,11 +108,11 @@ class _TreeNode extends Component {
             "tree-node-content-active": this.props.active || false,
             [`tree-node-depth-${this.props.depth}`]: true
           })}>
-          <a className="tree-node-link" onClick={this.toggleChildren}>
+          <a onClick={this.toggleChildren}>
             <span
               className={classNames({
-                "arrow-straight": this.state.collapsed,
-                "arrow-rotated": !this.state.collapsed
+                "arrow-straight": collapsed,
+                "arrow-rotated": !collapsed
               })}>
               <Icon
                 iconName="pt-icon-chevron-right"
@@ -127,7 +130,7 @@ class _TreeNode extends Component {
             <span className="tree-node-label">{this.props.children}</span>
           </a>
         </div>
-        <SubTree collapsed={this.state.collapsed}>{childrenNodes}</SubTree>
+        <SubTree collapsed={collapsed}>{childrenNodes}</SubTree>
       </li>
     );
   }

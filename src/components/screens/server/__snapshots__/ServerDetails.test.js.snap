@@ -28,16 +28,33 @@ exports[`renders correctly 1`] = `
           </button>
         </h5>
         <div>
-          <h6>
-            http://localhost:8000/
-          </h6>
           <table
             className="pt-table pt-bordered pt-striped"
           >
             <thead>
               <tr>
-                <th />
-                <th />
+                <th>
+                  Server API Endpoint
+                </th>
+                <th>
+                  <h6>
+                    <span
+                      className="pt-tag pt-intent-primary"
+                    >
+                      <a
+                        href="http://localhost:8000/"
+                        style={
+                          Object {
+                            "color": "#FFF",
+                          }
+                        }
+                        target="_blank"
+                      >
+                        http://localhost:8000/
+                      </a>
+                    </span>
+                  </h6>
+                </th>
               </tr>
             </thead>
             <tbody>

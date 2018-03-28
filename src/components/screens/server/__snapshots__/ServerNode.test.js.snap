@@ -10,7 +10,6 @@ exports[`renders correctly 1`] = `
     className="tree-node-content tree-node-content-active tree-node-depth-0"
   >
     <a
-      className="tree-node-link"
       onClick={[Function]}
     >
       <span

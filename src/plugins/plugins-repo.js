@@ -21,5 +21,26 @@ export default {
                 pools and serial number ranges as well as allocate numbers on
                 the fly from the QU4RTET interface.
             `
+  },
+  Capture: {
+    core: true,
+    initPath: "capture/src/init.js",
+    preview: "",
+    readableName: "Capture",
+    pluginName: "Capture",
+    description: `
+              The Capture Plugin.
+            `
+  },
+  admin: {
+    core: true,
+    initPath: "admin/src/init.js",
+    preview: "",
+    readableName: "Admin",
+    pluginName: "Admin",
+    description: `
+              The Admin plugin. Add a Django admin leaf in the tree.
+              WARNING: This is an experimental debug plugin not meant for use outside of development.
+            `
   }
 };

@@ -67,8 +67,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin:30px;
   position:relative;
   padding-top: 60px;
+  min-width:60%;
 }
-
+.large-cards-container .pt-table {
+  width:100%;
+}
+.full-large > * {
+  width:90%;
+}
 .auto-cards-container {
   display: flex;
   flex-wrap:wrap;
