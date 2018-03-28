@@ -35,6 +35,7 @@ import {DeleteDialog} from "components/elements/DeleteDialog";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {deleteRule, deleteStep} from "../reducers/capture";
+import {fileUpload} from "../lib/capture-api";
 
 class StepItem extends Component {
   constructor(props) {
@@ -152,6 +153,15 @@ class _RuleItem extends Component {
   goTo = path => {
     this.props.history.push(path);
   };
+  uploadFile = evt => {
+    fileUpload(
+      pluginRegistry.getServer(this.props.serverID),
+      this.props.rule,
+      "something crazy here"
+    ).then(res => {
+      debugger;
+    });
+  };
   goToEdit = evt => {
     evt.stopPropagation();
     evt.preventDefault();
@@ -190,10 +200,7 @@ class _RuleItem extends Component {
         />
 
         <MenuItem
-          onClick={this.goTo.bind(
-            this,
-            `/capture/add-task/${serverID}/${rule.name}`
-          )}
+          onClick={this.uploadFile}
           text={
             pluginRegistry.getIntl().formatMessage({
               id: "plugins.capture.uploadFile"

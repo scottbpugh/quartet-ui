@@ -18,6 +18,44 @@
 
 import {prepHeaders} from "lib/auth-api";
 import {showMessage} from "lib/message";
+import base64 from "base-64";
+var request = require("request");
+
+export const fileUpload = (server, rule, data) => {
+  /*let payload = prepHeaders(server, "POST");
+  let headers = new Headers();
+  headers.append("Content-Type", "multipart/form-data");
+  //headers.append("Content-Type", "multipart/x-www-form-urlencoded");
+  headers.append(
+    "Authorization",
+    "Basic " + base64.encode(server.username + ":" + server.password)
+  );
+  payload.headers = headers;
+  //let formData = new FormData();
+  //formData.append("file", data);
+  //payload.body = formData;
+  payload.body = encodeURIComponent("file") + "=" + encodeURIComponent(data);
+  //payload.body = formData;*/
+  var formData = {
+    file: "hello",
+    attachments: ["test test"]
+  };
+  request.post({
+    url: `${server.url}capture/quartet-capture/?rule=${rule.name}`,
+    formData: formData
+  });
+  /*  return fetch(
+    `${server.url}capture/quartet-capture/?rule=${rule.name}`,
+    payload
+  )
+    .then(resp => {
+      debugger;
+      return resp.json();
+    })
+    .catch(e => {
+      debugger;
+    });*/
+};
 
 export const getRuleFormStructure = server => {
   return fetch(`${server.url}capture/rules/`, prepHeaders(server, "OPTIONS"))
