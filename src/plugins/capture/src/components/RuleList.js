@@ -45,7 +45,7 @@ class ServerRules extends Component {
           <button
             className="pt-button add-pool-button pt-intent-primary"
             onClick={e => {
-              this.props.history.push(`/capture/add-rule/${serverID}/`);
+              this.props.history.push(`/capture/add-rule/${serverID}/rule`);
             }}>
             <FormattedMessage id="plugins.capture.addRule" />
           </button>

@@ -31,17 +31,13 @@ export const fileUpload = (server, rule, fileObject) => {
     "Authorization",
     "Basic " + base64.encode(server.username + ":" + server.password)
   );
+  headers.append("Accept", "application/json");
   data.append("file", fileObject);
-  fetch(
-    `${server.url}capture/quartet-capture/?rule=${
-      rule.name
-    }&run-immediately=true`,
-    {
-      method: "POST",
-      headers: headers,
-      body: data
-    }
-  )
+  fetch(`${server.url}capture/quartet-capture/?rule=${rule.name}`, {
+    method: "POST",
+    headers: headers,
+    body: data
+  })
     .then(resp => {
       resp
         .json()
