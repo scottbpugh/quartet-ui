@@ -24,7 +24,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 var request = require("request");
 
 export const fileUpload = (server, rule, fileObject) => {
-  var data = new FormData();
+  let data = new FormData();
   let headers = new Headers();
   headers.append(
     "Authorization",
@@ -55,6 +55,7 @@ export const fileUpload = (server, rule, fileObject) => {
         });
     })
     .catch(resp => {
+      debugger;
       showMessage({
         type: "error",
         id: "plugins.capture.processFileError"
