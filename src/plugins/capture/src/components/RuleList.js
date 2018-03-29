@@ -26,7 +26,8 @@ import {
   Intent,
   ControlGroup,
   Button,
-  InputGroup
+  InputGroup,
+  MenuDivider
 } from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {
@@ -124,68 +125,109 @@ class ServerRules extends Component {
     );
   }
 }
-
+/* Built a custom pagination for this, since the values are auto-updated every 5 seconds.
+   I wanted total control of what happens when tasks are added/removed. */
 class ServerTasks extends Component {
   constructor(props) {
     super(props);
-    this.state = {filter: "", keywordSearch: "", tasks: []};
+    this.state = {
+      filter: "",
+      keywordSearch: "",
+      tasks: [],
+      tasksPerPage: 5
+    };
+    this.offset = 0;
+    this.currentPage = 0;
     this.debounced = null;
+    this.maxPages = 0;
   }
+  // filter by a field in the rows.
   filterBy = evt => {
     this.setState({filter: evt.currentTarget.value}, () => {
+      this.offset = 0;
+      this.currentPage = 0;
       this.processTasks(this.props.tasks);
     });
   };
+  // search by a field in the rows or all of them.
   searchBy = evt => {
     this.setState({keywordSearch: evt.currentTarget.value}, () => {
+      this.offset = 0;
+      this.currentPage = 0;
       this.processTasks(this.props.tasks);
     });
   };
   componentDidMount() {
     this.processTasks(this.props.tasks || []);
   }
+  // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     if (JSON.stringify(nextProps.tasks) !== JSON.stringify(this.props.tasks)) {
       this.processTasks(nextProps.tasks);
     }
   }
-  processTasks = tasks => {
+
+  // go to next page if possible.
+  next = () => {
+    if (this.currentPage + 1 < this.maxPages) {
+      this.currentPage += 1;
+      this.offset = this.state.tasksPerPage * this.currentPage;
+      this.processTasks(this.props.tasks, true);
+    }
+  };
+
+  // go to previous page if possible.
+  previous = () => {
+    if (this.currentPage - 1 >= 0) {
+      this.currentPage -= 1;
+      this.offset = this.state.tasksPerPage * this.currentPage;
+      this.processTasks(this.props.tasks, true);
+    }
+  };
+  processTasks = (tasks, clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
       const {rules} = this.props;
+      const searchExp = new RegExp(this.state.keywordSearch, "i");
+      const tasksSubset = tasks.filter(task => {
+        // add rule object.
+        task.ruleObject = rules.find(rule => {
+          return Number(rule.id) === Number(task.rule);
+        });
+        if (this.state.filter && this.state.keywordSearch) {
+          if (this.state.filter === "ruleName") {
+            return task.ruleObject.name.match(searchExp);
+          }
+          return task[this.state.filter].match(searchExp);
+        } else if (this.state.filter === "" && this.state.keywordSearch) {
+          // search across all fields
+          return JSON.stringify(task).match(searchExp);
+        }
+        return true;
+      });
+      this.maxPages = Math.ceil(tasksSubset.length / this.state.tasksPerPage);
+      this.subsetTotal = tasksSubset.length;
       this.setState(
         {
-          tasks: tasks.filter(task => {
-            // add rule object.
-            task.ruleObject = rules.find(rule => {
-              return Number(rule.id) === Number(task.rule);
-            });
-            if (this.state.filter && this.state.keywordSearch) {
-              if (this.state.filter === "ruleName") {
-                return task.ruleObject.name.match(
-                  new RegExp(this.state.keywordSearch, "i")
-                );
-              }
-              console.log(this.state.filter, this.state.keywordSearch);
-              return task[this.state.filter].match(
-                new RegExp(this.state.keywordSearch, "i")
-              );
-            } else if (this.state.filter === "" && this.state.keywordSearch) {
-              // search across all fields
-              return JSON.stringify(task).match(
-                new RegExp(this.state.keywordSearch, "i")
-              );
-            }
-            return true;
-          })
+          tasks: tasksSubset.slice(
+            this.offset,
+            this.offset + this.state.tasksPerPage
+          )
         },
         () => {
           this.debounced = null;
         }
       );
-    }, 250);
+    }, clear ? 0 : 250);
+  };
+  setTasksPerPage = evt => {
+    this.currentPage = 0;
+    this.offset = 0;
+    this.setState({tasksPerPage: Number(evt.currentTarget.value)}, () => {
+      this.processTasks(this.props.tasks);
+    });
   };
   render() {
     let serverName = this.props.server.serverSettingName;
@@ -198,6 +240,33 @@ class ServerTasks extends Component {
         <div />
         <div>
           <div className="table-control">
+            <div className="pagination-control">
+              <div>
+                <Button
+                  disabled={this.currentPage - 1 < 0}
+                  onClick={this.previous.bind(this)}>
+                  previous
+                </Button>{" "}
+                |{" "}
+                <Button
+                  disabled={this.currentPage + 1 >= this.maxPages}
+                  onClick={this.next.bind(this)}>
+                  next
+                </Button>
+              </div>
+              <div>
+                <input
+                  className="pt-input"
+                  type="text"
+                  placeholder="tasks"
+                  dir="auto"
+                  style={{width: "50px"}}
+                  value={this.state.tasksPerPage}
+                  onChange={this.setTasksPerPage}
+                />{" "}
+                of {this.subsetTotal} tasks.
+              </div>
+            </div>
             <ControlGroup fill={false} vertical={false}>
               <div class="pt-select">
                 <select value={this.state.filter} onChange={this.filterBy}>
