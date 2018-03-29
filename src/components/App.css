@@ -112,3 +112,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin: 20px 0;
   padding-bottom:10px;
 }
+
+.table-control {
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

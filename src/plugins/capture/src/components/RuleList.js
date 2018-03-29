@@ -20,7 +20,14 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadRules, loadTasks} from "../reducers/capture";
-import {Card, Tag, Intent} from "@blueprintjs/core";
+import {
+  Card,
+  Tag,
+  Intent,
+  ControlGroup,
+  Button,
+  InputGroup
+} from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {
   FormattedMessage,
@@ -119,15 +126,96 @@ class ServerRules extends Component {
 }
 
 class ServerTasks extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {filter: "", keywordSearch: "", tasks: []};
+    this.debounced = null;
+  }
+  filterBy = evt => {
+    this.setState({filter: evt.currentTarget.value}, () => {
+      this.processTasks(this.props.tasks);
+    });
+  };
+  searchBy = evt => {
+    this.setState({keywordSearch: evt.currentTarget.value}, () => {
+      this.processTasks(this.props.tasks);
+    });
+  };
+  componentDidMount() {
+    this.processTasks(this.props.tasks || []);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.tasks) !== JSON.stringify(this.props.tasks)) {
+      this.processTasks(nextProps.tasks);
+    }
+  }
+  processTasks = tasks => {
+    if (this.debounced) {
+      clearTimeout(this.debounced);
+    }
+    this.debounced = setTimeout(() => {
+      const {rules} = this.props;
+      this.setState(
+        {
+          tasks: tasks.filter(task => {
+            // add rule object.
+            task.ruleObject = rules.find(rule => {
+              return Number(rule.id) === Number(task.rule);
+            });
+            if (this.state.filter && this.state.keywordSearch) {
+              if (this.state.filter === "ruleName") {
+                return task.ruleObject.name.match(
+                  new RegExp(this.state.keywordSearch, "i")
+                );
+              }
+              console.log(this.state.filter, this.state.keywordSearch);
+              return task[this.state.filter].match(
+                new RegExp(this.state.keywordSearch, "i")
+              );
+            } else if (this.state.filter === "" && this.state.keywordSearch) {
+              // search across all fields
+              return JSON.stringify(task).match(
+                new RegExp(this.state.keywordSearch, "i")
+              );
+            }
+            return true;
+          })
+        },
+        () => {
+          this.debounced = null;
+        }
+      );
+    }, 250);
+  };
   render() {
     let serverName = this.props.server.serverSettingName;
     let serverID = this.props.server.serverID;
-    const {rules, tasks} = this.props;
+    const {rules} = this.props;
+    const {tasks} = this.state;
     return (
       <Card className="pt-elevation-4">
         <h5>{serverName} Tasks</h5>
         <div />
         <div>
+          <div className="table-control">
+            <ControlGroup fill={false} vertical={false}>
+              <div class="pt-select">
+                <select value={this.state.filter} onChange={this.filterBy}>
+                  <option value="" selected>
+                    Search
+                  </option>
+                  <option value="ruleName">Rule</option>
+                  <option value="name">Task Name</option>
+                  <option value="status">Status</option>
+                </select>
+              </div>
+              <InputGroup
+                onChange={this.searchBy}
+                value={this.state.keywordSearch}
+                placeholder="Enter Keywords..."
+              />
+            </ControlGroup>
+          </div>
           <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
             <thead>
               <tr>
@@ -158,8 +246,8 @@ class ServerTasks extends Component {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(this.props.tasks) && this.props.tasks.length > 0
-                ? this.props.tasks.map(task => {
+              {Array.isArray(tasks) && tasks.length > 0
+                ? tasks.map(task => {
                     let intent = Intent.PRIMARY;
                     switch (task.status) {
                       case "FINISHED":
