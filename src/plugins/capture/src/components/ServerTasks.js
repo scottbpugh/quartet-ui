@@ -48,7 +48,8 @@ export class ServerTasks extends Component {
       filter: "",
       keywordSearch: "",
       tasks: [],
-      tasksPerPage: 5
+      tasksPerPage: 5,
+      inputSize: 50
     };
     this.offset = 0;
     this.currentPage = 0;
@@ -140,9 +141,15 @@ export class ServerTasks extends Component {
     this.currentPage = 0;
     this.offset = 0;
     let newTasksPerPage = Number(evt.currentTarget.value) || 1;
-    this.setState({tasksPerPage: newTasksPerPage}, () => {
-      this.processTasks(this.props.tasks);
-    });
+    this.setState(
+      {
+        tasksPerPage: newTasksPerPage,
+        inputSize: 10 * evt.currentTarget.value.length + 40
+      },
+      () => {
+        this.processTasks(this.props.tasks);
+      }
+    );
   };
   render() {
     let serverName = this.props.server.serverSettingName;
@@ -172,10 +179,11 @@ export class ServerTasks extends Component {
               <div>
                 <input
                   className="pt-input"
-                  type="text"
+                  type="number"
+                  min="1"
                   placeholder="tasks"
                   dir="auto"
-                  style={{width: "50px"}}
+                  style={{width: this.state.inputSize, "text-align": "right"}}
                   value={this.state.tasksPerPage}
                   onChange={this.setTasksPerPage}
                 />{" "}
