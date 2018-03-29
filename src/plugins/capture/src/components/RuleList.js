@@ -267,13 +267,7 @@ class ServerTasks extends Component {
                     }
                     return (
                       <tr>
-                        <td>
-                          {rules
-                            ? rules.find(rule => {
-                                return Number(rule.id) === Number(task.rule);
-                              }).name
-                            : null}
-                        </td>
+                        <td>{task.ruleObject ? task.ruleObject.name : null}</td>
                         <td>{task.name}</td>
                         <td>
                           <FormattedDate value={task.status_changed} /> -{" "}
