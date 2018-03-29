@@ -79,15 +79,23 @@ export const loadTasks = server => {
       .getServer(server.serverID)
       .getClient()
       .then(client => {
-        client.apis.capture.capture_tasks_list().then(result => {
-          dispatch({
-            type: actions.loadTasks,
-            payload: {
-              serverID: server.serverID,
-              tasks: result.body
-            }
+        client.apis.capture
+          .capture_tasks_list()
+          .then(result => {
+            dispatch({
+              type: actions.loadTasks,
+              payload: {
+                serverID: server.serverID,
+                tasks: result.body
+              }
+            });
+          })
+          .catch(e => {
+            showMessage({
+              type: "error",
+              msg: "An error occurred while attempting to fetch tasks."
+            });
           });
-        });
       });
   };
 };
