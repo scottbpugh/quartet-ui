@@ -140,7 +140,7 @@ export class ServerTasks extends Component {
   setTasksPerPage = evt => {
     this.currentPage = 0;
     this.offset = 0;
-    let newTasksPerPage = Number(evt.currentTarget.value) || 1;
+    let newTasksPerPage = Number(evt.currentTarget.value) | "";
     this.setState(
       {
         tasksPerPage: newTasksPerPage,
@@ -179,11 +179,10 @@ export class ServerTasks extends Component {
               <div>
                 <input
                   className="pt-input"
-                  type="number"
-                  min="1"
                   placeholder="tasks"
+                  name="taskPerPage"
                   dir="auto"
-                  style={{width: this.state.inputSize, "text-align": "right"}}
+                  style={{width: this.state.inputSize, "text-align": "center"}}
                   value={this.state.tasksPerPage}
                   onChange={this.setTasksPerPage}
                 />{" "}
