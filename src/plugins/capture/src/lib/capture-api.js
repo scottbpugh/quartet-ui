@@ -83,21 +83,3 @@ export const getRuleParamFormStructure = server => {
       throw error;
     });
 };
-
-export const getTaskFormStructure = server => {
-  return fetch(`${server.url}capture/tasks/`, prepHeaders(server, "OPTIONS"))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};

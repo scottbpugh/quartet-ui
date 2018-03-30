@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {getRuleParamFormStructure} from "../lib/capture-api";
+import {getFormInfo} from "lib/auth-api";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
@@ -94,26 +94,7 @@ class _RuleParamForm extends Component {
   };
   constructForm(props) {
     if (!this.formStructureRetrieved) {
-      getRuleParamFormStructure(props.server).then(data => {
-        this.formStructureRetrieved = true;
-        // parse the values and filter to the one that are not readonly.
-        let postFields = data.actions.POST;
-        let formStructure = Object.keys(postFields)
-          .map(field => {
-            if (postFields[field].read_only === false) {
-              return {name: field, description: postFields[field]};
-            } else {
-              return null;
-            }
-          })
-          .filter(fieldObj => {
-            if (fieldObj) {
-              // create sync validation arrays.
-              fieldObj.validate = getSyncValidators(fieldObj);
-              return true;
-            }
-            return false;
-          });
+      let createForm = formStructure => {
         this.setState(
           {
             formStructure: formStructure
@@ -130,9 +111,12 @@ class _RuleParamForm extends Component {
             }
           }
         );
-      });
+        this.formStructureRetrieved = true;
+      };
+      getFormInfo(props.server, "capture/rule-parameters/", createForm);
     }
   }
+
   render() {
     const {error, handleSubmit, submitting} = this.props;
     const {success, successMessage} = this.state;
