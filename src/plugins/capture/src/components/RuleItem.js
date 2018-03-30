@@ -228,6 +228,7 @@ class _RuleItem extends Component {
             })
           }
         />
+        {/*
         <MenuItem
           onClick={this.goTo.bind(
             this,
@@ -238,7 +239,7 @@ class _RuleItem extends Component {
               id: "plugins.capture.addTask"
             }) + " - Dev"
           }
-        />
+        />*/}
       </Menu>
     );
   }
