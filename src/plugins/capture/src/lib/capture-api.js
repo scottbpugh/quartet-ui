@@ -55,7 +55,6 @@ export const fileUpload = (server, rule, fileObject) => {
         });
     })
     .catch(resp => {
-      debugger;
       showMessage({
         type: "error",
         id: "plugins.capture.processFileError"

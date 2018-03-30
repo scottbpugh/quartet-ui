@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {Field, reduxForm, change, SubmissionError} from "redux-form";
-import {getPoolFormStructure} from "../lib/serialbox-api";
+import {getFormInfo} from "lib/auth-api";
 import {postAddPool} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import {loadPools} from "../reducers/numberrange";
@@ -54,47 +54,19 @@ class _PoolForm extends Component {
       );
     }
   };
+
   constructForm(props) {
-    // is only triggered once when the form isn't populated.
     if (
       this.state.formStructure.length === 0 &&
       props.server &&
       props.server.serverSettingName
     ) {
-      getPoolFormStructure(props.server).then(data => {
-        // parse the values and filter to the one that are not readonly.
-        let postFields = data.actions.POST;
-        let formStructure = Object.keys(postFields)
-          .map(field => {
-            if (postFields[field].read_only === false) {
-              return {name: field, description: postFields[field]};
-            } else {
-              return null;
-            }
-          })
-          .filter(fieldObj => {
-            if (fieldObj) {
-              // create sync validation arrays.
-              fieldObj.validate = getSyncValidators(fieldObj);
-              return true;
-            }
-            return false;
-          });
+      let createForm = formStructure => {
         this.setState(
           {
             formStructure: formStructure
           },
           () => {
-            // After state has been rendered,
-            // initialize checkboxes as false by default to prevent them
-            // from being missing in post.
-            // Same technique might be needed to set initial values
-            // asynchronously in the future.
-            for (let field of Object.keys(postFields)) {
-              if (postFields[field].type === "boolean") {
-                props.dispatch(change("addRegion", field, false));
-              }
-            }
             if (
               props.location &&
               props.location.state &&
@@ -105,9 +77,12 @@ class _PoolForm extends Component {
             }
           }
         );
-      });
+        this.formStructureRetrieved = true;
+      };
+      getFormInfo(props.server, "serialbox/pool-create/", createForm);
     }
   }
+
   isEditMode = () => {
     return this.props.location &&
       this.props.location.state &&

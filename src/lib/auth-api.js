@@ -27,8 +27,6 @@ import {getSyncValidators} from "components/elements/forms";
  * @return {object} A request init object with headers.
  */
 export const prepHeaders = (server, method = "GET") => {
-  //let username = server.username;
-  //let password = server.password;
   let headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Content-Type", "application/json");
@@ -40,8 +38,6 @@ export const prepHeaders = (server, method = "GET") => {
 };
 
 export const prepHeadersAuth = (server, method = "GET") => {
-  //let username = server.username;
-  //let password = server.password;
   let headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Content-Type", "application/json");
@@ -66,7 +62,7 @@ export const prepHeadersAuth = (server, method = "GET") => {
  *
  */
 export const getFormInfo = (server, path, createForm, processField) => {
-  return fetch(`${server.url}${path}`, prepHeaders(server, "OPTIONS"))
+  return fetch(`${server.url}${path}`, prepHeadersAuth(server, "OPTIONS"))
     .then(resp => {
       return resp.json();
     })
