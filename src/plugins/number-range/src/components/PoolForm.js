@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Field, reduxForm, SubmissionError} from "redux-form";
+import {Field, reduxForm, SubmissionError, change} from "redux-form";
 import {getFormInfo} from "lib/auth-api";
 import {postAddPool} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
@@ -74,6 +74,16 @@ class _PoolForm extends Component {
             ) {
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
+            } else {
+              // After state has been rendered,
+              // initialize checkboxes as false by default to prevent them
+              // from being missing in post.
+              for (let field of this.state.formStructure) {
+                if (field.description.type === "boolean") {
+                  debugger;
+                  props.dispatch(change("addPool", field.name, false));
+                }
+              }
             }
           }
         );
@@ -92,6 +102,7 @@ class _PoolForm extends Component {
   };
   // Handles the RegionForm post.
   submit = postValues => {
+    debugger;
     return postAddPool(
       pluginRegistry.getServer(this.props.server.serverID),
       postValues,

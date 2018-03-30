@@ -20,7 +20,7 @@ import React, {Component} from "react";
 import {Field, reduxForm} from "redux-form";
 import {getFormInfo} from "lib/auth-api";
 import {postAddRegion} from "../lib/serialbox-api";
-import {SubmissionError} from "redux-form";
+import {SubmissionError, change} from "redux-form";
 import {showMessage} from "lib/message";
 import {DefaultField} from "components/elements/forms";
 import {connect} from "react-redux";
@@ -66,6 +66,15 @@ class _RegionForm extends Component {
             ) {
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
+            } else {
+              // After state has been rendered,
+              // initialize checkboxes as false by default to prevent them
+              // from being missing in post.
+              for (let field of this.state.formStructure) {
+                if (field.description.type === "boolean") {
+                  props.dispatch(change("addRegion", field.name, false));
+                }
+              }
             }
           }
         );

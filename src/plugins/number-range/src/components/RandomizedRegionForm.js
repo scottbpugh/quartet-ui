@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Field, reduxForm} from "redux-form";
+import {Field, reduxForm, change} from "redux-form";
 import {getFormInfo} from "lib/auth-api";
 import {postAddRandomizedRegion} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
@@ -55,6 +55,17 @@ class _RandomizedRegionForm extends Component {
             ) {
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
+            } else {
+              // After state has been rendered,
+              // initialize checkboxes as false by default to prevent them
+              // from being missing in post.
+              for (let field of this.state.formStructure) {
+                if (field.description.type === "boolean") {
+                  props.dispatch(
+                    change("addRandomizedRegion", field.name, false)
+                  );
+                }
+              }
             }
           }
         );
@@ -183,3 +194,5 @@ const RandomizedRegionForm = reduxForm({
 export default connect(state => ({nr: state.numberrange.servers}), {loadPools})(
   withRouter(RandomizedRegionForm)
 );
+
+
