@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import base64 from "base-64";
 import {showMessage} from "lib/message";
+import {getSyncValidators} from "components/elements/forms";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -55,37 +56,34 @@ export const prepHeadersAuth = (server, method = "GET") => {
   };
 };
 
-export const getRegistrationFormStructure = server => {
-  return fetch(
-    `${server.url}rest-auth/registration/`,
-    prepHeaders(server, "OPTIONS")
-  )
+export const getFormInfo = (server, path, createForm, processField) => {
+  return fetch(`${server.url}${path}`, prepHeaders(server, "OPTIONS"))
     .then(resp => {
       return resp.json();
     })
     .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
-export const getVerifyUserFormStructure = server => {
-  return fetch(
-    `${server.url}rest-auth/registration/verify-email/`,
-    prepHeaders(server, "OPTIONS")
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
+      // parse the values and filter to the one that are not readonly.
+      let postFields = data.actions.POST;
+      let formStructure = Object.keys(postFields)
+        .map(field => {
+          if (postFields[field].read_only === false) {
+            return {name: field, description: postFields[field]};
+          } else {
+            return null;
+          }
+        })
+        .filter(fieldObj => {
+          if (processField) {
+            return processField(fieldObj);
+          }
+          if (fieldObj) {
+            // create sync validation arrays.
+            fieldObj.validate = getSyncValidators(fieldObj);
+            return true;
+          }
+          return false;
+        });
+      createForm(formStructure);
     })
     .catch(error => {
       showMessage({

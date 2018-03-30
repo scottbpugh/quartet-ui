@@ -63,24 +63,6 @@ export const fileUpload = (server, rule, fileObject) => {
     });
 };
 
-export const getRuleFormStructure = server => {
-  return fetch(`${server.url}capture/rules/`, prepHeaders(server, "OPTIONS"))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
 export const getRuleParamFormStructure = server => {
   return fetch(
     `${server.url}capture/rule-parameters/`,
