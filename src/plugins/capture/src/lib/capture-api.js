@@ -101,21 +101,3 @@ export const getTaskFormStructure = server => {
       throw error;
     });
 };
-
-export const getStepFormStructure = server => {
-  return fetch(`${server.url}capture/steps/`, prepHeaders(server, "OPTIONS"))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
