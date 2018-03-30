@@ -50,7 +50,7 @@ export class AddServerButton extends Component {
           position={Position.RIGHT_CENTER}>
           <button
             onClick={this.displayMenu}
-            tabindex="0"
+            tabIndex="0"
             className="pt-button pt-icon-add">
             {/*
               <FormattedMessage

@@ -43,7 +43,7 @@ class _LeftPanel extends Component {
           style={{
             overflowX: "hidden",
             overflowY: "visible",
-            "white-space": "nowrap"
+            whiteSpace: "nowrap"
           }}>
           {this.props.children}
         </div>

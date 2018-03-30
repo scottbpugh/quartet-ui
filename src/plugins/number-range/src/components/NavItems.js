@@ -260,7 +260,9 @@ export const NavItems = (pools, serverID, intl) => {
   }
   return pools.map(pool => {
     // passing intl down to use formatMessage and translate...
-    return <PoolItem pool={pool} serverID={serverID} intl={intl} />;
+    return (
+      <PoolItem key={pool.name} pool={pool} serverID={serverID} intl={intl} />
+    );
   });
 };
 
