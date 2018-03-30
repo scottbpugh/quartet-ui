@@ -186,7 +186,8 @@ export class ServerTasks extends Component {
                   value={this.state.tasksPerPage}
                   onChange={this.setTasksPerPage}
                 />{" "}
-                of {this.subsetTotal} tasks.
+                tasks per page. {this.subsetTotal}/{this.props.tasks.length}
+                tasks. {this.currentPage}/{this.maxPages} pages.
               </div>
             </div>
             <ControlGroup fill={false} vertical={false}>
