@@ -82,7 +82,7 @@ class ServerRules extends Component {
               {Array.isArray(rules) && rules.length > 0
                 ? rules.map(rule => {
                     return (
-                      <tr>
+                      <tr key={rule.id}>
                         <td>
                           {rule.name.charAt(0).toUpperCase() +
                             rule.name.slice(1)}
@@ -90,7 +90,10 @@ class ServerRules extends Component {
                         <td>{rule.description}</td>
                         <td>
                           {rule.steps.map(step => (
-                            <Tag intent={Intent.PRIMARY} className="step">
+                            <Tag
+                              key={step.name}
+                              intent={Intent.PRIMARY}
+                              className="step">
                               #{step.order} {step.name}
                             </Tag>
                           ))}

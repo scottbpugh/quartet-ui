@@ -176,7 +176,7 @@ export class ServerTasks extends Component {
                   placeholder="tasks"
                   name="taskPerPage"
                   dir="auto"
-                  style={{width: this.state.inputSize, "text-align": "center"}}
+                  style={{width: this.state.inputSize, textAlign: "center"}}
                   value={this.state.tasksPerPage}
                   onChange={this.setTasksPerPage}
                 />
@@ -186,11 +186,9 @@ export class ServerTasks extends Component {
             </div>
             <div>
               <ControlGroup fill={false} vertical={false}>
-                <div class="pt-select">
+                <div className="pt-select">
                   <select value={this.state.filter} onChange={this.filterBy}>
-                    <option value="" selected>
-                      Search
-                    </option>
+                    <option value="">Search</option>
                     <option value="ruleName">Rule</option>
                     <option value="name">Task Name</option>
                     <option value="status">Status</option>
@@ -262,14 +260,14 @@ export class ServerTasks extends Component {
                         intent = Intent.PRIMARY;
                     }
                     return (
-                      <tr>
+                      <tr key={task.name}>
                         <td>{task.ruleObject ? task.ruleObject.name : null}</td>
                         <td>{task.name}</td>
                         <td>
                           <FormattedDate value={task.status_changed} /> -{" "}
                           <FormattedTime value={task.status_changed} />
                         </td>
-                        <td style={{"text-align": "center"}}>
+                        <td style={{textAlign: "center"}}>
                           <Tag intent={intent}>{task.status}</Tag>
                         </td>
                       </tr>
