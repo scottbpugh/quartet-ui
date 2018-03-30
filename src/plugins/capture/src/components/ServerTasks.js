@@ -158,7 +158,15 @@ export class ServerTasks extends Component {
     const {tasks} = this.state;
     return (
       <Card className="pt-elevation-4">
-        <h5>{serverName} Tasks</h5>
+        <h5>
+          {" "}
+          <div className="add-pool-button">
+            <Tag className="pt-large">
+              {this.currentPage + 1}/{this.maxPages}
+            </Tag>
+          </div>
+          {serverName} Tasks
+        </h5>
         <div />
         <div>
           <div className="table-control">
@@ -185,9 +193,12 @@ export class ServerTasks extends Component {
                   style={{width: this.state.inputSize, "text-align": "center"}}
                   value={this.state.tasksPerPage}
                   onChange={this.setTasksPerPage}
-                />{" "}
-                tasks per page. {this.subsetTotal}/{this.props.tasks.length}
-                tasks. {this.currentPage}/{this.maxPages} pages.
+                />
+                {"  "}
+                tasks per page. Showing {this.subsetTotal}/{this.props.tasks
+                  ? this.props.tasks.length
+                  : 0}{" "}
+                tasks total.
               </div>
             </div>
             <ControlGroup fill={false} vertical={false}>
