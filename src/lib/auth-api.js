@@ -56,6 +56,15 @@ export const prepHeadersAuth = (server, method = "GET") => {
   };
 };
 
+/**
+ * getFormInfo - Description
+ *
+ * @param {A server object} server       Description
+ * @param {Path to endpoint} path         Description
+ * @param {Callback to set the state with formStructure} createForm   Description
+ * @param {type} processField Description
+ *
+ */
 export const getFormInfo = (server, path, createForm, processField) => {
   return fetch(`${server.url}${path}`, prepHeaders(server, "OPTIONS"))
     .then(resp => {
