@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {getFormInfo} from "lib/auth-api";
-import {DefaultField, getSyncValidators} from "components/elements/forms";
+import {DefaultField} from "components/elements/forms";
 import {Field, reduxForm, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
@@ -46,7 +46,6 @@ class _RuleParamForm extends Component {
   }
   submit = postValues => {
     const {server, edit} = this.props;
-    var that = this;
     let operationId = "capture_rule_parameters_create";
     // add rule name for parent rule programmatically.
     postValues.rule = this.props.rule.id;

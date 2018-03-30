@@ -21,15 +21,7 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {
-  Card,
-  Button,
-  Icon,
-  RadioGroup,
-  Radio,
-  Tag,
-  Intent
-} from "@blueprintjs/core";
+import {Card, Button, Icon, Tag, Intent} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 

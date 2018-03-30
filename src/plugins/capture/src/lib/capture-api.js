@@ -16,12 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {prepHeaders} from "lib/auth-api";
 import {showMessage} from "lib/message";
 import base64 from "base-64";
-import {pluginRegistry} from "plugins/pluginRegistration";
-
-var request = require("request");
 
 export const fileUpload = (server, rule, fileObject) => {
   let data = new FormData();
@@ -59,26 +55,5 @@ export const fileUpload = (server, rule, fileObject) => {
         type: "error",
         id: "plugins.capture.processFileError"
       });
-    });
-};
-
-export const getRuleParamFormStructure = server => {
-  return fetch(
-    `${server.url}capture/rule-parameters/`,
-    prepHeaders(server, "OPTIONS")
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
     });
 };

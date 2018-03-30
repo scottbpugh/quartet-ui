@@ -69,7 +69,7 @@ class _TreeNode extends Component {
   };
   go = e => {
     e.stopPropagation(); // prevent parent go to be triggered.
-    e.preventDefault;
+    e.preventDefault();
     this.toggleChildren(e);
     if (this.props.onClick) {
       this.props.onClick(e);

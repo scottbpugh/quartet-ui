@@ -17,13 +17,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Field, reduxForm, change, SubmissionError} from "redux-form";
+import {Field, reduxForm, SubmissionError} from "redux-form";
 import {getFormInfo} from "lib/auth-api";
 import {postAddPool} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import {loadPools} from "../reducers/numberrange";
 import {connect} from "react-redux";
-import {DefaultField, getSyncValidators} from "components/elements/forms";
+import {DefaultField} from "components/elements/forms";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {withRouter} from "react-router";
 

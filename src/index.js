@@ -27,7 +27,6 @@ import RouteSwitcher from "./routes";
 import {store} from "./store";
 import {routeLocationDidUpdate} from "reducers/layout";
 import {createBrowserHistory} from "history";
-import {showMessage} from "lib/message";
 const browserHistory = createBrowserHistory();
 
 browserHistory.listen(location => {

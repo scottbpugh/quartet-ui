@@ -39,7 +39,6 @@ import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import QuartetLogo from "./QuartetLogo";
 import {injectIntl} from "react-intl";
-import actions from "actions/serversettings";
 
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;

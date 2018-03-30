@@ -17,27 +17,15 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {connect} from "react-redux";
-import {RightPanel} from "components/layouts/Panels";
-import {loadRules, loadTasks} from "../reducers/capture";
 import {
   Card,
   Tag,
   Intent,
   ControlGroup,
   Button,
-  InputGroup,
-  MenuDivider,
-  Callout
+  InputGroup
 } from "@blueprintjs/core";
-import {Link} from "react-router-dom";
-import {
-  FormattedMessage,
-  FormattedDate,
-  FormattedTime,
-  FormattedNumber
-} from "react-intl";
-import {pluginRegistry} from "plugins/pluginRegistration";
+import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
 import "./RuleList.css";
 
 /* Built a custom pagination for this, since the values are auto-updated every 5 seconds.
@@ -154,8 +142,6 @@ export class ServerTasks extends Component {
   };
   render() {
     let serverName = this.props.server.serverSettingName;
-    let serverID = this.props.server.serverID;
-    const {rules} = this.props;
     const {tasks} = this.state;
     return (
       <Card className="pt-elevation-4">

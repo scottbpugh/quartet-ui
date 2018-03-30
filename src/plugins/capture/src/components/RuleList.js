@@ -20,22 +20,9 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadRules, loadTasks} from "../reducers/capture";
-import {
-  Card,
-  Tag,
-  Intent,
-  ControlGroup,
-  Button,
-  InputGroup,
-  MenuDivider
-} from "@blueprintjs/core";
-import {Link} from "react-router-dom";
-import {
-  FormattedMessage,
-  FormattedDate,
-  FormattedTime,
-  FormattedNumber
-} from "react-intl";
+import {Card, Tag, Intent} from "@blueprintjs/core";
+
+import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import "./RuleList.css";
 import {ServerTasks} from "./ServerTasks";

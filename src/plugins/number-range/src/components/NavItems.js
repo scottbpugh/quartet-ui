@@ -27,8 +27,7 @@ import {
   ButtonGroup,
   ContextMenu,
   RadioGroup,
-  Radio,
-  Label
+  Radio
 } from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {TreeNode} from "components/layouts/elements/NavTree";

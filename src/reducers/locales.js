@@ -39,7 +39,7 @@ export const updateMessages = locale => {
   }
   return dispatch => {
     const newMessages = flattenMessages(coreMessages[locale]);
-    let actionDispatched = dispatch(
+    dispatch(
       updateIntl({
         locale: locale,
         messages: newMessages

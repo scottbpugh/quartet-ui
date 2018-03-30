@@ -15,7 +15,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import base64 from "base-64";
 import {showMessage} from "lib/message";
 import {prepHeadersAuth} from "lib/auth-api";
 const PREFIX_PATH = "serialbox/";

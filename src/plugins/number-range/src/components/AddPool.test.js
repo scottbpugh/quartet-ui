@@ -16,14 +16,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
+import React from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
 import {AddPool} from "./AddPool";
-import {initialData} from "reducers/serversettings";
-import configureStore from "redux-mock-store";
-import {MemoryRouter as Router, withRouter} from "react-router-dom";
-import {IntlProvider, intlReducer} from "react-intl-redux";
+import {MemoryRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import {
   mockStore,
@@ -32,7 +29,6 @@ import {
   updateRegistryIntl
 } from "tools/mockStore";
 import {Server} from "lib/servers";
-import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 it.skip("renders correctly", () => {

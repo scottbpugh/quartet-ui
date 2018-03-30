@@ -19,7 +19,6 @@ import Swagger from "swagger-client";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
-import {prepHeadersAuth} from "lib/auth-api";
 import base64 from "base-64";
 
 // all issues with fs see:

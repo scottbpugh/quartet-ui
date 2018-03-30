@@ -37,7 +37,7 @@ export const loadRules = server => {
           // This may become an issue in the future, if so, a new backend API endpoint
           // needs to be added.
           client.apis.capture.capture_steps_list().then(steps => {
-            let rules = result.body.map(rule => {
+            result.body.map(rule => {
               // add steps to the rule.
               rule.steps = steps.body.filter(step => {
                 if (step.rule === rule.id) {

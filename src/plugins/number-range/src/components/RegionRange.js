@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {FormattedNumber, FormattedMessage} from "react-intl";
+import {FormattedNumber} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 export default class RegionRange extends Component {

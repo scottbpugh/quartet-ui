@@ -17,8 +17,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {Position, Toaster, Intent} from "@blueprintjs/core";
-import {injectIntl} from "react-intl";
-import React, {Component} from "react";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 const msgToaster = Toaster.create({
