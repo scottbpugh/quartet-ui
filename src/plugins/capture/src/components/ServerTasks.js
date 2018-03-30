@@ -27,7 +27,8 @@ import {
   ControlGroup,
   Button,
   InputGroup,
-  MenuDivider
+  MenuDivider,
+  Callout
 } from "@blueprintjs/core";
 import {Link} from "react-router-dom";
 import {
@@ -167,7 +168,6 @@ export class ServerTasks extends Component {
           </div>
           {serverName} Tasks
         </h5>
-        <div />
         <div>
           <div className="table-control">
             <div className="pagination-control">
