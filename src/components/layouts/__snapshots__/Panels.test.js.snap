@@ -23,9 +23,9 @@ exports[`renders nested components correctly 1`] = `
     <div
       style={
         Object {
-          "overflow-x": "hidden",
-          "overflow-y": "visible",
-          "white-space": "nowrap",
+          "overflowX": "hidden",
+          "overflowY": "visible",
+          "whiteSpace": "nowrap",
         }
       }
     >

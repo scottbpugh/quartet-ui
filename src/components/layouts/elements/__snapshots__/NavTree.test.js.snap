@@ -19,7 +19,6 @@ exports[`renders correctly 1`] = `
             className="pt-button pt-icon-add"
             onClick={undefined}
             tabIndex={undefined}
-            tabindex="0"
           />
         </span>
       </div>
