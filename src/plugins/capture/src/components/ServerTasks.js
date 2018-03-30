@@ -160,7 +160,7 @@ export class ServerTasks extends Component {
       <Card className="pt-elevation-4">
         <h5>
           {" "}
-          <div className="add-pool-button">
+          <div className="right-aligned-elem">
             <Tag className="pt-large">
               {this.currentPage + 1}/{this.maxPages}
             </Tag>
@@ -195,29 +195,36 @@ export class ServerTasks extends Component {
                   onChange={this.setTasksPerPage}
                 />
                 {"  "}
-                tasks per page. Showing {this.subsetTotal}/{this.props.tasks
-                  ? this.props.tasks.length
-                  : 0}{" "}
-                tasks total.
+                tasks per page.
               </div>
             </div>
-            <ControlGroup fill={false} vertical={false}>
-              <div class="pt-select">
-                <select value={this.state.filter} onChange={this.filterBy}>
-                  <option value="" selected>
-                    Search
-                  </option>
-                  <option value="ruleName">Rule</option>
-                  <option value="name">Task Name</option>
-                  <option value="status">Status</option>
-                </select>
+            <div>
+              <ControlGroup fill={false} vertical={false}>
+                <div class="pt-select">
+                  <select value={this.state.filter} onChange={this.filterBy}>
+                    <option value="" selected>
+                      Search
+                    </option>
+                    <option value="ruleName">Rule</option>
+                    <option value="name">Task Name</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+                <InputGroup
+                  onChange={this.searchBy}
+                  value={this.state.keywordSearch}
+                  placeholder="Enter Keywords..."
+                />
+              </ControlGroup>
+              <div className="label-info-display">
+                <span>
+                  Showing {this.subsetTotal}/{this.props.tasks
+                    ? this.props.tasks.length
+                    : 0}{" "}
+                  tasks total.
+                </span>
               </div>
-              <InputGroup
-                onChange={this.searchBy}
-                value={this.state.keywordSearch}
-                placeholder="Enter Keywords..."
-              />
-            </ControlGroup>
+            </div>
           </div>
           <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
             <thead>

@@ -117,11 +117,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   display:flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
+  align-items:flex-start;
 }
 .pagination-control > * {
   margin:0 10px 0 0 ;
 }
-.table-control > * {
-  margin: 10px 20px;
+
+
+.right-aligned-elem {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+.label-info-display {
+  font-style:italic;
+  font-size:12px;
+  text-align:right;
+  margin-top:10px;
 }

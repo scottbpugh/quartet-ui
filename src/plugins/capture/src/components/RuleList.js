@@ -52,7 +52,7 @@ class ServerRules extends Component {
       <Card className="pt-elevation-4">
         <h5>
           <button
-            className="pt-button add-pool-button pt-intent-primary"
+            className="pt-button right-aligned-elem pt-intent-primary"
             onClick={e => {
               this.props.history.push(`/capture/add-rule/${serverID}/rule`);
             }}>
