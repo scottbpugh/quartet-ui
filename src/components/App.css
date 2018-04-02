@@ -38,12 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     margin-right:5px;
 }
 
-.pt-card h5 {
-    padding:15px 10px;
-    text-align:center;
-    margin: 0px 0px 10px 0px;
-    border-radius: 3px;
-}
+
 
 
 .mini-form  {
@@ -142,7 +137,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /* Cards layouts */
 
 /* Cards container contain 1 or 2 cards per row. */
-
 .cards-container {
   display: flex;
   justify-content:space-around;
@@ -176,16 +170,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 
 /* headers for all cards */
+
 .auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5 {
   background: #EEE;
   top:0;
-  position: relative;
+  position: absolute;
   width: 100%;
   left:0;
   border-radius: 0;
   margin-bottom:20px;
   border-top-left-radius:4px;
   border-top-right-radius:4px;
+}
+.pt-card h5 {
+    padding:15px 10px;
+    text-align:center;
+    margin: 0px 0px 10px 0px;
+    border-radius: 3px;
+}
+
+.auto-cards-container .pt-card, .large-cards-container .pt-card, .cards-container .pt-card, .form-card .pt-card {
+  padding:60px 20px 20px 20px; /* Override blueprint since we always want card header */
 }
 
 /* Dark theme color h5 */
