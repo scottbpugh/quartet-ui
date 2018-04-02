@@ -25,6 +25,8 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {showMessage} from "lib/message";
+import {getRuleParamsByRule} from "../lib/capture-api";
+import RuleParamForm from "./RuleParamForm";
 
 class _RuleForm extends Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class _RuleForm extends Component {
     this.constructForm(this.props);
   }
   componentWillReceiveProps(nextProps) {
-    this.constructForm(nextProps);
+    //this.constructForm(nextProps);
   }
   submit = postValues => {
     const {server, edit} = this.props;
@@ -71,9 +73,7 @@ class _RuleForm extends Component {
               type: "success"
             });
           }
-          this.props.history.push(
-            "/capture/rules/" + this.props.server.serverID
-          );
+          this.props.history.push("/capture/rules/" + this.props.server);
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
@@ -107,6 +107,13 @@ class _RuleForm extends Component {
               this.rule = props.location.state.defaultValues;
               // fed existing values.
               props.initialize(props.location.state.defaultValues);
+              if (this.rule.id) {
+                getRuleParamsByRule(this.props.server, this.rule.id).then(
+                  params => {
+                    this.setState({params: params});
+                  }
+                );
+              }
             }
           }
         );
@@ -117,7 +124,7 @@ class _RuleForm extends Component {
   }
 
   render() {
-    const {error, handleSubmit, submitting} = this.props;
+    const {error, handleSubmit, submitting, server} = this.props;
     const {success, successMessage} = this.state;
     let form = this.state.formStructure
       .map(field => {
@@ -154,31 +161,34 @@ class _RuleForm extends Component {
       });
     return (
       <div>
-        {success ? (
-          <Callout iconName="pt-icon-saved" intent={Intent.SUCCESS}>
-            <FormattedMessage
-              id="app.servers.userCreated"
-              values={{username: this.state.username}}
-            />
-            {successMessage}
-          </Callout>
-        ) : (
-          <form onSubmit={handleSubmit(this.submit.bind(this))}>
-            {form}
+        <form onSubmit={handleSubmit(this.submit.bind(this))}>
+          {form}
 
-            <button
-              className="pt-button pt-intent-primary"
-              type="submit"
-              disabled={submitting}>
-              Submit
-            </button>
-            {error ? (
-              <Callout iconName="warning" intent={Intent.DANGER}>
-                {error}
-              </Callout>
-            ) : null}
-          </form>
-        )}
+          <button
+            className="pt-button pt-intent-primary"
+            type="submit"
+            disabled={submitting}>
+            Submit
+          </button>
+          {error ? (
+            <Callout iconName="warning" intent={Intent.DANGER}>
+              {error}
+            </Callout>
+          ) : null}
+        </form>
+
+        {this.state.params
+          ? this.state.params.map(param => {
+              return (
+                <RuleParamForm
+                  server={server}
+                  rule={this.rule}
+                  edit={true}
+                  param={param}
+                />
+              );
+            })
+          : null}
       </div>
     );
   }

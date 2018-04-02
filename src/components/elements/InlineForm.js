@@ -17,64 +17,60 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {getFormInfo} from "lib/auth-api";
+import {showMessage} from "lib/message";
 import {DefaultField} from "components/elements/forms";
 import {Field, reduxForm, SubmissionError} from "redux-form";
-import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import {getFormInfo} from "lib/auth-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {showMessage} from "lib/message";
+import {Callout, Intent} from "@blueprintjs/core";
 
-class _RuleParamForm extends Component {
+class _InlineForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: [],
-      success: false,
-      successMessage: null,
-      username: null
+      formStructure: []
     };
-    this.RuleParam = {}; // populated for updates.
+    this.formObject = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
-    this.constructForm(this.props);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.constructForm(nextProps);
+    this.constructForm();
   }
   submit = postValues => {
-    const {server, edit} = this.props;
-    let operationId = "capture_rule_parameters_create";
-    // add rule name for parent rule programmatically.
-    postValues.rule = this.props.rule.id;
-    let parameters = {data: postValues};
-    if (edit) {
-      operationId = "capture_rule_parameters_update";
-      parameters.name = this.RuleParam.name;
+    const {
+      server,
+      edit,
+      operationId,
+      prepopulatedValues,
+      objectName,
+      redirectPath
+    } = this.props;
+    for (let field of prepopulatedValues) {
+      postValues[field.name] = field.value;
     }
     return server.getClient().then(client => {
       return client
         .execute({
           operationId: operationId,
-          parameters: parameters
+          parameters: postValues
         })
         .then(result => {
           if (result.status === 201) {
             showMessage({
-              msg: "New Rule Parameter created successfully",
+              msg: `New ${objectName} created successfully`,
               type: "success"
             });
           } else if (result.status === 200) {
             showMessage({
-              msg: "Existing RuleParameter updated successfully",
+              msg: `New ${objectName} updated successfully`,
               type: "success"
             });
           }
-          this.props.history.push(
-            "/capture/rules/" + this.props.server.serverID
-          );
+          if (redirectPath) {
+            this.props.history.push(redirectPath);
+          }
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
@@ -91,7 +87,10 @@ class _RuleParamForm extends Component {
         });
     });
   };
-  constructForm(props) {
+
+  constructForm = props => {
+    const {djangoPath} = props;
+
     if (!this.formStructureRetrieved) {
       let createForm = formStructure => {
         this.setState(
@@ -99,29 +98,19 @@ class _RuleParamForm extends Component {
             formStructure: formStructure
           },
           () => {
-            if (props.param) {
-              this.RuleParam = props.param;
-              props.initialize(props.param);
-            } else if (
-              props.location &&
-              props.location.state &&
-              props.location.state.defaultValues
-            ) {
-              this.RuleParam = props.location.state.defaultValues;
-              // fed existing values.
-              props.initialize(props.location.state.defaultValues);
+            if (props.existingValues) {
+              this.formObject = props.existingValues;
+              props.initialize(this.formObject);
             }
           }
         );
         this.formStructureRetrieved = true;
       };
-      getFormInfo(props.server, "capture/rule-parameters/", createForm);
+      getFormInfo(props.server, djangoPath, createForm);
     }
-  }
-
+  };
   render() {
     const {error, handleSubmit, submitting} = this.props;
-    const {success, successMessage} = this.state;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
@@ -135,12 +124,6 @@ class _RuleParamForm extends Component {
         ) {
           type = "password";
         }
-        if (field.name === "rule") {
-          // don't add the rule input.
-          // add it programmatically instead.
-          return null;
-        }
-        //field.name = field.name.replace(/_/g, "");
         return (
           <Field
             key={field.name}
@@ -164,7 +147,6 @@ class _RuleParamForm extends Component {
       <div>
         <form onSubmit={handleSubmit(this.submit.bind(this))}>
           {form}
-
           <button
             className="pt-button pt-intent-primary"
             type="submit"
@@ -182,12 +164,13 @@ class _RuleParamForm extends Component {
   }
 }
 
-const RuleParamForm = reduxForm({
+// done individually
+/*const RuleParamForm = reduxForm({
   form: "ruleParamForm"
-})(_RuleParamForm);
+})(_RuleParamForm);*/
 
 export default connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers
   };
-}, {})(withRouter(RuleParamForm));
+}, {})(withRouter(_InlineForm));
