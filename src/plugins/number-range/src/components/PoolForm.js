@@ -80,7 +80,6 @@ class _PoolForm extends Component {
               // from being missing in post.
               for (let field of this.state.formStructure) {
                 if (field.description.type === "boolean") {
-                  debugger;
                   props.dispatch(change("addPool", field.name, false));
                 }
               }
@@ -102,7 +101,6 @@ class _PoolForm extends Component {
   };
   // Handles the RegionForm post.
   submit = postValues => {
-    debugger;
     return postAddPool(
       pluginRegistry.getServer(this.props.server.serverID),
       postValues,

@@ -37,6 +37,13 @@ export const prepHeaders = (server, method = "GET") => {
   };
 };
 
+/**
+ * prepHeaders - Prepares the headers to be sent.
+ *
+ * @param {object} server A server setting object
+ *
+ * @return {object} A request init object with headers and basic auth.
+ */
 export const prepHeadersAuth = (server, method = "GET") => {
   let headers = new Headers();
   headers.append("Accept", "application/json");
