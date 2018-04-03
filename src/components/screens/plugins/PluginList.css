@@ -17,8 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .plugin-screenshot {
-  float:left;
-  margin:2px 20px 15px 5px;
+  display:block;
+  margin:2px auto 15px auto;
 }
 
 .pt-callout-plugin {
