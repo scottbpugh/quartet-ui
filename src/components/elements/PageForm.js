@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {showMessage} from "lib/message";
 import {DefaultField} from "components/elements/forms";
-import {Field, reduxForm, SubmissionError} from "redux-form";
+import {Field, SubmissionError} from "redux-form";
 import {FormattedMessage} from "react-intl";
 import {getFormInfo} from "lib/auth-api";
 import {connect} from "react-redux";
@@ -183,11 +183,6 @@ class _InlineForm extends Component {
     );
   }
 }
-
-// done individually
-/*const RuleParamForm = reduxForm({
-  form: "ruleParamForm"
-})(_RuleParamForm);*/
 
 export default connect((state, ownProps) => {
   return {
