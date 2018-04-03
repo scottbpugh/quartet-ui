@@ -93,6 +93,13 @@ class _InlineForm extends Component {
             // we have an object with validation errors.
             throw new SubmissionError(error.response.body);
           }
+          if (error.message) {
+            showMessage({
+              id: "app.common.mainError",
+              values: {msg: error.message},
+              type: "error"
+            });
+          }
         });
     });
   };

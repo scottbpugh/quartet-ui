@@ -56,6 +56,10 @@ export default {
         errorServerFetch:
           "An error occurred while requesting initial data from server {serverName}. Please check your settings and credentials. {error}"
       },
+      common: {
+        mainError:
+          "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}"
+      },
       plugins: {
         addPlugin: "Add a Plugin",
         pluginEnabled: "Plugin enabled",
