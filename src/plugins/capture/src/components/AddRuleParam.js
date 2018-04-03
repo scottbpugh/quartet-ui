@@ -30,7 +30,6 @@ const RuleParamForm = reduxForm({
 })(PageForm);
 
 class _AddRuleParam extends Component {
-  componentDidMount() {}
   render() {
     const rule = this.props.rules.find(rule => {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
@@ -82,7 +81,7 @@ class _AddRuleParam extends Component {
               djangoPath="capture/rule-parameters/"
               existingValues={ruleParam}
               prepopulatedValues={[{name: "rule", value: rule.id}]}
-              parameters={ruleParam ? {name: ruleParam.name} : {}}
+              parameters={ruleParam ? {id: ruleParam.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />

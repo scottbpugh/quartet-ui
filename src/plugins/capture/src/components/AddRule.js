@@ -35,6 +35,15 @@ class _AddRule extends Component {
     // reload all rules.
     this.props.loadRules(this.props.server);
   }
+  editRuleParam(param) {
+    const {server, rule} = this.props;
+    this.props.history.push({
+      pathname: `/capture/edit-rule-param/${server.serverID}/rule/${
+        rule.id
+      }/ruleParam/${param.id}`,
+      state: {defaultValues: param, edit: true}
+    });
+  }
   render() {
     let rule = null; // for edit only.
     let editMode = this.props.rule ? true : false;
@@ -77,7 +86,7 @@ class _AddRule extends Component {
             <Card className="pt-elevation-4 form-card">
               <h5>
                 <button
-                  className="pt-button right-aligned-elem pt-intent-primary"
+                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
                   onClick={e => {
                     this.props.history.push(
                       `/capture/add-rule-param/${
@@ -91,7 +100,7 @@ class _AddRule extends Component {
               </h5>
 
               {Array.isArray(rule.params) && rule.params.length > 0 ? (
-                <table className="pt-table pt-bordered pt-striped">
+                <table className="pt-table pt-interactive pt-bordered pt-striped">
                   <thead>
                     <th>
                       <FormattedMessage
@@ -110,7 +119,9 @@ class _AddRule extends Component {
                   <tbody>
                     {rule.params.map(param => {
                       return (
-                        <tr key={param.id}>
+                        <tr
+                          key={param.id}
+                          onClick={this.editRuleParam.bind(this, param)}>
                           <td>{param.name}</td>
                           <td>{param.value}</td>
                         </tr>
