@@ -20,9 +20,14 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import RuleParamForm from "./RuleParamForm";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import PageForm from "components/elements/PageForm";
+import {reduxForm} from "redux-form";
+
+const RuleParamForm = reduxForm({
+  form: "ruleParamForm"
+})(PageForm);
 
 class _AddRuleParam extends Component {
   componentDidMount() {}
@@ -30,12 +35,21 @@ class _AddRuleParam extends Component {
     const rule = this.props.rules.find(rule => {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
     });
+    let ruleParam = null;
     let editMode =
       this.props.location &&
       this.props.location.state &&
       this.props.location.state.edit
         ? true
         : false;
+    if (
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.defaultValues
+    ) {
+      // to prepopulate with existing values.
+      ruleParam = this.props.location.state.defaultValues;
+    }
     return (
       <RightPanel
         title={
@@ -56,7 +70,17 @@ class _AddRuleParam extends Component {
             </h5>
             <RuleParamForm
               edit={editMode}
-              rule={rule}
+              operationId={
+                editMode
+                  ? "capture_rule_parameters_update"
+                  : "capture_rule_parameters_create"
+              }
+              objectName="Rule Parameter"
+              redirectPath={`/capture/rules/${this.props.server.serverID}`}
+              djangoPath="capture/rule-parameters/"
+              existingValues={ruleParam}
+              prepopulatedValues={[{name: "rule", value: rule.id}]}
+              parameters={ruleParam ? {name: ruleParam.name} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />
