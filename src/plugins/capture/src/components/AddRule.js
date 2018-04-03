@@ -73,53 +73,54 @@ class _AddRule extends Component {
               history={this.props.history}
             />
           </Card>
-          <Card className="pt-elevation-4 form-card">
-            <h5>
-              <button
-                className="pt-button right-aligned-elem pt-intent-primary"
-                onClick={e => {
-                  this.props.history.push(
-                    `/capture/add-rule-param/${
-                      this.props.server.serverID
-                    }/rule/${rule.id}`
-                  );
-                }}>
-                <FormattedMessage id="plugins.capture.addRuleParameter" />
-              </button>
-              <FormattedMessage id="plugins.capture.ruleParameters" />
-            </h5>
-            {editMode &&
-            Array.isArray(rule.params) &&
-            rule.params.length > 0 ? (
-              <table className="pt-table pt-bordered pt-striped">
-                <thead>
-                  <th>
-                    <FormattedMessage
-                      id="plugins.capture.name"
-                      defaultMessage="name"
-                    />
-                  </th>
-                  <th>
-                    {" "}
-                    <FormattedMessage
-                      id="plugins.capture.value"
-                      defaultMessage="value"
-                    />
-                  </th>
-                </thead>
-                <tbody>
-                  {rule.params.map(param => {
-                    return (
-                      <tr key={param.id}>
-                        <td>{param.name}</td>
-                        <td>{param.value}</td>
-                      </tr>
+          {editMode ? (
+            <Card className="pt-elevation-4 form-card">
+              <h5>
+                <button
+                  className="pt-button right-aligned-elem pt-intent-primary"
+                  onClick={e => {
+                    this.props.history.push(
+                      `/capture/add-rule-param/${
+                        this.props.server.serverID
+                      }/rule/${rule.id}`
                     );
-                  })}
-                </tbody>
-              </table>
-            ) : null}
-          </Card>
+                  }}>
+                  <FormattedMessage id="plugins.capture.addRuleParameter" />
+                </button>
+                <FormattedMessage id="plugins.capture.ruleParameters" />
+              </h5>
+
+              {Array.isArray(rule.params) && rule.params.length > 0 ? (
+                <table className="pt-table pt-bordered pt-striped">
+                  <thead>
+                    <th>
+                      <FormattedMessage
+                        id="plugins.capture.name"
+                        defaultMessage="name"
+                      />
+                    </th>
+                    <th>
+                      {" "}
+                      <FormattedMessage
+                        id="plugins.capture.value"
+                        defaultMessage="value"
+                      />
+                    </th>
+                  </thead>
+                  <tbody>
+                    {rule.params.map(param => {
+                      return (
+                        <tr key={param.id}>
+                          <td>{param.name}</td>
+                          <td>{param.value}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              ) : null}
+            </Card>
+          ) : null}
         </div>
       </RightPanel>
     );
