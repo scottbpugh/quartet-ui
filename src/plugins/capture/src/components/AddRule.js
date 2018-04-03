@@ -20,19 +20,32 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import RuleForm from "./RuleForm";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {reduxForm} from "redux-form";
+import PageForm from "components/elements/PageForm";
+
+const RuleForm = reduxForm({
+  form: "ruleForm"
+})(PageForm);
 
 class _AddRule extends Component {
   componentDidMount() {}
   render() {
+    let rule = null; // for edit only.
     let editMode =
       this.props.location &&
       this.props.location.state &&
       this.props.location.state.edit
         ? true
         : false;
+    if (
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.defaultValues
+    ) {
+      rule = this.props.location.state.defaultValues;
+    }
     return (
       <RightPanel
         title={
@@ -53,6 +66,14 @@ class _AddRule extends Component {
             </h5>
             <RuleForm
               edit={editMode}
+              operationId={
+                editMode ? "capture_rules_update" : "capture_rules_create"
+              }
+              objectName="rule"
+              redirectPath={`/capture/rules/${this.props.server.serverID}`}
+              djangoPath="capture/rules/"
+              existingValues={rule}
+              parameters={rule ? {id: rule.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />

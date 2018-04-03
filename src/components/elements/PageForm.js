@@ -36,25 +36,34 @@ class _InlineForm extends Component {
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
-    this.constructForm();
+    this.constructForm(this.props);
   }
   submit = postValues => {
-    const {
+    let {
       server,
       edit,
       operationId,
       prepopulatedValues,
       objectName,
-      redirectPath
+      redirectPath,
+      parameters
     } = this.props;
-    for (let field of prepopulatedValues) {
-      postValues[field.name] = field.value;
+    if (prepopulatedValues) {
+      for (let field of prepopulatedValues) {
+        // replaces/sets programmatically.
+        postValues[field.name] = field.value;
+      }
+    }
+    if (parameters) {
+      parameters.data = postValues;
+    } else {
+      parameters = {data: postValues};
     }
     return server.getClient().then(client => {
       return client
         .execute({
           operationId: operationId,
-          parameters: postValues
+          parameters: parameters
         })
         .then(result => {
           if (result.status === 201) {
@@ -64,7 +73,7 @@ class _InlineForm extends Component {
             });
           } else if (result.status === 200) {
             showMessage({
-              msg: `New ${objectName} updated successfully`,
+              msg: `Existing ${objectName} updated successfully`,
               type: "success"
             });
           }
