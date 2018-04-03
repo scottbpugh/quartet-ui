@@ -118,7 +118,7 @@ class _InlineForm extends Component {
     }
   };
   render() {
-    const {error, handleSubmit, submitting} = this.props;
+    const {error, handleSubmit, submitting, prepopulatedValues} = this.props;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
@@ -132,22 +132,34 @@ class _InlineForm extends Component {
         ) {
           type = "password";
         }
-        return (
-          <Field
-            key={field.name}
-            name={field.name}
-            fieldData={field}
-            type={type}
-            component={DefaultField}
-            className="pt-input"
-            width={300}
-            validate={field.validate}
-          />
-        );
+        let filtered = [];
+
+        if (prepopulatedValues) {
+          filtered = prepopulatedValues.map(field => {
+            return field.name;
+          });
+        }
+
+        if (!filtered.includes(field.name)) {
+          return (
+            <Field
+              key={field.name}
+              name={field.name}
+              fieldData={field}
+              type={type}
+              component={DefaultField}
+              className="pt-input"
+              width={300}
+              validate={field.validate}
+            />
+          );
+        } else {
+          return null;
+        }
       })
       .filter(field => {
         if (field) {
-          return field;
+          return true;
         }
         return false;
       });

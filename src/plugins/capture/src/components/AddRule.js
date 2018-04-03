@@ -44,6 +44,7 @@ class _AddRule extends Component {
       this.props.location.state &&
       this.props.location.state.defaultValues
     ) {
+      // to prepopulate with existing values.
       rule = this.props.location.state.defaultValues;
     }
     return (

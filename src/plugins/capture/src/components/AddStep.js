@@ -20,9 +20,14 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import StepForm from "./StepForm";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import PageForm from "components/elements/PageForm";
+import {reduxForm} from "redux-form";
+
+const StepForm = reduxForm({
+  form: "stepForm"
+})(PageForm);
 
 class _AddStep extends Component {
   componentDidMount() {}
@@ -30,12 +35,21 @@ class _AddStep extends Component {
     const rule = this.props.rules.find(rule => {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
     });
+    let step = null;
     let editMode =
       this.props.location &&
       this.props.location.state &&
       this.props.location.state.edit
         ? true
         : false;
+    if (
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.defaultValues
+    ) {
+      // to prepopulate with existing values.
+      step = this.props.location.state.defaultValues;
+    }
     return (
       <RightPanel
         title={
@@ -56,8 +70,16 @@ class _AddStep extends Component {
               to {rule.name}
             </h5>
             <StepForm
-              rule={rule}
               edit={editMode}
+              operationId={
+                editMode ? "capture_steps_update" : "capture_steps_create"
+              }
+              objectName="step"
+              redirectPath={`/capture/rules/${this.props.server.serverID}`}
+              djangoPath="capture/steps/"
+              existingValues={step}
+              prepopulatedValues={[{name: "rule", value: rule.id}]}
+              parameters={step ? {id: step.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />

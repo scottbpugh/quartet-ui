@@ -59,9 +59,10 @@ export const DefaultField = ({
   }
   let inputField = "";
   if (
-    fieldData.description.type === "field" ||
+    //fieldData.description.type === "field" ||
     fieldData.description.type === "hidden"
   ) {
+    debugger;
     inputField = (
       <div style={{display: "none"}}>
         <label className="pt-control pt-switch">
@@ -111,9 +112,7 @@ export const DefaultField = ({
 
   let helperInstruction = fieldData.description.help_text || "";
   let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
-  const shouldHide =
-    fieldData.description.type === "field" ||
-    fieldData.description.type === "hidden";
+  const shouldHide = fieldData.description.type === "hidden";
   const style = {};
   style.display = shouldHide ? "none" : "block";
   return (
