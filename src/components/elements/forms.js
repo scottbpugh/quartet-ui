@@ -62,7 +62,6 @@ export const DefaultField = ({
     //fieldData.description.type === "field" ||
     fieldData.description.type === "hidden"
   ) {
-    debugger;
     inputField = (
       <div style={{display: "none"}}>
         <label className="pt-control pt-switch">
