@@ -17,66 +17,60 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {getStepFormStructure} from "../lib/capture-api";
-import {DefaultField, getSyncValidators} from "components/elements/forms";
+import {showMessage} from "lib/message";
+import {DefaultField} from "components/elements/forms";
 import {Field, reduxForm, SubmissionError} from "redux-form";
-import {Callout, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import {getFormInfo} from "lib/auth-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {showMessage} from "lib/message";
+import {Callout, Intent} from "@blueprintjs/core";
 
-class _StepForm extends Component {
+class _InlineForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: [],
-      success: false,
-      successMessage: null,
-      username: null
+      formStructure: []
     };
-    this.step = {}; // populated for updates.
+    this.formObject = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
   componentDidMount() {
-    this.constructForm(this.props);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.constructForm(nextProps);
+    this.constructForm();
   }
   submit = postValues => {
-    const {server, edit} = this.props;
-    var that = this;
-    // add rule name for parent rule programmatically.
-    postValues.rule = this.props.rule.id;
-    let operationId = "capture_steps_create";
-    let parameters = {data: postValues};
-    if (edit) {
-      operationId = "capture_steps_update";
-      parameters.id = this.step.id;
+    const {
+      server,
+      edit,
+      operationId,
+      prepopulatedValues,
+      objectName,
+      redirectPath
+    } = this.props;
+    for (let field of prepopulatedValues) {
+      postValues[field.name] = field.value;
     }
     return server.getClient().then(client => {
       return client
         .execute({
           operationId: operationId,
-          parameters: parameters
+          parameters: postValues
         })
         .then(result => {
           if (result.status === 201) {
             showMessage({
-              msg: "New step created successfully",
+              msg: `New ${objectName} created successfully`,
               type: "success"
             });
           } else if (result.status === 200) {
             showMessage({
-              msg: "Existing step updated successfully",
+              msg: `New ${objectName} updated successfully`,
               type: "success"
             });
           }
-
-          this.props.history.push(
-            "/capture/rules/" + this.props.server.serverID
-          );
+          if (redirectPath) {
+            this.props.history.push(redirectPath);
+          }
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
@@ -93,50 +87,30 @@ class _StepForm extends Component {
         });
     });
   };
-  constructForm(props) {
+
+  constructForm = props => {
+    const {djangoPath} = props;
+
     if (!this.formStructureRetrieved) {
-      getStepFormStructure(props.server).then(data => {
-        this.formStructureRetrieved = true;
-        // parse the values and filter to the one that are not readonly.
-        let postFields = data.actions.POST;
-        let formStructure = Object.keys(postFields)
-          .map(field => {
-            if (postFields[field].read_only === false) {
-              return {name: field, description: postFields[field]};
-            } else {
-              return null;
-            }
-          })
-          .filter(fieldObj => {
-            if (fieldObj) {
-              // create sync validation arrays.
-              fieldObj.validate = getSyncValidators(fieldObj);
-              return true;
-            }
-            return false;
-          });
+      let createForm = formStructure => {
         this.setState(
           {
             formStructure: formStructure
           },
           () => {
-            if (
-              props.location &&
-              props.location.state &&
-              props.location.state.defaultValues
-            ) {
-              this.step = props.location.state.defaultValues;
-              // fed existing values.
-              props.initialize(props.location.state.defaultValues);
+            if (props.existingValues) {
+              this.formObject = props.existingValues;
+              props.initialize(this.formObject);
             }
           }
         );
-      });
+        this.formStructureRetrieved = true;
+      };
+      getFormInfo(props.server, djangoPath, createForm);
     }
-  }
+  };
   render() {
     const {error, handleSubmit, submitting} = this.props;
-    const {success, successMessage} = this.state;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
@@ -150,12 +124,6 @@ class _StepForm extends Component {
         ) {
           type = "password";
         }
-        if (field.name === "rule") {
-          // don't add the rule input.
-          // add it programmatically instead.
-          return null;
-        }
-        //field.name = field.name.replace(/_/g, "");
         return (
           <Field
             key={field.name}
@@ -177,42 +145,32 @@ class _StepForm extends Component {
       });
     return (
       <div>
-        {success ? (
-          <Callout iconName="pt-icon-saved" intent={Intent.SUCCESS}>
-            <FormattedMessage
-              id="app.servers.userCreated"
-              values={{username: this.state.username}}
-            />
-            {successMessage}
-          </Callout>
-        ) : (
-          <form onSubmit={handleSubmit(this.submit.bind(this))}>
-            {form}
-
-            <button
-              className="pt-button pt-intent-primary"
-              type="submit"
-              disabled={submitting}>
-              Submit
-            </button>
-            {error ? (
-              <Callout iconName="warning" intent={Intent.DANGER}>
-                {error}
-              </Callout>
-            ) : null}
-          </form>
-        )}
+        <form onSubmit={handleSubmit(this.submit.bind(this))}>
+          {form}
+          <button
+            className="pt-button pt-intent-primary"
+            type="submit"
+            disabled={submitting}>
+            Submit
+          </button>
+          {error ? (
+            <Callout iconName="warning" intent={Intent.DANGER}>
+              {error}
+            </Callout>
+          ) : null}
+        </form>
       </div>
     );
   }
 }
 
-const StepForm = reduxForm({
-  form: "stepForm"
-})(_StepForm);
+// done individually
+/*const RuleParamForm = reduxForm({
+  form: "ruleParamForm"
+})(_RuleParamForm);*/
 
 export default connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers
   };
-}, {})(withRouter(StepForm));
+}, {})(withRouter(_InlineForm));

@@ -32,12 +32,13 @@ export const loadRules = server => {
       .getServer(server.serverID)
       .getClient()
       .then(client => {
+        // load all rules
         client.apis.capture.capture_rules_list().then(result => {
           // load steps, all steps for all rules.
           // This may become an issue in the future, if so, a new backend API endpoint
           // needs to be added.
           client.apis.capture.capture_steps_list().then(steps => {
-            let rules = result.body.map(rule => {
+            result.body.map(rule => {
               // add steps to the rule.
               rule.steps = steps.body.filter(step => {
                 if (step.rule === rule.id) {
@@ -47,13 +48,26 @@ export const loadRules = server => {
               });
               return rule;
             });
-            dispatch({
-              type: actions.loadRules,
-              payload: {
-                serverID: server.serverID,
-                rules: result.body
-              }
-            });
+            // load rule parameters.
+            client.apis.capture
+              .capture_rule_parameters_list()
+              .then(ruleParams => {
+                result.body.map(rule => {
+                  rule.params = ruleParams.body.filter(ruleParam => {
+                    if (ruleParam.rule === rule.id) {
+                      return true;
+                    }
+                    return false;
+                  });
+                });
+                dispatch({
+                  type: actions.loadRules,
+                  payload: {
+                    serverID: server.serverID,
+                    rules: result.body
+                  }
+                });
+              });
           });
         });
       });
@@ -79,15 +93,23 @@ export const loadTasks = server => {
       .getServer(server.serverID)
       .getClient()
       .then(client => {
-        client.apis.capture.capture_tasks_list().then(result => {
-          dispatch({
-            type: actions.loadTasks,
-            payload: {
-              serverID: server.serverID,
-              tasks: result.body
-            }
+        client.apis.capture
+          .capture_tasks_list()
+          .then(result => {
+            dispatch({
+              type: actions.loadTasks,
+              payload: {
+                serverID: server.serverID,
+                tasks: result.body
+              }
+            });
+          })
+          .catch(e => {
+            showMessage({
+              type: "error",
+              msg: "An error occurred while attempting to fetch tasks."
+            });
           });
-        });
       });
   };
 };

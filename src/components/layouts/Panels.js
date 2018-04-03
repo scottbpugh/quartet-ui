@@ -41,9 +41,9 @@ class _LeftPanel extends Component {
         </h4>
         <div
           style={{
-            "overflow-x": "hidden",
-            "overflow-y": "visible",
-            "white-space": "nowrap"
+            overflowX: "hidden",
+            overflowY: "visible",
+            whiteSpace: "nowrap"
           }}>
           {this.props.children}
         </div>

@@ -17,23 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {pluginRegistry} from "plugins/pluginRegistration";
 import {TreeNode} from "components/layouts/elements/NavTree";
-import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {
-  Menu,
-  MenuItem,
-  MenuDivider,
-  Dialog,
-  Button,
-  ButtonGroup,
-  ContextMenu,
-  RadioGroup,
-  Radio,
-  Label
-} from "@blueprintjs/core";
 
 class _NavPluginRoot extends Component {
   constructor(props) {
@@ -47,7 +33,7 @@ class _NavPluginRoot extends Component {
     this.props.history.push(path);
   };
   render() {
-    const {serverID, currentPath} = this.props;
+    const {serverID} = this.props;
     return (
       <TreeNode
         depth={this.props.depth}

@@ -25,9 +25,6 @@ import {
   Button,
   ButtonGroup,
   ContextMenu,
-  RadioGroup,
-  Radio,
-  Label,
   FileUpload
 } from "@blueprintjs/core";
 import {pluginRegistry} from "plugins/pluginRegistration";
@@ -35,9 +32,8 @@ import {withRouter} from "react-router";
 import {DeleteDialog} from "components/elements/DeleteDialog";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
-import {deleteRule, deleteStep} from "../reducers/capture";
+import {deleteStep, deleteRule} from "../reducers/capture";
 import {fileUpload} from "../lib/capture-api";
-import {formatMessage} from "react-intl";
 import classNames from "classnames";
 import {showMessage} from "lib/message";
 
@@ -66,7 +62,7 @@ class StepItem extends Component {
     this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
   };
   trashStep = evt => {
-    const {serverID, step, deleteRule} = this.props;
+    const {serverID, step} = this.props;
     const serverObject = pluginRegistry.getServer(serverID);
     this.toggleConfirmDelete();
     ContextMenu.hide();
@@ -86,7 +82,7 @@ class StepItem extends Component {
     });
   };
   renderContextMenu() {
-    const {server, serverID, step} = this.props;
+    const {step} = this.props;
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
@@ -136,8 +132,7 @@ class _RuleItem extends Component {
     };
   }
   toggleUpload = () => {
-    const {rule, serverID} = this.props;
-    // redirect to pool regions if not already there.
+    const {serverID} = this.props;
     this.goTo(`/capture/rules/${serverID}`);
     this.setState({isUploadOpen: !this.state.isUploadOpen});
   };
@@ -184,15 +179,14 @@ class _RuleItem extends Component {
     let {rule} = this.props;
     ContextMenu.hide();
     this.props.history.push({
-      pathname: `/capture/add-rule/${this.props.serverID}/rule/${rule.id}`,
-      state: {defaultValues: rule, edit: true}
+      pathname: `/capture/add-rule/${this.props.serverID}/rule/${rule.id}`
     });
   };
   toggleConfirmDelete = evt => {
     this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
   };
   renderContextMenu() {
-    const {server, serverID, rule} = this.props;
+    const {serverID, rule} = this.props;
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
@@ -233,6 +227,7 @@ class _RuleItem extends Component {
             })
           }
         />
+        {/*
         <MenuItem
           onClick={this.goTo.bind(
             this,
@@ -243,7 +238,7 @@ class _RuleItem extends Component {
               id: "plugins.capture.addTask"
             }) + " - Dev"
           }
-        />
+        />*/}
       </Menu>
     );
   }

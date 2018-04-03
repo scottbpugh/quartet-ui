@@ -21,15 +21,11 @@ import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadRules, loadTasks} from "../reducers/capture";
 import {Card, Tag, Intent} from "@blueprintjs/core";
-import {Link} from "react-router-dom";
-import {
-  FormattedMessage,
-  FormattedDate,
-  FormattedTime,
-  FormattedNumber
-} from "react-intl";
+
+import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import "./RuleList.css";
+import {ServerTasks} from "./ServerTasks";
 
 class ServerRules extends Component {
   render() {
@@ -43,7 +39,7 @@ class ServerRules extends Component {
       <Card className="pt-elevation-4">
         <h5>
           <button
-            className="pt-button add-pool-button pt-intent-primary"
+            className="pt-button right-aligned-elem pt-intent-primary"
             onClick={e => {
               this.props.history.push(`/capture/add-rule/${serverID}/rule`);
             }}>
@@ -86,7 +82,7 @@ class ServerRules extends Component {
               {Array.isArray(rules) && rules.length > 0
                 ? rules.map(rule => {
                     return (
-                      <tr>
+                      <tr key={rule.id}>
                         <td>
                           {rule.name.charAt(0).toUpperCase() +
                             rule.name.slice(1)}
@@ -94,7 +90,10 @@ class ServerRules extends Component {
                         <td>{rule.description}</td>
                         <td>
                           {rule.steps.map(step => (
-                            <Tag intent={Intent.PRIMARY} className="step">
+                            <Tag
+                              key={step.name}
+                              intent={Intent.PRIMARY}
+                              className="step">
                               #{step.order} {step.name}
                             </Tag>
                           ))}
@@ -105,94 +104,6 @@ class ServerRules extends Component {
                               return task.rule === rule.id;
                             }).length
                           }
-                        </td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-    );
-  }
-}
-
-class ServerTasks extends Component {
-  render() {
-    let serverName = this.props.server.serverSettingName;
-    let serverID = this.props.server.serverID;
-    const {rules, tasks} = this.props;
-    return (
-      <Card className="pt-elevation-4">
-        <h5>{serverName} Tasks</h5>
-        <div />
-        <div>
-          <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
-            <thead>
-              <tr>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.ruleName"
-                    defaultMessage="Rule Name"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.name"
-                    defaultMessage="Task Name"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.taskStatusChanged"
-                    defaultMessage="Status Changed"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.taskStatus"
-                    defaultMessage="Status"
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(this.props.tasks) && this.props.tasks.length > 0
-                ? this.props.tasks.map(task => {
-                    let intent = Intent.PRIMARY;
-                    switch (task.status) {
-                      case "FINISHED":
-                        intent = Intent.SUCCESS;
-                        break;
-                      case "WAITING":
-                        intent = Intent.WARNING;
-                        break;
-                      case "FAILED":
-                        intent = Intent.DANGER;
-                        break;
-                      case "RUNNING":
-                        intent = Intent.PRIMARY;
-                        break;
-                      default:
-                        intent = Intent.PRIMARY;
-                    }
-                    return (
-                      <tr>
-                        <td>
-                          {rules
-                            ? rules.find(rule => {
-                                return Number(rule.id) === Number(task.rule);
-                              }).name
-                            : null}
-                        </td>
-                        <td>{task.name}</td>
-                        <td>
-                          <FormattedDate value={task.status_changed} /> -{" "}
-                          <FormattedTime value={task.status_changed} />
-                        </td>
-                        <td style={{"text-align": "center"}}>
-                          <Tag intent={intent}>{task.status}</Tag>
                         </td>
                       </tr>
                     );

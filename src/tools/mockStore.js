@@ -20,10 +20,8 @@ import React from "react";
 
 import {IntlProvider} from "react-intl";
 import {addLocaleData} from "react-intl";
-import messages from "messages";
 import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
-import {flattenMessages} from "lib/flattenMessages";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {pluginRegistry} from "plugins/pluginRegistration";

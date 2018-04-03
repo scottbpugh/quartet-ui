@@ -15,34 +15,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import base64 from "base-64";
 import {showMessage} from "lib/message";
-
+import {prepHeadersAuth} from "lib/auth-api";
 const PREFIX_PATH = "serialbox/";
-
-/**
- * prepHeaders - Prepares the headers to be sent.
- *
- * @param {object} server A server setting object
- *
- * @return {object} A request init object with headers.
- */
-const prepHeaders = (server, method = "GET") => {
-  let username = server.username;
-  let password = server.password;
-  let headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
-  headers.append(
-    "Authorization",
-    "Basic " + base64.encode(username + ":" + password)
-  );
-  return {
-    method: method,
-    headers: headers,
-    mode: "cors"
-  };
-};
 
 /**
  * getPools - Description
@@ -53,7 +28,7 @@ const prepHeaders = (server, method = "GET") => {
  */
 export const getPools = server => {
   const url = `${server.url}${PREFIX_PATH}pools/?related=true`;
-  return fetch(url, prepHeaders(server))
+  return fetch(url, prepHeadersAuth(server))
     .then(resp => {
       return resp.json();
     })
@@ -74,7 +49,7 @@ export const getPoolDetail = (server, pool) => {
   const url = `${server.url}${PREFIX_PATH}pool-detail/${
     pool.machine_name
   }/?related=true`;
-  return fetch(url, prepHeaders(server))
+  return fetch(url, prepHeadersAuth(server))
     .then(resp => {
       return resp.json();
     })
@@ -115,7 +90,7 @@ export const getRegion = (server, regionName) => {
  * @return {object} A JSON object.
  */
 export const getRegionByURL = (server, url) => {
-  return fetch(url, prepHeaders(server))
+  return fetch(url, prepHeadersAuth(server))
     .then(resp => {
       return resp.json();
     })
@@ -176,7 +151,7 @@ export const getRegions = (server, pool) => {
 export const allocate = (server, pool, value) => {
   return fetch(
     `${server.url}${PREFIX_PATH}allocate/${pool.machine_name}/${value}/`,
-    prepHeaders(server)
+    prepHeadersAuth(server)
   )
     .then(resp => {
       return resp.json();
@@ -194,69 +169,6 @@ export const allocate = (server, pool, value) => {
     });
 };
 
-export const getRegionFormStructure = server => {
-  return fetch(
-    `${server.url}${PREFIX_PATH}sequential-region-create/`,
-    prepHeaders(server, "OPTIONS")
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "plugins.numberRange.errorAllocating",
-        values: {error: error}
-      });
-      throw error;
-    });
-};
-
-export const getRandomizedRegionFormStructure = server => {
-  return fetch(
-    `${server.url}${PREFIX_PATH}randomized-regions/`,
-    prepHeaders(server, "OPTIONS")
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "plugins.numberRange.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
-export const getPoolFormStructure = server => {
-  return fetch(
-    `${server.url}${PREFIX_PATH}pool-create/`,
-    prepHeaders(server, "OPTIONS")
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "plugins.numberRange.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
 export const postAddRegion = (server, postValues, edit = false) => {
   let method = "POST";
   let endpoint = "sequential-region-create";
@@ -264,7 +176,7 @@ export const postAddRegion = (server, postValues, edit = false) => {
     method = "PUT";
     endpoint = `sequential-region-modify/${postValues.machine_name}`;
   }
-  let headers = prepHeaders(server, method);
+  let headers = prepHeadersAuth(server, method);
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -286,7 +198,7 @@ export const postAddRandomizedRegion = (server, postValues, edit = false) => {
     method = "PUT";
     endpoint = `randomized-regions/${postValues.machine_name}`;
   }
-  let headers = prepHeaders(server, method);
+  let headers = prepHeadersAuth(server, method);
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -312,7 +224,7 @@ export const deleteRegion = (server, region) => {
     // randomized
     endpoint = `randomized-regions/${region.machine_name}`;
   }
-  let headers = prepHeaders(server, method);
+  let headers = prepHeadersAuth(server, method);
   //headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -331,7 +243,7 @@ export const deleteRegion = (server, region) => {
 export const deletePool = (server, pool) => {
   let method = "DELETE";
   let endpoint = `pool-modify/${pool.machine_name}`;
-  let headers = prepHeaders(server, method);
+  let headers = prepHeadersAuth(server, method);
   //headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -362,7 +274,7 @@ export const postAddPool = (server, postValues, edit = false) => {
       console.log(e);
     }
   }
-  let headers = prepHeaders(server, method);
+  let headers = prepHeadersAuth(server, method);
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {

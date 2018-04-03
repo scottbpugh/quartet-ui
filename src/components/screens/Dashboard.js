@@ -20,7 +20,6 @@ import React from "react";
 import "components/cards/dashboard/cards.css";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
-import {Callout, Card} from "@blueprintjs/core";
 
 const DashboardRight = props => (
   <div className="cards-container">

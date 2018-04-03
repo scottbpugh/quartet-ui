@@ -22,18 +22,7 @@ import {TreeNode} from "components/layouts/elements/NavTree";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {
-  Menu,
-  MenuItem,
-  MenuDivider,
-  Dialog,
-  Button,
-  ButtonGroup,
-  ContextMenu,
-  RadioGroup,
-  Radio,
-  Label
-} from "@blueprintjs/core";
+import {Menu, MenuItem, MenuDivider} from "@blueprintjs/core";
 import {loadRules} from "../reducers/capture";
 import {RuleItem} from "./RuleItem";
 

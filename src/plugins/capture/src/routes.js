@@ -54,6 +54,11 @@ export default (() => {
       key="addRuleParam"
       path="/capture/add-rule-param/:serverID/rule/:ruleID"
       component={AddRuleParam}
+    />,
+    <Route
+      key="editRuleParam"
+      path="/capture/edit-rule-param/:serverID/rule/:ruleID/ruleParam/:ruleParamID"
+      component={AddRuleParam}
     />
   ];
 })();

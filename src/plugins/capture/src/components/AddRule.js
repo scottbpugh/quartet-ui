@@ -20,19 +20,36 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import RuleForm from "./RuleForm";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {reduxForm} from "redux-form";
+import PageForm from "components/elements/PageForm";
+import {loadRules} from "../reducers/capture";
+
+const RuleForm = reduxForm({
+  form: "ruleForm"
+})(PageForm);
 
 class _AddRule extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    // reload all rules.
+    this.props.loadRules(this.props.server);
+  }
+  editRuleParam(param) {
+    const {server, rule} = this.props;
+    this.props.history.push({
+      pathname: `/capture/edit-rule-param/${server.serverID}/rule/${
+        rule.id
+      }/ruleParam/${param.id}`,
+      state: {defaultValues: param, edit: true}
+    });
+  }
   render() {
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.edit
-        ? true
-        : false;
+    let rule = null; // for edit only.
+    let editMode = this.props.rule ? true : false;
+    if (this.props.rule) {
+      rule = this.props.rule;
+    }
     return (
       <RightPanel
         title={
@@ -53,18 +70,86 @@ class _AddRule extends Component {
             </h5>
             <RuleForm
               edit={editMode}
+              operationId={
+                editMode ? "capture_rules_update" : "capture_rules_create"
+              }
+              objectName="rule"
+              redirectPath={`/capture/rules/${this.props.server.serverID}`}
+              djangoPath="capture/rules/"
+              existingValues={rule}
+              parameters={rule ? {id: rule.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
             />
           </Card>
+          {editMode ? (
+            <Card className="pt-elevation-4 form-card">
+              <h5>
+                <button
+                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
+                  onClick={e => {
+                    this.props.history.push(
+                      `/capture/add-rule-param/${
+                        this.props.server.serverID
+                      }/rule/${rule.id}`
+                    );
+                  }}>
+                  <FormattedMessage id="plugins.capture.addRuleParameter" />
+                </button>
+                <FormattedMessage id="plugins.capture.ruleParameters" />
+              </h5>
+
+              {Array.isArray(rule.params) && rule.params.length > 0 ? (
+                <table className="pt-table pt-interactive pt-bordered pt-striped">
+                  <thead>
+                    <th>
+                      <FormattedMessage
+                        id="plugins.capture.name"
+                        defaultMessage="name"
+                      />
+                    </th>
+                    <th>
+                      {" "}
+                      <FormattedMessage
+                        id="plugins.capture.value"
+                        defaultMessage="value"
+                      />
+                    </th>
+                  </thead>
+                  <tbody>
+                    {rule.params.map(param => {
+                      return (
+                        <tr
+                          key={param.id}
+                          onClick={this.editRuleParam.bind(this, param)}>
+                          <td>{param.name}</td>
+                          <td>{param.value}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              ) : null}
+            </Card>
+          ) : null}
         </div>
       </RightPanel>
     );
   }
 }
 
-export const AddRule = connect((state, ownProps) => {
-  return {
-    server: state.serversettings.servers[ownProps.match.params.serverID]
-  };
-}, {})(_AddRule);
+export const AddRule = connect(
+  (state, ownProps) => {
+    return {
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      rule: ownProps.match.params.ruleID
+        ? state.capture.servers[ownProps.match.params.serverID].rules.find(
+            rule => {
+              return Number(rule.id) === Number(ownProps.match.params.ruleID);
+            }
+          )
+        : null
+    };
+  },
+  {loadRules}
+)(_AddRule);

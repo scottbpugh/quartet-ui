@@ -30,6 +30,7 @@ class _AdminPanel extends Component {
           {this.props.server ? (
             <iframe
               width="100%"
+              title="QU4RTET ADMIN"
               style={{
                 position: "absolute",
                 height: "100vh",

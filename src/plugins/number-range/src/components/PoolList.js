@@ -95,7 +95,7 @@ class ServerPools extends Component {
                       regionNumber += Number(pool.randomizedregion_set.length);
                     }
                     return (
-                      <tr>
+                      <tr key={pool.machine_name}>
                         <td>
                           <FormattedDate
                             value={pool.created_date}
@@ -184,7 +184,9 @@ export var PoolList = connect(
   (state, ownProps) => {
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
-      pools: state.numberrange.servers[ownProps.match.params.serverID].pools
+      pools: state.numberrange.servers
+        ? state.numberrange.servers[ownProps.match.params.serverID].pools
+        : []
     };
   },
   {loadPools}

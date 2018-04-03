@@ -72,6 +72,7 @@ class _RegionDetail extends Component {
           {regions && regions.length > 0 ? (
             regions.map(region => (
               <RegionCard
+                key={region.machine_name}
                 lastUpdated={this.state.lastUpdated}
                 region={region}
                 alloc={this.state.alloc}

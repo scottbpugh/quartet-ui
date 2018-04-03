@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-
+/* Global CSS settings */
 .wrapper, html, body, #root, .App {
     min-height:100%;
     margin:0;
@@ -38,12 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     margin-right:5px;
 }
 
-.pt-card h5 {
-    padding:15px 10px;
-    text-align:center;
-    margin: 0px 0px 10px 0px;
-    border-radius: 3px;
-}
+
+
 
 .mini-form  {
   margin:10px;
@@ -97,9 +93,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   font-size:20px;
   cursor:pointer;
 }
+
 .form-card {
   min-width:60%;
 }
+
 .form-card .pt-input {
   width: 100%;
 }
@@ -111,4 +109,131 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .form-card form .pt-form-group {
   margin: 20px 0;
   padding-bottom:10px;
+}
+
+.table-control, .pagination-control {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:flex-start;
+}
+.pagination-control > * {
+  margin:0 10px 0 0 ;
+}
+
+.right-aligned-elem {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+.label-info-display {
+  font-style:italic;
+  font-size:12px;
+  text-align:right;
+  margin-top:10px;
+}
+
+
+/* Cards layouts */
+
+/* Cards container contain 1 or 2 cards per row. */
+.cards-container {
+  display: flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}
+
+.cards-container > * {
+  flex-grow:0.4;
+  width:40%;
+  margin-bottom:15px;
+  position:relative;
+  padding-top:60px;
+}
+
+/* Auto-sized cards */
+.auto-cards-container {
+  display: flex;
+  flex-wrap:wrap;
+  margin:0;
+  padding:0;
+  justify-content:center;
+  align-items:center;
+}
+
+.auto-cards-container > * {
+  margin:10px 30px;
+  display: flex;
+  width:400px;
+  flex-direction:column;
+  align-self: center;
+}
+
+/* headers for all cards */
+
+.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5 {
+  background: #EEE;
+  top:0;
+  position: absolute;
+  width: 100%;
+  left:0;
+  border-radius: 0;
+  margin-bottom:20px;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+}
+.pt-card h5 {
+    padding:15px 10px;
+    text-align:center;
+    margin: 0px 0px 10px 0px;
+    border-radius: 3px;
+}
+
+.auto-cards-container .pt-card, .large-cards-container .pt-card, .cards-container .pt-card, .form-card .pt-card {
+  padding:60px 20px 20px 20px; /* Override blueprint since we always want card header */
+}
+
+/* Dark theme color h5 */
+.pt-dark .auto-cards-container h5, .pt-dark .large-cards-container h5, .pt-dark .cards-container h5, .pt-dark .form-card h5 {
+  background: #293742;
+}
+
+.form-card {
+  padding:0 25px 20px;
+}
+
+/* One card per row */
+.large-cards-container {
+  display:flex;
+  width:auto;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
+
+.large-cards-container > * {
+  width:auto;
+  margin:30px;
+  position:relative;
+  padding-top: 60px;
+  min-width:60%;
+}
+
+.large-cards-container .pt-table {
+  width:100%;
+}
+
+/* Take whole right panel (less margin than large.) */
+.full-large > * {
+  width:90%;
+}
+
+/* Style for table */
+.cards-container table {
+  width:100%;
+}
+
+.cards-container table td {
+  overflow:hidden;
 }

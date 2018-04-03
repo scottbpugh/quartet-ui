@@ -16,15 +16,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {prepHeaders} from "lib/auth-api";
 import {showMessage} from "lib/message";
 import base64 from "base-64";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
-var request = require("request");
-
 export const fileUpload = (server, rule, fileObject) => {
-  var data = new FormData();
+  let data = new FormData();
   let headers = new Headers();
   headers.append(
     "Authorization",
@@ -62,77 +59,37 @@ export const fileUpload = (server, rule, fileObject) => {
     });
 };
 
-export const getRuleFormStructure = server => {
-  return fetch(`${server.url}capture/rules/`, prepHeaders(server, "OPTIONS"))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
-export const getRuleParamFormStructure = server => {
-  return fetch(
-    `${server.url}capture/rule-parameters/`,
-    prepHeaders(server, "OPTIONS")
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
-export const getTaskFormStructure = server => {
-  return fetch(`${server.url}capture/tasks/`, prepHeaders(server, "OPTIONS"))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
-    });
-};
-
-export const getStepFormStructure = server => {
-  return fetch(`${server.url}capture/steps/`, prepHeaders(server, "OPTIONS"))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
-      });
-      throw error;
+export const getRuleParamsByRule = (server, ruleID) => {
+  // this is a temporary workaround to get all the rule params for a given ruleID.
+  // Eventually we should switch to sending the id of the rule and get back a subset.
+  return pluginRegistry
+    .getServer(server.serverID)
+    .getClient()
+    .then(client => {
+      return client.apis.capture
+        .capture_rule_parameters_list()
+        .then(result => {
+          if (result.ok) {
+            // filter result.
+            return result.body.filter(param => {
+              if (param.rule == ruleID) {
+                return true;
+              }
+              return false;
+            });
+          } else {
+            showMessage({
+              type: "error",
+              id: "plugins.capture.errorFetchRuleParams"
+            });
+            return [];
+          }
+        })
+        .catch(e => {
+          showMessage({
+            type: "error",
+            id: "plugins.capture.errorFetchRuleParams"
+          });
+        });
     });
 };
