@@ -76,7 +76,9 @@ class _AddRuleParam extends Component {
                   : "capture_rule_parameters_create"
               }
               objectName="Rule Parameter"
-              redirectPath={`/capture/rules/${this.props.server.serverID}`}
+              redirectPath={`/capture/add-rule/${
+                this.props.server.serverID
+              }/rule/${rule.id}`}
               djangoPath="capture/rule-parameters/"
               existingValues={ruleParam}
               prepopulatedValues={[{name: "rule", value: rule.id}]}

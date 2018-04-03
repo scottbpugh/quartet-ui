@@ -179,8 +179,7 @@ class _RuleItem extends Component {
     let {rule} = this.props;
     ContextMenu.hide();
     this.props.history.push({
-      pathname: `/capture/add-rule/${this.props.serverID}/rule/${rule.id}`,
-      state: {defaultValues: rule, edit: true}
+      pathname: `/capture/add-rule/${this.props.serverID}/rule/${rule.id}`
     });
   };
   toggleConfirmDelete = evt => {

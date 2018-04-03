@@ -32,6 +32,7 @@ export const loadRules = server => {
       .getServer(server.serverID)
       .getClient()
       .then(client => {
+        // load all rules
         client.apis.capture.capture_rules_list().then(result => {
           // load steps, all steps for all rules.
           // This may become an issue in the future, if so, a new backend API endpoint
@@ -47,13 +48,26 @@ export const loadRules = server => {
               });
               return rule;
             });
-            dispatch({
-              type: actions.loadRules,
-              payload: {
-                serverID: server.serverID,
-                rules: result.body
-              }
-            });
+            // load rule parameters.
+            client.apis.capture
+              .capture_rule_parameters_list()
+              .then(ruleParams => {
+                result.body.map(rule => {
+                  rule.params = ruleParams.body.filter(ruleParam => {
+                    if (ruleParam.rule === rule.id) {
+                      return true;
+                    }
+                    return false;
+                  });
+                });
+                dispatch({
+                  type: actions.loadRules,
+                  payload: {
+                    serverID: server.serverID,
+                    rules: result.body
+                  }
+                });
+              });
           });
         });
       });

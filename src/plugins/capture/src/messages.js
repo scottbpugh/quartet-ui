@@ -36,7 +36,9 @@ const defaultLocaleMsg = {
     processFileError:
       "An error occurred while processing this file. Please check the QU4RTET server for more information.",
     errorFetchRuleParams:
-      "An error occurred while retrieving parameters for this rule. Please check the QU4RTET server for more information."
+      "An error occurred while retrieving parameters for this rule. Please check the QU4RTET server for more information.",
+    ruleParameters: "Rule Parameters",
+    addRuleParameter: "Add Rule Parameter"
   }
 };
 
