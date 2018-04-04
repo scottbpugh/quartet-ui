@@ -30,7 +30,7 @@ export default {
     readableName: "Capture",
     pluginName: "Capture",
     description: `
-              The Capture Plugin allows interaction with the backend QU4RTET Capture interface. The QU4RTET Capture app enables the “capture” and subsequent processing of messages through a primitive processing engine that allows developers to customize how messages get processed. The capture application also contains a standard EPCIS capture interface implementation as well. 
+              The Capture Plugin allows interaction with the backend QU4RTET Capture interface. The QU4RTET Capture app enables the “capture” and subsequent processing of messages through a primitive processing engine that allows developers to customize how messages get processed. The capture application also contains a standard EPCIS capture interface implementation as well.
             `
   } /*,
   admin: {
