@@ -20,6 +20,42 @@ import React, {Component} from "react";
 import {TreeNode} from "components/layouts/elements/NavTree";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {Menu, MenuDivider, MenuItem} from "@blueprintjs/core";
+
+class SubNode extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {active: false};
+  }
+  goTo = path => {
+    this.props.history.push(path);
+  };
+  renderContextMenu = () => {
+    const {server, serverID} = this.props;
+    return (
+      <Menu>
+        <MenuDivider title="{server.serverSettingName}" />
+        <MenuDivider />
+        <MenuItem
+          text="Add Event"
+          onClick={this.goTo.bind(this, `/epcis/add-event/${serverID}`)}
+        />
+      </Menu>
+    );
+  };
+  render() {
+    return (
+      <TreeNode
+        depth={this.props.depth}
+        path={`/`}
+        onContextMenu={this.renderContextMenu.bind(this)}
+        childrenNodes={this.props.childrenNodes}>
+        {this.props.children}
+      </TreeNode>
+    );
+  }
+}
 
 class _NavPluginRoot extends Component {
   constructor(props) {
@@ -34,12 +70,63 @@ class _NavPluginRoot extends Component {
   };
   render() {
     const {serverID} = this.props;
+    let children = [
+      <SubNode
+        depth={this.props.depth}
+        childrenNodes={[
+          <SubNode
+            history={this.props.history}
+            depth={this.props.depth}
+            serverID={serverID}
+            childrenNodes={[]}>
+            Aggregation Events
+          </SubNode>,
+          <SubNode
+            history={this.props.history}
+            depth={this.props.depth}
+            serverID={serverID}
+            childrenNodes={[]}>
+            Object Events
+          </SubNode>,
+          <SubNode
+            history={this.props.history}
+            depth={this.props.depth}
+            serverID={serverID}
+            childrenNodes={[]}>
+            Transaction Events
+          </SubNode>,
+          <SubNode
+            history={this.props.history}
+            epth={this.props.depth}
+            serverID={serverID}
+            childrenNodes={[]}>
+            Transformation Events
+          </SubNode>
+        ]}>
+        Events
+      </SubNode>,
+      <SubNode
+        history={this.props.history}
+        depth={this.props.depth}
+        serverID={serverID}
+        childrenNodes={[]}>
+        Entries
+      </SubNode>,
+      <SubNode
+        history={this.props.history}
+        depth={this.props.depth}
+        serverID={serverID}
+        childrenNodes={[]}>
+        Messages
+      </SubNode>
+    ];
     return (
       <TreeNode
         depth={this.props.depth}
         active={this.state.active}
-        path={`/`}
-        childrenNodes={[]}>
+        history={this.props.history}
+        serverID={serverID}
+        childrenNodes={children}>
         EPCIS
       </TreeNode>
     );

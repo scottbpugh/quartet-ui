@@ -33,14 +33,14 @@ export default {
               The Capture Plugin allows interaction with the backend QU4RTET Capture interface. The QU4RTET Capture app enables the “capture” and subsequent processing of messages through a primitive processing engine that allows developers to customize how messages get processed. The capture application also contains a standard EPCIS capture interface implementation as well.
             `
   },
-  admin: {
+  epcis: {
     core: true,
     initPath: "epcis/src/init.js",
     preview: "",
     readableName: "EPCIS",
     pluginName: "EPCIS",
     description: `
-              The EPCIS Plugin.
+              The EPCIS Plugin allows interaction with the backend QU4RTET EPCIS interface. QU4RTET EPCIS is the EPCIS XML Parsing for the Quartet Platform
             `
   } /*,
   admin: {

@@ -24,9 +24,15 @@ import {FormattedMessage} from "react-intl";
 import {getFormInfo} from "lib/auth-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {Callout, Intent} from "@blueprintjs/core";
+import {FormGroup, Callout, Intent} from "@blueprintjs/core";
 
-class _InlineForm extends Component {
+class Select extends Component {
+  render() {
+    return <select>{this.props.children}</select>;
+  }
+}
+
+class _PageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -139,6 +145,7 @@ class _InlineForm extends Component {
         ) {
           type = "password";
         }
+
         let filtered = [];
 
         if (prepopulatedValues) {
@@ -148,6 +155,29 @@ class _InlineForm extends Component {
         }
 
         if (!filtered.includes(field.name)) {
+          if (field.description.type === "choice") {
+            return (
+              <Field
+                key={field.name}
+                name={field.name}
+                type="select"
+                component={DefaultField}
+                width={300}
+                fieldData={field}
+                validate={field.validate}>
+                <option value="" />
+                {field.description.type === "choice"
+                  ? field.description.choices.map(choice => {
+                      return (
+                        <option value={choice.value}>
+                          {choice.display_name}
+                        </option>
+                      );
+                    })
+                  : null}
+              </Field>
+            );
+          }
           return (
             <Field
               key={field.name}
@@ -195,4 +225,4 @@ export default connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers
   };
-}, {})(withRouter(_InlineForm));
+}, {})(withRouter(_PageForm));

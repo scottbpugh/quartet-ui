@@ -19,6 +19,7 @@ import React from "react";
 import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
+import {Field} from "redux-form";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 
@@ -49,7 +50,8 @@ export const DefaultField = ({
   input,
   fieldData,
   type,
-  meta: {touched, error, warning}
+  meta: {touched, error, warning},
+  children
 }) => {
   let intent = "";
   let intentClass = "";
@@ -64,7 +66,7 @@ export const DefaultField = ({
   ) {
     inputField = (
       <div style={{display: "none"}}>
-        <label className="pt-control pt-switch">
+        <label className="pt-control">
           <input
             {...input}
             type="hidden"
@@ -95,6 +97,14 @@ export const DefaultField = ({
         <span className="pt-control-indicator" />
         {fieldData.description.label}
       </label>
+    );
+  } else if (fieldData.description.type === "choice") {
+    inputField = (
+      <div className="pt-select">
+        <select {...input} name={fieldData.name} type="select" width={300}>
+          {children}
+        </select>
+      </div>
     );
   } else {
     inputField = (
