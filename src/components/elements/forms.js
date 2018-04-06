@@ -120,7 +120,7 @@ export const DefaultField = ({
   }
 
   let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
+  let helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
   const shouldHide = fieldData.description.type === "hidden";
   const style = {};
   style.display = shouldHide ? "none" : "block";

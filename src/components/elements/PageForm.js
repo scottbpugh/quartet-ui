@@ -26,12 +26,6 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {FormGroup, Callout, Intent} from "@blueprintjs/core";
 
-class Select extends Component {
-  render() {
-    return <select>{this.props.children}</select>;
-  }
-}
-
 class _PageForm extends Component {
   constructor(props) {
     super(props);
@@ -178,6 +172,7 @@ class _PageForm extends Component {
               </Field>
             );
           }
+
           return (
             <Field
               key={field.name}

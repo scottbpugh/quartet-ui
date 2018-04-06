@@ -32,15 +32,12 @@ class SubNode extends Component {
     this.props.history.push(path);
   };
   renderContextMenu = () => {
-    const {server, serverID} = this.props;
+    const {server, serverID, menuItems} = this.props;
     return (
       <Menu>
-        <MenuDivider title="{server.serverSettingName}" />
+        <MenuDivider title={`${server.serverSettingName}`} />
         <MenuDivider />
-        <MenuItem
-          text="Add Event"
-          onClick={this.goTo.bind(this, `/epcis/add-event/${serverID}`)}
-        />
+        {menuItems || null}
       </Menu>
     );
   };
@@ -68,16 +65,55 @@ class _NavPluginRoot extends Component {
   goTo = path => {
     this.props.history.push(path);
   };
+  renderContextMenu = () => {
+    const {server, serverID, menuItems} = this.props;
+    return (
+      <Menu>
+        <MenuDivider title={`${server.serverSettingName}`} />
+        <MenuDivider />
+        <MenuItem
+          text={pluginRegistry
+            .getIntl()
+            .formatMessage({id: "plugins.epcis.addEvent"})}
+          onClick={this.goTo.bind(this, `/epcis/add-event/${serverID}`)}
+        />
+        <MenuItem
+          text="Add Entry"
+          onClick={this.goTo.bind(this, `/epcis/add-entry/${serverID}`)}
+        />
+      </Menu>
+    );
+  };
   render() {
-    const {serverID} = this.props;
+    const {serverID, server} = this.props;
+    let eventMenuItem = (
+      <MenuItem
+        text={pluginRegistry
+          .getIntl()
+          .formatMessage({id: "plugins.epcis.addEvent"})}
+        onClick={this.goTo.bind(this, `/epcis/add-event/${serverID}`)}
+      />
+    );
+    let entryMenuItem = (
+      <MenuItem
+        text={pluginRegistry
+          .getIntl()
+          .formatMessage({id: "plugins.epcis.addEntry"})}
+        onClick={this.goTo.bind(this, `/epcis/add-entry/${serverID}`)}
+      />
+    );
     let children = [
       <SubNode
         depth={this.props.depth}
+        server={server}
+        menuItems={eventMenuItem}
         childrenNodes={[
           <SubNode
             history={this.props.history}
             depth={this.props.depth}
             serverID={serverID}
+            server={server}
+            menuItems={eventMenuItem}
             childrenNodes={[]}>
             Aggregation Events
           </SubNode>,
@@ -85,6 +121,8 @@ class _NavPluginRoot extends Component {
             history={this.props.history}
             depth={this.props.depth}
             serverID={serverID}
+            server={server}
+            menuItems={eventMenuItem}
             childrenNodes={[]}>
             Object Events
           </SubNode>,
@@ -92,6 +130,8 @@ class _NavPluginRoot extends Component {
             history={this.props.history}
             depth={this.props.depth}
             serverID={serverID}
+            server={server}
+            menuItems={eventMenuItem}
             childrenNodes={[]}>
             Transaction Events
           </SubNode>,
@@ -99,6 +139,8 @@ class _NavPluginRoot extends Component {
             history={this.props.history}
             epth={this.props.depth}
             serverID={serverID}
+            server={server}
+            menuItems={eventMenuItem}
             childrenNodes={[]}>
             Transformation Events
           </SubNode>
@@ -109,6 +151,8 @@ class _NavPluginRoot extends Component {
         history={this.props.history}
         depth={this.props.depth}
         serverID={serverID}
+        server={server}
+        menuItems={entryMenuItem}
         childrenNodes={[]}>
         Entries
       </SubNode>,
@@ -116,16 +160,20 @@ class _NavPluginRoot extends Component {
         history={this.props.history}
         depth={this.props.depth}
         serverID={serverID}
+        server={server}
+        menuItems={eventMenuItem}
         childrenNodes={[]}>
         Messages
       </SubNode>
     ];
     return (
       <TreeNode
+        onContextMenu={this.renderContextMenu}
         depth={this.props.depth}
         active={this.state.active}
         history={this.props.history}
         serverID={serverID}
+        server={server}
         childrenNodes={children}>
         EPCIS
       </TreeNode>

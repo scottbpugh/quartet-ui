@@ -21,7 +21,9 @@ export default {
     plugins: {
       epcis: {
         addEvent: "Add Event",
-        editEvent: "Edit Event"
+        editEvent: "Edit Event",
+        addEntry: "Add Entry",
+        editEntry: "Edit Entry"
       }
     }
   },

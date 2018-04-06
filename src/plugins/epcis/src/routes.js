@@ -19,6 +19,7 @@
 import React from "react";
 import {Route} from "react-router";
 import {AddEvent} from "./components/AddEvent";
+import {AddEntry} from "./components/AddEntry";
 
 export default (() => {
   return [
@@ -26,6 +27,11 @@ export default (() => {
       key="addEvent"
       path="/epcis/add-event/:serverID"
       component={AddEvent}
+    />,
+    <Route
+      key="addEntry"
+      path="/epcis/add-entry/:serverID"
+      component={AddEntry}
     />
   ];
 })();
