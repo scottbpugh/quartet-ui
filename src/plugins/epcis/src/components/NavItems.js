@@ -29,6 +29,7 @@ class SubNode extends Component {
     this.state = {active: false};
   }
   goTo = path => {
+    debugger;
     this.props.history.push(path);
   };
   renderContextMenu = () => {
@@ -45,7 +46,7 @@ class SubNode extends Component {
     return (
       <TreeNode
         depth={this.props.depth}
-        path={`/`}
+        path={this.props.path ? this.props.path : null}
         onContextMenu={this.renderContextMenu.bind(this)}
         childrenNodes={this.props.childrenNodes}>
         {this.props.children}
@@ -63,6 +64,7 @@ class _NavPluginRoot extends Component {
     return "EPCISNavRoot";
   }
   goTo = path => {
+    debugger;
     this.props.history.push(path);
   };
   renderContextMenu = () => {
@@ -100,6 +102,14 @@ class _NavPluginRoot extends Component {
           .getIntl()
           .formatMessage({id: "plugins.epcis.addEntry"})}
         onClick={this.goTo.bind(this, `/epcis/add-entry/${serverID}`)}
+      />
+    );
+    let messageMenuItem = (
+      <MenuItem
+        text={pluginRegistry
+          .getIntl()
+          .formatMessage({id: "plugins.epcis.addMessage"})}
+        onClick={this.goTo.bind(this, `/epcis/add-message/${serverID}`)}
       />
     );
     let children = [
@@ -153,6 +163,7 @@ class _NavPluginRoot extends Component {
         serverID={serverID}
         server={server}
         menuItems={entryMenuItem}
+        path={`/epcis/entry-list/${serverID}`}
         childrenNodes={[]}>
         Entries
       </SubNode>,
@@ -161,7 +172,6 @@ class _NavPluginRoot extends Component {
         depth={this.props.depth}
         serverID={serverID}
         server={server}
-        menuItems={eventMenuItem}
         childrenNodes={[]}>
         Messages
       </SubNode>

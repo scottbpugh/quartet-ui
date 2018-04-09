@@ -16,34 +16,3 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from "react";
-import {Route} from "react-router";
-import {AddEvent} from "./components/AddEvent";
-import {AddEntry} from "./components/AddEntry";
-import {AddMessage} from "./components/AddMessage";
-import {EntryList} from "./components/EntryList";
-
-export default (() => {
-  return [
-    <Route
-      key="addEvent"
-      path="/epcis/add-event/:serverID"
-      component={AddEvent}
-    />,
-    <Route
-      key="addEntry"
-      path="/epcis/add-entry/:serverID"
-      component={AddEntry}
-    />,
-    <Route
-      key="addMessage"
-      path="/epcis/add-message/:serverID"
-      component={AddMessage}
-    />,
-    <Route
-      key="entryList"
-      path="/epcis/entry-list/:serverID"
-      component={EntryList}
-    />
-  ];
-})();

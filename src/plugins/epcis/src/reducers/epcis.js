@@ -15,8 +15,53 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import {handleActions} from "redux-actions";
+import {showMessage} from "lib/message";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import actions from "../actions/epcis";
 
 export const initialData = () => {
-  return {};
+  return {
+    servers: {}
+  };
 };
-export default {};
+
+export const loadEntries = server => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.epcis.epcis_entries_list().then(result => {
+          return dispatch({
+            type: actions.loadEntries,
+            payload: {
+              serverID: server.serverID,
+              entries: result.body
+            }
+          });
+        });
+      });
+  };
+};
+
+export default handleActions(
+  {
+    [actions.loadEntries]: (state, action) => {
+      if (!state.servers) {
+        state.servers = {};
+      }
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          [action.payload.serverID]: {
+            ...state.servers[action.payload.serverID],
+            entries: action.payload.entries
+          }
+        }
+      };
+    }
+  },
+  {}
+);
