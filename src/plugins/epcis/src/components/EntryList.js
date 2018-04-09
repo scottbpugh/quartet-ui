@@ -53,7 +53,7 @@ class _EntryList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <Card />
+          <Card>{JSON.stringify(this.props.entries)}</Card>
           <Card />
         </div>
       </RightPanel>
