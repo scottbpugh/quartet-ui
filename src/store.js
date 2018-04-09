@@ -147,7 +147,10 @@ export default function configureStore(coreInitialState) {
   let state = store.getState();
   const pluginRepo = require("plugins/plugins-repo");
   for (let pluginName in state.plugins.plugins) {
-    if (state.plugins.plugins[pluginName].enabled === true) {
+    if (
+      state.plugins.plugins[pluginName].enabled === true &&
+      pluginRepo.default[pluginName]
+    ) {
       let plugin = require("plugins/" +
         pluginRepo.default[pluginName].initPath);
       plugin.enablePlugin();
