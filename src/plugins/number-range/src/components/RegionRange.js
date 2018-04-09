@@ -25,10 +25,9 @@ export default class RegionRange extends Component {
     let start = Number(this.props.start);
     let end = Number(this.props.end);
     let state = Number(this.props.state);
-    let range = end - start;
     let remaining = Number(this.props.remaining);
     if (remaining !== 0 && !remaining) {
-      remaining = range - state;
+      remaining = end - state;
     }
     return (
       <div className="visual">
