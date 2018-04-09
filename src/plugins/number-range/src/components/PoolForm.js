@@ -156,6 +156,12 @@ class _PoolForm extends Component {
         } else if (field.description.type === "boolean") {
           type = "checkbox";
         }
+        if (
+          ["randomizedregion_set", "sequentialregion_set"].includes(field.name)
+        ) {
+          type = "hidden";
+          field.hidden = true;
+        }
         //field.name = field.name.replace(/_/g, "");
         return (
           <Field

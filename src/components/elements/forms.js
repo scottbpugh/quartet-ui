@@ -62,7 +62,8 @@ export const DefaultField = ({
   let inputField = "";
   if (
     //fieldData.description.type === "field" ||
-    fieldData.description.type === "hidden"
+    fieldData.description.type === "hidden" ||
+    fieldData.hidden === true
   ) {
     inputField = (
       <div style={{display: "none"}}>
@@ -121,7 +122,8 @@ export const DefaultField = ({
 
   let helperInstruction = fieldData.description.help_text || "";
   let helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
-  const shouldHide = fieldData.description.type === "hidden";
+  const shouldHide =
+    fieldData.description.type === "hidden" || fieldData.hidden;
   const style = {};
   style.display = shouldHide ? "none" : "block";
   return (
