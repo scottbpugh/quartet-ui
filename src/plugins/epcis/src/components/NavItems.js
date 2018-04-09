@@ -29,7 +29,6 @@ class SubNode extends Component {
     this.state = {active: false};
   }
   goTo = path => {
-    debugger;
     this.props.history.push(path);
   };
   renderContextMenu = () => {
@@ -64,7 +63,6 @@ class _NavPluginRoot extends Component {
     return "EPCISNavRoot";
   }
   goTo = path => {
-    debugger;
     this.props.history.push(path);
   };
   renderContextMenu = () => {
