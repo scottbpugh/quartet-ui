@@ -165,14 +165,6 @@ class _NavPluginRoot extends Component {
         path={`/epcis/entry-list/${serverID}`}
         childrenNodes={[]}>
         Entries
-      </SubNode>,
-      <SubNode
-        history={this.props.history}
-        depth={this.props.depth}
-        serverID={serverID}
-        server={server}
-        childrenNodes={[]}>
-        Messages
       </SubNode>
     ];
     return (
