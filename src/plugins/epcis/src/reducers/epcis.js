@@ -45,6 +45,25 @@ export const loadEntries = server => {
   };
 };
 
+export const loadEvents = server => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.epcis.epcis_events_list().then(result => {
+          return dispatch({
+            type: actions.loadEvents,
+            payload: {
+              serverID: server.serverID,
+              events: result.body
+            }
+          });
+        });
+      });
+  };
+};
+
 export default handleActions(
   {
     [actions.loadEntries]: (state, action) => {
@@ -58,6 +77,21 @@ export default handleActions(
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
             entries: action.payload.entries
+          }
+        }
+      };
+    },
+    [actions.loadEvents]: (state, action) => {
+      if (!state.servers) {
+        state.servers = {};
+      }
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          [action.payload.serverID]: {
+            ...state.servers[action.payload.serverID],
+            events: action.payload.events
           }
         }
       };

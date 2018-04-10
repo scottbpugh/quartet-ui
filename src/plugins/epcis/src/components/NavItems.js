@@ -115,6 +115,7 @@ class _NavPluginRoot extends Component {
         depth={this.props.depth}
         server={server}
         menuItems={eventMenuItem}
+        path={`/epcis/event-list/${serverID}`}
         childrenNodes={[
           <SubNode
             history={this.props.history}

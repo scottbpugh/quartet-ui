@@ -23,6 +23,8 @@ import {loadEntries} from "../reducers/epcis";
 import {Card, Tag, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import {ServerEntries} from "./ServerEntries";
+
 import "./EntryList.css";
 
 class _EntryList extends Component {
@@ -53,8 +55,7 @@ class _EntryList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <Card>{JSON.stringify(this.props.entries)}</Card>
-          <Card />
+          <ServerEntries server={server} entries={entries} />
         </div>
       </RightPanel>
     );

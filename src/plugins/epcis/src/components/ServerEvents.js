@@ -25,16 +25,15 @@ import {
   InputGroup
 } from "@blueprintjs/core";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
-import "./EntryList.css";
 
-class _ServerEntries extends Component {
+class _ServerEvents extends Component {
   constructor(props) {
     super(props);
     this.state = {
       filter: "",
       keywordSearch: "",
-      entries: [],
-      entriesPerPage: 20,
+      events: [],
+      eventsPerPage: 20,
       inputSize: 50
     };
     this.offset = 0;
@@ -48,7 +47,7 @@ class _ServerEntries extends Component {
     this.setState({filter: evt.currentTarget.value}, () => {
       this.offset = 0;
       this.currentPage = 0;
-      this.processEntries(this.props.entries);
+      this.processEvents(this.props.events);
     });
   };
   // search by a field in the rows or all of them.
@@ -56,19 +55,17 @@ class _ServerEntries extends Component {
     this.setState({keywordSearch: evt.currentTarget.value}, () => {
       this.offset = 0;
       this.currentPage = 0;
-      this.processEntries(this.props.entries);
+      this.processEvents(this.props.events);
     });
   };
   componentDidMount() {
-    this.processEntries(this.props.entries || []);
+    this.processEvents(this.props.events || []);
   }
 
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
-    if (
-      JSON.stringify(nextProps.entries) != JSON.stringify(this.props.entries)
-    ) {
-      this.processEntries(nextProps.entries);
+    if (JSON.stringify(nextProps.events) != JSON.stringify(this.props.events)) {
+      this.processEvents(nextProps.events);
     }
   }
 
@@ -76,8 +73,8 @@ class _ServerEntries extends Component {
   next = () => {
     if (this.currentPage + 1 < this.maxPages) {
       this.currentPage += 1;
-      this.offset = this.state.entriesPerPage * this.currentPage;
-      this.processEntries(this.props.entries, true);
+      this.offset = this.state.eventsPerPage * this.currentPage;
+      this.processEvents(this.props.events, true);
     }
   };
 
@@ -85,34 +82,32 @@ class _ServerEntries extends Component {
   previous = () => {
     if (this.currentPage - 1 >= 0) {
       this.currentPage -= 1;
-      this.offset = this.state.entriesPerPage * this.currentPage;
-      this.processEntries(this.props.entries, true);
+      this.offset = this.state.eventsPerPage * this.currentPage;
+      this.processEvents(this.props.events, true);
     }
   };
-  processEntries = (entries, clear = false) => {
+  processEvents = (events, clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
       const searchExp = new RegExp(this.state.keywordSearch, "i");
-      const entriesSubset = entries.filter(entry => {
+      const eventsSubset = events.filter(event => {
         if (this.state.filter && this.state.keywordSearch) {
-          return entry[this.state.filter].match(searchExp);
+          return event[this.state.filter].match(searchExp);
         } else if (this.state.filter === "" && this.state.keywordSearch) {
           // search across all fields
-          return JSON.stringify(entry).match(searchExp);
+          return JSON.stringify(event).match(searchExp);
         }
         return true;
       });
-      this.maxPages = Math.ceil(
-        entriesSubset.length / this.state.entriesPerPage
-      );
-      this.subsetTotal = entriesSubset.length;
+      this.maxPages = Math.ceil(eventsSubset.length / this.state.eventsPerPage);
+      this.subsetTotal = eventsSubset.length;
       this.setState(
         {
-          entries: entriesSubset.slice(
+          events: eventsSubset.slice(
             this.offset,
-            this.offset + this.state.entriesPerPage
+            this.offset + this.state.eventsPerPage
           )
         },
         () => {
@@ -121,23 +116,23 @@ class _ServerEntries extends Component {
       );
     }, clear ? 0 : 250);
   };
-  setEntriesPerPage = evt => {
+  setEventsPerPage = evt => {
     this.currentPage = 0;
     this.offset = 0;
-    let newEntriesPerPage = Number(evt.currentTarget.value) | "";
+    let newEventsPerPage = Number(evt.currentTarget.value) | "";
     this.setState(
       {
-        entriesPerPage: newEntriesPerPage,
+        eventsPerPage: newEventsPerPage,
         inputSize: 10 * evt.currentTarget.value.length + 40
       },
       () => {
-        this.processEntries(this.props.entries);
+        this.processEvents(this.props.events);
       }
     );
   };
   render() {
     let serverName = this.props.server.serverSettingName;
-    const {entries} = this.state;
+    const {events} = this.state;
     return (
       <Card className="pt-elevation-4">
         <h5>
@@ -147,7 +142,7 @@ class _ServerEntries extends Component {
               {this.currentPage + 1}/{this.maxPages}
             </Tag>
           </div>
-          {serverName} Entries
+          {serverName} Events
         </h5>
         <div>
           <div className="table-control">
@@ -168,15 +163,15 @@ class _ServerEntries extends Component {
               <div>
                 <input
                   className="pt-input"
-                  placeholder="entries"
-                  name="entryPerPage"
+                  placeholder="events"
+                  name="eventPerPage"
                   dir="auto"
                   style={{width: this.state.inputSize, textAlign: "center"}}
-                  value={this.state.entriesPerPage}
-                  onChange={this.setEntriesPerPage}
+                  value={this.state.eventsPerPage}
+                  onChange={this.setEventsPerPage}
                 />
                 {"  "}
-                entries per page.
+                events per page.
               </div>
             </div>
             <div>
@@ -196,48 +191,85 @@ class _ServerEntries extends Component {
               </ControlGroup>
               <div className="label-info-display">
                 <span>
-                  Showing {this.subsetTotal}/{this.props.entries
-                    ? this.props.entries.length
+                  Showing {this.subsetTotal}/{this.props.events
+                    ? this.props.events.length
                     : 0}{" "}
-                  entries total.
+                  events total.
                 </span>
               </div>
             </div>
           </div>
-          <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
-            <thead>
-              <tr>
-                <th>
-                  <FormattedMessage
-                    id="plugins.epcis.entryIdentifier"
-                    defaultMessage="Entry Identifier"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.epcis.entryUUID"
-                    defaultMessage="Entry UUID"
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(entries) && entries.length > 0
-                ? entries.map(entry => {
-                    return (
-                      <tr key={entry.id}>
-                        <td>{entry.identifier}</td>
-                        <td>{entry.id}</td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </tbody>
-          </table>
+          <div className="overflowed-table">
+            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
+              <thead>
+                <tr>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.eventTime"
+                      defaultMessage="Event Time"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.recordTime"
+                      defaultMessage="Record Time"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.eventUUID"
+                      defaultMessage="Event UUID"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.bizStep"
+                      defaultMessage="Business Step"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.disposition"
+                      defaultMessage="Disposition"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.action"
+                      defaultMessage="Action"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.readPoint"
+                      defaultMessage="Read Point"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(events) && events.length > 0
+                  ? events.map(event => {
+                      return (
+                        <tr key={event.id}>
+                          <td>{event.event_time}</td>
+                          <td>{event.record_time}</td>
+                          <td>{event.id}</td>
+                          <td>{event.biz_step}</td>
+                          <td>{event.disposition}</td>
+                          <td>{event.action}</td>
+                          <td>{event.read_point}</td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Card>
     );
   }
 }
 
-export const ServerEntries = _ServerEntries;
+export const ServerEvents = _ServerEvents;

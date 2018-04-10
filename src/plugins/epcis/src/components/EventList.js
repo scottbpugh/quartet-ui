@@ -16,3 +16,58 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {RightPanel} from "components/layouts/Panels";
+import {loadEvents} from "../reducers/epcis";
+import {Card, Tag, Intent} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {ServerEvents} from "./ServerEvents";
+
+class _EventList extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchEvents = null;
+  }
+  componentDidMount() {
+    const {server} = this.props;
+    this.props.loadEvents(pluginRegistry.getServer(server.serverID));
+    this.fetchEvents = setInterval(() => {
+      this.props.loadEvents(pluginRegistry.getServer(server.serverID));
+    }, 5000);
+    this.props.loadEvents(pluginRegistry.getServer(server.serverID));
+  }
+  componentWillUnmount() {
+    clearInterval(this.fetchEvents);
+    this.fetchEvents = null;
+  }
+  render() {
+    let {server, events} = this.props;
+    return (
+      <RightPanel
+        title={
+          <FormattedMessage
+            id="plugins.epcis.eventList"
+            defaultMessage="Events"
+          />
+        }>
+        <div className="large-cards-container full-large">
+          <ServerEvents server={server} events={events} />
+        </div>
+      </RightPanel>
+    );
+  }
+}
+
+export const EventList = connect(
+  (state, ownProps) => {
+    return {
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      events: state.epcis.servers
+        ? state.epcis.servers[ownProps.match.params.serverID].events
+        : []
+    };
+  },
+  {loadEvents}
+)(_EventList);

@@ -22,6 +22,7 @@ import {AddEvent} from "./components/AddEvent";
 import {AddEntry} from "./components/AddEntry";
 import {AddMessage} from "./components/AddMessage";
 import {EntryList} from "./components/EntryList";
+import {EventList} from "./components/EventList";
 
 export default (() => {
   return [
@@ -44,6 +45,11 @@ export default (() => {
       key="entryList"
       path="/epcis/entry-list/:serverID"
       component={EntryList}
+    />,
+    <Route
+      key="eventList"
+      path="/epcis/event-list/:serverID"
+      component={EventList}
     />
   ];
 })();
