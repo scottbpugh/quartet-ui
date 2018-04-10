@@ -48,6 +48,11 @@ export default (() => {
     />,
     <Route
       key="eventList"
+      path="/epcis/event-list/:serverID/type/:eventType"
+      component={EventList}
+    />,
+    <Route
+      key="eventList"
       path="/epcis/event-list/:serverID"
       component={EventList}
     />

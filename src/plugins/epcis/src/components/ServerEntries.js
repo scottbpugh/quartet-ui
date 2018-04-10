@@ -184,8 +184,8 @@ class _ServerEntries extends Component {
                 <div className="pt-select">
                   <select value={this.state.filter} onChange={this.filterBy}>
                     <option value="">Search</option>
-                    <option value="name">Task Name</option>
-                    <option value="status">Status</option>
+                    <option value="identifier">Identifier</option>
+                    <option value="id">UUID</option>
                   </select>
                 </div>
                 <InputGroup

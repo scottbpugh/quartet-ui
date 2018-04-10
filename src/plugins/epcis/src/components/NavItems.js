@@ -123,6 +123,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            path={`/epcis/event-list/${serverID}/type/ag`}
             childrenNodes={[]}>
             Aggregation Events
           </SubNode>,
@@ -132,6 +133,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            path={`/epcis/event-list/${serverID}/type/ob`}
             childrenNodes={[]}>
             Object Events
           </SubNode>,
@@ -141,6 +143,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            path={`/epcis/event-list/${serverID}/type/tx`}
             childrenNodes={[]}>
             Transaction Events
           </SubNode>,
@@ -150,6 +153,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            path={`/epcis/event-list/${serverID}/type/tf`}
             childrenNodes={[]}>
             Transformation Events
           </SubNode>

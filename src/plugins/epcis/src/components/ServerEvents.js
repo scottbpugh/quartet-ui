@@ -25,6 +25,7 @@ import {
   InputGroup
 } from "@blueprintjs/core";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {withRouter} from "react-router";
 
 class _ServerEvents extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class _ServerEvents extends Component {
     this.currentPage = 0;
     this.debounced = null;
     this.maxPages = 0;
+    this.eventType = null;
   }
 
   // filter by a field in the rows.
@@ -60,6 +62,10 @@ class _ServerEvents extends Component {
   };
   componentDidMount() {
     this.processEvents(this.props.events || []);
+    debugger;
+    if (this.props.match.params.eventType) {
+      this.eventType = this.props.match.params.eventType;
+    }
   }
 
   // refresh the lists, keeping the search filters.
@@ -92,7 +98,7 @@ class _ServerEvents extends Component {
     }
     this.debounced = setTimeout(() => {
       const searchExp = new RegExp(this.state.keywordSearch, "i");
-      const eventsSubset = events.filter(event => {
+      let eventsSubset = events.filter(event => {
         if (this.state.filter && this.state.keywordSearch) {
           return event[this.state.filter].match(searchExp);
         } else if (this.state.filter === "" && this.state.keywordSearch) {
@@ -101,6 +107,11 @@ class _ServerEvents extends Component {
         }
         return true;
       });
+      if (this.eventType) {
+        eventsSubset.filter(event => {
+          return event.type === this.eventType;
+        });
+      }
       this.maxPages = Math.ceil(eventsSubset.length / this.state.eventsPerPage);
       this.subsetTotal = eventsSubset.length;
       this.setState(
@@ -129,6 +140,38 @@ class _ServerEvents extends Component {
         this.processEvents(this.props.events);
       }
     );
+  };
+  getEventType = type => {
+    switch (type) {
+      case "ag":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.aggregationEvent"
+            defaultMessage="Aggregation Event"
+          />
+        );
+      case "ob":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.objectEvent"
+            defaultMessage="Object Event"
+          />
+        );
+      case "tx":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.transactionEvent"
+            defaultMessage="Transaction Event"
+          />
+        );
+      case "tf":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.transformationEvent"
+            defaultMessage="Transformation Event"
+          />
+        );
+    }
   };
   render() {
     let serverName = this.props.server.serverSettingName;
@@ -179,8 +222,11 @@ class _ServerEvents extends Component {
                 <div className="pt-select">
                   <select value={this.state.filter} onChange={this.filterBy}>
                     <option value="">Search</option>
-                    <option value="name">Task Name</option>
-                    <option value="status">Status</option>
+                    <option value="id">UUID</option>
+                    <option value="biz_step">Business Step</option>
+                    <option value="disposition">Disposition</option>
+                    <option value="action">Action</option>
+                    <option value="read_point">Read Point</option>
                   </select>
                 </div>
                 <InputGroup
@@ -223,6 +269,12 @@ class _ServerEvents extends Component {
                   </th>
                   <th>
                     <FormattedMessage
+                      id="plugins.epcis.type"
+                      defaultMessage="Event Type"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
                       id="plugins.epcis.bizStep"
                       defaultMessage="Business Step"
                     />
@@ -252,9 +304,17 @@ class _ServerEvents extends Component {
                   ? events.map(event => {
                       return (
                         <tr key={event.id}>
-                          <td>{event.event_time}</td>
-                          <td>{event.record_time}</td>
+                          <td>
+                            <FormattedDate value={event.event_time} />{" "}
+                            <FormattedTime value={event.event_time} />
+                          </td>
+                          <td>
+                            {" "}
+                            <FormattedDate value={event.record_time} />{" "}
+                            <FormattedTime value={event.record_time} />
+                          </td>
                           <td>{event.id}</td>
+                          <td>{this.getEventType(event.type)}</td>
                           <td>{event.biz_step}</td>
                           <td>{event.disposition}</td>
                           <td>{event.action}</td>
@@ -272,4 +332,4 @@ class _ServerEvents extends Component {
   }
 }
 
-export const ServerEvents = _ServerEvents;
+export const ServerEvents = withRouter(_ServerEvents);
