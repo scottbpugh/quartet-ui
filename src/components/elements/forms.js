@@ -49,7 +49,8 @@ export const DefaultField = ({
   input,
   fieldData,
   type,
-  meta: {touched, error, warning}
+  meta: {touched, error, warning},
+  children
 }) => {
   let intent = "";
   let intentClass = "";
@@ -60,11 +61,12 @@ export const DefaultField = ({
   let inputField = "";
   if (
     //fieldData.description.type === "field" ||
-    fieldData.description.type === "hidden"
+    fieldData.description.type === "hidden" ||
+    fieldData.hidden === true
   ) {
     inputField = (
       <div style={{display: "none"}}>
-        <label className="pt-control pt-switch">
+        <label className="pt-control">
           <input
             {...input}
             type="hidden"
@@ -96,6 +98,14 @@ export const DefaultField = ({
         {fieldData.description.label}
       </label>
     );
+  } else if (fieldData.description.type === "choice") {
+    inputField = (
+      <div className="pt-select">
+        <select {...input} name={fieldData.name} type="select" width={300}>
+          {children}
+        </select>
+      </div>
+    );
   } else {
     inputField = (
       <input
@@ -110,8 +120,9 @@ export const DefaultField = ({
   }
 
   let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error ? `${error} ${helperInstruction}` : helperInstruction;
-  const shouldHide = fieldData.description.type === "hidden";
+  let helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
+  const shouldHide =
+    fieldData.description.type === "hidden" || fieldData.hidden;
   const style = {};
   style.display = shouldHide ? "none" : "block";
   return (

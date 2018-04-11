@@ -146,6 +146,10 @@ class _RandomizedRegionForm extends Component {
         } else if (field.description.type === "boolean") {
           type = "checkbox";
         }
+        if (field.name === "pool") {
+          type = "hidden";
+          field.hidden = true;
+        }
         //field.name = field.name.replace(/_/g, "");
         return (
           <Field
@@ -194,5 +198,3 @@ const RandomizedRegionForm = reduxForm({
 export default connect(state => ({nr: state.numberrange.servers}), {loadPools})(
   withRouter(RandomizedRegionForm)
 );
-
-

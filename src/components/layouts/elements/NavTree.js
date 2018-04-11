@@ -60,13 +60,24 @@ class SubTree extends Component {
 class _TreeNode extends Component {
   constructor(props) {
     super(props);
-    this.state = {childrenNodes: [], collapsed: true, persistent: false};
+    this.state = {
+      childrenNodes: [],
+      collapsed: true,
+      persistent: false,
+      active: false
+    };
   }
   toggleChildren = evt => {
     evt.stopPropagation();
     evt.preventDefault();
     this.setState({collapsed: !this.state.collapsed});
   };
+  componentDidMount() {
+    this.activateNode(this.props.currentPath, this.props.path);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath, nextProps.path);
+  }
   go = e => {
     e.stopPropagation(); // prevent parent go to be triggered.
     e.preventDefault();
@@ -77,12 +88,17 @@ class _TreeNode extends Component {
       this.props.history.push(this.props.path);
     }
   };
+  activateNode(currentPath, path) {
+    if (path) {
+      let regexp = new RegExp(path);
+      this.setState({active: regexp.test(currentPath)});
+    }
+  }
   /**
    * renderContextMenu - Use onContextMenu={} to display a menu.
    *
    * @return {type} Description
    */
-
   renderContextMenu(e) {
     if ("onContextMenu" in this.props) {
       e.preventDefault();
@@ -105,7 +121,7 @@ class _TreeNode extends Component {
         <div
           className={classNames({
             "tree-node-content": true,
-            "tree-node-content-active": this.props.active || false,
+            "tree-node-content-active": this.props.active || this.state.active,
             [`tree-node-depth-${this.props.depth}`]: true
           })}>
           <a onClick={this.toggleChildren}>
@@ -125,7 +141,7 @@ class _TreeNode extends Component {
             className={classNames({
               [`tree-node-${this.props.nodeType}`]: true,
               "tree-node-link": true,
-              "tree-node-active": this.props.active || false
+              "tree-node-active": this.props.active || this.state.active
             })}>
             <span className="tree-node-label">{this.props.children}</span>
           </a>
@@ -137,7 +153,11 @@ class _TreeNode extends Component {
 }
 
 ContextMenuTarget(_TreeNode);
-export const TreeNode = withRouter(_TreeNode);
+export const TreeNode = connect((state, ownProps) => {
+  return {
+    currentPath: state.layout.currentPath
+  };
+}, {})(withRouter(_TreeNode));
 
 class Tree extends Component {
   render() {

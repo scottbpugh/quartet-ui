@@ -20,13 +20,12 @@ import React, {Component} from "react";
 import {showMessage} from "lib/message";
 import {DefaultField} from "components/elements/forms";
 import {Field, SubmissionError} from "redux-form";
-import {FormattedMessage} from "react-intl";
 import {getFormInfo} from "lib/auth-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {Callout, Intent} from "@blueprintjs/core";
 
-class _InlineForm extends Component {
+class _PageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +40,6 @@ class _InlineForm extends Component {
   submit = postValues => {
     let {
       server,
-      edit,
       operationId,
       prepopulatedValues,
       objectName,
@@ -93,6 +91,13 @@ class _InlineForm extends Component {
             // we have an object with validation errors.
             throw new SubmissionError(error.response.body);
           }
+          if (error.message) {
+            showMessage({
+              id: "app.common.mainError",
+              values: {msg: error.message},
+              type: "error"
+            });
+          }
         });
     });
   };
@@ -132,6 +137,7 @@ class _InlineForm extends Component {
         ) {
           type = "password";
         }
+
         let filtered = [];
 
         if (prepopulatedValues) {
@@ -141,6 +147,30 @@ class _InlineForm extends Component {
         }
 
         if (!filtered.includes(field.name)) {
+          if (field.description.type === "choice") {
+            return (
+              <Field
+                key={field.name}
+                name={field.name}
+                type="select"
+                component={DefaultField}
+                width={300}
+                fieldData={field}
+                validate={field.validate}>
+                <option value="" />
+                {field.description.type === "choice"
+                  ? field.description.choices.map(choice => {
+                      return (
+                        <option value={choice.value}>
+                          {choice.display_name}
+                        </option>
+                      );
+                    })
+                  : null}
+              </Field>
+            );
+          }
+
           return (
             <Field
               key={field.name}
@@ -188,4 +218,4 @@ export default connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers
   };
-}, {})(withRouter(_InlineForm));
+}, {})(withRouter(_PageForm));

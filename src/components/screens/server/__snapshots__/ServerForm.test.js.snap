@@ -71,7 +71,7 @@ exports[`renders correctly 1`] = `
           }
         >
           <label
-            className="pt-control pt-switch"
+            className="pt-control"
           >
             <input
               className=""
