@@ -19,7 +19,6 @@ import React from "react";
 import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
-import {Field} from "redux-form";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 

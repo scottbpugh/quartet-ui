@@ -20,11 +20,10 @@ import React, {Component} from "react";
 import {showMessage} from "lib/message";
 import {DefaultField} from "components/elements/forms";
 import {Field, SubmissionError} from "redux-form";
-import {FormattedMessage} from "react-intl";
 import {getFormInfo} from "lib/auth-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {FormGroup, Callout, Intent} from "@blueprintjs/core";
+import {Callout, Intent} from "@blueprintjs/core";
 
 class _PageForm extends Component {
   constructor(props) {
@@ -41,7 +40,6 @@ class _PageForm extends Component {
   submit = postValues => {
     let {
       server,
-      edit,
       operationId,
       prepopulatedValues,
       objectName,

@@ -72,7 +72,7 @@ export const getRuleParamsByRule = (server, ruleID) => {
           if (result.ok) {
             // filter result.
             return result.body.filter(param => {
-              if (param.rule == ruleID) {
+              if (param.rule === ruleID) {
                 return true;
               }
               return false;

@@ -16,14 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {
-  Card,
-  Tag,
-  Intent,
-  ControlGroup,
-  Button,
-  InputGroup
-} from "@blueprintjs/core";
+import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
 import {withRouter} from "react-router";
 
@@ -69,7 +62,9 @@ class _ServerEvents extends Component {
 
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
-    if (JSON.stringify(nextProps.events) != JSON.stringify(this.props.events)) {
+    if (
+      JSON.stringify(nextProps.events) !== JSON.stringify(this.props.events)
+    ) {
       this.processEvents(nextProps.events);
     }
   }
@@ -171,6 +166,10 @@ class _ServerEvents extends Component {
             id="plugins.epcis.transformationEvent"
             defaultMessage="Transformation Event"
           />
+        );
+      default:
+        return (
+          <FormattedMessage id="plugins.epcis.event" defaultMessage="Event" />
         );
     }
   };

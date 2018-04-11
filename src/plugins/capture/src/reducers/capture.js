@@ -59,8 +59,9 @@ export const loadRules = server => {
                     }
                     return false;
                   });
+                  return rule;
                 });
-                dispatch({
+                return dispatch({
                   type: actions.loadRules,
                   payload: {
                     serverID: server.serverID,

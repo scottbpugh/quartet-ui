@@ -24,14 +24,11 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import {Menu, MenuDivider, MenuItem} from "@blueprintjs/core";
 
 class SubNode extends Component {
-  constructor(props) {
-    super(props);
-  }
   goTo = path => {
     this.props.history.push(path);
   };
   renderContextMenu = () => {
-    const {server, serverID, menuItems} = this.props;
+    const {server, menuItems} = this.props;
     return (
       <Menu>
         <MenuDivider title={`${server.serverSettingName}`} />
@@ -77,7 +74,7 @@ class _NavPluginRoot extends Component {
     this.setState({active: regexp.test(currentPath)});
   }
   renderContextMenu = () => {
-    const {server, serverID, menuItems} = this.props;
+    const {server, serverID} = this.props;
     return (
       <Menu>
         <MenuDivider title={`${server.serverSettingName}`} />
@@ -113,14 +110,7 @@ class _NavPluginRoot extends Component {
         onClick={this.goTo.bind(this, `/epcis/add-entry/${serverID}`)}
       />
     );
-    let messageMenuItem = (
-      <MenuItem
-        text={pluginRegistry
-          .getIntl()
-          .formatMessage({id: "plugins.epcis.addMessage"})}
-        onClick={this.goTo.bind(this, `/epcis/add-message/${serverID}`)}
-      />
-    );
+
     let children = [
       <SubNode
         depth={this.props.depth}

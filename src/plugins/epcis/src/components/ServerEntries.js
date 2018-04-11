@@ -16,15 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {
-  Card,
-  Tag,
-  Intent,
-  ControlGroup,
-  Button,
-  InputGroup
-} from "@blueprintjs/core";
-import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 import "./EntryList.css";
 
 class _ServerEntries extends Component {
@@ -66,7 +59,7 @@ class _ServerEntries extends Component {
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(nextProps.entries) != JSON.stringify(this.props.entries)
+      JSON.stringify(nextProps.entries) !== JSON.stringify(this.props.entries)
     ) {
       this.processEntries(nextProps.entries);
     }
