@@ -28,9 +28,19 @@ class SubNode extends Component {
     super(props);
     this.state = {active: false};
   }
+  componentDidMount() {
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
   goTo = path => {
     this.props.history.push(path);
   };
+  activateNode(currentPath) {
+    let regexp = new RegExp(this.props.path);
+    this.setState({active: regexp.test(currentPath)});
+  }
   renderContextMenu = () => {
     const {server, serverID, menuItems} = this.props;
     return (
@@ -44,6 +54,7 @@ class SubNode extends Component {
   render() {
     return (
       <TreeNode
+        active={this.state.active}
         depth={this.props.depth}
         path={this.props.path ? this.props.path : null}
         onContextMenu={this.renderContextMenu.bind(this)}
@@ -85,7 +96,7 @@ class _NavPluginRoot extends Component {
     );
   };
   render() {
-    const {serverID, server} = this.props;
+    const {serverID, server, currentPath} = this.props;
     let eventMenuItem = (
       <MenuItem
         text={pluginRegistry
@@ -116,6 +127,7 @@ class _NavPluginRoot extends Component {
         server={server}
         menuItems={eventMenuItem}
         path={`/epcis/event-list/${serverID}`}
+        currentPath={currentPath}
         childrenNodes={[
           <SubNode
             history={this.props.history}
@@ -123,6 +135,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/ag`}
             childrenNodes={[]}>
             Aggregation Events
@@ -133,6 +146,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/ob`}
             childrenNodes={[]}>
             Object Events
@@ -143,6 +157,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/tx`}
             childrenNodes={[]}>
             Transaction Events
@@ -153,6 +168,7 @@ class _NavPluginRoot extends Component {
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
+            currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/tf`}
             childrenNodes={[]}>
             Transformation Events
@@ -165,6 +181,7 @@ class _NavPluginRoot extends Component {
         depth={this.props.depth}
         serverID={serverID}
         server={server}
+        currentPath={currentPath}
         menuItems={entryMenuItem}
         path={`/epcis/entry-list/${serverID}`}
         childrenNodes={[]}>
