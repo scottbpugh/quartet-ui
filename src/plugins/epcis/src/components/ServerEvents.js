@@ -62,7 +62,6 @@ class _ServerEvents extends Component {
   };
   componentDidMount() {
     this.processEvents(this.props.events || []);
-    debugger;
     if (this.props.match.params.eventType) {
       this.eventType = this.props.match.params.eventType;
     }
@@ -108,7 +107,9 @@ class _ServerEvents extends Component {
         return true;
       });
       if (this.eventType) {
-        eventsSubset.filter(event => {
+        // filter further by event type.
+        // should do this from backend eventually through the request.
+        eventsSubset = eventsSubset.filter(event => {
           return event.type === this.eventType;
         });
       }
