@@ -26,21 +26,10 @@ import {Menu, MenuDivider, MenuItem} from "@blueprintjs/core";
 class SubNode extends Component {
   constructor(props) {
     super(props);
-    this.state = {active: false};
-  }
-  componentDidMount() {
-    this.activateNode(this.props.currentPath);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
   }
   goTo = path => {
     this.props.history.push(path);
   };
-  activateNode(currentPath) {
-    let regexp = new RegExp(this.props.path);
-    this.setState({active: regexp.test(currentPath)});
-  }
   renderContextMenu = () => {
     const {server, serverID, menuItems} = this.props;
     return (
@@ -54,7 +43,6 @@ class SubNode extends Component {
   render() {
     return (
       <TreeNode
-        active={this.state.active}
         depth={this.props.depth}
         path={this.props.path ? this.props.path : null}
         onContextMenu={this.renderContextMenu.bind(this)}
@@ -70,12 +58,24 @@ class _NavPluginRoot extends Component {
     super(props);
     this.state = {active: false};
   }
+  componentDidMount() {
+    this.activateNode(this.props.currentPath);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.activateNode(nextProps.currentPath);
+  }
   static get PLUGIN_COMPONENT_NAME() {
     return "EPCISNavRoot";
   }
   goTo = path => {
     this.props.history.push(path);
   };
+  activateNode(currentPath) {
+    // set active state if in current path.
+    const {serverID} = this.props;
+    let regexp = new RegExp(`/epcis.*/${serverID}`);
+    this.setState({active: regexp.test(currentPath)});
+  }
   renderContextMenu = () => {
     const {server, serverID, menuItems} = this.props;
     return (
@@ -192,8 +192,8 @@ class _NavPluginRoot extends Component {
       <TreeNode
         onContextMenu={this.renderContextMenu}
         depth={this.props.depth}
-        active={this.state.active}
         history={this.props.history}
+        active={this.state.active}
         serverID={serverID}
         server={server}
         childrenNodes={children}>
