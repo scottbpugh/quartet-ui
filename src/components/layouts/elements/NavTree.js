@@ -141,7 +141,7 @@ class _TreeNode extends Component {
             className={classNames({
               [`tree-node-${this.props.nodeType}`]: true,
               "tree-node-link": true,
-              "tree-node-active": this.props.active || false
+              "tree-node-active": this.props.active || this.state.active
             })}>
             <span className="tree-node-label">{this.props.children}</span>
           </a>
