@@ -226,7 +226,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 /* Take whole right panel (less margin than large.) */
 .full-large > * {
-  width:90%;
+  width:98%;
 }
 
 /* Style for table */
@@ -236,4 +236,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .cards-container table td {
   overflow:hidden;
+}
+
+.overflowed-table {
+  overflow-x:scroll;
 }
