@@ -16,7 +16,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
+import {
+  Card,
+  Tag,
+  ControlGroup,
+  Button,
+  InputGroup,
+  Intent,
+  Icon
+} from "@blueprintjs/core";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
 import {withRouter} from "react-router";
 
@@ -68,7 +76,9 @@ class _ServerEvents extends Component {
       this.processEvents(nextProps.events);
     }
   }
-
+  goTo = path => {
+    this.props.history.push(path);
+  };
   // go to next page if possible.
   next = () => {
     if (this.currentPage + 1 < this.maxPages) {
@@ -175,6 +185,7 @@ class _ServerEvents extends Component {
   };
   render() {
     let serverName = this.props.server.serverSettingName;
+    let serverID = this.props.server.serverID;
     const {events} = this.state;
     return (
       <Card className="pt-elevation-4">
@@ -251,6 +262,12 @@ class _ServerEvents extends Component {
                 <tr>
                   <th>
                     <FormattedMessage
+                      id="plugins.epcis.detail"
+                      defaultMessage="Detail"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
                       id="plugins.epcis.eventTime"
                       defaultMessage="Event Time"
                     />
@@ -303,7 +320,23 @@ class _ServerEvents extends Component {
                 {Array.isArray(events) && events.length > 0
                   ? events.map(event => {
                       return (
-                        <tr key={event.id}>
+                        <tr
+                          onClick={this.goTo.bind(
+                            this,
+                            `/epcis/event-detail/${serverID}/uuid/${event.id}`
+                          )}
+                          key={event.id}>
+                          <td
+                            style={{
+                              align: "center",
+                              textAlign: "center",
+                              verticalAlign: "middle"
+                            }}>
+                            <Icon
+                              intent={Intent.PRIMARY}
+                              iconName="search-template"
+                            />
+                          </td>
                           <td>
                             <FormattedDate value={event.event_time} />{" "}
                             <FormattedTime value={event.event_time} />

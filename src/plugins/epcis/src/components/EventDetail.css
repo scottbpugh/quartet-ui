@@ -1,0 +1,79 @@
+/* Copyright (c) 2018 SerialLab Corp.
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+.w4-container > * {
+  width:80%;
+  margin:22px 0;
+}
+.question-left {
+  width:30%;
+  min-width:200px;
+  min-height:100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:bold;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  color:#FFF;
+}
+.when, .where, .what, .why {
+  display:flex;
+  overflow:hidden;
+}
+.what .question-left {
+  background:#1F4B99;
+}
+.where  .question-left {
+  background:#728C23;
+}
+.when .question-left {
+  background:#D99E0B;
+}
+.why .question-left {
+  background: #B83211;
+}
+
+.detail-table-container {
+  width: 100%;
+  box-shadow: -9px 0px 5px 0px rgba(0,0,0,0.4);
+}
+.detail-table-container table td {
+  vertical-align: middle;
+}
+
+.w4-list {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.w4-list li {
+  padding:5px;
+}
+
+.float li {
+  float:left;
+}
+
+.event-detail-type {
+  font-size:15px;
+  font-weight:bold;
+}

@@ -220,6 +220,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   min-width:60%;
 }
 
+.no-header > * {
+  padding:0 !important;
+}
+
 .large-cards-container .pt-table {
   width:100%;
 }
