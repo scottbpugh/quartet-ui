@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .w4-container > * {
   width:80%;
+  margin:22px 0;
 }
 .question-left {
   width:30%;
@@ -31,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   font-weight:bold;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  color:#FFF;
 }
 .when, .where, .what, .why {
   display:flex;
@@ -48,7 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .why .question-left {
   background: #B83211;
 }
-
 
 .detail-table-container {
   width: 100%;
@@ -69,4 +70,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .float li {
   float:left;
+}
+
+.event-detail-type {
+  font-size:15px;
+  font-weight:bold;
 }

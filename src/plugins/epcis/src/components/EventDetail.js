@@ -102,7 +102,17 @@ class _EventDetail extends Component {
                     <tbody>
                       <tr>
                         <td>Event Type</td>
-                        <td>{this.getObjectTypeDisplay(objectType)}</td>
+                        <td>
+                          <span className="event-detail-type">
+                            {this.getObjectTypeDisplay(objectType)}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Event ID</td>
+                        <td>
+                          <Tag>{currentEntry[objectType].eventID}</Tag>
+                        </td>
                       </tr>
                       <tr>
                         <td>EPC List</td>
@@ -151,7 +161,7 @@ class _EventDetail extends Component {
               <div className="when">
                 <div className="question-left">When</div>
                 <div className="detail-table-container" style={{width: "100%"}}>
-                  <table className="pt-table pt-bordered pt-striped pt-interactive">
+                  <table className="pt-table pt-bordered pt-striped">
                     <tbody>
                       <tr>
                         <td>Event Time</td>
@@ -265,7 +275,33 @@ class _EventDetail extends Component {
             <Card className="pt-elevation-4">
               <div className="why">
                 <div className="question-left">Why</div>
-                <div className="detail-table-container" />
+                <div className="detail-table-container">
+                  <table className="pt-table pt-bordered pt-striped">
+                    <tbody>
+                      <tr>
+                        <td>Business Step</td>
+                        <td>
+                          <Tag>{currentEntry[objectType].bizStep}</Tag>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>Disposition</td>
+                        <td>
+                          <Tag>{currentEntry[objectType].disposition}</Tag>
+                        </td>
+                      </tr>
+                      <tr />
+                      <tr>
+                        <td>Action</td>
+                        <td>
+                          <Tag>{currentEntry[objectType].action}</Tag>
+                        </td>
+                      </tr>
+                      <tr />
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </Card>
           </div>
