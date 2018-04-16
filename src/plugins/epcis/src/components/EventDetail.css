@@ -83,10 +83,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   max-height: 400px;
 }
 
+.epc-item {
+  background:#D4AD5A !important;
+}
+
 .quantity-detail {
-  background:#bfccd6;
-  margin:2px;
-  border-radius:5px;
+  background:#bfccd6 !important;
+  margin:5px 2px 5px 0px;
+  border-radius:3px;
   padding:10px;
   list-style:none;
   color:#222;

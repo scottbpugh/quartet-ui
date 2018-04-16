@@ -119,7 +119,7 @@ class _EventDetail extends Component {
                         <tr>
                           <td>Parent ID</td>
                           <td>
-                            <Tag intent={Intent.PRIMARY}>
+                            <Tag className="epc-item">
                               {currentEntry[objectType].parentID}
                             </Tag>
                           </td>
@@ -134,7 +134,7 @@ class _EventDetail extends Component {
                                 {currentEntry[objectType].epc_list.map(epc => {
                                   return (
                                     <li>
-                                      <Tag intent={Intent.PRIMARY}>{epc}</Tag>
+                                      <Tag className="epc-item">{epc}</Tag>
                                     </li>
                                   );
                                 })}
@@ -153,7 +153,7 @@ class _EventDetail extends Component {
                                   epc => {
                                     return (
                                       <li>
-                                        <Tag intent={Intent.PRIMARY}>{epc}</Tag>
+                                        <Tag className="epc-item">{epc}</Tag>
                                       </li>
                                     );
                                   }
@@ -165,7 +165,7 @@ class _EventDetail extends Component {
                       ) : null}
                       {currentEntry[objectType].outputEPCList ? (
                         <tr>
-                          <td>Input EPC List</td>
+                          <td>Output EPC List</td>
                           <td>
                             <div className="scrollable-list-container">
                               <ul className="w4-list float">
@@ -173,7 +173,7 @@ class _EventDetail extends Component {
                                   epc => {
                                     return (
                                       <li>
-                                        <Tag intent={Intent.PRIMARY}>{epc}</Tag>
+                                        <Tag className="epc-item">{epc}</Tag>
                                       </li>
                                     );
                                   }
@@ -308,9 +308,7 @@ class _EventDetail extends Component {
                                   item => {
                                     return (
                                       <li>
-                                        <Tag intent={Intent.PRIMARY}>
-                                          {item}
-                                        </Tag>
+                                        <Tag className="epc-item">{item}</Tag>
                                       </li>
                                     );
                                   }
@@ -332,7 +330,7 @@ class _EventDetail extends Component {
                                   return (
                                     <li>
                                       <Tag>{key}</Tag>:{" "}
-                                      <Tag intent={Intent.PRIMARY}>
+                                      <Tag className="epc-item">
                                         {
                                           currentEntry[objectType]
                                             .bizTransactionList[key]
@@ -396,7 +394,7 @@ class _EventDetail extends Component {
                       <tr>
                         <td>Business Location</td>
                         <td>
-                          <Tag intent={Intent.PRIMARY}>
+                          <Tag className="epc-item">
                             {currentEntry[objectType].bizLocation}
                           </Tag>
                         </td>
@@ -404,7 +402,7 @@ class _EventDetail extends Component {
                       <tr>
                         <td>Read Point</td>
                         <td>
-                          <Tag intent={Intent.PRIMARY}>
+                          <Tag className="epc-item">
                             {currentEntry[objectType].readPoint}
                           </Tag>
                         </td>
@@ -421,7 +419,7 @@ class _EventDetail extends Component {
                                   return (
                                     <li>
                                       <Tag>{key}</Tag>:{" "}
-                                      <Tag intent={Intent.PRIMARY}>
+                                      <Tag className="epc-item">
                                         {
                                           currentEntry[objectType].sourceList[
                                             key
@@ -447,7 +445,7 @@ class _EventDetail extends Component {
                                   return (
                                     <li>
                                       <Tag>{key}</Tag>:{" "}
-                                      <Tag intent={Intent.PRIMARY}>
+                                      <Tag className="epc-item">
                                         {
                                           currentEntry[objectType]
                                             .destinationList[key]
