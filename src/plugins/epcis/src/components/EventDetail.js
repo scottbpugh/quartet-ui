@@ -143,6 +143,46 @@ class _EventDetail extends Component {
                           </td>
                         </tr>
                       ) : null}
+                      {currentEntry[objectType].inputEPCList ? (
+                        <tr>
+                          <td>Input EPC List</td>
+                          <td>
+                            <div className="scrollable-list-container">
+                              <ul className="w4-list float">
+                                {currentEntry[objectType].inputEPCList.map(
+                                  epc => {
+                                    return (
+                                      <li>
+                                        <Tag intent={Intent.PRIMARY}>{epc}</Tag>
+                                      </li>
+                                    );
+                                  }
+                                )}
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].outputEPCList ? (
+                        <tr>
+                          <td>Input EPC List</td>
+                          <td>
+                            <div className="scrollable-list-container">
+                              <ul className="w4-list float">
+                                {currentEntry[objectType].outputEPCList.map(
+                                  epc => {
+                                    return (
+                                      <li>
+                                        <Tag intent={Intent.PRIMARY}>{epc}</Tag>
+                                      </li>
+                                    );
+                                  }
+                                )}
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      ) : null}
                       {currentEntry[objectType].ilmd ? (
                         <tr>
                           <td>ILMD</td>
@@ -168,6 +208,54 @@ class _EventDetail extends Component {
                           <td>
                             <ul className="w4-list">
                               {currentEntry[objectType].childQuantityList.map(
+                                item => {
+                                  return (
+                                    <li>
+                                      <ul>
+                                        {Object.keys(item).map(key => (
+                                          <li>
+                                            {key}: {item[key]}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </li>
+                                  );
+                                }
+                              )}
+                            </ul>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].inputQuantityList ? (
+                        <tr>
+                          <td>Input Quantity List</td>
+                          <td>
+                            <ul className="w4-list">
+                              {currentEntry[objectType].inputQuantityList.map(
+                                item => {
+                                  return (
+                                    <li>
+                                      <ul>
+                                        {Object.keys(item).map(key => (
+                                          <li>
+                                            {key}: {item[key]}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </li>
+                                  );
+                                }
+                              )}
+                            </ul>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].outputQuantityList ? (
+                        <tr>
+                          <td>Output Quantity List</td>
+                          <td>
+                            <ul className="w4-list">
+                              {currentEntry[objectType].outputQuantityList.map(
                                 item => {
                                   return (
                                     <li>
@@ -404,18 +492,17 @@ class _EventDetail extends Component {
                         </td>
                       </tr>
                       <tr />
-                      {currentEntry[objectType].errorDeclaration ? (
-                        <tr>
-                          <td>Error Declaration</td>
-                          <td>
-                            <pre>
-                              {JSON.stringify(
-                                currentEntry[objectType].errorDeclaration
-                              )}
-                            </pre>
-                          </td>
-                        </tr>
-                      ) : null}
+
+                      <tr>
+                        <td>Error Declaration</td>
+                        <td>
+                          <pre>
+                            {JSON.stringify(
+                              currentEntry[objectType].errorDeclaration
+                            )}
+                          </pre>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
