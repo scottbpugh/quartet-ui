@@ -80,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .scrollable-list-container {
   overflow-y: scroll;
-  max-height: 400px;
+  max-height: 90px;
 }
 
 .epc-item {
