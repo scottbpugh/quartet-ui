@@ -23,7 +23,6 @@ import {
   ControlGroup,
   Button,
   InputGroup,
-  Callout,
   Intent,
   Icon
 } from "@blueprintjs/core";
