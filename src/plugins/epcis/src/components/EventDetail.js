@@ -23,6 +23,7 @@ import {
   ControlGroup,
   Button,
   InputGroup,
+  Callout,
   Intent,
   Icon
 } from "@blueprintjs/core";
@@ -114,40 +115,144 @@ class _EventDetail extends Component {
                           <Tag>{currentEntry[objectType].eventID}</Tag>
                         </td>
                       </tr>
-                      <tr>
-                        <td>EPC List</td>
-                        <td>
-                          <div
-                            style={{overflowY: "scroll", maxHeight: "400px"}}>
-                            <ul className="w4-list float">
-                              {currentEntry[objectType].epc_list
-                                ? currentEntry[objectType].epc_list.map(epc => {
-                                    return (
-                                      <li>
-                                        <Tag intent={Intent.PRIMARY}>{epc}</Tag>
-                                      </li>
-                                    );
-                                  })
-                                : null}
+                      {currentEntry[objectType].parentID ? (
+                        <tr>
+                          <td>Parent ID</td>
+                          <td>
+                            <Tag intent={Intent.PRIMARY}>
+                              {currentEntry[objectType].parentID}
+                            </Tag>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].epc_list ? (
+                        <tr>
+                          <td>EPC List</td>
+                          <td>
+                            <div className="scrollable-list-container">
+                              <ul className="w4-list float">
+                                {currentEntry[objectType].epc_list.map(epc => {
+                                  return (
+                                    <li>
+                                      <Tag intent={Intent.PRIMARY}>{epc}</Tag>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].ilmd ? (
+                        <tr>
+                          <td>ILMD</td>
+                          <td>
+                            <ul className="w4-list">
+                              {Object.keys(currentEntry[objectType].ilmd).map(
+                                key => {
+                                  return (
+                                    <li>
+                                      {key}:{" "}
+                                      {currentEntry[objectType].ilmd[key]}
+                                    </li>
+                                  );
+                                }
+                              )}
                             </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>ILMD</td>
-                        <td>
-                          <ul className="w4-list">
-                            {currentEntry[objectType].ilmd
-                              ? Object.keys(currentEntry[objectType].ilmd).map(
-                                  key => {
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].childQuantityList ? (
+                        <tr>
+                          <td>Child Quantity List</td>
+                          <td>
+                            <ul className="w4-list">
+                              {currentEntry[objectType].childQuantityList.map(
+                                item => {
+                                  return (
+                                    <li>
+                                      <ul>
+                                        {Object.keys(item).map(key => (
+                                          <li>
+                                            {key}: {item[key]}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </li>
+                                  );
+                                }
+                              )}
+                            </ul>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].quantityList ? (
+                        <tr>
+                          <td>Quantity List</td>
+                          <td>
+                            <ul className="w4-list">
+                              {currentEntry[objectType].quantityList.map(
+                                item => {
+                                  return (
+                                    <li>
+                                      <ul>
+                                        {Object.keys(item).map(key => (
+                                          <li>
+                                            {key}: {item[key]}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </li>
+                                  );
+                                }
+                              )}
+                            </ul>
+                          </td>
+                        </tr>
+                      ) : null}
+                      {currentEntry[objectType].childEPCs ? (
+                        <tr>
+                          <td>Child EPCs</td>
+                          <td>
+                            <div className="scrollable-list-container">
+                              <ul className="w4-list float">
+                                {currentEntry[objectType].childEPCs.map(
+                                  item => {
                                     return (
                                       <li>
-                                        {key}:{" "}
-                                        {currentEntry[objectType].ilmd[key]}
+                                        <Tag intent={Intent.PRIMARY}>
+                                          {item}
+                                        </Tag>
                                       </li>
                                     );
                                   }
-                                )
+                                )}
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      ) : null}
+                      <tr>
+                        <td>Business Transaction List</td>
+                        <td>
+                          <ul className="w4-list">
+                            {currentEntry[objectType] &&
+                            currentEntry[objectType].bizTransactionList
+                              ? Object.keys(
+                                  currentEntry[objectType].bizTransactionList
+                                ).map(key => {
+                                  return (
+                                    <li>
+                                      <Tag>{key}</Tag>:{" "}
+                                      <Tag intent={Intent.PRIMARY}>
+                                        {
+                                          currentEntry[objectType]
+                                            .bizTransactionList[key]
+                                        }
+                                      </Tag>
+                                    </li>
+                                  );
+                                })
                               : null}
                           </ul>
                         </td>
@@ -299,6 +404,18 @@ class _EventDetail extends Component {
                         </td>
                       </tr>
                       <tr />
+                      {currentEntry[objectType].errorDeclaration ? (
+                        <tr>
+                          <td>Error Declaration</td>
+                          <td>
+                            <pre>
+                              {JSON.stringify(
+                                currentEntry[objectType].errorDeclaration
+                              )}
+                            </pre>
+                          </td>
+                        </tr>
+                      ) : null}
                     </tbody>
                   </table>
                 </div>

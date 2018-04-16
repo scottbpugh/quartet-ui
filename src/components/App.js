@@ -51,9 +51,9 @@ class _App extends Component {
     // While it was tempting to redirect to the currentPath persisted
     // through local storage, it can be dangerous if items or plugins have been
     // removed from the db/disabled as plugins.
-    //if (process.env.NODE_ENV !== "development") {
-    this.props.history.push("/");
-    //}
+    if (process.env.NODE_ENV !== "development") {
+      this.props.history.push("/");
+    }
     // load the necessary server data.
     this.processServers();
   }
