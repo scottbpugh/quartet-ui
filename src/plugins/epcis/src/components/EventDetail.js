@@ -211,7 +211,7 @@ class _EventDetail extends Component {
                                 item => {
                                   return (
                                     <li>
-                                      <ul>
+                                      <ul className="quantity-detail">
                                         {Object.keys(item).map(key => (
                                           <li>
                                             {key}: {item[key]}
@@ -235,7 +235,7 @@ class _EventDetail extends Component {
                                 item => {
                                   return (
                                     <li>
-                                      <ul>
+                                      <ul className="quantity-detail">
                                         {Object.keys(item).map(key => (
                                           <li>
                                             {key}: {item[key]}
@@ -259,7 +259,7 @@ class _EventDetail extends Component {
                                 item => {
                                   return (
                                     <li>
-                                      <ul>
+                                      <ul className="quantity-detail">
                                         {Object.keys(item).map(key => (
                                           <li>
                                             {key}: {item[key]}
@@ -283,7 +283,7 @@ class _EventDetail extends Component {
                                 item => {
                                   return (
                                     <li>
-                                      <ul>
+                                      <ul className="quantity-detail">
                                         {Object.keys(item).map(key => (
                                           <li>
                                             {key}: {item[key]}
