@@ -36,6 +36,9 @@ export class EventDetailTable extends Component {
       return null;
     }
   };
+  goTo = path => {
+    this.props.history.push(path);
+  };
   getObjectTypeDisplay = objectType => {
     switch (objectType) {
       case "aggregationEvent":
@@ -71,7 +74,7 @@ export class EventDetailTable extends Component {
     }
   };
   render() {
-    const {currentEntry} = this.props;
+    const {currentEntry, serverID} = this.props;
     let objectType = this.getObjectType(currentEntry);
     return (
       <div>
@@ -101,7 +104,14 @@ export class EventDetailTable extends Component {
                         <tr>
                           <td>Parent ID</td>
                           <td>
-                            <Tag className="epc-item">
+                            <Tag
+                              onClick={this.goTo.bind(
+                                this,
+                                `/epcis/entry-detail/${serverID}/identifier/${
+                                  currentEntry[objectType].parentID
+                                }`
+                              )}
+                              className="epc-item">
                               {currentEntry[objectType].parentID}
                             </Tag>
                           </td>
@@ -116,7 +126,14 @@ export class EventDetailTable extends Component {
                                 {currentEntry[objectType].epc_list.map(epc => {
                                   return (
                                     <li>
-                                      <Tag className="epc-item">{epc}</Tag>
+                                      <Tag
+                                        onClick={this.goTo.bind(
+                                          this,
+                                          `/epcis/entry-detail/${serverID}/identifier/${epc}`
+                                        )}
+                                        className="epc-item">
+                                        {epc}
+                                      </Tag>
                                     </li>
                                   );
                                 })}
@@ -135,7 +152,14 @@ export class EventDetailTable extends Component {
                                   epc => {
                                     return (
                                       <li>
-                                        <Tag className="epc-item">{epc}</Tag>
+                                        <Tag
+                                          onClick={this.goTo.bind(
+                                            this,
+                                            `/epcis/entry-detail/${serverID}/identifier/${epc}`
+                                          )}
+                                          className="epc-item">
+                                          {epc}
+                                        </Tag>
                                       </li>
                                     );
                                   }
@@ -155,7 +179,14 @@ export class EventDetailTable extends Component {
                                   epc => {
                                     return (
                                       <li>
-                                        <Tag className="epc-item">{epc}</Tag>
+                                        <Tag
+                                          onClick={this.goTo.bind(
+                                            this,
+                                            `/epcis/entry-detail/${serverID}/identifier/${epc}`
+                                          )}
+                                          className="epc-item">
+                                          {epc}
+                                        </Tag>
                                       </li>
                                     );
                                   }
@@ -290,7 +321,14 @@ export class EventDetailTable extends Component {
                                   item => {
                                     return (
                                       <li>
-                                        <Tag className="epc-item">{item}</Tag>
+                                        <Tag
+                                          className="epc-item"
+                                          onClick={this.goTo.bind(
+                                            this,
+                                            `/epcis/entry-detail/${serverID}/identifier/${item}`
+                                          )}>
+                                          {item}
+                                        </Tag>
                                       </li>
                                     );
                                   }

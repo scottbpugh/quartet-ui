@@ -70,7 +70,7 @@ export default (() => {
     />,
     <Route
       key="entryDetail"
-      path="/epcis/entry-detail/:serverID/uuid/:entryID"
+      path="/epcis/entry-detail/:serverID/identifier/:entryID"
       component={EntryDetail}
     />
   ];

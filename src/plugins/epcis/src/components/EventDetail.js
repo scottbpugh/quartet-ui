@@ -97,7 +97,9 @@ class _EventDetail extends Component {
         <div>
           <EventDetailTable
             className="w4-container large-cards-container no-header"
+            serverID={server.serverID}
             currentEntry={currentEntry}
+            history={this.props.history}
           />
         </div>
       </RightPanel>

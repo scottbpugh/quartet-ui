@@ -226,7 +226,7 @@ class _ServerEntries extends Component {
                       <tr
                         onClick={this.goTo.bind(
                           this,
-                          `/epcis/entry-detail/${serverID}/uuid/${
+                          `/epcis/entry-detail/${serverID}/identifier/${
                             entry.identifier
                           }`
                         )}

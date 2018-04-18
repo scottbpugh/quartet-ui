@@ -50,6 +50,7 @@ class _EntryDetail extends Component {
                     <EventDetailTable
                       className="entry-events-container"
                       currentEntry={event}
+                      history={this.props.history}
                     />
                   );
                 })
