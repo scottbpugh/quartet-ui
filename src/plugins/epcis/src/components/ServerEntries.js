@@ -65,6 +65,10 @@ class _ServerEntries extends Component {
     }
   }
 
+  goTo = path => {
+    this.props.history.push(path);
+  };
+
   // go to next page if possible.
   next = () => {
     if (this.currentPage + 1 < this.maxPages) {
@@ -130,6 +134,7 @@ class _ServerEntries extends Component {
   };
   render() {
     let serverName = this.props.server.serverSettingName;
+    let serverID = this.props.server.serverID;
     const {entries} = this.state;
     return (
       <Card className="pt-elevation-4">
@@ -218,7 +223,14 @@ class _ServerEntries extends Component {
               {Array.isArray(entries) && entries.length > 0
                 ? entries.map(entry => {
                     return (
-                      <tr key={entry.id}>
+                      <tr
+                        onClick={this.goTo.bind(
+                          this,
+                          `/epcis/entry-detail/${serverID}/uuid/${
+                            entry.identifier
+                          }`
+                        )}
+                        key={entry.id}>
                         <td>{entry.identifier}</td>
                         <td>{entry.id}</td>
                       </tr>
