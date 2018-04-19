@@ -32,7 +32,7 @@ class _EntryDetail extends Component {
   }
 
   render() {
-    let {currentEntryEvents} = this.props;
+    let {currentEntryEvents, server} = this.props;
     return (
       <RightPanel
         title={
@@ -51,6 +51,7 @@ class _EntryDetail extends Component {
                       className="entry-events-container"
                       currentEntry={event}
                       history={this.props.history}
+                      serverID={server.serverID}
                     />
                   );
                 })
