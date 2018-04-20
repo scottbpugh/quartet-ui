@@ -69,6 +69,31 @@ export const loadEvent = (server, eventID) => {
   };
 };
 
+export const loadEntry = (server, entryID) => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        return client
+          .execute({
+            operationId: "epcis_events_by_entry_id_read",
+            parameters: {entry_identifier: entryID}
+          })
+          .then(result => {
+            return dispatch({
+              type: actions.loadItemDetail,
+              payload: {
+                serverID: server.serverID,
+                itemID: entryID,
+                itemDetail: result.body
+              }
+            });
+          });
+      });
+  };
+};
+
 export const loadEvents = server => {
   return dispatch => {
     pluginRegistry

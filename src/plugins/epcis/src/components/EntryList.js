@@ -23,6 +23,7 @@ import {loadEntries} from "../reducers/epcis";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {ServerEntries} from "./ServerEntries";
+import {withRouter} from "react-router";
 
 import "./EntryList.css";
 
@@ -54,7 +55,11 @@ class _EntryList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerEntries server={server} entries={entries} />
+          <ServerEntries
+            history={this.props.history}
+            server={server}
+            entries={entries}
+          />
         </div>
       </RightPanel>
     );
@@ -71,4 +76,4 @@ export const EntryList = connect(
     };
   },
   {loadEntries}
-)(_EntryList);
+)(withRouter(_EntryList));

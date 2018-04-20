@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-.w4-container > * {
+.w4-container .pt-card {
   width:80%;
   margin:22px 0;
 }
@@ -76,4 +76,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .event-detail-type {
   font-size:15px;
   font-weight:bold;
+}
+
+.scrollable-list-container {
+  overflow-y: scroll;
+  max-height: 90px;
+}
+
+.epc-item {
+  background:#D4AD5A !important;
+}
+
+.quantity-detail {
+  background:#bfccd6 !important;
+  margin:5px 2px 5px 0px;
+  border-radius:3px;
+  padding:10px;
+  list-style:none;
+  color:#222;
 }

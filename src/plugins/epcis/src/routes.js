@@ -24,6 +24,7 @@ import {AddMessage} from "./components/AddMessage";
 import {EntryList} from "./components/EntryList";
 import {EventList} from "./components/EventList";
 import {EventDetail} from "./components/EventDetail";
+import {EntryDetail} from "./components/EntryDetail";
 
 export default (() => {
   return [
@@ -66,6 +67,11 @@ export default (() => {
       key="eventDetail"
       path="/epcis/event-detail/:serverID/uuid/:eventID"
       component={EventDetail}
+    />,
+    <Route
+      key="entryDetail"
+      path="/epcis/entry-detail/:serverID/identifier/:entryID"
+      component={EntryDetail}
     />
   ];
 })();

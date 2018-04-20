@@ -30,6 +30,8 @@ import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
 import {RightPanel} from "components/layouts/Panels";
 import {connect} from "react-redux";
 import {loadEvent} from "../reducers/epcis";
+import {EventDetailTable} from "./EventDetailTable";
+
 import "./EventDetail.css";
 
 class _EventDetail extends Component {
@@ -83,7 +85,7 @@ class _EventDetail extends Component {
   };
   render() {
     let {server, events, currentEntry} = this.props;
-    let objectType = this.getObjectType(currentEntry);
+
     return (
       <RightPanel
         title={
@@ -92,220 +94,14 @@ class _EventDetail extends Component {
             defaultMessage="Event Detail"
           />
         }>
-        {currentEntry && currentEntry[objectType] ? (
-          <div className="w4-container large-cards-container no-header">
-            <Card className="pt-elevation-4">
-              <div className="what">
-                <div className="question-left">What</div>
-                <div className="detail-table-container">
-                  <table className="pt-table pt-bordered pt-striped">
-                    <tbody>
-                      <tr>
-                        <td>Event Type</td>
-                        <td>
-                          <span className="event-detail-type">
-                            {this.getObjectTypeDisplay(objectType)}
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Event ID</td>
-                        <td>
-                          <Tag>{currentEntry[objectType].eventID}</Tag>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>EPC List</td>
-                        <td>
-                          <div
-                            style={{overflowY: "scroll", maxHeight: "400px"}}>
-                            <ul className="w4-list float">
-                              {currentEntry[objectType].epc_list
-                                ? currentEntry[objectType].epc_list.map(epc => {
-                                    return (
-                                      <li>
-                                        <Tag intent={Intent.PRIMARY}>{epc}</Tag>
-                                      </li>
-                                    );
-                                  })
-                                : null}
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>ILMD</td>
-                        <td>
-                          <ul className="w4-list">
-                            {currentEntry[objectType].ilmd
-                              ? Object.keys(currentEntry[objectType].ilmd).map(
-                                  key => {
-                                    return (
-                                      <li>
-                                        {key}:{" "}
-                                        {currentEntry[objectType].ilmd[key]}
-                                      </li>
-                                    );
-                                  }
-                                )
-                              : null}
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </Card>
-            <Card className="pt-elevation-4">
-              <div className="when">
-                <div className="question-left">When</div>
-                <div className="detail-table-container" style={{width: "100%"}}>
-                  <table className="pt-table pt-bordered pt-striped">
-                    <tbody>
-                      <tr>
-                        <td>Event Time</td>
-                        <td>
-                          <FormattedDate
-                            value={currentEntry[objectType].eventTime}
-                          />{" "}
-                          <FormattedTime
-                            value={currentEntry[objectType].eventTime}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>eventTimezoneOffset</td>
-                        <td>{currentEntry[objectType].eventTimezoneOffset}</td>
-                      </tr>
-                      <tr>
-                        <td>Record Time</td>
-                        <td>
-                          <FormattedDate
-                            value={currentEntry[objectType].eventTime}
-                          />{" "}
-                          <FormattedTime
-                            value={currentEntry[objectType].eventTime}
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </Card>
-            <Card className="pt-elevation-4">
-              <div className="where">
-                <div className="question-left">Where</div>
-                <div className="detail-table-container">
-                  <table className="pt-table pt-bordered pt-striped">
-                    <tbody>
-                      <tr>
-                        <td>Business Location</td>
-                        <td>
-                          <Tag intent={Intent.PRIMARY}>
-                            {currentEntry[objectType].bizLocation}
-                          </Tag>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Read Point</td>
-                        <td>
-                          <Tag intent={Intent.PRIMARY}>
-                            {currentEntry[objectType].readPoint}
-                          </Tag>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Source List</td>
-                        <td>
-                          <ul className="w4-list">
-                            {currentEntry[objectType] &&
-                            currentEntry[objectType].sourceList
-                              ? Object.keys(
-                                  currentEntry[objectType].sourceList
-                                ).map(key => {
-                                  return (
-                                    <li>
-                                      <Tag>{key}</Tag>:{" "}
-                                      <Tag intent={Intent.PRIMARY}>
-                                        {
-                                          currentEntry[objectType].sourceList[
-                                            key
-                                          ]
-                                        }
-                                      </Tag>
-                                    </li>
-                                  );
-                                })
-                              : null}
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Destination List</td>
-                        <td>
-                          <ul className="w4-list">
-                            {currentEntry[objectType] &&
-                            currentEntry[objectType].destinationList
-                              ? Object.keys(
-                                  currentEntry[objectType].destinationList
-                                ).map(key => {
-                                  return (
-                                    <li>
-                                      <Tag>{key}</Tag>:{" "}
-                                      <Tag intent={Intent.PRIMARY}>
-                                        {
-                                          currentEntry[objectType]
-                                            .destinationList[key]
-                                        }
-                                      </Tag>
-                                    </li>
-                                  );
-                                })
-                              : null}
-                          </ul>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </Card>
-            <Card className="pt-elevation-4">
-              <div className="why">
-                <div className="question-left">Why</div>
-                <div className="detail-table-container">
-                  <table className="pt-table pt-bordered pt-striped">
-                    <tbody>
-                      <tr>
-                        <td>Business Step</td>
-                        <td>
-                          <Tag>{currentEntry[objectType].bizStep}</Tag>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Disposition</td>
-                        <td>
-                          <Tag>{currentEntry[objectType].disposition}</Tag>
-                        </td>
-                      </tr>
-                      <tr />
-                      <tr>
-                        <td>Action</td>
-                        <td>
-                          <Tag>{currentEntry[objectType].action}</Tag>
-                        </td>
-                      </tr>
-                      <tr />
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </Card>
-          </div>
-        ) : null}
+        <div>
+          <EventDetailTable
+            className="w4-container large-cards-container no-header"
+            serverID={server.serverID}
+            currentEntry={currentEntry}
+            history={this.props.history}
+          />
+        </div>
       </RightPanel>
     );
   }
