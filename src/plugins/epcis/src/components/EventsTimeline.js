@@ -20,7 +20,11 @@ import React, {Component} from "react";
 import "./EventsTimeline.css";
 
 export class EventsTimeline extends Component {
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   render() {
+    const {events} = this.props;
     return (
       <div className="events-timeline-container">
         <svg
@@ -29,16 +33,29 @@ export class EventsTimeline extends Component {
           xmlns="http://www.w3.org/2000/svg">
           <g transform="translate(0,30)" className="parallelograms-container">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((event, index) => {
+              let eventClass = "unused-timeline-event";
+              let eventStep = "";
+              if (typeof events[index] !== "undefined") {
+                eventClass = "";
+                eventStep = this.capitalize(
+                  events[index][Object.keys(events[index])[0]].bizStep
+                    .split(":")
+                    .pop()
+                );
+              }
               let indentation = 58 * index;
               return (
                 <g
-                  className={`event-${event}`}
+                  className={`event-${event} ${eventClass}`}
                   transform={`translate(${indentation}, 0)`}>
                   <path
                     d="M 167.82067,-20.09632 30.735128,-313.48168 559.61385,-314.38957 696.48062,-20.88511 Z"
-                    className="event-parallelogram"
+                    className={`event-parallelogram event-${eventStep} `}
                     id="path1439"
                   />
+                  <text className="event-para-label" x={36} y="-15">
+                    <tspan text-anchor="middle">{eventStep}</tspan>
+                  </text>
                 </g>
               );
             })}

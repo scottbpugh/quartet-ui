@@ -45,9 +45,10 @@ class _EntryDetail extends Component {
         <div className="large-cards-container full-large">
           <Card>
             <h5>{this.props.match.params.entryID}</h5>
-            <EventsTimeline />
-            {currentEntryEvents && currentEntryEvents.events
-              ? currentEntryEvents.events.map(event => {
+            {currentEntryEvents && currentEntryEvents.events ? (
+              <div>
+                <EventsTimeline events={currentEntryEvents.events} />
+                {currentEntryEvents.events.map(event => {
                   return (
                     <EventDetailTable
                       className="entry-events-container"
@@ -56,8 +57,9 @@ class _EntryDetail extends Component {
                       serverID={server.serverID}
                     />
                   );
-                })
-              : null}
+                })}
+              </div>
+            ) : null}
           </Card>
         </div>
       </RightPanel>
