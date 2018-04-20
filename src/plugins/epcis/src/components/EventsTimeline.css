@@ -1,0 +1,75 @@
+/* Copyright (c) 2018 SerialLab Corp.
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+.events-timeline-container {
+  width:100%;
+  margin:40px auto;
+}
+
+.timeline-bar {
+  fill: #bfccd6;
+  stroke: #bfccd6;
+}
+
+.event-parallelogram {
+  fill:#8DC449;
+  stroke:#000000;
+  stroke-width:3px;
+  stroke-linecap:butt;
+  stroke-linejoin:miter;
+  stroke-opacity:1;
+  transform:scale(0.1);
+}
+
+/* ["#FFE39F", "#D7D7A1", "#B3C8A2", "#93B9A2", "#78A8A2",
+ "#6096A1", "#4B84A0", "#3A729E", "#2C5F9C", "#1F4B99"] */
+/*
+["#FFC940", "#F6B73A", "#ECA635", "#E2952F", "#D7832A",
+"#CC7224", "#C1611E", "#B65019", "#AA3E13", "#9E2B0E"]
+*/
+/*
+.event-1 .event-parallelogram {
+  fill:#FFC940;
+}
+.event-2 .event-parallelogram {
+  fill:#F6B73A;
+}
+.event-3 .event-parallelogram {
+  fill:#ECA635;
+}
+.event-4 .event-parallelogram {
+  fill:#E2952F;
+}
+.event-5 .event-parallelogram {
+  fill:#D7832A;
+}
+.event-6 .event-parallelogram {
+  fill:#CC7224;
+}
+.event-7 .event-parallelogram {
+  fill:#C1611E;
+}
+.event-8 .event-parallelogram {
+  fill:#B65019;
+}
+.event-9 .event-parallelogram {
+  fill:#AA3E13;
+}
+.event-10 .event-parallelogram {
+  fill:#9E2B0E;
+}*/

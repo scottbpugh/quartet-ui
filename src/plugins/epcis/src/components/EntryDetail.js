@@ -23,6 +23,7 @@ import {RightPanel} from "components/layouts/Panels";
 import {connect} from "react-redux";
 import {loadEntry} from "../reducers/epcis";
 import {EventDetailTable} from "./EventDetailTable";
+import {EventsTimeline} from "./EventsTimeline";
 
 import "./EntryDetail.css";
 
@@ -44,6 +45,7 @@ class _EntryDetail extends Component {
         <div className="large-cards-container full-large">
           <Card>
             <h5>{this.props.match.params.entryID}</h5>
+            <EventsTimeline />
             {currentEntryEvents && currentEntryEvents.events
               ? currentEntryEvents.events.map(event => {
                   return (
