@@ -76,6 +76,7 @@ export class EventDetailTable extends Component {
   render() {
     const {currentEntry, serverID} = this.props;
     let objectType = this.getObjectType(currentEntry);
+    debugger;
     return (
       <div>
         {currentEntry && currentEntry[objectType] ? (
@@ -215,26 +216,30 @@ export class EventDetailTable extends Component {
                           </td>
                         </tr>
                       ) : null}
-                      {currentEntry[objectType].childQuantityList ? (
+                      {Array.isArray(
+                        currentEntry[objectType].childQuantityList
+                      ) ? (
                         <tr>
                           <td>Child Quantity List</td>
                           <td>
                             <ul className="w4-list">
-                              {currentEntry[objectType].childQuantityList.map(
-                                item => {
-                                  return (
-                                    <li>
-                                      <ul className="quantity-detail">
-                                        {Object.keys(item).map(key => (
-                                          <li>
-                                            {key}: {item[key]}
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </li>
-                                  );
-                                }
-                              )}
+                              {currentEntry[objectType].childQuantityList
+                                ? currentEntry[
+                                    objectType
+                                  ].childQuantityList.map(item => {
+                                    return (
+                                      <li>
+                                        <ul className="quantity-detail">
+                                          {Object.keys(item).map(key => (
+                                            <li>
+                                              {key}: {item[key]}
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      </li>
+                                    );
+                                  })
+                                : null}
                             </ul>
                           </td>
                         </tr>

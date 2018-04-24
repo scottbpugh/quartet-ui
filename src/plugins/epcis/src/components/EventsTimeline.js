@@ -37,13 +37,18 @@ export class EventsTimeline extends Component {
               let eventStep = "";
               if (typeof events[index] !== "undefined") {
                 eventClass = "";
-                eventStep = this.capitalize(
-                  events[index][Object.keys(events[index])[0]].bizStep
-                    .split(":")
-                    .pop()
-                );
+                try {
+                  eventStep = this.capitalize(
+                    events[index][Object.keys(events[index])[0]].bizStep
+                      .split(":")
+                      .pop()
+                  );
+                } catch (e) {
+                  // use event type instead.
+                  eventStep = Object.keys(events[index])[0];
+                }
               }
-              let indentation = 58 * index;
+              const indentation = 58 * index;
               return (
                 <g
                   className={`event-${event} ${eventClass}`}
