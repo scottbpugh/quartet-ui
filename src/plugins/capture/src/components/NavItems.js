@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {TreeNode} from "components/layouts/elements/NavTree";
+import {TreeNode} from "components/layouts/elements/TreeNode";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";

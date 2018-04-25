@@ -30,7 +30,7 @@ import {
   Radio
 } from "@blueprintjs/core";
 import {connect} from "react-redux";
-import {TreeNode} from "components/layouts/elements/NavTree";
+import {TreeNode} from "components/layouts/elements/TreeNode";
 import {loadPools, setAllocation, deleteAPool} from "../reducers/numberrange";
 import {FormattedMessage} from "react-intl";
 import classNames from "classnames";

@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {TreeNode} from "components/layouts/elements/NavTree";
+import {TreeNode} from "components/layouts/elements/TreeNode";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {pluginRegistry} from "plugins/pluginRegistration";
@@ -120,7 +120,6 @@ class _NavPluginRoot extends Component {
         currentPath={currentPath}
         childrenNodes={[
           <SubNode
-            history={this.props.history}
             depth={this.props.depth}
             serverID={serverID}
             server={server}
@@ -131,7 +130,6 @@ class _NavPluginRoot extends Component {
             Aggregation Events
           </SubNode>,
           <SubNode
-            history={this.props.history}
             depth={this.props.depth}
             serverID={serverID}
             server={server}
@@ -142,7 +140,6 @@ class _NavPluginRoot extends Component {
             Object Events
           </SubNode>,
           <SubNode
-            history={this.props.history}
             depth={this.props.depth}
             serverID={serverID}
             server={server}
@@ -153,7 +150,6 @@ class _NavPluginRoot extends Component {
             Transaction Events
           </SubNode>,
           <SubNode
-            history={this.props.history}
             epth={this.props.depth}
             serverID={serverID}
             server={server}
@@ -167,7 +163,6 @@ class _NavPluginRoot extends Component {
         Events
       </SubNode>,
       <SubNode
-        history={this.props.history}
         depth={this.props.depth}
         serverID={serverID}
         server={server}
@@ -182,7 +177,6 @@ class _NavPluginRoot extends Component {
       <TreeNode
         onContextMenu={this.renderContextMenu}
         depth={this.props.depth}
-        history={this.props.history}
         active={this.state.active}
         serverID={serverID}
         server={server}

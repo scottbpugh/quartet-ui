@@ -21,7 +21,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
 import {ServerMenu} from "./ServerMenu";
-import {TreeNode} from "components/layouts/elements/NavTree";
+import {TreeNode} from "components/layouts/elements/TreeNode";
 import {VerifyUserDialog} from "components/screens/auth/VerifyUserDialog";
 import {DeleteDialog} from "components/elements/DeleteDialog";
 import {FormattedMessage} from "react-intl";
