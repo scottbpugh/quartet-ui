@@ -59,12 +59,20 @@ export default class extends Component {
     const {goTo, currentEntry, objectType, serverID} = this.props;
     return (
       <div className="what">
-        <div className="question-left">What</div>
+        <div className="question-left">
+          {" "}
+          <FormattedMessage id="plugins.epcis.what" defaultMessage="What" />
+        </div>
         <div className="detail-table-container">
           <table className="pt-table pt-bordered pt-striped">
             <tbody>
               <tr>
-                <td>Event Type</td>
+                <td>
+                  <FormattedMessage
+                    id="plugins.epcis.eventType"
+                    defaultMessage="Event Type"
+                  />
+                </td>
                 <td>
                   <span className="event-detail-type">
                     {this.getObjectTypeDisplay(objectType)}
@@ -72,14 +80,25 @@ export default class extends Component {
                 </td>
               </tr>
               <tr>
-                <td>Event ID</td>
+                <td>
+                  <FormattedMessage
+                    id="plugins.epcis.eventID"
+                    defaultMessage="Event ID"
+                  />
+                </td>
                 <td>
                   <Tag>{currentEntry[objectType].eventID}</Tag>
                 </td>
               </tr>
               {currentEntry[objectType].parentID ? (
                 <tr>
-                  <td>Parent ID</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.parentID"
+                      defaultMessage="Parent ID"
+                    />
+                  </td>
                   <td>
                     <Tag
                       onClick={goTo.bind(
@@ -96,7 +115,12 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].epc_list ? (
                 <tr>
-                  <td>EPC List</td>
+                  <td>
+                    <FormattedMessage
+                      id="plugins.epcis.epcList"
+                      defaultMessage="EPC List"
+                    />
+                  </td>
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
@@ -121,7 +145,12 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].inputEPCList ? (
                 <tr>
-                  <td>Input EPC List</td>
+                  <td>
+                    <FormattedMessage
+                      id="plugins.epcis.inputEPCList"
+                      defaultMessage="Input EPC List"
+                    />
+                  </td>
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
@@ -146,7 +175,13 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].outputEPCList ? (
                 <tr>
-                  <td>Output EPC List</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.outputEPCList"
+                      defaultMessage="Output EPC List"
+                    />
+                  </td>
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
@@ -171,7 +206,13 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].ilmd ? (
                 <tr>
-                  <td>ILMD</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.ILMD"
+                      defaultMessage="ILMD"
+                    />
+                  </td>
                   <td>
                     <ul className="w4-list">
                       {Object.keys(currentEntry[objectType].ilmd).map(key => {
@@ -187,7 +228,13 @@ export default class extends Component {
               ) : null}
               {Array.isArray(currentEntry[objectType].childQuantityList) ? (
                 <tr>
-                  <td>Child Quantity List</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.childQuantityList"
+                      defaultMessage="Child Quantity List"
+                    />
+                  </td>
                   <td>
                     <ul className="w4-list">
                       {currentEntry[objectType].childQuantityList
@@ -213,7 +260,13 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].inputQuantityList ? (
                 <tr>
-                  <td>Input Quantity List</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.inputQuantityList"
+                      defaultMessage="Input Quantity List"
+                    />
+                  </td>
                   <td>
                     <ul className="w4-list">
                       {currentEntry[objectType].inputQuantityList.map(item => {
@@ -235,7 +288,13 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].outputQuantityList ? (
                 <tr>
-                  <td>Output Quantity List</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.outputQuantityList"
+                      defaultMessage="Output Quantity List"
+                    />
+                  </td>
                   <td>
                     <ul className="w4-list">
                       {currentEntry[objectType].outputQuantityList.map(item => {
@@ -257,7 +316,13 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].quantityList ? (
                 <tr>
-                  <td>Quantity List</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.quantityList"
+                      defaultMessage="Quantity List"
+                    />
+                  </td>
                   <td>
                     <ul className="w4-list">
                       {currentEntry[objectType].quantityList.map(item => {
@@ -279,7 +344,13 @@ export default class extends Component {
               ) : null}
               {currentEntry[objectType].childEPCs ? (
                 <tr>
-                  <td>Child EPCs</td>
+                  <td>
+                    {" "}
+                    <FormattedMessage
+                      id="plugins.epcis.childEPCs"
+                      defaultMessage="Child EPCs"
+                    />
+                  </td>
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
@@ -303,7 +374,13 @@ export default class extends Component {
                 </tr>
               ) : null}
               <tr>
-                <td>Business Transaction List</td>
+                <td>
+                  {" "}
+                  <FormattedMessage
+                    id="plugins.epcis.businessTransactionList"
+                    defaultMessage="Business Transaction List"
+                  />
+                </td>
                 <td>
                   <ul className="w4-list">
                     {currentEntry[objectType] &&

@@ -23,7 +23,25 @@ export default {
         addEvent: "Add Event",
         editEvent: "Edit Event",
         addEntry: "Add Entry",
-        editEntry: "Edit Entry"
+        editEntry: "Edit Entry",
+        aggregationEvent: "Aggregation Event",
+        objectEvent: "Object Event",
+        transactionEvent: "Transaction Event",
+        transformationEvent: "TransformationEvent",
+        what: "What",
+        eventType: "Event Type",
+        eventID: "Event ID",
+        parentID: "Parent ID",
+        epcList: "EPC List",
+        inputEPCList: "Input EPC List",
+        outputEPCList: "Output EPC List",
+        ILMD: "ILMD",
+        childQuantityList: "Child Quantity List",
+        inputQuantityList: "Input Quantity List",
+        outputQuantityList: "Output Quantity List",
+        quantityList: "Quantity List",
+        childEPCs: "Child EPCs",
+        businessTransactionList: "Business Transaction List"
       }
     }
   },
