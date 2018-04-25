@@ -19,6 +19,7 @@ import React, {Component} from "react";
 import classNames from "classnames";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
+import PropTypes from "prop-types";
 import {ContextMenuTarget, Icon, Callout} from "@blueprintjs/core";
 import {SubTree} from "./NavTree";
 
@@ -123,3 +124,11 @@ export const TreeNode = connect((state, ownProps) => {
     currentPath: state.layout.currentPath
   };
 }, {})(withRouter(_TreeNode));
+
+TreeNode.propTypes = {
+  onContextMenu: PropTypes.func.isRequired,
+  depth: PropTypes.number.isRequired,
+  active: PropTypes.bool,
+  serverID: PropTypes.string.isRequired,
+  childrenNodes: PropTypes.arrayOf(PropTypes.element)
+};
