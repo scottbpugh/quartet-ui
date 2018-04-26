@@ -22,6 +22,7 @@ import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {NavTree, AddServerButton, TreeNode} from "./NavTree";
 import {MemoryRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux";
+
 it("renders correctly", () => {
   let store = mockStore(initialState);
   const props = {to: "/", iconName: "pt-icon-test"};
