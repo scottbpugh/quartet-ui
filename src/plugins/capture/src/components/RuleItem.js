@@ -219,13 +219,9 @@ class _RuleItem extends Component {
         />
         <MenuItem
           onClick={this.toggleUpload}
-          text={
-            rule.name +
-            " " +
-            pluginRegistry.getIntl().formatMessage({
-              id: "plugins.capture.uploadFile"
-            })
-          }
+          text={pluginRegistry.getIntl().formatMessage({
+            id: "plugins.capture.uploadFile"
+          })}
         />
         {/*
         <MenuItem

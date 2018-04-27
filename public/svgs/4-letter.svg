@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="0 0 16 15.99"
+   version="1.1"
+   sodipodi:docname="4-letter.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <metadata
+     id="metadata832">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>QU4RTET-16x16</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1861"
+     inkscape:window-height="911"
+     id="namedview830"
+     showgrid="false"
+     inkscape:zoom="41.275798"
+     inkscape:cx="8"
+     inkscape:cy="7.9949999"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs817">
+    <style
+       id="style815">.cls-1{fill:#8dc63f;}</style>
+  </defs>
+  <title
+     id="title819">QU4RTET-16x16</title>
+  <path
+     style="opacity:0.98000004;fill:#282b30;fill-opacity:1;stroke:none;stroke-width:0.75212598;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 9.276554,0.02422728 1.8859289,12.825008 h 8.7402351 v 3.189453 h 3.169921 v -3.189453 h 2.179688 V 9.6550867 H 13.796085 V 0.02422728 Z m 1.34961,3.33984382 V 9.6550867 H 6.6554602 Z m -9.4296882,10.6503899 -1.1816406,2 h 3.1816406 l 1.1796875,-2 z"
+     id="rect836"
+     inkscape:connector-curvature="0" />
+</svg>

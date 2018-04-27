@@ -18,17 +18,55 @@
 
 import React from "react";
 import "components/cards/dashboard/cards.css";
+import {Card} from "@blueprintjs/core";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
+import {Large4} from "./Large4";
 
 const DashboardRight = props => (
-  <div className="cards-container">
+  <div className="dashboard-container">
     {/*<Card>
       <h5>Welcome</h5>
       <Callout>
         Use the navigation tree on the left to start using a QU4RTET server.
       </Callout>
     </Card>*/}
+    <h2>QU4RTET</h2>
+    <h3>The Open Source Level 4</h3>
+    <div>
+      <Large4 />
+      <h4>Start</h4>
+      <ul>
+        <li>
+          <a href="blob">Add a New Server</a>
+        </li>
+        <li>
+          <a href="blob">Install a Plugin</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources &amp; Documentation</h4>
+      <ul>
+        <li>
+          <a href="http://serial-lab.com" target="_blank">
+            Serial Lab
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://serial-lab.gitlab.io/EPCPyYes/index.html"
+            target="_blank">
+            EPCPyYes
+          </a>
+        </li>
+        <li>
+          <a href="https://serial-lab.gitlab.io/quartet_epcis/" target="_blank">
+            QU4RTET EPCIS
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 );
 

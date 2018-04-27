@@ -39,7 +39,8 @@ const defaultLocaleMsg = {
       "An error occurred while retrieving parameters for this rule. Please check the QU4RTET server for more information.",
     ruleParameters: "Rule Parameters",
     addRuleParameter: "Add Rule Parameter",
-    editRuleParam: "Edit Rule Parameter"
+    editRuleParam: "Edit Rule Parameter",
+    noRuleFound: "No Rule found on server"
   }
 };
 
