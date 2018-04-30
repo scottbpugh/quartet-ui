@@ -22,6 +22,7 @@ import {Card} from "@blueprintjs/core";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import {Large4} from "./Large4";
+import "./Dashboard.css";
 
 const DashboardRight = props => (
   <div className="dashboard-container">
@@ -32,40 +33,89 @@ const DashboardRight = props => (
       </Callout>
     </Card>*/}
     <h2>QU4RTET</h2>
-    <h3>The Open Source Level 4</h3>
-    <div>
-      <Large4 />
-      <h4>Start</h4>
-      <ul>
-        <li>
-          <a href="blob">Add a New Server</a>
-        </li>
-        <li>
-          <a href="blob">Install a Plugin</a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h4>Resources &amp; Documentation</h4>
-      <ul>
-        <li>
-          <a href="http://serial-lab.com" target="_blank">
-            Serial Lab
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://serial-lab.gitlab.io/EPCPyYes/index.html"
-            target="_blank">
-            EPCPyYes
-          </a>
-        </li>
-        <li>
-          <a href="https://serial-lab.gitlab.io/quartet_epcis/" target="_blank">
-            QU4RTET EPCIS
-          </a>
-        </li>
-      </ul>
+    <h3>
+      <FormattedMessage id="app.dashboard.dashboardHeader3" />
+    </h3>
+    <Large4 />
+    <div className="dashboard-actions-groups">
+      <div className="dashboard-items-container">
+        <div className="dashboard-items">
+          <div className="dashboard-actions-group">
+            <h4>
+              <FormattedMessage id="app.dashboard.start" />
+            </h4>
+            <ul>
+              <li>
+                <a href="blob">
+                  <FormattedMessage id="app.serverSettings.addAServer" />
+                </a>
+              </li>
+              <li>
+                <a href="blob">
+                  <FormattedMessage id="app.plugins.addPlugin" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="dashboard-actions-group">
+            <h4>
+              <FormattedMessage id="app.dashboard.resourcesDocumentation" />
+            </h4>
+            <ul>
+              <li>
+                <a href="http://serial-lab.com" target="_blank">
+                  Serial Lab
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://serial-lab.gitlab.io/EPCPyYes/index.html"
+                  target="_blank">
+                  <FormattedMessage
+                    id="app.dashboard.documentation"
+                    values={{projectName: "EPCPyYes"}}
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://serial-lab.gitlab.io/quartet_epcis/"
+                  target="_blank">
+                  <FormattedMessage
+                    id="app.dashboard.documentation"
+                    values={{projectName: "EPCIS module"}}
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="dashboard-items">
+          <div className="dashboard-actions-group">
+            <h4>
+              <FormattedMessage id="app.dashboard.connectServer" />
+            </h4>
+            <ul>
+              <li>
+                <a href="http://serial-lab.com" target="_blank">
+                  QA Server #1
+                </a>
+              </li>
+              <li>
+                <a href="http://serial-lab.com" target="_blank">
+                  Prod Server #1
+                </a>
+              </li>
+              <li>
+                <a href="http://serial-lab.com" target="_blank">
+                  Prod Server #2
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );

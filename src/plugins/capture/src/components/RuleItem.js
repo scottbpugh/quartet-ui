@@ -259,7 +259,14 @@ class _RuleItem extends Component {
         onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         active={this.state.active}
-        childrenNodes={steps}>
+        childrenNodes={[
+          <TreeNode
+            depth={depth}
+            active={this.state.active}
+            childrenNodes={steps}>
+            <FormattedMessage id="plugins.capture.steps" />
+          </TreeNode>
+        ]}>
         {rule.name}
         <DeleteDialog
           isOpen={this.state.isConfirmDeleteOpen}

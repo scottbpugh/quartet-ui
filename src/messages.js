@@ -26,6 +26,13 @@ export default {
         server: "Server",
         plugins: "Plugins"
       },
+      dashboard: {
+        dashboardHeader3: "The Open Source Level 4",
+        start: "Start",
+        connectServer: "Connect to a Server",
+        resourcesDocumentation: "Resources & Documentation",
+        documentation: "{projectName} Documentation"
+      },
       serverSettings: {
         serverSettings: "Server Settings",
         addAServer: "Add a New Server",

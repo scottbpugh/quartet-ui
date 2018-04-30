@@ -26,20 +26,17 @@ export class Large4 extends Component {
           width: "50%",
           height: "100%",
           position: "fixed",
-          opacity: "0.04",
+          opacity: "0.06",
           zIndex: "-1",
-          right: "0",
-          top: "100px"
+          right: "0"
         }}>
-        <svg
-          version="1.1"
-          viewBox="0 0 16 15.99"
-          data-name="Layer 1"
-          id="Layer_1">
-          <path
-            id="letter-4-bck"
-            d="M 9.2765539,0.02422728 1.8859289,12.825008 h 8.7402351 v 3.189453 h 3.169921 v -3.189453 h 2.179688 V 9.6550867 H 13.796085 V 0.02422728 Z M 10.626164,3.3640711 V 9.6550867 H 6.6554602 Z m -9.4296882,10.6503899 -1.18164057,2 H 3.1964758 l 1.1796875,-2 z"
-          />
+        <svg version="1.1" id="letter-4-bck" viewBox="0 0 17 17">
+          <g transform="translate(1, 0)">
+            <path
+              className="letter-4-path"
+              d="M 9.2765539,0.02422728 1.8859289,12.825008 h 8.7402351 v 3.189453 h 3.169921 v -3.189453 h 2.179688 V 9.6550867 H 13.796085 V 0.02422728 Z M 10.626164,3.3640711 V 9.6550867 H 6.6554602 Z m -9.4296882,10.6503899 -1.18164057,2 H 3.1964758 l 1.1796875,-2 z"
+            />
+          </g>
         </svg>
       </div>
     );
