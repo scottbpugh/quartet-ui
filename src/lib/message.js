@@ -39,14 +39,21 @@ const getIntent = type => {
 };
 
 export const showMessage = msg => {
-  // for errors etc out of a component context.
-  const intl = pluginRegistry.getIntl();
-  if (msg.id) {
-    msgToaster.show({
-      message: intl.formatMessage({id: msg.id}, msg.values),
-      intent: getIntent(msg.type)
-    });
-  } else if (msg.msg) {
-    msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
+  try {
+    // for errors etc out of a component context.
+    const intl = pluginRegistry.getIntl();
+    if (msg.id) {
+      msgToaster.show({
+        message: intl.formatMessage({id: msg.id}, msg.values),
+        intent: getIntent(msg.type)
+      });
+    } else if (msg.msg) {
+      msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
+    }
+  } catch (e) {
+    console.log(
+      "an error occurred while attempting to display an error toast.",
+      e
+    );
   }
 };
