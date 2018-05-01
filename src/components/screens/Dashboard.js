@@ -72,21 +72,21 @@ class _DashboardRight extends Component {
                   </li>
                   <li>
                     <a
-                      href="https://serial-lab.gitlab.io/EParseCIS/"
+                      href="https://serial-lab.gitlab.io/EPCPyYes/"
                       target="_blank">
                       <FormattedMessage
                         id="app.dashboard.documentation"
-                        values={{projectName: "EParseCIS"}}
+                        values={{projectName: "EPCPyYes"}}
                       />
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://serial-lab.gitlab.io/EPCPyYes/index.html"
+                      href="https://serial-lab.gitlab.io/EParseCIS/readme.html"
                       target="_blank">
                       <FormattedMessage
                         id="app.dashboard.documentation"
-                        values={{projectName: "EPCPyYes"}}
+                        values={{projectName: "EParseCIS"}}
                       />
                     </a>
                   </li>
@@ -102,7 +102,7 @@ class _DashboardRight extends Component {
                   </li>
                   <li>
                     <a
-                      href="https://serial-lab.gitlab.io/serialbox/installation/index.html"
+                      href="https://serial-lab.gitlab.io/serialbox/"
                       target="_blank">
                       <FormattedMessage
                         id="app.dashboard.documentation"

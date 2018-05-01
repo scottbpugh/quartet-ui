@@ -256,6 +256,7 @@ class _RuleItem extends Component {
         <StepItem
           key={step.name}
           step={step}
+          depth={depth}
           currentPath={currentPath}
           serverID={this.props.serverID}
           history={this.props.history}
