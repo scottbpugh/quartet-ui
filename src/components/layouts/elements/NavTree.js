@@ -80,6 +80,9 @@ class _NavTree extends Component {
   componentWillReceiveProps(nextProps) {
     this.tree = this.getTree(nextProps);
   }
+  goTo = path => {
+    this.props.history.push(path);
+  };
   getTree = props => {
     let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
@@ -113,6 +116,11 @@ class _NavTree extends Component {
       <div className="tree-wrapper">
         <div className="leftbar-group">
           <div className="pt-button-group pt-minimal">
+            <button
+              onClick={this.goTo.bind(this, "/")}
+              tabIndex="0"
+              className="pt-button pt-icon-home"
+            />
             <AddServerButton
               theme={this.props.theme}
               history={this.props.history}
