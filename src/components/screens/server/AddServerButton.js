@@ -25,12 +25,10 @@ export class AddServerButton extends Component {
     this.props.history.push(path);
   }
   render() {
-    let isDark = this.props.theme === "polar" ? false : true;
     const addMenu = (
       <Menu
         className={classNames({
-          "menu-padding-fix": true,
-          "pt-dark": isDark
+          "menu-padding-fix": true
         })}>
         <MenuItem
           text={<FormattedMessage id="app.serverSettings.addAServer" />}
@@ -45,7 +43,7 @@ export class AddServerButton extends Component {
     return (
       <div>
         <Popover
-          className={classNames({"pt-dark": isDark})}
+          className={classNames({"pt-dark": this.props.isDark})}
           content={addMenu}
           position={Position.RIGHT_CENTER}>
           <button

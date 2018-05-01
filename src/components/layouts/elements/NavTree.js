@@ -112,19 +112,25 @@ class _NavTree extends Component {
     return serverNodes;
   };
   render() {
+    let isDark = this.props.theme === "polar" ? false : true;
     return (
       <div className="tree-wrapper">
         <div className="leftbar-group">
-          <div className="pt-button-group pt-minimal">
+          <div
+            className={classNames({
+              "pt-button-group": true,
+              "pt-minimal": true,
+              "pt-dark": isDark
+            })}>
             <button
               onClick={this.goTo.bind(this, "/")}
               tabIndex="0"
-              className="pt-button pt-icon-home"
+              className={classNames({
+                "pt-button": true,
+                "pt-icon-home": true
+              })}
             />
-            <AddServerButton
-              theme={this.props.theme}
-              history={this.props.history}
-            />
+            <AddServerButton history={this.props.history} isDark={isDark} />
           </div>
         </div>
         <div style={{width: "100%"}}>

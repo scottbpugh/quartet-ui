@@ -20,6 +20,7 @@ import React, {Component} from "react";
 import "components/cards/dashboard/cards.css";
 import {Card, Callout} from "@blueprintjs/core";
 import {connect} from "react-redux";
+import classNames from "classnames";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import {Large4} from "./Large4";
@@ -31,9 +32,14 @@ class _DashboardRight extends Component {
     this.props.history.push(path);
   };
   render() {
+    let isDark = ["contrasted"].includes(this.props.theme) ? true : false;
     const {props} = this;
     return (
-      <div className="dashboard-container">
+      <div
+        className={classNames({
+          "dashboard-container": true,
+          "pt-dark": isDark
+        })}>
         <h2>QU4RTET</h2>
         <h3>
           <FormattedMessage id="app.dashboard.dashboardHeader3" />
@@ -150,7 +156,10 @@ class _DashboardRight extends Component {
 }
 
 const DashboardRight = connect((state, ownProps) => {
-  return {servers: state.serversettings.servers};
+  return {
+    servers: state.serversettings.servers,
+    theme: state.layout.theme
+  };
 }, {})(withRouter(_DashboardRight));
 
 export default props => {
