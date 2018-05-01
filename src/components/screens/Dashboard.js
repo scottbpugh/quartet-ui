@@ -16,28 +16,158 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from "react";
+import React, {Component} from "react";
 import "components/cards/dashboard/cards.css";
+import {Card, Callout} from "@blueprintjs/core";
+import {connect} from "react-redux";
+import classNames from "classnames";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
+import {Large4} from "./Large4";
+import "./Dashboard.css";
+import {withRouter} from "react-router";
 
-const DashboardRight = props => (
-  <div className="cards-container">
-    {/*<Card>
-      <h5>Welcome</h5>
-      <Callout>
-        Use the navigation tree on the left to start using a QU4RTET server.
-      </Callout>
-    </Card>*/}
-  </div>
-);
+class _DashboardRight extends Component {
+  goTo = path => {
+    this.props.history.push(path);
+  };
+  render() {
+    let isDark = ["contrasted"].includes(this.props.theme) ? true : false;
+    const {props} = this;
+    return (
+      <div
+        className={classNames({
+          "dashboard-container": true,
+          "pt-dark": isDark
+        })}>
+        <h2>QU4RTET</h2>
+        <h3>
+          <FormattedMessage id="app.dashboard.dashboardHeader3" />
+        </h3>
+        <Large4 />
+        <div className="dashboard-actions-groups">
+          <div className="dashboard-items-container">
+            <div className="dashboard-items">
+              <div className="dashboard-actions-group">
+                <h4>
+                  <FormattedMessage id="app.dashboard.start" />
+                </h4>
+                <ul>
+                  <li>
+                    <a onClick={this.goTo.bind(this, "/server-settings/")}>
+                      <FormattedMessage id="app.serverSettings.addAServer" />
+                    </a>
+                  </li>
+                  <li>
+                    <a onClick={this.goTo.bind(this, "/plugins")}>
+                      <FormattedMessage id="app.plugins.addPlugin" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="dashboard-actions-group">
+                <h4>
+                  <FormattedMessage id="app.dashboard.resourcesDocumentation" />
+                </h4>
+                <ul>
+                  <li>
+                    <a href="http://serial-lab.com" target="_blank">
+                      Serial Lab
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/EPCPyYes/"
+                      target="_blank">
+                      <FormattedMessage
+                        id="app.dashboard.documentation"
+                        values={{projectName: "EPCPyYes"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/EParseCIS/readme.html"
+                      target="_blank">
+                      <FormattedMessage
+                        id="app.dashboard.documentation"
+                        values={{projectName: "EParseCIS"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/quartet_epcis/"
+                      target="_blank">
+                      <FormattedMessage
+                        id="app.dashboard.documentation"
+                        values={{projectName: "EPCIS Module"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/serialbox/"
+                      target="_blank">
+                      <FormattedMessage
+                        id="app.dashboard.documentation"
+                        values={{projectName: "Number Range Module"}}
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="dashboard-items">
+              <div className="dashboard-actions-group">
+                <h4>
+                  <FormattedMessage id="app.dashboard.servers" />
+                </h4>
+                <ul>
+                  {this.props.servers &&
+                  Object.keys(this.props.servers).length > 0 ? (
+                    Object.keys(this.props.servers).map(serverID => {
+                      return (
+                        <li>
+                          <a
+                            onClick={this.goTo.bind(
+                              this,
+                              `/server-details/${serverID}/`
+                            )}>
+                            {this.props.servers[serverID].serverSettingName}
+                          </a>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li>
+                      <FormattedMessage id="app.dashboard.noServerFound" />
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+const DashboardRight = connect((state, ownProps) => {
+  return {
+    servers: state.serversettings.servers,
+    theme: state.layout.theme
+  };
+}, {})(withRouter(_DashboardRight));
 
 export default props => {
   return (
     <RightPanel
       key="dashboard"
       title={<FormattedMessage id="app.nav.dashboard" />}>
-      {DashboardRight()}
+      <DashboardRight />
     </RightPanel>
   );
 };

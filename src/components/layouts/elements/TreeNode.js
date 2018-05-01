@@ -76,7 +76,7 @@ class _TreeNode extends Component {
     let childrenNodes = this.props.childrenNodes.map(elem => {
       return React.cloneElement(elem, {depth: this.props.depth + 1});
     });
-    let collapsed = this.state.collapsed;
+    let collapsed = this.state.collapsed; // for future use to have more logic.
     return (
       <li
         className={classNames({

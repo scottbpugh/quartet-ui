@@ -160,6 +160,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-node-depth-3 {
   padding-left:40px;
 }
+.tree-node-depth-4 {
+  padding-left:50px;
+}
+.tree-node-depth-5 {
+  padding-left:60px;
+}
+.tree-node-depth-6 {
+  padding-left:70px;
+}
+.tree-node-depth-7 {
+  padding-left:80px;
+}
+.tree-node-depth-8 {
+  padding-left:90px;
+}
+.tree-node-depth-9 {
+  padding-left:100px;
+}
 .collapsed ul {
   /*  display:none;*/
 }

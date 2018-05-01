@@ -128,6 +128,7 @@ class _RuleItem extends Component {
     super(props);
     this.state = {
       active: false,
+      activeSteps: false,
       collapsed: true
     };
   }
@@ -141,8 +142,17 @@ class _RuleItem extends Component {
     let regexp = new RegExp(
       `capture/.*/${serverID}.*/rule/${this.props.rule.id}`
     );
-    this.setState({active: regexp.test(currentPath)});
+    this.setState({active: regexp.test(currentPath)}, () => {
+      this.activateSteps(currentPath);
+    });
   }
+  activateSteps = currentPath => {
+    const {serverID} = this.props;
+    let regexp = new RegExp(
+      `capture/.*/${serverID}.*/rule/${this.props.rule.id}/step`
+    );
+    this.setState({activeSteps: regexp.test(currentPath)});
+  };
   componentDidMount() {
     this.activateNode(this.props.currentPath);
   }
@@ -219,13 +229,9 @@ class _RuleItem extends Component {
         />
         <MenuItem
           onClick={this.toggleUpload}
-          text={
-            rule.name +
-            " " +
-            pluginRegistry.getIntl().formatMessage({
-              id: "plugins.capture.uploadFile"
-            })
-          }
+          text={pluginRegistry.getIntl().formatMessage({
+            id: "plugins.capture.uploadFile"
+          })}
         />
         {/*
         <MenuItem
@@ -242,6 +248,7 @@ class _RuleItem extends Component {
       </Menu>
     );
   }
+
   render() {
     const {rule, depth, currentPath} = this.props;
     let steps = rule.steps.map(step => {
@@ -249,6 +256,7 @@ class _RuleItem extends Component {
         <StepItem
           key={step.name}
           step={step}
+          depth={depth}
           currentPath={currentPath}
           serverID={this.props.serverID}
           history={this.props.history}
@@ -263,7 +271,14 @@ class _RuleItem extends Component {
         onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         active={this.state.active}
-        childrenNodes={steps}>
+        childrenNodes={[
+          <TreeNode
+            depth={depth}
+            active={this.state.activeSteps}
+            childrenNodes={steps}>
+            <FormattedMessage id="plugins.capture.steps" />
+          </TreeNode>
+        ]}>
         {rule.name}
         <DeleteDialog
           isOpen={this.state.isConfirmDeleteOpen}

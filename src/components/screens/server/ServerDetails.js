@@ -30,7 +30,10 @@ class _ServerDetails extends Component {
     super(props);
     this.state = {editMode: false};
   }
-  componentDidMount() {}
+  componentDidMount() {
+    // retrigger a schema fetch when mounting details.
+    this.fetchAppList();
+  }
   fetchAppList = evt => {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     if (serverObject) {

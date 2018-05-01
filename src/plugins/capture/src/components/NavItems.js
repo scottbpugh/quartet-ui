@@ -102,7 +102,9 @@ class _NavPluginRoot extends Component {
         depth={this.props.depth}
         active={this.state.active}
         childrenNodes={[]}>
-        <i>No Capture detected on server</i>
+        <i>
+          <FormattedMessage id="noRuleFound" />
+        </i>
       </TreeNode>
     );
   }
