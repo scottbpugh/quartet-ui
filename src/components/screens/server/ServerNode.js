@@ -89,7 +89,6 @@ class _ServerNode extends Component {
         depth={0}
         path={`/server-details/${server.serverID}`}
         active={this.state.active}
-        collapsed={this.state.active}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}
         <RegisterUserDialog
