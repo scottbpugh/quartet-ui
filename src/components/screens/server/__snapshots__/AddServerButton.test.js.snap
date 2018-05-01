@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 <div>
   <span
-    className="pt-popover-target pt-dark"
+    className="pt-popover-target"
     onClick={[Function]}
   >
     <button

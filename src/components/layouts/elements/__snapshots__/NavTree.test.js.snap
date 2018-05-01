@@ -8,7 +8,7 @@ exports[`renders correctly 1`] = `
     className="leftbar-group"
   >
     <div
-      className="pt-button-group pt-minimal"
+      className="pt-button-group pt-minimal pt-dark"
     >
       <button
         className="pt-button pt-icon-home"
