@@ -128,6 +128,7 @@ class _RuleItem extends Component {
     super(props);
     this.state = {
       active: false,
+      activeSteps: false,
       collapsed: true
     };
   }
@@ -141,8 +142,17 @@ class _RuleItem extends Component {
     let regexp = new RegExp(
       `capture/.*/${serverID}.*/rule/${this.props.rule.id}`
     );
-    this.setState({active: regexp.test(currentPath)});
+    this.setState({active: regexp.test(currentPath)}, () => {
+      this.activateSteps(currentPath);
+    });
   }
+  activateSteps = currentPath => {
+    const {serverID} = this.props;
+    let regexp = new RegExp(
+      `capture/.*/${serverID}.*/rule/${this.props.rule.id}/step`
+    );
+    this.setState({activeSteps: regexp.test(currentPath)});
+  };
   componentDidMount() {
     this.activateNode(this.props.currentPath);
   }
@@ -238,6 +248,7 @@ class _RuleItem extends Component {
       </Menu>
     );
   }
+
   render() {
     const {rule, depth, currentPath} = this.props;
     let steps = rule.steps.map(step => {
@@ -262,7 +273,7 @@ class _RuleItem extends Component {
         childrenNodes={[
           <TreeNode
             depth={depth}
-            active={this.state.active}
+            active={this.state.activeSteps}
             childrenNodes={steps}>
             <FormattedMessage id="plugins.capture.steps" />
           </TreeNode>
