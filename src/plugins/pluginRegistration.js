@@ -195,6 +195,8 @@ class PluginRegistry {
     this._servers[serverRef.serverID] = serverRef;
   }
   removeServer(serverRef) {
+    // remove credentials from OS vault
+    this._servers[serverRef.serverID].deletePassword();
     delete this._servers[serverRef.serverID];
   }
   getServer(serverID) {

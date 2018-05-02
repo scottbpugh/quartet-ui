@@ -36,7 +36,7 @@ export const loadEntries = server => {
             type: actions.loadEntries,
             payload: {
               serverID: server.serverID,
-              entries: result.body
+              entries: result.body.results
             }
           });
         });
@@ -94,21 +94,30 @@ export const loadEntry = (server, entryID) => {
   };
 };
 
-export const loadEvents = server => {
+export const loadEvents = (server, type) => {
+  let params = {};
+  if (type) {
+    params.type = type;
+  }
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
       .getClient()
       .then(client => {
-        client.apis.epcis.epcis_events_list().then(result => {
-          return dispatch({
-            type: actions.loadEvents,
-            payload: {
-              serverID: server.serverID,
-              events: result.body
-            }
+        client
+          .execute({
+            operationId: "epcis_events_list",
+            parameters: params
+          })
+          .then(result => {
+            return dispatch({
+              type: actions.loadEvents,
+              payload: {
+                serverID: server.serverID,
+                events: result.body.results
+              }
+            });
           });
-        });
       });
   };
 };

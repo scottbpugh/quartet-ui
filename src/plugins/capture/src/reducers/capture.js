@@ -36,11 +36,12 @@ export const loadRules = server => {
         client.apis.capture.capture_rules_list().then(result => {
           // load steps, all steps for all rules.
           // This may become an issue in the future, if so, a new backend API endpoint
-          // needs to be added.
+          // needs to be added to fetch steps per rule.
+          debugger;
           client.apis.capture.capture_steps_list().then(steps => {
-            result.body.map(rule => {
+            result.body.results.map(rule => {
               // add steps to the rule.
-              rule.steps = steps.body.filter(step => {
+              rule.steps = steps.body.results.filter(step => {
                 if (step.rule === rule.id) {
                   return true;
                 }
@@ -52,8 +53,8 @@ export const loadRules = server => {
             client.apis.capture
               .capture_rule_parameters_list()
               .then(ruleParams => {
-                result.body.map(rule => {
-                  rule.params = ruleParams.body.filter(ruleParam => {
+                result.body.results.map(rule => {
+                  rule.params = ruleParams.body.results.filter(ruleParam => {
                     if (ruleParam.rule === rule.id) {
                       return true;
                     }
@@ -65,7 +66,7 @@ export const loadRules = server => {
                   type: actions.loadRules,
                   payload: {
                     serverID: server.serverID,
-                    rules: result.body
+                    rules: result.body.results
                   }
                 });
               });
@@ -101,7 +102,7 @@ export const loadTasks = server => {
               type: actions.loadTasks,
               payload: {
                 serverID: server.serverID,
-                tasks: result.body
+                tasks: result.body.results
               }
             });
           })

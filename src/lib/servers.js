@@ -66,6 +66,9 @@ export class Server {
     this.loadingPassword = true;
     ipcRenderer.send("getServerCredentials", {account: this.serverID});
   };
+  deletePassword = () => {
+    ipcRenderer.send("deleteServerCredentials", {account: this.serverID});
+  };
   setPassword = password => {
     this.password = password;
     this.loadingPassword = false;
