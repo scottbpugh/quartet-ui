@@ -111,13 +111,13 @@ class _ServerEvents extends Component {
         }
         return true;
       });
-      if (this.eventType) {
+      /*if (this.eventType) {
         // filter further by event type.
         // should do this from backend eventually through the request.
         eventsSubset = eventsSubset.filter(event => {
           return event.type === this.eventType;
         });
-      }
+      }*/
       this.maxPages = Math.ceil(eventsSubset.length / this.state.eventsPerPage);
       this.subsetTotal = eventsSubset.length;
       this.setState(

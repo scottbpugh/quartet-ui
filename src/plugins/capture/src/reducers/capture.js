@@ -37,7 +37,6 @@ export const loadRules = server => {
           // load steps, all steps for all rules.
           // This may become an issue in the future, if so, a new backend API endpoint
           // needs to be added to fetch steps per rule.
-          debugger;
           client.apis.capture.capture_steps_list().then(steps => {
             result.body.results.map(rule => {
               // add steps to the rule.

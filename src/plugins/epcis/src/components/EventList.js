@@ -23,19 +23,33 @@ import {loadEvents} from "../reducers/epcis";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {ServerEvents} from "./ServerEvents";
+import {withRouter} from "react-router";
 
 class _EventList extends Component {
   constructor(props) {
     super(props);
     this.fetchEvents = null;
+    this.eventType = null;
   }
   componentDidMount() {
     const {server} = this.props;
-    this.props.loadEvents(pluginRegistry.getServer(server.serverID));
+    if (this.props.match.params.eventType) {
+      this.eventType = this.props.match.params.eventType;
+    }
+    this.props.loadEvents(
+      pluginRegistry.getServer(server.serverID),
+      this.eventType
+    );
     this.fetchEvents = setInterval(() => {
-      this.props.loadEvents(pluginRegistry.getServer(server.serverID));
+      this.props.loadEvents(
+        pluginRegistry.getServer(server.serverID),
+        this.eventType
+      );
     }, 5000);
-    this.props.loadEvents(pluginRegistry.getServer(server.serverID));
+    this.props.loadEvents(
+      pluginRegistry.getServer(server.serverID),
+      this.eventType
+    );
   }
   componentWillUnmount() {
     clearInterval(this.fetchEvents);
@@ -69,4 +83,4 @@ export const EventList = connect(
     };
   },
   {loadEvents}
-)(_EventList);
+)(withRouter(_EventList));

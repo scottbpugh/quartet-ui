@@ -94,10 +94,10 @@ export const loadEntry = (server, entryID) => {
   };
 };
 
-export const loadEvents = (server, type) => {
+export const loadEvents = (server, type, search) => {
   let params = {};
   if (type) {
-    params.type = type;
+    params = {type: type};
   }
   return dispatch => {
     pluginRegistry

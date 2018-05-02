@@ -82,7 +82,7 @@ class StepItem extends Component {
     });
   };
   renderContextMenu() {
-    const {step} = this.props;
+    const {step, rule, serverID} = this.props;
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
@@ -94,6 +94,17 @@ class StepItem extends Component {
           />
         </ButtonGroup>
         <MenuDivider title={step.name} />
+        <MenuItem
+          onClick={this.goTo.bind(
+            this,
+            `/capture/add-step-param/${serverID}/rule/${step.rule}/step/${
+              step.name
+            }`
+          )}
+          text={pluginRegistry.getIntl().formatMessage({
+            id: "plugins.capture.addStepParam"
+          })}
+        />
       </Menu>
     );
   }
