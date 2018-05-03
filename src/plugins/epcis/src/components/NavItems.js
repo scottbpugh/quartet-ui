@@ -53,26 +53,16 @@ class SubNode extends Component {
 class _NavPluginRoot extends Component {
   constructor(props) {
     super(props);
-    this.state = {active: false};
   }
-  componentDidMount() {
-    this.activateNode(this.props.currentPath);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
-  }
+  componentDidMount() {}
+  componentWillReceiveProps(nextProps) {}
   static get PLUGIN_COMPONENT_NAME() {
     return "EPCISNavRoot";
   }
   goTo = path => {
     this.props.history.push(path);
   };
-  activateNode(currentPath) {
-    // set active state if in current path.
-    const {serverID} = this.props;
-    let regexp = new RegExp(`/epcis.*/${serverID}`);
-    this.setState({active: regexp.test(currentPath)});
-  }
+
   renderContextMenu = () => {
     const {server, serverID} = this.props;
     return (
@@ -177,7 +167,6 @@ class _NavPluginRoot extends Component {
       <TreeNode
         onContextMenu={this.renderContextMenu}
         depth={this.props.depth}
-        active={this.state.active}
         serverID={serverID}
         server={server}
         childrenNodes={children}>

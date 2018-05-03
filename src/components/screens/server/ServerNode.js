@@ -32,18 +32,12 @@ class _ServerNode extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
       registerDialogOpen: false,
       verifyDialogOpen: false,
       confirmDeleteOpen: false
     };
   }
-  componentDidMount() {
-    this.activateNode(this.props.currentPath, this.props.server);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath, nextProps.server);
-  }
+
   renderContextMenu() {
     const {server, intl} = this.props;
     return (
@@ -71,14 +65,6 @@ class _ServerNode extends Component {
     this.props.history.push("/");
     this.props.deleteServer(this.props.server);
   };
-  activateNode(currentPath, server) {
-    // set active state if in current path.
-    // for some reason this.props.location.pathname doesn't get updated.
-    // window.location.pathname does.
-    const {serverID} = server;
-    let regexp = new RegExp(`${serverID}`);
-    this.setState({active: regexp.test(currentPath)}, () => {});
-  }
   render() {
     const {server, intl, childrenNodes, children} = this.props;
     return (
@@ -88,7 +74,6 @@ class _ServerNode extends Component {
         nodeType="server"
         depth={0}
         path={`/server-details/${server.serverID}`}
-        active={this.state.active}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}
         <RegisterUserDialog

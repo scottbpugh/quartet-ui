@@ -33,6 +33,7 @@ const defaultLocaleMsg = {
     createTask: "Create Task with File",
     uploadedFile: "File uploaded for rule {ruleName}",
     addRuleParam: "Add a New Rule Parameter",
+    addStepParam: "Add a New Step Parameter",
     processFileError:
       "An error occurred while processing this file. Please check the QU4RTET server for more information.",
     errorFetchRuleParams:
@@ -41,7 +42,9 @@ const defaultLocaleMsg = {
     addRuleParameter: "Add Rule Parameter",
     editRuleParam: "Edit Rule Parameter",
     noRuleFound: "No Rule found on server",
-    steps: "Steps"
+    steps: "Steps",
+    taskCreated: "Task with id {taskID} has been created.",
+    tasksTotal: "{tasksCount} tasks total."
   }
 };
 

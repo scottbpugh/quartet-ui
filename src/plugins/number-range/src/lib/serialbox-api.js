@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {showMessage} from "lib/message";
 import {prepHeadersAuth} from "lib/auth-api";
+import {pluginRegistry} from "plugins/pluginRegistration";
 const PREFIX_PATH = "serialbox/";
 
 /**
@@ -28,12 +29,11 @@ const PREFIX_PATH = "serialbox/";
  */
 export const getPools = server => {
   const url = `${server.url}${PREFIX_PATH}pools/?related=true`;
-  return fetch(url, prepHeadersAuth(server))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
+  return pluginRegistry
+    .getServer(server.serverID)
+    .fetchListAll("serialbox_pools_list", {related: "true"}, [])
+    .then(pools => {
+      return pools;
     })
     .catch(error => {
       showMessage({
@@ -75,27 +75,28 @@ export const getPoolDetail = (server, pool) => {
  * @return {object} A JSON response.
  */
 export const getRegion = (server, regionName) => {
-  return getRegionByURL(
+  return getRegionByName(
     server,
-    `${server.url}${PREFIX_PATH}sequential-region-detail/${regionName}/`
+    regionName,
+    "serialbox_sequential_region_detail_read"
   );
 };
 
 /**
- * getRegionByURL - Similar to getRegion but no URL logic.
+ * getRegionByName - Similar to getRegion but no URL logic.
  *
  * @param {object} server Server setting object.
- * @param {string} url A full URL to the API endpoint.
+ * @param {string} url The name of the region.
+ * @param {string} operationId the operationId for the endpoint.
  *
  * @return {object} A JSON object.
  */
-export const getRegionByURL = (server, url) => {
-  return fetch(url, prepHeadersAuth(server))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
+export const getRegionByName = (server, name, operationId) => {
+  return pluginRegistry
+    .getServer(server.serverID)
+    .fetchObject(operationId, {machine_name: name})
+    .then(detail => {
+      return detail;
     })
     .catch(error => {
       showMessage({
@@ -117,12 +118,16 @@ export const getRegionByURL = (server, url) => {
  */
 export const getRegions = (server, pool) => {
   let promises = [];
-  for (let url of pool.sequentialregion_set) {
-    promises.push(getRegionByURL(server, url));
+  for (let name of pool.sequentialregion_set) {
+    promises.push(
+      getRegionByName(server, name, "serialbox_sequential_region_detail_read")
+    );
   }
   if (pool.randomizedregion_set) {
-    for (let url of pool.randomizedregion_set) {
-      promises.push(getRegionByURL(server, url));
+    for (let name of pool.randomizedregion_set) {
+      promises.push(
+        getRegionByName(server, name, "serialbox_randomized_regions_read")
+      );
     }
   }
   return Promise.all(promises)

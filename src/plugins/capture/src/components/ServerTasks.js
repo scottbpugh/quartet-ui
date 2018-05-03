@@ -16,140 +16,155 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// Copyright (c) 2018 SerialLab Corp.
+//
+// GNU GENERAL PUBLIC LICENSE
+//    Version 3, 29 June 2007
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
 import {
   Card,
   Tag,
-  Intent,
   ControlGroup,
   Button,
-  InputGroup
+  InputGroup,
+  Intent,
+  Icon
 } from "@blueprintjs/core";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
-import "./RuleList.css";
+import {withRouter} from "react-router";
 
-/* Built a custom pagination for this, since the values are auto-updated every 5 seconds.
-   I wanted total control of what happens when tasks are added/removed. */
-export class ServerTasks extends Component {
+class _ServerTasks extends Component {
   constructor(props) {
     super(props);
     this.state = {
       filter: "",
       keywordSearch: "",
       tasks: [],
-      tasksPerPage: 5,
-      inputSize: 50
+      tasksPerPage: 20,
+      inputSize: 50,
+      maxPages: 1
     };
     this.offset = 0;
-    this.currentPage = 0;
+    this.currentPage = 1;
     this.debounced = null;
-    this.maxPages = 0;
+    this.taskType = null;
+    this.fetchTasks = null;
   }
+
   // filter by a field in the rows.
   filterBy = evt => {
     this.setState({filter: evt.currentTarget.value}, () => {
       this.offset = 0;
-      this.currentPage = 0;
-      this.processTasks(this.props.tasks);
+      this.currentPage = 1;
+      this.processTasks();
     });
   };
+
   // search by a field in the rows or all of them.
   searchBy = evt => {
     this.setState({keywordSearch: evt.currentTarget.value}, () => {
       this.offset = 0;
-      this.currentPage = 0;
-      this.processTasks(this.props.tasks);
+      this.currentPage = 1;
+      this.processTasks();
     });
   };
+
   componentDidMount() {
-    this.processTasks(this.props.tasks || []);
+    if (this.props.match.params.taskType) {
+      this.taskType = this.props.match.params.taskType;
+    }
+    this.processTasks();
+    this.fetchTasks = setInterval(() => {
+      this.processTasks();
+    }, 5000);
   }
+
+  componentWillUnmount() {
+    clearInterval(this.fetchTasks);
+    this.fetchTasks = null;
+  }
+
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
-    if (JSON.stringify(nextProps.tasks) !== JSON.stringify(this.props.tasks)) {
-      this.processTasks(nextProps.tasks);
+    const {rules} = this.props;
+    let maxPages = this.currentPage;
+    if (nextProps.next !== null && Array.isArray(nextProps.tasks)) {
+      maxPages = Math.ceil(nextProps.count / nextProps.tasks.length);
     }
+    let tasks = [];
+    if (nextProps.tasks) {
+      tasks = nextProps.tasks.map(task => {
+        task.ruleObject = rules.find(rule => {
+          return Number(rule.id) === Number(task.rule);
+        });
+        return task;
+      });
+    }
+
+    this.setState({
+      tasks: tasks,
+      maxPages: maxPages
+    });
   }
+
+  goTo = path => {
+    this.props.history.push(path);
+  };
 
   // go to next page if possible.
   next = () => {
-    if (this.currentPage + 1 < this.maxPages) {
-      this.currentPage += 1;
-      this.offset = this.state.tasksPerPage * this.currentPage;
-      this.processTasks(this.props.tasks, true);
-    }
+    this.currentPage += 1;
+    this.processTasks(true);
   };
 
   // go to previous page if possible.
   previous = () => {
-    if (this.currentPage - 1 >= 0) {
-      this.currentPage -= 1;
-      this.offset = this.state.tasksPerPage * this.currentPage;
-      this.processTasks(this.props.tasks, true);
-    }
+    this.currentPage -= 1;
+    this.offset = this.state.tasksPerPage * this.currentPage;
+    this.processTasks(true);
   };
-  processTasks = (tasks, clear = false) => {
+
+  processTasks = (clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
-      const {rules} = this.props;
+      const {loadTasks, server} = this.props;
       const searchExp = new RegExp(this.state.keywordSearch, "i");
-      const tasksSubset = tasks.filter(task => {
-        // add rule object.
-        task.ruleObject = rules.find(rule => {
-          return Number(rule.id) === Number(task.rule);
-        });
-        if (this.state.filter && this.state.keywordSearch) {
-          if (this.state.filter === "ruleName") {
-            return task.ruleObject.name.match(searchExp);
-          }
-          return task[this.state.filter].match(searchExp);
-        } else if (this.state.filter === "" && this.state.keywordSearch) {
-          // search across all fields
-          return JSON.stringify(task).match(searchExp);
-        }
-        return true;
-      });
-      this.maxPages = Math.ceil(tasksSubset.length / this.state.tasksPerPage);
-      this.subsetTotal = tasksSubset.length;
-      this.setState(
-        {
-          tasks: tasksSubset.slice(
-            this.offset,
-            this.offset + this.state.tasksPerPage
-          )
-        },
-        () => {
-          this.debounced = null;
-        }
+      this.props.loadTasks(
+        server,
+        this.state.keywordSearch,
+        this.currentPage,
+        "-record_time"
       );
     }, clear ? 0 : 250);
   };
-  setTasksPerPage = evt => {
-    this.currentPage = 0;
-    this.offset = 0;
-    let newTasksPerPage = Number(evt.currentTarget.value) | "";
-    this.setState(
-      {
-        tasksPerPage: newTasksPerPage,
-        inputSize: 10 * evt.currentTarget.value.length + 40
-      },
-      () => {
-        this.processTasks(this.props.tasks);
-      }
-    );
-  };
+
   render() {
     let serverName = this.props.server.serverSettingName;
+    let serverID = this.props.server.serverID;
     const {tasks} = this.state;
+
     return (
       <Card className="pt-elevation-4">
         <h5>
           {" "}
           <div className="right-aligned-elem">
             <Tag className="pt-large">
-              {this.currentPage + 1}/{this.maxPages}
+              {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
           {serverName} Tasks
@@ -159,39 +174,23 @@ export class ServerTasks extends Component {
             <div className="pagination-control">
               <div>
                 <Button
-                  disabled={this.currentPage - 1 < 0}
+                  disabled={this.currentPage - 1 < 1}
                   onClick={this.previous.bind(this)}>
                   previous
                 </Button>{" "}
                 |{" "}
                 <Button
-                  disabled={this.currentPage + 1 >= this.maxPages}
+                  disabled={this.currentPage >= this.state.maxPages}
                   onClick={this.next.bind(this)}>
                   next
                 </Button>
-              </div>
-              <div>
-                <input
-                  className="pt-input"
-                  placeholder="tasks"
-                  name="taskPerPage"
-                  dir="auto"
-                  style={{width: this.state.inputSize, textAlign: "center"}}
-                  value={this.state.tasksPerPage}
-                  onChange={this.setTasksPerPage}
-                />
-                {"  "}
-                tasks per page.
               </div>
             </div>
             <div>
               <ControlGroup fill={false} vertical={false}>
                 <div className="pt-select">
-                  <select value={this.state.filter} onChange={this.filterBy}>
+                  <select value={this.state.filter}>
                     <option value="">Search</option>
-                    <option value="ruleName">Rule</option>
-                    <option value="name">Task Name</option>
-                    <option value="status">Status</option>
                   </select>
                 </div>
                 <InputGroup
@@ -201,83 +200,87 @@ export class ServerTasks extends Component {
                 />
               </ControlGroup>
               <div className="label-info-display">
-                <span>
-                  Showing {this.subsetTotal}/{this.props.tasks
-                    ? this.props.tasks.length
-                    : 0}{" "}
-                  tasks total.
-                </span>
+                <FormattedMessage
+                  id="plugins.capture.tasksTotal"
+                  values={{tasksCount: this.props.count}}
+                />
               </div>
             </div>
           </div>
-          <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
-            <thead>
-              <tr>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.ruleName"
-                    defaultMessage="Rule Name"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.name"
-                    defaultMessage="Task Name"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.taskStatusChanged"
-                    defaultMessage="Status Changed"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.taskStatus"
-                    defaultMessage="Status"
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(tasks) && tasks.length > 0
-                ? tasks.map(task => {
-                    let intent = Intent.PRIMARY;
-                    switch (task.status) {
-                      case "FINISHED":
-                        intent = Intent.SUCCESS;
-                        break;
-                      case "WAITING":
-                        intent = Intent.WARNING;
-                        break;
-                      case "FAILED":
-                        intent = Intent.DANGER;
-                        break;
-                      case "RUNNING":
-                        intent = Intent.PRIMARY;
-                        break;
-                      default:
-                        intent = Intent.PRIMARY;
-                    }
-                    return (
-                      <tr key={task.name}>
-                        <td>{task.ruleObject ? task.ruleObject.name : null}</td>
-                        <td>{task.name}</td>
-                        <td>
-                          <FormattedDate value={task.status_changed} /> -{" "}
-                          <FormattedTime value={task.status_changed} />
-                        </td>
-                        <td style={{textAlign: "center"}}>
-                          <Tag intent={intent}>{task.status}</Tag>
-                        </td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </tbody>
-          </table>
+          <div className="overflowed-table">
+            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
+              <thead>
+                <tr>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.capture.ruleName"
+                      defaultMessage="Rule Name"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.capture.name"
+                      defaultMessage="Task Name"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.capture.taskStatusChanged"
+                      defaultMessage="Status Changed"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.capture.taskStatus"
+                      defaultMessage="Status"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(tasks) && tasks.length > 0
+                  ? tasks.map(task => {
+                      let intent = Intent.PRIMARY;
+                      switch (task.status) {
+                        case "FINISHED":
+                          intent = Intent.SUCCESS;
+                          break;
+                        case "WAITING":
+                          intent = Intent.WARNING;
+                          break;
+                        case "FAILED":
+                          intent = Intent.DANGER;
+                          break;
+                        case "RUNNING":
+                          intent = Intent.PRIMARY;
+                          break;
+                        default:
+                          intent = Intent.PRIMARY;
+                      }
+                      return (
+                        <tr key={task.name}>
+                          <td>
+                            {task.ruleObject ? task.ruleObject.name : null}
+                          </td>
+                          <td>{task.name}</td>
+                          <td>
+                            <FormattedDate value={task.status_changed} /> -{" "}
+                            <FormattedTime value={task.status_changed} />
+                          </td>
+                          <td style={{textAlign: "center"}}>
+                            <Tag intent={intent}>{task.status}</Tag>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Card>
     );
   }
 }
+
+export const ServerTasks = withRouter(_ServerTasks);

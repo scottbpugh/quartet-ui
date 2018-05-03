@@ -25,46 +25,20 @@ export const initialData = () => {
   };
 };
 
-export const loadEntries = server => {
-  return dispatch => {
-    pluginRegistry
-      .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        client.apis.epcis.epcis_entries_list().then(result => {
-          return dispatch({
-            type: actions.loadEntries,
-            payload: {
-              serverID: server.serverID,
-              entries: result.body
-            }
-          });
-        });
-      });
-  };
-};
-
 export const loadEvent = (server, eventID) => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        return client
-          .execute({
-            operationId: "epcis_event_detail_read",
-            parameters: {event_id: eventID}
-          })
-          .then(result => {
-            return dispatch({
-              type: actions.loadItemDetail,
-              payload: {
-                serverID: server.serverID,
-                itemID: eventID,
-                itemDetail: result.body
-              }
-            });
-          });
+      .fetchObject("epcis_event_detail_read", {event_id: eventID})
+      .then(event => {
+        return dispatch({
+          type: actions.loadItemDetail,
+          payload: {
+            serverID: server.serverID,
+            itemID: eventID,
+            itemDetail: event
+          }
+        });
       });
   };
 };
@@ -73,41 +47,76 @@ export const loadEntry = (server, entryID) => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        return client
-          .execute({
-            operationId: "epcis_events_by_entry_id_read",
-            parameters: {entry_identifier: entryID}
-          })
-          .then(result => {
-            return dispatch({
-              type: actions.loadItemDetail,
-              payload: {
-                serverID: server.serverID,
-                itemID: entryID,
-                itemDetail: result.body
-              }
-            });
-          });
+      .fetchObject("epcis_events_by_entry_id_read", {entry_identifier: entryID})
+      .then(entry => {
+        return dispatch({
+          type: actions.loadItemDetail,
+          payload: {
+            serverID: server.serverID,
+            itemID: entryID,
+            itemDetail: entry
+          }
+        });
       });
   };
 };
 
-export const loadEvents = server => {
+export const loadEntries = (server, search, page, ordering) => {
+  let params = {};
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        client.apis.epcis.epcis_events_list().then(result => {
-          return dispatch({
-            type: actions.loadEvents,
-            payload: {
-              serverID: server.serverID,
-              events: result.body
-            }
-          });
+      .fetchPageList("epcis_entries_list", params, [])
+      .then(response => {
+        return dispatch({
+          type: actions.loadEntries,
+          payload: {
+            serverID: server.serverID,
+            entries: response.results,
+            count: response.count,
+            next: response.next
+          }
+        });
+      });
+  };
+};
+
+export const loadEvents = (server, type, search, page, ordering) => {
+  let params = {};
+  if (type) {
+    params.type = type;
+  }
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .fetchPageList("epcis_events_list", params, [])
+      .then(response => {
+        return dispatch({
+          type: actions.loadEvents,
+          payload: {
+            serverID: server.serverID,
+            events: response.results,
+            count: response.count,
+            next: response.next
+          }
         });
       });
   };
@@ -125,7 +134,9 @@ export default handleActions(
           ...state.servers,
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
-            entries: action.payload.entries
+            entries: action.payload.entries,
+            count: action.payload.count,
+            next: action.payload.next
           }
         }
       };
@@ -140,7 +151,9 @@ export default handleActions(
           ...state.servers,
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
-            events: action.payload.events
+            events: action.payload.events,
+            count: action.payload.count,
+            next: action.payload.next
           }
         }
       };

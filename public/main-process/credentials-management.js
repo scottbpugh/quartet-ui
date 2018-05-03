@@ -46,4 +46,7 @@ exports.setCredentialEvents = function(mainWindow) {
       });
     });
   });
+  ipcMain.on("deleteServerCredentials", (event, account) => {
+    keytar.deletePassword("QU4RTET", account.account);
+  });
 };

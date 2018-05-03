@@ -72,14 +72,18 @@ class _DashboardRight extends Component {
                 </h4>
                 <ul>
                   <li>
-                    <a href="http://serial-lab.com" target="_blank">
+                    <a
+                      href="http://serial-lab.com"
+                      target="_blank"
+                      rel="noopener noreferrer">
                       Serial Lab
                     </a>
                   </li>
                   <li>
                     <a
                       href="https://serial-lab.gitlab.io/EPCPyYes/"
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
                         values={{projectName: "EPCPyYes"}}
@@ -89,7 +93,8 @@ class _DashboardRight extends Component {
                   <li>
                     <a
                       href="https://serial-lab.gitlab.io/EParseCIS/readme.html"
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
                         values={{projectName: "EParseCIS"}}
@@ -99,7 +104,8 @@ class _DashboardRight extends Component {
                   <li>
                     <a
                       href="https://serial-lab.gitlab.io/quartet_epcis/"
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
                         values={{projectName: "EPCIS Module"}}
@@ -109,7 +115,8 @@ class _DashboardRight extends Component {
                   <li>
                     <a
                       href="https://serial-lab.gitlab.io/serialbox/"
-                      target="_blank">
+                      target="_blank"
+                      rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
                         values={{projectName: "Number Range Module"}}

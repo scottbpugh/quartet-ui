@@ -66,11 +66,102 @@ export class Server {
     this.loadingPassword = true;
     ipcRenderer.send("getServerCredentials", {account: this.serverID});
   };
+  deletePassword = () => {
+    ipcRenderer.send("deleteServerCredentials", {account: this.serverID});
+  };
   setPassword = password => {
     this.password = password;
     this.loadingPassword = false;
     // refetch client/app list.
     this.listApps();
+  };
+  fetchObject = (operationId, parameters) => {
+    return new Promise((resolve, reject) => {
+      this.getClient().then(client => {
+        client
+          .execute({
+            operationId: operationId,
+            parameters: parameters,
+            securities: {
+              authorized: client.securities,
+              specSecurity: [client.spec.securityDefinitions]
+            }
+          })
+          .then(response => {
+            resolve(response.body);
+          })
+          .catch(e => {
+            reject(e);
+          });
+      });
+    });
+  };
+  fetchPageList = (operationId, parameters, page = 0) => {
+    return new Promise((resolve, reject) => {
+      this.getClient().then(client => {
+        client
+          .execute({
+            operationId: operationId,
+            parameters: parameters,
+            securities: {
+              authorized: client.securities,
+              specSecurity: [client.spec.securityDefinitions]
+            }
+          })
+          .then(response => {
+            if (response.ok) {
+              // returning the full body since we need the count here.
+              resolve(response.body);
+            } else {
+              reject(response);
+            }
+          })
+          .catch(e => {
+            reject(e);
+          });
+      });
+    });
+  };
+  fetchListAll = (operationId, parameters, results = []) => {
+    return new Promise((resolve, reject) => {
+      this.getClient()
+        .then(client => {
+          client
+            .execute({
+              operationId: operationId,
+              parameters: parameters,
+              securities: {
+                authorized: client.securities,
+                specSecurity: [client.spec.securityDefinitions]
+              }
+            })
+            .then(response => {
+              if (response.ok) {
+                if (Array.isArray(response.body)) {
+                  results = results.concat(response.body);
+                  resolve(results);
+                } else if (response.body.results) {
+                  results = results.concat(response.body.results);
+                  // pagination in effect. Assuming page number navigation.
+                  if (response.body.next) {
+                    let url = new URL(response.body.next);
+                    let page = new URLSearchParams(url.search).get("page");
+                    let subParameters = {...parameters, page: page};
+                    this.fetchListAll(operationId, subParameters, results)
+                      .then(resolve)
+                      .catch(reject);
+                  } else {
+                    resolve(results);
+                  }
+                }
+              } else {
+                reject(response);
+              }
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
   };
   setServerData = serverSettings => {
     /*
@@ -249,9 +340,7 @@ export class Server {
     return new Promise((resolve, reject) => {
       Swagger(`${url}schema/`, {
         securities: {
-          authorized: {
-            basic: {username: username, password: password}
-          }
+          basic: {username: username, password: password}
         },
         requestInterceptor: req => {
           //if (req.url === url) {

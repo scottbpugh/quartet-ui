@@ -36,117 +36,95 @@ class _ServerEvents extends Component {
       keywordSearch: "",
       events: [],
       eventsPerPage: 20,
-      inputSize: 50
+      inputSize: 50,
+      maxPages: 1
     };
     this.offset = 0;
-    this.currentPage = 0;
+    this.currentPage = 1;
     this.debounced = null;
-    this.maxPages = 0;
     this.eventType = null;
+    this.fetchEvents = null;
   }
 
   // filter by a field in the rows.
   filterBy = evt => {
     this.setState({filter: evt.currentTarget.value}, () => {
       this.offset = 0;
-      this.currentPage = 0;
-      this.processEvents(this.props.events);
+      this.currentPage = 1;
+      this.processEvents();
     });
   };
+
   // search by a field in the rows or all of them.
   searchBy = evt => {
     this.setState({keywordSearch: evt.currentTarget.value}, () => {
       this.offset = 0;
-      this.currentPage = 0;
-      this.processEvents(this.props.events);
+      this.currentPage = 1;
+      this.processEvents();
     });
   };
+
   componentDidMount() {
-    this.processEvents(this.props.events || []);
     if (this.props.match.params.eventType) {
       this.eventType = this.props.match.params.eventType;
     }
+    this.processEvents();
+    this.fetchEvents = setInterval(() => {
+      this.processEvents();
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fetchEvents);
+    this.fetchEvents = null;
   }
 
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
-    if (
-      JSON.stringify(nextProps.events) !== JSON.stringify(this.props.events)
-    ) {
-      this.processEvents(nextProps.events);
+    let maxPages = this.currentPage;
+    if (nextProps.next !== null && Array.isArray(nextProps.events)) {
+      maxPages = Math.ceil(nextProps.count / nextProps.events.length);
     }
+    this.setState({
+      events: nextProps.events,
+      maxPages: maxPages
+    });
   }
+
   goTo = path => {
     this.props.history.push(path);
   };
+
   // go to next page if possible.
   next = () => {
-    if (this.currentPage + 1 < this.maxPages) {
-      this.currentPage += 1;
-      this.offset = this.state.eventsPerPage * this.currentPage;
-      this.processEvents(this.props.events, true);
-    }
+    this.currentPage += 1;
+    this.processEvents(true);
   };
 
   // go to previous page if possible.
   previous = () => {
-    if (this.currentPage - 1 >= 0) {
-      this.currentPage -= 1;
-      this.offset = this.state.eventsPerPage * this.currentPage;
-      this.processEvents(this.props.events, true);
-    }
+    this.currentPage -= 1;
+    this.offset = this.state.eventsPerPage * this.currentPage;
+    this.processEvents(true);
   };
-  processEvents = (events, clear = false) => {
+
+  processEvents = (clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
+      const {loadEvents, server} = this.props;
       const searchExp = new RegExp(this.state.keywordSearch, "i");
-      let eventsSubset = events.filter(event => {
-        if (this.state.filter && this.state.keywordSearch) {
-          return event[this.state.filter].match(searchExp);
-        } else if (this.state.filter === "" && this.state.keywordSearch) {
-          // search across all fields
-          return JSON.stringify(event).match(searchExp);
-        }
-        return true;
-      });
-      if (this.eventType) {
-        // filter further by event type.
-        // should do this from backend eventually through the request.
-        eventsSubset = eventsSubset.filter(event => {
-          return event.type === this.eventType;
-        });
-      }
-      this.maxPages = Math.ceil(eventsSubset.length / this.state.eventsPerPage);
-      this.subsetTotal = eventsSubset.length;
-      this.setState(
-        {
-          events: eventsSubset.slice(
-            this.offset,
-            this.offset + this.state.eventsPerPage
-          )
-        },
-        () => {
-          this.debounced = null;
-        }
+      this.props.loadEvents(
+        server,
+        this.eventType,
+        this.state.keywordSearch,
+        this.currentPage,
+        "-record_time"
       );
     }, clear ? 0 : 250);
   };
-  setEventsPerPage = evt => {
-    this.currentPage = 0;
-    this.offset = 0;
-    let newEventsPerPage = Number(evt.currentTarget.value) | "";
-    this.setState(
-      {
-        eventsPerPage: newEventsPerPage,
-        inputSize: 10 * evt.currentTarget.value.length + 40
-      },
-      () => {
-        this.processEvents(this.props.events);
-      }
-    );
-  };
+
   getEventType = type => {
     switch (type) {
       case "ag":
@@ -193,7 +171,7 @@ class _ServerEvents extends Component {
           {" "}
           <div className="right-aligned-elem">
             <Tag className="pt-large">
-              {this.currentPage + 1}/{this.maxPages}
+              {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
           {serverName} Events
@@ -203,41 +181,23 @@ class _ServerEvents extends Component {
             <div className="pagination-control">
               <div>
                 <Button
-                  disabled={this.currentPage - 1 < 0}
+                  disabled={this.currentPage - 1 < 1}
                   onClick={this.previous.bind(this)}>
                   previous
                 </Button>{" "}
                 |{" "}
                 <Button
-                  disabled={this.currentPage + 1 >= this.maxPages}
+                  disabled={this.currentPage >= this.state.maxPages}
                   onClick={this.next.bind(this)}>
                   next
                 </Button>
-              </div>
-              <div>
-                <input
-                  className="pt-input"
-                  placeholder="events"
-                  name="eventPerPage"
-                  dir="auto"
-                  style={{width: this.state.inputSize, textAlign: "center"}}
-                  value={this.state.eventsPerPage}
-                  onChange={this.setEventsPerPage}
-                />
-                {"  "}
-                events per page.
               </div>
             </div>
             <div>
               <ControlGroup fill={false} vertical={false}>
                 <div className="pt-select">
-                  <select value={this.state.filter} onChange={this.filterBy}>
+                  <select value={this.state.filter}>
                     <option value="">Search</option>
-                    <option value="id">UUID</option>
-                    <option value="biz_step">Business Step</option>
-                    <option value="disposition">Disposition</option>
-                    <option value="action">Action</option>
-                    <option value="read_point">Read Point</option>
                   </select>
                 </div>
                 <InputGroup
@@ -247,12 +207,10 @@ class _ServerEvents extends Component {
                 />
               </ControlGroup>
               <div className="label-info-display">
-                <span>
-                  Showing {this.subsetTotal}/{this.props.events
-                    ? this.props.events.length
-                    : 0}{" "}
-                  events total.
-                </span>
+                <FormattedMessage
+                  id="plugins.epcis.eventsTotal"
+                  values={{eventsCount: this.props.count}}
+                />
               </div>
             </div>
           </div>

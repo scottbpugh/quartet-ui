@@ -43,7 +43,6 @@ class _PoolItem extends Component {
     this.state = {
       isAllocationOpen: false,
       alloc: 0,
-      active: false,
       isConfirmDeleteOpen: false,
       exportType: "json"
     };
@@ -144,19 +143,6 @@ class _PoolItem extends Component {
   allocChange = evt => {
     this.setState({alloc: evt.target.value});
   };
-  activateNode(currentPath) {
-    // set active state if in current path.
-    // using full current path as a shortcut to match anything.
-    const {pool, serverID} = this.props;
-    let regexp = new RegExp(`/${serverID}/${pool.machine_name}/?$`);
-    this.setState({active: regexp.test(currentPath)});
-  }
-  componentDidMount() {
-    this.activateNode(this.props.currentPath);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
-  }
   toggleConfirmDelete = evt => {
     this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
   };
@@ -269,7 +255,6 @@ export const NavItems = (pools, serverID, intl) => {
 export class _NavPluginRoot extends Component {
   constructor(props) {
     super(props);
-    this.state = {active: false};
   }
   static get PLUGIN_COMPONENT_NAME() {
     return "NumberRangeNavRoot";
@@ -284,23 +269,10 @@ export class _NavPluginRoot extends Component {
   };
   componentDidMount() {
     if (this.props.server && this.serverHasSerialbox()) {
-      // turning off active for root plugin item because it looks like too much green.
-      this.activateNode(this.props.currentPath);
       this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
   }
-  componentWillReceiveProps(nextProps) {
-    // turning off active for root plugin item because it looks like too much green.
-    this.activateNode(nextProps.currentPath);
-  }
-  activateNode(currentPath) {
-    // set active state if in current path.
-    // for some reason this.props.location.pathname doesn't get updated.
-    // window.location.pathname does.
-    const {serverID} = this.props;
-    let regexp = new RegExp(`/number-range.*/${serverID}/?`);
-    this.setState({active: regexp.test(currentPath)});
-  }
+
   renderContextMenu = () => {
     const {server, serverID} = this.props;
     return (
@@ -326,17 +298,13 @@ export class _NavPluginRoot extends Component {
           nodeType="plugin"
           depth={this.props.depth}
           childrenNodes={children}
-          active={this.state.active}
           path={`/number-range/pools/${serverID}`}>
           <FormattedMessage id="plugins.numberRange.navItemsTitle" />
         </TreeNode>
       );
     } else {
       return (
-        <TreeNode
-          depth={this.props.depth}
-          active={this.state.active}
-          childrenNodes={[]}>
+        <TreeNode depth={this.props.depth} childrenNodes={[]}>
           <i>No Number Range detected on server</i>
         </TreeNode>
       );

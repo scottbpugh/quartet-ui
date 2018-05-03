@@ -41,7 +41,11 @@ export const fileUpload = (server, rule, fileObject) => {
           if (!resp.ok) {
             showMessage({type: "error", msg: data.detail});
           } else {
-            showMessage({type: "success", msg: data});
+            showMessage({
+              type: "success",
+              id: "plugins.capture.taskCreated",
+              values: {taskID: data}
+            });
           }
         })
         .catch(e => {

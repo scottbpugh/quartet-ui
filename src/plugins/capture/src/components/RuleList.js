@@ -135,7 +135,7 @@ class _RuleList extends Component {
     this.fetchTasks = null;
   }
   render() {
-    let {server, rules, tasks} = this.props;
+    let {server, rules, tasks, loadTasks, count, next} = this.props;
     return (
       <RightPanel
         title={
@@ -149,7 +149,9 @@ class _RuleList extends Component {
             server={server}
             rules={rules}
             tasks={tasks}
-            loadTasks={this.props.loadTasks}
+            loadTasks={loadTasks}
+            count={count}
+            next={next}
           />
           <ServerRules
             history={this.props.history}
@@ -172,7 +174,13 @@ export const RuleList = connect(
         : [],
       tasks: state.capture.servers
         ? state.capture.servers[ownProps.match.params.serverID].tasks
-        : []
+        : [],
+      count: state.capture.servers
+        ? state.capture.servers[ownProps.match.params.serverID].count
+        : 0,
+      next: state.capture.servers
+        ? state.capture.servers[ownProps.match.params.serverID].next
+        : null
     };
   },
   {loadRules, loadTasks}

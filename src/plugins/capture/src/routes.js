@@ -20,6 +20,7 @@ import {AddRule} from "./components/AddRule";
 import {AddStep} from "./components/AddStep";
 import {AddTask} from "./components/CreateTask";
 import {AddRuleParam} from "./components/AddRuleParam";
+import {AddStepParam} from "./components/AddStepParam";
 import {Route} from "react-router";
 import {RuleList} from "./components/RuleList";
 
@@ -59,6 +60,16 @@ export default (() => {
       key="editRuleParam"
       path="/capture/edit-rule-param/:serverID/rule/:ruleID/ruleParam/:ruleParamID"
       component={AddRuleParam}
+    />,
+    <Route
+      key="addStepParam"
+      path="/capture/add-step-param/:serverID/rule/:ruleID/step/:stepName"
+      component={AddStepParam}
+    />,
+    <Route
+      key="editStepParam"
+      path="/capture/edit-step-param/:serverID/rule/:ruleID/stepParam/:stepParamID"
+      component={AddStepParam}
     />
   ];
 })();
