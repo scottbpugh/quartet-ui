@@ -75,6 +75,41 @@ export class Server {
     // refetch client/app list.
     this.listApps();
   };
+  fetchListAll = (operationId, parameters, results = []) => {
+    return new Promise((resolve, reject) => {
+      this.getClient()
+        .then(client => {
+          client
+            .execute({
+              operationId: operationId,
+              parameters: parameters
+            })
+            .then(response => {
+              if (response.ok) {
+                if (Array.isArray(response.body)) {
+                  results = results.concat(response.body);
+                  resolve(results);
+                } else if (response.body.results) {
+                  results = results.concat(response.body.results);
+                  // pagination in effect. Assuming page number navigation.
+                  if (response.body.next) {
+                    let url = new URL(response.body.next);
+                    let page = new URLSearchParams(url.search).get("page");
+                    let subParameters = {...parameters, page: page};
+                    this.fetchListAll(operationId, subParameters, results)
+                      .then(resolve)
+                      .catch(reject);
+                  } else {
+                    resolve(results);
+                  }
+                }
+              }
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
+  };
   setServerData = serverSettings => {
     /*
     Following object should be passed.

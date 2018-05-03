@@ -102,22 +102,15 @@ export const loadEvents = (server, type, search) => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        client
-          .execute({
-            operationId: "epcis_events_list",
-            parameters: params
-          })
-          .then(result => {
-            return dispatch({
-              type: actions.loadEvents,
-              payload: {
-                serverID: server.serverID,
-                events: result.body.results
-              }
-            });
-          });
+      .fetchListAll("epcis_events_list", params, [])
+      .then(results => {
+        return dispatch({
+          type: actions.loadEvents,
+          payload: {
+            serverID: server.serverID,
+            events: results
+          }
+        });
       });
   };
 };
