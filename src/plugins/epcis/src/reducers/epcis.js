@@ -46,23 +46,16 @@ export const loadEvent = (server, eventID) => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        return client
-          .execute({
-            operationId: "epcis_event_detail_read",
-            parameters: {event_id: eventID}
-          })
-          .then(result => {
-            return dispatch({
-              type: actions.loadItemDetail,
-              payload: {
-                serverID: server.serverID,
-                itemID: eventID,
-                itemDetail: result.body
-              }
-            });
-          });
+      .fetchObject("epcis_event_detail_read", {event_id: eventID})
+      .then(event => {
+        return dispatch({
+          type: actions.loadItemDetail,
+          payload: {
+            serverID: server.serverID,
+            itemID: eventID,
+            itemDetail: event
+          }
+        });
       });
   };
 };
@@ -71,23 +64,16 @@ export const loadEntry = (server, entryID) => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        return client
-          .execute({
-            operationId: "epcis_events_by_entry_id_read",
-            parameters: {entry_identifier: entryID}
-          })
-          .then(result => {
-            return dispatch({
-              type: actions.loadItemDetail,
-              payload: {
-                serverID: server.serverID,
-                itemID: entryID,
-                itemDetail: result.body
-              }
-            });
-          });
+      .fetchObject("epcis_events_by_entry_id_read", {entry_identifier: entryID})
+      .then(entry => {
+        return dispatch({
+          type: actions.loadItemDetail,
+          payload: {
+            serverID: server.serverID,
+            itemID: entryID,
+            itemDetail: entry
+          }
+        });
       });
   };
 };
