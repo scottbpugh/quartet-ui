@@ -96,6 +96,32 @@ export class Server {
       });
     });
   };
+  fetchPageList = (operationId, parameters, page = 0) => {
+    return new Promise((resolve, reject) => {
+      this.getClient().then(client => {
+        client
+          .execute({
+            operationId: operationId,
+            parameters: parameters,
+            securities: {
+              authorized: client.securities,
+              specSecurity: [client.spec.securityDefinitions]
+            }
+          })
+          .then(response => {
+            if (response.ok) {
+              // returning the full body since we need the count here.
+              resolve(response.body);
+            } else {
+              reject(response);
+            }
+          })
+          .catch(e => {
+            reject(e);
+          });
+      });
+    });
+  };
   fetchListAll = (operationId, parameters, results = []) => {
     return new Promise((resolve, reject) => {
       this.getClient()

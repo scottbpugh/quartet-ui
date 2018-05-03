@@ -41,7 +41,8 @@ export default {
         outputQuantityList: "Output Quantity List",
         quantityList: "Quantity List",
         childEPCs: "Child EPCs",
-        businessTransactionList: "Business Transaction List"
+        businessTransactionList: "Business Transaction List",
+        eventsTotal: "{eventsCount} events total"
       }
     }
   },

@@ -36,27 +36,13 @@ class _EventList extends Component {
     if (this.props.match.params.eventType) {
       this.eventType = this.props.match.params.eventType;
     }
-    this.props.loadEvents(
-      pluginRegistry.getServer(server.serverID),
-      this.eventType
-    );
-    this.fetchEvents = setInterval(() => {
-      this.props.loadEvents(
-        pluginRegistry.getServer(server.serverID),
-        this.eventType
-      );
-    }, 5000);
-    this.props.loadEvents(
-      pluginRegistry.getServer(server.serverID),
-      this.eventType
-    );
   }
   componentWillUnmount() {
     clearInterval(this.fetchEvents);
     this.fetchEvents = null;
   }
   render() {
-    let {server, events} = this.props;
+    let {server, events, loadEvents, count, next} = this.props;
     return (
       <RightPanel
         title={
@@ -66,7 +52,13 @@ class _EventList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerEvents server={server} events={events} />
+          <ServerEvents
+            loadEvents={loadEvents}
+            server={server}
+            events={events}
+            count={count}
+            next={next}
+          />
         </div>
       </RightPanel>
     );
@@ -79,7 +71,13 @@ export const EventList = connect(
       server: state.serversettings.servers[ownProps.match.params.serverID],
       events: state.epcis.servers
         ? state.epcis.servers[ownProps.match.params.serverID].events
-        : []
+        : [],
+      count: state.epcis.servers
+        ? state.epcis.servers[ownProps.match.params.serverID].count
+        : 0,
+      next: state.epcis.servers
+        ? state.epcis.servers[ownProps.match.params.serverID].next
+        : null
     };
   },
   {loadEvents}

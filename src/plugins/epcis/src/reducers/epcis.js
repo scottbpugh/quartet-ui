@@ -78,21 +78,29 @@ export const loadEntry = (server, entryID) => {
   };
 };
 
-export const loadEvents = (server, type, search) => {
+export const loadEvents = (server, type, search, page) => {
   let params = {};
   if (type) {
-    params = {type: type};
+    params.type = type;
+  }
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
   }
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .fetchListAll("epcis_events_list", params, [])
-      .then(results => {
+      .fetchPageList("epcis_events_list", params, [])
+      .then(response => {
         return dispatch({
           type: actions.loadEvents,
           payload: {
             serverID: server.serverID,
-            events: results
+            events: response.results,
+            count: response.count,
+            next: response.next
           }
         });
       });
@@ -126,7 +134,9 @@ export default handleActions(
           ...state.servers,
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
-            events: action.payload.events
+            events: action.payload.events,
+            count: action.payload.count,
+            next: action.payload.next
           }
         }
       };
