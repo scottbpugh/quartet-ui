@@ -28,24 +28,8 @@ import {withRouter} from "react-router";
 import "./EntryList.css";
 
 class _EntryList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchEntries = null;
-  }
-  componentDidMount() {
-    const {server} = this.props;
-    this.props.loadEntries(pluginRegistry.getServer(server.serverID));
-    this.fetchEntries = setInterval(() => {
-      this.props.loadEntries(pluginRegistry.getServer(server.serverID));
-    }, 5000);
-    this.props.loadEntries(pluginRegistry.getServer(server.serverID));
-  }
-  componentWillUnmount() {
-    clearInterval(this.fetchEntries);
-    this.fetchEntries = null;
-  }
   render() {
-    let {server, entries} = this.props;
+    let {server, entries, loadEntries, count, next} = this.props;
     return (
       <RightPanel
         title={
@@ -57,8 +41,11 @@ class _EntryList extends Component {
         <div className="large-cards-container full-large">
           <ServerEntries
             history={this.props.history}
+            loadEntries={loadEntries}
             server={server}
             entries={entries}
+            count={count}
+            next={next}
           />
         </div>
       </RightPanel>
@@ -72,7 +59,13 @@ export const EntryList = connect(
       server: state.serversettings.servers[ownProps.match.params.serverID],
       entries: state.epcis.servers
         ? state.epcis.servers[ownProps.match.params.serverID].entries
-        : []
+        : [],
+      count: state.epcis.servers
+        ? state.epcis.servers[ownProps.match.params.serverID].count
+        : 0,
+      next: state.epcis.servers
+        ? state.epcis.servers[ownProps.match.params.serverID].next
+        : null
     };
   },
   {loadEntries}

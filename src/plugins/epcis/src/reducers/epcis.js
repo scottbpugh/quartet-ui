@@ -25,23 +25,6 @@ export const initialData = () => {
   };
 };
 
-export const loadEntries = server => {
-  return dispatch => {
-    pluginRegistry
-      .getServer(server.serverID)
-      .fetchListAll("epcis_entries_list", {}, [])
-      .then(entries => {
-        return dispatch({
-          type: actions.loadEntries,
-          payload: {
-            serverID: server.serverID,
-            entries: entries
-          }
-        });
-      });
-  };
-};
-
 export const loadEvent = (server, eventID) => {
   return dispatch => {
     pluginRegistry
@@ -78,7 +61,36 @@ export const loadEntry = (server, entryID) => {
   };
 };
 
-export const loadEvents = (server, type, search, page) => {
+export const loadEntries = (server, search, page, ordering) => {
+  let params = {};
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .fetchPageList("epcis_entries_list", params, [])
+      .then(response => {
+        return dispatch({
+          type: actions.loadEntries,
+          payload: {
+            serverID: server.serverID,
+            entries: response.results,
+            count: response.count,
+            next: response.next
+          }
+        });
+      });
+  };
+};
+
+export const loadEvents = (server, type, search, page, ordering) => {
   let params = {};
   if (type) {
     params.type = type;
@@ -88,6 +100,9 @@ export const loadEvents = (server, type, search, page) => {
   }
   if (page) {
     params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
   }
   return dispatch => {
     pluginRegistry
@@ -119,7 +134,9 @@ export default handleActions(
           ...state.servers,
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
-            entries: action.payload.entries
+            entries: action.payload.entries,
+            count: action.payload.count,
+            next: action.payload.next
           }
         }
       };

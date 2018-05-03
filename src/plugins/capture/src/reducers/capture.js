@@ -76,20 +76,29 @@ export const deleteRule = (server, rule) => {
   };
 };
 
-export const loadTasks = server => {
+export const loadTasks = (server, search, page, ordering) => {
+  let params = {};
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .fetchListAll("capture_tasks_list", {}, [])
-      .then(tasks => {
-        if (!tasks) {
-          tasks = []; // initialize with empty.
-        }
-        dispatch({
+      .fetchPageList("capture_tasks_list", params, [])
+      .then(response => {
+        return dispatch({
           type: actions.loadTasks,
           payload: {
             serverID: server.serverID,
-            tasks: tasks
+            tasks: response.results,
+            count: response.count,
+            next: response.next
           }
         });
       })
@@ -144,7 +153,9 @@ export default handleActions(
           ...state.servers,
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
-            tasks: action.payload.tasks
+            tasks: action.payload.tasks,
+            count: action.payload.count,
+            next: action.payload.next
           }
         }
       };

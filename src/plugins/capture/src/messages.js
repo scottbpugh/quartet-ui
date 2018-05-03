@@ -43,7 +43,8 @@ const defaultLocaleMsg = {
     editRuleParam: "Edit Rule Parameter",
     noRuleFound: "No Rule found on server",
     steps: "Steps",
-    taskCreated: "Task with id {taskID} has been created. "
+    taskCreated: "Task with id {taskID} has been created.",
+    tasksTotal: "{tasksCount} tasks total."
   }
 };
 

@@ -16,9 +16,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
-import {FormattedMessage} from "react-intl";
-import "./EntryList.css";
+import {
+  Card,
+  Tag,
+  ControlGroup,
+  Button,
+  InputGroup,
+  Intent,
+  Icon
+} from "@blueprintjs/core";
+import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {withRouter} from "react-router";
 
 class _ServerEntries extends Component {
   constructor(props) {
@@ -28,41 +36,56 @@ class _ServerEntries extends Component {
       keywordSearch: "",
       entries: [],
       entriesPerPage: 20,
-      inputSize: 50
+      inputSize: 50,
+      maxPages: 1
     };
     this.offset = 0;
-    this.currentPage = 0;
+    this.currentPage = 1;
     this.debounced = null;
-    this.maxPages = 0;
+    this.fetchEntries = null;
   }
 
   // filter by a field in the rows.
   filterBy = evt => {
     this.setState({filter: evt.currentTarget.value}, () => {
       this.offset = 0;
-      this.currentPage = 0;
-      this.processEntries(this.props.entries);
+      this.currentPage = 1;
+      this.processEntries();
     });
   };
+
   // search by a field in the rows or all of them.
   searchBy = evt => {
     this.setState({keywordSearch: evt.currentTarget.value}, () => {
       this.offset = 0;
-      this.currentPage = 0;
-      this.processEntries(this.props.entries);
+      this.currentPage = 1;
+      this.processEntries();
     });
   };
+
   componentDidMount() {
-    this.processEntries(this.props.entries || []);
+    this.processEntries();
+    this.fetchEntries = setInterval(() => {
+      this.processEntries();
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fetchEntries);
+    this.fetchEntries = null;
   }
 
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
-    if (
-      JSON.stringify(nextProps.entries) !== JSON.stringify(this.props.entries)
-    ) {
-      this.processEntries(nextProps.entries);
+    let maxPages = this.currentPage;
+    if (nextProps.next !== null && Array.isArray(nextProps.entries)) {
+      debugger;
+      maxPages = Math.ceil(nextProps.count / nextProps.entries.length);
     }
+    this.setState({
+      entries: nextProps.entries,
+      maxPages: maxPages
+    });
   }
 
   goTo = path => {
@@ -71,67 +94,31 @@ class _ServerEntries extends Component {
 
   // go to next page if possible.
   next = () => {
-    if (this.currentPage + 1 < this.maxPages) {
-      this.currentPage += 1;
-      this.offset = this.state.entriesPerPage * this.currentPage;
-      this.processEntries(this.props.entries, true);
-    }
+    this.currentPage += 1;
+    this.processEntries(true);
   };
 
   // go to previous page if possible.
   previous = () => {
-    if (this.currentPage - 1 >= 0) {
-      this.currentPage -= 1;
-      this.offset = this.state.entriesPerPage * this.currentPage;
-      this.processEntries(this.props.entries, true);
-    }
+    this.currentPage -= 1;
+    this.processEntries(true);
   };
-  processEntries = (entries, clear = false) => {
+
+  processEntries = (clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
+      const {loadEntries, server} = this.props;
       const searchExp = new RegExp(this.state.keywordSearch, "i");
-      const entriesSubset = entries.filter(entry => {
-        if (this.state.filter && this.state.keywordSearch) {
-          return entry[this.state.filter].match(searchExp);
-        } else if (this.state.filter === "" && this.state.keywordSearch) {
-          // search across all fields
-          return JSON.stringify(entry).match(searchExp);
-        }
-        return true;
-      });
-      this.maxPages = Math.ceil(
-        entriesSubset.length / this.state.entriesPerPage
-      );
-      this.subsetTotal = entriesSubset.length;
-      this.setState(
-        {
-          entries: entriesSubset.slice(
-            this.offset,
-            this.offset + this.state.entriesPerPage
-          )
-        },
-        () => {
-          this.debounced = null;
-        }
+      this.props.loadEntries(
+        server,
+        this.state.keywordSearch,
+        this.currentPage
       );
     }, clear ? 0 : 250);
   };
-  setEntriesPerPage = evt => {
-    this.currentPage = 0;
-    this.offset = 0;
-    let newEntriesPerPage = Number(evt.currentTarget.value) | "";
-    this.setState(
-      {
-        entriesPerPage: newEntriesPerPage,
-        inputSize: 10 * evt.currentTarget.value.length + 40
-      },
-      () => {
-        this.processEntries(this.props.entries);
-      }
-    );
-  };
+
   render() {
     let serverName = this.props.server.serverSettingName;
     let serverID = this.props.server.serverID;
@@ -142,7 +129,7 @@ class _ServerEntries extends Component {
           {" "}
           <div className="right-aligned-elem">
             <Tag className="pt-large">
-              {this.currentPage + 1}/{this.maxPages}
+              {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
           {serverName} Entries
@@ -152,38 +139,23 @@ class _ServerEntries extends Component {
             <div className="pagination-control">
               <div>
                 <Button
-                  disabled={this.currentPage - 1 < 0}
+                  disabled={this.currentPage - 1 < 1}
                   onClick={this.previous.bind(this)}>
                   previous
                 </Button>{" "}
                 |{" "}
                 <Button
-                  disabled={this.currentPage + 1 >= this.maxPages}
+                  disabled={this.currentPage >= this.state.maxPages}
                   onClick={this.next.bind(this)}>
                   next
                 </Button>
-              </div>
-              <div>
-                <input
-                  className="pt-input"
-                  placeholder="entries"
-                  name="entryPerPage"
-                  dir="auto"
-                  style={{width: this.state.inputSize, textAlign: "center"}}
-                  value={this.state.entriesPerPage}
-                  onChange={this.setEntriesPerPage}
-                />
-                {"  "}
-                entries per page.
               </div>
             </div>
             <div>
               <ControlGroup fill={false} vertical={false}>
                 <div className="pt-select">
-                  <select value={this.state.filter} onChange={this.filterBy}>
+                  <select value={this.state.filter}>
                     <option value="">Search</option>
-                    <option value="identifier">Identifier</option>
-                    <option value="id">UUID</option>
                   </select>
                 </div>
                 <InputGroup
@@ -193,56 +165,56 @@ class _ServerEntries extends Component {
                 />
               </ControlGroup>
               <div className="label-info-display">
-                <span>
-                  Showing {this.subsetTotal}/{this.props.entries
-                    ? this.props.entries.length
-                    : 0}{" "}
-                  entries total.
-                </span>
+                <FormattedMessage
+                  id="plugins.epcis.entriesTotal"
+                  values={{entriesCount: this.props.count}}
+                />
               </div>
             </div>
           </div>
-          <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
-            <thead>
-              <tr>
-                <th>
-                  <FormattedMessage
-                    id="plugins.epcis.entryIdentifier"
-                    defaultMessage="Entry Identifier"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.epcis.entryUUID"
-                    defaultMessage="Entry UUID"
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(entries) && entries.length > 0
-                ? entries.map(entry => {
-                    return (
-                      <tr
-                        onClick={this.goTo.bind(
-                          this,
-                          `/epcis/entry-detail/${serverID}/identifier/${
-                            entry.identifier
-                          }`
-                        )}
-                        key={entry.id}>
-                        <td>{entry.identifier}</td>
-                        <td>{entry.id}</td>
-                      </tr>
-                    );
-                  })
-                : null}
-            </tbody>
-          </table>
+          <div className="overflowed-table">
+            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
+              <thead>
+                <tr>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.entryIdentifier"
+                      defaultMessage="Entry Identifier"
+                    />
+                  </th>
+                  <th>
+                    <FormattedMessage
+                      id="plugins.epcis.entryUUID"
+                      defaultMessage="Entry UUID"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.isArray(entries) && entries.length > 0
+                  ? entries.map(entry => {
+                      return (
+                        <tr
+                          onClick={this.goTo.bind(
+                            this,
+                            `/epcis/entry-detail/${serverID}/identifier/${
+                              entry.identifier
+                            }`
+                          )}
+                          key={entry.id}>
+                          <td>{entry.identifier}</td>
+                          <td>{entry.id}</td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Card>
     );
   }
 }
 
-export const ServerEntries = _ServerEntries;
+export const ServerEntries = withRouter(_ServerEntries);

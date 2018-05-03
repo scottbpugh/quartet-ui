@@ -82,7 +82,7 @@ class _ServerEvents extends Component {
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     let maxPages = this.currentPage;
-    if (nextProps.next !== null) {
+    if (nextProps.next !== null && Array.isArray(nextProps.events)) {
       maxPages = Math.ceil(nextProps.count / nextProps.events.length);
     }
     this.setState({
@@ -119,7 +119,8 @@ class _ServerEvents extends Component {
         server,
         this.eventType,
         this.state.keywordSearch,
-        this.currentPage
+        this.currentPage,
+        "-record_time"
       );
     }, clear ? 0 : 250);
   };
@@ -323,4 +324,3 @@ class _ServerEvents extends Component {
 }
 
 export const ServerEvents = withRouter(_ServerEvents);
-

@@ -42,7 +42,8 @@ export default {
         quantityList: "Quantity List",
         childEPCs: "Child EPCs",
         businessTransactionList: "Business Transaction List",
-        eventsTotal: "{eventsCount} events total"
+        eventsTotal: "{eventsCount} events total",
+        entriesTotal: "{entriesCount} entries total"
       }
     }
   },
