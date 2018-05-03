@@ -79,7 +79,6 @@ class _ServerEntries extends Component {
   componentWillReceiveProps(nextProps) {
     let maxPages = this.currentPage;
     if (nextProps.next !== null && Array.isArray(nextProps.entries)) {
-      debugger;
       maxPages = Math.ceil(nextProps.count / nextProps.entries.length);
     }
     this.setState({
