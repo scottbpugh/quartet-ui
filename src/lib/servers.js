@@ -75,6 +75,27 @@ export class Server {
     // refetch client/app list.
     this.listApps();
   };
+  fetchObject = (operationId, parameters) => {
+    return new Promise((resolve, reject) => {
+      this.getClient().then(client => {
+        client
+          .execute({
+            operationId: operationId,
+            parameters: parameters,
+            securities: {
+              authorized: client.securities,
+              specSecurity: [client.spec.securityDefinitions]
+            }
+          })
+          .then(response => {
+            resolve(response.body);
+          })
+          .catch(e => {
+            reject(e);
+          });
+      });
+    });
+  };
   fetchListAll = (operationId, parameters, results = []) => {
     return new Promise((resolve, reject) => {
       this.getClient()
@@ -82,7 +103,11 @@ export class Server {
           client
             .execute({
               operationId: operationId,
-              parameters: parameters
+              parameters: parameters,
+              securities: {
+                authorized: client.securities,
+                specSecurity: [client.spec.securityDefinitions]
+              }
             })
             .then(response => {
               if (response.ok) {
@@ -103,6 +128,8 @@ export class Server {
                     resolve(results);
                   }
                 }
+              } else {
+                reject(response);
               }
             })
             .catch(reject);
@@ -287,9 +314,7 @@ export class Server {
     return new Promise((resolve, reject) => {
       Swagger(`${url}schema/`, {
         securities: {
-          authorized: {
-            basic: {username: username, password: password}
-          }
+          basic: {username: username, password: password}
         },
         requestInterceptor: req => {
           //if (req.url === url) {
