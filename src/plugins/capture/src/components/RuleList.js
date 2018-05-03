@@ -118,22 +118,6 @@ class ServerRules extends Component {
 }
 
 class _RuleList extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchTasks = null;
-  }
-  componentDidMount() {
-    const {server} = this.props;
-    this.props.loadTasks(pluginRegistry.getServer(server.serverID));
-    this.fetchTasks = setInterval(() => {
-      this.props.loadTasks(pluginRegistry.getServer(server.serverID));
-    }, 5000);
-    this.props.loadRules(pluginRegistry.getServer(server.serverID));
-  }
-  componentWillUnmount() {
-    clearInterval(this.fetchTasks);
-    this.fetchTasks = null;
-  }
   render() {
     let {server, rules, tasks, loadTasks, count, next} = this.props;
     return (
