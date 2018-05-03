@@ -55,8 +55,9 @@ class _TreeNode extends Component {
     }
   };
   activateNode(currentPath, path) {
+    console.log(currentPath, path);
     if (path) {
-      let regexp = new RegExp(path);
+      let regexp = new RegExp("^" + path + "$");
       this.setState({active: regexp.test(currentPath)});
     }
   }

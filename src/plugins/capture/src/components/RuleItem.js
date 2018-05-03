@@ -41,22 +41,8 @@ class StepItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
       collapsed: true
     };
-  }
-  activateNode(currentPath) {
-    const {serverID, step} = this.props;
-    let regexp = new RegExp(
-      `capture/.*/${serverID}.*/rule/${step.rule}.*/step/${step.name}$`
-    );
-    this.setState({active: regexp.test(currentPath)});
-  }
-  componentDidMount() {
-    this.activateNode(this.props.currentPath);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
   }
   toggleConfirmDelete = evt => {
     this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
@@ -112,14 +98,16 @@ class StepItem extends Component {
     this.props.history.push(path);
   };
   render() {
-    const {step, depth} = this.props;
+    const {step, depth, serverID} = this.props;
     return (
       <TreeNode
         depth={depth}
         onContextMenu={this.renderContextMenu.bind(this)}
         onClick={this.goToEdit.bind(this)}
+        path={`/capture/edit-step/${this.props.serverID}/rule/${
+          step.rule
+        }/step/${step.name}`}
         collapsed={this.state.collapsed}
-        active={this.state.active}
         childrenNodes={[]}>
         {step.name}
         <DeleteDialog
@@ -138,8 +126,6 @@ class _RuleItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
-      activeSteps: false,
       collapsed: true
     };
   }
@@ -148,28 +134,6 @@ class _RuleItem extends Component {
     this.goTo(`/capture/rules/${serverID}`);
     this.setState({isUploadOpen: !this.state.isUploadOpen});
   };
-  activateNode(currentPath) {
-    const {serverID} = this.props;
-    let regexp = new RegExp(
-      `capture/.*/${serverID}.*/rule/${this.props.rule.id}`
-    );
-    this.setState({active: regexp.test(currentPath)}, () => {
-      this.activateSteps(currentPath);
-    });
-  }
-  activateSteps = currentPath => {
-    const {serverID} = this.props;
-    let regexp = new RegExp(
-      `capture/.*/${serverID}.*/rule/${this.props.rule.id}/step`
-    );
-    this.setState({activeSteps: regexp.test(currentPath)});
-  };
-  componentDidMount() {
-    this.activateNode(this.props.currentPath);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
-  }
   trashRule = evt => {
     const {serverID, rule, deleteRule} = this.props;
     const serverObject = pluginRegistry.getServer(serverID);
@@ -279,14 +243,11 @@ class _RuleItem extends Component {
       <TreeNode
         onContextMenu={this.renderContextMenu.bind(this)}
         depth={depth}
+        path={`/capture/add-rule/${this.props.serverID}/rule/${rule.id}`}
         onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
-        active={this.state.active}
         childrenNodes={[
-          <TreeNode
-            depth={depth}
-            active={this.state.activeSteps}
-            childrenNodes={steps}>
+          <TreeNode depth={depth} childrenNodes={steps}>
             <FormattedMessage id="plugins.capture.steps" />
           </TreeNode>
         ]}>

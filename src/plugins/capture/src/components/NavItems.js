@@ -29,7 +29,6 @@ import {RuleItem} from "./RuleItem";
 class _NavPluginRoot extends Component {
   constructor(props) {
     super(props);
-    this.state = {active: false};
   }
   static get PLUGIN_COMPONENT_NAME() {
     return "CaptureNavRoot";
@@ -42,19 +41,10 @@ class _NavPluginRoot extends Component {
   goTo = path => {
     this.props.history.push(path);
   };
-  activateNode(currentPath) {
-    const {serverID} = this.props;
-    let regexp = new RegExp(`capture/.*/${serverID}`);
-    this.setState({active: regexp.test(currentPath)});
-  }
   componentDidMount() {
     if (this.props.server && this.serverHasCapture()) {
       this.props.loadRules(pluginRegistry.getServer(this.props.serverID));
-      this.activateNode(this.props.currentPath);
     }
-  }
-  componentWillReceiveProps(nextProps) {
-    this.activateNode(nextProps.currentPath);
   }
   renderContextMenu = () => {
     const {server, serverID} = this.props;
@@ -78,18 +68,13 @@ class _NavPluginRoot extends Component {
       let children = rules
         ? rules.map(rule => {
             return (
-              <RuleItem
-                currentPath={currentPath}
-                rule={rule}
-                serverID={this.props.server.serverID}
-              />
+              <RuleItem rule={rule} serverID={this.props.server.serverID} />
             );
           })
         : [];
       return (
         <TreeNode
           depth={this.props.depth}
-          active={this.state.active}
           onContextMenu={this.renderContextMenu}
           path={`/capture/rules/${serverID}`}
           childrenNodes={children}>
@@ -98,10 +83,7 @@ class _NavPluginRoot extends Component {
       );
     }
     return (
-      <TreeNode
-        depth={this.props.depth}
-        active={this.state.active}
-        childrenNodes={[]}>
+      <TreeNode depth={this.props.depth} childrenNodes={[]}>
         <i>
           <FormattedMessage id="noRuleFound" />
         </i>
