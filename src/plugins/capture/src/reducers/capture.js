@@ -27,20 +27,22 @@ export const initialData = () => ({
 });
 
 export const loadRules = server => {
+  let serverObject = pluginRegistry.getServer(server.serverID);
   return dispatch => {
-    pluginRegistry
-      .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        // load all rules
-        client.apis.capture.capture_rules_list().then(result => {
-          // load steps, all steps for all rules.
-          // This may become an issue in the future, if so, a new backend API endpoint
-          // needs to be added to fetch steps per rule.
-          client.apis.capture.capture_steps_list().then(steps => {
-            result.body.results.map(rule => {
-              // add steps to the rule.
-              rule.steps = steps.body.results.filter(step => {
+    serverObject.fetchListAll("capture_rules_list", {}, []).then(rules => {
+      serverObject.fetchListAll("capture_steps_list", {}, []).then(steps => {
+        serverObject
+          .fetchListAll("capture_rule_parameters_list", {}, [])
+          .then(ruleParams => {
+            rules.map(rule => {
+              rule.params = [];
+              rule.params = ruleParams.filter(ruleParam => {
+                if (ruleParam.rule === rule.id) {
+                  return true;
+                }
+                return false;
+              });
+              rule.steps = steps.filter(step => {
                 if (step.rule === rule.id) {
                   return true;
                 }
@@ -48,30 +50,16 @@ export const loadRules = server => {
               });
               return rule;
             });
-            // load rule parameters.
-            client.apis.capture
-              .capture_rule_parameters_list()
-              .then(ruleParams => {
-                result.body.results.map(rule => {
-                  rule.params = ruleParams.body.results.filter(ruleParam => {
-                    if (ruleParam.rule === rule.id) {
-                      return true;
-                    }
-                    return false;
-                  });
-                  return rule;
-                });
-                return dispatch({
-                  type: actions.loadRules,
-                  payload: {
-                    serverID: server.serverID,
-                    rules: result.body.results
-                  }
-                });
-              });
+            return dispatch({
+              type: actions.loadRules,
+              payload: {
+                serverID: server.serverID,
+                rules: rules
+              }
+            });
           });
-        });
       });
+    });
   };
 };
 
@@ -92,25 +80,24 @@ export const loadTasks = server => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        client.apis.capture
-          .capture_tasks_list()
-          .then(result => {
-            dispatch({
-              type: actions.loadTasks,
-              payload: {
-                serverID: server.serverID,
-                tasks: result.body.results
-              }
-            });
-          })
-          .catch(e => {
-            showMessage({
-              type: "error",
-              msg: "An error occurred while attempting to fetch tasks."
-            });
-          });
+      .fetchListAll("capture_tasks_list", {}, [])
+      .then(tasks => {
+        if (!tasks) {
+          tasks = []; // initialize with empty.
+        }
+        dispatch({
+          type: actions.loadTasks,
+          payload: {
+            serverID: server.serverID,
+            tasks: tasks
+          }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          msg: "An error occurred while attempting to fetch tasks."
+        });
       });
   };
 };

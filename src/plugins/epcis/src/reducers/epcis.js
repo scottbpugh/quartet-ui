@@ -29,16 +29,14 @@ export const loadEntries = server => {
   return dispatch => {
     pluginRegistry
       .getServer(server.serverID)
-      .getClient()
-      .then(client => {
-        client.apis.epcis.epcis_entries_list().then(result => {
-          return dispatch({
-            type: actions.loadEntries,
-            payload: {
-              serverID: server.serverID,
-              entries: result.body.results
-            }
-          });
+      .fetchListAll("epcis_entries_list", {}, [])
+      .then(entries => {
+        return dispatch({
+          type: actions.loadEntries,
+          payload: {
+            serverID: server.serverID,
+            entries: entries
+          }
         });
       });
   };
