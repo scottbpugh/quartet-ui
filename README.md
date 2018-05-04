@@ -4,6 +4,8 @@
 
 This project uses React, Redux, Electron, and Blueprint for UI.
 
+For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://gitlab.com/lduros/quartet-ui/blob/master/docs/overview.md).
+
 Run `yarn install` and `yarn start` to get started and spawn the Electron app (with React bootstrapped inside Electron.)
 This will spawn an Electron window, as well as the React app in Google Chrome browser on port 5000 by default.
 
@@ -149,7 +151,6 @@ Your component should return a valid single <TreeNode> component, but it can con
         <FormattedMessage id="plugins.numberRange.navItemsTitle" />
       </TreeNode>
 
-
 You can use the onContextMenu event handler to display a menu of your choice when right clicking on the item.
 child nodes can also use the onContext menu.
 A depth prop is provided through injection (typically starting at 1 at the plugin level.)
@@ -177,7 +178,6 @@ You can connect your custom components that return <TreeNode> with the react-red
         };
       },
       {setAllocation})(withRouter(_PoolItem));
-
 
 You can also map action creators or dispatch it. In this example above, we use the setAllocation action creator.
 The top component injected in the tree also gets this.props.intl passed to it. This allows you to make string translations on the fly without being a direct descendant of the IntlProvider.
@@ -207,7 +207,7 @@ Currently, the list of plugins available is strictly offline and they are contai
 Eventually, non-core plugins will be enabled and installed through npm or another package manager and the metadata on the plugins should be available through a remote server providing a list formatted in JSON for the plugins (after review and approval.)
 To add your core plugin to the list of plugins that can be installed, add an entry in the default export object of the src/plugins/plugin-repo.js file with the following key/value pairs:
 
- NumberRange: {
+NumberRange: {
 core: true,
 preview: "/plugin-screenshots/number-range.png",
 initPath: "number-range/src/init.js",
