@@ -1,7 +1,7 @@
 {
-  "name": "quartet-ui",
-  "version": "0.1.12",
-  "private": true,
+  "name": "QU4RTET",
+  "version": "0.1.15",
+  "private": false,
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
     "@blueprintjs/datetime": "^1.25.1",
@@ -51,7 +51,8 @@
     "electron-start": "node public/electron-wait-react",
     "react-start": "BROWSER=none react-scripts start",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild"
+    "fix-keytar":
+      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild"
   },
   "devDependencies": {
     "babel-jest": "^22.1.0",

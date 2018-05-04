@@ -41,14 +41,42 @@ const defaultLocaleMsg = {
     ruleParameters: "Rule Parameters",
     addRuleParameter: "Add Rule Parameter",
     editRuleParam: "Edit Rule Parameter",
-    noRuleFound: "No Rule found on server",
+    noRuleFound: "No Capture module detected on server",
     steps: "Steps",
     taskCreated: "Task with id {taskID} has been created.",
     tasksTotal: "{tasksCount} tasks total."
   }
 };
 
-const french = {};
+const french = {
+  navItemsTitle: "Règles",
+  addRule: "Ajouter une nouvelle règle",
+  editRule: "Éditer règle",
+  addStep: "Ajouter une nouvelle étape",
+  editStep: "Éditer étape",
+  addTask: "Créer une nouvelle tâche",
+  deleteStep: "Supprimer une étape",
+  deleteStepConfirm: "Etes-vous certain de vouloir supprimer cette étape ?",
+  deleteRule: "Supprimer une règle",
+  deleteRuleConfirm: "Etes-vous certain de vouloir supprimer cette règle ?",
+  uploadFile: "Envoi de fichier",
+  uploadFileTitle: "Envoi de fichier {ruleName}",
+  createTask: "Créer une tâche avec fichier",
+  uploadedFile: "Fichier envoyé pour règle {ruleName}",
+  addRuleParam: "Ajouter un nouveau paramètre de règle",
+  addStepParam: "Ajouter un nouveau paramètre d'étape",
+  processFileError:
+    "Une erreur est survenue lors du traitement de ce fichier. Veuillez vérifier le serveur QU4RTET pour plus d'informations.",
+  errorFetchRuleParams:
+    "Une erreur s'est produite lors de la récupération des paramètres pour cette règle. Veuillez vérifier le serveur QU4RTET pour plus d'informations.",
+  ruleParameters: "Paramètres de règle",
+  addRuleParameter: "Ajouter un paramètre de règle",
+  editRuleParam: "Editer un paramètre de règle",
+  noRuleFound: "Module de capture non détecté sur ce serveur.",
+  taskCreated: "Une tâche avec l'ID {taskID} a été créée.",
+  tasksTotal: "Total des tâches: {tasksCount}",
+  steps: "Étapes"
+};
 
 export default {
   "en-US": {plugins: {...defaultLocaleMsg}},

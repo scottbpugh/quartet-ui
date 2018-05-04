@@ -133,7 +133,8 @@ const App = connect(
       plugins: state.plugins.plugins,
       theme: state.layout.theme,
       serversettings: state.serversettings,
-      currentLocale: state.intl.locale
+      currentLocale: state.intl.locale,
+      intl: state.intl
     };
   },
   dispatch => {

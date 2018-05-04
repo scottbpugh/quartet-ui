@@ -108,7 +108,7 @@ class _DashboardRight extends Component {
                       rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
-                        values={{projectName: "EPCIS Module"}}
+                        values={{projectName: "EPCIS"}}
                       />
                     </a>
                   </li>
@@ -119,7 +119,7 @@ class _DashboardRight extends Component {
                       rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
-                        values={{projectName: "Number Range Module"}}
+                        values={{projectName: "Number Range"}}
                       />
                     </a>
                   </li>
@@ -165,7 +165,8 @@ class _DashboardRight extends Component {
 const DashboardRight = connect((state, ownProps) => {
   return {
     servers: state.serversettings.servers,
-    theme: state.layout.theme
+    theme: state.layout.theme,
+    intl: state.intl
   };
 }, {})(withRouter(_DashboardRight));
 

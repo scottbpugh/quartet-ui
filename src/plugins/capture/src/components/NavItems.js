@@ -85,7 +85,7 @@ class _NavPluginRoot extends Component {
     return (
       <TreeNode depth={this.props.depth} childrenNodes={[]}>
         <i>
-          <FormattedMessage id="noRuleFound" />
+          <FormattedMessage id="plugins.capture.noRuleFound" />
         </i>
       </TreeNode>
     );

@@ -22,6 +22,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {Menu, MenuDivider, MenuItem} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 
 class SubNode extends Component {
   goTo = path => {
@@ -53,6 +54,11 @@ class SubNode extends Component {
 class _NavPluginRoot extends Component {
   constructor(props) {
     super(props);
+  }
+  serverHasEPCIS() {
+    return pluginRegistry
+      .getServer(this.props.serverID)
+      .appList.includes("epcis");
   }
   componentDidMount() {}
   componentWillReceiveProps(nextProps) {}
@@ -117,7 +123,7 @@ class _NavPluginRoot extends Component {
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/ag`}
             childrenNodes={[]}>
-            Aggregation Events
+            <FormattedMessage id="plugins.epcis.aggregationEvents" />
           </SubNode>,
           <SubNode
             depth={this.props.depth}
@@ -127,7 +133,7 @@ class _NavPluginRoot extends Component {
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/ob`}
             childrenNodes={[]}>
-            Object Events
+            <FormattedMessage id="plugins.epcis.objectEvents" />
           </SubNode>,
           <SubNode
             depth={this.props.depth}
@@ -137,7 +143,7 @@ class _NavPluginRoot extends Component {
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/tx`}
             childrenNodes={[]}>
-            Transaction Events
+            <FormattedMessage id="plugins.epcis.transactionEvents" />
           </SubNode>,
           <SubNode
             epth={this.props.depth}
@@ -147,10 +153,10 @@ class _NavPluginRoot extends Component {
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/tf`}
             childrenNodes={[]}>
-            Transformation Events
+            <FormattedMessage id="plugins.epcis.transformationEvents" />
           </SubNode>
         ]}>
-        Events
+        <FormattedMessage id="plugins.epcis.events" />
       </SubNode>,
       <SubNode
         depth={this.props.depth}
@@ -160,17 +166,26 @@ class _NavPluginRoot extends Component {
         menuItems={entryMenuItem}
         path={`/epcis/entry-list/${serverID}`}
         childrenNodes={[]}>
-        Entries
+        <FormattedMessage id="plugins.epcis.entries" />
       </SubNode>
     ];
+    if (this.serverHasEPCIS()) {
+      return (
+        <TreeNode
+          onContextMenu={this.renderContextMenu}
+          depth={this.props.depth}
+          serverID={serverID}
+          server={server}
+          childrenNodes={children}>
+          EPCIS
+        </TreeNode>
+      );
+    }
     return (
-      <TreeNode
-        onContextMenu={this.renderContextMenu}
-        depth={this.props.depth}
-        serverID={serverID}
-        server={server}
-        childrenNodes={children}>
-        EPCIS
+      <TreeNode depth={this.props.depth} childrenNodes={[]}>
+        <i>
+          <FormattedMessage id="plugins.epcis.noEPCISFound" />
+        </i>
       </TreeNode>
     );
   }

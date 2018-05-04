@@ -24,7 +24,9 @@ export default class extends Component {
     const {goTo, currentEntry, objectType, serverID} = this.props;
     return (
       <div className="where">
-        <div className="question-left">Where</div>
+        <div className="question-left">
+          <FormattedMessage id="plugins.epcis.where" defaultMessage="Where" />
+        </div>
         <div className="detail-table-container">
           <table className="pt-table pt-bordered pt-striped">
             <tbody>
