@@ -31,7 +31,7 @@ export default {
         start: "Start",
         connectServer: "Connect to a Server",
         resourcesDocumentation: "Resources & Documentation",
-        documentation: "{projectName} Documentation",
+        documentation: "{projectName} Module Documentation",
         servers: "Servers",
         noServerFound:
           "You currently have no QU4RTET server in your configuration."
@@ -88,9 +88,22 @@ export default {
         server: "Serveur",
         plugins: "Plugins"
       },
+      dashboard: {
+        dashboardHeader3: "Le logiciel libre de Niveau 4",
+        start: "Commencer",
+        connectServer: "Se connecter a un serveur",
+        resourcesDocumentation: "Ressources et documentation",
+        documentation: "Documentation du module {projectName}",
+        servers: "Serveurs",
+        noServerFound:
+          "Il n'y a aucun serveur QU4RTET dans votre configuration."
+      },
       serverSettings: {
         serverSettings: "Paramètres serveur",
-        addAServer: "Ajouter un serveur"
+        addAServer: "Ajouter un serveur",
+        serverSettingsSaved:
+          "Les paramètres de votre serveur ont été enregistrés",
+        serverDeleted: "Le serveur a bien été retiré"
       },
       themes: {
         lightTheme: "Thème clair",
@@ -106,7 +119,15 @@ export default {
         verifyUser: "Vérifier un utilisateur",
         userCreated: "L'utilisateur {username} a été créé avec succès.",
         userVerified: "Compte d'utilisateur confirmé.",
-        deleteServer: "Retirer le server"
+        deleteServer: "Retirer le server",
+        noServerMsg:
+          "Aucun serveur disponible dans cette configuration. Veuillez cliquer sur l'icone + au dessus pour ajouter un nouveau serveur.",
+        deleteServerConfirm:
+          "Êtes-vous sûr de vouloir retirer ce serveur? Aucune donnée de ce serveur ne sera supprimée.",
+        errorFormFetch:
+          "Une erreur s'est produite lors de la tentative d'obtention de ce formulaire à partir du serveur distant {serverName}. {error}",
+        errorServerFetch:
+          "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}"
       },
       plugins: {
         addPlugin: "Ajouter un plugin"

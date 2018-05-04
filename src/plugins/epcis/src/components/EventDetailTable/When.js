@@ -24,7 +24,9 @@ export default class extends Component {
     const {goTo, currentEntry, objectType, serverID} = this.props;
     return (
       <div className="when">
-        <div className="question-left">When</div>
+        <div className="question-left">
+          <FormattedMessage id="plugins.epcis.when" defaultMessage="When" />
+        </div>
         <div className="detail-table-container" style={{width: "100%"}}>
           <table className="pt-table pt-bordered pt-striped">
             <tbody>
