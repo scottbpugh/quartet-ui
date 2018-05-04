@@ -46,7 +46,7 @@ const defaultLocaleMsg = {
     aggregationEvents: "Aggregation Events",
     objectEvents: "Object Events",
     transactionEvents: "Transaction Events",
-    transformationEvenst: "Transformation Events",
+    transformationEvents: "Transformation Events",
     events: "Events",
     entries: "Entries"
   }
