@@ -1,8 +1,6 @@
 [![build status](https://gitlab.com/serial-lab/quartet-ui/badges/master/build.svg)](https://gitlab.com/serial-lab/quartet-ui/commits/master)
 
-# QUARTET-UI Project
-
-This project uses React, Redux, Electron, and Blueprint for UI.
+# QU4RTET Desktop Application
 
 For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://gitlab.com/lduros/quartet-ui/blob/master/docs/overview.md).
 
