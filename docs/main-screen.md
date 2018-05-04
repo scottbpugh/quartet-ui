@@ -26,4 +26,4 @@ QU4RTET fully supports internationalization and localization. We currently offer
 ## Left Navigation Sidebar
 
 The navigation sidebar on the left lists all your servers at the top level, you can dive into each server by clicking on the left chevron to expand all modules available on the servers. Clicking on one will take you to a specific screen. Most items in the navigation provide a context menu with specific actions when right clicking on them.
-
+![navigation](https://gitlab.com/lduros/quartet-ui/raw/master/docs/screenshots/main-screen/8.png)
