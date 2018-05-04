@@ -6,7 +6,7 @@
 
 ### What is the QU4RTET Desktop client
 
-The QU4RTET Desktop application allows you to interactthe core QU4RTET software and its modules for all your Level 4 Serialization administration needs.
+The QU4RTET Desktop application allows you to work with the core QU4RTET software and its modules for all your Level 4 Serialization administration needs.
 
 Using the QU4RTET Desktop application, you can:
 
