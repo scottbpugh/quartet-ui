@@ -7,7 +7,9 @@ The Number Range plugin allows you to interact with the SerialBox QU4RTET server
 ## Creating a Pool
 
 To create a pool on a given server with SerialBox enabled, click on a server node in the navigation tree and right-click on the "Serial Number Range" menu item:
+
 ![screenshot](https://gitlab.com/lduros/quartet-ui/raw/master/docs/screenshots/number-range/1.png)
+
 Finally, click on "Add a New Pool" to get into the pool creation form.
 
 ## Filling the Pool Form
