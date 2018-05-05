@@ -2,7 +2,7 @@
 
 # QU4RTET Desktop Application
 
-For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://gitlab.com/lduros/quartet-ui/blob/master/docs/overview.md).
+For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://gitlab.com/lduros/quartet-ui/blob/master/docs/).
 
 Run `yarn install` and `yarn start` to get started and spawn the Electron app (with React bootstrapped inside Electron.)
 This will spawn an Electron window, as well as the React app in Google Chrome browser on port 5000 by default.
