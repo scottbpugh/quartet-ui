@@ -29,7 +29,7 @@ The supported operating systems are:
 
 You may use the git repository or NPM to install the client and run it in development mode, or use a binary build (.dmg, .exe, or .deb, for example) to install the software in production mode.
 
-### How Tos
+### Getting Started
 
 * [Getting around the application and its main settings](main-screen.md)
 * [Connecting to a QU4RTET server](add-server.md)
