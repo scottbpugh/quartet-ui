@@ -85,7 +85,22 @@ export default function configureStore(coreInitialState) {
   })();
   const enhancer = composeEnhancers(
     applyMiddleware(...middlewares),
-    persistState(["serversettings", "intl", "plugins", "layout"])
+    persistState(["serversettings", "intl", "plugins", "layout"], {
+      slicer: paths => {
+        return state => {
+          let subset = {};
+          paths.forEach(path => {
+            if (path === "plugins") {
+              // remove tree nodes from persistent savings.
+              subset[path] = {plugins: state[path].plugins};
+            } else {
+              subset[path] = state[path];
+            }
+          });
+          return subset;
+        };
+      }
+    })
   );
   const initialState = {
     ...coreInitialState
