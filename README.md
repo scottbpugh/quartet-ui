@@ -1,8 +1,8 @@
 [![build status](https://gitlab.com/serial-lab/quartet-ui/badges/master/build.svg)](https://gitlab.com/serial-lab/quartet-ui/commits/master)
 
-# QUARTET-UI Project
+# QU4RTET Desktop Application
 
-This project uses React, Redux, Electron, and Blueprint for UI.
+For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://gitlab.com/lduros/quartet-ui/blob/master/docs/).
 
 Run `yarn install` and `yarn start` to get started and spawn the Electron app (with React bootstrapped inside Electron.)
 This will spawn an Electron window, as well as the React app in Google Chrome browser on port 5000 by default.
@@ -12,7 +12,7 @@ comprehensive tests of multiple components by matching them against serialized s
 
 ## Screenshot
 
-![Screenshot](public/electron-app-screenshot.png)
+![screenshot](https://gitlab.com/lduros/quartet-ui/raw/master/docs/screenshots/main-screen/1.png)
 
 ## Cohesive Component Structure for Reusability
 
@@ -129,6 +129,7 @@ To register a component, you can use an action from the plugin reducer, such as 
 Disabling the plugin removes the elements added to the core. Currently, removing the localization messages and the reducer is not required. However, unregistering routes and injected component is required in order to remove the graphical elements that your plugin has added to the application.
 
 ### Injecting tree nodes into the left sidebar tree
+
 You can pass treenodes to be displayed under the Servers nodes using the addToTreeServers action and the registerComponent method from the pluginRegistry.
 
     pluginRegistry.registerComponent(
@@ -147,9 +148,9 @@ Your component should return a valid single <TreeNode> component, but it can con
         path={`/number-range/pools/${serverID}`}>
         <FormattedMessage id="plugins.numberRange.navItemsTitle" />
       </TreeNode>
-      
+
 You can use the onContextMenu event handler to display a menu of your choice when right clicking on the item.
-child nodes can also use the onContext menu. 
+child nodes can also use the onContext menu.
 A depth prop is provided through injection (typically starting at 1 at the plugin level.)
 You must pass this.props.depth, untouched, for each TreeNode (including the array of nested TreeNodes passed through the childrenNodes prop.)
 This is used to display the proper level of indentation in the tree.
@@ -160,7 +161,7 @@ For instance, in the case of the Serial Number Range pool tree node, it will be 
     const {pool, serverID} = this.props;
     let regexp = new RegExp(`/${serverID}/${pool.machine_name}/?$`);
     this.setState({active: regexp.test(this.props.currentPath)});
-    
+
 Your TreeNode components can be connected to any redux state in the application.
 The active conditional above, for instance, uses the state.layout.currentPath variable.
 
@@ -175,11 +176,11 @@ You can connect your custom components that return <TreeNode> with the react-red
         };
       },
       {setAllocation})(withRouter(_PoolItem));
-      
+
 You can also map action creators or dispatch it. In this example above, we use the setAllocation action creator.
 The top component injected in the tree also gets this.props.intl passed to it. This allows you to make string translations on the fly without being a direct descendant of the IntlProvider.
 This is particularly useful for the onContextMenu event handler, to provide translations for the BlueprintJS MenuItem label:
-  
+
     renderContextMenu = () => {
       const {servers, serverID, intl} = this.props;
       return (
@@ -195,24 +196,25 @@ This is particularly useful for the onContextMenu event handler, to provide tran
         </Menu>
         );
     };
-    
+
 You must pass the intl prop explicitely for items used in props.childrenNodes to benefit from it for deeper layers of the tree.
 
 ### Getting your plugin available in the PluginList component
+
 Currently, the list of plugins available is strictly offline and they are contained within the src/plugins/ directory of quartet-ui.
 Eventually, non-core plugins will be enabled and installed through npm or another package manager and the metadata on the plugins should be available through a remote server providing a list formatted in JSON for the plugins (after review and approval.)
 To add your core plugin to the list of plugins that can be installed, add an entry in the default export object of the src/plugins/plugin-repo.js file with the following key/value pairs:
-    
-    NumberRange: {
-      core: true,
-      preview: "/plugin-screenshots/number-range.png",
-      initPath: "number-range/src/init.js",
-      readableName: "Serial Number Range Management",
-      pluginName: "NumberRange",
-      description: `
-                The Serial Number Range Management plugin offers users the
-                ability to interact with SerialBox, the backend solution for
-                your serial number range management requirements.
+
+NumberRange: {
+core: true,
+preview: "/plugin-screenshots/number-range.png",
+initPath: "number-range/src/init.js",
+readableName: "Serial Number Range Management",
+pluginName: "NumberRange",
+description: `
+The Serial Number Range Management plugin offers users the
+ability to interact with SerialBox, the backend solution for
+your serial number range management requirements.
 
                 Among other functions, this plugin offers the ability to create
                 pools and serial number ranges as well as allocate numbers on
@@ -220,7 +222,7 @@ To add your core plugin to the list of plugins that can be installed, add an ent
             `
        }
     };
-    
+
 The plugin will then appear in the list of plugins that you can enable and disable from the <PluginList/> component.
 Clicking the Enable button will trigger enablePlugin function in init.js and plugin-specific actions from the core plugin reducer.
 The state of the plugin enabled is added to the redux store and saved persistently in the localstorage.

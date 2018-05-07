@@ -42,16 +42,5 @@ export default {
     description: `
               The EPCIS Plugin allows interaction with the backend QU4RTET EPCIS interface. QU4RTET EPCIS is the EPCIS XML Parsing for the Quartet Platform
             `
-  } /*,
-  admin: {
-    core: true,
-    initPath: "admin/src/init.js",
-    preview: "",
-    readableName: "Admin",
-    pluginName: "Admin",
-    description: `
-              The Admin plugin. Add a Django admin leaf in the tree.
-              WARNING: This is an experimental debug plugin not meant for use outside of development.
-            `
-  }*/
+  }
 };

@@ -22,7 +22,11 @@ import {showMessage} from "lib/message";
 export const initialData = () => {
   return {
     navTreeItems: [],
-    plugins: {NumberRange: {enabled: true}}
+    plugins: {
+      NumberRange: {enabled: true},
+      Capture: {enabled: true},
+      epcis: {enabled: true}
+    }
   };
 };
 

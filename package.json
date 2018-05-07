@@ -51,8 +51,7 @@
     "electron-start": "node public/electron-wait-react",
     "react-start": "BROWSER=none react-scripts start",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar":
-      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild"
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild"
   },
   "devDependencies": {
     "babel-jest": "^22.1.0",
