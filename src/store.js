@@ -93,6 +93,9 @@ export default function configureStore(coreInitialState) {
             if (path === "plugins") {
               // remove tree nodes from persistent savings.
               subset[path] = {plugins: state[path].plugins};
+            } else if (path === "intl") {
+              let {messages, ...sub} = state[path];
+              subset[path] = sub;
             } else {
               subset[path] = state[path];
             }
