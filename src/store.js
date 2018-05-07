@@ -94,9 +94,11 @@ export default function configureStore(coreInitialState) {
               // remove tree nodes from persistent savings.
               subset[path] = {plugins: state[path].plugins};
             } else if (path === "intl") {
+              // remove messages, to force a refresh of them each time.
               let {messages, ...sub} = state[path];
               subset[path] = sub;
             } else {
+              // otherwise, keep entire sub state.
               subset[path] = state[path];
             }
           });
