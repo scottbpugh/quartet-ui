@@ -52,9 +52,6 @@ class SubNode extends Component {
 }
 
 class _NavPluginRoot extends Component {
-  constructor(props) {
-    super(props);
-  }
   serverHasEPCIS() {
     return pluginRegistry
       .getServer(this.props.serverID)

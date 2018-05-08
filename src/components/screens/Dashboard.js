@@ -18,7 +18,6 @@
 
 import React, {Component} from "react";
 import "components/cards/dashboard/cards.css";
-import {Card, Callout} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import classNames from "classnames";
 import {RightPanel} from "components/layouts/Panels";
@@ -33,7 +32,6 @@ class _DashboardRight extends Component {
   };
   render() {
     let isDark = ["contrasted"].includes(this.props.theme) ? true : false;
-    const {props} = this;
     return (
       <div
         className={classNames({

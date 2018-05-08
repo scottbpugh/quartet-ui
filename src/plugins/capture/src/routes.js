@@ -23,6 +23,7 @@ import {AddRuleParam} from "./components/AddRuleParam";
 import {AddStepParam} from "./components/AddStepParam";
 import {Route} from "react-router";
 import {RuleList} from "./components/RuleList";
+import {TasksList} from "./components/TasksList";
 
 export default (() => {
   return [
@@ -30,6 +31,11 @@ export default (() => {
       key="ruleList"
       path="/capture/rules/:serverID"
       component={RuleList}
+    />,
+    <Route
+      key="tasksList"
+      path="/capture/tasks/:serverID"
+      component={TasksList}
     />,
     <Route
       key="addRule"

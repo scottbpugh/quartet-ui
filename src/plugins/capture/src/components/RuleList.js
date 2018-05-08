@@ -19,22 +19,17 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadRules, loadTasks} from "../reducers/capture";
+import {loadRules} from "../reducers/capture";
 import {Card, Tag, Intent} from "@blueprintjs/core";
-
 import {FormattedMessage} from "react-intl";
-import {pluginRegistry} from "plugins/pluginRegistration";
 import "./RuleList.css";
-import {ServerTasks} from "./ServerTasks";
 
 class ServerRules extends Component {
   render() {
     let serverName = this.props.server.serverSettingName;
     let serverID = this.props.server.serverID;
-    let {tasks, rules} = this.props;
-    if (!tasks) {
-      tasks = [];
-    }
+    let {rules} = this.props;
+
     return (
       <Card className="pt-elevation-4">
         <h5>
@@ -70,12 +65,6 @@ class ServerRules extends Component {
                     defaultMessage="Steps"
                   />
                 </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.tasks"
-                    defaultMessage="Tasks"
-                  />
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -98,13 +87,6 @@ class ServerRules extends Component {
                             </Tag>
                           ))}
                         </td>
-                        <td>
-                          {
-                            tasks.filter(task => {
-                              return task.rule === rule.id;
-                            }).length
-                          }
-                        </td>
                       </tr>
                     );
                   })
@@ -118,8 +100,11 @@ class ServerRules extends Component {
 }
 
 class _RuleList extends Component {
+  componentDidMount() {
+    this.props.loadRules(this.props.server);
+  }
   render() {
-    let {server, rules, tasks, loadTasks, count, next} = this.props;
+    let {server, rules} = this.props;
     return (
       <RightPanel
         title={
@@ -129,19 +114,10 @@ class _RuleList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerTasks
-            server={server}
-            rules={rules}
-            tasks={tasks}
-            loadTasks={loadTasks}
-            count={count}
-            next={next}
-          />
           <ServerRules
             history={this.props.history}
             server={server}
             rules={rules}
-            tasks={tasks}
           />
         </div>
       </RightPanel>
@@ -155,17 +131,8 @@ export const RuleList = connect(
       server: state.serversettings.servers[ownProps.match.params.serverID],
       rules: state.capture.servers
         ? state.capture.servers[ownProps.match.params.serverID].rules
-        : [],
-      tasks: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].tasks
-        : [],
-      count: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].count
-        : 0,
-      next: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].next
-        : null
+        : []
     };
   },
-  {loadRules, loadTasks}
+  {loadRules}
 )(_RuleList);

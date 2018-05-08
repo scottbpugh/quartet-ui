@@ -27,11 +27,8 @@ import {loadRules} from "../reducers/capture";
 import {RuleItem} from "./RuleItem";
 
 class _NavPluginRoot extends Component {
-  constructor(props) {
-    super(props);
-  }
   static get PLUGIN_COMPONENT_NAME() {
-    return "CaptureNavRoot";
+    return "RulesTopNav";
   }
   serverHasCapture() {
     return pluginRegistry
@@ -62,7 +59,7 @@ class _NavPluginRoot extends Component {
     );
   };
   render() {
-    const {serverID, currentPath} = this.props;
+    const {serverID} = this.props;
     if (this.serverHasCapture()) {
       const {rules} = this.props;
       let children = rules
@@ -78,7 +75,7 @@ class _NavPluginRoot extends Component {
           onContextMenu={this.renderContextMenu}
           path={`/capture/rules/${serverID}`}
           childrenNodes={children}>
-          <FormattedMessage id="plugins.capture.navItemsTitle" />
+          <FormattedMessage id="plugins.capture.rulesTopNav" />
         </TreeNode>
       );
     }
@@ -92,7 +89,7 @@ class _NavPluginRoot extends Component {
   }
 }
 
-export const NavPluginRoot = connect(
+export const RulesTopNav = connect(
   (state, ownProps) => {
     return {
       server: state.serversettings.servers[ownProps.serverID],

@@ -68,7 +68,7 @@ class StepItem extends Component {
     });
   };
   renderContextMenu() {
-    const {step, rule, serverID} = this.props;
+    const {step, serverID} = this.props;
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
@@ -104,9 +104,9 @@ class StepItem extends Component {
         depth={depth}
         onContextMenu={this.renderContextMenu.bind(this)}
         onClick={this.goToEdit.bind(this)}
-        path={`/capture/edit-step/${this.props.serverID}/rule/${
-          step.rule
-        }/step/${step.name}`}
+        path={`/capture/edit-step/${serverID}/rule/${step.rule}/step/${
+          step.name
+        }`}
         collapsed={this.state.collapsed}
         childrenNodes={[]}>
         {step.name}
@@ -126,12 +126,13 @@ class _RuleItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: true
+      collapsed: true,
+      isUploadOpen: false
     };
   }
   toggleUpload = () => {
     const {serverID} = this.props;
-    this.goTo(`/capture/rules/${serverID}`);
+    this.goTo(`/capture/tasks/${serverID}`);
     this.setState({isUploadOpen: !this.state.isUploadOpen});
   };
   trashRule = evt => {

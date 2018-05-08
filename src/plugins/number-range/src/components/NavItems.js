@@ -253,9 +253,6 @@ export const NavItems = (pools, serverID, intl) => {
 };
 
 export class _NavPluginRoot extends Component {
-  constructor(props) {
-    super(props);
-  }
   static get PLUGIN_COMPONENT_NAME() {
     return "NumberRangeNavRoot";
   }

@@ -28,7 +28,6 @@ const PREFIX_PATH = "serialbox/";
  * @return {object} A JSON object.
  */
 export const getPools = server => {
-  const url = `${server.url}${PREFIX_PATH}pools/?related=true`;
   return pluginRegistry
     .getServer(server.serverID)
     .fetchListAll("serialbox_pools_list", {related: "true"}, [])

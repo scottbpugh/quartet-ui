@@ -17,16 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {
-  Card,
-  Tag,
-  ControlGroup,
-  Button,
-  InputGroup,
-  Intent,
-  Icon
-} from "@blueprintjs/core";
-import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {FormattedMessage} from "react-intl";
 import {RightPanel} from "components/layouts/Panels";
 import {connect} from "react-redux";
 import {loadEvent} from "../reducers/epcis";
@@ -84,7 +75,7 @@ class _EventDetail extends Component {
     }
   };
   render() {
-    let {server, events, currentEntry} = this.props;
+    let {server, currentEntry} = this.props;
 
     return (
       <RightPanel

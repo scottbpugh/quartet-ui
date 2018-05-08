@@ -21,7 +21,6 @@ import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadEvents} from "../reducers/epcis";
 import {FormattedMessage} from "react-intl";
-import {pluginRegistry} from "plugins/pluginRegistration";
 import {ServerEvents} from "./ServerEvents";
 import {withRouter} from "react-router";
 
@@ -32,7 +31,6 @@ class _EventList extends Component {
     this.eventType = null;
   }
   componentDidMount() {
-    const {server} = this.props;
     if (this.props.match.params.eventType) {
       this.eventType = this.props.match.params.eventType;
     }

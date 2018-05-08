@@ -17,7 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/plugins";
-import {NavPluginRoot} from "./components/NavItems";
+import {RulesTopNav} from "./components/RulesTopNav";
+import {TasksTopNav} from "./components/TasksTopNav";
 import routes from "./routes";
 import reducer, {initialData} from "./reducers/capture";
 import messages from "./messages";
@@ -35,7 +36,12 @@ export const enablePlugin = () => {
   pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
   pluginRegistry.registerComponent(
     PLUGIN_NAME,
-    NavPluginRoot,
+    RulesTopNav,
+    actions.addToTreeServers
+  );
+  pluginRegistry.registerComponent(
+    PLUGIN_NAME,
+    TasksTopNav,
     actions.addToTreeServers
   );
 };
@@ -44,7 +50,12 @@ export const disablePlugin = () => {
   pluginRegistry.unregisterRoutes(PLUGIN_NAME);
   pluginRegistry.unregisterComponent(
     PLUGIN_NAME,
-    NavPluginRoot,
+    RulesTopNav,
+    actions.removeFromTreeServers
+  );
+  pluginRegistry.unregisterComponent(
+    PLUGIN_NAME,
+    TasksTopNav,
     actions.removeFromTreeServers
   );
 };

@@ -21,7 +21,6 @@ import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadEntries} from "../reducers/epcis";
 import {FormattedMessage} from "react-intl";
-import {pluginRegistry} from "plugins/pluginRegistration";
 import {ServerEntries} from "./ServerEntries";
 import {withRouter} from "react-router";
 

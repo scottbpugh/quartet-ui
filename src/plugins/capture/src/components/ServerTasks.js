@@ -40,8 +40,7 @@ import {
   ControlGroup,
   Button,
   InputGroup,
-  Intent,
-  Icon
+  Intent
 } from "@blueprintjs/core";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
 import {withRouter} from "react-router";
@@ -142,8 +141,7 @@ class _ServerTasks extends Component {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
-      const {loadTasks, server} = this.props;
-      const searchExp = new RegExp(this.state.keywordSearch, "i");
+      const {server} = this.props;
       this.props.loadTasks(
         server,
         this.state.keywordSearch,
@@ -155,9 +153,7 @@ class _ServerTasks extends Component {
 
   render() {
     let serverName = this.props.server.serverSettingName;
-    let serverID = this.props.server.serverID;
     const {tasks} = this.state;
-
     return (
       <Card className="pt-elevation-4">
         <h5>

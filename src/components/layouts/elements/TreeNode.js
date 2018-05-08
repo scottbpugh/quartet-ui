@@ -20,7 +20,7 @@ import classNames from "classnames";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
-import {ContextMenuTarget, Icon, Callout} from "@blueprintjs/core";
+import {ContextMenuTarget, Icon} from "@blueprintjs/core";
 import {SubTree} from "./NavTree";
 
 class _TreeNode extends Component {
@@ -55,7 +55,6 @@ class _TreeNode extends Component {
     }
   };
   activateNode(currentPath, path) {
-    console.log(currentPath, path);
     if (path) {
       let regexp = new RegExp("^" + path + "$");
       this.setState({active: regexp.test(currentPath)});

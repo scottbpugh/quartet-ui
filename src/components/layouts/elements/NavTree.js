@@ -22,7 +22,7 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import "./NavTree.css";
 import classNames from "classnames";
-import {ContextMenuTarget, Icon, Callout} from "@blueprintjs/core";
+import {Callout} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {pluginRegistry} from "plugins/pluginRegistration";
