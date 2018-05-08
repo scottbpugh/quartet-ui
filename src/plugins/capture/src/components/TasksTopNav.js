@@ -29,15 +29,35 @@ import {RuleItem} from "./RuleItem";
 class _NavPluginRoot extends Component {
   constructor(props) {
     super(props);
+    this.state = {isUploadOpen: false};
   }
   static get PLUGIN_COMPONENT_NAME() {
-    return "CaptureNavRoot";
+    return "TaskTopNav";
   }
   serverHasCapture() {
     return pluginRegistry
       .getServer(this.props.serverID)
       .appList.includes("capture");
   }
+  toggleUpload = () => {
+    debugger;
+    const {serverID} = this.props;
+    this.goTo(`/capture/tasks/${serverID}`);
+    this.setState({isUploadOpen: !this.state.isUploadOpen});
+  };
+  uploadFile = evt => {
+    this.toggleUpload();
+    fileUpload(
+      pluginRegistry.getServer(this.props.serverID),
+      this.props.rule,
+      evt.target.files[0]
+    );
+    showMessage({
+      id: "plugins.capture.uploadedFile",
+      type: "success",
+      values: {ruleName: this.props.rule.name}
+    });
+  };
   goTo = path => {
     this.props.history.push(path);
   };
@@ -53,9 +73,9 @@ class _NavPluginRoot extends Component {
         <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
         <MenuItem
-          onClick={this.goTo.bind(this, `/capture/add-rule/${serverID}/rule`)}
-          text={this.props.intl.formatMessage({
-            id: "plugins.capture.addRule"
+          onClick={this.toggleUpload.bind(this)}
+          text={pluginRegistry.getIntl().formatMessage({
+            id: "plugins.capture.addTask"
           })}
         />
       </Menu>
@@ -65,20 +85,14 @@ class _NavPluginRoot extends Component {
     const {serverID, currentPath} = this.props;
     if (this.serverHasCapture()) {
       const {rules} = this.props;
-      let children = rules
-        ? rules.map(rule => {
-            return (
-              <RuleItem rule={rule} serverID={this.props.server.serverID} />
-            );
-          })
-        : [];
+      let children = [];
       return (
         <TreeNode
           depth={this.props.depth}
-          onContextMenu={this.renderContextMenu}
-          path={`/capture/rules/${serverID}`}
+          onContextMenu={this.renderContextMenu.bind(this)}
+          path={`/capture/tasks/${serverID}`}
           childrenNodes={children}>
-          <FormattedMessage id="plugins.capture.navItemsTitle" />
+          <FormattedMessage id="plugins.capture.tasksTopNav" />
         </TreeNode>
       );
     }
@@ -92,7 +106,7 @@ class _NavPluginRoot extends Component {
   }
 }
 
-export const NavPluginRoot = connect(
+export const TasksTopNav = connect(
   (state, ownProps) => {
     return {
       server: state.serversettings.servers[ownProps.serverID],

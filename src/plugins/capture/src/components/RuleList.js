@@ -129,19 +129,10 @@ class _RuleList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerTasks
-            server={server}
-            rules={rules}
-            tasks={tasks}
-            loadTasks={loadTasks}
-            count={count}
-            next={next}
-          />
           <ServerRules
             history={this.props.history}
             server={server}
             rules={rules}
-            tasks={tasks}
           />
         </div>
       </RightPanel>
@@ -155,16 +146,7 @@ export const RuleList = connect(
       server: state.serversettings.servers[ownProps.match.params.serverID],
       rules: state.capture.servers
         ? state.capture.servers[ownProps.match.params.serverID].rules
-        : [],
-      tasks: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].tasks
-        : [],
-      count: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].count
-        : 0,
-      next: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].next
-        : null
+        : []
     };
   },
   {loadRules, loadTasks}

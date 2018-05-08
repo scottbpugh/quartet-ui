@@ -126,12 +126,13 @@ class _RuleItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: true
+      collapsed: true,
+      isUploadOpen: false
     };
   }
   toggleUpload = () => {
     const {serverID} = this.props;
-    this.goTo(`/capture/rules/${serverID}`);
+    this.goTo(`/capture/tasks/${serverID}`);
     this.setState({isUploadOpen: !this.state.isUploadOpen});
   };
   trashRule = evt => {

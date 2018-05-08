@@ -18,7 +18,8 @@
 
 const defaultLocaleMsg = {
   capture: {
-    navItemsTitle: "Rules",
+    rulesTopNav: "Rules",
+    tasksTopNav: "Tasks",
     addRule: "Add a New Rule",
     editRule: "Edit Existing Rule",
     addStep: "Add a New Step",
@@ -49,7 +50,8 @@ const defaultLocaleMsg = {
 };
 
 const french = {
-  navItemsTitle: "Règles",
+  rulesTopNav: "Règles",
+  tasksTopNav: "Tâches",
   addRule: "Ajouter une nouvelle règle",
   editRule: "Éditer règle",
   addStep: "Ajouter une nouvelle étape",

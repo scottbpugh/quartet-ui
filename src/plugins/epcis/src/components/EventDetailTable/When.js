@@ -44,8 +44,8 @@ export default class extends Component {
               <tr>
                 <td>Record Time</td>
                 <td>
-                  <FormattedDate value={currentEntry[objectType].eventTime} />{" "}
-                  <FormattedTime value={currentEntry[objectType].eventTime} />
+                  <FormattedDate value={currentEntry[objectType].recordTime} />{" "}
+                  <FormattedTime value={currentEntry[objectType].recordTime} />
                 </td>
               </tr>
             </tbody>
