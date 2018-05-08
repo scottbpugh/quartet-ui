@@ -45,7 +45,8 @@ const defaultLocaleMsg = {
     noRuleFound: "No Capture module detected on server",
     steps: "Steps",
     taskCreated: "Task with id {taskID} has been created.",
-    tasksTotal: "{tasksCount} tasks total."
+    tasksTotal: "{tasksCount} tasks total.",
+    selectRule: "Select a Rule"
   }
 };
 
@@ -77,7 +78,8 @@ const french = {
   noRuleFound: "Module de capture non détecté sur ce serveur.",
   taskCreated: "Une tâche avec l'ID {taskID} a été créée.",
   tasksTotal: "Total des tâches: {tasksCount}",
-  steps: "Étapes"
+  steps: "Étapes",
+  selectRule: "Sélectionner une règle"
 };
 
 export default {

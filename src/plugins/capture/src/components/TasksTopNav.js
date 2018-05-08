@@ -22,14 +22,23 @@ import {TreeNode} from "components/layouts/elements/TreeNode";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {Menu, MenuItem, MenuDivider} from "@blueprintjs/core";
+import {
+  Menu,
+  MenuItem,
+  MenuDivider,
+  Dialog,
+  FileUpload
+} from "@blueprintjs/core";
 import {loadRules} from "../reducers/capture";
 import {RuleItem} from "./RuleItem";
+import classNames from "classnames";
+import {fileUpload} from "../lib/capture-api";
+import {showMessage} from "lib/message";
 
 class _NavPluginRoot extends Component {
   constructor(props) {
     super(props);
-    this.state = {isUploadOpen: false};
+    this.state = {isUploadOpen: false, rule: null};
   }
   static get PLUGIN_COMPONENT_NAME() {
     return "TaskTopNav";
@@ -40,22 +49,26 @@ class _NavPluginRoot extends Component {
       .appList.includes("capture");
   }
   toggleUpload = () => {
-    debugger;
     const {serverID} = this.props;
     this.goTo(`/capture/tasks/${serverID}`);
     this.setState({isUploadOpen: !this.state.isUploadOpen});
+  };
+  ruleSelect = evt => {
+    this.setState({
+      rule: this.props.rules.find(rule => rule.id === Number(evt.target.value))
+    });
   };
   uploadFile = evt => {
     this.toggleUpload();
     fileUpload(
       pluginRegistry.getServer(this.props.serverID),
-      this.props.rule,
+      this.state.rule,
       evt.target.files[0]
     );
     showMessage({
       id: "plugins.capture.uploadedFile",
       type: "success",
-      values: {ruleName: this.props.rule.name}
+      values: {ruleName: this.state.rule.name}
     });
   };
   goTo = path => {
@@ -93,6 +106,43 @@ class _NavPluginRoot extends Component {
           path={`/capture/tasks/${serverID}`}
           childrenNodes={children}>
           <FormattedMessage id="plugins.capture.tasksTopNav" />
+          <Dialog
+            isOpen={this.state.isUploadOpen}
+            onClose={this.toggleUpload}
+            title={<FormattedMessage id="plugins.capture.addTask" />}
+            className={classNames({
+              "pt-dark": this.props.theme.startsWith("dark") ? true : false
+            })}>
+            <div className="pt-dialog-body">
+              <div className="mini-form">
+                <div style={{marginBottom: "20px"}}>
+                  <div className="pt-select">
+                    <select onChange={this.ruleSelect.bind(this)}>
+                      <option selected>
+                        <FormattedMessage id="plugins.capture.selectRule" />
+                      </option>
+                      {this.props.rules
+                        ? this.props.rules.map(rule => {
+                            return (
+                              <option rule={rule} value={rule.id}>
+                                {rule.name}
+                              </option>
+                            );
+                          })
+                        : null}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <FileUpload
+                    disabled={[null, undefined].includes(this.state.rule)}
+                    text="Choose file..."
+                    onInputChange={this.uploadFile.bind(this)}
+                  />
+                </div>
+              </div>
+            </div>
+          </Dialog>
         </TreeNode>
       );
     }
@@ -114,7 +164,8 @@ export const TasksTopNav = connect(
         state.capture.servers && state.capture.servers[ownProps.serverID]
           ? state.capture.servers[ownProps.serverID].rules
           : [],
-      currentPath: state.layout.currentPath
+      currentPath: state.layout.currentPath,
+      theme: state.layout.theme
     };
   },
   {loadRules}
