@@ -302,7 +302,9 @@ export class _NavPluginRoot extends Component {
     } else {
       return (
         <TreeNode depth={this.props.depth} childrenNodes={[]}>
-          <i>No Number Range detected on server</i>
+          <i>
+            <FormattedMessage id="plugins.numberRange.noNumberRangeFound" />
+          </i>
         </TreeNode>
       );
     }
