@@ -115,7 +115,9 @@ class _NavPluginRoot extends Component {
               <div className="mini-form">
                 <div style={{marginBottom: "20px"}}>
                   <div className="pt-select">
-                    <select onChange={this.ruleSelect.bind(this)}>
+                    <select
+                      onChange={this.ruleSelect.bind(this)}
+                      value={this.state.rule ? this.state.rule.id : null}>
                       <option selected>
                         <FormattedMessage id="plugins.capture.selectRule" />
                       </option>
