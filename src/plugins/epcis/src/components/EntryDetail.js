@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {FormattedMessage} from "react-intl";
 import {Card} from "@blueprintjs/core";
 import {RightPanel} from "components/layouts/Panels";
 import {connect} from "react-redux";

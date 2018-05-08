@@ -16,16 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {
-  Card,
-  Tag,
-  ControlGroup,
-  Button,
-  InputGroup,
-  Intent,
-  Icon
-} from "@blueprintjs/core";
-import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 
 class _ServerEntries extends Component {
@@ -109,12 +101,7 @@ class _ServerEntries extends Component {
     }
     this.debounced = setTimeout(() => {
       const {loadEntries, server} = this.props;
-      const searchExp = new RegExp(this.state.keywordSearch, "i");
-      this.props.loadEntries(
-        server,
-        this.state.keywordSearch,
-        this.currentPage
-      );
+      loadEntries(server, this.state.keywordSearch, this.currentPage);
     }, clear ? 0 : 250);
   };
 

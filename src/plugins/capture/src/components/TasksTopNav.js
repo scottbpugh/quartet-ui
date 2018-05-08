@@ -30,7 +30,6 @@ import {
   FileUpload
 } from "@blueprintjs/core";
 import {loadRules} from "../reducers/capture";
-import {RuleItem} from "./RuleItem";
 import classNames from "classnames";
 import {fileUpload} from "../lib/capture-api";
 import {showMessage} from "lib/message";
@@ -80,7 +79,7 @@ class _NavPluginRoot extends Component {
     }
   }
   renderContextMenu = () => {
-    const {server, serverID} = this.props;
+    const {server} = this.props;
     return (
       <Menu>
         <MenuDivider title={server.serverSettingName} />
@@ -95,9 +94,8 @@ class _NavPluginRoot extends Component {
     );
   };
   render() {
-    const {serverID, currentPath} = this.props;
+    const {serverID} = this.props;
     if (this.serverHasCapture()) {
-      const {rules} = this.props;
       let children = [];
       return (
         <TreeNode

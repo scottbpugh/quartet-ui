@@ -22,7 +22,6 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 
 export default class RegionRange extends Component {
   render() {
-    let start = Number(this.props.start);
     let end = Number(this.props.end);
     let state = Number(this.props.state);
     let remaining = Number(this.props.remaining);

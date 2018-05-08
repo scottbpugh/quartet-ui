@@ -27,9 +27,6 @@ import {loadRules} from "../reducers/capture";
 import {RuleItem} from "./RuleItem";
 
 class _NavPluginRoot extends Component {
-  constructor(props) {
-    super(props);
-  }
   static get PLUGIN_COMPONENT_NAME() {
     return "RulesTopNav";
   }
@@ -62,7 +59,7 @@ class _NavPluginRoot extends Component {
     );
   };
   render() {
-    const {serverID, currentPath} = this.props;
+    const {serverID} = this.props;
     if (this.serverHasCapture()) {
       const {rules} = this.props;
       let children = rules

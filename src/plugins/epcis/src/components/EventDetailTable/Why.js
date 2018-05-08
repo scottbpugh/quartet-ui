@@ -16,12 +16,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {Card, Tag, Intent} from "@blueprintjs/core";
-import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {Tag} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 
 export default class extends Component {
   render() {
-    const {goTo, currentEntry, objectType, serverID} = this.props;
+    const {currentEntry, objectType} = this.props;
     return (
       <div className="why">
         <div className="question-left">

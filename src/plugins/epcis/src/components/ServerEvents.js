@@ -113,8 +113,7 @@ class _ServerEvents extends Component {
       clearTimeout(this.debounced);
     }
     this.debounced = setTimeout(() => {
-      const {loadEvents, server} = this.props;
-      const searchExp = new RegExp(this.state.keywordSearch, "i");
+      const {server} = this.props;
       this.props.loadEvents(
         server,
         this.eventType,
