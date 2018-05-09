@@ -18,6 +18,7 @@
 import {handleActions} from "redux-actions";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "../actions/epcis";
+import {showMessage} from "lib/message";
 
 export const initialData = () => {
   return {
@@ -39,6 +40,13 @@ export const loadEvent = (server, eventID) => {
             itemDetail: event
           }
         });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.epcis.errorLoadingEvent",
+          values: {error: e}
+        });
       });
   };
 };
@@ -56,6 +64,13 @@ export const loadEntry = (server, entryID) => {
             itemID: entryID,
             itemDetail: entry
           }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.epcis.errorLoadingEntry",
+          values: {error: e}
         });
       });
   };
@@ -85,6 +100,13 @@ export const loadEntries = (server, search, page, ordering) => {
             count: response.count,
             next: response.next
           }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.epcis.errorLoadingEvents",
+          values: {error: e}
         });
       });
   };
@@ -117,6 +139,13 @@ export const loadEvents = (server, type, search, page, ordering) => {
             count: response.count,
             next: response.next
           }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.epcis.errorLoadingEvents",
+          values: {error: e}
         });
       });
   };

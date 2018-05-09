@@ -77,6 +77,7 @@ export const deleteRule = (server, rule) => {
 };
 
 export const loadTasks = (server, search, page, ordering) => {
+  debugger;
   let params = {};
   if (search) {
     params.search = search;

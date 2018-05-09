@@ -51,14 +51,16 @@ export const fileUpload = (server, rule, fileObject) => {
         .catch(e => {
           showMessage({
             type: "error",
-            id: "plugins.capture.processFileError"
+            id: "plugins.capture.processFileError",
+            values: {error: e}
           });
         });
     })
-    .catch(resp => {
+    .catch(e => {
       showMessage({
         type: "error",
-        id: "plugins.capture.processFileError"
+        id: "plugins.capture.processFileError",
+        values: {error: e}
       });
     });
 };

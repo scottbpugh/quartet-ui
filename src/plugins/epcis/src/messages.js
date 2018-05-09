@@ -48,7 +48,13 @@ const defaultLocaleMsg = {
     transactionEvents: "Transaction Events",
     transformationEvents: "Transformation Events",
     events: "Events",
-    entries: "Entries"
+    entries: "Entries",
+    errorLoadingEvent: "An error occurred while loading this event. {error}",
+    errorLoadingEntry: "An error occurred while loading this entry. {error}",
+    errorLoadingEntries:
+      "An error occurred while loading entries from this server. {error}",
+    errorLoadingEvents:
+      "An error occurred while loading entries from this server. {error}"
   }
 };
 
@@ -86,7 +92,15 @@ const french = {
   transactionEvents: "Événements de transaction",
   transformationEvents: "Événements de transformation",
   events: "Événements",
-  entries: "Entrées"
+  entries: "Entrées",
+  errorLoadingEvent:
+    "Une erreur s'est produite lors du chargement de cet événement. {error}",
+  errorLoadingEntry:
+    "Une erreur s'est produite lors du chargement de cette entrée. {error}",
+  errorLoadingEntries:
+    "Une erreur s'est produite lors du chargement des entrées de ce serveur. {error}",
+  errorLoadingEvents:
+    "Une erreur s'est produite lors du chargement des événements de ce serveur. {error}"
 };
 
 export default {

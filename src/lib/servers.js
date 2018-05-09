@@ -88,7 +88,11 @@ export class Server {
             }
           })
           .then(response => {
-            resolve(response.body);
+            if (response.ok) {
+              resolve(response.body);
+            } else {
+              reject(response);
+            }
           })
           .catch(e => {
             reject(e);
@@ -158,9 +162,13 @@ export class Server {
                 reject(response);
               }
             })
-            .catch(reject);
+            .catch(e => {
+              reject(e);
+            });
         })
-        .catch(reject);
+        .catch(e => {
+          reject(e);
+        });
     });
   };
   setServerData = serverSettings => {

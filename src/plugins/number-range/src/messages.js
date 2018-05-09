@@ -65,7 +65,8 @@ const defaultLocaleMsg = {
     errorFormFetch:
       "An error occurred while attempting to get this form from remote server {serverName}. {error}",
     errorFailedToGenerateFile:
-      "An error occurred when attempting to generate an export file from allocation."
+      "An error occurred when attempting to generate an export file from allocation.",
+    noNumberRangeFound: "No Number Range module detected on server"
   }
 };
 
@@ -92,7 +93,8 @@ const french = {
   noRegionInPool: "Il n'existe aucune region dans ce groupe.",
   regionDetailTitle: "Regions du groupe {poolName}",
   navItemsTitle: "Numéros de série",
-  remaining: "Restant"
+  remaining: "Restant",
+  noNumberRangeFound: "Module de plage de numéros non détecté sur ce serveur"
 };
 
 export default {
