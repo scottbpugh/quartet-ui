@@ -35,10 +35,10 @@ pages:
   script:
   - pip install mkdocs
   - pip install mkdocs-cinder
-  - mkdocs build -d ./docs-public
+  - mkdocs build -d ./static
   artifacts:
       paths:
-      - docs-public
+      - static
       expire_in: 1 hour
   only:
   - master
