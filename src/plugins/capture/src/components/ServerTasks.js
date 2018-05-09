@@ -146,7 +146,7 @@ class _ServerTasks extends Component {
         server,
         this.state.keywordSearch,
         this.currentPage,
-        "-record_time"
+        "-status_changed"
       );
     }, clear ? 0 : 250);
   };

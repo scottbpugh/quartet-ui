@@ -20,6 +20,7 @@ image: electronuserland/builder:wine
 
 stages:
   - test
+  - build-docs
 
 test:
   stage: test
@@ -27,3 +28,17 @@ test:
     - npm prune
     - npm install
     - npm test
+
+pages:
+  image: seriallab/python3.6dev
+  stage: build-docs
+  script:
+    - pip install mkdocs
+    - pip install mkdocs-cinder
+    - mkdocs build -d ./docs-public
+  artifacts:
+      paths:
+        - docs-public
+        expire_in: 1 hour
+  only:
+    - master
