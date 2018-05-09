@@ -51,7 +51,8 @@
     "electron-start": "node public/electron-wait-react",
     "react-start": "BROWSER=none react-scripts start",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild"
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
+    "security-check": "nsp check --preprocessor yarn --reporter table"
   },
   "devDependencies": {
     "babel-jest": "^22.1.0",
@@ -64,6 +65,8 @@
     "enzyme-to-json": "^3.3.1",
     "eslint-config-airbnb": "^16.1.0",
     "foreman": "^2.0.0",
+    "nsp": "^3.2.1",
+    "nsp-preprocessor-yarn": "^1.1.2",
     "react-scripts": "^1.1.0",
     "react-test-renderer": "^16.2.0",
     "redux-mock-store": "^1.4.0"
