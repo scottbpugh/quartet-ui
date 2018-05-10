@@ -1,21 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<a
-  href="/"
-  onClick={[Function]}
->
-  <button
-    className="pt-button pt-icon-test pt-minimal"
-    disabled={undefined}
-    onClick={undefined}
-    onKeyDown={[Function]}
-    onKeyUp={[Function]}
-    type="button"
+<div>
+  <a
+    href="/"
+    onClick={[Function]}
   >
-    <span>
-      Something here.
-    </span>
-  </button>
-</a>
+    <button
+      className="pt-button pt-icon-test pt-minimal"
+      disabled={undefined}
+      onClick={undefined}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      type="button"
+    >
+      <span>
+        Something here.
+      </span>
+    </button>
+  </a>
+</div>
 `;

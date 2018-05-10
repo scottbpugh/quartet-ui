@@ -134,7 +134,7 @@ class _DashboardRight extends Component {
                   Object.keys(this.props.servers).length > 0 ? (
                     Object.keys(this.props.servers).map(serverID => {
                       return (
-                        <li>
+                        <li key={serverID}>
                           <a
                             onClick={this.goTo.bind(
                               this,

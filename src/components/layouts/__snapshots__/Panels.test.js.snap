@@ -1,58 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders nested components correctly 1`] = `
-<div
-  className="main-container"
->
+<div>
   <div
-    className="left-panel react-resizable"
-    style={
-      Object {
-        "height": "undefinedpx",
-        "width": "300px",
-      }
-    }
+    className="main-container"
   >
-    <h4
-      className="left-panel-title pt-dark"
-    >
-      <span>
-        Server Details
-      </span>
-    </h4>
     <div
+      className="left-panel react-resizable"
       style={
         Object {
-          "overflowX": "hidden",
-          "overflowY": "visible",
-          "whiteSpace": "nowrap",
+          "height": "undefinedpx",
+          "width": "300px",
         }
       }
     >
-      <h1>
-        Something
-      </h1>
-    </div>
-    <span
-      className="react-resizable-handle"
-      onMouseDown={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchStart={[Function]}
-      style={
-        Object {
-          "touchAction": "none",
+      <h4
+        className="left-panel-title pt-dark"
+      >
+        <span>
+          Servers
+        </span>
+      </h4>
+      <div
+        style={
+          Object {
+            "overflowX": "hidden",
+            "overflowY": "visible",
+            "whiteSpace": "nowrap",
+          }
         }
-      }
-    />
-  </div>
-  <div
-    className="right-panel"
-  >
-    <div>
-      <h2>
-        Something Else
-      </h2>
+      >
+        <h1>
+          Something
+        </h1>
+      </div>
+      <span
+        className="react-resizable-handle"
+        onMouseDown={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
+        style={
+          Object {
+            "touchAction": "none",
+          }
+        }
+      />
+    </div>
+    <div
+      className="right-panel"
+    >
+      <div>
+        <h2>
+          Something Else
+        </h2>
+      </div>
     </div>
   </div>
 </div>

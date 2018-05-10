@@ -19,21 +19,14 @@
 import React, {Component} from "react";
 import renderer from "react-test-renderer";
 import {SwitchLocale} from "./SwitchLocale";
-import {MemoryRouter as Router} from "react-router-dom";
-import {Provider} from "react-redux";
-import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+import {TestWrapper} from "tools/mockStore";
 
 it("renders correctly", () => {
-  let store = mockStore(initialState);
   const props = {};
   const switchLocale = renderer
     .create(
       <TestWrapper>
-        <Provider store={store}>
-          <Router>
-            <SwitchLocale {...props} store={store} />
-          </Router>
-        </Provider>
+        <SwitchLocale {...props} />
       </TestWrapper>
     )
     .toJSON();

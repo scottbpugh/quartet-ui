@@ -25,6 +25,8 @@ import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
 import nrmessages from "../messages";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {Server} from "lib/servers";
 
 let locale = "en-US";
 const newIntl = {
@@ -69,23 +71,21 @@ const pluginData = {
 
 const store = mockStore(pluginData);
 
-it.skip("renders correctly a pool with no region", () => {
+it("renders correctly a pool with no region", () => {
+  let server = pluginData.numberrange.servers.fakeid.server;
+
+  pluginRegistry.registerServer(new Server(server));
   window.fetch = jest
     .fn()
     .mockImplementation(() => Promise.resolve({ok: true}));
   const regionDetailScreen = renderer
     .create(
-      <TestWrapper locale={locale} messages={newIntl.messages}>
-        <Provider store={store}>
-          <Router
-            store={store}
-            initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
-            <RegionDetail
-              store={store}
-              match={{params: {serverID: "fakeid", pool: "fakepool"}}}
-            />
-          </Router>
-        </Provider>
+      <TestWrapper locale={locale} messages={newIntl.messages} store={store}>
+        <RegionDetail
+          store={store}
+          match={{params: {serverID: "fakeid", pool: "fakepool"}}}
+          server={server}
+        />
       </TestWrapper>
     )
     .toJSON();

@@ -19,21 +19,14 @@
 import React, {Component} from "react";
 import renderer from "react-test-renderer";
 import {SwitchTheme} from "./SwitchTheme";
-import {MemoryRouter as Router} from "react-router-dom";
-import {Provider} from "react-redux";
-import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+import {TestWrapper} from "tools/mockStore";
 
 it("renders correctly", () => {
-  let store = mockStore(initialState);
   const props = {};
   const switchTheme = renderer
     .create(
       <TestWrapper>
-        <Provider store={store}>
-          <Router>
-            <SwitchTheme {...props} store={store} />
-          </Router>
-        </Provider>
+        <SwitchTheme {...props} />
       </TestWrapper>
     )
     .toJSON();

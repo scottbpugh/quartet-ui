@@ -1,189 +1,191 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div
-  className="right-panel"
->
-  <div>
-    <div
-      className="cards-container"
-    >
+<div>
+  <div
+    className="right-panel"
+  >
+    <div>
       <div
-        className="pt-card pt-elevation-0 pt-elevation-4"
-        onClick={undefined}
+        className="cards-container"
       >
-        <h5>
-          Settings
-          <button
-            className="pt-button pt-icon-edit pt-intent-primary add-incard-button"
-            disabled={undefined}
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            type="button"
-          >
-            <span>
-              Edit
-            </span>
-          </button>
-        </h5>
-        <div>
-          <table
-            className="pt-table pt-bordered pt-striped"
-          >
-            <thead>
-              <tr>
-                <th>
-                  Server API Endpoint
-                </th>
-                <th>
-                  <h6>
-                    <span
-                      className="pt-tag pt-intent-primary"
-                    >
-                      <a
-                        href="http://localhost:8000/"
-                        style={
-                          Object {
-                            "color": "#FFF",
-                          }
-                        }
-                        target="_blank"
-                      >
-                        http://localhost:8000/
-                      </a>
-                    </span>
-                  </h6>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  protocol
-                </td>
-                <td>
-                  http
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  port
-                </td>
-                <td>
-                  8000
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  path
-                </td>
-                <td>
-                  
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  ssl
-                </td>
-                <td>
-                  false
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  url
-                </td>
-                <td>
-                  http://localhost:8000/
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  hostname
-                </td>
-                <td>
-                  localhost
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  serverSettingsName
-                </td>
-                <td>
-                  box 1
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  username
-                </td>
-                <td>
-                  lduros
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  serverID
-                </td>
-                <td>
-                  d0246781-67c6-474b-8ab0-29de61b6e6bb
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div
-        className="pt-card pt-elevation-0 pt-elevation-4"
-        onClick={undefined}
-      >
-        <h5>
-          Services Enabled
-           
-          <button
-            className="pt-button pt-icon-refresh add-incard-button"
-            disabled={undefined}
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            type="button"
-          />
-        </h5>
-        <ul
-          className="service-list"
+        <div
+          className="pt-card pt-elevation-0 pt-elevation-4"
+          onClick={undefined}
         >
-          <li>
-            capture
-            <span
-              className="icon-dot"
+          <h5>
+            Settings
+            <button
+              className="pt-button pt-icon-edit pt-intent-primary add-incard-button"
+              disabled={undefined}
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                Edit
+              </span>
+            </button>
+          </h5>
+          <div>
+            <table
+              className="pt-table pt-bordered pt-striped"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    Server API Endpoint
+                  </th>
+                  <th>
+                    <h6>
+                      <span
+                        className="pt-tag pt-intent-primary"
+                      >
+                        <a
+                          href="http://localhost:8000/"
+                          style={
+                            Object {
+                              "color": "#FFF",
+                            }
+                          }
+                          target="_blank"
+                        >
+                          http://localhost:8000/
+                        </a>
+                      </span>
+                    </h6>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    protocol
+                  </td>
+                  <td>
+                    http
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    port
+                  </td>
+                  <td>
+                    8000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    path
+                  </td>
+                  <td>
+                    
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    ssl
+                  </td>
+                  <td>
+                    false
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    url
+                  </td>
+                  <td>
+                    http://localhost:8000/
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    hostname
+                  </td>
+                  <td>
+                    localhost
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    serverSettingsName
+                  </td>
+                  <td>
+                    box 1
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    username
+                  </td>
+                  <td>
+                    lduros
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    serverID
+                  </td>
+                  <td>
+                    d0246781-67c6-474b-8ab0-29de61b6e6bb
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          className="pt-card pt-elevation-0 pt-elevation-4"
+          onClick={undefined}
+        >
+          <h5>
+            Services Enabled
+             
+            <button
+              className="pt-button pt-icon-refresh add-incard-button"
+              disabled={undefined}
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
             />
-          </li>
-          <li>
-            epcis
-            <span
-              className="icon-dot"
-            />
-          </li>
-          <li>
-            manifest
-            <span
-              className="icon-dot"
-            />
-          </li>
-          <li>
-            rest-auth
-            <span
-              className="icon-dot"
-            />
-          </li>
-          <li>
-            serialbox
-            <span
-              className="icon-dot"
-            />
-          </li>
-        </ul>
+          </h5>
+          <ul
+            className="service-list"
+          >
+            <li>
+              capture
+              <span
+                className="icon-dot"
+              />
+            </li>
+            <li>
+              epcis
+              <span
+                className="icon-dot"
+              />
+            </li>
+            <li>
+              manifest
+              <span
+                className="icon-dot"
+              />
+            </li>
+            <li>
+              rest-auth
+              <span
+                className="icon-dot"
+              />
+            </li>
+            <li>
+              serialbox
+              <span
+                className="icon-dot"
+              />
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from "react";
+import React, {Component} from "react";
 
 import {IntlProvider} from "react-intl";
 import {addLocaleData} from "react-intl";
@@ -26,11 +26,15 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import MockInitialState from "./mock-initial-state";
+import {Provider} from "react-redux";
+import {MemoryRouter as Router} from "react-router-dom";
+import {injectIntl} from "react-intl";
 
 addLocaleData([...en, ...fr]);
 let defaultLocale = "en-US";
 const middlewares = [thunk];
 
+// Fake local storage.
 class LocalStorageMock {
   constructor() {
     this.store = {};
@@ -68,36 +72,9 @@ if (window && !window.require) {
   };
 }
 
-/*export let initialState = {
-  dashboard: {notifications: []},
-  serversettings: {
-    servers: {
-      "d0246781-67c6-474b-8ab0-29de61b6e6bb": {
-        serverID: "d0246781-67c6-474b-8ab0-29de61b6e6bb",
-        protocol: "http",
-        port: "8000",
-        path: "",
-        ssl: false,
-        hostname: "localhost",
-        serverSettingName: "box 1",
-        url: "http://localhost:8000/",
-        appList: ["", "capture", "epcis", "manifest", "rest-auth", "serialbox"],
-        username: "admin",
-        password: "test"
-      }
-    }
-  },
-  intl: {
-    defaultLocale: defaultLocale,
-    locale: defaultLocale,
-    messages: flattenMessages(messages[defaultLocale])
-  },
-  layout: {pageTitle: {id: "app.nav.servers"}, theme: "dark-brown"},
-  plugins: {plugins: {}, navTreeItems: []}
-};*/
-
 export const initialState = MockInitialState;
 
+// Used by certain tests.
 export const updateRegistryIntl = (locale, messages) => {
   const {intl} = new IntlProvider({
     locale: locale,
@@ -109,16 +86,36 @@ export const updateRegistryIntl = (locale, messages) => {
 
 export const mockStore = configureStore(middlewares);
 
-export const TestWrapper = ({locale, messages, children}) => {
+// used to get a ref of the intl into our tests.
+class _Wrapper extends Component {
+  componentDidMount() {
+    pluginRegistry.registerIntl(this.props.intl);
+  }
+  render() {
+    return <div>{this.props.children}</div>;
+  }
+}
+const Wrapper = injectIntl(_Wrapper);
+
+// The TestWrapper to use for your tests.
+export const TestWrapper = ({locale, messages, store, children}) => {
+  if (!store) {
+    // it uses the default "real app" store if no store is specified.
+    store = require("store").store;
+  }
   if (locale === undefined) {
     locale = defaultLocale;
   }
   if (messages === undefined) {
-    messages = initialState.intl.messages;
+    messages = store.getState().intl.messages;
   }
   return (
     <IntlProvider locale={locale} messages={messages}>
-      {children}
+      <Wrapper>
+        <Provider store={store}>
+          <Router>{children}</Router>
+        </Provider>
+      </Wrapper>
     </IntlProvider>
   );
 };

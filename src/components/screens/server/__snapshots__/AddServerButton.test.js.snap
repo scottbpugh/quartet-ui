@@ -2,15 +2,17 @@
 
 exports[`renders correctly 1`] = `
 <div>
-  <span
-    className="pt-popover-target"
-    onClick={[Function]}
-  >
-    <button
-      className="pt-button pt-icon-add"
-      onClick={undefined}
-      tabIndex={undefined}
-    />
-  </span>
+  <div>
+    <span
+      className="pt-popover-target"
+      onClick={[Function]}
+    >
+      <button
+        className="pt-button pt-icon-add"
+        onClick={undefined}
+        tabIndex={undefined}
+      />
+    </span>
+  </div>
 </div>
 `;

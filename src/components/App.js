@@ -65,7 +65,6 @@ class _App extends Component {
     Object.keys(servers).forEach(serverID => {
       let server = new Server(servers[serverID]);
       pluginRegistry.registerServer(server);
-
       server.listApps();
     });
   }

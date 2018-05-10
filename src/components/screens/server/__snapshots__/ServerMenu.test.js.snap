@@ -1,57 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<ul
-  className="pt-menu"
->
-  <div
-    className="pt-button-group pt-minimal context-menu-control"
+<div>
+  <ul
+    className="pt-menu"
   >
-    <button
-      className="pt-button pt-icon-trash"
-      disabled={undefined}
-      onClick={undefined}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      small={true}
-      type="button"
+    <div
+      className="pt-button-group pt-minimal context-menu-control"
+    >
+      <button
+        className="pt-button pt-icon-trash"
+        disabled={undefined}
+        onClick={undefined}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        small={true}
+        type="button"
+      />
+    </div>
+    <li
+      className="pt-menu-header"
+    >
+      <h6>
+        box 1
+      </h6>
+    </li>
+    <li
+      className="pt-menu-divider"
     />
-  </div>
-  <li
-    className="pt-menu-header"
-  >
-    <h6>
-      box 1
-    </h6>
-  </li>
-  <li
-    className="pt-menu-divider"
-  />
-  <li
-    className=""
-  >
-    <a
-      className="pt-menu-item pt-popover-dismiss"
-      href={undefined}
-      onClick={undefined}
-      tabIndex={0}
-      target={undefined}
+    <li
+      className=""
     >
-      Register User
-    </a>
-  </li>
-  <li
-    className=""
-  >
-    <a
-      className="pt-menu-item pt-popover-dismiss"
-      href={undefined}
-      onClick={undefined}
-      tabIndex={0}
-      target={undefined}
+      <a
+        className="pt-menu-item pt-popover-dismiss"
+        href={undefined}
+        onClick={undefined}
+        tabIndex={0}
+        target={undefined}
+      >
+        Register User
+      </a>
+    </li>
+    <li
+      className=""
     >
-      Verify User
-    </a>
-  </li>
-</ul>
+      <a
+        className="pt-menu-item pt-popover-dismiss"
+        href={undefined}
+        onClick={undefined}
+        tabIndex={0}
+        target={undefined}
+      >
+        Verify User
+      </a>
+    </li>
+  </ul>
+</div>
 `;
