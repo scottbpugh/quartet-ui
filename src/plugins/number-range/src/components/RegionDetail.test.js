@@ -77,7 +77,7 @@ it("renders correctly a pool with no region", () => {
   pluginRegistry.registerServer(new Server(server));
   window.fetch = jest
     .fn()
-    .mockImplementation(() => Promise.resolve({ok: true}));
+    .mockImplementation(() => Promise.resolve([{ok: true, results: []}]));
   const regionDetailScreen = renderer
     .create(
       <TestWrapper locale={locale} messages={newIntl.messages} store={store}>
