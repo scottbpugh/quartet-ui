@@ -4,7 +4,7 @@
 
 The capture plugin allows you to interact with QU4RTET Capture, enabling the capture and subsequent processing of messages through a highly customizable processing engine.
 From the user interface, you can create/edit rules, steps, and their parameters and upload files as inbound messages for processing. Rules contain one or more steps with a reference to a Python class which will execute its code against the message.
-Capture comes with a built-in common rule/step pair for EPCIS message processing and writing events/entries to the database persistently. This rule being the most common usage scenario of the Capture plugin, we detail below how to use it.
+Capture comes with a built-in common rule/step pair for EPCIS message processing. This rule sends the message to the EPCIS module, which in turn parses and writes the events and entries persistently. This rule being the most common usage scenario of the Capture plugin, we detail below how to use it.
 
 From the user interface, you will see two top nodes in the left navigation tree when Capture is enabled on a QU4RTET server, the "Rules" and "Tasks" nodes:
 
