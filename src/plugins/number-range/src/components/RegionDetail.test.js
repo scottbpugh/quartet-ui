@@ -73,7 +73,6 @@ const store = mockStore(pluginData);
 
 it("renders correctly a pool with no region", () => {
   let server = pluginData.numberrange.servers.fakeid.server;
-
   pluginRegistry.registerServer(new Server(server));
   window.fetch = jest
     .fn()

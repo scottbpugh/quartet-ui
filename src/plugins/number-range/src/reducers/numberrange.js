@@ -65,25 +65,29 @@ export const loadRegion = (server, regionName) => {
 export const loadRegions = (server, pool) => {
   return dispatch => {
     // first get all pools again to refresh pool list.
-    getPools(server).then(pools => {
-      dispatch({
-        type: actions.loadPools,
-        payload: {
-          [server.serverID]: {pools: pools, server: server}
-        }
-      });
-
-      // second get region for given pool (updated.)
-      let updatedPool = pools.find(aPool => {
-        return aPool.machine_name === pool.machine_name;
-      });
-      getRegions(server, updatedPool).then(regions => {
+    getPools(server)
+      .then(pools => {
         dispatch({
-          type: actions.loadRegions,
-          payload: regions
+          type: actions.loadPools,
+          payload: {
+            [server.serverID]: {pools: pools, server: server}
+          }
         });
+
+        // second get region for given pool (updated.)
+        let updatedPool = pools.find(aPool => {
+          return aPool.machine_name === pool.machine_name;
+        });
+        getRegions(server, updatedPool).then(regions => {
+          dispatch({
+            type: actions.loadRegions,
+            payload: regions
+          });
+        });
+      })
+      .catch(e => {
+        showMessage({type: "error", msg: e});
       });
-    });
   };
 };
 
