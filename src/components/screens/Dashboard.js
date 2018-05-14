@@ -79,6 +79,28 @@ class _DashboardRight extends Component {
                   </li>
                   <li>
                     <a
+                      href="https://serial-lab.gitlab.io/qu4rtet/"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <FormattedMessage
+                        id="app.dashboard.documentationOnly"
+                        values={{projectName: "QU4RTET"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/quartet-ui/"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <FormattedMessage
+                        id="app.dashboard.documentationOnly"
+                        values={{projectName: "QU4RTET Desktop App"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="https://serial-lab.gitlab.io/EPCPyYes/"
                       target="_blank"
                       rel="noopener noreferrer">
