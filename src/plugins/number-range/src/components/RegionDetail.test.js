@@ -74,9 +74,12 @@ const store = mockStore(pluginData);
 it("renders correctly a pool with no region", () => {
   let server = pluginData.numberrange.servers.fakeid.server;
   pluginRegistry.registerServer(new Server(server));
-  window.fetch = jest
-    .fn()
-    .mockImplementation(() => Promise.resolve([{ok: true, results: []}]));
+  const promise = Promise.resolve({
+    statusCode: 200,
+    ok: true,
+    body: []
+  });
+  window.fetch = jest.fn().mockImplementation(() => promise);
   const regionDetailScreen = renderer
     .create(
       <TestWrapper locale={locale} messages={newIntl.messages} store={store}>
@@ -88,5 +91,8 @@ it("renders correctly a pool with no region", () => {
       </TestWrapper>
     )
     .toJSON();
-  expect(regionDetailScreen).toMatchSnapshot();
+  return promise.then(data => {
+    console.log("Triggered", data);
+    expect(regionDetailScreen).toMatchSnapshot();
+  });
 });

@@ -40,7 +40,8 @@ function openBrowserResource(url) {
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1600, height: 1200});
+  const mainOptions = {width: 1600, height: 1200, show: false};
+  mainWindow = new BrowserWindow(mainOptions);
   // Setting this to exchange credentials information
   credManagement.setCredentialEvents(mainWindow);
   // and load the index.html of the app.
@@ -54,7 +55,9 @@ function createWindow() {
   mainWindow.loadURL(startUrl);
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
-
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+  });
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
     // Dereference the window object, usually you would store windows
