@@ -30,20 +30,17 @@ import {flattenMessages} from "lib/flattenMessages";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
-import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+import {TestWrapper} from "tools/mockStore";
 
 it("renders nested components correctly", () => {
-  let store = mockStore(initialState);
   const panels = renderer
     .create(
       <TestWrapper>
-        <Panels store={store}>
-          <LeftPanel store={store}>
+        <Panels>
+          <LeftPanel>
             <h1>Something</h1>
           </LeftPanel>
-          <RightPanel
-            title={<FormattedMessage id="app.nav.servers" />}
-            store={store}>
+          <RightPanel title={<FormattedMessage id="app.nav.servers" />}>
             <h2>Something Else</h2>
           </RightPanel>
         </Panels>

@@ -1,22 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly a pool with no region 1`] = `
-<div
-  className="right-panel"
->
-  <div>
-    <div
-      className="auto-cards-container"
-    >
+<div>
+  <div
+    className="right-panel"
+  >
+    <div>
       <div
-        className="pt-callout"
+        className="auto-cards-container"
       >
         <div
-          className="pt-running-text"
+          className="pt-callout"
         >
-          <span>
-            There is currently no region in this pool.
-          </span>
+          <div
+            className="pt-running-text"
+          >
+            <span>
+              There is currently no region in this pool.
+            </span>
+          </div>
         </div>
       </div>
     </div>

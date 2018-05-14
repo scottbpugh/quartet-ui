@@ -25,6 +25,8 @@ import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
 import nrmessages from "../messages";
+import {pluginRegistry} from "plugins/pluginRegistration";
+import {Server} from "lib/servers";
 
 let locale = "en-US";
 const newIntl = {
@@ -69,25 +71,28 @@ const pluginData = {
 
 const store = mockStore(pluginData);
 
-it.skip("renders correctly a pool with no region", () => {
-  window.fetch = jest
-    .fn()
-    .mockImplementation(() => Promise.resolve({ok: true}));
+it("renders correctly a pool with no region", () => {
+  let server = pluginData.numberrange.servers.fakeid.server;
+  pluginRegistry.registerServer(new Server(server));
+  const promise = Promise.resolve({
+    statusCode: 200,
+    ok: true,
+    body: []
+  });
+  window.fetch = jest.fn().mockImplementation(() => promise);
   const regionDetailScreen = renderer
     .create(
-      <TestWrapper locale={locale} messages={newIntl.messages}>
-        <Provider store={store}>
-          <Router
-            store={store}
-            initialEntries={["/number-range/region-detail/fakeid/blah/"]}>
-            <RegionDetail
-              store={store}
-              match={{params: {serverID: "fakeid", pool: "fakepool"}}}
-            />
-          </Router>
-        </Provider>
+      <TestWrapper locale={locale} messages={newIntl.messages} store={store}>
+        <RegionDetail
+          store={store}
+          match={{params: {serverID: "fakeid", pool: "fakepool"}}}
+          server={server}
+        />
       </TestWrapper>
     )
     .toJSON();
-  expect(regionDetailScreen).toMatchSnapshot();
+  return promise.then(data => {
+    console.log("Triggered", data);
+    expect(regionDetailScreen).toMatchSnapshot();
+  });
 });

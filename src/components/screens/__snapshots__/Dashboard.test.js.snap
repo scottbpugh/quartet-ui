@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="right-panel"
+  >
+    <div>
+      <div
+        className="dashboard-container"
+      >
+        <h2>
+          QU4RTET
+        </h2>
+        <h3>
+          <span>
+            The Open Source Level 4
+          </span>
+        </h3>
+        <div
+          style={
+            Object {
+              "height": "100%",
+              "opacity": "0.06",
+              "position": "fixed",
+              "right": "0",
+              "width": "50%",
+              "zIndex": "-1",
+            }
+          }
+        >
+          <svg
+            id="letter-4-bck"
+            version="1.1"
+            viewBox="0 0 17 17"
+          >
+            <g
+              transform="translate(1, 0)"
+            >
+              <path
+                className="letter-4-path"
+                d="M 9.2765539,0.02422728 1.8859289,12.825008 h 8.7402351 v 3.189453 h 3.169921 v -3.189453 h 2.179688 V 9.6550867 H 13.796085 V 0.02422728 Z M 10.626164,3.3640711 V 9.6550867 H 6.6554602 Z m -9.4296882,10.6503899 -1.18164057,2 H 3.1964758 l 1.1796875,-2 z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div
+          className="dashboard-actions-groups"
+        >
+          <div
+            className="dashboard-items-container"
+          >
+            <div
+              className="dashboard-items"
+            >
+              <div
+                className="dashboard-actions-group"
+              >
+                <h4>
+                  <span>
+                    Start
+                  </span>
+                </h4>
+                <ul>
+                  <li>
+                    <a
+                      onClick={[Function]}
+                    >
+                      <span>
+                        Add a New Server
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={[Function]}
+                    >
+                      <span>
+                        Add a Plugin
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div
+                className="dashboard-actions-group"
+              >
+                <h4>
+                  <span>
+                    Resources & Documentation
+                  </span>
+                </h4>
+                <ul>
+                  <li>
+                    <a
+                      href="http://serial-lab.com"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Serial Lab
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/qu4rtet/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        QU4RTET Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/quartet-ui/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        QU4RTET Desktop Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/EPCPyYes/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        EPCPyYes Module Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/EParseCIS/readme.html"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        EParseCIS Module Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/quartet_epcis/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        EPCIS Module Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/serialbox/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        Number Range Module Documentation
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              className="dashboard-items"
+            >
+              <div
+                className="dashboard-actions-group"
+              >
+                <h4>
+                  <span>
+                    Servers
+                  </span>
+                </h4>
+                <ul>
+                  <li>
+                    <span>
+                      You currently have no QU4RTET server in your configuration.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -19,9 +19,16 @@ import React from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
 import Dashboard from "./Dashboard";
+import {TestWrapper} from "tools/mockStore";
 
 // Recharts resizable chart prevents this from working. Skipping for now.
-it.skip("renders correctly", () => {
-  const dashboard = renderer.create(<Dashboard />).toJSON();
+it("renders correctly", () => {
+  const dashboard = renderer
+    .create(
+      <TestWrapper>
+        <Dashboard />
+      </TestWrapper>
+    )
+    .toJSON();
   expect(dashboard).toMatchSnapshot();
 });

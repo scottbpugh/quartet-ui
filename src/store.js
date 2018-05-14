@@ -54,6 +54,7 @@ const initialState = {
   layout: layoutInitialData(),
   plugins: pluginInitialData()
 };
+
 /* You can import this in pure JS classes, like Server to dispatch actions. */
 export const store = configureStore(initialState);
 

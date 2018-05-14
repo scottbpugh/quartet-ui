@@ -32,6 +32,7 @@ export default {
         connectServer: "Connect to a Server",
         resourcesDocumentation: "Resources & Documentation",
         documentation: "{projectName} Module Documentation",
+        documentationOnly: "{projectName} Documentation",
         servers: "Servers",
         noServerFound:
           "You currently have no QU4RTET server in your configuration."
@@ -94,6 +95,7 @@ export default {
         connectServer: "Se connecter a un serveur",
         resourcesDocumentation: "Ressources et documentation",
         documentation: "Documentation du module {projectName}",
+        documentationOnly: "Documentation de {projectName}",
         servers: "Serveurs",
         noServerFound:
           "Il n'y a aucun serveur QU4RTET dans votre configuration."

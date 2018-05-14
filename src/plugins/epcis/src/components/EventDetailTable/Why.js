@@ -55,7 +55,11 @@ export default class extends Component {
                 <td>Error Declaration</td>
                 <td>
                   <pre>
-                    {JSON.stringify(currentEntry[objectType].errorDeclaration)}
+                    {JSON.stringify(
+                      currentEntry[objectType].errorDeclaration,
+                      null,
+                      2
+                    )}
                   </pre>
                 </td>
               </tr>

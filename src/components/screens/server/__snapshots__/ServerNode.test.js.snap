@@ -1,47 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<li
-  className="arrow collapsed"
-  onClick={[Function]}
-  onContextMenu={[Function]}
->
-  <div
-    className="tree-node-content tree-node-content-active tree-node-depth-0"
+<div>
+  <li
+    className="arrow collapsed"
+    onClick={[Function]}
+    onContextMenu={[Function]}
   >
-    <a
-      onClick={[Function]}
+    <div
+      className="tree-node-content tree-node-content-active tree-node-depth-0"
     >
-      <span
-        className="arrow-straight"
+      <a
+        onClick={[Function]}
       >
         <span
-          className="pt-icon-standard pt-icon-chevron-right"
-          style={
-            Object {
-              "visibility": "hidden",
+          className="arrow-straight"
+        >
+          <span
+            className="pt-icon-standard pt-icon-chevron-right"
+            style={
+              Object {
+                "visibility": "hidden",
+              }
             }
-          }
+          />
+        </span>
+      </a>
+      <a
+        className="tree-node-server tree-node-link tree-node-active"
+      >
+        <span
+          className="tree-node-label"
         />
-      </span>
-    </a>
-    <a
-      className="tree-node-server tree-node-link tree-node-active"
-    >
-      <span
-        className="tree-node-label"
-      />
-    </a>
-  </div>
-  <ul
-    style={
-      Object {
-        "display": "block",
-        "margin": 0,
-        "padding": 0,
-        "width": "100%",
+      </a>
+    </div>
+    <ul
+      style={
+        Object {
+          "display": "block",
+          "margin": 0,
+          "padding": 0,
+          "width": "100%",
+        }
       }
-    }
-  />
-</li>
+    />
+  </li>
+</div>
 `;
