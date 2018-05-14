@@ -48,6 +48,7 @@ build:
   stage: build
   script:
     - npm install -g yarn
+    - yarn install
     - yarn dist
   artifacts:
     paths:
