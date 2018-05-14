@@ -102,6 +102,28 @@ exports[`renders correctly 1`] = `
                   </li>
                   <li>
                     <a
+                      href="https://serial-lab.gitlab.io/qu4rtet/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        QU4RTET Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/quartet-ui/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>
+                        QU4RTET Desktop App Documentation
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="https://serial-lab.gitlab.io/EPCPyYes/"
                       rel="noopener noreferrer"
                       target="_blank"

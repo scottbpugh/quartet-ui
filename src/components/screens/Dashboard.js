@@ -95,7 +95,7 @@ class _DashboardRight extends Component {
                       rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentationOnly"
-                        values={{projectName: "QU4RTET Desktop App"}}
+                        values={{projectName: "QU4RTET Desktop"}}
                       />
                     </a>
                   </li>
