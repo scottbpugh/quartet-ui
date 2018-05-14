@@ -19,8 +19,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {RegionDetail} from "./RegionDetail";
-import {MemoryRouter as Router} from "react-router-dom";
-import {Provider} from "react-redux";
 import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
