@@ -21,6 +21,7 @@ image: electronuserland/builder:wine
 stages:
   - test
   - build-docs
+  - build
 
 test:
   stage: test
@@ -42,3 +43,15 @@ pages:
       expire_in: 1 hour
   only:
   - tags
+
+build:
+  stage: build
+  script:
+    - npm install -g yarn
+    - yarn dist
+  artifacts:
+    paths:
+      - dist
+    expire_in: 3h
+  only:
+    - master
