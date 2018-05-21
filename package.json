@@ -1,6 +1,6 @@
 {
   "name": "QU4RTET",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -85,7 +85,7 @@
     "publish": {
       "provider": "generic",
       "url":
-        "https://gitlab.com/lduros/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }
