@@ -1,12 +1,14 @@
 {
   "name": "QU4RTET",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
     "@blueprintjs/datetime": "^1.25.1",
     "base-64": "^0.1.0",
+    "electron-log": "^2.2.14",
+    "electron-updater": "^2.21.10",
     "history": "^4.7.2",
     "json-server": "^0.12.1",
     "json2csv": "^4.0.2",
@@ -81,6 +83,13 @@
     },
     "win": {
       "target": "NSIS"
+    },
+    "publish": {
+      "provider": "generic",
+      "url":
+        "https://gitlab.com/lduros/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+      "channel": "latest",
+      "publishAutoUpdate": true
     }
   },
   "postinstall": "electron-builder install-app-deps"

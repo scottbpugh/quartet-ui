@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const credManagement = require("./main-process/credentials-management");
+const checkLatestUpdate = require("./main-process/updater").checkLatestUpdate;
 
 const electron = require("electron");
 // Module to control application life.
@@ -57,6 +58,7 @@ function createWindow() {
   //mainWindow.webContents.openDevTools();
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
+    checkLatestUpdate();
   });
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
