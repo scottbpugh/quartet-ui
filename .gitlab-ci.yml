@@ -21,13 +21,13 @@ image: electronuserland/builder:wine
 stages:
   - test
   - build-docs
+  - build
 
 test:
   stage: test
   script:
-    - npm prune
-    - npm install
-    - npm test
+    - yarn install
+    - yarn test
 
 pages:
   image: seriallab/python3.6dev
@@ -42,3 +42,17 @@ pages:
       expire_in: 1 hour
   only:
   - tags
+
+build:
+  stage: build
+  script:
+    - npm install -g yarn
+    - yarn install
+    - yarn add --dev electron-builder
+    - yarn dist
+  artifacts:
+    paths:
+      - dist
+    expire_in: 3h
+  only:
+    - tags

@@ -2,6 +2,8 @@
 
 # QU4RTET Desktop Application
 
+[Download this program (MS Windows and Mac OS X) on bintray](https://bintray.com/seriallab/QU4RTET-UI/Quartet-ui/0.1.18).
+
 For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://serial-lab.gitlab.io/quartet-ui/).
 
 Run `yarn install` and `yarn start` to get started and spawn the Electron app (with React bootstrapped inside Electron.)
