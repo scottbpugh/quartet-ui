@@ -49,7 +49,7 @@
   "scripts": {
     "start": "nf start",
     "build": "react-scripts build",
-    "dist": "npm run build && electron-builder -mwl",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "test": "CI=true react-scripts test --env=jsdom",
     "electron": "electron .",
     "electron-start": "node public/electron-wait-react",
