@@ -54,15 +54,14 @@
     "electron-start": "node public/electron-wait-react",
     "react-start": "BROWSER=none react-scripts start",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar":
-      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table"
   },
   "devDependencies": {
     "babel-jest": "^22.1.0",
     "console-warn-throws-error": "^1.1.0",
-    "electron": "2.0.0",
-    "electron-builder": "^20.6.2",
+    "electron": "^2.0.1",
+    "electron-builder": "^20.13.4",
     "electron-rebuild": "^1.7.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -86,8 +85,7 @@
     },
     "publish": {
       "provider": "generic",
-      "url":
-        "https://gitlab.com/lduros/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+      "url": "https://gitlab.com/lduros/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }

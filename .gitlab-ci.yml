@@ -26,9 +26,8 @@ stages:
 test:
   stage: test
   script:
-    - npm prune
-    - npm install
-    - npm test
+    - yarn install
+    - yarn test
 
 pages:
   image: seriallab/python3.6dev
