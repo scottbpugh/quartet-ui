@@ -50,11 +50,9 @@ build:
     - yarn install
     - yarn add --dev electron-builder
     - yarn dist
-    - ls -alh dist/
   artifacts:
     paths:
-      - dist/*
-      - dist/*.yml
+      - dist
     expire_in: 3h
   only:
-    - master
+    - tags
