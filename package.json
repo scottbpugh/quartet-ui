@@ -91,7 +91,7 @@
     "publish": {
       "provider": "generic",
       "url":
-        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/latest/raw/dist?job=build",
+        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }
