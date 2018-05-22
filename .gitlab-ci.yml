@@ -55,3 +55,4 @@ build:
     expire_in: 3h
   only:
     - tags
+    - latest
