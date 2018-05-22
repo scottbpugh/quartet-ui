@@ -79,6 +79,8 @@
   },
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
+    "mac": ["zip"],
+    "win": ["nsis", "zip"],
     "directories": {
       "buildResources": "public"
     },
