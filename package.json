@@ -55,8 +55,7 @@
     "electron-start": "node public/electron-wait-react",
     "react-start": "BROWSER=none react-scripts start",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar":
-      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table"
   },
   "devDependencies": {
@@ -79,15 +78,19 @@
   },
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
-    "mac": ["zip"],
-    "win": ["nsis", "zip"],
+    "mac": [
+      "zip"
+    ],
+    "win": [
+      "nsis",
+      "zip"
+    ],
     "directories": {
       "buildResources": "public"
     },
     "publish": {
       "provider": "generic",
-      "url":
-        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+      "url": "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }
