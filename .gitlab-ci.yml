@@ -48,7 +48,6 @@ build:
   script:
     - npm install -g yarn
     - yarn install
-    - yarn add --dev electron-builder
     - yarn dist
   artifacts:
     paths:
