@@ -54,15 +54,21 @@ class _EntryList extends Component {
 
 export const EntryList = connect(
   (state, ownProps) => {
+    const isServerSet = () => {
+      return (
+        state.epcis.servers &&
+        state.epcis.servers[ownProps.match.params.serverID]
+      );
+    };
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
-      entries: state.epcis.servers
+      entries: isServerSet()
         ? state.epcis.servers[ownProps.match.params.serverID].entries
         : [],
-      count: state.epcis.servers
+      count: isServerSet()
         ? state.epcis.servers[ownProps.match.params.serverID].count
         : 0,
-      next: state.epcis.servers
+      next: isServerSet()
         ? state.epcis.servers[ownProps.match.params.serverID].next
         : null
     };

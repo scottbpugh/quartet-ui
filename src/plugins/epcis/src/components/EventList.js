@@ -65,15 +65,21 @@ class _EventList extends Component {
 
 export const EventList = connect(
   (state, ownProps) => {
+    const isServerSet = () => {
+      return (
+        state.epcis.servers &&
+        state.epcis.servers[ownProps.match.params.serverID]
+      );
+    };
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
-      events: state.epcis.servers
+      events: isServerSet()
         ? state.epcis.servers[ownProps.match.params.serverID].events
         : [],
-      count: state.epcis.servers
+      count: isServerSet()
         ? state.epcis.servers[ownProps.match.params.serverID].count
         : 0,
-      next: state.epcis.servers
+      next: isServerSet()
         ? state.epcis.servers[ownProps.match.params.serverID].next
         : null
     };

@@ -102,7 +102,16 @@ export const DefaultField = ({
     inputField = (
       <div className="pt-select">
         <select {...input} name={fieldData.name} type="select" width={300}>
-          {children}
+          {children ? children : null}
+          {fieldData.description.choices
+            ? Object.keys(fieldData.description.choices).map(choice => {
+                return (
+                  <option value={choice}>
+                    {fieldData.description.choices[choice]}
+                  </option>
+                );
+              })
+            : null}
         </select>
       </div>
     );
@@ -111,6 +120,7 @@ export const DefaultField = ({
       <input
         {...input}
         name={fieldData.name}
+        defaultValue={fieldData.defaultValue ? fieldData.defaultValue : null}
         type={type}
         width={300}
         className={classNames({"pt-input": true, [intentClass]: true})}
@@ -158,12 +168,14 @@ export const getSyncValidators = field => {
     field.description.min_value &&
     Number(field.description.min_value) > -999999
   ) {
+    // don't validate huge number.
     validate.push(minValue(Number(field.description.min_value)));
   }
   if (
     field.description.max_value &&
     Number(field.description.max_value) < 999999
   ) {
+    // don't validate huge number.
     validate.push(maxValue(Number(field.description.max_value)));
   }
   return validate;

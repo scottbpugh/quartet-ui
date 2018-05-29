@@ -15,9 +15,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import base64 from "base-64";
 import {showMessage} from "lib/message";
 import {getSyncValidators} from "components/elements/forms";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 /**
  * prepHeaders - Prepares the headers to be sent.
@@ -44,13 +44,13 @@ export const prepHeaders = (server, method = "GET") => {
  *
  * @return {object} A request init object with headers and basic auth.
  */
-export const prepHeadersAuth = (server, method = "GET") => {
+export const prepHeadersAuth = async (server, method = "GET") => {
   let headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Content-Type", "application/json");
   headers.append(
     "Authorization",
-    "Basic " + base64.encode(server.username + ":" + server.password)
+    await pluginRegistry.getServer(server.serverID).getAuthorization()
   );
   return {
     method: method,
@@ -68,8 +68,8 @@ export const prepHeadersAuth = (server, method = "GET") => {
  * @param {type} processField Description
  *
  */
-export const getFormInfo = (server, path, createForm, processField) => {
-  return fetch(`${server.url}${path}`, prepHeadersAuth(server, "OPTIONS"))
+export const getFormInfo = async (server, path, createForm, processField) => {
+  return fetch(`${server.url}${path}`, await prepHeadersAuth(server, "OPTIONS"))
     .then(resp => {
       return resp.json();
     })

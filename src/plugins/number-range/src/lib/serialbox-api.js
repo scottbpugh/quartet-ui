@@ -44,27 +44,6 @@ export const getPools = server => {
     });
 };
 
-export const getPoolDetail = (server, pool) => {
-  const url = `${server.url}${PREFIX_PATH}pool-detail/${
-    pool.machine_name
-  }/?related=true`;
-  return fetch(url, prepHeadersAuth(server))
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "plugins.numberRange.errorFetchPool",
-        values: {poolName: pool.readable_name, error: error}
-      });
-      return error;
-    });
-};
-
 /**
  * getRegion - Description
  *
@@ -90,21 +69,19 @@ export const getRegion = (server, regionName) => {
  *
  * @return {object} A JSON object.
  */
-export const getRegionByName = (server, name, operationId) => {
-  return pluginRegistry
-    .getServer(server.serverID)
-    .fetchObject(operationId, {machine_name: name})
-    .then(detail => {
-      return detail;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "plugins.numberRange.errorFetchRegion",
-        values: {error: error}
-      });
-      return error;
+export const getRegionByName = async (server, name, operationId) => {
+  try {
+    return await pluginRegistry
+      .getServer(server.serverID)
+      .fetchObject(operationId, {machine_name: name});
+  } catch (error) {
+    showMessage({
+      type: "danger",
+      id: "plugins.numberRange.errorFetchRegion",
+      values: {error: error}
     });
+    return error;
+  }
 };
 
 /**
@@ -152,35 +129,32 @@ export const getRegions = (server, pool) => {
  *
  * @return {object} A JSON response.
  */
-export const allocate = (server, pool, value) => {
-  return fetch(
-    `${server.url}${PREFIX_PATH}allocate/${pool.machine_name}/${value}/`,
-    prepHeadersAuth(server)
-  )
-    .then(resp => {
-      return resp.json();
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      showMessage({
-        type: "danger",
-        id: "plugins.numberRange.errorAllocating",
-        values: {error: error, poolName: pool.readable_name}
+export const allocate = async (server, pool, value) => {
+  try {
+    return await pluginRegistry
+      .getServer(server.serverID)
+      .fetchObject("serialbox_allocate_read", {
+        pool: pool.machine_name,
+        size: value
       });
-      throw error;
+  } catch (error) {
+    showMessage({
+      type: "danger",
+      id: "plugins.numberRange.errorAllocating",
+      values: {error: error, poolName: pool.readable_name}
     });
+    return error;
+  }
 };
 
-export const postAddRegion = (server, postValues, edit = false) => {
+export const postAddRegion = async (server, postValues, edit = false) => {
   let method = "POST";
   let endpoint = "sequential-region-create";
   if (edit) {
     method = "PUT";
     endpoint = `sequential-region-modify/${postValues.machine_name}`;
   }
-  let headers = prepHeadersAuth(server, method);
+  let headers = await prepHeadersAuth(server, method);
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -195,14 +169,18 @@ export const postAddRegion = (server, postValues, edit = false) => {
     });
 };
 
-export const postAddRandomizedRegion = (server, postValues, edit = false) => {
+export const postAddRandomizedRegion = async (
+  server,
+  postValues,
+  edit = false
+) => {
   let method = "POST";
   let endpoint = "randomized-regions";
   if (edit) {
     method = "PUT";
     endpoint = `randomized-regions/${postValues.machine_name}`;
   }
-  let headers = prepHeadersAuth(server, method);
+  let headers = await prepHeadersAuth(server, method);
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -218,7 +196,7 @@ export const postAddRandomizedRegion = (server, postValues, edit = false) => {
     });
 };
 
-export const deleteRegion = (server, region) => {
+export const deleteRegion = async (server, region) => {
   let method = "DELETE";
   let endpoint = "";
   if (region.state) {
@@ -228,7 +206,7 @@ export const deleteRegion = (server, region) => {
     // randomized
     endpoint = `randomized-regions/${region.machine_name}`;
   }
-  let headers = prepHeadersAuth(server, method);
+  let headers = await prepHeadersAuth(server, method);
   //headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -244,10 +222,10 @@ export const deleteRegion = (server, region) => {
     });
 };
 
-export const deletePool = (server, pool) => {
+export const deletePool = async (server, pool) => {
   let method = "DELETE";
   let endpoint = `pool-modify/${pool.machine_name}`;
-  let headers = prepHeadersAuth(server, method);
+  let headers = await prepHeadersAuth(server, method);
   //headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {
@@ -263,7 +241,7 @@ export const deletePool = (server, pool) => {
     });
 };
 
-export const postAddPool = (server, postValues, edit = false) => {
+export const postAddPool = async (server, postValues, edit = false) => {
   let endpoint = "pool-create";
   let method = "POST";
   if (edit) {
@@ -278,7 +256,7 @@ export const postAddPool = (server, postValues, edit = false) => {
       console.log(e);
     }
   }
-  let headers = prepHeadersAuth(server, method);
+  let headers = await prepHeadersAuth(server, method);
   headers.body = JSON.stringify(postValues);
   return fetch(`${server.url}${PREFIX_PATH}${endpoint}/`, headers)
     .then(resp => {

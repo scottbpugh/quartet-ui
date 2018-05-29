@@ -49,8 +49,8 @@ class _ServerDetails extends Component {
   };
   render() {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
-    let services = this.props.server
-      ? this.props.server.appList
+    let services = serverObject
+      ? serverObject.appList
           .filter(service => {
             // remove empty string.
             return service;
