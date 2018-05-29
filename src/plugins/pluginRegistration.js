@@ -194,14 +194,17 @@ class PluginRegistry {
   registerServer(serverRef) {
     this._servers[serverRef.serverID] = serverRef;
   }
+
   removeServer(serverRef) {
     // remove credentials from OS vault
     this._servers[serverRef.serverID].deletePassword();
     delete this._servers[serverRef.serverID];
   }
+
   getServer(serverID) {
     return this._servers[serverID];
   }
+
   registerIntl(intl) {
     // not the best way to get a hold of the intl element,
     // but we need it in certain lib methods in plugins to
@@ -209,10 +212,12 @@ class PluginRegistry {
     // that use them.
     this.intl = intl;
   }
+
   getIntl() {
     // might do some checks first here.
     return this.intl;
   }
+
   setChangeListener(listener) {
     this._emitChange = listener;
   }

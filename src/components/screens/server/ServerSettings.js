@@ -37,6 +37,7 @@ class _ServerSettings extends Component {
         <Card className="pt-elevation-4 form-card">
           <h5>Connect to a Server</h5>
           <ServerForm
+            defaultValues={{tokenType: "Token"}}
             formData={Server.getFormStructure()}
             saveButtonMsg={<FormattedMessage id="app.servers.addServer" />}
             submitCallback={this.submitCallback}
