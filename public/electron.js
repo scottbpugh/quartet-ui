@@ -24,7 +24,7 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
-const open = require("open");
+const opn = require("opn");
 const url = require("url");
 const path = require("path");
 
@@ -36,7 +36,7 @@ let mainWindow;
  * Opens a window for the default browser.
  */
 function openBrowserResource(url) {
-  open(url);
+  opn(url);
 }
 
 function createWindow() {

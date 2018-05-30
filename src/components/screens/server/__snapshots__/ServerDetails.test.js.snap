@@ -109,10 +109,26 @@ exports[`renders correctly 1`] = `
                 </tr>
                 <tr>
                   <td>
-                    serverSettingsName
+                    serverSettingName
                   </td>
                   <td>
                     box 1
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    authType
+                  </td>
+                  <td>
+                    basic
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    tokenType
+                  </td>
+                  <td>
+                    Token
                   </td>
                 </tr>
                 <tr>
@@ -151,40 +167,17 @@ exports[`renders correctly 1`] = `
               type="button"
             />
           </h5>
-          <ul
-            className="service-list"
+          <div
+            className="centered-action"
+            onClick={[Function]}
           >
-            <li>
-              capture
-              <span
-                className="icon-dot"
-              />
-            </li>
-            <li>
-              epcis
-              <span
-                className="icon-dot"
-              />
-            </li>
-            <li>
-              manifest
-              <span
-                className="icon-dot"
-              />
-            </li>
-            <li>
-              rest-auth
-              <span
-                className="icon-dot"
-              />
-            </li>
-            <li>
-              serialbox
-              <span
-                className="icon-dot"
-              />
-            </li>
-          </ul>
+            <span
+              className="pt-icon-standard pt-icon-refresh very-large-icon"
+            />
+            <span>
+              Retry
+            </span>
+          </div>
         </div>
       </div>
     </div>

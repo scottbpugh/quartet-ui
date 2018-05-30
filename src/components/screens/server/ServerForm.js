@@ -24,6 +24,10 @@ import {saveServer} from "../../../reducers/serversettings";
 import {DefaultField, getSyncValidators} from "components/elements/forms";
 import {Field, reduxForm} from "redux-form";
 
+const FORM_NAME = "serverForm";
+
+// this form consumes data in instance of class lib/servers/Server.
+
 /**
  * ServerForm - Description
  *
@@ -88,9 +92,10 @@ class _ServerForm extends Component {
     );
   }
 }
+
 export const ServerForm = connect(
   state => ({
     servers: state.serversettings.servers
   }),
   {saveServer}
-)(reduxForm({form: "serverForm"})(_ServerForm));
+)(reduxForm({form: FORM_NAME})(_ServerForm));

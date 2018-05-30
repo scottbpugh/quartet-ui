@@ -46,6 +46,8 @@ export class Server {
       ssl,
       serverID,
       path,
+      authType,
+      tokenType,
       username,
       password (optional, only required during create/update stage)
     }
@@ -75,57 +77,52 @@ export class Server {
     // refetch client/app list.
     this.listApps();
   };
-  fetchObject = (operationId, parameters) => {
-    return new Promise((resolve, reject) => {
-      this.getClient().then(client => {
-        client
-          .execute({
-            operationId: operationId,
-            parameters: parameters,
-            securities: {
-              authorized: client.securities,
-              specSecurity: [client.spec.securityDefinitions]
-            }
-          })
-          .then(response => {
-            if (response.ok) {
-              resolve(response.body);
-            } else {
-              reject(response);
-            }
-          })
-          .catch(e => {
-            reject(e);
-          });
+
+  fetchObject = async (operationId, parameters) => {
+    let client = await this.getClient();
+    try {
+      let response = await client.execute({
+        operationId: operationId,
+        parameters: parameters,
+        securities: {
+          authorized: client.securities,
+          specSecurity: [client.spec.securityDefinitions]
+        }
       });
-    });
+      if (response.ok) {
+        return response.body;
+      }
+    } catch (e) {
+      throw e;
+    }
   };
-  fetchPageList = (operationId, parameters, page = 0) => {
-    return new Promise((resolve, reject) => {
-      this.getClient().then(client => {
-        client
-          .execute({
-            operationId: operationId,
-            parameters: parameters,
-            securities: {
-              authorized: client.securities,
-              specSecurity: [client.spec.securityDefinitions]
-            }
-          })
-          .then(response => {
-            if (response.ok) {
-              // returning the full body since we need the count here.
-              resolve(response.body);
-            } else {
-              reject(response);
-            }
-          })
-          .catch(e => {
-            reject(e);
-          });
+
+  fetchPageList = async (operationId, parameters, page = 0) => {
+    let client = await this.getClient();
+    try {
+      let response = await client.execute({
+        operationId: operationId,
+        parameters: parameters,
+        securities: {
+          authorized: client.securities,
+          specSecurity: [client.spec.securityDefinitions]
+        }
       });
-    });
+      if (response.ok) {
+        return response.body;
+      } else {
+        throw new Error(response);
+      }
+    } catch (e) {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: e}
+      });
+      throw e;
+    }
   };
+
   fetchListAll = (operationId, parameters, results = []) => {
     return new Promise((resolve, reject) => {
       this.getClient()
@@ -201,6 +198,8 @@ export class Server {
     this.url = this.getServerURL();
     this._client = null;
     this.manifest = null;
+    this.authType = !this.authType ? "basic" : this.authType;
+    this.tokenType = !this.tokenType ? "Token" : this.tokenType;
     this.appList = [];
   };
   getFormStructure = () => {
@@ -263,7 +262,7 @@ export class Server {
         required: false,
         read_only: false,
         label: "Root Path",
-        helperText: "A path to interact with API (Optional), example /api"
+        help_text: "A path to interact with API (Optional), example /api"
       }
     },
     {
@@ -274,7 +273,31 @@ export class Server {
         required: false,
         read_only: false,
         label: "SSL/TLS",
-        helperText: "SSL/TLS encryption"
+        help_text: "SSL/TLS encryption"
+      }
+    },
+    {
+      name: "authType",
+      defaultValue: initialValues.authType || "basic",
+      description: {
+        type: "choice",
+        required: true,
+        read_only: false,
+        label: "Authentication Type",
+        choices: {basic: "Basic", token: "Token"},
+        help_text: "Basic or Token-based authentication"
+      }
+    },
+    {
+      name: "tokenType",
+      defaultValue: initialValues.tokenType || "Token",
+      description: {
+        type: "text",
+        required: false,
+        read_only: false,
+        label: "Token Type",
+        help_text:
+          "The token name used for authentication, case sensitive (Token, Bearer)"
       }
     },
     {
@@ -309,28 +332,27 @@ export class Server {
       {name: "url", value: this.url, editable: false},
       {name: "hostname", value: this.hostname, editable: true},
       {
-        name: "serverSettingsName",
+        name: "serverSettingName",
         value: this.serverSettingName,
         editable: true
       },
+      {
+        name: "authType",
+        value: this.authType,
+        editable: true
+      },
+      {name: "tokenType", value: this.tokenType, editable: true},
       {name: "username", value: this.username},
       {name: "serverID", value: this.serverID}
     ];
   };
 
   toJSON() {
-    return {
-      serverID: this.serverID,
-      protocol: this.protocol,
-      port: this.port,
-      path: this.path,
-      ssl: this.ssl,
-      hostname: this.hostname,
-      serverSettingName: this.serverSettingName,
-      url: this.url,
-      appList: this.appList,
-      username: this.username
-    };
+    let json = {};
+    this.getArrayFields().forEach(field => {
+      json[field.name] = field.value;
+    });
+    return json;
   }
 
   getServerURL = () => {
@@ -343,39 +365,79 @@ export class Server {
     }:${this.port}/${this.path}`;
   };
 
-  parseSchema = () => {
-    let {url, username, password} = this;
-    return new Promise((resolve, reject) => {
-      Swagger(`${url}schema/`, {
-        securities: {
-          basic: {username: username, password: password}
+  returnSecurities = async () => {
+    if (this._securities) {
+      // don't keep refetching.
+      return this._securities;
+    }
+    if (this.authType === "basic" || !this.authType) {
+      // default to basic.
+      this._securities = {
+        basic: {username: this.username, password: this.password}
+      };
+      return this._securities;
+    } else if (this.authType === "token") {
+      let response = await fetch(this.getServerURL() + "rest-auth/login/", {
+        method: "post",
+        contentType: "application/json",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
         },
-        requestInterceptor: req => {
-          //if (req.url === url) {
-          let encodedBasicToken = base64.encode(username + ":" + password);
-          // we're fetching the definition
-          req.headers.Authorization = `Basic ${encodedBasicToken}`;
-          //}
-          return req;
-        }
-      })
-        .then(client => {
-          // swagger-js client is available.
-          // client.spec / client.originalSpec / client.errors
-          resolve(client);
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password
         })
-        .catch(error => {
-          showMessage({
-            type: "error",
-            id: "app.servers.errorServerFetch",
-            values: {serverName: this.serverSettingName, error: error}
-          });
-          reject(error);
-        });
-    });
+      });
+      if (response.ok) {
+        let data = await response.json();
+        this._securities = {apiKey: `${this.tokenType} ${data.key}`};
+        return this._securities;
+      }
+    }
   };
 
-  listApps = () => {
+  getAuthorization = async () => {
+    try {
+      let {username, password} = this;
+      let securities = await this.returnSecurities();
+      if (this.authType === "basic" || !this.authType) {
+        let encodedBasicToken = base64.encode(username + ":" + password);
+        // we're fetching the definition
+        return `Basic ${encodedBasicToken}`;
+      } else if (this.authType === "token") {
+        return `${securities.apiKey}`;
+      }
+    } catch (error) {
+      showMessage({
+        type: "error",
+        id: "app.servers.errorServerFetch",
+        values: {serverName: this.serverSettingName, error: error}
+      });
+    }
+  };
+
+  parseSchema = async () => {
+    let {url} = this;
+    try {
+      let securities = await this.returnSecurities();
+      return await Swagger(`${url}schema/`, {
+        securities: securities,
+        requestInterceptor: async req => {
+          req.headers.Authorization = await this.getAuthorization(securities);
+          return req;
+        }
+      });
+    } catch (error) {
+      showMessage({
+        type: "error",
+        id: "app.servers.errorServerFetch",
+        values: {serverName: this.serverSettingName, error: error}
+      });
+    }
+  };
+
+  listApps = async () => {
     if (!this.password && !this.loadingPassword) {
       // fetch password first.
       this.getPassword();
@@ -387,57 +449,44 @@ export class Server {
     }
     this.appList = [];
     this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
-    this.getClient()
-      .then(client => {
-        this.appList = Object.keys(client.apis);
-        // let redux know we got our data
-        this.store.dispatch({
-          type: actions.appsListUpdated,
-          payload: this.toJSON()
-        });
-      })
-      .catch(error => {
-        // handle legacy.
-        this.appList = [];
-        // let redux know we got our data
-        this.store.dispatch({
-          type: actions.appsListUpdated,
-          payload: this.toJSON()
-        });
+    let client = await this.getClient();
+    try {
+      this.appList = Object.keys(client.apis);
+      // let redux know we got our data
+      this.store.dispatch({
+        type: actions.appsListUpdated,
+        payload: this.toJSON()
       });
+    } catch (error) {
+      // handle legacy.
+      this.appList = [];
+      // let redux know we got our data
+      this.store.dispatch({
+        type: actions.appsListUpdated,
+        payload: this.toJSON()
+      });
+    }
   };
 
-  getClient = () => {
-    return new Promise((resolve, reject) => {
-      if (this._client) {
-        resolve(this._client);
-      } else {
-        // we don't have a client yet.
-        // Fetch it.
-        this.parseSchema()
-          .then(client => {
-            this._client = client;
-            resolve(this._client);
-          })
-          .catch(error => {
-            reject(error);
-          });
-      }
-    });
+  getClient = async (reset = false) => {
+    if (this._client && reset === false) {
+      return this._client;
+    } else {
+      // we don't have a client yet.
+      // Fetch it.
+      this._client = await this.parseSchema(true);
+      return this._client;
+    }
   };
 
-  getManifest = () => {
-    new Promise((resolve, reject) => {
-      if (!this.manifest) {
-        this.getClient().then(client => {
-          client.apis.manifest.quartet_manifest_list().then(result => {
-            this.manifest = result.body;
-            resolve(result.body);
-          });
-        });
-      } else {
-        resolve(this.manifest);
-      }
-    });
+  getManifest = async (reset = false) => {
+    if (!this.manifest && reset) {
+      let client = await this.getClient();
+      let result = await client.apis.manifest.quartet_manifest_list();
+      this.manifest = result.body;
+      return this.manifest;
+    } else {
+      return this.manifest;
+    }
   };
 }
