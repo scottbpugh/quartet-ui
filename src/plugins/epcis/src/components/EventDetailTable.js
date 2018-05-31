@@ -40,8 +40,7 @@ export class EventDetailTable extends Component {
     let objectType = this.getObjectType(currentEntry);
     return (
       <div
-        key={currentEntry[objectType].eventID}
-        id={currentEntry[objectType].eventID}>
+        id={currentEntry[objectType] ? currentEntry[objectType].eventID : null}>
         {currentEntry && currentEntry[objectType] ? (
           <div className={this.props.className}>
             <Card>

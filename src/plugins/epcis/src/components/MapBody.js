@@ -23,7 +23,6 @@ var ol = require("openlayers/dist/ol.js");
 
 class _MapBody extends Component {
   componentDidMount() {
-    debugger;
     // setting on mount
     this.setUpMap();
     this._map.setTarget("map");
