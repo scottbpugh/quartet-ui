@@ -21,17 +21,33 @@ import {FormattedMessage} from "react-intl";
 import {Card} from "@blueprintjs/core";
 import {RightPanel} from "components/layouts/Panels";
 import {connect} from "react-redux";
-import {loadEntry} from "../reducers/epcis";
+import {loadEntry, getGeoForEntry} from "../reducers/epcis";
 import {EventDetailTable} from "./EventDetailTable";
 import {EventsTimeline} from "./EventsTimeline";
+import {MapBody} from "./MapBody";
 
 import "./EntryDetail.css";
 
 class _EntryDetail extends Component {
-  componentDidMount() {
-    this.props.loadEntry(this.props.server, this.props.match.params.entryID);
+  constructor(props) {
+    super(props);
+    this.state = {geoEvents: []};
   }
-
+  componentDidMount() {
+    this.setState({
+      geoEvents: this.props.geoEvents ? this.props.geoEvents : []
+    });
+    this.props.loadEntry(this.props.server, this.props.match.params.entryID);
+    this.props.getGeoForEntry(
+      this.props.server,
+      this.props.match.params.entryID
+    );
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.geoEvents) {
+      this.setState({geoEvents: nextProps.geoEvents});
+    }
+  }
   render() {
     let {currentEntryEvents, server} = this.props;
     return (
@@ -48,6 +64,10 @@ class _EntryDetail extends Component {
             {currentEntryEvents && currentEntryEvents.events ? (
               <div>
                 <EventsTimeline events={currentEntryEvents.events} />
+                {this.state.geoEvents.length > 0 ? (
+                  <MapBody geoEvents={this.state.geoEvents} />
+                ) : null}
+                <br />
                 {currentEntryEvents.events.map(event => {
                   return (
                     <EventDetailTable
@@ -69,16 +89,24 @@ class _EntryDetail extends Component {
 
 export const EntryDetail = connect(
   (state, ownProps) => {
+    const hasProp = propName => {
+      return (
+        state.epcis.servers &&
+        state.epcis.servers[ownProps.match.params.serverID] &&
+        state.epcis.servers[ownProps.match.params.serverID][propName]
+      );
+    };
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
-      currentEntryEvents:
-        state.epcis.servers &&
-        state.epcis.servers[ownProps.match.params.serverID].detailItems
-          ? state.epcis.servers[ownProps.match.params.serverID].detailItems[
-              ownProps.match.params.entryID
-            ]
-          : null
+      geoEvents: hasProp("geoEvents")
+        ? state.epcis.servers[ownProps.match.params.serverID].geoEvents
+        : [],
+      currentEntryEvents: hasProp("detailItems")
+        ? state.epcis.servers[ownProps.match.params.serverID].detailItems[
+            ownProps.match.params.entryID
+          ]
+        : null
     };
   },
-  {loadEntry}
+  {loadEntry, getGeoForEntry}
 )(_EntryDetail);
