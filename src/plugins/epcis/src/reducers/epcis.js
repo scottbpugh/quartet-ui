@@ -112,6 +112,37 @@ export const loadEntries = (server, search, page, ordering) => {
   };
 };
 
+export const getGeoForEntry = (server, epc) => {
+  return async dispatch => {
+    try {
+      // first remove existing events.
+      dispatch({
+        type: actions.clearGeoEvents,
+        payload: {serverID: server.serverID}
+      });
+      let client = await pluginRegistry.getServer(server.serverID).getClient();
+      let response = await client.apis.masterdata.masterdata_entry_geohistory_by_epc_read(
+        {epc: epc}
+      );
+      if (response.ok) {
+        return dispatch({
+          type: actions.loadGeoEvents,
+          payload: {
+            serverID: server.serverID,
+            geoEvents: response.body
+          }
+        });
+      }
+    } catch (e) {
+      showMessage({
+        type: "error",
+        id: "plugins.epcis.errorLoadingEntryGeo",
+        values: {error: e}
+      });
+    }
+  };
+};
+
 export const loadEvents = (server, type, search, page, ordering) => {
   let params = {};
   if (type) {
@@ -201,6 +232,36 @@ export default handleActions(
               ...state.servers[action.payload.serverID].detailItems,
               [action.payload.itemID]: action.payload.itemDetail
             }
+          }
+        }
+      };
+    },
+    [actions.clearGeoEvents]: (state, action) => {
+      if (!state.servers) {
+        state.servers = {};
+      }
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          [action.payload.serverID]: {
+            ...state.servers[action.payload.serverID],
+            geoEvents: []
+          }
+        }
+      };
+    },
+    [actions.loadGeoEvents]: (state, action) => {
+      if (!state.servers) {
+        state.servers = {};
+      }
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          [action.payload.serverID]: {
+            ...state.servers[action.payload.serverID],
+            geoEvents: [...action.payload.geoEvents]
           }
         }
       };

@@ -54,7 +54,9 @@ const defaultLocaleMsg = {
     errorLoadingEntries:
       "An error occurred while loading entries from this server. {error}",
     errorLoadingEvents:
-      "An error occurred while loading entries from this server. {error}"
+      "An error occurred while loading events from this server. {error}",
+    errorLoadingEntryGeo:
+      "An error occurred while loading the geographic data related to this entry. {error}"
   }
 };
 
@@ -100,7 +102,9 @@ const french = {
   errorLoadingEntries:
     "Une erreur s'est produite lors du chargement des entrées de ce serveur. {error}",
   errorLoadingEvents:
-    "Une erreur s'est produite lors du chargement des événements de ce serveur. {error}"
+    "Une erreur s'est produite lors du chargement des événements de ce serveur. {error}",
+  errorLoadingEntryGeo:
+    "Une erreur s'est produite lors du chargement des données géographiques liées à cettre entrée. {error}"
 };
 
 export default {
