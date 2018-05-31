@@ -30,6 +30,7 @@ import {ServerDetails} from "components/screens/server/ServerDetails";
 const coreRoutes = () => {
   return [
     <Route key="dashboard" exact path="/" component={Dashboard} />,
+
     <Route
       key="serversettings"
       path="/server-settings/:serverID?"
