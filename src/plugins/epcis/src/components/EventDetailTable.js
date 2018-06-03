@@ -42,7 +42,7 @@ export class EventDetailTable extends Component {
       return currentEntry && currentEntry[objectType];
     };
     return (
-      <div id={isReady() ? currentEntry[objectType].eventID : null}>
+      <div id={isReady() ? currentEntry[objectType].id : null}>
         {isReady() ? (
           <div className={this.props.className}>
             <Card>
