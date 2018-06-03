@@ -23,8 +23,13 @@ export class EventsTimeline extends Component {
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  goToEventDetail = event => {
+    var top = document.getElementById(event.id).offsetTop; //Getting Y of target element
+    window.scrollTo(0, top);
+  };
   render() {
     const {events} = this.props;
+
     return (
       <div className="events-timeline-container">
         <svg
@@ -35,9 +40,11 @@ export class EventsTimeline extends Component {
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((event, index) => {
               let eventClass = "unused-timeline-event";
               let eventStep = "";
+              let currentEvent = null;
               if (typeof events[index] !== "undefined") {
                 eventClass = "";
                 try {
+                  currentEvent = events[index][Object.keys(events[index])[0]];
                   eventStep = this.capitalize(
                     events[index][Object.keys(events[index])[0]].bizStep
                       .split(":")
@@ -51,8 +58,13 @@ export class EventsTimeline extends Component {
               const indentation = 58 * index;
               return (
                 <g
-                  className={`event-${event} ${eventClass}`}
-                  transform={`translate(${indentation}, 0)`}>
+                  className={`event-block event-${event} ${eventClass}`}
+                  transform={`translate(${indentation}, 0)`}
+                  onClick={
+                    currentEvent
+                      ? this.goToEventDetail.bind(this, currentEvent)
+                      : null
+                  }>
                   <path
                     d="M 167.82067,-20.09632 30.735128,-313.48168 559.61385,-314.38957 696.48062,-20.88511 Z"
                     className={`event-parallelogram event-${eventStep} `}
