@@ -29,6 +29,7 @@ class _MapBody extends Component {
   }
   componentWillUnmount() {
     this._map.removeEventListener("click"); // remove click listener.
+    this._map.removeEventListener("pointermove");
     this._map = null;
   }
   componentWillReceiveProps(nextProps) {
@@ -62,7 +63,7 @@ class _MapBody extends Component {
         newMarkers.push({
           longitude: event.longitude,
           latitude: event.latitude,
-          eventID: event.event_id
+          id: event.id
         });
       }
     });
@@ -84,7 +85,7 @@ class _MapBody extends Component {
           ])
         ),
         name: "Event" + index,
-        eventID: marker.eventID
+        id: marker.id
       });
       return f;
     });
@@ -115,14 +116,21 @@ class _MapBody extends Component {
     });
     this._map.on("click", e => {
       this._map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
-        if (
-          feature.get("eventID") &&
-          document.getElementById(feature.get("eventID"))
-        ) {
-          var top = document.getElementById(feature.get("eventID")).offsetTop; //Getting Y of target element
+        if (feature.get("id") && document.getElementById(feature.get("id"))) {
+          var top = document.getElementById(feature.get("id")).offsetTop; //Getting Y of target element
           window.scrollTo(0, top);
         }
       });
+    });
+    this._map.on("pointermove", function(evt) {
+      var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        return true;
+      });
+      if (hit) {
+        this.getTargetElement().style.cursor = "pointer";
+      } else {
+        this.getTargetElement().style.cursor = "";
+      }
     });
     this.setMarkers(this.props.geoEvents ? this.props.geoEvents : []);
   }
