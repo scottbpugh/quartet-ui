@@ -61,7 +61,11 @@ class _PageForm extends Component {
       return client
         .execute({
           operationId: operationId,
-          parameters: parameters
+          parameters: parameters,
+          securities: {
+            authorized: client.securities,
+            specSecurity: [client.spec.securityDefinitions]
+          }
         })
         .then(result => {
           if (result.status === 201) {
