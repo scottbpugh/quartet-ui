@@ -24,16 +24,26 @@ import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import PageForm from "components/elements/PageForm";
 import {reduxForm} from "redux-form";
+import {loadRules} from "../reducers/capture";
 
 const StepParamForm = reduxForm({
   form: "stepParamForm"
 })(PageForm);
 
 class _AddStepParam extends Component {
+  submitCallback() {
+    this.props.loadRules(this.props.server);
+  }
   render() {
     const rule = this.props.rules.find(rule => {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
     });
+    let step = null;
+    if (rule) {
+      step = rule.steps.find(step => {
+        return Number(step.id) === Number(this.props.match.params.stepID);
+      });
+    }
     let stepParam = null;
     let editMode =
       this.props.location &&
@@ -75,12 +85,13 @@ class _AddStepParam extends Component {
                   : "capture_step_parameters_create"
               }
               objectName="Step Parameter"
-              redirectPath={`/capture/add-step/${
+              submitCallback={this.submitCallback.bind(this)}
+              redirectPath={`/capture/edit-step/${
                 this.props.server.serverID
-              }/rule/${rule.id}/step/${rule.id}`}
-              djangoPath="capture/rule-parameters/"
+              }/rule/${rule.id}/step/${step.id}`}
+              djangoPath="capture/step-parameters/"
               existingValues={stepParam}
-              prepopulatedValues={[{name: "step", value: rule.id}]}
+              prepopulatedValues={[{name: "step", value: step.id}]}
               parameters={stepParam ? {id: stepParam.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
@@ -92,11 +103,14 @@ class _AddStepParam extends Component {
   }
 }
 
-export const AddStepParam = connect((state, ownProps) => {
-  return {
-    server: state.serversettings.servers[ownProps.match.params.serverID],
-    rules: state.capture.servers
-      ? state.capture.servers[ownProps.match.params.serverID].rules
-      : []
-  };
-}, {})(_AddStepParam);
+export const AddStepParam = connect(
+  (state, ownProps) => {
+    return {
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      rules: state.capture.servers
+        ? state.capture.servers[ownProps.match.params.serverID].rules
+        : []
+    };
+  },
+  {loadRules}
+)(_AddStepParam);

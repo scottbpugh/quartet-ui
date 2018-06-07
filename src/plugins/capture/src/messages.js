@@ -23,6 +23,7 @@ const defaultLocaleMsg = {
     addRule: "Add a New Rule",
     editRule: "Edit Existing Rule",
     addStep: "Add a New Step",
+    editStepParam: "Edit Step Parameter",
     editStep: "Edit Step",
     addTask: "Create a New Task",
     deleteStep: "Delete Step",
@@ -40,6 +41,7 @@ const defaultLocaleMsg = {
     errorFetchRuleParams:
       "An error occurred while retrieving parameters for this rule. Please check the QU4RTET server for more information.",
     ruleParameters: "Rule Parameters",
+    stepParameters: "Step Parameters",
     addRuleParameter: "Add Rule Parameter",
     editRuleParam: "Edit Rule Parameter",
     noRuleFound: "No Capture module detected on server",
@@ -57,6 +59,7 @@ const french = {
   editRule: "Éditer règle",
   addStep: "Ajouter une nouvelle étape",
   editStep: "Éditer étape",
+  editStepParam: "Éditer un paramètre d'étape",
   addTask: "Créer une nouvelle tâche",
   deleteStep: "Supprimer une étape",
   deleteStepConfirm: "Etes-vous certain de vouloir supprimer cette étape ?",
