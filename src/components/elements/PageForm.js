@@ -44,7 +44,8 @@ class _PageForm extends Component {
       prepopulatedValues,
       objectName,
       redirectPath,
-      parameters
+      parameters,
+      submitCallback
     } = this.props;
     if (prepopulatedValues) {
       for (let field of prepopulatedValues) {
@@ -68,6 +69,10 @@ class _PageForm extends Component {
           }
         })
         .then(result => {
+          if (submitCallback) {
+            // execute post submit logic...
+            submitCallback();
+          }
           if (result.status === 201) {
             showMessage({
               msg: `New ${objectName} created successfully`,

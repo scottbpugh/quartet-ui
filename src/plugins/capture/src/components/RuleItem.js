@@ -63,7 +63,7 @@ class StepItem extends Component {
     this.props.history.push({
       pathname: `/capture/edit-step/${this.props.serverID}/rule/${
         step.rule
-      }/step/${step.name}`,
+      }/step/${step.id}`,
       state: {defaultValues: step, edit: true}
     });
   };
@@ -84,7 +84,7 @@ class StepItem extends Component {
           onClick={this.goTo.bind(
             this,
             `/capture/add-step-param/${serverID}/rule/${step.rule}/step/${
-              step.name
+              step.id
             }`
           )}
           text={pluginRegistry.getIntl().formatMessage({
@@ -105,7 +105,7 @@ class StepItem extends Component {
         onContextMenu={this.renderContextMenu.bind(this)}
         onClick={this.goToEdit.bind(this)}
         path={`/capture/edit-step/${serverID}/rule/${step.rule}/step/${
-          step.name
+          step.id
         }`}
         collapsed={this.state.collapsed}
         childrenNodes={[]}>
