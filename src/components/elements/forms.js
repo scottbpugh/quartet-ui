@@ -103,7 +103,7 @@ export const DefaultField = ({
       <div className="pt-select">
         <select {...input} name={fieldData.name} type="select" width={300}>
           {children ? children : null}
-          {fieldData.description.choices
+          {!children && fieldData.description.choices
             ? Object.keys(fieldData.description.choices).map(choice => {
                 return (
                   <option value={choice}>

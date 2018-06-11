@@ -54,7 +54,11 @@ class _InlineForm extends Component {
       return client
         .execute({
           operationId: operationId,
-          parameters: postValues
+          parameters: postValues,
+          securities: {
+            authorized: client.securities,
+            specSecurity: [client.spec.securityDefinitions]
+          }
         })
         .then(result => {
           if (result.status === 201) {
@@ -109,6 +113,7 @@ class _InlineForm extends Component {
       getFormInfo(props.server, djangoPath, createForm);
     }
   };
+
   render() {
     const {error, handleSubmit, submitting} = this.props;
     let form = this.state.formStructure

@@ -53,10 +53,15 @@ class _PageForm extends Component {
         postValues[field.name] = field.value;
       }
     }
+    let validatedData = {};
+    // set to null if empty string
+    Object.keys(postValues).forEach(item => {
+      validatedData[item] = postValues[item] === "" ? null : postValues[item];
+    });
     if (parameters) {
-      parameters.data = postValues;
+      parameters.data = validatedData;
     } else {
-      parameters = {data: postValues};
+      parameters = {data: validatedData};
     }
     return server.getClient().then(client => {
       return client
@@ -167,19 +172,14 @@ class _PageForm extends Component {
                 fieldData={field}
                 validate={field.validate}>
                 <option value="" />
-                {field.description.type === "choice"
-                  ? field.description.choices.map(choice => {
-                      return (
-                        <option value={choice.value}>
-                          {choice.display_name}
-                        </option>
-                      );
-                    })
-                  : null}
+                {field.description.choices.map(choice => {
+                  return (
+                    <option value={choice.value}>{choice.display_name}</option>
+                  );
+                })}
               </Field>
             );
           }
-
           return (
             <Field
               key={field.name}

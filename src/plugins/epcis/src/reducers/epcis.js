@@ -143,7 +143,7 @@ export const getGeoForEntry = (server, epc) => {
   };
 };
 
-export const loadEvents = (server, type, search, page, ordering) => {
+export const loadEvents = (server, search, page, ordering, type) => {
   let params = {};
   if (type) {
     params.type = type;

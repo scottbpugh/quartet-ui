@@ -29,10 +29,7 @@ class _TaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: [],
-      success: false,
-      successMessage: null,
-      username: null
+      formStructure: []
     };
     this.formStructureRetrieved = false;
   }

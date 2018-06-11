@@ -18,6 +18,7 @@
 
 const defaultLocaleMsg = {
   epcis: {
+    topNavItem: "Event Data",
     addEvent: "Add Event",
     editEvent: "Edit Event",
     addEntry: "Add Entry",
@@ -61,6 +62,7 @@ const defaultLocaleMsg = {
 };
 
 const french = {
+  topNavItem: "Données d'événements",
   addEvent: "Ajouter un évènement",
   editEvent: "Modifier l'événement",
   addEntry: "Ajouter une entrée",
