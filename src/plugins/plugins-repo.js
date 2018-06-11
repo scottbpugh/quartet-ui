@@ -42,5 +42,15 @@ export default {
     description: `
               The EPCIS Plugin allows interaction with the backend QU4RTET EPCIS interface. QU4RTET EPCIS is the EPCIS XML Parsing for the Quartet Platform
             `
+  },
+  MasterData: {
+    core: true,
+    initPath: "masterdata/src/init.js",
+    preview: "",
+    readableName: "Master Data",
+    pluginName: "MasterData",
+    description: `
+              The interface plugin to handle material, lot and location master data.
+            `
   }
 };

@@ -143,7 +143,7 @@ class _NavPluginRoot extends Component {
             <FormattedMessage id="plugins.epcis.transactionEvents" />
           </SubNode>,
           <SubNode
-            epth={this.props.depth}
+            depth={this.props.depth}
             serverID={serverID}
             server={server}
             menuItems={eventMenuItem}
@@ -174,7 +174,7 @@ class _NavPluginRoot extends Component {
           serverID={serverID}
           server={server}
           childrenNodes={children}>
-          EPCIS
+          <FormattedMessage id="plugins.epcis.topNavItem" />
         </TreeNode>
       );
     }

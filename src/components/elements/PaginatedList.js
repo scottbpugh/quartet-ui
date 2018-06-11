@@ -15,12 +15,17 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import React, {Component} from "react";
 import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 
-class _ServerEntries extends Component {
+/*
+  Displays a list of objects (entries, events, companies, locations) as
+  single cards.
+*/
+class _PaginatedList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -101,13 +106,17 @@ class _ServerEntries extends Component {
     }
     this.debounced = setTimeout(() => {
       const {loadEntries, server} = this.props;
-      loadEntries(server, this.state.keywordSearch, this.currentPage);
+      loadEntries(
+        server,
+        this.state.keywordSearch,
+        this.currentPage,
+        this.props.ordering ? this.props.ordering : null,
+        this.props.type ? this.props.type : null
+      );
     }, clear ? 0 : 250);
   };
 
   render() {
-    let serverName = this.props.server.serverSettingName;
-    let serverID = this.props.server.serverID;
     const {entries} = this.state;
     return (
       <Card className="pt-elevation-4">
@@ -118,7 +127,7 @@ class _ServerEntries extends Component {
               {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
-          {serverName} Entries
+          {this.props.listTitle ? this.props.listTitle : null}
         </h5>
         <div>
           <div className="table-control">
@@ -159,38 +168,23 @@ class _ServerEntries extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
-              <thead>
-                <tr>
-                  <th>
-                    <FormattedMessage
-                      id="plugins.epcis.entryIdentifier"
-                      defaultMessage="Entry Identifier"
-                    />
-                  </th>
-                  <th>
-                    <FormattedMessage
-                      id="plugins.epcis.entryUUID"
-                      defaultMessage="Entry UUID"
-                    />
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
+            <table
+              style={{textAlign: "center", verticalAlign: "middle"}}
+              className="pt-table pt-bordered pt-striped pt-interactive">
+              <this.props.tableHeaderClass server={this.props.server} />
+              <tbody
+                style={{
+                  textAlign: "center",
+                  verticalAlign: "middle !important"
+                }}>
                 {Array.isArray(entries) && entries.length > 0
-                  ? entries.map(entry => {
+                  ? entries.map((entry, index) => {
                       return (
-                        <tr
-                          onClick={this.goTo.bind(
-                            this,
-                            `/epcis/entry-detail/${serverID}/identifier/${
-                              entry.identifier
-                            }`
-                          )}
-                          key={entry.id}>
-                          <td>{entry.identifier}</td>
-                          <td>{entry.id}</td>
-                        </tr>
+                        <this.props.entryClass
+                          entry={entry}
+                          server={this.props.server}
+                          history={this.props.history}
+                        />
                       );
                     })
                   : null}
@@ -203,4 +197,4 @@ class _ServerEntries extends Component {
   }
 }
 
-export const ServerEntries = withRouter(_ServerEntries);
+export const PaginatedList = withRouter(_PaginatedList);

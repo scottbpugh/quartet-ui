@@ -75,6 +75,7 @@ export const getFormInfo = async (server, path, createForm, processField) => {
     })
     .then(data => {
       // parse the values and filter to the one that are not readonly.
+
       let postFields = data.actions.POST;
       let formStructure = Object.keys(postFields)
         .map(field => {

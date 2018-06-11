@@ -20,9 +20,137 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadEvents} from "../reducers/epcis";
-import {FormattedMessage} from "react-intl";
-import {ServerEvents} from "./ServerEvents";
+import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
+import {PaginatedList} from "components/elements/PaginatedList";
 import {withRouter} from "react-router";
+import {Icon, Intent} from "@blueprintjs/core";
+
+const EventTableHeader = props => (
+  <thead>
+    <tr>
+      <th>
+        <FormattedMessage id="plugins.epcis.detail" defaultMessage="Detail" />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.eventTime"
+          defaultMessage="Event Time"
+        />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.recordTime"
+          defaultMessage="Record Time"
+        />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.eventUUID"
+          defaultMessage="Event UUID"
+        />
+      </th>
+      <th>
+        <FormattedMessage id="plugins.epcis.type" defaultMessage="Event Type" />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.bizStep"
+          defaultMessage="Business Step"
+        />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.disposition"
+          defaultMessage="Disposition"
+        />
+      </th>
+      <th>
+        <FormattedMessage id="plugins.epcis.action" defaultMessage="Action" />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.readPoint"
+          defaultMessage="Read Point"
+        />
+      </th>
+    </tr>
+  </thead>
+);
+
+const EventEntry = props => {
+  const goTo = path => {
+    props.history.push(path);
+  };
+
+  const getEventType = type => {
+    switch (type) {
+      case "ag":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.aggregationEvent"
+            defaultMessage="Aggregation Event"
+          />
+        );
+      case "ob":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.objectEvent"
+            defaultMessage="Object Event"
+          />
+        );
+      case "tx":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.transactionEvent"
+            defaultMessage="Transaction Event"
+          />
+        );
+      case "tf":
+        return (
+          <FormattedMessage
+            id="plugins.epcis.transformationEvent"
+            defaultMessage="Transformation Event"
+          />
+        );
+      default:
+        return (
+          <FormattedMessage id="plugins.epcis.event" defaultMessage="Event" />
+        );
+    }
+  };
+  return (
+    <tr
+      onClick={goTo.bind(
+        this,
+        `/epcis/event-detail/${props.server.serverID}/uuid/${props.entry.id}`
+      )}
+      key={props.entry.id}>
+      <td
+        style={{
+          align: "center",
+          textAlign: "center",
+          verticalAlign: "middle"
+        }}>
+        <Icon intent={Intent.PRIMARY} iconName="search-template" />
+      </td>
+      <td>
+        <FormattedDate value={props.entry.event_time} />{" "}
+        <FormattedTime value={props.entry.event_time} />
+      </td>
+      <td>
+        {" "}
+        <FormattedDate value={props.entry.record_time} />{" "}
+        <FormattedTime value={props.entry.record_time} />
+      </td>
+      <td>{props.entry.id}</td>
+      <td>{getEventType(props.entry.type)}</td>
+      <td>{props.entry.biz_step}</td>
+      <td>{props.entry.disposition}</td>
+      <td>{props.entry.action}</td>
+      <td>{props.entry.read_point}</td>
+    </tr>
+  );
+};
 
 class _EventList extends Component {
   constructor(props) {
@@ -50,12 +178,15 @@ class _EventList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerEvents
-            loadEvents={loadEvents}
+          <PaginatedList
+            loadEntries={loadEvents}
+            tableHeaderClass={EventTableHeader}
+            entryClass={EventEntry}
             server={server}
-            events={events}
+            entries={events}
             count={count}
             next={next}
+            type={this.eventType}
           />
         </div>
       </RightPanel>
