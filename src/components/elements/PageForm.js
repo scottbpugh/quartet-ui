@@ -44,7 +44,8 @@ class _PageForm extends Component {
       prepopulatedValues,
       objectName,
       redirectPath,
-      parameters
+      parameters,
+      submitCallback
     } = this.props;
     if (prepopulatedValues) {
       for (let field of prepopulatedValues) {
@@ -61,9 +62,17 @@ class _PageForm extends Component {
       return client
         .execute({
           operationId: operationId,
-          parameters: parameters
+          parameters: parameters,
+          securities: {
+            authorized: client.securities,
+            specSecurity: [client.spec.securityDefinitions]
+          }
         })
         .then(result => {
+          if (submitCallback) {
+            // execute post submit logic...
+            submitCallback();
+          }
           if (result.status === 201) {
             showMessage({
               msg: `New ${objectName} created successfully`,

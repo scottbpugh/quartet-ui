@@ -19,12 +19,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {Card} from "@blueprintjs/core";
+import {Card, Button, ButtonGroup} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {reduxForm} from "redux-form";
 import PageForm from "components/elements/PageForm";
-import {loadRules} from "../reducers/capture";
+import {loadRules, deleteRuleParam} from "../reducers/capture";
 
 const RuleForm = reduxForm({
   form: "ruleForm"
@@ -43,6 +43,9 @@ class _AddRule extends Component {
       }/ruleParam/${param.id}`,
       state: {defaultValues: param, edit: true}
     });
+  }
+  deleteRuleParam(param) {
+    this.props.deleteRuleParam(this.props.server, param);
   }
   render() {
     let rule = null; // for edit only.
@@ -115,15 +118,28 @@ class _AddRule extends Component {
                         defaultMessage="value"
                       />
                     </th>
+                    <th />
                   </thead>
                   <tbody>
                     {rule.params.map(param => {
                       return (
-                        <tr
-                          key={param.id}
-                          onClick={this.editRuleParam.bind(this, param)}>
+                        <tr key={param.id}>
                           <td>{param.name}</td>
                           <td>{param.value}</td>
+                          <td style={{width: "80px"}}>
+                            <ButtonGroup minimal={true} small={true}>
+                              <Button
+                                small={true}
+                                iconName="edit"
+                                onClick={this.editRuleParam.bind(this, param)}
+                              />
+                              <Button
+                                small={true}
+                                iconName="trash"
+                                onClick={this.deleteRuleParam.bind(this, param)}
+                              />
+                            </ButtonGroup>
+                          </td>
                         </tr>
                       );
                     })}
@@ -151,5 +167,5 @@ export const AddRule = connect(
         : null
     };
   },
-  {loadRules}
+  {loadRules, deleteRuleParam}
 )(_AddRule);

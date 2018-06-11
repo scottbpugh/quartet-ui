@@ -30,35 +30,41 @@ export const loadRules = server => {
   let serverObject = pluginRegistry.getServer(server.serverID);
   return dispatch => {
     serverObject.fetchListAll("capture_rules_list", {}, []).then(rules => {
-      serverObject.fetchListAll("capture_steps_list", {}, []).then(steps => {
-        serverObject
-          .fetchListAll("capture_rule_parameters_list", {}, [])
-          .then(ruleParams => {
-            rules.map(rule => {
-              rule.params = [];
-              rule.params = ruleParams.filter(ruleParam => {
-                if (ruleParam.rule === rule.id) {
-                  return true;
-                }
-                return false;
+      serverObject
+        .fetchListAll("capture_rule_parameters_list", {}, [])
+        .then(ruleParams => {
+          serverObject
+            .fetchListAll("capture_step_parameters_list", {}, [])
+            .then(stepParams => {
+              rules.map(rule => {
+                rule.params = [];
+                rule.params = ruleParams.filter(ruleParam => {
+                  if (ruleParam.rule === rule.id) {
+                    return true;
+                  }
+                  return false;
+                });
+                // legacy name.
+                rule.steps = rule.step_set || [];
+                rule.steps.forEach(step => {
+                  step.params = stepParams.filter(stepParam => {
+                    if (stepParam.step === step.id) {
+                      return true;
+                    }
+                    return false;
+                  });
+                });
+                return rule;
               });
-              rule.steps = steps.filter(step => {
-                if (step.rule === rule.id) {
-                  return true;
+              return dispatch({
+                type: actions.loadRules,
+                payload: {
+                  serverID: server.serverID,
+                  rules: rules
                 }
-                return false;
               });
-              return rule;
             });
-            return dispatch({
-              type: actions.loadRules,
-              payload: {
-                serverID: server.serverID,
-                rules: rules
-              }
-            });
-          });
-      });
+        });
     });
   };
 };
@@ -120,6 +126,48 @@ export const deleteStep = (server, step) => {
         client.apis.capture.capture_steps_delete(step).then(result => {
           return dispatch(loadRules(server));
         });
+      });
+  };
+};
+
+export const deleteStepParam = (server, stepParam) => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.capture
+          .capture_step_parameters_delete(stepParam)
+          .then(result => {
+            return dispatch(loadRules(server));
+          })
+          .catch(e => {
+            showMessage({
+              type: "error",
+              msg: "An error occurred while attempting to delete step parameter"
+            });
+          });
+      });
+  };
+};
+
+export const deleteRuleParam = (server, ruleParam) => {
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .getClient()
+      .then(client => {
+        client.apis.capture
+          .capture_rule_parameters_delete(ruleParam)
+          .then(result => {
+            return dispatch(loadRules(server));
+          })
+          .catch(e => {
+            showMessage({
+              type: "error",
+              msg: "An error occurred while attempting to delete rule parameter"
+            });
+          });
       });
   };
 };

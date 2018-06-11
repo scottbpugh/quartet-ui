@@ -49,7 +49,7 @@ export default (() => {
     />,
     <Route
       key="editStep"
-      path="/capture/edit-step/:serverID/rule/:ruleID/step/:stepName"
+      path="/capture/edit-step/:serverID/rule/:ruleID/step/:stepID"
       component={AddStep}
     />,
     <Route
@@ -69,12 +69,12 @@ export default (() => {
     />,
     <Route
       key="addStepParam"
-      path="/capture/add-step-param/:serverID/rule/:ruleID/step/:stepName"
+      path="/capture/add-step-param/:serverID/rule/:ruleID/step/:stepID"
       component={AddStepParam}
     />,
     <Route
       key="editStepParam"
-      path="/capture/edit-step-param/:serverID/rule/:ruleID/stepParam/:stepParamID"
+      path="/capture/edit-step-param/:serverID/rule/:ruleID/step/:stepID/stepParam/:stepParamID"
       component={AddStepParam}
     />
   ];
