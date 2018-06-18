@@ -35,7 +35,8 @@ export default {
         documentationOnly: "{projectName} Documentation",
         servers: "Servers",
         noServerFound:
-          "You currently have no QU4RTET server in your configuration."
+          "You currently have no QU4RTET server in your configuration.",
+        version: "Version {appVersion}"
       },
       serverSettings: {
         serverSettings: "Server Settings",
@@ -98,7 +99,8 @@ export default {
         documentationOnly: "Documentation de {projectName}",
         servers: "Serveurs",
         noServerFound:
-          "Il n'y a aucun serveur QU4RTET dans votre configuration."
+          "Il n'y a aucun serveur QU4RTET dans votre configuration.",
+        version: "Version {appVersion}"
       },
       serverSettings: {
         serverSettings: "Paramètres serveur",

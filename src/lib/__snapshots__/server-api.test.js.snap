@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getFormInfo returns a properly structured object from a django options call (mocked) 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "help_text": "The GLN (Global Location Number) provides a standard means to identify legal entities, trading parties and locations to support the requirements of electronic commerce. The GLN-13 is defined by GS1",
+      "label": "GLN13",
+      "max_length": 13,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "GLN13",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "The SGLN EPC scheme is used to assign a unique identity to a physical location or sub-location, such as a specific building or a specific unit of shelving within a warehouse.  TheSGLN is expressed as a URN value.",
+      "label": "SGLN",
+      "max_length": 150,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "SGLN",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "A unique name for the location or party.",
+      "label": "Name",
+      "max_length": 128,
+      "read_only": false,
+      "required": true,
+      "type": "string",
+    },
+    "name": "name",
+    "validate": Array [
+      [Function],
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "For example, the name of the street and the number in the street or the name of a building",
+      "label": "Street Address One",
+      "max_length": 1000,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "address1",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "The second free form line complements the first free form line to locate the party or location.",
+      "label": "Street Address Two",
+      "max_length": 1000,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "address2",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "The third free form line complements the first and second free form lines where necessary.",
+      "label": "Street Address Three",
+      "max_length": 1000,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "address3",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "Country ISO 3166-1 alpha-2 Code",
+      "label": "Country Code",
+      "max_length": 2,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "country",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "City",
+      "label": "City",
+      "max_length": 50,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "city",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "One of the constituent units of a nation having a federal government.",
+      "label": "State or Province",
+      "max_length": 20,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "state_province",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "Postal Code",
+      "label": "Postal Code",
+      "max_length": 20,
+      "read_only": false,
+      "required": false,
+      "type": "string",
+    },
+    "name": "postal_code",
+    "validate": Array [
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": " Latitude of the location, in degrees. Positive numbers are northern latitude; negative numbers are southern latitude.",
+      "label": "Latitude",
+      "read_only": false,
+      "required": false,
+      "type": "decimal",
+    },
+    "name": "latitude",
+    "validate": Array [],
+  },
+  Object {
+    "description": Object {
+      "help_text": "Longitude of the location, in degrees. Positive numbers are eastern longitude; negative numbers are western longitude.",
+      "label": "Longitude",
+      "read_only": false,
+      "required": false,
+      "type": "decimal",
+    },
+    "name": "longitude",
+    "validate": Array [],
+  },
+  Object {
+    "description": Object {
+      "help_text": "A GS1 Company Prefix is a unique string of four to twelve digits used to issue GS1 identification keys.",
+      "label": "GS1 Company Prefix",
+      "max_length": 12,
+      "read_only": false,
+      "required": true,
+      "type": "string",
+    },
+    "name": "gs1_company_prefix",
+    "validate": Array [
+      [Function],
+      [Function],
+    ],
+  },
+  Object {
+    "description": Object {
+      "help_text": "Describes the type of company.",
+      "label": "Type",
+      "read_only": false,
+      "required": false,
+      "type": "field",
+    },
+    "name": "company_type",
+    "validate": Array [],
+  },
+]
+`;
+
+exports[`yields the correct header object with auth 1`] = `
+Object {
+  "headers": Headers {
+    "map": Object {
+      "accept": "application/json",
+      "authorization": "Token someToken",
+      "content-type": "application/json",
+    },
+  },
+  "method": "GET",
+  "mode": "cors",
+}
+`;
+
+exports[`yields the correct header object with auth 2`] = `"{\\"method\\":\\"GET\\",\\"headers\\":{\\"map\\":{\\"accept\\":\\"application/json\\",\\"content-type\\":\\"application/json\\",\\"authorization\\":\\"Token someToken\\"}},\\"mode\\":\\"cors\\"}"`;

@@ -59,11 +59,7 @@ export const DefaultField = ({
     intentClass = "pt-intent-danger";
   }
   let inputField = "";
-  if (
-    //fieldData.description.type === "field" ||
-    fieldData.description.type === "hidden" ||
-    fieldData.hidden === true
-  ) {
+  if (fieldData.description.type === "hidden" || fieldData.hidden === true) {
     inputField = (
       <div style={{display: "none"}}>
         <label className="pt-control">
@@ -103,7 +99,7 @@ export const DefaultField = ({
       <div className="pt-select">
         <select {...input} name={fieldData.name} type="select" width={300}>
           {children ? children : null}
-          {fieldData.description.choices
+          {!children && fieldData.description.choices
             ? Object.keys(fieldData.description.choices).map(choice => {
                 return (
                   <option value={choice}>

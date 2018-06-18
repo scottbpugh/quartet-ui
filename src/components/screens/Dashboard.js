@@ -17,7 +17,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import "components/cards/dashboard/cards.css";
 import {connect} from "react-redux";
 import classNames from "classnames";
 import {RightPanel} from "components/layouts/Panels";
@@ -27,6 +26,13 @@ import "./Dashboard.css";
 import {withRouter} from "react-router";
 
 class _DashboardRight extends Component {
+  constructor(props) {
+    super(props);
+    const appVersion = window.require("electron").remote.app.getVersion();
+    this.state = {
+      version: appVersion
+    };
+  }
   goTo = path => {
     this.props.history.push(path);
   };
@@ -42,6 +48,12 @@ class _DashboardRight extends Component {
         <h3>
           <FormattedMessage id="app.dashboard.dashboardHeader3" />
         </h3>
+        <h4 className="version">
+          <FormattedMessage
+            id="app.dashboard.version"
+            values={{appVersion: this.state.version}}
+          />
+        </h4>
         <Large4 />
         <div className="dashboard-actions-groups">
           <div className="dashboard-items-container">

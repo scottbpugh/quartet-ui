@@ -201,8 +201,14 @@ class PluginRegistry {
     delete this._servers[serverRef.serverID];
   }
 
-  getServer(serverID) {
-    return this._servers[serverID];
+  getServer(server) {
+    // server can be a server plain object (from redux), a Server instance,
+    // or a server ID (string.)
+    if (typeof server === "object" && server !== null) {
+      return this._servers[server.serverID];
+    } else {
+      return this._servers[server];
+    }
   }
 
   registerIntl(intl) {

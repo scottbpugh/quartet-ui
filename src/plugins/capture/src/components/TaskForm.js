@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {getFormInfo} from "lib/auth-api";
+import {getFormInfo} from "lib/server-api";
 import {DefaultField} from "components/elements/forms";
 import {Field, reduxForm, SubmissionError} from "redux-form";
 import {Callout, Intent} from "@blueprintjs/core";
@@ -29,10 +29,7 @@ class _TaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: [],
-      success: false,
-      successMessage: null,
-      username: null
+      formStructure: []
     };
     this.formStructureRetrieved = false;
   }

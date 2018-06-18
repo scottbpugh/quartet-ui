@@ -20,10 +20,10 @@ import React, {Component} from "react";
 import {showMessage} from "lib/message";
 import {DefaultField} from "components/elements/forms";
 import {Field, SubmissionError} from "redux-form";
-import {getFormInfo} from "lib/auth-api";
+import {getFormInfo} from "lib/server-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {Callout, Intent} from "@blueprintjs/core";
+import {Callout, Intent, FormGroup} from "@blueprintjs/core";
 
 class _PageForm extends Component {
   constructor(props) {
@@ -53,10 +53,15 @@ class _PageForm extends Component {
         postValues[field.name] = field.value;
       }
     }
+    let validatedData = {};
+    // set to null if empty string
+    Object.keys(postValues).forEach(item => {
+      validatedData[item] = postValues[item] === "" ? null : postValues[item];
+    });
     if (parameters) {
-      parameters.data = postValues;
+      parameters.data = validatedData;
     } else {
-      parameters = {data: postValues};
+      parameters = {data: validatedData};
     }
     return server.getClient().then(client => {
       return client
@@ -113,7 +118,6 @@ class _PageForm extends Component {
 
   constructForm = props => {
     const {djangoPath} = props;
-
     if (!this.formStructureRetrieved) {
       let createForm = formStructure => {
         this.setState(
@@ -132,7 +136,13 @@ class _PageForm extends Component {
     }
   };
   render() {
-    const {error, handleSubmit, submitting, prepopulatedValues} = this.props;
+    const {
+      error,
+      handleSubmit,
+      submitting,
+      prepopulatedValues,
+      fieldElements
+    } = this.props;
     let form = this.state.formStructure
       .map(field => {
         let type = "text";
@@ -154,7 +164,17 @@ class _PageForm extends Component {
             return field.name;
           });
         }
-
+        if (fieldElements && field.name in fieldElements) {
+          // return the element as is with descriptions.
+          return (
+            <FormGroup
+              helperText={field.description.help_text}
+              label={field.description.label}
+              required={field.description.required}>
+              {fieldElements[field.name]}
+            </FormGroup>
+          );
+        }
         if (!filtered.includes(field.name)) {
           if (field.description.type === "choice") {
             return (
@@ -167,15 +187,11 @@ class _PageForm extends Component {
                 fieldData={field}
                 validate={field.validate}>
                 <option value="" />
-                {field.description.type === "choice"
-                  ? field.description.choices.map(choice => {
-                      return (
-                        <option value={choice.value}>
-                          {choice.display_name}
-                        </option>
-                      );
-                    })
-                  : null}
+                {field.description.choices.map(choice => {
+                  return (
+                    <option value={choice.value}>{choice.display_name}</option>
+                  );
+                })}
               </Field>
             );
           }

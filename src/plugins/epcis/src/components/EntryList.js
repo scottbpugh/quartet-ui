@@ -21,10 +21,49 @@ import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {loadEntries} from "../reducers/epcis";
 import {FormattedMessage} from "react-intl";
-import {ServerEntries} from "./ServerEntries";
 import {withRouter} from "react-router";
+import {PaginatedList} from "components/elements/PaginatedList";
 
 import "./EntryList.css";
+
+const EntryTableHeader = props => (
+  <thead>
+    <tr>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.entryIdentifier"
+          defaultMessage="Entry Identifier"
+        />
+      </th>
+      <th>
+        <FormattedMessage
+          id="plugins.epcis.entryUUID"
+          defaultMessage="Entry UUID"
+        />
+      </th>
+    </tr>
+  </thead>
+);
+
+const EntryEntry = props => {
+  const goTo = path => {
+    props.history.push(path);
+  };
+
+  return (
+    <tr
+      onClick={goTo.bind(
+        this,
+        `/epcis/entry-detail/${props.server.serverID}/identifier/${
+          props.entry.identifier
+        }`
+      )}
+      key={props.entry.id}>
+      <td>{props.entry.identifier}</td>
+      <td>{props.entry.id}</td>
+    </tr>
+  );
+};
 
 class _EntryList extends Component {
   render() {
@@ -38,9 +77,11 @@ class _EntryList extends Component {
           />
         }>
         <div className="large-cards-container full-large">
-          <ServerEntries
+          <PaginatedList
             history={this.props.history}
             loadEntries={loadEntries}
+            tableHeaderClass={EntryTableHeader}
+            entryClass={EntryEntry}
             server={server}
             entries={entries}
             count={count}

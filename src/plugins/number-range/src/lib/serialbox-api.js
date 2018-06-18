@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {showMessage} from "lib/message";
-import {prepHeadersAuth} from "lib/auth-api";
+import {prepHeadersAuth} from "lib/server-api";
 import {pluginRegistry} from "plugins/pluginRegistration";
 const PREFIX_PATH = "serialbox/";
 
