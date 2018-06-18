@@ -20,6 +20,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
 import base64 from "base-64";
+import {fetchObject, fetchPageList, fetchListAll} from "lib/server-api";
 
 // all issues with fs see:
 // https://github.com/electron/electron/issues/9920
@@ -78,96 +79,18 @@ export class Server {
     this.listApps();
   };
 
-  fetchObject = async (operationId, parameters) => {
-    let client = await this.getClient();
-    try {
-      let response = await client.execute({
-        operationId: operationId,
-        parameters: parameters,
-        securities: {
-          authorized: client.securities,
-          specSecurity: [client.spec.securityDefinitions]
-        }
-      });
-      if (response.ok) {
-        return response.body;
-      }
-    } catch (e) {
-      throw e;
-    }
+  fetchObject = async (operationId = "", parameters = {}) => {
+    return await fetchObject(this, operationId, parameters);
   };
 
-  fetchPageList = async (operationId, parameters, page = 0) => {
-    let client = await this.getClient();
-    try {
-      let response = await client.execute({
-        operationId: operationId,
-        parameters: parameters,
-        securities: {
-          authorized: client.securities,
-          specSecurity: [client.spec.securityDefinitions]
-        }
-      });
-      if (response.ok) {
-        return response.body;
-      } else {
-        throw new Error(response);
-      }
-    } catch (e) {
-      showMessage({
-        type: "error",
-        id: "plugins.numberRange.errorVanilla",
-        values: {error: e}
-      });
-      throw e;
-    }
+  fetchPageList = async (operationId, parameters) => {
+    return await fetchPageList(this, operationId, parameters, {});
   };
 
-  fetchListAll = (operationId, parameters, results = []) => {
-    return new Promise((resolve, reject) => {
-      this.getClient()
-        .then(client => {
-          client
-            .execute({
-              operationId: operationId,
-              parameters: parameters,
-              securities: {
-                authorized: client.securities,
-                specSecurity: [client.spec.securityDefinitions]
-              }
-            })
-            .then(response => {
-              if (response.ok) {
-                if (Array.isArray(response.body)) {
-                  results = results.concat(response.body);
-                  resolve(results);
-                } else if (response.body.results) {
-                  results = results.concat(response.body.results);
-                  // pagination in effect. Assuming page number navigation.
-                  if (response.body.next) {
-                    let url = new URL(response.body.next);
-                    let page = new URLSearchParams(url.search).get("page");
-                    let subParameters = {...parameters, page: page};
-                    this.fetchListAll(operationId, subParameters, results)
-                      .then(resolve)
-                      .catch(reject);
-                  } else {
-                    resolve(results);
-                  }
-                }
-              } else {
-                reject(response);
-              }
-            })
-            .catch(e => {
-              reject(e);
-            });
-        })
-        .catch(e => {
-          reject(e);
-        });
-    });
+  fetchListAll = async (operationId, parameters, results = []) => {
+    return await fetchListAll(this, operationId, parameters, results);
   };
+
   setServerData = serverSettings => {
     /*
     Following object should be passed.
@@ -205,6 +128,7 @@ export class Server {
   getFormStructure = () => {
     return Server.getFormStructure(this.toJSON());
   };
+
   static getFormStructure = (initialValues = {}) => [
     {
       name: "serverSettingName",
@@ -323,6 +247,7 @@ export class Server {
       }
     }
   ];
+
   getArrayFields = () => {
     return [
       {name: "protocol", value: this.protocol, editable: true},

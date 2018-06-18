@@ -62,3 +62,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .dashboard-container h3 {
   margin:20px;
 }
+
+.dashboard-container h4.version {
+  margin:20px;
+  font-style:italic;
+  font-size: 14px;
+}

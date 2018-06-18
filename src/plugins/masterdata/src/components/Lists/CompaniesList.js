@@ -112,7 +112,6 @@ class _ServerCompanies extends Component {
 
   render() {
     const {entries} = this.state;
-    console.log("entries", entries);
     return (
       <div className="auto-cards-container">
         {Array.isArray(entries) && entries.length > 0

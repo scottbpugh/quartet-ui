@@ -42,6 +42,15 @@ class _LocationsNav extends Component {
             `/masterdata/add-location/${server.serverID}`
           )}
         />
+        <MenuItem
+          text={pluginRegistry
+            .getIntl()
+            .formatMessage({id: "plugins.masterData.addLocationType"})}
+          onClick={this.goTo.bind(
+            this,
+            `/masterdata/add-location-type/${server.serverID}`
+          )}
+        />
       </Menu>
     );
   };

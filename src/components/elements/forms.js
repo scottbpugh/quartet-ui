@@ -59,11 +59,7 @@ export const DefaultField = ({
     intentClass = "pt-intent-danger";
   }
   let inputField = "";
-  if (
-    //fieldData.description.type === "field" ||
-    fieldData.description.type === "hidden" ||
-    fieldData.hidden === true
-  ) {
+  if (fieldData.description.type === "hidden" || fieldData.hidden === true) {
     inputField = (
       <div style={{display: "none"}}>
         <label className="pt-control">

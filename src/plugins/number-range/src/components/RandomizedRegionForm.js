@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {Field, reduxForm, change} from "redux-form";
-import {getFormInfo} from "lib/auth-api";
+import {getFormInfo} from "lib/server-api";
 import {postAddRandomizedRegion} from "../lib/serialbox-api";
 import {SubmissionError} from "redux-form";
 import {showMessage} from "lib/message";

@@ -62,6 +62,10 @@ class _PaginatedList extends Component {
 
   componentDidMount() {
     this.processEntries();
+    this.setState({
+      entries: this.props.entries,
+      maxPages: 1
+    });
     this.fetchEntries = setInterval(() => {
       this.processEntries();
     }, 5000);

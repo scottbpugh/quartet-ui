@@ -24,6 +24,7 @@ import {LocationsList} from "./components/Lists/LocationsList";
 import {CompaniesList} from "./components/Lists/CompaniesListTable";
 import {TradeItemsList} from "./components/Lists/TradeItemsList";
 import {AddTradeItemField} from "./components/Forms/TradeItemFieldForm";
+import {AddLocationType} from "./components/Forms/LocationTypeForm";
 
 export default (() => {
   return [
@@ -46,6 +47,11 @@ export default (() => {
       key="addLocation"
       path="/masterdata/add-location/:serverID"
       component={AddLocation}
+    />,
+    <Route
+      key="addLocationType"
+      path="/masterdata/add-location-type/:serverID"
+      component={AddLocationType}
     />,
     <Route
       key="addCompany"

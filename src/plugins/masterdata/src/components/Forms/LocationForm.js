@@ -18,12 +18,20 @@
 
 import React, {Component} from "react";
 import {FormattedMessage} from "react-intl";
-import {reduxForm} from "redux-form";
+import {reduxForm, change as changeFieldValue} from "redux-form";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import PageForm from "components/elements/PageForm";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
+import {
+  loadCompanies,
+  loadLocations,
+  loadLocationTypes
+} from "../../reducers/masterdata";
+import {CompanyDialog} from "./Dialogs/CompanyDialog";
+import {LocationTypeDialog} from "./Dialogs/LocationTypeDialog";
+import {SiteDialog} from "./Dialogs/SiteDialog";
 
 const LocationForm = reduxForm({
   form: "locationForm"
@@ -33,12 +41,26 @@ class _AddLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: []
+      formStructure: [],
+      isCompanyOpen: false,
+      isSiteOpen: false,
+      isLocationTypeOpen: false
     };
   }
   componentDidMount() {
-    console.log("Mounting");
+    this.props.loadCompanies(this.props.server);
+    this.props.loadLocations(this.props.server);
+    this.props.loadLocationTypes(this.props.server);
   }
+  toggleCompanyDialog = evt => {
+    this.setState({isCompanyOpen: !this.state.isCompanyOpen});
+  };
+  toggleSiteDialog = evt => {
+    this.setState({isSiteOpen: !this.state.isSiteOpen});
+  };
+  toggleLocationTypeDialog = evt => {
+    this.setState({isLocationTypeOpen: !this.state.isLocationTypeOpen});
+  };
   render() {
     let location = null;
     let editMode =
@@ -86,6 +108,39 @@ class _AddLocation extends Component {
               redirectPath={`/masterdata/locations/${
                 this.props.server.serverID
               }`}
+              fieldElements={{
+                company: (
+                  <CompanyDialog
+                    {...this.props}
+                    formName={"locationForm"}
+                    changeFieldValue={this.props.changeFieldValue}
+                    isCompanyOpen={this.state.isCompanyOpen}
+                    toggleCompanyDialog={this.toggleCompanyDialog}
+                    existingValues={location}
+                    companies={this.props.companies || []}
+                  />
+                ),
+                site: (
+                  <SiteDialog
+                    {...this.props}
+                    changeFieldValue={this.props.changeFieldValue}
+                    isSiteOpen={this.state.isSiteOpen}
+                    toggleSiteDialog={this.toggleSiteDialog}
+                    existingValues={location}
+                    locations={this.props.locations || []}
+                  />
+                ),
+                location_type: (
+                  <LocationTypeDialog
+                    {...this.props}
+                    changeFieldValue={this.props.changeFieldValue}
+                    isLocationTypeOpen={this.state.isLocationTypeOpen}
+                    toggleLocationTypeDialog={this.toggleLocationTypeDialog}
+                    existingValues={location}
+                    locationTypes={this.props.locationTypes || []}
+                  />
+                )
+              }}
               parameters={location ? {id: location.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
@@ -97,8 +152,33 @@ class _AddLocation extends Component {
   }
 }
 
-export const AddLocation = connect((state, ownProps) => {
-  return {
-    server: state.serversettings.servers[ownProps.match.params.serverID]
-  };
-})(_AddLocation);
+export const AddLocation = connect(
+  (state, ownProps) => {
+    const isServerSet = () => {
+      return (
+        state.masterdata.servers &&
+        state.masterdata.servers[ownProps.match.params.serverID]
+      );
+    };
+    return {
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      companies: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].companies
+        : [],
+      locations: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].locations
+        : [],
+      locationTypes: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].locationTypes
+        : [],
+      count: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].count
+        : 0,
+      next: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].next
+        : null,
+      theme: state.layout.theme
+    };
+  },
+  {loadCompanies, loadLocations, loadLocationTypes, changeFieldValue}
+)(_AddLocation);
