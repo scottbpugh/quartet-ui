@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {Field, reduxForm, SubmissionError, change} from "redux-form";
-import {getFormInfo} from "lib/auth-api";
+import {getFormInfo} from "lib/server-api";
 import {postAddPool} from "../lib/serialbox-api";
 import {showMessage} from "lib/message";
 import {loadPools} from "../reducers/numberrange";

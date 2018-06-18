@@ -32,7 +32,6 @@ export const enablePlugin = () => {
     initialData()
   );
   pluginRegistry.setMessages(messages);
-  console.log("adding routes", routes);
   pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
   pluginRegistry.registerComponent(
     PLUGIN_NAME,

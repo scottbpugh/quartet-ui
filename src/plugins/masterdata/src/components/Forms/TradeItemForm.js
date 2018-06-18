@@ -18,13 +18,18 @@
 
 import React, {Component} from "react";
 import {FormattedMessage} from "react-intl";
-import {reduxForm} from "redux-form";
+import {reduxForm, change as changeFieldValue} from "redux-form";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import PageForm from "components/elements/PageForm";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card, Button, ButtonGroup} from "@blueprintjs/core";
-import {deleteTradeItemField} from "../../reducers/masterdata";
+import {
+  deleteTradeItemField,
+  loadCompanies,
+  loadTradeItems
+} from "../../reducers/masterdata";
+import {CompanyDialog} from "./Dialogs/CompanyDialog";
 
 const TradeItemForm = reduxForm({
   form: "tradeItemForm"
@@ -35,7 +40,8 @@ class _AddTradeItem extends Component {
     super(props);
     let tradeItem = this.getTradeItem(this.props.tradeItems, this.props.match);
     this.state = {
-      tradeItem: tradeItem
+      tradeItem: tradeItem,
+      isCompanyOpen: false
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -44,6 +50,9 @@ class _AddTradeItem extends Component {
       tradeItem: tradeItem
     });
   }
+  toggleCompanyDialog = evt => {
+    this.setState({isCompanyOpen: !this.state.isCompanyOpen});
+  };
   editTradeItemField(field) {
     const {server} = this.props;
     let tradeItem =
@@ -57,6 +66,9 @@ class _AddTradeItem extends Component {
         state: {defaultValues: field, edit: true}
       });
     }
+  }
+  submitCallback() {
+    this.props.loadTradeItems(this.props.server);
   }
   deleteTradeItemField(field) {
     this.props.deleteTradeItemField(this.props.server, field);
@@ -106,10 +118,24 @@ class _AddTradeItem extends Component {
               }
               objectName="tradeItem"
               djangoPath="masterdata/trade-items/"
+              submitCallback={this.submitCallback.bind(this)}
               existingValues={tradeItem}
               redirectPath={`/masterdata/trade-items/${
                 this.props.server.serverID
               }`}
+              fieldElements={{
+                company: (
+                  <CompanyDialog
+                    {...this.props}
+                    changeFieldValue={this.props.changeFieldValue}
+                    formName={"tradeItemForm"}
+                    isCompanyOpen={this.state.isCompanyOpen}
+                    toggleCompanyDialog={this.toggleCompanyDialog}
+                    existingValues={tradeItem}
+                    companies={this.props.companies || []}
+                  />
+                )
+              }}
               parameters={tradeItem ? {id: tradeItem.id} : {}}
               server={pluginRegistry.getServer(this.props.server.serverID)}
               history={this.props.history}
@@ -193,11 +219,29 @@ class _AddTradeItem extends Component {
 
 export const AddTradeItem = connect(
   (state, ownProps) => {
+    const isServerSet = () => {
+      return (
+        state.masterdata.servers &&
+        state.masterdata.servers[ownProps.match.params.serverID]
+      );
+    };
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
-      tradeItems:
-        state.masterdata.servers[ownProps.match.params.serverID].tradeItems
+      tradeItems: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].tradeItems
+        : [],
+      companies: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].companies
+        : [],
+
+      count: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].count
+        : 0,
+      next: isServerSet()
+        ? state.masterdata.servers[ownProps.match.params.serverID].next
+        : null,
+      theme: state.layout.theme
     };
   },
-  {deleteTradeItemField}
+  {deleteTradeItemField, loadCompanies, loadTradeItems, changeFieldValue}
 )(_AddTradeItem);

@@ -117,6 +117,7 @@ class _CompaniesList extends Component {
         <div className="large-cards-container full-large">
           <PaginatedList
             history={this.props.history}
+            listTitle={<FormattedMessage id="plugins.masterData.companies" />}
             loadEntries={loadCompanies}
             server={server}
             entries={companies}

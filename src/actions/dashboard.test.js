@@ -15,19 +15,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import actions from "./dashboard";
 
-import React from "react";
-
-export default props => {
-  return (
-    <div className="pt-input-group .modifier">
-      <span className="pt-icon pt-icon-search" />
-      <input
-        className="pt-input pt-large"
-        type="search"
-        placeholder="Search input"
-        dir="auto"
-      />
-    </div>
-  );
-};
+it("returns the right actions", () => {
+  expect(actions).toMatchSnapshot();
+});

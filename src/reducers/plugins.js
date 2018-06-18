@@ -25,7 +25,8 @@ export const initialData = () => {
     plugins: {
       NumberRange: {enabled: true},
       Capture: {enabled: true},
-      epcis: {enabled: true}
+      epcis: {enabled: true},
+      MasterData: {enabled: true}
     }
   };
 };
@@ -39,6 +40,7 @@ export const setEnablePlugin = pluginEntries => {
     return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
   };
 };
+
 export const setDisablePlugin = pluginEntries => {
   return dispatch => {
     for (let plugin in pluginEntries) {
@@ -48,6 +50,7 @@ export const setDisablePlugin = pluginEntries => {
     return dispatch({type: actions.pluginDisabled, payload: pluginEntries});
   };
 };
+
 export default handleActions(
   {
     [actions.addToTreeServers]: (state, action) => {

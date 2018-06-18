@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div>
+    <div
+      className="table-control"
+    >
+      <div
+        className="pagination-control"
+      >
+        <div>
+          <button
+            className="pt-button pt-disabled"
+            disabled={true}
+            onClick={undefined}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="button"
+          >
+            <span>
+              previous
+            </span>
+          </button>
+           
+          |
+           
+          <button
+            className="pt-button pt-disabled"
+            disabled={true}
+            onClick={undefined}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="button"
+          >
+            <span>
+              next
+            </span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div
+          className="pt-control-group"
+        >
+          <div
+            className="pt-select"
+          >
+            <select
+              value=""
+            >
+              <option
+                value=""
+              >
+                Search
+              </option>
+            </select>
+          </div>
+          <div
+            className="pt-input-group"
+          >
+            <input
+              className="pt-input"
+              onChange={[Function]}
+              placeholder="Enter Keywords..."
+              style={
+                Object {
+                  "paddingRight": 0,
+                }
+              }
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="label-info-display"
+        >
+          <span>
+            plugins.epcis.entriesTotal
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="pick-cards-container"
+    >
+      <div
+        className="card-picker"
+        style={Object {}}
+      >
+        <div
+          onClick={[Function]}
+        >
+          <h5 />
+          <ul
+            className="picker-data-list"
+          >
+            <li>
+              anyvalue
+            </li>
+            <li>
+              Falaise
+            </li>
+            <li>
+              France
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

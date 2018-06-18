@@ -22,7 +22,6 @@ var ol = require("openlayers/dist/ol.js");
 
 export class SingleMarkerMap extends Component {
   componentDidMount() {
-    console.log("triggered");
     let delay = 0;
     if (this.props.delay) {
       delay = Number(this.props.delay);

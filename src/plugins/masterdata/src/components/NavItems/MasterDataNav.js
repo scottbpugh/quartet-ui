@@ -30,24 +30,34 @@ class _MasterDataNav extends Component {
   serverHasMasterData() {
     return pluginRegistry
       .getServer(this.props.serverID)
-      .appList.includes("MasterData");
+      .appList.includes("masterdata");
   }
   static get PLUGIN_COMPONENT_NAME() {
     return "MasterDataNav";
   }
   render() {
     const {serverID, server} = this.props;
-    return (
-      <TreeNode
-        depth={this.props.depth}
-        childrenNodes={[
-          <LocationsNav serverID={serverID} server={server} />,
-          <CompaniesNav serverID={serverID} server={server} />,
-          <TradeItemsNav serverID={serverID} server={server} />
-        ]}>
-        <FormattedMessage id="plugins.masterData.masterDataNav" />
-      </TreeNode>
-    );
+    if (this.serverHasMasterData()) {
+      return (
+        <TreeNode
+          depth={this.props.depth}
+          childrenNodes={[
+            <LocationsNav serverID={serverID} server={server} />,
+            <CompaniesNav serverID={serverID} server={server} />,
+            <TradeItemsNav serverID={serverID} server={server} />
+          ]}>
+          <FormattedMessage id="plugins.masterData.masterDataNav" />
+        </TreeNode>
+      );
+    } else {
+      return (
+        <TreeNode depth={this.props.depth} childrenNodes={[]}>
+          <i>
+            <FormattedMessage id="plugins.masterData.noMasterDataFound" />
+          </i>
+        </TreeNode>
+      );
+    }
   }
 }
 

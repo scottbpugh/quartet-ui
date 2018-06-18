@@ -17,6 +17,13 @@ exports[`renders correctly 1`] = `
             The Open Source Level 4
           </span>
         </h3>
+        <h4
+          className="version"
+        >
+          <span>
+            Version test-version
+          </span>
+        </h4>
         <div
           style={
             Object {

@@ -45,6 +45,12 @@ const LocationTableHeader = props => (
       </th>
       <th>
         <FormattedMessage
+          id="plugins.masterData.company"
+          defaultMessage="Company"
+        />
+      </th>
+      <th>
+        <FormattedMessage
           id="plugins.masterData.address"
           defaultMessage="Address"
         />
@@ -96,6 +102,7 @@ const LocationEntry = props => {
       </td>
       <td onClick={goToPayload}>{props.entry.GLN13}</td>
       <td onClick={goToPayload}>{props.entry.name}</td>
+      <td onClick={goToPayload}>{props.entry.company}</td>
       <td onClick={goToPayload}>{props.entry.address1}</td>
       <td onClick={goToPayload}>{props.entry.country}</td>
       <td onClick={goToPayload}>{props.entry.city}</td>
@@ -117,6 +124,8 @@ class _LocationsList extends Component {
         }>
         <div className="large-cards-container full-large">
           <PaginatedList
+            {...this.props}
+            listTitle={<FormattedMessage id="plugins.masterData.locations" />}
             history={this.props.history}
             loadEntries={loadLocations}
             server={server}

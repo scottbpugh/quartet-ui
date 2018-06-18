@@ -56,7 +56,7 @@ export const loadLocations = (server, search, page, ordering) => {
       .catch(e => {
         showMessage({
           type: "error",
-          id: "plugins.epcis.errorLoadingEvents",
+          id: "plugins.masterData.errorLoadingLocations",
           values: {error: e}
         });
       });
@@ -92,7 +92,7 @@ export const loadCompanies = (server, search, page, ordering) => {
       .catch(e => {
         showMessage({
           type: "error",
-          id: "plugins.epcis.errorLoadingCompanies",
+          id: "plugins.masterData.errorLoadingCompanies",
           values: {error: e}
         });
       });
@@ -128,7 +128,43 @@ export const loadTradeItems = (server, search, page, ordering) => {
       .catch(e => {
         showMessage({
           type: "error",
-          id: "plugins.epcis.errorLoadingTradeItems",
+          id: "plugins.masterData.errorLoadingTradeItems",
+          values: {error: e}
+        });
+      });
+  };
+};
+
+export const loadLocationTypes = (server, search, page, ordering) => {
+  let params = {};
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .fetchPageList("masterdata_location_types_list", params, [])
+      .then(response => {
+        return dispatch({
+          type: actions.loadLocationTypes,
+          payload: {
+            serverID: server.serverID,
+            locationTypes: response.results,
+            count: response.count,
+            next: response.next
+          }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.masterData.errorLoadingLocationTypes",
           values: {error: e}
         });
       });
@@ -162,6 +198,22 @@ export default handleActions(
           [action.payload.serverID]: {
             ...state.servers[action.payload.serverID],
             locations: action.payload.locations,
+            count: action.payload.count,
+            next: action.payload.next
+          }
+        }
+      };
+    },
+    [actions.loadLocationTypes]: (state, action) => {
+      if (!state.servers) {
+        state.servers = {};
+      }
+      return {
+        ...state,
+        servers: {
+          [action.payload.serverID]: {
+            ...state.servers[action.payload.serverID],
+            locationTypes: action.payload.locationTypes,
             count: action.payload.count,
             next: action.payload.next
           }

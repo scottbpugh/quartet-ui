@@ -242,3 +242,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .overflowed-table {
   overflow-x:scroll;
 }
+
+.error-list {
+  list-style:none;
+  padding:10px 10px 0 0;
+}
+
+.error-list li {
+  padding:15px 0;
+  display:flex;
+  border-bottom:1px solid #EEE;
+}
+.error-list .pt-error-standard {
+  padding-right:10px;
+}
+.error-list span.error-msg {
+  margin-left:15px;
+  display:block;
+}
+
+.error-list .pt-icon-error {
+  color:#A82A2A;
+}
+.error-list .pt-icon-warning-sign {
+  color:#D9822B;
+}
+.card-control {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+.context-menu-control {
+  position:absolute;
+  top:2px;
+  right: 0;
+}

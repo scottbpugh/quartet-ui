@@ -67,11 +67,30 @@ if (window && !window.require) {
   // add fake require for ipcRenderer.
   window.require = module => {
     if (module === "electron") {
-      return {ipcRenderer: {on: () => {}, send: () => {}}};
+      return {
+        ipcRenderer: {
+          on: () => {},
+          send: () => {}
+        },
+        remote: {
+          app: {
+            getVersion: () => {
+              return "test-version";
+            }
+          }
+        }
+      };
     }
   };
 }
-
+/*
+      remote: {
+        app: {
+          getVersion: function() {
+            return "test-version";
+          }
+        }
+*/
 export const initialState = MockInitialState;
 
 // Used by certain tests.

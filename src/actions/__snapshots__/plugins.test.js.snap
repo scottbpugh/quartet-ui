@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the right actions 1`] = `
+Object {
+  "addToTreeServers": [Function],
+  "pluginDisabled": [Function],
+  "pluginEnabled": [Function],
+  "removeFromTreeServers": [Function],
+}
+`;

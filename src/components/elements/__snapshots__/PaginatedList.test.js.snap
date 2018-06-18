@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="pt-card pt-elevation-0 pt-elevation-4"
+    onClick={undefined}
+  >
+    <h5>
+       
+      <div
+        className="right-aligned-elem"
+      >
+        <span
+          className="pt-tag pt-large"
+        >
+          1
+          /
+          1
+        </span>
+      </div>
+      Hello Test
+    </h5>
+    <div>
+      <div
+        className="table-control"
+      >
+        <div
+          className="pagination-control"
+        >
+          <div>
+            <button
+              className="pt-button pt-disabled"
+              disabled={true}
+              onClick={undefined}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                previous
+              </span>
+            </button>
+             
+            |
+             
+            <button
+              className="pt-button pt-disabled"
+              disabled={true}
+              onClick={undefined}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                next
+              </span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div
+            className="pt-control-group"
+          >
+            <div
+              className="pt-select"
+            >
+              <select
+                value=""
+              >
+                <option
+                  value=""
+                >
+                  Search
+                </option>
+              </select>
+            </div>
+            <div
+              className="pt-input-group"
+            >
+              <input
+                className="pt-input"
+                onChange={[Function]}
+                placeholder="Enter Keywords..."
+                style={
+                  Object {
+                    "paddingRight": 0,
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="label-info-display"
+          >
+            <span>
+              plugins.epcis.entriesTotal
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="overflowed-table"
+      >
+        <table
+          className="pt-table pt-bordered pt-striped pt-interactive"
+          style={
+            Object {
+              "textAlign": "center",
+              "verticalAlign": "middle",
+            }
+          }
+        >
+          <thead>
+            <th>
+              A Single Value
+            </th>
+          </thead>
+          <tbody
+            style={
+              Object {
+                "textAlign": "center",
+                "verticalAlign": "middle !important",
+              }
+            }
+          >
+            <tr>
+              <td>
+                Hello World
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
