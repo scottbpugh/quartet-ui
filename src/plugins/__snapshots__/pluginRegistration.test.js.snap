@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`removes a server when triggering removeServer 1`] = `
+Object {
+  "authType": "basic",
+  "hostname": undefined,
+  "path": "",
+  "port": 80,
+  "protocol": "http",
+  "serverID": "random-id",
+  "serverSettingName": undefined,
+  "ssl": undefined,
+  "tokenType": "Token",
+  "url": "http://undefined:80/",
+  "username": undefined,
+}
+`;
+
+exports[`removes a server when triggering removeServer 2`] = `Object {}`;
