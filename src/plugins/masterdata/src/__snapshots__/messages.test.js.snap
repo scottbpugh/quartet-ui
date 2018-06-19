@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct default messages 1`] = `
+Object {
+  "en-US": Object {
+    "plugins": Object {
+      "masterData": Object {
+        "addCompany": "Add a Company",
+        "addLocation": "Add a Location",
+        "addLocationType": "Add a Location Type",
+        "addTradeItem": "Add a Trade Item",
+        "addTradeItemField": "Add a Trade Item Field",
+        "companies": "Companies",
+        "editCompany": "Edit a Company",
+        "editLocation": "Edit a Location",
+        "editTradeItem": "Edit Trade Item",
+        "errorLoadingCompanies": "An error occurred while loading companies from this server. {error}",
+        "errorLoadingEntries": "An error occurred while loading locations from this server. {error}",
+        "errorLoadingLocationTypes": "An error occurred while loading location types from this server. {error}",
+        "errorLoadingLocations": "An error occurred while loading locations from this server. {error}",
+        "errorLoadingTradeItems": "An error occurred while loading trade items from this server. {error}",
+        "locations": "Locations",
+        "masterDataNav": "Master Data",
+        "noMasterDataFound": "No Master Data module detected on server.",
+        "tradeItemFields": "Trade Item Fields",
+        "tradeItems": "Trade Items",
+      },
+    },
+  },
+  "fr-FR": Object {
+    "plugins": Object {
+      "masterData": Object {
+        "addCompany": "Ajouter une compagnie",
+        "addLocation": "Ajouter un site",
+        "addLocationType": "Ajouter un type de site",
+        "addTradeItem": "Ajouter un article commercial",
+        "addTradeItemField": "Ajouter un champ d'article commercial",
+        "companies": "Compagnies",
+        "editCompany": "Modifier une compagnie",
+        "editLocation": "Modifier un site",
+        "editTradeItem": "Editer un article commercial",
+        "errorLoadingCompanies": "An error occurred while loading companies from this server. {error}",
+        "errorLoadingEntries": "An error occurred while loading locations from this server. {error}",
+        "errorLoadingLocationTypes": "An error occurred while loading location types from this server. {error}",
+        "errorLoadingLocations": "An error occurred while loading locations from this server. {error}",
+        "errorLoadingTradeItems": "An error occurred while loading trade items from this server. {error}",
+        "locations": "Sites",
+        "masterDataNav": "Données de base",
+        "noMasterDataFound": "No Master Data module detected on server.",
+        "tradeItemFields": "Champs d'articles commerciaux",
+        "tradeItems": "Articles commerciaux",
+      },
+    },
+  },
+}
+`;
