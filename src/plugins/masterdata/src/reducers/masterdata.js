@@ -171,6 +171,33 @@ export const loadLocationTypes = (server, search, page, ordering) => {
   };
 };
 
+export const loadLocationDetail = (server, identifier) => {
+  return async dispatch => {
+    let params = {identifier: identifier};
+    try {
+      let location = await pluginRegistry
+        .getServer(server)
+        .fetchObject("masterdata_location_by_identifier_read", params);
+
+      return dispatch({
+        type: actions.loadLocationDetail,
+        payload: {
+          serverID: server.serverID,
+          locationDetail: {identifier: identifier, detail: location}
+        }
+      });
+    } catch (e) {
+      return dispatch({
+        type: actions.loadLocationDetail,
+        payload: {
+          serverID: server.serverID,
+          locationDetail: {identifier: identifier, error: e}
+        }
+      });
+    }
+  };
+};
+
 export const deleteTradeItemField = (server, field) => {
   return dispatch => {
     pluginRegistry
@@ -248,6 +275,20 @@ export default handleActions(
             tradeItems: action.payload.tradeItems,
             count: action.payload.count,
             next: action.payload.next
+          }
+        }
+      };
+    },
+    [actions.loadLocationDetail]: (state, action) => {
+      if (!state.servers) {
+        state.servers = {};
+      }
+      return {
+        ...state,
+        servers: {
+          [action.payload.serverID]: {
+            ...state.servers[action.payload.serverID],
+            locationDetail: action.payload.locationDetail
           }
         }
       };

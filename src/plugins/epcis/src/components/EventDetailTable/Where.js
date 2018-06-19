@@ -20,6 +20,9 @@ import {Tag} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 
 export default class extends Component {
+  goTo = path => {
+    this.props.history.push(path);
+  };
   render() {
     const {currentEntry, objectType} = this.props;
     return (
@@ -57,7 +60,14 @@ export default class extends Component {
                             return (
                               <li>
                                 <Tag>{key}</Tag>:{" "}
-                                <Tag className="epc-item">
+                                <Tag
+                                  className="epc-item"
+                                  onClick={this.goTo.bind(
+                                    this,
+                                    `/masterdata/${this.props.serverID}/sgln/${
+                                      currentEntry[objectType].sourceList[key]
+                                    }`
+                                  )}>
                                   {currentEntry[objectType].sourceList[key]}
                                 </Tag>
                               </li>
