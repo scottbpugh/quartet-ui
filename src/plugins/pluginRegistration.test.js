@@ -20,9 +20,23 @@ import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import {pluginRegistry} from "./pluginRegistration";
 import {Server} from "lib/servers";
 
+it("adds a server when registering a server", () => {
+  pluginRegistry.registerServer(new Server({serverID: "random-id"}));
+  expect(pluginRegistry.getServer("random-id")).toMatchSnapshot();
+  expect(Object.keys(pluginRegistry._servers).length).toEqual(1);
+});
+
 it("removes a server when triggering removeServer", () => {
   pluginRegistry.registerServer(new Server({serverID: "random-id"}));
   expect(pluginRegistry.getServer("random-id")).toMatchSnapshot();
+  // making sure the server is properly registered here one more time.
+  expect(Object.keys(pluginRegistry._servers).length).toEqual(1);
   pluginRegistry.removeServer(pluginRegistry.getServer("random-id"));
-  expect(pluginRegistry._servers).toMatchSnapshot();
+  expect(Object.keys(pluginRegistry._servers).length).toEqual(0);
+});
+
+it("can retrieve a server based on server object or serverID", () => {
+  let s = new Server({serverID: "random-id"});
+  pluginRegistry.registerServer(s);
+  expect(pluginRegistry.getServer(s)).toMatchSnapshot();
 });
