@@ -168,6 +168,7 @@ class _SingleCardPicker extends Component {
                 return (
                   <div
                     className="card-picker"
+                    key={`entry-card-${index}`}
                     style={this.props.entryStyle ? this.props.entryStyle : {}}>
                     <this.props.entryClass
                       {...this.props}

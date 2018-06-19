@@ -185,6 +185,7 @@ class _PaginatedList extends Component {
                   ? entries.map((entry, index) => {
                       return (
                         <this.props.entryClass
+                          key={`entry-${index}`}
                           entry={entry}
                           server={this.props.server}
                           history={this.props.history}

@@ -158,11 +158,11 @@ class _PoolItem extends Component {
     this.setState({exportType: evt.target.value});
   };
   render() {
-    const {pool, serverID} = this.props;
+    const {pool, serverID, key} = this.props;
     return (
       <TreeNode
         onContextMenu={this.renderContextMenu.bind(this)}
-        key={pool.machine_name}
+        key={key}
         path={`/number-range/region-detail/${serverID}/${pool.machine_name}`}
         nodeType="pool"
         active={this.state.active}
@@ -291,6 +291,7 @@ export class _NavPluginRoot extends Component {
       let children = NavItems(pools, serverID, this.props.intl);
       return (
         <TreeNode
+          serverID={serverID}
           onContextMenu={this.renderContextMenu}
           nodeType="plugin"
           depth={this.props.depth}

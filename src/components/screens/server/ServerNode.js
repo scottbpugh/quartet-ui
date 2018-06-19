@@ -73,6 +73,7 @@ class _ServerNode extends Component {
         onContextMenu={this.renderContextMenu.bind(this)}
         nodeType="server"
         depth={0}
+        serverID={server.serverID}
         path={`/server-details/${server.serverID}`}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}

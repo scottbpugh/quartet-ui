@@ -129,6 +129,6 @@ TreeNode.propTypes = {
   onContextMenu: PropTypes.func.isRequired,
   depth: PropTypes.number.isRequired,
   active: PropTypes.bool,
-  serverID: PropTypes.string.isRequired,
+  serverID: PropTypes.string,
   childrenNodes: PropTypes.arrayOf(PropTypes.element)
 };
