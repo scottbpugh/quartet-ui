@@ -21,6 +21,7 @@ import {showMessage} from "lib/message";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "../actions/capture";
 import serverActions from "actions/serversettings";
+import {setServerState} from "lib/reducer-helper";
 
 export const initialData = () => ({
   servers: {}
@@ -175,44 +176,18 @@ export const deleteRuleParam = (server, ruleParam) => {
 export default handleActions(
   {
     [actions.loadRules]: (state, action) => {
-      if (!state.servers) {
-        // temporary debug fix.
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            rules: action.payload.rules
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        rules: action.payload.rules
+      });
     },
     [actions.loadTasks]: (state, action) => {
-      if (!state.servers) {
-        // temporary debug fix.
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            tasks: action.payload.tasks,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        tasks: action.payload.tasks,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [serverActions.serverUpdated]: (state, action) => {
-      // we want to reload pools when new server is saved.
-      /*action.asyncDispatch(
-        loadPools(pluginRegistry.getServer(action.payload))
-      );*/
       return {
         ...state,
         servers: {
