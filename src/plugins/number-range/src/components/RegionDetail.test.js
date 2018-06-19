@@ -25,6 +25,8 @@ import messages from "messages";
 import nrmessages from "../messages";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {Server} from "lib/servers";
+import sinon from "sinon";
+import * as message from "lib/message";
 
 let locale = "en-US";
 const newIntl = {
@@ -70,6 +72,7 @@ const pluginData = {
 const store = mockStore(pluginData);
 
 it("renders correctly a pool with no region", () => {
+  sinon.stub(message, "showMessage").callsFake(() => {});
   let server = pluginData.numberrange.servers.fakeid.server;
   pluginRegistry.registerServer(new Server(server));
   const promise = Promise.resolve({

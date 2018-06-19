@@ -70,7 +70,8 @@ export default {
       },
       common: {
         mainError:
-          "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}"
+          "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
+        entriesTotal: "Entries Total"
       },
       plugins: {
         addPlugin: "Add a Plugin",

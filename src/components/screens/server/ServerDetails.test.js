@@ -28,8 +28,11 @@ import {Provider} from "react-redux";
 import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {Server} from "lib/servers";
+import sinon from "sinon";
+import * as message from "lib/message";
 
 it("renders correctly", () => {
+  sinon.stub(message, "showMessage").callsFake(() => {});
   let store = mockStore(initialState);
   const props = {
     match: {
