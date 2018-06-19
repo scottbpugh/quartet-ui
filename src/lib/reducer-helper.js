@@ -16,8 +16,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import objectPath from "object-path";
-
 // A helper function meant to make life a little easier in reducers.
 
 /**
@@ -35,12 +33,21 @@ export const setServerState = (state = {}, serverID, mergeObject = {}) => {
       "A server ID must be defined to set the server state in reducer."
     );
   }
+  let copy = {...state}; // use a copy of state for manipulations.
+  if (!copy.servers) {
+    // if servers are not created yet, create an object.
+    copy.servers = {};
+  }
+  if (!copy.servers[serverID]) {
+    // if there is no object for this server, create it.
+    copy.servers[serverID] = {};
+  }
   return {
-    ...state,
+    ...copy,
     servers: {
-      ...objectPath(state, "servers", {}),
+      ...copy.servers,
       [serverID]: {
-        ...objectPath(state, ["servers", serverID], {}),
+        ...copy.servers[serverID],
         ...mergeObject
       }
     }

@@ -189,11 +189,7 @@ export default handleActions(
     },
     [serverActions.serverUpdated]: (state, action) => {
       return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {}
-        }
+        ...state
       };
     }
   },
