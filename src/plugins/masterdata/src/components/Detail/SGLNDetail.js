@@ -17,58 +17,57 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Card} from "@blueprintjs/core";
+import {Card, Callout} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {loadLocationDetail} from "../../reducers/masterdata";
+import {RightPanel} from "components/layouts/Panels";
+import {FormattedMessage} from "react-intl";
+import objectPath from "object-path";
 
 class _SGLNDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {detail: {}};
+    this.state = {locationDetail: {}};
   }
-  componentWillMount() {
-    this.props.loadLocationDetail(this.props.match.params.locationIdentifier);
-    if ("detail" in this.props.locationDetail) {
-      this.setState({detail: this.props.locationDetail.detail});
-    }
+  componentDidMount() {
+    this.setState({locationDetail: {}});
+    this.props.loadLocationDetail(
+      this.props.server,
+      this.props.match.params.locationIdentifier
+    );
   }
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.match.params.locationIdentifier !==
-      this.props.match.params.locationIdentifier
-    ) {
-      nextProps.loadLocationDetail(nextProps.match.params.locationIdentifier);
-    }
-    if (
-      JSON.stringify(nextProps.locationDetail) !==
-        JSON.stringify(this.props.locationDetail) &&
-      "detail" in nextProps.locationDetail
-    ) {
-      this.setState({detail: nextProps.locationDetail.detail});
-    }
+    this.setState({locationDetail: nextProps.locationDetail});
   }
   render() {
     return (
-        {" "}
-        <div>{JSON.stringify(this.state.detail)}</div>
+      <RightPanel
+        title={<FormattedMessage id="plugins.masterData.locationDetail" />}>
+        {JSON.stringify(this.state.locationDetail)}
+        <Card>
+          <h5>{this.state.locationDetail.identifier}</h5>
+          {this.state.locationDetail.detail ? null : (
+            <Callout>
+              {JSON.stringify(
+                objectPath.get(this.state, "locationDetail.error.response.body")
+              )}
+            </Callout>
+          )}
+        </Card>
+      </RightPanel>
     );
   }
 }
 
 export const SGLNDetail = connect(
   (state, ownProps) => {
-    const isServerSet = () => {
-      return (
-        state.masterdata.servers &&
-        state.masterdata.servers[ownProps.match.params.serverID]
-      );
-    };
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
-      locationDetail: isServerSet()
-        ? state.masterdata.servers[ownProps.match.params.serverID]
-            .locationDetail
-        : {}
+      locationDetail: objectPath.get(
+        state,
+        `masterdata.servers.${ownProps.match.params.serverID}.locationDetail`,
+        {}
+      )
     };
   },
   {loadLocationDetail}

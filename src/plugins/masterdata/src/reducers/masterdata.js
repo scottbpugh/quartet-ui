@@ -20,6 +20,7 @@ import {handleActions} from "redux-actions";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "../actions/masterdata";
 import {showMessage} from "lib/message";
+import {setServerState} from "lib/reducer-helper";
 
 export const initialData = () => {
   return {
@@ -178,7 +179,6 @@ export const loadLocationDetail = (server, identifier) => {
       let location = await pluginRegistry
         .getServer(server)
         .fetchObject("masterdata_location_by_identifier_read", params);
-
       return dispatch({
         type: actions.loadLocationDetail,
         payload: {
@@ -216,82 +216,37 @@ export const deleteTradeItemField = (server, field) => {
 export default handleActions(
   {
     [actions.loadLocations]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            locations: action.payload.locations,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        locations: action.payload.locations,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [actions.loadLocationTypes]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            locationTypes: action.payload.locationTypes,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        locationTypes: action.payload.locationTypes,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [actions.loadCompanies]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            companies: action.payload.companies,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        companies: action.payload.companies,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [actions.loadTradeItems]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            tradeItems: action.payload.tradeItems,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        tradeItems: action.payload.tradeItems,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [actions.loadLocationDetail]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            locationDetail: action.payload.locationDetail
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        locationDetail: action.payload.locationDetail
+      });
     }
   },
   {}
