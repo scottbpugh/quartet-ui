@@ -172,9 +172,7 @@ class _PaginatedList extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table
-              style={{textAlign: "center", verticalAlign: "middle"}}
-              className="pt-table pt-bordered pt-striped pt-interactive">
+            <table className="pt-table pt-bordered pt-striped pt-interactive">
               <this.props.tableHeaderClass server={this.props.server} />
               <tbody
                 style={{

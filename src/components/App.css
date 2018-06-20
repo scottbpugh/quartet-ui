@@ -242,6 +242,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .overflowed-table {
   overflow-x:scroll;
 }
+
+.overflowed-table table.pt-table {
+  border-collapse:collapse ;
+  border-spacing: 0px 20px;
+}
+.overflowed-table table.pt-table td {
+  padding: 20px 10px !important;
+}
 .error-list {
   list-style:none;
   padding:10px 10px 0 0;
@@ -331,4 +339,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   font-size:15px;
   font-weight:bold;
   min-width:180px;
+}
+
+.data-pair-table tr td {
+  padding-bottom:10px;
 }

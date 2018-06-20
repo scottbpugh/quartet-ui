@@ -60,7 +60,7 @@ class _SGLNDetail extends Component {
     return (
       <RightPanel
         title={<FormattedMessage id="plugins.masterData.locationDetail" />}>
-        <div className="two-column-cards">
+        <div className="cards-container">
           {!detail ? (
             <Callout>
               {JSON.stringify(
@@ -72,7 +72,7 @@ class _SGLNDetail extends Component {
           {detail ? (
             <Card className="pt-elevation-2">
               <h5>Identifiers</h5>
-              <table className="data-pair-table">
+              <table className="pt-table data-pair-table  pt-bordered pt-striped">
                 {yieldDataPairRowIfSet("ID", detail.id)}
                 {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
                 {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
@@ -97,7 +97,7 @@ class _SGLNDetail extends Component {
                   ]}
                 />
               ) : null}
-              <table className="data-pair-table">
+              <table className="pt-table data-pair-table  pt-bordered pt-striped">
                 {yieldDataPairRowIfSet("Address", detail.address1)}
                 {yieldDataPairRowIfSet("Address 2", detail.address2)}
                 {yieldDataPairRowIfSet("Address 3", detail.address3)}

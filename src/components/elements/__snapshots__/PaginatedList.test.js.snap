@@ -106,12 +106,6 @@ exports[`renders correctly 1`] = `
       >
         <table
           className="pt-table pt-bordered pt-striped pt-interactive"
-          style={
-            Object {
-              "textAlign": "center",
-              "verticalAlign": "middle",
-            }
-          }
         >
           <thead>
             <th>
