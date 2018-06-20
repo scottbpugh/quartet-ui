@@ -23,6 +23,19 @@ import {loadLocationDetail} from "../../reducers/masterdata";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import objectPath from "object-path";
+import {SingleMarkerMap} from "components/elements/SingleMarkerMap";
+
+const yieldDataPairRowIfSet = (key, value) => {
+  if (key && value) {
+    return (
+      <tr>
+        <td>{key}</td>
+        <td>{value}</td>
+      </tr>
+    );
+  }
+  return null;
+};
 
 class _SGLNDetail extends Component {
   constructor(props) {
@@ -39,21 +52,86 @@ class _SGLNDetail extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({locationDetail: nextProps.locationDetail});
   }
+  splitAndCap(value) {
+    return value.replace(/_/g, " ");
+  }
   render() {
+    let detail = this.state.locationDetail.detail;
     return (
       <RightPanel
         title={<FormattedMessage id="plugins.masterData.locationDetail" />}>
-        {JSON.stringify(this.state.locationDetail)}
-        <Card>
-          <h5>{this.state.locationDetail.identifier}</h5>
-          {this.state.locationDetail.detail ? null : (
+        <div className="two-column-cards">
+          {!detail ? (
             <Callout>
               {JSON.stringify(
                 objectPath.get(this.state, "locationDetail.error.response.body")
               )}
             </Callout>
-          )}
-        </Card>
+          ) : null}
+
+          {detail ? (
+            <Card className="pt-elevation-2">
+              <h5>Identifiers</h5>
+              <table className="data-pair-table">
+                {yieldDataPairRowIfSet("ID", detail.id)}
+                {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
+                {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
+                {yieldDataPairRowIfSet("Name", detail.name)}
+              </table>
+            </Card>
+          ) : null}
+          {detail ? (
+            <Card className="pt-elevation-2">
+              <h5>Location Information</h5>
+              {detail && detail.longitude && detail.latitude ? (
+                <SingleMarkerMap
+                  targetId={detail.SGLN}
+                  delay={0}
+                  size={{width: "auto", height: "auto"}}
+                  minZoom={1}
+                  maxZoom={16}
+                  zoom={1}
+                  markerLocation={[
+                    Number(detail.longitude),
+                    Number(detail.latitude)
+                  ]}
+                />
+              ) : null}
+              <table className="data-pair-table">
+                {yieldDataPairRowIfSet("Address", detail.address1)}
+                {yieldDataPairRowIfSet("Address 2", detail.address2)}
+                {yieldDataPairRowIfSet("Address 3", detail.address3)}
+                {yieldDataPairRowIfSet("City", detail.city)}
+                {yieldDataPairRowIfSet("State/Province", detail.state_province)}
+                {yieldDataPairRowIfSet("Postal Code", detail.postal_code)}
+                {yieldDataPairRowIfSet("Country", detail.country)}
+                {yieldDataPairRowIfSet("Latitude", detail.latitude)}
+                {yieldDataPairRowIfSet("Longitude", detail.longitude)}
+              </table>
+            </Card>
+          ) : null}
+
+          {/*detail ? (
+            <div className="data-pair-cards">
+              {Object.keys(detail).map(key => {
+                if (
+                  (detail[key] && !Array.isArray(detail[key])) ||
+                  (detail[key] &&
+                    Array.isArray(detail[key]) &&
+                    detail[key].length > 0)
+                ) {
+                  return (
+                    <div className="data-pair-card">
+                      <span className="key">{this.splitAndCap(key)}</span>
+                      <span className="value">{detail[key]}</span>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          ) : null*/}
+        </div>
       </RightPanel>
     );
   }

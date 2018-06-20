@@ -82,9 +82,9 @@ export class SingleMarkerMap extends Component {
       layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
       view: new ol.View({
         center: ol.proj.fromLonLat(this.props.markerLocation),
-        zoom: 1,
-        maxZoom: 12,
-        minZoom: 1
+        zoom: this.props.zoom || 1,
+        maxZoom: this.props.maxZoom || 12,
+        minZoom: this.props.minZoon || 1
       })
     });
   }
