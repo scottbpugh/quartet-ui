@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Card, Callout} from "@blueprintjs/core";
+import {Card, Callout, Button} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {loadLocationDetail} from "../../reducers/masterdata";
 import {RightPanel} from "components/layouts/Panels";
@@ -42,6 +42,14 @@ class _SGLNDetail extends Component {
     super(props);
     this.state = {locationDetail: {}};
   }
+  goToEdit = () => {
+    this.props.history.push({
+      pathname: `/masterdata/edit-location/${
+        this.props.server.serverID
+      }/location/${this.state.locationDetail.detail.id}`,
+      state: {defaultValues: this.state.locationDetail.detail, edit: true}
+    });
+  };
   componentDidMount() {
     this.setState({locationDetail: {}});
     this.props.loadLocationDetail(
@@ -50,6 +58,15 @@ class _SGLNDetail extends Component {
     );
   }
   componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.match.params.locationIdentifier !==
+      this.props.match.params.locationIdentifier
+    ) {
+      this.props.loadLocationDetail(
+        this.props.server,
+        this.props.match.params.locationIdentifier
+      );
+    }
     this.setState({locationDetail: nextProps.locationDetail});
   }
   splitAndCap(value) {
@@ -71,12 +88,21 @@ class _SGLNDetail extends Component {
 
           {detail ? (
             <Card className="pt-elevation-2">
-              <h5>Identifiers</h5>
-              <table className="pt-table data-pair-table  pt-bordered pt-striped">
-                {yieldDataPairRowIfSet("ID", detail.id)}
-                {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
-                {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
-                {yieldDataPairRowIfSet("Name", detail.name)}
+              <h5>
+                {detail.SGLN}{" "}
+                <Button
+                  onClick={this.goToEdit}
+                  className="pt-button pt-icon-edit pt-intent-primary add-incard-button">
+                  Edit
+                </Button>
+              </h5>
+              <table className="pt-table data-pair-table pt-bordered pt-striped">
+                <tbody>
+                  {yieldDataPairRowIfSet("ID", detail.id)}
+                  {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
+                  {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
+                  {yieldDataPairRowIfSet("Name", detail.name)}
+                </tbody>
               </table>
             </Card>
           ) : null}
@@ -98,15 +124,20 @@ class _SGLNDetail extends Component {
                 />
               ) : null}
               <table className="pt-table data-pair-table  pt-bordered pt-striped">
-                {yieldDataPairRowIfSet("Address", detail.address1)}
-                {yieldDataPairRowIfSet("Address 2", detail.address2)}
-                {yieldDataPairRowIfSet("Address 3", detail.address3)}
-                {yieldDataPairRowIfSet("City", detail.city)}
-                {yieldDataPairRowIfSet("State/Province", detail.state_province)}
-                {yieldDataPairRowIfSet("Postal Code", detail.postal_code)}
-                {yieldDataPairRowIfSet("Country", detail.country)}
-                {yieldDataPairRowIfSet("Latitude", detail.latitude)}
-                {yieldDataPairRowIfSet("Longitude", detail.longitude)}
+                <tbody>
+                  {yieldDataPairRowIfSet("Address", detail.address1)}
+                  {yieldDataPairRowIfSet("Address 2", detail.address2)}
+                  {yieldDataPairRowIfSet("Address 3", detail.address3)}
+                  {yieldDataPairRowIfSet("City", detail.city)}
+                  {yieldDataPairRowIfSet(
+                    "State/Province",
+                    detail.state_province
+                  )}
+                  {yieldDataPairRowIfSet("Postal Code", detail.postal_code)}
+                  {yieldDataPairRowIfSet("Country", detail.country)}
+                  {yieldDataPairRowIfSet("Latitude", detail.latitude)}
+                  {yieldDataPairRowIfSet("Longitude", detail.longitude)}
+                </tbody>
               </table>
             </Card>
           ) : null}
@@ -150,3 +181,4 @@ export const SGLNDetail = connect(
   },
   {loadLocationDetail}
 )(_SGLNDetail);
+
