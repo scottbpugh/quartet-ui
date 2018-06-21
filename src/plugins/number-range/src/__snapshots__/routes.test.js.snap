@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Routes to match expectations 1`] = `
+Array [
+  <Route
+    component={[Function]}
+    path="/number-range/pools/:serverID"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/region-detail/:serverID/:pool"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/add-region/:serverID/:pool"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/add-randomized-region/:serverID/:pool"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/edit-region/:serverID/:pool"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/edit-randomized-region/:serverID/:pool"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/add-pool/:serverID/:poolName?"
+/>,
+  <Route
+    component={[Function]}
+    path="/number-range/edit-pool/:serverID/:poolName?"
+/>,
+]
+`;

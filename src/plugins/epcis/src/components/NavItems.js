@@ -107,6 +107,7 @@ class _NavPluginRoot extends Component {
     let children = [
       <SubNode
         depth={this.props.depth}
+        key="main"
         server={server}
         menuItems={eventMenuItem}
         path={`/epcis/event-list/${serverID}`}
@@ -116,6 +117,7 @@ class _NavPluginRoot extends Component {
             depth={this.props.depth}
             serverID={serverID}
             server={server}
+            key="aggreg"
             menuItems={eventMenuItem}
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/ag`}
@@ -128,6 +130,7 @@ class _NavPluginRoot extends Component {
             server={server}
             menuItems={eventMenuItem}
             currentPath={currentPath}
+            key="obj"
             path={`/epcis/event-list/${serverID}/type/ob`}
             childrenNodes={[]}>
             <FormattedMessage id="plugins.epcis.objectEvents" />
@@ -138,6 +141,7 @@ class _NavPluginRoot extends Component {
             server={server}
             menuItems={eventMenuItem}
             currentPath={currentPath}
+            key="tx"
             path={`/epcis/event-list/${serverID}/type/tx`}
             childrenNodes={[]}>
             <FormattedMessage id="plugins.epcis.transactionEvents" />
@@ -149,6 +153,7 @@ class _NavPluginRoot extends Component {
             menuItems={eventMenuItem}
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/tf`}
+            key="tf"
             childrenNodes={[]}>
             <FormattedMessage id="plugins.epcis.transformationEvents" />
           </SubNode>
@@ -162,6 +167,7 @@ class _NavPluginRoot extends Component {
         currentPath={currentPath}
         menuItems={entryMenuItem}
         path={`/epcis/entry-list/${serverID}`}
+        key="entries"
         childrenNodes={[]}>
         <FormattedMessage id="plugins.epcis.entries" />
       </SubNode>

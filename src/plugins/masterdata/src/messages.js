@@ -23,7 +23,8 @@ const defaultLocaleMsg = {
     tradeItemFields: "Trade Item Fields",
     editTradeItem: "Edit Trade Item",
     addLocationType: "Add a Location Type",
-    noMasterDataFound: "No Master Data module detected on server."
+    noMasterDataFound: "No Master Data module detected on server.",
+    locationDetail: "Location Detail"
   }
 };
 

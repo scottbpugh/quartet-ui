@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns the correct default messages 1`] = `
+Object {
+  "en-US": Object {
+    "app": Object {
+      "common": Object {
+        "entriesTotal": "Entries Total",
+        "mainError": "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
+      },
+      "dashboard": Object {
+        "connectServer": "Connect to a Server",
+        "dashboardHeader3": "The Open Source Level 4",
+        "documentation": "{projectName} Module Documentation",
+        "documentationOnly": "{projectName} Documentation",
+        "noServerFound": "You currently have no QU4RTET server in your configuration.",
+        "resourcesDocumentation": "Resources & Documentation",
+        "servers": "Servers",
+        "start": "Start",
+        "version": "Version {appVersion}",
+      },
+      "nav": Object {
+        "dashboard": "Dashboard",
+        "numberRange": "Number Ranges",
+        "plugins": "Plugins",
+        "server": "Server",
+        "servers": "Servers",
+      },
+      "plugins": Object {
+        "addPlugin": "Add a Plugin",
+        "pluginDisabled": "Plugin disabled",
+        "pluginEnabled": "Plugin enabled",
+      },
+      "serverSettings": Object {
+        "addAServer": "Add a New Server",
+        "serverDeleted": "Server removed successfully",
+        "serverSettings": "Server Settings",
+        "serverSettingsSaved": "Your server settings were saved",
+      },
+      "servers": Object {
+        "addServer": "Add Server",
+        "deleteServer": "Remove Server",
+        "deleteServerConfirm": "Are you sure you want to remove this server? No data from this server will be deleted.",
+        "errorFormFetch": "An error occurred while attempting to get this form from remote server {serverName}. {error}",
+        "errorServerFetch": "An error occurred while requesting initial data from server {serverName}. Please check your settings and credentials. {error}",
+        "noServerMsg": "You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server.",
+        "registerUser": "Register User",
+        "updateServer": "Update Server",
+        "userCreated": "User {username} successfully created.",
+        "userVerified": "User successfully verified.",
+        "verifyUser": "Verify User",
+      },
+      "themes": Object {
+        "contrastedTheme": "Contrasted Theme",
+        "darkBrownTheme": "Dark Brown Theme",
+        "darkTheme": "Dark Theme",
+        "lightTheme": "Light Theme",
+        "polarTheme": "Polar Theme",
+      },
+    },
+    "plugins": Object {},
+  },
+  "fr-FR": Object {
+    "app": Object {
+      "dashboard": Object {
+        "connectServer": "Se connecter a un serveur",
+        "dashboardHeader3": "Le logiciel libre de Niveau 4",
+        "documentation": "Documentation du module {projectName}",
+        "documentationOnly": "Documentation de {projectName}",
+        "noServerFound": "Il n'y a aucun serveur QU4RTET dans votre configuration.",
+        "resourcesDocumentation": "Ressources et documentation",
+        "servers": "Serveurs",
+        "start": "Commencer",
+        "version": "Version {appVersion}",
+      },
+      "nav": Object {
+        "dashboard": "Tableau de bord",
+        "numberRange": "Plage de numéros",
+        "plugins": "Plugins",
+        "server": "Serveur",
+        "servers": "Serveurs",
+      },
+      "plugins": Object {
+        "addPlugin": "Ajouter un plugin",
+      },
+      "serverSettings": Object {
+        "addAServer": "Ajouter un serveur",
+        "serverDeleted": "Le serveur a bien été retiré",
+        "serverSettings": "Paramètres serveur",
+        "serverSettingsSaved": "Les paramètres de votre serveur ont été enregistrés",
+      },
+      "servers": Object {
+        "addServer": "Ajouter le serveur",
+        "deleteServer": "Retirer le server",
+        "deleteServerConfirm": "Êtes-vous sûr de vouloir retirer ce serveur? Aucune donnée de ce serveur ne sera supprimée.",
+        "errorFormFetch": "Une erreur s'est produite lors de la tentative d'obtention de ce formulaire à partir du serveur distant {serverName}. {error}",
+        "errorServerFetch": "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}",
+        "noServerMsg": "Aucun serveur disponible dans cette configuration. Veuillez cliquer sur l'icone + au dessus pour ajouter un nouveau serveur.",
+        "registerUser": "Ajouter un utilisateur",
+        "updateServer": "Sauvegarder",
+        "userCreated": "L'utilisateur {username} a été créé avec succès.",
+        "userVerified": "Compte d'utilisateur confirmé.",
+        "verifyUser": "Vérifier un utilisateur",
+      },
+      "themes": Object {
+        "contrastedTheme": "Thème contrasté",
+        "darkBrownTheme": "Thème marron sombre",
+        "darkTheme": "Thème sombre",
+        "lightTheme": "Thème clair",
+        "polarTheme": "Thème polaire",
+      },
+    },
+    "plugins": Object {},
+  },
+}
+`;

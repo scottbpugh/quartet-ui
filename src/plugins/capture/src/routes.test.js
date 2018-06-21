@@ -15,15 +15,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React, {Component} from "react";
-import "./ActionControls.css";
+import routes from "./routes";
 
-export class ActionControls extends Component {
-  render() {
-    return (
-      <div className="action-controls">
-        <ul />
-      </div>
-    );
-  }
-}
+it("Routes to match expectations", () => {
+  expect(routes).toMatchSnapshot();
+});

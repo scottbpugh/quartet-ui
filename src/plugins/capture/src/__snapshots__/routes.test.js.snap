@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Routes to match expectations 1`] = `
+Array [
+  <Route
+    component={[Function]}
+    path="/capture/rules/:serverID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/tasks/:serverID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/add-rule/:serverID/rule/:ruleID?"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/add-step/:serverID/rule/:ruleID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/edit-step/:serverID/rule/:ruleID/step/:stepID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/add-task/:serverID/rule/:ruleID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/add-rule-param/:serverID/rule/:ruleID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/edit-rule-param/:serverID/rule/:ruleID/ruleParam/:ruleParamID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/add-step-param/:serverID/rule/:ruleID/step/:stepID"
+/>,
+  <Route
+    component={[Function]}
+    path="/capture/edit-step-param/:serverID/rule/:ruleID/step/:stepID/stepParam/:stepParamID"
+/>,
+]
+`;

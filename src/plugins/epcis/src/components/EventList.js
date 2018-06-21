@@ -44,12 +44,6 @@ const EventTableHeader = props => (
         />
       </th>
       <th>
-        <FormattedMessage
-          id="plugins.epcis.eventUUID"
-          defaultMessage="Event UUID"
-        />
-      </th>
-      <th>
         <FormattedMessage id="plugins.epcis.type" defaultMessage="Event Type" />
       </th>
       <th>
@@ -142,7 +136,6 @@ const EventEntry = props => {
         <FormattedDate value={props.entry.record_time} />{" "}
         <FormattedTime value={props.entry.record_time} />
       </td>
-      <td>{props.entry.id}</td>
       <td>{getEventType(props.entry.type)}</td>
       <td>{props.entry.biz_step}</td>
       <td>{props.entry.disposition}</td>

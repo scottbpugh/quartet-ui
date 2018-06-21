@@ -19,6 +19,7 @@ import {handleActions} from "redux-actions";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "../actions/epcis";
 import {showMessage} from "lib/message";
+import {setServerState} from "lib/reducer-helper";
 
 export const initialData = () => {
   return {
@@ -185,86 +186,35 @@ export const loadEvents = (server, search, page, ordering, type) => {
 export default handleActions(
   {
     [actions.loadEntries]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            entries: action.payload.entries,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        entries: action.payload.entries,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [actions.loadEvents]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            events: action.payload.events,
-            count: action.payload.count,
-            next: action.payload.next
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        events: action.payload.events,
+        count: action.payload.count,
+        next: action.payload.next
+      });
     },
     [actions.loadItemDetail]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            detailItems: {
-              ...state.servers[action.payload.serverID].detailItems,
-              [action.payload.itemID]: action.payload.itemDetail
-            }
-          }
+      return setServerState(state, action.payload.serverID, {
+        detailItems: {
+          [action.payload.itemID]: action.payload.itemDetail
         }
-      };
+      });
     },
     [actions.clearGeoEvents]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            geoEvents: []
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        geoEvents: []
+      });
     },
     [actions.loadGeoEvents]: (state, action) => {
-      if (!state.servers) {
-        state.servers = {};
-      }
-      return {
-        ...state,
-        servers: {
-          ...state.servers,
-          [action.payload.serverID]: {
-            ...state.servers[action.payload.serverID],
-            geoEvents: [...action.payload.geoEvents]
-          }
-        }
-      };
+      return setServerState(state, action.payload.serverID, {
+        geoEvents: [...action.payload.geoEvents]
+      });
     }
   },
   {}

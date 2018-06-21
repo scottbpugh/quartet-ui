@@ -156,7 +156,7 @@ class _SingleCardPicker extends Component {
             </ControlGroup>
             <div className="label-info-display">
               <FormattedMessage
-                id="plugins.epcis.entriesTotal"
+                id="app.common.entriesTotal"
                 values={{entriesCount: this.props.count}}
               />
             </div>
@@ -168,6 +168,7 @@ class _SingleCardPicker extends Component {
                 return (
                   <div
                     className="card-picker"
+                    key={`entry-card-${index}`}
                     style={this.props.entryStyle ? this.props.entryStyle : {}}>
                     <this.props.entryClass
                       {...this.props}

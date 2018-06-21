@@ -76,6 +76,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   top: 7px;
 }
 
+
+
 .very-large-icon {
   font-size:60px !important;
 }
@@ -179,6 +181,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   border-top-left-radius:4px;
   border-top-right-radius:4px;
 }
+.twin-cards-container {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-top:0;
+}
+.twin-cards-container > * {
+  position: relative;
+  margin: 0;
+  min-height:200px;
+}
+.twin-cards-container .pt-card:first-child {
+  margin-bottom: 20px;
+}
+
 .pt-card h5 {
     padding:15px 10px;
     text-align:center;
@@ -243,6 +260,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   overflow-x:scroll;
 }
 
+.overflowed-table table.pt-table {
+  border-collapse:collapse ;
+  border-spacing: 0px 20px;
+}
+.overflowed-table table.pt-table td {
+  padding: 20px 10px !important;
+}
 .error-list {
   list-style:none;
   padding:10px 10px 0 0;
@@ -276,4 +300,64 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   position:absolute;
   top:2px;
   right: 0;
+}
+
+.two-column-cards {
+  display:flex;
+  flex-direction:row;
+  width:100%;
+  align-items:stretch;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}
+
+.two-column-cards > * {
+  width:40%;
+  margin:50px 0;
+}
+
+.data-pair-cards {
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  margin:45px 20px;
+}
+
+.data-pair-card {
+  background: rgba(255, 255, 255, 0.2);
+  width:auto;
+  min-width:150px;
+  margin:15px;
+  padding:15px 20px 20px;
+  diplay: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.data-pair-card .key {
+  display:block;
+  text-align:center;
+  font-size:14px;
+  font-weight: bold;
+  margin-bottom:10px;
+}
+
+.data-pair-card .value {
+  display:block;
+  text-align:center;
+}
+
+.data-pair-table {
+  margin-top:15px;
+}
+.data-pair-table tr td:first-child {
+  font-size:15px;
+  font-weight:bold;
+  min-width:180px;
+}
+
+.data-pair-table tr td {
+  padding-bottom:10px;
 }

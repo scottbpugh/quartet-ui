@@ -96,7 +96,7 @@ exports[`renders correctly 1`] = `
             className="label-info-display"
           >
             <span>
-              plugins.epcis.entriesTotal
+              Entries Total
             </span>
           </div>
         </div>
@@ -106,12 +106,6 @@ exports[`renders correctly 1`] = `
       >
         <table
           className="pt-table pt-bordered pt-striped pt-interactive"
-          style={
-            Object {
-              "textAlign": "center",
-              "verticalAlign": "middle",
-            }
-          }
         >
           <thead>
             <th>

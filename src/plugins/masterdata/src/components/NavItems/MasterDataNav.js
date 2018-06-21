@@ -41,10 +41,23 @@ class _MasterDataNav extends Component {
       return (
         <TreeNode
           depth={this.props.depth}
+          onContextMenu={e => {}}
           childrenNodes={[
-            <LocationsNav serverID={serverID} server={server} />,
-            <CompaniesNav serverID={serverID} server={server} />,
-            <TradeItemsNav serverID={serverID} server={server} />
+            <LocationsNav
+              key="locations"
+              serverID={serverID}
+              server={server}
+            />,
+            <CompaniesNav
+              key="companies"
+              serverID={serverID}
+              server={server}
+            />,
+            <TradeItemsNav
+              key="tradeItems"
+              serverID={serverID}
+              server={server}
+            />
           ]}>
           <FormattedMessage id="plugins.masterData.masterDataNav" />
         </TreeNode>

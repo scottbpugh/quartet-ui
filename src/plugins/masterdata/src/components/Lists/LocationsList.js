@@ -79,12 +79,10 @@ const LocationEntry = props => {
     props.history.push(path);
   };
 
-  let goToPayload = goTo.bind(this, {
-    pathname: `/masterdata/edit-location/${props.server.serverID}/location/${
-      props.entry.id
-    }`,
-    state: {defaultValues: props.entry, edit: true}
-  });
+  let goToPayload = goTo.bind(
+    this,
+    `/masterdata/${props.server.serverID}/sgln/${props.entry.SGLN}`
+  );
 
   return (
     <tr key={props.entry.id}>

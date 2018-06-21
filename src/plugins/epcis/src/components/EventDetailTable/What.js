@@ -124,9 +124,9 @@ export default class extends Component {
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
-                        {currentEntry[objectType].epc_list.map(epc => {
+                        {currentEntry[objectType].epc_list.map((epc, index) => {
                           return (
-                            <li>
+                            <li key={`${epc}-${index}`}>
                               <Tag
                                 onClick={goTo.bind(
                                   this,
@@ -154,20 +154,25 @@ export default class extends Component {
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
-                        {currentEntry[objectType].inputEPCList.map(epc => {
-                          return (
-                            <li>
-                              <Tag
-                                onClick={goTo.bind(
-                                  this,
-                                  `/epcis/entry-detail/${serverID}/identifier/${epc}`
-                                )}
-                                className="epc-item">
-                                {epc}
-                              </Tag>
-                            </li>
-                          );
-                        })}
+                        {currentEntry[objectType].inputEPCList.map(
+                          (epc, index) => {
+                            return (
+                              <li
+                                key={`${
+                                  currentEntry[objectType].id
+                                }-${epc}-${index}-iepclist`}>
+                                <Tag
+                                  onClick={goTo.bind(
+                                    this,
+                                    `/epcis/entry-detail/${serverID}/identifier/${epc}`
+                                  )}
+                                  className="epc-item">
+                                  {epc}
+                                </Tag>
+                              </li>
+                            );
+                          }
+                        )}
                       </ul>
                     </div>
                   </td>
@@ -185,20 +190,25 @@ export default class extends Component {
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
-                        {currentEntry[objectType].outputEPCList.map(epc => {
-                          return (
-                            <li>
-                              <Tag
-                                onClick={goTo.bind(
-                                  this,
-                                  `/epcis/entry-detail/${serverID}/identifier/${epc}`
-                                )}
-                                className="epc-item">
-                                {epc}
-                              </Tag>
-                            </li>
-                          );
-                        })}
+                        {currentEntry[objectType].outputEPCList.map(
+                          (epc, index) => {
+                            return (
+                              <li
+                                key={`${
+                                  currentEntry[objectType].id
+                                }-${epc}-${index}-oepclist`}>
+                                <Tag
+                                  onClick={goTo.bind(
+                                    this,
+                                    `/epcis/entry-detail/${serverID}/identifier/${epc}`
+                                  )}
+                                  className="epc-item">
+                                  {epc}
+                                </Tag>
+                              </li>
+                            );
+                          }
+                        )}
                       </ul>
                     </div>
                   </td>
@@ -215,13 +225,16 @@ export default class extends Component {
                   </td>
                   <td>
                     <ul className="w4-list">
-                      {Object.keys(currentEntry[objectType].ilmd).map(key => {
-                        return (
-                          <li>
-                            {key}: {currentEntry[objectType].ilmd[key]}
-                          </li>
-                        );
-                      })}
+                      {Object.keys(currentEntry[objectType].ilmd).map(
+                        (key, index) => {
+                          return (
+                            <li
+                              key={`${currentEntry[objectType]}-${index}-chQ`}>
+                              {key}: {currentEntry[objectType].ilmd[key]}
+                            </li>
+                          );
+                        }
+                      )}
                     </ul>
                   </td>
                 </tr>
@@ -239,12 +252,15 @@ export default class extends Component {
                     <ul className="w4-list">
                       {currentEntry[objectType].childQuantityList
                         ? currentEntry[objectType].childQuantityList.map(
-                            item => {
+                            (item, index) => {
                               return (
-                                <li>
+                                <li
+                                  key={`${
+                                    currentEntry[objectType].id
+                                  }-chQ-${index}`}>
                                   <ul className="quantity-detail">
                                     {Object.keys(item).map(key => (
-                                      <li>
+                                      <li key={`${key}-chQ`}>
                                         {key}: {item[key]}
                                       </li>
                                     ))}
@@ -269,19 +285,24 @@ export default class extends Component {
                   </td>
                   <td>
                     <ul className="w4-list">
-                      {currentEntry[objectType].inputQuantityList.map(item => {
-                        return (
-                          <li>
-                            <ul className="quantity-detail">
-                              {Object.keys(item).map(key => (
-                                <li>
-                                  {key}: {item[key]}
-                                </li>
-                              ))}
-                            </ul>
-                          </li>
-                        );
-                      })}
+                      {currentEntry[objectType].inputQuantityList.map(
+                        (item, index) => {
+                          return (
+                            <li
+                              key={`${
+                                currentEntry[objectType].id
+                              }-${index}-iQL`}>
+                              <ul className="quantity-detail">
+                                {Object.keys(item).map(key => (
+                                  <li key={key}>
+                                    {key}: {item[key]}
+                                  </li>
+                                ))}
+                              </ul>
+                            </li>
+                          );
+                        }
+                      )}
                     </ul>
                   </td>
                 </tr>
@@ -297,19 +318,24 @@ export default class extends Component {
                   </td>
                   <td>
                     <ul className="w4-list">
-                      {currentEntry[objectType].outputQuantityList.map(item => {
-                        return (
-                          <li>
-                            <ul className="quantity-detail">
-                              {Object.keys(item).map(key => (
-                                <li>
-                                  {key}: {item[key]}
-                                </li>
-                              ))}
-                            </ul>
-                          </li>
-                        );
-                      })}
+                      {currentEntry[objectType].outputQuantityList.map(
+                        (item, index) => {
+                          return (
+                            <li
+                              key={`${
+                                currentEntry[objectType].id
+                              }-${index}-oQL`}>
+                              <ul className="quantity-detail">
+                                {Object.keys(item).map(key => (
+                                  <li key={key}>
+                                    {key}: {item[key]}
+                                  </li>
+                                ))}
+                              </ul>
+                            </li>
+                          );
+                        }
+                      )}
                     </ul>
                   </td>
                 </tr>
@@ -325,19 +351,24 @@ export default class extends Component {
                   </td>
                   <td>
                     <ul className="w4-list">
-                      {currentEntry[objectType].quantityList.map(item => {
-                        return (
-                          <li>
-                            <ul className="quantity-detail">
-                              {Object.keys(item).map(key => (
-                                <li>
-                                  {key}: {item[key]}
-                                </li>
-                              ))}
-                            </ul>
-                          </li>
-                        );
-                      })}
+                      {currentEntry[objectType].quantityList.map(
+                        (item, index) => {
+                          return (
+                            <li
+                              key={`${
+                                currentEntry[objectType].id
+                              }-${index}-qL`}>
+                              <ul className="quantity-detail">
+                                {Object.keys(item).map(key => (
+                                  <li key={key}>
+                                    {key}: {item[key]}
+                                  </li>
+                                ))}
+                              </ul>
+                            </li>
+                          );
+                        }
+                      )}
                     </ul>
                   </td>
                 </tr>
@@ -354,20 +385,25 @@ export default class extends Component {
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
-                        {currentEntry[objectType].childEPCs.map(item => {
-                          return (
-                            <li>
-                              <Tag
-                                className="epc-item"
-                                onClick={goTo.bind(
-                                  this,
-                                  `/epcis/entry-detail/${serverID}/identifier/${item}`
-                                )}>
-                                {item}
-                              </Tag>
-                            </li>
-                          );
-                        })}
+                        {currentEntry[objectType].childEPCs.map(
+                          (item, index) => {
+                            return (
+                              <li
+                                key={`${
+                                  currentEntry[objectType].id
+                                }-${index}-CEPC`}>
+                                <Tag
+                                  className="epc-item"
+                                  onClick={goTo.bind(
+                                    this,
+                                    `/epcis/entry-detail/${serverID}/identifier/${item}`
+                                  )}>
+                                  {item}
+                                </Tag>
+                              </li>
+                            );
+                          }
+                        )}
                       </ul>
                     </div>
                   </td>
@@ -387,9 +423,12 @@ export default class extends Component {
                     currentEntry[objectType].bizTransactionList
                       ? Object.keys(
                           currentEntry[objectType].bizTransactionList
-                        ).map(key => {
+                        ).map((key, index) => {
                           return (
-                            <li>
+                            <li
+                              key={`${
+                                currentEntry[objectType].id
+                              }-${index}-bTL`}>
                               <Tag>{key}</Tag>:{" "}
                               <Tag className="epc-item">
                                 {

@@ -16,31 +16,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {pluginRegistry} from "plugins/pluginRegistration";
-import actions from "actions/plugins";
-import {NavPluginRoot} from "./components/NavItems";
-import routes from "./routes";
-import reducer, {initialData} from "./reducers/admin";
 import messages from "./messages";
 
-const PLUGIN_NAME = "Admin";
+it("returns the correct default messages", () => {
+  expect(messages).toMatchSnapshot();
+});
 
-export const enablePlugin = () => {
-  pluginRegistry.registerReducer(PLUGIN_NAME, "admin", reducer, initialData());
-  pluginRegistry.setMessages(messages);
-  pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
-  pluginRegistry.registerComponent(
-    PLUGIN_NAME,
-    NavPluginRoot,
-    actions.addToTreeServers
-  );
-};
-
-export const disablePlugin = () => {
-  pluginRegistry.unregisterRoutes(PLUGIN_NAME);
-  pluginRegistry.unregisterComponent(
-    PLUGIN_NAME,
-    NavPluginRoot,
-    actions.removeFromTreeServers
-  );
-};

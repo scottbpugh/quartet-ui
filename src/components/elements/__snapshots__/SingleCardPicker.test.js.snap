@@ -77,7 +77,7 @@ exports[`renders correctly 1`] = `
           className="label-info-display"
         >
           <span>
-            plugins.epcis.entriesTotal
+            Entries Total
           </span>
         </div>
       </div>

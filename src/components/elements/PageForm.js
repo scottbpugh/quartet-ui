@@ -189,7 +189,9 @@ class _PageForm extends Component {
                 <option value="" />
                 {field.description.choices.map(choice => {
                   return (
-                    <option value={choice.value}>{choice.display_name}</option>
+                    <option key={choice.value} value={choice.value}>
+                      {choice.display_name}
+                    </option>
                   );
                 })}
               </Field>
