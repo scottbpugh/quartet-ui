@@ -57,7 +57,11 @@ const defaultLocaleMsg = {
     errorLoadingEvents:
       "An error occurred while loading events from this server. {error}",
     errorLoadingEntryGeo:
-      "An error occurred while loading the geographic data related to this entry. {error}"
+      "An error occurred while loading the geographic data related to this entry. {error}",
+    where: "Where",
+    why: "Why",
+    when: "When",
+    objectEvent: "Object Event"
   }
 };
 

@@ -29,6 +29,7 @@ import MockInitialState from "./mock-initial-state";
 import {Provider} from "react-redux";
 import {MemoryRouter as Router} from "react-router-dom";
 import {injectIntl} from "react-intl";
+import {returnAllMessages} from "reducers/locales";
 
 addLocaleData([...en, ...fr]);
 let defaultLocale = "en-US";
@@ -126,7 +127,7 @@ export const TestWrapper = ({locale, messages, store, children}) => {
     locale = defaultLocale;
   }
   if (messages === undefined) {
-    messages = store.getState().intl.messages;
+    messages = returnAllMessages(locale);
   }
   return (
     <IntlProvider locale={locale} messages={messages}>

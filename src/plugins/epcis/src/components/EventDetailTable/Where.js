@@ -73,7 +73,7 @@ class _Where extends Component {
                       ? Object.keys(currentEntry[objectType].sourceList).map(
                           key => {
                             return (
-                              <li>
+                              <li key={key}>
                                 <Tag>{key}</Tag>:{" "}
                                 <Tag
                                   className="epc-item"
@@ -101,9 +101,12 @@ class _Where extends Component {
                     currentEntry[objectType].destinationList
                       ? Object.keys(
                           currentEntry[objectType].destinationList
-                        ).map(key => {
+                        ).map((key, index) => {
                           return (
-                            <li>
+                            <li
+                              key={`${
+                                currentEntry[objectType].id
+                              }-${index}-dL`}>
                               <Tag>{key}</Tag>:{" "}
                               <Tag
                                 className="epc-item"

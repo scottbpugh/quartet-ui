@@ -1,24 +1,5 @@
 export default {
-  dashboard: {
-    notifications: [
-      {
-        id: "93d2a5c2-0936-4798-80e2-14c3e8df2d96",
-        type: "error",
-        msg: "An EPCIS document with invalid GTIN EPC URN could not be parsed."
-      },
-      {
-        id: "e3660e15-6884-4668-8401-5da19399472d",
-        type: "warning",
-        msg:
-          "An outbound EPCIS job to 172.112.10.27 timed out. A retry will be performed in 14mn30s."
-      },
-      {
-        id: "4314dade-aefd-49cb-b695-1add8a6a1785",
-        type: "warning",
-        msg: "User lduros was locked out after too many invalid token attempts."
-      }
-    ]
-  },
+  dashboard: {},
   serversettings: {
     servers: {
       "d0246781-67c6-474b-8ab0-29de61b6e6bb": {

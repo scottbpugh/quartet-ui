@@ -24,7 +24,7 @@ import {flattenMessages} from "lib/flattenMessages";
 import messages from "messages";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
-export const updateMessages = locale => {
+export const returnAllMessages = locale => {
   let coreMessages = {...messages};
   let newMessages = pluginRegistry.getMessages();
   for (let language in newMessages) {
@@ -37,8 +37,12 @@ export const updateMessages = locale => {
       coreMessages[language] = {plugins: {...newMessages[language].plugins}};
     }
   }
+  return flattenMessages(coreMessages[locale]);
+};
+
+export const updateMessages = locale => {
   return dispatch => {
-    const newMessages = flattenMessages(coreMessages[locale]);
+    let newMessages = returnAllMessages(locale);
     dispatch(
       updateIntl({
         locale: locale,
