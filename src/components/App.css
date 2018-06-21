@@ -181,6 +181,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   border-top-left-radius:4px;
   border-top-right-radius:4px;
 }
+.twin-cards-container {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-top:0;
+}
+.twin-cards-container > * {
+  position: relative;
+  margin: 0;
+  min-height:200px;
+}
+.twin-cards-container .pt-card:first-child {
+  margin-bottom: 20px;
+}
+
 .pt-card h5 {
     padding:15px 10px;
     text-align:center;

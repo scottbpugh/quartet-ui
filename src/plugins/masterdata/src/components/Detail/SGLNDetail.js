@@ -17,13 +17,14 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Card, Callout, Button} from "@blueprintjs/core";
+import {Card, Callout, Button, Tag} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {loadLocationDetail} from "../../reducers/masterdata";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import objectPath from "object-path";
 import {SingleMarkerMap} from "components/elements/SingleMarkerMap";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 const yieldDataPairRowIfSet = (key, value) => {
   if (key && value) {
@@ -37,10 +38,28 @@ const yieldDataPairRowIfSet = (key, value) => {
   return null;
 };
 
+const yieldKeyValPairs = (keyValArray, fieldNames = []) => {
+  if (Array.isArray(keyValArray) && keyValArray.length > 0) {
+    let arr = keyValArray.reduce(function(accumulator, keyValPair, index) {
+      accumulator.push(
+        <tr>{fieldNames.map(fieldName => <td>{keyValPair[fieldName]}</td>)}</tr>
+      );
+      return accumulator;
+    }, []);
+    return arr;
+  }
+  return null;
+};
+
 class _SGLNDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {locationDetail: {}};
+    this.state = {
+      locationDetail: {},
+      companyName: null,
+      siteName: null,
+      locationTypeName: null
+    };
   }
   goToEdit = () => {
     this.props.history.push({
@@ -56,6 +75,45 @@ class _SGLNDetail extends Component {
       this.props.server,
       this.props.match.params.locationIdentifier
     );
+    let currentCompany = objectPath.get(
+      this.props,
+      ["locationDetail", "detail", "company"],
+      null
+    );
+    this.setRelatedFields(null, this.props);
+  }
+
+  setRelatedField(
+    previousProps,
+    currentProps,
+    fieldName,
+    operationId,
+    stateFieldName,
+    itemFieldName
+  ) {
+    let previousField = objectPath.get(
+      previousProps,
+      ["locationDetail", "detail", fieldName],
+      null
+    );
+    let currentField = objectPath.get(
+      currentProps,
+      ["locationDetail", "detail", fieldName],
+      null
+    );
+    if (currentField && previousField !== currentField) {
+      let company = pluginRegistry
+        .getServer(currentProps.server)
+        .fetchObject(operationId, {
+          id: currentField
+        })
+        .then(item => {
+          this.setState({[stateFieldName]: item[itemFieldName]});
+        })
+        .catch(e => {
+          // silence, already an error displayed with showMessage.
+        });
+    }
   }
   componentWillReceiveProps(nextProps) {
     if (
@@ -67,8 +125,35 @@ class _SGLNDetail extends Component {
         this.props.match.params.locationIdentifier
       );
     }
+    this.setRelatedFields(this.props, nextProps);
     this.setState({locationDetail: nextProps.locationDetail});
   }
+  setRelatedFields = (currentProps, nextProps) => {
+    this.setRelatedField(
+      currentProps,
+      nextProps,
+      "company",
+      "masterdata_companies_read",
+      "companyName",
+      "name"
+    );
+    this.setRelatedField(
+      currentProps,
+      nextProps,
+      "site",
+      "masterdata_locations_read",
+      "siteName",
+      "name"
+    );
+    this.setRelatedField(
+      currentProps,
+      nextProps,
+      "location_type",
+      "masterdata_location_types_read",
+      "locationTypeName",
+      "identifier"
+    );
+  };
   splitAndCap(value) {
     return value.replace(/_/g, " ");
   }
@@ -87,28 +172,69 @@ class _SGLNDetail extends Component {
           ) : null}
 
           {detail ? (
-            <Card className="pt-elevation-2">
-              <h5>
-                {detail.SGLN}{" "}
-                <Button
-                  onClick={this.goToEdit}
-                  className="pt-button pt-icon-edit pt-intent-primary add-incard-button">
-                  Edit
-                </Button>
-              </h5>
-              <table className="pt-table data-pair-table pt-bordered pt-striped">
-                <tbody>
-                  {yieldDataPairRowIfSet("ID", detail.id)}
-                  {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
-                  {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
-                  {yieldDataPairRowIfSet("Name", detail.name)}
-                </tbody>
-              </table>
-            </Card>
+            <div
+              className="twin-cards-container"
+              style={{position: "relative"}}>
+              <Card className="pt-elevation-4">
+                <h5>
+                  {detail.SGLN}{" "}
+                  <Button
+                    onClick={this.goToEdit}
+                    className="pt-button pt-icon-edit pt-intent-primary add-incard-button">
+                    Edit
+                  </Button>
+                </h5>
+                <table className="pt-table data-pair-table pt-bordered pt-striped">
+                  <tbody>
+                    {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
+                    {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
+                    {yieldDataPairRowIfSet("Name", detail.name)}
+                    <tr>
+                      <td>Company</td>
+                      <td>
+                        <Tag className="pt-intent-primary">
+                          {this.state.companyName}
+                        </Tag>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Site</td>
+                      <td>
+                        <Tag className="pt-intent-primary">
+                          {this.state.siteName}
+                        </Tag>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Location Type</td>
+                      <td>
+                        <Tag className="pt-intent-primary">
+                          {this.state.locationTypeName}
+                        </Tag>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </Card>
+              {detail ? (
+                <Card style={{position: "relative"}} className="pt-elevation-4">
+                  <h5>Additional Identifiers</h5>
+                  <table className="pt-table data-pair-table pt-bordered pt-striped">
+                    <tbody>
+                      {yieldKeyValPairs(detail.locationidentifier_set, [
+                        "identifier_type",
+                        "identifier",
+                        "description"
+                      ])}
+                    </tbody>
+                  </table>
+                </Card>
+              ) : null}
+            </div>
           ) : null}
           {detail ? (
-            <Card className="pt-elevation-2">
-              <h5>Location Information</h5>
+            <Card className="pt-elevation-4">
+              <h5>Geographic Information</h5>
               {detail && detail.longitude && detail.latitude ? (
                 <SingleMarkerMap
                   targetId={detail.SGLN}
@@ -137,6 +263,21 @@ class _SGLNDetail extends Component {
                   {yieldDataPairRowIfSet("Country", detail.country)}
                   {yieldDataPairRowIfSet("Latitude", detail.latitude)}
                   {yieldDataPairRowIfSet("Longitude", detail.longitude)}
+                </tbody>
+              </table>
+            </Card>
+          ) : null}
+
+          {detail ? (
+            <Card className="pt-elevation-4">
+              <h5>Location Fields</h5>
+              <table className="pt-table data-pair-table pt-bordered pt-striped">
+                <tbody>
+                  {yieldKeyValPairs(detail.locationfield_set, [
+                    "name",
+                    "value",
+                    "description"
+                  ])}
                 </tbody>
               </table>
             </Card>
@@ -181,4 +322,3 @@ export const SGLNDetail = connect(
   },
   {loadLocationDetail}
 )(_SGLNDetail);
-

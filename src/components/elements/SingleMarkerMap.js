@@ -26,7 +26,6 @@ export class SingleMarkerMap extends Component {
     if (this.props.delay) {
       delay = Number(this.props.delay);
     }
-    console.log(this.props.markerLocation);
     window.setTimeout(() => {
       this.setUpMap(this.props);
       this.setMarkers(this.props);
