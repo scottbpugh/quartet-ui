@@ -29,6 +29,7 @@ Object {
         "stepParameters": "Step Parameters",
         "steps": "Steps",
         "taskCreated": "Task with id {taskID} has been created.",
+        "taskDetail": "Task Detail",
         "tasksTopNav": "Tasks",
         "tasksTotal": "{tasksCount} tasks total.",
         "uploadFile": "File Upload",

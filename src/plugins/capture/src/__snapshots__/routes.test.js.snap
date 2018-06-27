@@ -8,6 +8,10 @@ Array [
 />,
   <Route
     component={[Function]}
+    path="/capture/tasks/:serverID/detail/:taskName"
+/>,
+  <Route
+    component={[Function]}
     path="/capture/tasks/:serverID"
 />,
   <Route

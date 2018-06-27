@@ -48,7 +48,8 @@ const defaultLocaleMsg = {
     steps: "Steps",
     taskCreated: "Task with id {taskID} has been created.",
     tasksTotal: "{tasksCount} tasks total.",
-    selectRule: "Select a Rule"
+    selectRule: "Select a Rule",
+    taskDetail: "Task Detail"
   }
 };
 

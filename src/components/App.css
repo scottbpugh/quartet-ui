@@ -170,7 +170,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 /* headers for all cards */
 
-.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5 {
+.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5, .inset-card h5 {
   background: #EEE;
   top:0;
   position: absolute;
@@ -196,7 +196,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin-bottom: 20px;
 }
 
-.pt-card h5 {
+.pt-card h5, .inset-card h5 {
     padding:15px 10px;
     text-align:center;
     margin: 0px 0px 10px 0px;
