@@ -1,0 +1,48 @@
+.task-messages {
+  margin:10px  10px;
+  position:relative;
+  width:100%;
+}
+
+.task-messages .inset-card {
+  padding:20px;
+  margin: 0 0 30px;
+  background:rgba(0, 0, 0, 0.04);
+}
+.pt-dark .task-messages .inset-card {
+  background:rgba(0, 0, 0, 0.07);
+}
+.task-messages .inset-card .message-info {
+  display:flex;
+  align-content:stretch;
+}
+
+.task-messages .inset-card:last-child {
+  margin: 0 0 0;
+}
+
+.task-messages .inset-card table {
+  width:auto;
+  border-top:none !important;
+}
+
+.task-messages .inset-card .numbered-message {
+  display:block;
+  font-size:30px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 10%;
+  padding-top:30px;
+  width:100px;
+  text-align:center;
+  height:100px;
+  margin:0 20px 10px 0;
+}
+
+.task-messages .inset-card pre {
+  clear:both;
+  white-space: pre-wrap;
+  font-size:14px;
+}
+.pt-dark .task-messages .inset-card .numbered-message {
+    background-color: rgba(255, 255, 255, 0.02);
+}
