@@ -156,19 +156,18 @@ export default handleActions(
     },
     [actions.receivedPluginsData]: (state, action) => {
       // preserve enabled/disabled settings.
-
+      let plugins = {...state.plugins};
       Object.keys(state.plugins).forEach(pluginName => {
         // remove legacy.
-
         if (action.payload[pluginName]) {
           action.payload[pluginName].enabled =
             state.plugins[pluginName].enabled;
         }
+        if (pluginName == "NumberRange") {
+          delete plugins.plugins["NumberRange"];
+        }
       });
-      let plugins = {...state.plugins};
-      if (pluginName == "Number Range") {
-        delete plugins.plugins["NumberRange"];
-      }
+
       return {
         ...state,
         plugins: {...plugins, ...action.payload},
