@@ -69,7 +69,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadURL("file://" + __dirname + "/build/index.html");
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.on("will-navigate", evt => {
     console.log("no navigation allowed.");

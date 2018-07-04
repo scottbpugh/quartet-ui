@@ -125,6 +125,13 @@ export const addLocalPlugin = localPlugin => {
 
 export default handleActions(
   {
+    [actions.resetPlugins]: (state, action) => {
+      debugger;
+      return {
+        ...state,
+        plugins: {...action.payload}
+      };
+    },
     [actions.addToTreeServers]: (state, action) => {
       return {
         ...state,
@@ -156,21 +163,17 @@ export default handleActions(
     },
     [actions.receivedPluginsData]: (state, action) => {
       // preserve enabled/disabled settings.
-      let plugins = {...state.plugins};
       Object.keys(state.plugins).forEach(pluginName => {
         // remove legacy.
         if (action.payload[pluginName]) {
           action.payload[pluginName].enabled =
             state.plugins[pluginName].enabled;
         }
-        if (pluginName == "NumberRange") {
-          delete plugins.plugins["NumberRange"];
-        }
       });
 
       return {
         ...state,
-        plugins: {...plugins, ...action.payload},
+        plugins: {...state.plugins, ...action.payload},
         remotePluginList: {...action.payload}
       };
     },
