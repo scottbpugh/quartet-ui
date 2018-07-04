@@ -41,9 +41,12 @@ function openBrowserResource(url) {
 }
 
 const isDev = require("electron-is-dev");
+
 if (isDev) {
   console.log("Enabling hot reload.");
   require("electron-reload")(path.join(__dirname));
+} else {
+  process.env.NODE_ENV = "production";
 }
 
 function createWindow() {
