@@ -25,7 +25,7 @@ export default {
   pluginDisabled: createAction("PLUGINS_PLUGIN_DISABLED"),
   receivedPluginsData: createAction("PLUGINS_RECEIVED_PLUGINS_DATA"),
   addLocalPlugin: createAction("PLUGINS_ADD_LOCAL_PLUGIN"),
-  pluginListUpdated: createAction("PLUGINS_PLUGIN_LIST_UPDATED")
+  pluginListUpdated: createAction("PLUGINS_PLUGIN_LIST_UPDATED"),
+  resetPlugins: createAction("PLUGINS_RESET_PLUGINS")
 };
 window.qu4rtet.exports("actions/plugins", this);
-

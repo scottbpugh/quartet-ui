@@ -19,17 +19,11 @@
 const PluginManager = require("live-plugin-manager").PluginManager;
 const path = require("path");
 const PLUGINS_PATH = require("path").join(
-  require("os").homedir(),
-  ".qu4rtet",
-  "packages"
-);
-const uuidv1 = require("uuid/v1");
-
-const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
-const symLinkPath = path.join(
   require("electron").app.getPath("userData"),
   "packages"
 );
+
+const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
 
 const fs = require("fs");
 var https = require("https");
@@ -62,16 +56,6 @@ exports.install = async function(pluginEntry) {
     } else {
       installedPlugin = await manager.install(pluginEntry.packagePath);
     }
-    fs.unlink(path.join(symLinkPath, installedPlugin.name), function(err) {
-      fs.symlink(
-        installedPlugin.location,
-        path.join(symLinkPath, installedPlugin.name),
-        function(e) {
-          console.log(e);
-        }
-      );
-    });
-    console.log(installedPlugin, path.join(symLinkPath, installedPlugin.name));
     return installedPlugin;
   } catch (e) {
     console.log(e);

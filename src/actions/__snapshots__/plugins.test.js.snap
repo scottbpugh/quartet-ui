@@ -9,5 +9,6 @@ Object {
   "pluginListUpdated": [Function],
   "receivedPluginsData": [Function],
   "removeFromTreeServers": [Function],
+  "resetPlugins": [Function],
 }
 `;

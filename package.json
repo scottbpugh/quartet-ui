@@ -1,6 +1,6 @@
 {
   "name": "QU4RTET",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -94,7 +94,7 @@
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
-      "target": ["zip", "dmg"]
+      "target": ["zip"]
     },
     "win": {
       "target": ["nsis", "zip"]

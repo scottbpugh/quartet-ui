@@ -146,6 +146,14 @@ export default function configureStore(coreInitialState) {
   });
   // enable previously enabled plugins.
   let state = store.getState();
+  if ("NumberRange" in state.plugins.plugins) {
+    // old version. Wipe plugins.
+    console.log("Old plugins structure, resetting");
+    store.dispatch({
+      type: "PLUGINS_RESET_PLUGINS",
+      payload: pluginInitialData().plugins
+    });
+  }
   for (let pluginName in state.plugins.plugins) {
     try {
       if (state.plugins.plugins[pluginName].enabled === true) {

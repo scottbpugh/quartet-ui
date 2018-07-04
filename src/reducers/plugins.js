@@ -22,7 +22,50 @@ import {showMessage} from "lib/message";
 export const initialData = () => {
   return {
     navTreeItems: [],
-    plugins: {},
+    plugins: {
+      "quartet-ui-number-range": {
+        core: true,
+        preview: "",
+        initPath: "lib/init.js",
+        readableName: "Serial Number Range Management",
+        pluginName: "quartet-ui-number-range",
+        packagePath: "quartet-ui-number-range",
+        version: "1.0.0",
+        description:
+          "\n                The Serial Number Range Management plugin offers users the\n                ability to interact with SerialBox, the backend solution for\n                your serial number range management requirements.\n\n                Among other functions, this plugin offers the ability to create\n                pools and serial number ranges as well as allocate numbers on\n                the fly from the QU4RTET interface.\n            ",
+        enabled: true
+      },
+      Capture: {
+        core: true,
+        initPath: "capture/src/init.js",
+        preview: "",
+        readableName: "Capture",
+        pluginName: "Capture",
+        description:
+          "\n              The Capture Plugin allows interaction with the backend QU4RTET Capture interface. The QU4RTET Capture app enables the “capture” and subsequent processing of messages through a primitive processing engine that allows developers to customize how messages get processed. The capture application also contains a standard EPCIS capture interface implementation as well.\n            ",
+        enabled: true
+      },
+      epcis: {
+        core: true,
+        initPath: "epcis/src/init.js",
+        preview: "",
+        readableName: "EPCIS",
+        pluginName: "EPCIS",
+        description:
+          "\n              The EPCIS Plugin allows interaction with the backend QU4RTET EPCIS interface. QU4RTET EPCIS is the EPCIS XML Parsing for the Quartet Platform\n            ",
+        enabled: true
+      },
+      MasterData: {
+        core: true,
+        initPath: "masterdata/src/init.js",
+        preview: "",
+        readableName: "Master Data",
+        pluginName: "MasterData",
+        description:
+          "\n              The interface plugin to handle material, lot and location master data.\n            ",
+        enabled: true
+      }
+    },
     pluginsUpdated: false
   };
 };
@@ -82,6 +125,13 @@ export const addLocalPlugin = localPlugin => {
 
 export default handleActions(
   {
+    [actions.resetPlugins]: (state, action) => {
+      debugger;
+      return {
+        ...state,
+        plugins: {...action.payload}
+      };
+    },
     [actions.addToTreeServers]: (state, action) => {
       return {
         ...state,
@@ -114,11 +164,13 @@ export default handleActions(
     [actions.receivedPluginsData]: (state, action) => {
       // preserve enabled/disabled settings.
       Object.keys(state.plugins).forEach(pluginName => {
+        // remove legacy.
         if (action.payload[pluginName]) {
           action.payload[pluginName].enabled =
             state.plugins[pluginName].enabled;
         }
       });
+
       return {
         ...state,
         plugins: {...state.plugins, ...action.payload},

@@ -41,9 +41,12 @@ function openBrowserResource(url) {
 }
 
 const isDev = require("electron-is-dev");
+
 if (isDev) {
   console.log("Enabling hot reload.");
   require("electron-reload")(path.join(__dirname));
+} else {
+  process.env.NODE_ENV = "production";
 }
 
 function createWindow() {
@@ -66,7 +69,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadURL("file://" + __dirname + "/build/index.html");
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   mainWindow.webContents.on("will-navigate", evt => {
     console.log("no navigation allowed.");
