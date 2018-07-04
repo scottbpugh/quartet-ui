@@ -27,6 +27,7 @@ test:
   stage: test
   script:
     - yarn install
+    - yarn build
     - yarn test
 
 pages:

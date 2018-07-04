@@ -16,27 +16,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import "./qu4rtet";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import "typeface-heebo";
 import {Provider} from "react-redux";
 import {IntlProvider} from "react-intl-redux";
 import {Router} from "react-router-dom";
 import RouteSwitcher from "./routes";
 import {store} from "./store";
 import {routeLocationDidUpdate} from "reducers/layout";
-import {createBrowserHistory} from "history";
-const browserHistory = createBrowserHistory();
+import {createHashHistory} from "history";
 
-browserHistory.listen(location => {
+const hashHistory = createHashHistory();
+
+hashHistory.listen(location => {
   store.dispatch(routeLocationDidUpdate(location));
 });
 
 ReactDOM.render(
   <Provider store={store}>
     <IntlProvider>
-      <Router history={browserHistory}>
+      <Router history={hashHistory}>
         <RouteSwitcher />
       </Router>
     </IntlProvider>

@@ -8,8 +8,6 @@ exports[`renders correctly 1`] = `
   >
     <button
       className="pt-button pt-icon-test pt-minimal"
-      disabled={undefined}
-      onClick={undefined}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       type="button"

@@ -111,3 +111,6 @@ export class SingleMarkerMap extends Component {
     );
   }
 }
+
+window.qu4rtet.exports("components/elements/SingleMarkerMap", this);
+

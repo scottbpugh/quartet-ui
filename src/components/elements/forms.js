@@ -176,3 +176,5 @@ export const getSyncValidators = field => {
   }
   return validate;
 };
+
+window.qu4rtet.exports("components/elements/forms", this);

@@ -28,6 +28,7 @@ Object {
       },
       "plugins": Object {
         "addPlugin": "Add a Plugin",
+        "errorFetchRemotePlugins": "An error occurred while fetching data from the remote plugin repository: {error}",
         "pluginDisabled": "Plugin disabled",
         "pluginEnabled": "Plugin enabled",
       },
@@ -82,6 +83,7 @@ Object {
       },
       "plugins": Object {
         "addPlugin": "Ajouter un plugin",
+        "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
       },
       "serverSettings": Object {
         "addAServer": "Ajouter un serveur",

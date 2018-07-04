@@ -187,3 +187,5 @@ class _SingleCardPicker extends Component {
 }
 
 export const SingleCardPicker = withRouter(_SingleCardPicker);
+window.qu4rtet.exports("components/elements/SingleCardPicker", this);
+

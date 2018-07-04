@@ -17,7 +17,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {createAction} from "redux-actions";
+import React from "react";
 
 export default {
   switchLocale: createAction("LOCALES_SWITCH")
 };
+window.qu4rtet.exports("actions/locales", this);
+

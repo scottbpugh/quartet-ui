@@ -201,3 +201,6 @@ class _PaginatedList extends Component {
 }
 
 export const PaginatedList = withRouter(_PaginatedList);
+
+window.qu4rtet.exports("components/elements/PaginatedList", this);
+

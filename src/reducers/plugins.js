@@ -22,12 +22,8 @@ import {showMessage} from "lib/message";
 export const initialData = () => {
   return {
     navTreeItems: [],
-    plugins: {
-      NumberRange: {enabled: true},
-      Capture: {enabled: true},
-      epcis: {enabled: true},
-      MasterData: {enabled: true}
-    }
+    plugins: {},
+    pluginsUpdated: false
   };
 };
 
@@ -48,6 +44,39 @@ export const setDisablePlugin = pluginEntries => {
     }
     showMessage({type: "success", id: "app.plugins.pluginDisabled"});
     return dispatch({type: actions.pluginDisabled, payload: pluginEntries});
+  };
+};
+
+export const fetchRemotePlugins = () => {
+  return async dispatch => {
+    try {
+      let pluginRequire = window
+        .require("electron")
+        .remote.require("./main-process/plugin-manager.js");
+      let pluginList = require(require("path").join(
+        window.qu4rtet.userData,
+        "pluginList.json"
+      )); // loads the module
+      return dispatch({
+        type: actions.receivedPluginsData,
+        payload: pluginList
+      });
+    } catch (e) {
+      showMessage({
+        type: "error",
+        id: "app.plugins.errorFetchRemotePlugins",
+        values: {error: e}
+      });
+    }
+  };
+};
+
+export const addLocalPlugin = localPlugin => {
+  return dispatch => {
+    return dispatch({
+      type: actions.addLocalPlugin,
+      payload: {[localPlugin.pluginName]: {...localPlugin}}
+    });
   };
 };
 
@@ -81,7 +110,40 @@ export default handleActions(
         ...state,
         plugins: {...state.plugins, ...action.payload}
       };
+    },
+    [actions.receivedPluginsData]: (state, action) => {
+      // preserve enabled/disabled settings.
+      Object.keys(state.plugins).forEach(pluginName => {
+        if (action.payload[pluginName]) {
+          action.payload[pluginName].enabled =
+            state.plugins[pluginName].enabled;
+        }
+      });
+      return {
+        ...state,
+        plugins: {...state.plugins, ...action.payload},
+        remotePluginList: {...action.payload}
+      };
+    },
+    [actions.addLocalPlugin]: (state, action) => {
+      return {
+        ...state,
+        plugins: {...state.plugins, ...action.payload}
+      };
+    },
+    [actions.pluginsActivated]: (state, action) => {
+      return {
+        ...state,
+        navTreeItems: {...state.navTreeItems}
+      };
+    },
+    [actions.pluginListUpdated]: state => {
+      return {
+        ...state,
+        pluginListUpdated: true
+      };
     }
   },
   {}
 );
+window.qu4rtet.exports("reducers/plugins", this);

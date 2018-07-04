@@ -5,38 +5,38 @@ Array [
   <Route
     component={[Function]}
     path="/epcis/add-event/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/add-entry/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/add-message/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/entry-list/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/event-list/:serverID/type/:eventType"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/event-list/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/event-list/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/event-detail/:serverID/uuid/:eventID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/epcis/entry-detail/:serverID/identifier/:entryID"
-/>,
+  />,
 ]
 `;

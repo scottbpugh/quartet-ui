@@ -88,3 +88,6 @@ export default handleActions(
   },
   {}
 );
+
+window.qu4rtet.exports("reducers/locales", this);
+

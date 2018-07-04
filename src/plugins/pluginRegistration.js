@@ -17,7 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {injectIntl} from "react-intl";
-
+import React, {Component} from "react";
+import injectCss from "inject-css";
 /**
  * PluginRegistry - Holds references to various plugin objects
  * such as routes, reducers, components, and localization messages.
@@ -69,8 +70,15 @@ class PluginRegistry {
     e.g.: <Route path="/number-range/pools:serverID component={PoolList}/>
     */
     this._registeredRoutes = {};
-  }
 
+    /*
+    * Holds all the CSS objects dynamically injected from plugins.
+    */
+    this._registeredCss = {};
+  }
+  /*
+  Building blocks used for plugins. Prevents having to import/dups etc.
+  */
   setMessages(messages) {
     for (let language in messages) {
       if (language in this._messages) {
@@ -219,6 +227,23 @@ class PluginRegistry {
     this.intl = intl;
   }
 
+  registerCss(pluginName, cssString) {
+    if (!this._registeredCss[pluginName]) {
+      this._registeredCss[pluginName] = [injectCss(cssString)];
+    } else {
+      this._registeredCss[pluginName].push(injectCss(cssString));
+    }
+  }
+  unregisterCss(pluginName) {
+    if (this._registeredCss[pluginName]) {
+      if (Array.isArray(this._registeredCss[pluginName])) {
+        for (let removeCssObject of this._registeredCss[pluginName]) {
+          removeCssObject(); // removes the object and DOM elem.
+        }
+      }
+      delete this._registeredCss[pluginName];
+    }
+  }
   getIntl() {
     // might do some checks first here.
     return this.intl;
@@ -231,3 +256,5 @@ class PluginRegistry {
 
 // export only a singleton. Entire app and all plugins share one PluginRegistry object.
 export const pluginRegistry = new PluginRegistry();
+// register module with actual filepath.
+window.qu4rtet.exports("plugins/pluginRegistration", this);

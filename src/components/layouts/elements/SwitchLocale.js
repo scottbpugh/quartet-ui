@@ -18,7 +18,6 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
-
 import messages from "messages";
 import {switchLocale} from "reducers/locales";
 
@@ -45,3 +44,5 @@ export var SwitchLocale = connect(
   }),
   {switchLocale}
 )(_SwitchLocale);
+window.qu4rtet.exports("components/layouts/elements/SwitchLocale", this);
+

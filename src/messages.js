@@ -76,7 +76,9 @@ export default {
       plugins: {
         addPlugin: "Add a Plugin",
         pluginEnabled: "Plugin enabled",
-        pluginDisabled: "Plugin disabled"
+        pluginDisabled: "Plugin disabled",
+        errorFetchRemotePlugins:
+          "An error occurred while fetching data from the remote plugin repository: {error}"
       }
     },
 
@@ -135,9 +137,13 @@ export default {
           "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}"
       },
       plugins: {
-        addPlugin: "Ajouter un plugin"
+        addPlugin: "Ajouter un plugin",
+        errorFetchRemotePlugins:
+          "Une erreur s'est produite lors de la requete des données plugins: {error}"
       }
     },
     plugins: {}
   }
 };
+window.qu4rtet.exports("messages", this);
+

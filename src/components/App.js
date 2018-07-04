@@ -68,7 +68,6 @@ class _App extends Component {
       server.listApps();
     });
   }
-  componentWillReceiveProps(nextProps) {}
 
   render() {
     return (
@@ -130,6 +129,7 @@ const App = connect(
       pageTitle: state.layout.pageTitle,
       currentPath: state.layout.currentPath,
       plugins: state.plugins.plugins,
+      navTreeItems: state.plugins.navTreeItems,
       theme: state.layout.theme,
       serversettings: state.serversettings,
       currentLocale: state.intl.locale,
@@ -141,3 +141,4 @@ const App = connect(
   }
 )(_App);
 export default withRouter(injectIntl(App));
+window.qu4rtet.exports("components/App", this);
