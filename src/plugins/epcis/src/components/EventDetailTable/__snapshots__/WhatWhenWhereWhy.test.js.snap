@@ -666,7 +666,7 @@ exports[`renders correctly a transformation event with most data 1`] = `
             <td>
                
               <span>
-                Instance/Lot Master Data
+                ILMD
               </span>
             </td>
             <td>
@@ -1043,13 +1043,13 @@ exports[`renders correctly a transformation event with most data 3`] = `
             <td>
               <pre>
                 {
-                  "declarationTime": "2018-06-14T10:42:11.275921+00:00",
-                  "reason": null,
-                  "correctiveEventIDs": [
-                    "fd2c6646-e4f9-4ed8-a5e5-e98614d6ce84",
-                    "4b9932b7-45f7-4983-8b62-95c2784a2fc8"
-                  ]
-                }
+  "declarationTime": "2018-06-14T10:42:11.275921+00:00",
+  "reason": null,
+  "correctiveEventIDs": [
+    "fd2c6646-e4f9-4ed8-a5e5-e98614d6ce84",
+    "4b9932b7-45f7-4983-8b62-95c2784a2fc8"
+  ]
+}
               </pre>
             </td>
           </tr>
@@ -1699,7 +1699,7 @@ exports[`renders correctly an object with most data 1`] = `
             <td>
                
               <span>
-                Instance/Lot Master Data
+                ILMD
               </span>
             </td>
             <td>
@@ -2262,7 +2262,7 @@ exports[`renders correctly an unknown event with most data 1`] = `
             <td>
                
               <span>
-                Instance/Lot Master Data
+                ILMD
               </span>
             </td>
             <td>
@@ -2639,13 +2639,13 @@ exports[`renders correctly an unknown event with most data 3`] = `
             <td>
               <pre>
                 {
-                  "declarationTime": "2018-06-14T10:42:11.275921+00:00",
-                  "reason": null,
-                  "correctiveEventIDs": [
-                    "fd2c6646-e4f9-4ed8-a5e5-e98614d6ce84",
-                    "4b9932b7-45f7-4983-8b62-95c2784a2fc8"
-                  ]
-                }
+  "declarationTime": "2018-06-14T10:42:11.275921+00:00",
+  "reason": null,
+  "correctiveEventIDs": [
+    "fd2c6646-e4f9-4ed8-a5e5-e98614d6ce84",
+    "4b9932b7-45f7-4983-8b62-95c2784a2fc8"
+  ]
+}
               </pre>
             </td>
           </tr>

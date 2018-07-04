@@ -36,8 +36,6 @@ exports[`returns main 1`] = `
           >
             <button
               className="pt-button pt-icon-home pt-minimal"
-              disabled={undefined}
-              onClick={undefined}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -53,8 +51,6 @@ exports[`returns main 1`] = `
           >
             <button
               className="pt-button pt-icon-exchange pt-minimal"
-              disabled={undefined}
-              onClick={undefined}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -134,8 +130,6 @@ exports[`returns main 1`] = `
           />
           <button
             className="pt-button pt-icon-user pt-minimal"
-            disabled={undefined}
-            onClick={undefined}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
             type="button"
@@ -195,8 +189,6 @@ exports[`returns main 1`] = `
                     >
                       <button
                         className="pt-button pt-icon-add"
-                        onClick={undefined}
-                        tabIndex={undefined}
                       />
                     </span>
                   </div>

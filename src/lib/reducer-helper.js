@@ -53,3 +53,4 @@ export const setServerState = (state = {}, serverID, mergeObject = {}) => {
     }
   };
 };
+window.qu4rtet.exports("lib/reducer-helper", this);

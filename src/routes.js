@@ -26,6 +26,7 @@ import {connect} from "react-redux";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {updateMessages} from "reducers/locales";
 import {ServerDetails} from "components/screens/server/ServerDetails";
+import AddLocalPlugin from "components/screens/plugins/AddLocalPlugin";
 
 const coreRoutes = () => {
   return [
@@ -41,6 +42,7 @@ const coreRoutes = () => {
       path="/server-details/:serverID?"
       component={ServerDetails}
     />,
+    <Route key="pluginList" path="/plugins/add" component={AddLocalPlugin} />,
     <Route key="pluginList" path="/plugins" component={PluginList} />
   ];
 };
@@ -88,7 +90,9 @@ class _RouteSwitcher extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
+      JSON.stringify(this.props.plugins) !==
+        JSON.stringify(nextProps.plugins) ||
+      nextProps.pluginListUpdated
     ) {
       this.processPlugins();
     }
@@ -103,10 +107,16 @@ class _RouteSwitcher extends Component {
 }
 const RouteSwitcher = connect(
   state => {
-    return {plugins: state.plugins.plugins, intl: state.intl};
+    return {
+      pluginListUpdated: state.plugins.pluginListUpdated,
+      plugins: state.plugins.plugins,
+      intl: state.intl
+    };
   },
   dispatch => {
     return {dispatch: dispatch};
   }
 )(_RouteSwitcher);
 export default withRouter(RouteSwitcher);
+window.qu4rtet.exports("routes", this);
+

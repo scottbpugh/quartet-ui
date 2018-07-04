@@ -11,13 +11,11 @@ exports[`renders correctly 1`] = `
       >
         <div
           className="pt-card pt-elevation-0 pt-elevation-4"
-          onClick={undefined}
         >
           <h5>
             Settings
             <button
               className="pt-button pt-icon-edit pt-intent-primary add-incard-button"
-              disabled={undefined}
               onClick={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -153,14 +151,12 @@ exports[`renders correctly 1`] = `
         </div>
         <div
           className="pt-card pt-elevation-0 pt-elevation-4"
-          onClick={undefined}
         >
           <h5>
             Services Enabled
              
             <button
               className="pt-button pt-icon-refresh add-incard-button"
-              disabled={undefined}
               onClick={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}

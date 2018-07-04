@@ -1,20 +1,27 @@
 {
   "name": "QU4RTET",
-  "version": "0.1.26",
+  "version": "1.0.0",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
     "@blueprintjs/core": "^1.35.0",
     "@blueprintjs/datetime": "^1.25.1",
     "about-window": "^1.11.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
     "base-64": "^0.1.0",
+    "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.14",
+    "electron-reload": "^1.2.5",
     "electron-updater": "^2.21.10",
     "history": "^4.7.2",
+    "inject-css": "^0.2.1",
     "json-server": "^0.12.1",
     "json2csv": "^4.0.2",
     "jsontoxml": "^1.0.0",
     "keytar": "^4.2.1",
+    "live-plugin-manager": "^0.12.0",
     "moment": "^2.20.1",
     "object-path": "^0.11.4",
     "openlayers": "^4.6.5",
@@ -31,16 +38,12 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "react-transition-group": "^2.2.1",
-    "react-vis": "^1.8.1",
-    "recharts": "^1.0.0-beta.10",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-form": "^7.2.1",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
-    "swagger-client": "^3.5.0",
-    "typeface-heebo": "^0.0.54",
-    "typeface-karla": "^0.0.54"
+    "swagger-client": "^3.5.0"
   },
   "author": {
     "name": "Serial Lab",
@@ -50,17 +53,23 @@
   "homepage": "./",
   "scripts": {
     "start": "nf start",
-    "build": "react-scripts build",
+    "build": "rm -r public/build; rm -r ./build/; ./node_modules/.bin/babel src/ --out-dir public/build --copy-files; mkdir ./build; cp -r ./public ./build",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
-    "test": "CI=true react-scripts test --env=jsdom",
+    "test": "CI=true jest --env=jsdom",
     "electron": "electron .",
-    "electron-start": "node public/electron-wait-react",
-    "react-start": "BROWSER=none react-scripts start",
+    "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
     "dev-server": "json-server -p 8080 ./dev/db.json",
     "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.5",
+    "babel-plugin-css-modules-transform": "^1.6.1",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "console-warn-throws-error": "^1.1.0",
     "electron": "^2.0.1",
     "electron-builder": "^20.13.4",
@@ -68,21 +77,23 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
-    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb": "^17.0.0",
     "foreman": "^2.0.0",
+    "jest": "^23.2.0",
+    "jest-canvas-mock": "^1.1.0",
     "nsp": "^3.2.1",
     "nsp-preprocessor-yarn": "^1.1.2",
-    "react-scripts": "^1.1.0",
     "react-test-renderer": "^16.2.0",
     "redux-mock-store": "^1.4.0",
-    "sinon": "^6.0.0",
+    "sinon": "^6.0.1",
     "version": "^0.1.2"
   },
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
       "target": [
-        "zip"
+        "zip",
+        "dmg"
       ]
     },
     "win": {
@@ -92,7 +103,7 @@
       ]
     },
     "directories": {
-      "buildResources": "public"
+      "buildResources": "build"
     },
     "publish": {
       "provider": "generic",
@@ -100,6 +111,11 @@
       "channel": "latest",
       "publishAutoUpdate": true
     }
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   },
   "postinstall": "electron-builder install-app-deps"
 }

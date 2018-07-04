@@ -120,7 +120,6 @@ class _ServerTasks extends Component {
   }
 
   goTo = path => {
-    console.log(path, this.props.history);
     this.props.history.push(path);
   };
 

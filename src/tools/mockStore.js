@@ -15,7 +15,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import React, {Component} from "react";
 
 import {IntlProvider} from "react-intl";
@@ -24,16 +23,10 @@ import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import {pluginRegistry} from "plugins/pluginRegistration";
 import MockInitialState from "./mock-initial-state";
 import {Provider} from "react-redux";
 import {MemoryRouter as Router} from "react-router-dom";
 import {injectIntl} from "react-intl";
-import {returnAllMessages} from "reducers/locales";
-
-addLocaleData([...en, ...fr]);
-let defaultLocale = "en-US";
-const middlewares = [thunk];
 
 // Fake local storage.
 class LocalStorageMock {
@@ -67,6 +60,13 @@ if (window && !window.localStorage) {
 if (window && !window.require) {
   // add fake require for ipcRenderer.
   window.require = module => {
+    if (module === "path") {
+      return {
+        join: () => {
+          return "";
+        }
+      };
+    }
     if (module === "electron") {
       return {
         ipcRenderer: {
@@ -74,9 +74,22 @@ if (window && !window.require) {
           send: () => {}
         },
         remote: {
+          require: path => {
+            if (path === "./main-process/plugin-manager.js") {
+              return {
+                install: () => {
+                  return {done: "ok"};
+                }
+              };
+            }
+            return {};
+          },
           app: {
             getVersion: () => {
               return "test-version";
+            },
+            getPath: () => {
+              return "somepath";
             }
           }
         }
@@ -84,6 +97,14 @@ if (window && !window.require) {
     }
   };
 }
+
+let {qu4rtet} = require("qu4rtet");
+let {pluginRegistry} = require("plugins/pluginRegistration");
+let {returnAllMessages} = require("reducers/locales");
+
+addLocaleData([...en, ...fr]);
+let defaultLocale = "en-US";
+const middlewares = [thunk];
 /*
       remote: {
         app: {

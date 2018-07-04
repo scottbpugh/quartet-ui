@@ -31,3 +31,4 @@ export function flattenMessages(nestedMessages, prefix = "") {
   }, {});
 }
 
+window.qu4rtet.exports("lib/flattenMessages", this);

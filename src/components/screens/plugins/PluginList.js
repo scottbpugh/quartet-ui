@@ -19,29 +19,33 @@
 import React, {Component} from "react";
 import {RightPanel} from "components/layouts/Panels";
 import {Card, Button} from "@blueprintjs/core";
-import {setEnablePlugin, setDisablePlugin} from "reducers/plugins";
+import {
+  setEnablePlugin,
+  setDisablePlugin,
+  fetchRemotePlugins
+} from "reducers/plugins";
 import {connect} from "react-redux";
 import "./PluginList.css";
-import pluginRepo from "plugins/plugins-repo";
 import {updateMessages} from "reducers/locales";
 
 class Plugin extends Component {
-  getPluginModule = () => {
-    // need to allow node-module imports in the future. But for
-    // core plugins, path is relative.
-    return require("plugins/" + this.props.pluginEntry.initPath);
-  };
-  handleEnable = evt => {
-    this.getPluginModule().enablePlugin();
+  handleEnable = async evt => {
+    let pluginModule = await window.qu4rtet.getPluginModule(
+      this.props.pluginEntry
+    );
+    pluginModule.enablePlugin();
     this.props.setEnablePlugin({
-      [this.props.pluginName]: {...this.props.plugin}
+      [this.props.pluginName]: {...this.props.pluginEntry}
     });
     this.props.updateMessages(this.props.locale);
   };
-  handleDisable = evt => {
-    this.getPluginModule().disablePlugin();
+  handleDisable = async evt => {
+    let pluginModule = await window.qu4rtet.getPluginModule(
+      this.props.pluginEntry
+    );
+    pluginModule.disablePlugin();
     this.props.setDisablePlugin({
-      [this.props.pluginName]: {...this.props.plugin}
+      [this.props.pluginName]: {...this.props.pluginEntry}
     });
   };
   render() {
@@ -49,7 +53,15 @@ class Plugin extends Component {
       <Card className="pt-elevation-4">
         <h5>
           {this.props.pluginEntry.readableName}{" "}
-          {!this.props.plugin || !this.props.plugin.enabled ? (
+          {this.props.pluginEntry.local ? (
+            <Button
+              iconName="pt-icon-edit"
+              className="pt-button add-plugin-button pt-intent-primary"
+              onClick={this.handleEnable.bind(this)}>
+              Edit
+            </Button>
+          ) : null}
+          {!this.props.pluginEntry || !this.props.pluginEntry.enabled ? (
             <Button
               iconName="pt-icon-add"
               className="pt-button add-plugin-button pt-intent-primary"
@@ -83,21 +95,32 @@ class Plugin extends Component {
 }
 
 export class _PluginList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {plugins: {}};
+  }
+  componentDidMount() {
+    this.props.fetchRemotePlugins();
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({plugins: nextProps.plugins});
+  }
   render() {
     return (
       <RightPanel title={<formattedMessage id="app.nav.plugins" />}>
         <div className="cards-container">
-          {Object.keys(pluginRepo).map(pluginName => {
-            return (
-              <Plugin
-                {...this.props}
-                key={pluginName}
-                pluginName={pluginName}
-                pluginEntry={pluginRepo[pluginName]}
-                plugin={this.props.plugins[pluginName]}
-              />
-            );
-          })}
+          {this.state.plugins
+            ? Object.keys(this.state.plugins).map(pluginName => {
+                return (
+                  <Plugin
+                    {...this.props}
+                    key={pluginName}
+                    pluginName={pluginName}
+                    pluginEntry={this.state.plugins[pluginName]}
+                  />
+                );
+              })
+            : null}
         </div>
       </RightPanel>
     );
@@ -111,5 +134,5 @@ export const PluginList = connect(
       locale: state.intl.locale
     };
   },
-  {setEnablePlugin, setDisablePlugin, updateMessages}
+  {setEnablePlugin, setDisablePlugin, updateMessages, fetchRemotePlugins}
 )(_PluginList);

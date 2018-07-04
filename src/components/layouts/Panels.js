@@ -135,3 +135,5 @@ export const Panels = connect(
   },
   {loadPageTitle}
 )(_Panels);
+
+window.qu4rtet.exports("components/layouts/Panels", this);

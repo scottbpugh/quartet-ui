@@ -5,54 +5,54 @@ Array [
   <Route
     component={[Function]}
     path="/masterdata/locations/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/companies/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/trade-items/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/add-location/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/add-location-type/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/add-company/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/add-trade-item/:serverID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/edit-location/:serverID/location/:locationID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/edit-company/:serverID/company/:companyID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/edit-trade-item/:serverID/trade-item/:tradeItemID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/add-trade-item-field/:serverID/trade-item/:tradeItemID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/edit-trade-item-field/:serverID/trade-item/:tradeItemID"
-/>,
+  />,
   <Route
     component={[Function]}
     path="/masterdata/:serverID/sgln/:locationIdentifier"
-/>,
+  />,
 ]
 `;

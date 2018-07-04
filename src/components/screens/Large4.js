@@ -42,3 +42,5 @@ export class Large4 extends Component {
     );
   }
 }
+window.qu4rtet.exports("components/screens/Large4.js", this);
+

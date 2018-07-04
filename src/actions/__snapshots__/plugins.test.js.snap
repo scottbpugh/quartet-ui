@@ -2,9 +2,12 @@
 
 exports[`returns the right actions 1`] = `
 Object {
+  "addLocalPlugin": [Function],
   "addToTreeServers": [Function],
   "pluginDisabled": [Function],
   "pluginEnabled": [Function],
+  "pluginListUpdated": [Function],
+  "receivedPluginsData": [Function],
   "removeFromTreeServers": [Function],
 }
 `;

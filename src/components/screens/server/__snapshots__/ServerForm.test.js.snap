@@ -17,7 +17,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Server Setting Name
         </label>
@@ -58,7 +57,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Server ID
         </label>
@@ -113,7 +111,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Server Hostname
         </label>
@@ -154,7 +151,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Port Number
         </label>
@@ -195,7 +191,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Root Path
         </label>
@@ -236,7 +231,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           SSL/TLS
         </label>
@@ -284,7 +278,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Authentication Type
         </label>
@@ -337,7 +330,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Token Type
         </label>
@@ -378,7 +370,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Username
         </label>
@@ -419,7 +410,6 @@ exports[`renders correctly 1`] = `
       >
         <label
           className="pt-label"
-          htmlFor={undefined}
         >
           Password
         </label>
@@ -450,8 +440,6 @@ exports[`renders correctly 1`] = `
     </div>
     <button
       className="pt-button pt-icon-add pt-button pt-intent-primary"
-      disabled={undefined}
-      onClick={undefined}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       type="submit"

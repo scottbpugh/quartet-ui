@@ -78,3 +78,6 @@ export const DeleteDialog = connect((state, ownProps) => {
     theme: state.layout.theme
   };
 }, {})(_DeleteDialog);
+
+window.qu4rtet.exports("components/elements/DeleteDialog", this);
+

@@ -30,3 +30,6 @@ export const minValue = min => value =>
   value && value < min ? `Must be at least ${min}` : undefined;
 export const maxValue = max => value =>
   value && value > max ? `Must be less or equal to ${max}` : undefined;
+
+window.qu4rtet.exports("lib/forms/validators", this);
+

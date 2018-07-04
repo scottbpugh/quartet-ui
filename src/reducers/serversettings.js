@@ -104,3 +104,5 @@ export default handleActions(
   },
   {}
 );
+window.qu4rtet.exports("reducers/serversettings", this);
+

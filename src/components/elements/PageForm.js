@@ -246,3 +246,5 @@ export default connect((state, ownProps) => {
     servers: state.serversettings.servers
   };
 }, {})(withRouter(_PageForm));
+
+window.qu4rtet.exports("components/elements/PageForm", this);

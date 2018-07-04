@@ -57,3 +57,5 @@ export const showMessage = msg => {
     );
   }
 };
+
+window.qu4rtet.exports("lib/message", this);
