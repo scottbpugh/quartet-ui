@@ -72,3 +72,4 @@ export default handleActions(
   },
   {}
 );
+window.qu4rtet.exports("reducers/layout", this);

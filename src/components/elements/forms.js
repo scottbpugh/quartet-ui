@@ -102,7 +102,7 @@ export const DefaultField = ({
           {!children && fieldData.description.choices
             ? Object.keys(fieldData.description.choices).map(choice => {
                 return (
-                  <option value={choice}>
+                  <option key={choice} value={choice}>
                     {fieldData.description.choices[choice]}
                   </option>
                 );
@@ -176,3 +176,5 @@ export const getSyncValidators = field => {
   }
   return validate;
 };
+
+window.qu4rtet.exports("components/elements/forms", this);

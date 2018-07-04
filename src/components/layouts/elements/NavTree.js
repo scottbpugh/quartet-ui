@@ -72,7 +72,7 @@ class Tree extends Component {
 class _NavTree extends Component {
   constructor(props) {
     super(props);
-    this.tree = this.getTree(props);
+    this.getTree(props);
   }
   componentDidMount() {
     this.tree = this.getTree(this.props);
@@ -86,10 +86,16 @@ class _NavTree extends Component {
   getTree = props => {
     let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
-      let children = Object.keys(props.navTreeItems).map(component => {
-        let ComponentName = pluginRegistry.getRegisteredComponent(component);
-        return <ComponentName depth={1} key={component} serverID={serverID} />;
-      });
+      let children = props.navTreeItems
+        ? Object.keys(props.navTreeItems).map(component => {
+            let ComponentName = pluginRegistry.getRegisteredComponent(
+              component
+            );
+            return (
+              <ComponentName depth={1} key={component} serverID={serverID} />
+            );
+          })
+        : [];
       return (
         <ServerNode
           server={server}
@@ -146,6 +152,8 @@ export const NavTree = connect((state, ownProps) => {
     servers: state.serversettings.servers,
     navTreeItems: state.plugins.navTreeItems,
     intl: state.intl,
-    theme: state.layout.theme
+    theme: state.layout.theme,
+    pluginListUpdated: state.plugins.pluginListUpdated
   };
 }, {})(withRouter(_NavTree));
+window.qu4rtet.exports("components/layouts/elements/NavTree", this);

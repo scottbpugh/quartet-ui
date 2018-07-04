@@ -25,3 +25,5 @@ export default {
   resetAppList: createAction("SERVER_SETTINGS_RESET_APP_LIST"),
   deleteServer: createAction("SERVER_SETTINGS_DELETE_SERVER")
 };
+window.qu4rtet.exports("actions/serversettings", this);
+

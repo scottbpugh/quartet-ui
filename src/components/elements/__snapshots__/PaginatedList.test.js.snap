@@ -4,7 +4,6 @@ exports[`renders correctly 1`] = `
 <div>
   <div
     className="pt-card pt-elevation-0 pt-elevation-4"
-    onClick={undefined}
   >
     <h5>
        
@@ -32,7 +31,6 @@ exports[`renders correctly 1`] = `
             <button
               className="pt-button pt-disabled"
               disabled={true}
-              onClick={undefined}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -47,7 +45,6 @@ exports[`renders correctly 1`] = `
             <button
               className="pt-button pt-disabled"
               disabled={true}
-              onClick={undefined}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -96,7 +93,7 @@ exports[`renders correctly 1`] = `
             className="label-info-display"
           >
             <span>
-              plugins.epcis.entriesTotal
+              Entries Total
             </span>
           </div>
         </div>
@@ -106,12 +103,6 @@ exports[`renders correctly 1`] = `
       >
         <table
           className="pt-table pt-bordered pt-striped pt-interactive"
-          style={
-            Object {
-              "textAlign": "center",
-              "verticalAlign": "middle",
-            }
-          }
         >
           <thead>
             <th>

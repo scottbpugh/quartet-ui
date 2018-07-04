@@ -20,7 +20,6 @@ import {createStore, applyMiddleware, combineReducers, compose} from "redux";
 
 import persistState from "redux-localstorage";
 import thunk from "redux-thunk";
-import dashboard from "reducers/dashboard";
 import serversettings, {initialData} from "reducers/serversettings";
 import layout from "reducers/layout";
 import {reducer as reduxFormReducer} from "redux-form";
@@ -37,14 +36,13 @@ import {flattenMessages} from "./lib/flattenMessages";
 import {initialData as pluginInitialData} from "./reducers/plugins";
 import {initialData as layoutInitialData} from "./reducers/layout";
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
+import {setEnablePlugin} from "reducers/plugins";
+import {updateMessages} from "reducers/locales";
 
 addLocaleData([...en, ...fr]);
 let locale = "en-US";
 
 const initialState = {
-  dashboard: {
-    notifications: []
-  },
   serversettings: initialData(),
   intl: {
     defaultLocale: locale,
@@ -95,7 +93,6 @@ export default function configureStore(coreInitialState) {
     ...coreInitialState
   };
   const coreReducers = {
-    dashboard,
     serversettings,
     form: reduxFormReducer,
     intl: intlReducer,
@@ -149,17 +146,37 @@ export default function configureStore(coreInitialState) {
   });
   // enable previously enabled plugins.
   let state = store.getState();
-  const pluginRepo = require("plugins/plugins-repo");
+  if ("NumberRange" in state.plugins.plugins) {
+    // old version. Wipe plugins.
+    console.log("Old plugins structure, resetting");
+    store.dispatch({
+      type: "PLUGINS_RESET_PLUGINS",
+      payload: pluginInitialData().plugins
+    });
+  }
   for (let pluginName in state.plugins.plugins) {
-    if (
-      state.plugins.plugins[pluginName].enabled === true &&
-      pluginRepo.default[pluginName]
-    ) {
-      let plugin = require("plugins/" +
-        pluginRepo.default[pluginName].initPath);
-      plugin.enablePlugin();
+    try {
+      if (state.plugins.plugins[pluginName].enabled === true) {
+        window.qu4rtet
+          .getPluginModule(state.plugins.plugins[pluginName])
+          .then(pluginObject => {
+            pluginObject.enablePlugin();
+            store.dispatch(updateMessages(state.intl.locale));
+            store.dispatch(
+              setEnablePlugin({
+                [pluginName]: {
+                  ...state.plugins.plugins[pluginName],
+                  loaded: new Date().toString()
+                }
+              })
+            );
+          });
+      }
+    } catch (e) {
+      console.log("An error occurred loading plugin", e);
     }
   }
   window.store = store;
   return store;
 }
+window.qu4rtet.exports("store", this);

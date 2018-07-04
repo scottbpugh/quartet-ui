@@ -18,8 +18,12 @@
 import React, {Component} from "react";
 import {Tag} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import {withRouter} from "react-router";
 
-export default class extends Component {
+class _Where extends Component {
+  goTo = path => {
+    this.props.history.push(path);
+  };
   render() {
     const {currentEntry, objectType} = this.props;
     return (
@@ -33,7 +37,14 @@ export default class extends Component {
               <tr>
                 <td>Business Location</td>
                 <td>
-                  <Tag className="epc-item">
+                  <Tag
+                    className="epc-item"
+                    onClick={this.goTo.bind(
+                      this,
+                      `/masterdata/${this.props.serverID}/sgln/${
+                        currentEntry[objectType].bizLocation
+                      }`
+                    )}>
                     {currentEntry[objectType].bizLocation}
                   </Tag>
                 </td>
@@ -41,7 +52,14 @@ export default class extends Component {
               <tr>
                 <td>Read Point</td>
                 <td>
-                  <Tag className="epc-item">
+                  <Tag
+                    className="epc-item"
+                    onClick={this.goTo.bind(
+                      this,
+                      `/masterdata/${this.props.serverID}/sgln/${
+                        currentEntry[objectType].readPoint
+                      }`
+                    )}>
                     {currentEntry[objectType].readPoint}
                   </Tag>
                 </td>
@@ -55,9 +73,16 @@ export default class extends Component {
                       ? Object.keys(currentEntry[objectType].sourceList).map(
                           key => {
                             return (
-                              <li>
+                              <li key={key}>
                                 <Tag>{key}</Tag>:{" "}
-                                <Tag className="epc-item">
+                                <Tag
+                                  className="epc-item"
+                                  onClick={this.goTo.bind(
+                                    this,
+                                    `/masterdata/${this.props.serverID}/sgln/${
+                                      currentEntry[objectType].sourceList[key]
+                                    }`
+                                  )}>
                                   {currentEntry[objectType].sourceList[key]}
                                 </Tag>
                               </li>
@@ -76,11 +101,23 @@ export default class extends Component {
                     currentEntry[objectType].destinationList
                       ? Object.keys(
                           currentEntry[objectType].destinationList
-                        ).map(key => {
+                        ).map((key, index) => {
                           return (
-                            <li>
+                            <li
+                              key={`${
+                                currentEntry[objectType].id
+                              }-${index}-dL`}>
                               <Tag>{key}</Tag>:{" "}
-                              <Tag className="epc-item">
+                              <Tag
+                                className="epc-item"
+                                onClick={this.goTo.bind(
+                                  this,
+                                  `/masterdata/${this.props.serverID}/sgln/${
+                                    currentEntry[objectType].destinationList[
+                                      key
+                                    ]
+                                  }`
+                                )}>
                                 {currentEntry[objectType].destinationList[key]}
                               </Tag>
                             </li>
@@ -97,3 +134,5 @@ export default class extends Component {
     );
   }
 }
+
+export default withRouter(_Where);

@@ -22,5 +22,10 @@ export default {
   addToTreeServers: createAction("PLUGINS_ADD_TO_TREE_SERVERS"),
   removeFromTreeServers: createAction("PLUGINS_REMOVE_FROM_TREE_SERVERS"),
   pluginEnabled: createAction("PLUGINS_NEW_PLUGIN_ENABLED"),
-  pluginDisabled: createAction("PLUGINS_PLUGIN_DISABLED")
+  pluginDisabled: createAction("PLUGINS_PLUGIN_DISABLED"),
+  receivedPluginsData: createAction("PLUGINS_RECEIVED_PLUGINS_DATA"),
+  addLocalPlugin: createAction("PLUGINS_ADD_LOCAL_PLUGIN"),
+  pluginListUpdated: createAction("PLUGINS_PLUGIN_LIST_UPDATED"),
+  resetPlugins: createAction("PLUGINS_RESET_PLUGINS")
 };
+window.qu4rtet.exports("actions/plugins", this);

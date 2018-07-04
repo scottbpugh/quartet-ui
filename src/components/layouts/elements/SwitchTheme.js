@@ -60,3 +60,5 @@ export const SwitchTheme = connect(
   state => ({currentTheme: state.layout.theme, locale: state.intl.locale}),
   {switchTheme}
 )(_SwitchTheme);
+
+window.qu4rtet.exports("components/layouts/elements/SwitchTheme", this);

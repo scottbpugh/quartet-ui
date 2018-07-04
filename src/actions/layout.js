@@ -23,3 +23,5 @@ export default {
   switchTheme: createAction("LAYOUT_SWITCH_THEME"),
   locationDidUpdate: createAction("LAYOUT_LOCATION_DID_UPDATE")
 };
+window.qu4rtet.exports("actions/layout", this);
+

@@ -19,10 +19,10 @@
 // This is used to store credentials in the system password store so that
 // we delegate security of password storage to the underlying operating system.
 
-const keytar = require("keytar");
 let registered = false;
 
 exports.setCredentialEvents = function(mainWindow) {
+  const keytar = require("keytar");
   const ipcMain = require("electron").ipcMain;
   const ipcRenderer = require("electron").ipcRenderer;
 

@@ -254,7 +254,14 @@ class _ServerTasks extends Component {
                           intent = Intent.PRIMARY;
                       }
                       return (
-                        <tr key={task.name}>
+                        <tr
+                          onClick={this.goTo.bind(
+                            this,
+                            `/capture/tasks/${
+                              this.props.server.serverID
+                            }/detail/${task.name}`
+                          )}
+                          key={task.name}>
                           <td>
                             {task.ruleObject ? task.ruleObject.name : null}
                           </td>

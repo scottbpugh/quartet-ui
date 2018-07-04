@@ -10,8 +10,6 @@ exports[`renders correctly 1`] = `
     >
       <button
         className="pt-button pt-icon-trash"
-        disabled={undefined}
-        onClick={undefined}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         small={true}
@@ -33,10 +31,7 @@ exports[`renders correctly 1`] = `
     >
       <a
         className="pt-menu-item pt-popover-dismiss"
-        href={undefined}
-        onClick={undefined}
         tabIndex={0}
-        target={undefined}
       >
         Register User
       </a>
@@ -46,10 +41,7 @@ exports[`renders correctly 1`] = `
     >
       <a
         className="pt-menu-item pt-popover-dismiss"
-        href={undefined}
-        onClick={undefined}
         tabIndex={0}
-        target={undefined}
       >
         Verify User
       </a>

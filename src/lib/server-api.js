@@ -226,3 +226,5 @@ export const fetchListAll = async (
       });
   });
 };
+
+window.qu4rtet.exports("lib/server-api", this);

@@ -27,11 +27,12 @@ const BrowserWindow = electron.BrowserWindow;
 const opn = require("opn");
 const url = require("url");
 const path = require("path");
+const fs = require("fs");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-
+global.mainWindow = mainWindow;
 /**
  * Opens a window for the default browser.
  */
@@ -39,23 +40,41 @@ function openBrowserResource(url) {
   opn(url);
 }
 
+const isDev = require("electron-is-dev");
+
+if (isDev) {
+  console.log("Enabling hot reload.");
+  require("electron-reload")(path.join(__dirname));
+} else {
+  process.env.NODE_ENV = "production";
+}
+
 function createWindow() {
+  electron.session.defaultSession.webRequest.onHeadersReceived(
+    (details, callback) => {
+      callback({responseHeaders: `script-src 'self'; child-src 'self';`});
+    }
+  );
+  require("./main-process/plugin-manager.js").getPlugins(app.getAppPath());
+
   // Create the browser window.
-  const mainOptions = {width: 1600, height: 1200, show: false};
+  const mainOptions = {
+    width: 1600,
+    height: 1200,
+    show: false
+  };
   mainWindow = new BrowserWindow(mainOptions);
   // Setting this to exchange credentials information
   credManagement.setCredentialEvents(mainWindow);
   // and load the index.html of the app.
-  const startUrl =
-    process.env.ELECTRON_START_URL ||
-    url.format({
-      pathname: path.join(__dirname, "/../build/index.html"),
-      protocol: "file:",
-      slashes: true
-    });
-  mainWindow.loadURL(startUrl);
+  mainWindow.loadURL("file://" + __dirname + "/build/index.html");
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
+
+  mainWindow.webContents.on("will-navigate", evt => {
+    console.log("no navigation allowed.");
+    evt.preventDefault();
+  });
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
     checkLatestUpdate();

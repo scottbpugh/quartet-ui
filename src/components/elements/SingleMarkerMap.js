@@ -27,20 +27,34 @@ export class SingleMarkerMap extends Component {
       delay = Number(this.props.delay);
     }
     window.setTimeout(() => {
-      this.setUpMap();
-      this.setMarkers(this.props.markerLocation);
+      this.setUpMap(this.props);
+      this.setMarkers(this.props);
       this._map.setTarget(this.props.targetId);
     }, delay);
   }
   componentWillUnmount() {
+    this._map.setTarget(undefined);
     this._map = null;
   }
   componentWillReceiveProps(nextProps) {
-    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
-      this.setMarkers(nextProps.markerLocation);
+    if (
+      JSON.stringify(this.props.markerLocation) !==
+      JSON.stringify(nextProps.markerLocation)
+    ) {
+      if (this._map) {
+        this._map
+          .getView()
+          .setCenter(ol.proj.fromLonLat(nextProps.markerLocation));
+        this._map.getView().setZoom(12);
+        this.setMarkers(nextProps);
+      }
     }
   }
-  setMarkers(markerLocation) {
+  setMarkers(props) {
+    if (!props.markerLocation) {
+      // no markers, no need to do anything.
+      return;
+    }
     //create the style
     var iconStyle = new ol.style.Style({
       image: new ol.style.Icon(
@@ -57,18 +71,16 @@ export class SingleMarkerMap extends Component {
     });
 
     let f = new ol.Feature({
-      geometry: new ol.geom.Point(
-        ol.proj.fromLonLat(this.props.markerLocation)
-      ),
-      name: "Location" + this.props.targetId,
-      id: "location" + this.props.targetId
+      geometry: new ol.geom.Point(ol.proj.fromLonLat(props.markerLocation)),
+      name: "Location" + props.targetId,
+      id: "location" + props.targetId
     });
 
     let vectorSource = new ol.source.Vector({features: [f]});
     if (this._vectorLayer) {
-      //this._map.removeLayer(this._vectorLayer);
+      // remove previous marker, since this is single marker.
+      this._map.removeLayer(this._vectorLayer);
     }
-
     let vectorLayer = new ol.layer.Vector({
       source: vectorSource,
       style: iconStyle
@@ -77,14 +89,14 @@ export class SingleMarkerMap extends Component {
     this._map.addLayer(this._vectorLayer);
     this._map.getView().fit(vectorSource.getExtent(), false);
   }
-  setUpMap() {
+  setUpMap(props) {
     this._map = new ol.Map({
       layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
       view: new ol.View({
-        center: ol.proj.fromLonLat(this.props.markerLocation),
-        zoom: 1,
-        maxZoom: 12,
-        minZoom: 1
+        center: ol.proj.fromLonLat(props.markerLocation || [0, 0]),
+        zoom: props.zoom || 1,
+        maxZoom: props.maxZoom || 12,
+        minZoom: props.minZoon || 1
       })
     });
   }
@@ -99,3 +111,6 @@ export class SingleMarkerMap extends Component {
     );
   }
 }
+
+window.qu4rtet.exports("components/elements/SingleMarkerMap", this);
+

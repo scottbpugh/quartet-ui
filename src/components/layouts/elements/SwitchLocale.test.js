@@ -17,9 +17,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
+import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {SwitchLocale} from "./SwitchLocale";
 import {TestWrapper} from "tools/mockStore";
+import {SwitchLocale} from "./SwitchLocale";
 
 it("renders correctly", () => {
   const props = {};

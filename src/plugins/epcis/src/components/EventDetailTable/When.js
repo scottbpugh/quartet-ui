@@ -31,10 +31,7 @@ export default class extends Component {
             <tbody>
               <tr>
                 <td>Event Time</td>
-                <td>
-                  <FormattedDate value={currentEntry[objectType].eventTime} />{" "}
-                  <FormattedTime value={currentEntry[objectType].eventTime} />
-                </td>
+                <td>{currentEntry[objectType].eventTime}</td>
               </tr>
               <tr>
                 <td>eventTimezoneOffset</td>
@@ -42,10 +39,7 @@ export default class extends Component {
               </tr>
               <tr>
                 <td>Record Time</td>
-                <td>
-                  <FormattedDate value={currentEntry[objectType].recordTime} />{" "}
-                  <FormattedTime value={currentEntry[objectType].recordTime} />
-                </td>
+                <td>{currentEntry[objectType].recordTime}</td>
               </tr>
             </tbody>
           </table>

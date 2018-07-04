@@ -1,0 +1,2981 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly a transaction event with most data 1`] = `
+<div>
+  <div
+    className="what"
+  >
+    <div
+      className="question-left"
+    >
+       
+      <span>
+        What
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <span>
+                Event Type
+              </span>
+            </td>
+            <td>
+              <span
+                className="event-detail-type"
+              >
+                <span>
+                  Transaction Event
+                </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Event ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Parent ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgtin:305555.3555555.1
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Quantity List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555555.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      14.5
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      LB
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555555.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      5
+                    </li>
+                    <li>
+                      uom
+                      : 
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Business Transaction List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epc:id:gdti:0614141.06012.1234
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:po
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transaction event with most data 2`] = `
+<div>
+  <div
+    className="where"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Where
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Location
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.0
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Read Point
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.12
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Source List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:possessing_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.12
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Destination List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:owning_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.233
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transaction event with most data 3`] = `
+<div>
+  <div
+    className="why"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Why
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Step
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:bizstep:shipping
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Disposition
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:disp:in_transit
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Action
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                ADD
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Error Declaration
+            </td>
+            <td>
+              <pre>
+                null
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transaction event with most data 4`] = `
+<div>
+  <div
+    className="when"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        When
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Event Time
+            </td>
+            <td>
+              2018-01-22T22:51:49.294565+00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              eventTimezoneOffset
+            </td>
+            <td>
+              +00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Record Time
+            </td>
+            <td>
+              2018-01-22T22:51:49.294565+00:00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transformation event with most data 1`] = `
+<div>
+  <div
+    className="what"
+  >
+    <div
+      className="question-left"
+    >
+       
+      <span>
+        What
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <span>
+                Event Type
+              </span>
+            </td>
+            <td>
+              <span
+                className="event-detail-type"
+              >
+                <span>
+                  Transformation Event
+                </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Event ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                9db05f77-e007-41a2-a6d9-140254b7ce5a
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Input EPC List
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1002
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1003
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1005
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1001
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1007
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1009
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1008
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1000
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1006
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1004
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Output EPC List
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2000
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2002
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2001
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2003
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2007
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2006
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2004
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2009
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2008
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2005
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Instance/Lot Master Data
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  lotNumber
+                  : 
+                  DL232
+                </li>
+                <li>
+                  itemExpirationDate
+                  : 
+                  2015-12-31
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Input Quantity List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      94.3
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      LB
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      100
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      EA
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Output Quantity List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      94.3
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      LB
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      10
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      EA
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Business Transaction List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:bt:0555555555555.00001
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:bol
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:bt:0555555555555.DE45_111
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:desadv
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transformation event with most data 2`] = `
+<div>
+  <div
+    className="where"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Where
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Location
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.0
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Read Point
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.12
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Source List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:possessing_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.12
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Destination List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:owning_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.233
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transformation event with most data 3`] = `
+<div>
+  <div
+    className="why"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Why
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Step
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:bizstep:repackaging
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Disposition
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:disp:returned
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Action
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Error Declaration
+            </td>
+            <td>
+              <pre>
+                {
+  "declarationTime": "2018-06-14T10:42:11.275921+00:00",
+  "reason": null,
+  "correctiveEventIDs": [
+    "fd2c6646-e4f9-4ed8-a5e5-e98614d6ce84",
+    "4b9932b7-45f7-4983-8b62-95c2784a2fc8"
+  ]
+}
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly a transformation event with most data 4`] = `
+<div>
+  <div
+    className="when"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        When
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Event Time
+            </td>
+            <td>
+              2018-01-29T18:50:20.847426+00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              eventTimezoneOffset
+            </td>
+            <td>
+              +00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Record Time
+            </td>
+            <td>
+              2018-01-29T18:50:20.847426+00:00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an aggregation object with most data 1`] = `
+<div>
+  <div
+    className="what"
+  >
+    <div
+      className="question-left"
+    >
+       
+      <span>
+        What
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <span>
+                Event Type
+              </span>
+            </td>
+            <td>
+              <span
+                className="event-detail-type"
+              >
+                <span>
+                  Aggregation Event
+                </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Event ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Parent ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgtin:305555.3555555.1
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Child Quantity List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555555.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      14.5
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      LB
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555555.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      5
+                    </li>
+                    <li>
+                      uom
+                      : 
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Child EPCs
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.4
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.5
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.3
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.1
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.2
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Business Transaction List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epc:id:gdti:0614141.06012.1234
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:po
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an aggregation object with most data 2`] = `
+<div>
+  <div
+    className="where"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Where
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Location
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.0
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Read Point
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.12
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Source List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:possessing_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.12
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Destination List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:owning_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.233
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an aggregation object with most data 3`] = `
+<div>
+  <div
+    className="why"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Why
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Step
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:bizstep:packing
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Disposition
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:disp:container_closed
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Action
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                ADD
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Error Declaration
+            </td>
+            <td>
+              <pre>
+                null
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an aggregation object with most data 4`] = `
+<div>
+  <div
+    className="when"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        When
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Event Time
+            </td>
+            <td>
+              2018-01-22T22:51:49.294565+00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              eventTimezoneOffset
+            </td>
+            <td>
+              +00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Record Time
+            </td>
+            <td>
+              2018-01-22T22:51:49.294565+00:00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an object with most data 1`] = `
+<div>
+  <div
+    className="what"
+  >
+    <div
+      className="question-left"
+    >
+       
+      <span>
+        What
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <span>
+                Event Type
+              </span>
+            </td>
+            <td>
+              <span
+                className="event-detail-type"
+              >
+                <span>
+                  Object Event
+                </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Event ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                EPC List
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.4
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.5
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.3
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.1
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.2
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Instance/Lot Master Data
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  lotNumber
+                  : 
+                  DL232
+                </li>
+                <li>
+                  itemExpirationDate
+                  : 
+                  2015-12-31
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Business Transaction List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epc:id:gdti:0614141.06012.1234
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:po
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an object with most data 2`] = `
+<div>
+  <div
+    className="where"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Where
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Location
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.0
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Read Point
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.12
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Source List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:possessing_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.12
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Destination List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:owning_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.233
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an object with most data 3`] = `
+<div>
+  <div
+    className="why"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Why
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Step
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:bizstep:commissioning
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Disposition
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:disp:encoded
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Action
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                ADD
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Error Declaration
+            </td>
+            <td>
+              <pre>
+                null
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an object with most data 4`] = `
+<div>
+  <div
+    className="when"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        When
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Event Time
+            </td>
+            <td>
+              2018-01-22T22:51:49.294565+00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              eventTimezoneOffset
+            </td>
+            <td>
+              +00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Record Time
+            </td>
+            <td>
+              2018-01-22T22:51:49.294565+00:00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an unknown event with most data 1`] = `
+<div>
+  <div
+    className="what"
+  >
+    <div
+      className="question-left"
+    >
+       
+      <span>
+        What
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <span>
+                Event Type
+              </span>
+            </td>
+            <td>
+              <span
+                className="event-detail-type"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Event ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                9db05f77-e007-41a2-a6d9-140254b7ce5a
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Input EPC List
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1002
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1003
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1005
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1001
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1007
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1009
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1008
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1000
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1006
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.1004
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Output EPC List
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2000
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2002
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2001
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2003
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2007
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2006
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2004
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2009
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2008
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.1555555.2005
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Instance/Lot Master Data
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  lotNumber
+                  : 
+                  DL232
+                </li>
+                <li>
+                  itemExpirationDate
+                  : 
+                  2015-12-31
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Input Quantity List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      94.3
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      LB
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      100
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      EA
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Output Quantity List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      94.3
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      LB
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    className="quantity-detail"
+                  >
+                    <li>
+                      epcClass
+                      : 
+                      urn:epc:idpat:sgtin:305555.0555551.*
+                    </li>
+                    <li>
+                      quantity
+                      : 
+                      10
+                    </li>
+                    <li>
+                      uom
+                      : 
+                      EA
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Business Transaction List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:bt:0555555555555.00001
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:bol
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:bt:0555555555555.DE45_111
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                  >
+                    urn:epcglobal:cbv:btt:desadv
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an unknown event with most data 2`] = `
+<div>
+  <div
+    className="where"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Where
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Location
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.0
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Read Point
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                urn:epc:id:sgln:305555.123456.12
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Source List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:possessing_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:305555.123456.12
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Destination List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              >
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:owning_party
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.0
+                  </span>
+                </li>
+                <li>
+                  <span
+                    className="pt-tag"
+                  >
+                    urn:epcglobal:cbv:sdt:location
+                  </span>
+                  :
+                   
+                  <span
+                    className="pt-tag epc-item"
+                    onClick={[Function]}
+                  >
+                    urn:epc:id:sgln:309999.111111.233
+                  </span>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an unknown event with most data 3`] = `
+<div>
+  <div
+    className="why"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Why
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Step
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:bizstep:repackaging
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Disposition
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                urn:epcglobal:cbv:disp:returned
+              </span>
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Action
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Error Declaration
+            </td>
+            <td>
+              <pre>
+                {
+  "declarationTime": "2018-06-14T10:42:11.275921+00:00",
+  "reason": null,
+  "correctiveEventIDs": [
+    "fd2c6646-e4f9-4ed8-a5e5-e98614d6ce84",
+    "4b9932b7-45f7-4983-8b62-95c2784a2fc8"
+  ]
+}
+              </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly an unknown event with most data 4`] = `
+<div>
+  <div
+    className="when"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        When
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Event Time
+            </td>
+            <td>
+              2018-01-29T18:50:20.847426+00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              eventTimezoneOffset
+            </td>
+            <td>
+              +00:00
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Record Time
+            </td>
+            <td>
+              2018-01-29T18:50:20.847426+00:00
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`what renders correctly an aggregation object with minimum data 1`] = `
+<div>
+  <div
+    className="what"
+  >
+    <div
+      className="question-left"
+    >
+       
+      <span>
+        What
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              <span>
+                Event Type
+              </span>
+            </td>
+            <td>
+              <span
+                className="event-detail-type"
+              >
+                <span>
+                  Aggregation Event
+                </span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>
+                Event ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              >
+                testID
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Parent ID
+              </span>
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              >
+                parent
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               
+              <span>
+                Business Transaction List
+              </span>
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`when renders correctly an aggregation object with minimum data 1`] = `
+<div>
+  <div
+    className="when"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        When
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Event Time
+            </td>
+            <td />
+          </tr>
+          <tr>
+            <td>
+              eventTimezoneOffset
+            </td>
+            <td />
+          </tr>
+          <tr>
+            <td>
+              Record Time
+            </td>
+            <td />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`where renders correctly an aggregation object with minimum data 1`] = `
+<div>
+  <div
+    className="where"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Where
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Location
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Read Point
+            </td>
+            <td>
+              <span
+                className="pt-tag epc-item"
+                onClick={[Function]}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Source List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Destination List
+            </td>
+            <td>
+              <ul
+                className="w4-list"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`why renders correctly an aggregation object with minimum data 1`] = `
+<div>
+  <div
+    className="why"
+  >
+    <div
+      className="question-left"
+    >
+      <span>
+        Why
+      </span>
+    </div>
+    <div
+      className="detail-table-container"
+    >
+      <table
+        className="pt-table pt-bordered pt-striped"
+      >
+        <tbody>
+          <tr>
+            <td>
+              Business Step
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Disposition
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Action
+            </td>
+            <td>
+              <span
+                className="pt-tag"
+              />
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td>
+              Error Declaration
+            </td>
+            <td>
+              <pre />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

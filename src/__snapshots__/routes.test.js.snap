@@ -1,0 +1,434 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns main 1`] = `
+<div>
+  <div
+    className="App pt-dark dark-brown"
+  >
+    <header>
+      <div
+        className="pt-navbar pt-fixed-top pt-dark"
+      >
+        <div
+          className="pt-navbar-group pt-align-left"
+        >
+          <div
+            className="pt-navbar-heading"
+          >
+            <img
+              alt="Qu4rtet"
+              src="data:image/png;base64,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"
+              style={
+                Object {
+                  "height": "50%",
+                  "width": "50%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="pt-navbar-group pt-align-right"
+        >
+          <a
+            href="/"
+            onClick={[Function]}
+          >
+            <button
+              className="pt-button pt-icon-home pt-minimal"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                Dashboard
+              </span>
+            </button>
+          </a>
+          <a
+            href="/plugins"
+            onClick={[Function]}
+          >
+            <button
+              className="pt-button pt-icon-exchange pt-minimal"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                Plugins
+              </span>
+            </button>
+          </a>
+          <div
+            className="pt-navbar-divider"
+          />
+          <div
+            className="pt-select"
+          >
+            <select
+              onChange={[Function]}
+              value="en-US"
+            >
+              <option>
+                en-US
+              </option>
+              <option>
+                fr-FR
+              </option>
+            </select>
+          </div>
+          <div
+            className="pt-navbar-divider"
+          />
+          <div
+            className="pt-select"
+          >
+            <select
+              onChange={[Function]}
+              value="dark-brown"
+            >
+              <option
+                value="light"
+              >
+                <span>
+                  Light Theme
+                </span>
+              </option>
+              <option
+                value="dark"
+              >
+                <span>
+                  Dark Theme
+                </span>
+              </option>
+              <option
+                value="contrasted"
+              >
+                <span>
+                  Contrasted Theme
+                </span>
+              </option>
+              <option
+                value="dark-brown"
+              >
+                <span>
+                  Dark Brown Theme
+                </span>
+              </option>
+              <option
+                value="polar"
+              >
+                <span>
+                  Polar Theme
+                </span>
+              </option>
+            </select>
+          </div>
+          <div
+            className="pt-navbar-divider"
+          />
+          <button
+            className="pt-button pt-icon-user pt-minimal"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            type="button"
+          />
+        </div>
+      </div>
+    </header>
+    <div
+      className="wrapper"
+    >
+      <div
+        className="main-container"
+      >
+        <div
+          className="left-panel react-resizable"
+          style={
+            Object {
+              "height": "undefinedpx",
+              "width": "300px",
+            }
+          }
+        >
+          <h4
+            className="left-panel-title pt-dark"
+          >
+            <span>
+              Dashboard
+            </span>
+          </h4>
+          <div
+            style={
+              Object {
+                "overflowX": "hidden",
+                "overflowY": "visible",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            <div
+              className="tree-wrapper"
+            >
+              <div
+                className="leftbar-group"
+              >
+                <div
+                  className="pt-button-group pt-minimal pt-dark"
+                >
+                  <button
+                    className="pt-button pt-icon-home"
+                    onClick={[Function]}
+                    tabIndex="0"
+                  />
+                  <div>
+                    <span
+                      className="pt-popover-target pt-dark"
+                      onClick={[Function]}
+                    >
+                      <button
+                        className="pt-button pt-icon-add"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <ul
+                  className="tree-root"
+                >
+                  <div
+                    className="pt-callout pt-icon-info-sign no-server-info"
+                  >
+                    <span>
+                      You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server.
+                    </span>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <span
+            className="react-resizable-handle"
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "touchAction": "none",
+              }
+            }
+          />
+        </div>
+        <div
+          className="right-panel"
+        >
+          <div>
+            <div
+              className="dashboard-container"
+            >
+              <h2>
+                QU4RTET
+              </h2>
+              <h3>
+                <span>
+                  The Open Source Level 4
+                </span>
+              </h3>
+              <h4
+                className="version"
+              >
+                <span>
+                  Version test-version
+                </span>
+              </h4>
+              <div
+                style={
+                  Object {
+                    "height": "100%",
+                    "opacity": "0.06",
+                    "position": "fixed",
+                    "right": "0",
+                    "width": "50%",
+                    "zIndex": "-1",
+                  }
+                }
+              >
+                <svg
+                  id="letter-4-bck"
+                  version="1.1"
+                  viewBox="0 0 17 17"
+                >
+                  <g
+                    transform="translate(1, 0)"
+                  >
+                    <path
+                      className="letter-4-path"
+                      d="M 9.2765539,0.02422728 1.8859289,12.825008 h 8.7402351 v 3.189453 h 3.169921 v -3.189453 h 2.179688 V 9.6550867 H 13.796085 V 0.02422728 Z M 10.626164,3.3640711 V 9.6550867 H 6.6554602 Z m -9.4296882,10.6503899 -1.18164057,2 H 3.1964758 l 1.1796875,-2 z"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div
+                className="dashboard-actions-groups"
+              >
+                <div
+                  className="dashboard-items-container"
+                >
+                  <div
+                    className="dashboard-items"
+                  >
+                    <div
+                      className="dashboard-actions-group"
+                    >
+                      <h4>
+                        <span>
+                          Start
+                        </span>
+                      </h4>
+                      <ul>
+                        <li>
+                          <a
+                            onClick={[Function]}
+                          >
+                            <span>
+                              Add a New Server
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            onClick={[Function]}
+                          >
+                            <span>
+                              Add a Plugin
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div
+                      className="dashboard-actions-group"
+                    >
+                      <h4>
+                        <span>
+                          Resources & Documentation
+                        </span>
+                      </h4>
+                      <ul>
+                        <li>
+                          <a
+                            href="http://serial-lab.com"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            Serial Lab
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/qu4rtet/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              QU4RTET Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/quartet-ui/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              QU4RTET Desktop Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/EPCPyYes/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              EPCPyYes Module Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/EParseCIS/readme.html"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              EParseCIS Module Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/quartet_epcis/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              EPCIS Module Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/serialbox/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              Number Range Module Documentation
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div
+                    className="dashboard-items"
+                  >
+                    <div
+                      className="dashboard-actions-group"
+                    >
+                      <h4>
+                        <span>
+                          Servers
+                        </span>
+                      </h4>
+                      <ul>
+                        <li>
+                          <span>
+                            You currently have no QU4RTET server in your configuration.
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

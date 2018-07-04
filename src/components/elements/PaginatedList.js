@@ -165,16 +165,14 @@ class _PaginatedList extends Component {
               </ControlGroup>
               <div className="label-info-display">
                 <FormattedMessage
-                  id="plugins.epcis.entriesTotal"
+                  id="app.common.entriesTotal"
                   values={{entriesCount: this.props.count}}
                 />
               </div>
             </div>
           </div>
           <div className="overflowed-table">
-            <table
-              style={{textAlign: "center", verticalAlign: "middle"}}
-              className="pt-table pt-bordered pt-striped pt-interactive">
+            <table className="pt-table pt-bordered pt-striped pt-interactive">
               <this.props.tableHeaderClass server={this.props.server} />
               <tbody
                 style={{
@@ -185,6 +183,7 @@ class _PaginatedList extends Component {
                   ? entries.map((entry, index) => {
                       return (
                         <this.props.entryClass
+                          key={`entry-${index}`}
                           entry={entry}
                           server={this.props.server}
                           history={this.props.history}
@@ -202,3 +201,6 @@ class _PaginatedList extends Component {
 }
 
 export const PaginatedList = withRouter(_PaginatedList);
+
+window.qu4rtet.exports("components/elements/PaginatedList", this);
+

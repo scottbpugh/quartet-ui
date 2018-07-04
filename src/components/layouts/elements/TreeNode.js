@@ -129,6 +129,8 @@ TreeNode.propTypes = {
   onContextMenu: PropTypes.func.isRequired,
   depth: PropTypes.number.isRequired,
   active: PropTypes.bool,
-  serverID: PropTypes.string.isRequired,
+  serverID: PropTypes.string,
   childrenNodes: PropTypes.arrayOf(PropTypes.element)
 };
+window.qu4rtet.exports("components/layouts/elements/TreeNode", this);
+
