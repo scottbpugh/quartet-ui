@@ -36,18 +36,16 @@ class _AddCompany extends Component {
       formStructure: []
     };
   }
+
   render() {
     let company = null;
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.edit
-        ? true
-        : false;
+    const editMode = !!(this.props.location
+      && this.props.location.state
+      && this.props.location.state.edit);
     if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.defaultValues
+      this.props.location
+      && this.props.location.state
+      && this.props.location.state.defaultValues
     ) {
       // to prepopulate with existing values.
       company = this.props.location.state.defaultValues;
@@ -60,7 +58,8 @@ class _AddCompany extends Component {
           ) : (
             <FormattedMessage id="plugins.masterData.editCompany" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>

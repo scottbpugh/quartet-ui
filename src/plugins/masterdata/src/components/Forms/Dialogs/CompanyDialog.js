@@ -29,7 +29,9 @@ const CompanyEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.name}</h5>
+      <h5>
+        {props.entry.name}
+      </h5>
       {props.entry.longitude && props.entry.latitude ? (
         <SingleMarkerMap
           size={{width: "260px"}}
@@ -45,9 +47,19 @@ const CompanyEntry = props => {
       )}
 
       <ul className="picker-data-list">
-        <li>{props.entry.GLN13}</li>
-        {props.entry.city ? <li>{props.entry.city}</li> : null}
-        {props.entry.country ? <li>{props.entry.country}</li> : null}
+        <li>
+          {props.entry.GLN13}
+        </li>
+        {props.entry.city ? (
+          <li>
+            {props.entry.city}
+          </li>
+        ) : null}
+        {props.entry.country ? (
+          <li>
+            {props.entry.country}
+          </li>
+        ) : null}
       </ul>
     </div>
   );
@@ -61,6 +73,7 @@ export class CompanyDialog extends Component {
       edited: false // to preserve overridden company if changed from the form.
     };
   }
+
   componentDidMount() {
     this.setState({
       companyName: null,
@@ -68,14 +81,16 @@ export class CompanyDialog extends Component {
     });
     this.setCompanyName(this.props);
   }
+
   componentWillReceiveProps(nextProps) {
     this.setCompanyName(nextProps);
   }
+
   setCompanyName(props) {
     if (
-      this.state.edited === false &&
-      props.existingValues &&
-      props.existingValues.company
+      this.state.edited === false
+      && props.existingValues
+      && props.existingValues.company
     ) {
       pluginRegistry
         .getServer(props.server)
@@ -87,12 +102,14 @@ export class CompanyDialog extends Component {
         });
     }
   }
+
   changeValue(entry) {
     this.setState({companyName: entry.name, edited: true}, () => {
       this.props.changeFieldValue(this.props.formName, "company", entry.id);
       this.props.toggleCompanyDialog();
     });
   }
+
   render() {
     return (
       <div>
@@ -101,7 +118,8 @@ export class CompanyDialog extends Component {
             <Tag
               style={{cursor: "pointer"}}
               className="pt-intent-primary"
-              onClick={this.props.toggleCompanyDialog}>
+              onClick={this.props.toggleCompanyDialog}
+            >
               {this.state.companyName}
             </Tag>
           ) : (
@@ -120,7 +138,8 @@ export class CompanyDialog extends Component {
             "pt-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
-          title="Select a Company">
+          title="Select a Company"
+        >
           <div className="pt-dialog-body">
             <SingleCardPicker
               {...this.props}

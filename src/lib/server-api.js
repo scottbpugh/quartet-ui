@@ -27,7 +27,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
  * @return {object} A request init object with headers and basic auth.
  */
 export const prepHeadersAuth = async (server, method = "GET") => {
-  let headers = new Headers();
+  const headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Content-Type", "application/json");
   headers.append(
@@ -35,8 +35,8 @@ export const prepHeadersAuth = async (server, method = "GET") => {
     await pluginRegistry.getServer(server.serverID).getAuthorization()
   );
   return {
-    method: method,
-    headers: headers,
+    method,
+    headers,
     mode: "cors"
   };
 };
@@ -57,14 +57,13 @@ export const getFormInfo = async (server, path, createForm, processField) => {
     })
     .then(data => {
       // parse the values and filter to the one that are not readonly.
-      let postFields = data.actions.POST;
-      let formStructure = Object.keys(postFields)
+      const postFields = data.actions.POST;
+      const formStructure = Object.keys(postFields)
         .map(field => {
           if (postFields[field].read_only === false) {
             return {name: field, description: postFields[field]};
-          } else {
-            return null;
           }
+          return null;
         })
         .filter(fieldObj => {
           if (processField) {
@@ -83,7 +82,7 @@ export const getFormInfo = async (server, path, createForm, processField) => {
       showMessage({
         type: "danger",
         id: "app.servers.errorFormFetch",
-        values: {error: error, serverName: server.serverSettingName}
+        values: {error, serverName: server.serverSettingName}
       });
       throw error;
     });
@@ -103,11 +102,11 @@ export const fetchObject = async (
   operationId = "",
   parameters = {}
 ) => {
-  let client = await serverInstance.getClient();
+  const client = await serverInstance.getClient();
   try {
-    let response = await client.execute({
-      operationId: operationId,
-      parameters: parameters,
+    const response = await client.execute({
+      operationId,
+      parameters,
       securities: {
         authorized: client.securities,
         specSecurity: [client.spec.securityDefinitions]
@@ -140,11 +139,11 @@ export const fetchPageList = async (
   operationId,
   parameters
 ) => {
-  let client = await serverInstance.getClient();
+  const client = await serverInstance.getClient();
   try {
-    let response = await client.execute({
-      operationId: operationId,
-      parameters: parameters,
+    const response = await client.execute({
+      operationId,
+      parameters,
       securities: {
         authorized: client.securities,
         specSecurity: [client.spec.securityDefinitions]
@@ -152,9 +151,8 @@ export const fetchPageList = async (
     });
     if (response.ok) {
       return response.body;
-    } else {
-      throw new Error(response);
     }
+    throw new Error(response);
   } catch (e) {
     showMessage({
       type: "error",
@@ -187,8 +185,8 @@ export const fetchListAll = async (
       .then(client => {
         client
           .execute({
-            operationId: operationId,
-            parameters: parameters,
+            operationId,
+            parameters,
             securities: {
               authorized: client.securities,
               specSecurity: [client.spec.securityDefinitions]
@@ -203,9 +201,9 @@ export const fetchListAll = async (
                 results = results.concat(response.body.results);
                 // pagination in effect. Assuming page number navigation.
                 if (response.body.next) {
-                  let url = new URL(response.body.next);
-                  let page = new URLSearchParams(url.search).get("page");
-                  let subParameters = {...parameters, page: page};
+                  const url = new URL(response.body.next);
+                  const page = new URLSearchParams(url.search).get("page");
+                  const subParameters = {...parameters, page};
                   fetchListAll(operationId, subParameters, results)
                     .then(resolve)
                     .catch(reject);

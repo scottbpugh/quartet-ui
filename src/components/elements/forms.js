@@ -98,15 +98,15 @@ export const DefaultField = ({
     inputField = (
       <div className="pt-select">
         <select {...input} name={fieldData.name} type="select" width={300}>
-          {children ? children : null}
+          {children || null}
           {!children && fieldData.description.choices
             ? Object.keys(fieldData.description.choices).map(choice => {
-                return (
-                  <option key={choice} value={choice}>
-                    {fieldData.description.choices[choice]}
-                  </option>
-                );
-              })
+              return (
+                <option key={choice} value={choice}>
+                  {fieldData.description.choices[choice]}
+                </option>
+              );
+            })
             : null}
         </select>
       </div>
@@ -125,10 +125,9 @@ export const DefaultField = ({
     );
   }
 
-  let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
-  const shouldHide =
-    fieldData.description.type === "hidden" || fieldData.hidden;
+  const helperInstruction = fieldData.description.help_text || "";
+  const helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
+  const shouldHide = fieldData.description.type === "hidden" || fieldData.hidden;
   const style = {};
   style.display = shouldHide ? "none" : "block";
   return (
@@ -137,7 +136,8 @@ export const DefaultField = ({
         helperText={helperText}
         label={fieldData.description.label}
         required={fieldData.description.required}
-        intent={intent}>
+        intent={intent}
+      >
         {inputField}
       </FormGroup>
     </div>
@@ -152,8 +152,8 @@ export const DefaultField = ({
  * @return {array} Array of validators.
  */
 export const getSyncValidators = field => {
-  let validate = []; // Dynamically build this.
-  //validate.push(required);
+  const validate = []; // Dynamically build this.
+  // validate.push(required);
   if (field.description.required === true) {
     validate.push(required);
   }
@@ -161,15 +161,15 @@ export const getSyncValidators = field => {
     validate.push(maxLength(Number(field.description.max_length)));
   }
   if (
-    field.description.min_value &&
-    Number(field.description.min_value) > -999999
+    field.description.min_value
+    && Number(field.description.min_value) > -999999
   ) {
     // don't validate huge number.
     validate.push(minValue(Number(field.description.min_value)));
   }
   if (
-    field.description.max_value &&
-    Number(field.description.max_value) < 999999
+    field.description.max_value
+    && Number(field.description.max_value) < 999999
   ) {
     // don't validate huge number.
     validate.push(maxValue(Number(field.description.max_value)));

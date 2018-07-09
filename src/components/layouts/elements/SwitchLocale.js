@@ -28,9 +28,12 @@ class _SwitchLocale extends Component {
       <div className="pt-select">
         <select
           value={currentLocale}
-          onChange={e => this.props.switchLocale(e.target.value)}>
+          onChange={e => this.props.switchLocale(e.target.value)}
+        >
           {Object.keys(messages).map(locale => (
-            <option key={locale}>{locale}</option>
+            <option key={locale}>
+              {locale}
+            </option>
           ))}
         </select>
       </div>
@@ -45,4 +48,3 @@ export var SwitchLocale = connect(
   {switchLocale}
 )(_SwitchLocale);
 window.qu4rtet.exports("components/layouts/elements/SwitchLocale", this);
-

@@ -35,6 +35,7 @@ class _AddRule extends Component {
     // reload all rules.
     this.props.loadRules(this.props.server);
   }
+
   editRuleParam(param) {
     const {server, rule} = this.props;
     this.props.history.push({
@@ -44,12 +45,14 @@ class _AddRule extends Component {
       state: {defaultValues: param, edit: true}
     });
   }
+
   deleteRuleParam(param) {
     this.props.deleteRuleParam(this.props.server, param);
   }
+
   render() {
     let rule = null; // for edit only.
-    let editMode = this.props.rule ? true : false;
+    const editMode = !!this.props.rule;
     if (this.props.rule) {
       rule = this.props.rule;
     }
@@ -61,7 +64,8 @@ class _AddRule extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editRule" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
@@ -96,7 +100,8 @@ class _AddRule extends Component {
                         this.props.server.serverID
                       }/rule/${rule.id}`
                     );
-                  }}>
+                  }}
+                >
                   <FormattedMessage id="plugins.capture.addRuleParameter" />
                 </button>
                 <FormattedMessage id="plugins.capture.ruleParameters" />
@@ -124,17 +129,21 @@ class _AddRule extends Component {
                     {rule.params.map(param => {
                       return (
                         <tr key={param.id}>
-                          <td>{param.name}</td>
-                          <td>{param.value}</td>
+                          <td>
+                            {param.name}
+                          </td>
+                          <td>
+                            {param.value}
+                          </td>
                           <td style={{width: "80px"}}>
-                            <ButtonGroup minimal={true} small={true}>
+                            <ButtonGroup minimal small>
                               <Button
-                                small={true}
+                                small
                                 iconName="edit"
                                 onClick={this.editRuleParam.bind(this, param)}
                               />
                               <Button
-                                small={true}
+                                small
                                 iconName="trash"
                                 onClick={this.deleteRuleParam.bind(this, param)}
                               />
@@ -160,10 +169,10 @@ export const AddRule = connect(
       server: state.serversettings.servers[ownProps.match.params.serverID],
       rule: ownProps.match.params.ruleID
         ? state.capture.servers[ownProps.match.params.serverID].rules.find(
-            rule => {
-              return Number(rule.id) === Number(ownProps.match.params.ruleID);
-            }
-          )
+          rule => {
+            return Number(rule.id) === Number(ownProps.match.params.ruleID);
+          }
+        )
         : null
     };
   },

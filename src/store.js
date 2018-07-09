@@ -31,22 +31,22 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
 import {addLocaleData} from "react-intl";
+import {setEnablePlugin} from "reducers/plugins";
+import {updateMessages} from "reducers/locales";
 import messages from "./messages";
 import {flattenMessages} from "./lib/flattenMessages";
 import {initialData as pluginInitialData} from "./reducers/plugins";
 import {initialData as layoutInitialData} from "./reducers/layout";
 // http://nicolasgallagher.com/redux-modules-and-code-splitting/
-import {setEnablePlugin} from "reducers/plugins";
-import {updateMessages} from "reducers/locales";
 
 addLocaleData([...en, ...fr]);
-let locale = "en-US";
+const locale = "en-US";
 
 const initialState = {
   serversettings: initialData(),
   intl: {
     defaultLocale: locale,
-    locale: locale,
+    locale,
     messages: flattenMessages(messages[locale])
   },
   layout: layoutInitialData(),
@@ -70,14 +70,14 @@ export default function configureStore(coreInitialState) {
     persistState(["serversettings", "intl", "plugins", "layout"], {
       slicer: paths => {
         return state => {
-          let subset = {};
+          const subset = {};
           paths.forEach(path => {
             if (path === "plugins") {
               // remove tree nodes from persistent savings.
               subset[path] = {plugins: state[path].plugins};
             } else if (path === "intl") {
               // remove messages, to force a refresh of them each time.
-              let {messages, ...sub} = state[path];
+              const {messages, ...sub} = state[path];
               subset[path] = sub;
             } else {
               // otherwise, keep entire sub state.
@@ -96,12 +96,12 @@ export default function configureStore(coreInitialState) {
     serversettings,
     form: reduxFormReducer,
     intl: intlReducer,
-    locale: locale,
-    layout: layout,
+    locale,
+    layout,
     plugins: pluginReducer
   };
 
-  /*const combine = pluginReducers => {
+  /* const combine = pluginReducers => {
     const pluginsState = pluginRegistry.getInitialData();
     const reducerNames = Object.keys(pluginReducers);
     for (let item of reducerNames) {
@@ -113,7 +113,7 @@ export default function configureStore(coreInitialState) {
       };
     }
     return pluginReducers;
-  };*/
+  }; */
 
   const combine = pluginReducers => {
     const initialState = {
@@ -134,7 +134,7 @@ export default function configureStore(coreInitialState) {
   };
 
   const store = createStore(
-    //combine(pluginRegistry.getReducers()),
+    // combine(pluginRegistry.getReducers()),
     combineReducers(coreReducers),
     initialState,
     enhancer
@@ -145,7 +145,7 @@ export default function configureStore(coreInitialState) {
     );
   });
   // enable previously enabled plugins.
-  let state = store.getState();
+  const state = store.getState();
   if ("NumberRange" in state.plugins.plugins) {
     // old version. Wipe plugins.
     console.log("Old plugins structure, resetting");
@@ -154,7 +154,7 @@ export default function configureStore(coreInitialState) {
       payload: pluginInitialData().plugins
     });
   }
-  for (let pluginName in state.plugins.plugins) {
+  for (const pluginName in state.plugins.plugins) {
     try {
       if (state.plugins.plugins[pluginName].enabled === true) {
         window.qu4rtet

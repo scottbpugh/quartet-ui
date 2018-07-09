@@ -37,8 +37,8 @@ import {LeftPanel, Panels} from "components/layouts/Panels";
 import classNames from "classnames";
 import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import QuartetLogo from "./QuartetLogo";
 import {injectIntl} from "react-intl";
+import QuartetLogo from "./QuartetLogo";
 
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
@@ -51,19 +51,20 @@ class _App extends Component {
     // While it was tempting to redirect to the currentPath persisted
     // through local storage, it can be dangerous if items or plugins have been
     // removed from the db/disabled as plugins.
-    //if (process.env.NODE_ENV !== "development") {
+    // if (process.env.NODE_ENV !== "development") {
     this.props.history.push("/");
-    //}
+    // }
     // load the necessary server data.
     this.processServers();
   }
+
   processServers() {
     // pull the server data from redux, instantiate Server classes based on this.
     // Register them with the pluginRegistry so that core and plugins can use
     // the class instances for their own API calls etc...
     const {servers} = this.props.serversettings;
     Object.keys(servers).forEach(serverID => {
-      let server = new Server(servers[serverID]);
+      const server = new Server(servers[serverID]);
       pluginRegistry.registerServer(server);
       server.listApps();
     });
@@ -74,19 +75,19 @@ class _App extends Component {
       <div
         className={classNames({
           App: true,
-          "pt-dark": ["dark", "dark-brown"].includes(this.props.theme)
-            ? true
-            : false,
-          contrasted: this.props.theme === "contrasted" ? true : false,
-          "dark-brown": this.props.theme === "dark-brown" ? true : false,
-          polar: this.props.theme === "polar" ? true : false
-        })}>
+          "pt-dark": !!["dark", "dark-brown"].includes(this.props.theme),
+          contrasted: this.props.theme === "contrasted",
+          "dark-brown": this.props.theme === "dark-brown",
+          polar: this.props.theme === "polar"
+        })}
+      >
         <header>
           <Navbar
             className={classNames({
               "pt-fixed-top": true,
-              "pt-dark": this.props.theme === "polar" ? false : true
-            })}>
+              "pt-dark": this.props.theme !== "polar"
+            })}
+          >
             <NavbarGroup>
               <NavbarHeading>
                 <QuartetLogo style={{width: "50%", height: "50%"}} />
@@ -137,7 +138,7 @@ const App = connect(
     };
   },
   dispatch => {
-    return {dispatch: dispatch};
+    return {dispatch};
   }
 )(_App);
 export default withRouter(injectIntl(App));

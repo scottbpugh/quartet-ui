@@ -19,16 +19,16 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadRules} from "../reducers/capture";
 import {Card, Tag, Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import {loadRules} from "../reducers/capture";
 import "./RuleList.css";
 
 class ServerRules extends Component {
   render() {
-    let serverName = this.props.server.serverSettingName;
-    let serverID = this.props.server.serverID;
-    let {rules} = this.props;
+    const serverName = this.props.server.serverSettingName;
+    const serverID = this.props.server.serverID;
+    const {rules} = this.props;
 
     return (
       <Card className="pt-elevation-4">
@@ -37,10 +37,13 @@ class ServerRules extends Component {
             className="pt-button right-aligned-elem pt-intent-primary"
             onClick={e => {
               this.props.history.push(`/capture/add-rule/${serverID}/rule`);
-            }}>
+            }}
+          >
             <FormattedMessage id="plugins.capture.addRule" />
           </button>
-          {serverName} Rules
+          {serverName}
+          {' '}
+Rules
         </h5>
         <div />
         <div>
@@ -70,26 +73,32 @@ class ServerRules extends Component {
             <tbody>
               {Array.isArray(rules) && rules.length > 0
                 ? rules.map(rule => {
-                    return (
-                      <tr key={rule.id}>
-                        <td>
-                          {rule.name.charAt(0).toUpperCase() +
-                            rule.name.slice(1)}
-                        </td>
-                        <td>{rule.description}</td>
-                        <td>
-                          {rule.steps.map(step => (
-                            <Tag
-                              key={step.name}
-                              intent={Intent.PRIMARY}
-                              className="step">
-                              #{step.order} {step.name}
-                            </Tag>
-                          ))}
-                        </td>
-                      </tr>
-                    );
-                  })
+                  return (
+                    <tr key={rule.id}>
+                      <td>
+                        {rule.name.charAt(0).toUpperCase()
+                            + rule.name.slice(1)}
+                      </td>
+                      <td>
+                        {rule.description}
+                      </td>
+                      <td>
+                        {rule.steps.map(step => (
+                          <Tag
+                            key={step.name}
+                            intent={Intent.PRIMARY}
+                            className="step"
+                          >
+                              #
+                            {step.order}
+                            {' '}
+                            {step.name}
+                          </Tag>
+                        ))}
+                      </td>
+                    </tr>
+                  );
+                })
                 : null}
             </tbody>
           </table>
@@ -103,16 +112,18 @@ class _RuleList extends Component {
   componentDidMount() {
     this.props.loadRules(this.props.server);
   }
+
   render() {
-    let {server, rules} = this.props;
+    const {server, rules} = this.props;
     return (
       <RightPanel
-        title={
+        title={(
           <FormattedMessage
             id="plugins.capture.captureRules"
             defaultMessage="Capture Rules"
           />
-        }>
+)}
+      >
         <div className="large-cards-container full-large">
           <ServerRules
             history={this.props.history}

@@ -22,7 +22,7 @@ import {TestWrapper} from "tools/mockStore";
 import RouteSwitcher from "./routes";
 
 it("returns main", () => {
-  let routeSwitcher = renderer
+  const routeSwitcher = renderer
     .create(
       <TestWrapper>
         <RouteSwitcher />

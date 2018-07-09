@@ -19,19 +19,19 @@ import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import {setServerState} from "./reducer-helper";
 
 it("setServerState returns the proper structure when server data is not yet populated", () => {
-  let currentState = {}; // no servers in there.
-  let newState = setServerState(currentState, "random-server-id", {
+  const currentState = {}; // no servers in there.
+  const newState = setServerState(currentState, "random-server-id", {
     myArray: ["hello", "hello"]
   });
   expect(newState).toMatchSnapshot();
 });
 
 it("setServerState returns the proper structure when server data populated and other keys should remain", () => {
-  let currentState = {}; // no servers in there.
-  let newState = setServerState(currentState, "random-server-id", {
+  const currentState = {}; // no servers in there.
+  const newState = setServerState(currentState, "random-server-id", {
     myArray: ["hello", "hello"]
   });
-  let anotherState = setServerState(newState, "random-server-id", {
+  const anotherState = setServerState(newState, "random-server-id", {
     somethingElse: ["hi", "hi"]
   });
   expect(newState).toMatchSnapshot();
@@ -39,14 +39,14 @@ it("setServerState returns the proper structure when server data populated and o
 });
 
 it("setServerState returns the proper structure with array replaced for same key", () => {
-  let currentState = {}; // no servers in there.
-  let newState = setServerState(currentState, "random-server-id", {
+  const currentState = {}; // no servers in there.
+  const newState = setServerState(currentState, "random-server-id", {
     myArray: ["hello", "hello"]
   });
-  let anotherState = setServerState(newState, "random-server-id", {
+  const anotherState = setServerState(newState, "random-server-id", {
     somethingElse: ["hi", "hi"]
   });
-  let modifiedMyArray = setServerState(anotherState, "random-server-id", {
+  const modifiedMyArray = setServerState(anotherState, "random-server-id", {
     myArray: {this: {is: {something: "completely different"}}}
   });
   expect(newState).toMatchSnapshot();
@@ -55,13 +55,13 @@ it("setServerState returns the proper structure with array replaced for same key
 });
 
 it("setServerState returns the proper structure with multiple servers", () => {
-  let currentState = {}; // no servers in there.
-  let newState = setServerState(currentState, "random-server-id", {
+  const currentState = {}; // no servers in there.
+  const newState = setServerState(currentState, "random-server-id", {
     myArray: ["hello", "hello"],
     somethingElse: {hello: "World"}
   });
   expect(newState).toMatchSnapshot();
-  let newServer = setServerState(newState, "Another-Server", {
+  const newServer = setServerState(newState, "Another-Server", {
     something: "Special"
   });
   expect(newServer).toMatchSnapshot();

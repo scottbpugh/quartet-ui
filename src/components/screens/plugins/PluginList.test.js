@@ -36,16 +36,16 @@
 import React, {Component} from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {PluginList} from "./PluginList";
 import {initialData} from "reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 import {IntlProvider, intlReducer} from "react-intl-redux";
 import {Provider} from "react-redux";
 import {mockStore, TestWrapper, initialState} from "tools/mockStore";
+import {PluginList} from "./PluginList";
 
 it("renders correctly", () => {
-  let store = mockStore(initialState);
+  const store = mockStore(initialState);
   const props = {};
   const pluginList = renderer
     .create(

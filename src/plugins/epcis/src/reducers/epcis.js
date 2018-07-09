@@ -17,9 +17,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {handleActions} from "redux-actions";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import actions from "../actions/epcis";
 import {showMessage} from "lib/message";
 import {setServerState} from "lib/reducer-helper";
+import actions from "../actions/epcis";
 
 export const initialData = () => {
   return {
@@ -78,7 +78,7 @@ export const loadEntry = (server, entryID) => {
 };
 
 export const loadEntries = (server, search, page, ordering) => {
-  let params = {};
+  const params = {};
   if (search) {
     params.search = search;
   }
@@ -121,9 +121,9 @@ export const getGeoForEntry = (server, epc) => {
         type: actions.clearGeoEvents,
         payload: {serverID: server.serverID}
       });
-      let client = await pluginRegistry.getServer(server.serverID).getClient();
-      let response = await client.apis.masterdata.masterdata_entry_geohistory_by_epc_read(
-        {epc: epc}
+      const client = await pluginRegistry.getServer(server.serverID).getClient();
+      const response = await client.apis.masterdata.masterdata_entry_geohistory_by_epc_read(
+        {epc}
       );
       if (response.ok) {
         return dispatch({
@@ -145,7 +145,7 @@ export const getGeoForEntry = (server, epc) => {
 };
 
 export const loadEvents = (server, search, page, ordering, type) => {
-  let params = {};
+  const params = {};
   if (type) {
     params.type = type;
   }

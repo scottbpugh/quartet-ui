@@ -44,4 +44,3 @@ export const asyncDispatchMiddleware = store => next => action => {
 
 export default asyncDispatchMiddleware;
 window.qu4rtet.exports("middlewares/asyncDispatchMiddelware", this);
-

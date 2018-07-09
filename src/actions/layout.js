@@ -24,4 +24,3 @@ export default {
   locationDidUpdate: createAction("LAYOUT_LOCATION_DID_UPDATE")
 };
 window.qu4rtet.exports("actions/layout", this);
-

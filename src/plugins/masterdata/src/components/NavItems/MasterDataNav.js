@@ -32,9 +32,11 @@ class _MasterDataNav extends Component {
       .getServer(this.props.serverID)
       .appList.includes("masterdata");
   }
+
   static get PLUGIN_COMPONENT_NAME() {
     return "MasterDataNav";
   }
+
   render() {
     const {serverID, server} = this.props;
     if (this.serverHasMasterData()) {
@@ -58,19 +60,19 @@ class _MasterDataNav extends Component {
               serverID={serverID}
               server={server}
             />
-          ]}>
+          ]}
+        >
           <FormattedMessage id="plugins.masterData.masterDataNav" />
         </TreeNode>
       );
-    } else {
-      return (
-        <TreeNode depth={this.props.depth} childrenNodes={[]}>
-          <i>
-            <FormattedMessage id="plugins.masterData.noMasterDataFound" />
-          </i>
-        </TreeNode>
-      );
     }
+    return (
+      <TreeNode depth={this.props.depth} childrenNodes={[]}>
+        <i>
+          <FormattedMessage id="plugins.masterData.noMasterDataFound" />
+        </i>
+      </TreeNode>
+    );
   }
 }
 

@@ -56,51 +56,57 @@ class _RouteSwitcher extends Component {
     super(props);
     this.routes = coreRoutes();
   }
+
   processPlugins() {
     // add new routes
     this.routes = coreRoutes().concat(pluginRegistry.getArrayRoutes());
     // add new components.
-    let pluginComponents = pluginRegistry.getRegisteredComponents();
-    for (let pluginComponentName in pluginComponents) {
-      let entry = pluginComponents[pluginComponentName];
+    const pluginComponents = pluginRegistry.getRegisteredComponents();
+    for (const pluginComponentName in pluginComponents) {
+      const entry = pluginComponents[pluginComponentName];
       this.props.dispatch({
         type: entry.action,
         payload: {
           pluginName: entry.pluginName,
-          pluginComponentName: pluginComponentName
+          pluginComponentName
         }
       });
     }
     this.props.dispatch(updateMessages(this.props.intl.locale));
     // remove unregistered componments.
-    let disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
-    for (let pluginComponentName in disabledPluginComponents) {
-      let entry = disabledPluginComponents[pluginComponentName];
+    const disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
+    for (const pluginComponentName in disabledPluginComponents) {
+      const entry = disabledPluginComponents[pluginComponentName];
       this.props.dispatch({
         type: entry.action,
         payload: {
           pluginName: entry.pluginName,
-          pluginComponentName: pluginComponentName
+          pluginComponentName
         }
       });
     }
   }
+
   componentDidMount() {
     this.processPlugins();
   }
+
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.plugins) !==
-        JSON.stringify(nextProps.plugins) ||
-      nextProps.pluginListUpdated
+      JSON.stringify(this.props.plugins)
+        !== JSON.stringify(nextProps.plugins)
+      || nextProps.pluginListUpdated
     ) {
       this.processPlugins();
     }
   }
+
   render() {
     return (
       <App>
-        <Switch>{this.routes}</Switch>
+        <Switch>
+          {this.routes}
+        </Switch>
       </App>
     );
   }
@@ -114,9 +120,8 @@ const RouteSwitcher = connect(
     };
   },
   dispatch => {
-    return {dispatch: dispatch};
+    return {dispatch};
   }
 )(_RouteSwitcher);
 export default withRouter(RouteSwitcher);
 window.qu4rtet.exports("routes", this);
-

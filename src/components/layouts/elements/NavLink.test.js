@@ -19,8 +19,8 @@
 import React, {Component} from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import NavLink from "./NavLink";
 import {TestWrapper} from "tools/mockStore";
+import NavLink from "./NavLink";
 
 it("renders correctly", () => {
   const props = {to: "/", iconName: "pt-icon-test"};
@@ -28,7 +28,9 @@ it("renders correctly", () => {
     .create(
       <TestWrapper>
         <NavLink {...props}>
-          <span>Something here.</span>
+          <span>
+Something here.
+          </span>
         </NavLink>
       </TestWrapper>
     )
