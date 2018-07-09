@@ -53,17 +53,15 @@
   "homepage": "./",
   "scripts": {
     "start": "nf start",
-    "build":
-      "rm -r public/build; rm -r ./build/; ./node_modules/.bin/babel src/ --out-dir public/build --copy-files; mkdir ./build; cp -r ./public ./build; cp ./public/icon.png ./build",
+    "build": "rm -r public/build; rm -r ./build/; ./node_modules/.bin/babel src/ --out-dir public/build --copy-files; mkdir ./build; cp -r ./public ./build; cp ./public/icon.png ./build",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "test": "CI=true jest --env=jsdom",
     "electron": "electron .",
-    "react-start":
-      "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
+    "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar":
-      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
-    "security-check": "nsp check --preprocessor yarn --reporter table"
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
+    "security-check": "nsp check --preprocessor yarn --reporter table",
+    "lint": "./node_modules/.bin/eslint src"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -80,7 +78,11 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
+    "eslint": "^5.1.0",
     "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-react": "^7.10.0",
     "foreman": "^2.0.0",
     "jest": "^23.2.0",
     "jest-canvas-mock": "^1.1.0",
@@ -94,24 +96,30 @@
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
-      "target": ["zip"]
+      "target": [
+        "zip"
+      ]
     },
     "win": {
-      "target": ["nsis", "zip"]
+      "target": [
+        "nsis",
+        "zip"
+      ]
     },
     "directories": {
       "buildResources": "build"
     },
     "publish": {
       "provider": "generic",
-      "url":
-        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+      "url": "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }
   },
   "jest": {
-    "setupFiles": ["jest-canvas-mock"]
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   },
   "postinstall": "electron-builder install-app-deps"
 }
