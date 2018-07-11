@@ -205,7 +205,7 @@ export class Server {
       defaultValue: initialValues.authType || "basic",
       description: {
         type: "choice",
-        required: true,
+        required: false,
         read_only: false,
         label: "Authentication Type",
         choices: {basic: "Basic", token: "Token"},
@@ -417,4 +417,3 @@ export class Server {
 }
 
 window.qu4rtet.exports("lib/servers", this);
-
