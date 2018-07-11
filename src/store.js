@@ -163,12 +163,15 @@ export default function configureStore(coreInitialState) {
             pluginObject.enablePlugin();
             store.dispatch(updateMessages(state.intl.locale));
             store.dispatch(
-              setEnablePlugin({
-                [pluginName]: {
-                  ...state.plugins.plugins[pluginName],
-                  loaded: new Date().toString()
-                }
-              })
+              setEnablePlugin(
+                {
+                  [pluginName]: {
+                    ...state.plugins.plugins[pluginName],
+                    loaded: new Date().toString()
+                  }
+                },
+                false
+              )
             );
           });
       }

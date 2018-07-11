@@ -101,17 +101,20 @@ export const DefaultField = ({
           {children || null}
           {!children && fieldData.description.choices
             ? Object.keys(fieldData.description.choices).map(choice => {
-              return (
-                <option key={choice} value={choice}>
-                  {fieldData.description.choices[choice]}
-                </option>
-              );
-            })
+                return (
+                  <option key={choice} value={choice}>
+                    {fieldData.description.choices[choice]}
+                  </option>
+                );
+              })
             : null}
         </select>
       </div>
     );
+  } else if (fieldData.description.type === "nested object") {
+    return null;
   } else {
+    // just a plain input.
     inputField = (
       <input
         {...input}
@@ -126,8 +129,11 @@ export const DefaultField = ({
   }
 
   const helperInstruction = fieldData.description.help_text || "";
-  const helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
-  const shouldHide = fieldData.description.type === "hidden" || fieldData.hidden;
+  const helperText = error
+    ? `${helperInstruction} ${error} `
+    : helperInstruction;
+  const shouldHide =
+    fieldData.description.type === "hidden" || fieldData.hidden;
   const style = {};
   style.display = shouldHide ? "none" : "block";
   return (
@@ -136,8 +142,7 @@ export const DefaultField = ({
         helperText={helperText}
         label={fieldData.description.label}
         required={fieldData.description.required}
-        intent={intent}
-      >
+        intent={intent}>
         {inputField}
       </FormGroup>
     </div>
@@ -161,15 +166,15 @@ export const getSyncValidators = field => {
     validate.push(maxLength(Number(field.description.max_length)));
   }
   if (
-    field.description.min_value
-    && Number(field.description.min_value) > -999999
+    field.description.min_value &&
+    Number(field.description.min_value) > -999999
   ) {
     // don't validate huge number.
     validate.push(minValue(Number(field.description.min_value)));
   }
   if (
-    field.description.max_value
-    && Number(field.description.max_value) < 999999
+    field.description.max_value &&
+    Number(field.description.max_value) < 999999
   ) {
     // don't validate huge number.
     validate.push(maxValue(Number(field.description.max_value)));

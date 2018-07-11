@@ -70,12 +70,15 @@ export const initialData = () => {
   };
 };
 
-export const setEnablePlugin = pluginEntries => {
+export const setEnablePlugin = (pluginEntries, showToast = true) => {
   return dispatch => {
     for (const plugin in pluginEntries) {
       pluginEntries[plugin].enabled = true;
     }
-    showMessage({type: "success", id: "app.plugins.pluginEnabled"});
+    if (showToast) {
+      showMessage({type: "success", id: "app.plugins.pluginEnabled"});
+    }
+
     return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
   };
 };
@@ -166,7 +169,8 @@ export default handleActions(
       Object.keys(state.plugins).forEach(pluginName => {
         // remove legacy.
         if (action.payload[pluginName]) {
-          action.payload[pluginName].enabled = state.plugins[pluginName].enabled;
+          action.payload[pluginName].enabled =
+            state.plugins[pluginName].enabled;
         }
       });
 
