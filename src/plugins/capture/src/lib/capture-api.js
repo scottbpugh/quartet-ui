@@ -21,17 +21,17 @@ import base64 from "base-64";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 export const fileUpload = (server, rule, fileObject) => {
-  let data = new FormData();
-  let headers = new Headers();
+  const data = new FormData();
+  const headers = new Headers();
   headers.append(
     "Authorization",
-    "Basic " + base64.encode(server.username + ":" + server.password)
+    `Basic ${base64.encode(`${server.username}:${server.password}`)}`
   );
   headers.append("Accept", "application/json");
   data.append("file", fileObject);
   fetch(`${server.url}capture/quartet-capture/?rule=${rule.name}`, {
     method: "POST",
-    headers: headers,
+    headers,
     body: data
   })
     .then(resp => {
@@ -83,13 +83,12 @@ export const getRuleParamsByRule = (server, ruleID) => {
               }
               return false;
             });
-          } else {
-            showMessage({
-              type: "error",
-              id: "plugins.capture.errorFetchRuleParams"
-            });
-            return [];
           }
+          showMessage({
+            type: "error",
+            id: "plugins.capture.errorFetchRuleParams"
+          });
+          return [];
         })
         .catch(e => {
           showMessage({

@@ -37,28 +37,30 @@ class _AddLocationType extends Component {
       formStructure: []
     };
   }
+
   submitCallback() {
     // refresh list of trade items when field is saved...
-    //this.props.loadTradeItems(this.props.server);
+    // this.props.loadTradeItems(this.props.server);
   }
+
   render() {
     let locationType = this.props.locationTypes
       ? this.props.locationTypes.find(locationType => {
-          return (
-            Number(locationType.id) ===
-            Number(this.props.match.params.locationTypeID)
-          );
-        })
+        return (
+          Number(locationType.id)
+            === Number(this.props.match.params.locationTypeID)
+        );
+      })
       : null;
     if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.defaultValues
+      this.props.location
+      && this.props.location.state
+      && this.props.location.state.defaultValues
     ) {
       // to prepopulate with existing values.
       locationType = this.props.location.state.defaultValues;
     }
-    let editMode = locationType ? true : false;
+    const editMode = !!locationType;
     return (
       <RightPanel
         title={
@@ -67,7 +69,8 @@ class _AddLocationType extends Component {
           ) : (
             <FormattedMessage id="plugins.masterData.editLocationType" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>
@@ -107,8 +110,8 @@ export const AddLocationType = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.masterdata.servers &&
-        state.masterdata.servers[ownProps.match.params.serverID]
+        state.masterdata.servers
+        && state.masterdata.servers[ownProps.match.params.serverID]
       );
     };
     return {

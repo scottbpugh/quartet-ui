@@ -17,8 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
 import {Dialog} from "@blueprintjs/core";
-import {RegisterForm} from "./RegisterForm";
 import classNames from "classnames";
+import {RegisterForm} from "./RegisterForm";
 
 export class RegisterUserDialog extends Component {
   render() {
@@ -29,11 +29,12 @@ export class RegisterUserDialog extends Component {
         isOpen={this.props.isOpen}
         onClose={this.props.closeDialog}
         className={classNames({
-          "pt-dark": theme.startsWith("dark") ? true : false
+          "pt-dark": !!theme.startsWith("dark")
         })}
         title={`${intl.formatMessage({id: "app.servers.registerUser"})} - ${
           server.serverSettingName
-        }`}>
+        }`}
+      >
         <div className="pt-dialog-body">
           <RegisterForm isOpen={isOpen} server={server} />
         </div>

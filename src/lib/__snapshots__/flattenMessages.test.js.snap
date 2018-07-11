@@ -2,7 +2,7 @@
 
 exports[`flattens the main messages properly 1`] = `
 Object {
-  "en-US.app.common.entriesTotal": "Entries Total",
+  "en-US.app.common.entriesTotal": "{entriesCount} Entries Total",
   "en-US.app.common.mainError": "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
   "en-US.app.dashboard.connectServer": "Connect to a Server",
   "en-US.app.dashboard.dashboardHeader3": "The Open Source Level 4",

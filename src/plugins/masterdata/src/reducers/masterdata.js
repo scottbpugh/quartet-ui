@@ -18,9 +18,9 @@
 
 import {handleActions} from "redux-actions";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import actions from "../actions/masterdata";
 import {showMessage} from "lib/message";
 import {setServerState} from "lib/reducer-helper";
+import actions from "../actions/masterdata";
 
 export const initialData = () => {
   return {
@@ -29,7 +29,7 @@ export const initialData = () => {
 };
 
 export const loadLocations = (server, search, page, ordering) => {
-  let params = {};
+  const params = {};
   if (search) {
     params.search = search;
   }
@@ -65,7 +65,7 @@ export const loadLocations = (server, search, page, ordering) => {
 };
 
 export const loadCompanies = (server, search, page, ordering) => {
-  let params = {};
+  const params = {};
   if (search) {
     params.search = search;
   }
@@ -101,7 +101,7 @@ export const loadCompanies = (server, search, page, ordering) => {
 };
 
 export const loadTradeItems = (server, search, page, ordering) => {
-  let params = {};
+  const params = {};
   if (search) {
     params.search = search;
   }
@@ -137,7 +137,7 @@ export const loadTradeItems = (server, search, page, ordering) => {
 };
 
 export const loadLocationTypes = (server, search, page, ordering) => {
-  let params = {};
+  const params = {};
   if (search) {
     params.search = search;
   }
@@ -174,16 +174,16 @@ export const loadLocationTypes = (server, search, page, ordering) => {
 
 export const loadLocationDetail = (server, identifier) => {
   return async dispatch => {
-    let params = {identifier: identifier};
+    const params = {identifier};
     try {
-      let location = await pluginRegistry
+      const location = await pluginRegistry
         .getServer(server)
         .fetchObject("masterdata_location_by_identifier_read", params);
       return dispatch({
         type: actions.loadLocationDetail,
         payload: {
           serverID: server.serverID,
-          locationDetail: {identifier: identifier, detail: location}
+          locationDetail: {identifier, detail: location}
         }
       });
     } catch (e) {
@@ -191,7 +191,7 @@ export const loadLocationDetail = (server, identifier) => {
         type: actions.loadLocationDetail,
         payload: {
           serverID: server.serverID,
-          locationDetail: {identifier: identifier, error: e}
+          locationDetail: {identifier, error: e}
         }
       });
     }

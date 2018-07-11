@@ -23,4 +23,3 @@ export default {
   switchLocale: createAction("LOCALES_SWITCH")
 };
 window.qu4rtet.exports("actions/locales", this);
-

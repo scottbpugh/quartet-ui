@@ -35,6 +35,7 @@ class _AddStepParam extends Component {
     // refresh rules lists and children when param is saved.
     this.props.loadRules(this.props.server);
   }
+
   render() {
     const rule = this.props.rules.find(rule => {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
@@ -46,16 +47,13 @@ class _AddStepParam extends Component {
       });
     }
     let stepParam = null;
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.edit
-        ? true
-        : false;
+    const editMode = !!(this.props.location
+      && this.props.location.state
+      && this.props.location.state.edit);
     if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.defaultValues
+      this.props.location
+      && this.props.location.state
+      && this.props.location.state.defaultValues
     ) {
       // to prepopulate with existing values.
       stepParam = this.props.location.state.defaultValues;
@@ -68,7 +66,8 @@ class _AddStepParam extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editStepParam" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>

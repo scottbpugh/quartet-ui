@@ -16,9 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-window.eval = global.eval = function() {
+window.eval = global.eval = function () {
   throw new Error(`Sorry, this app does not support window.eval().`);
 };
 
 require("./index.js");
-

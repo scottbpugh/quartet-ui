@@ -21,9 +21,9 @@ import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadLocations} from "../../reducers/masterdata";
 import {SingleMarkerMap} from "components/elements/SingleMarkerMap";
 import {PaginatedList} from "components/elements/PaginatedList";
+import {loadLocations} from "../../reducers/masterdata";
 
 const LocationTableHeader = props => (
   <thead style={{textAlign: "center", verticalAlign: "middle"}}>
@@ -79,7 +79,7 @@ const LocationEntry = props => {
     props.history.push(path);
   };
 
-  let goToPayload = goTo.bind(
+  const goToPayload = goTo.bind(
     this,
     `/masterdata/${props.server.serverID}/sgln/${props.entry.SGLN}`
   );
@@ -98,28 +98,43 @@ const LocationEntry = props => {
           />
         ) : null}
       </td>
-      <td onClick={goToPayload}>{props.entry.GLN13}</td>
-      <td onClick={goToPayload}>{props.entry.name}</td>
-      <td onClick={goToPayload}>{props.entry.company}</td>
-      <td onClick={goToPayload}>{props.entry.address1}</td>
-      <td onClick={goToPayload}>{props.entry.country}</td>
-      <td onClick={goToPayload}>{props.entry.city}</td>
-      <td onClick={goToPayload}>{props.entry.location_type}</td>
+      <td onClick={goToPayload}>
+        {props.entry.GLN13}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.name}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.company}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.address1}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.country}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.city}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.location_type}
+      </td>
     </tr>
   );
 };
 
 class _LocationsList extends Component {
   render() {
-    let {server, locations, loadLocations, count, next} = this.props;
+    const {server, locations, loadLocations, count, next} = this.props;
     return (
       <RightPanel
-        title={
+        title={(
           <FormattedMessage
             id="plugins.epcis.entryList"
             defaultMessage="Entries"
           />
-        }>
+)}
+      >
         <div className="large-cards-container full-large">
           <PaginatedList
             {...this.props}
@@ -145,8 +160,8 @@ export const LocationsList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.masterdata.servers &&
-        state.masterdata.servers[ownProps.match.params.serverID]
+        state.masterdata.servers
+        && state.masterdata.servers[ownProps.match.params.serverID]
       );
     };
     return {

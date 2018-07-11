@@ -34,7 +34,8 @@ class _PaginatedList extends Component {
       entries: [],
       entriesPerPage: 20,
       inputSize: 50,
-      maxPages: 1
+      maxPages: 1,
+      count: 0
     };
     this.offset = 0;
     this.currentPage = 1;
@@ -64,7 +65,8 @@ class _PaginatedList extends Component {
     this.processEntries();
     this.setState({
       entries: this.props.entries,
-      maxPages: 1
+      maxPages: 1,
+      count: 0
     });
     this.fetchEntries = setInterval(() => {
       this.processEntries();
@@ -84,7 +86,8 @@ class _PaginatedList extends Component {
     }
     this.setState({
       entries: nextProps.entries,
-      maxPages: maxPages
+      maxPages: maxPages,
+      count: nextProps.count
     });
   }
 
@@ -166,7 +169,7 @@ class _PaginatedList extends Component {
               <div className="label-info-display">
                 <FormattedMessage
                   id="app.common.entriesTotal"
-                  values={{entriesCount: this.props.count}}
+                  values={{entriesCount: this.state.count}}
                 />
               </div>
             </div>
@@ -203,4 +206,3 @@ class _PaginatedList extends Component {
 export const PaginatedList = withRouter(_PaginatedList);
 
 window.qu4rtet.exports("components/elements/PaginatedList", this);
-

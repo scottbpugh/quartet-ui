@@ -19,7 +19,6 @@
 import React from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {Panels, LeftPanel, RightPanel} from "./Panels";
 
 import {IntlProvider} from "react-intl";
 import {addLocaleData, FormattedMessage} from "react-intl";
@@ -31,6 +30,7 @@ import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 
 import {TestWrapper} from "tools/mockStore";
+import {Panels, LeftPanel, RightPanel} from "./Panels";
 
 it("renders nested components correctly", () => {
   const panels = renderer
@@ -38,10 +38,14 @@ it("renders nested components correctly", () => {
       <TestWrapper>
         <Panels>
           <LeftPanel>
-            <h1>Something</h1>
+            <h1>
+Something
+            </h1>
           </LeftPanel>
           <RightPanel title={<FormattedMessage id="app.nav.servers" />}>
-            <h2>Something Else</h2>
+            <h2>
+Something Else
+            </h2>
           </RightPanel>
         </Panels>
       </TestWrapper>

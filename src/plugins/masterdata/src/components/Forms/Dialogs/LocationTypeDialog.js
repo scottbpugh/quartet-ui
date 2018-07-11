@@ -27,10 +27,18 @@ const LocationTypeEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.identifier}</h5>
+      <h5>
+        {props.entry.identifier}
+      </h5>
       <ul className="picker-data-list">
-        <li>{props.entry.identifier}</li>
-        {props.entry.description ? <li>{props.entry.description}</li> : null}
+        <li>
+          {props.entry.identifier}
+        </li>
+        {props.entry.description ? (
+          <li>
+            {props.entry.description}
+          </li>
+        ) : null}
       </ul>
     </div>
   );
@@ -44,17 +52,20 @@ export class LocationTypeDialog extends Component {
       edited: false // to preserve overridden company if changed from the form.
     };
   }
+
   componentDidMount() {
     this.setLocationType(this.props);
   }
+
   componentWillReceiveProps(nextProps) {
     this.setLocationType(nextProps);
   }
+
   setLocationType(props) {
     if (
-      this.state.edited === false &&
-      props.existingValues &&
-      props.existingValues.location_type
+      this.state.edited === false
+      && props.existingValues
+      && props.existingValues.location_type
     ) {
       pluginRegistry
         .getServer(props.server)
@@ -66,12 +77,14 @@ export class LocationTypeDialog extends Component {
         });
     }
   }
+
   changeValue(entry) {
     this.setState({locationType: entry.identifier, edited: true}, () => {
       this.props.changeFieldValue("locationForm", "location_type", entry.id);
       this.props.toggleLocationTypeDialog();
     });
   }
+
   render() {
     return (
       <div>
@@ -80,7 +93,8 @@ export class LocationTypeDialog extends Component {
             <Tag
               style={{cursor: "pointer"}}
               className="pt-intent-primary"
-              onClick={this.props.toggleLocationTypeDialog}>
+              onClick={this.props.toggleLocationTypeDialog}
+            >
               {this.state.locationType}
             </Tag>
           ) : (
@@ -99,7 +113,8 @@ export class LocationTypeDialog extends Component {
             "pt-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
-          title="Select a Location Type">
+          title="Select a Location Type"
+        >
           <div className="pt-dialog-body">
             <SingleCardPicker
               {...this.props}

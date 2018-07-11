@@ -20,22 +20,20 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {Card} from "@blueprintjs/core";
-import TaskForm from "./TaskForm";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import TaskForm from "./TaskForm";
 
 class _AddTask extends Component {
   componentDidMount() {}
+
   render() {
     const rule = this.props.rules.find(rule => {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
     });
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.editPool
-        ? true
-        : false;
+    const editMode = !!(this.props.location
+      && this.props.location.state
+      && this.props.location.state.editPool);
     return (
       <RightPanel
         title={
@@ -44,7 +42,8 @@ class _AddTask extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editTask" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
@@ -52,8 +51,11 @@ class _AddTask extends Component {
                 <FormattedMessage id="plugins.capture.addTask" />
               ) : (
                 <FormattedMessage id="plugins.capture.editTask" />
-              )}{" "}
-              to {rule.name}
+              )}
+              {" "}
+              to
+              {' '}
+              {rule.name}
             </h5>
             <TaskForm
               rule={rule}

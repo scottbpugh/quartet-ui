@@ -37,8 +37,8 @@ export class ServerMenu extends Component {
 
     return (
       <Menu>
-        <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} onClick={toggleConfirmDelete} iconName="trash" />
+        <ButtonGroup className="context-menu-control" minimal>
+          <Button small onClick={toggleConfirmDelete} iconName="trash" />
         </ButtonGroup>
         <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
@@ -64,7 +64,7 @@ export class ServerMenu extends Component {
           text={`${intl.formatMessage({
             id: "app.servers.resetPassword"
           })}`}
-        />*/}
+        /> */}
       </Menu>
     );
   }

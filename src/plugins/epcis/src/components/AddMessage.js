@@ -51,8 +51,9 @@ class _AddMessage extends Component {
   componentDidMount() {
     // reminder: load epcis Messages for refresh later.
   }
+
   render() {
-    let editMode = this.props.message ? true : false;
+    const editMode = !!this.props.message;
     return (
       <RightPanel
         title={
@@ -61,7 +62,8 @@ class _AddMessage extends Component {
           ) : (
             <FormattedMessage id="plugins.epcis.editMessage" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>
@@ -77,7 +79,7 @@ class _AddMessage extends Component {
                 editMode ? "epcis_messages_update" : "epcis_messages_create"
               }
               objectName="message"
-              redirectPath={`/epcis`}
+              redirectPath="/epcis"
               djangoPath="epcis/messages"
               existingValues={this.props.message || {}}
               parameters={this.props.message ? {id: this.props.message.id} : {}}

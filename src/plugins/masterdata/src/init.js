@@ -16,8 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {pluginRegistry} from "plugins/pluginRegistration";
-import reducer, {initialData} from "./reducers/masterdata";
 import actions from "actions/plugins";
+import reducer, {initialData} from "./reducers/masterdata";
 import {MasterDataNav} from "./components/NavItems/MasterDataNav";
 import messages from "./messages";
 import routes from "./routes";

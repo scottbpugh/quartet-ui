@@ -24,12 +24,14 @@ export class AddServerButton extends Component {
   goTo(path) {
     this.props.history.push(path);
   }
+
   render() {
     const addMenu = (
       <Menu
         className={classNames({
           "menu-padding-fix": true
-        })}>
+        })}
+      >
         <MenuItem
           text={<FormattedMessage id="app.serverSettings.addAServer" />}
           onClick={this.goTo.bind(this, "/server-settings/")}
@@ -45,16 +47,18 @@ export class AddServerButton extends Component {
         <Popover
           className={classNames({"pt-dark": this.props.isDark})}
           content={addMenu}
-          position={Position.RIGHT_CENTER}>
+          position={Position.RIGHT_CENTER}
+        >
           <button
             onClick={this.displayMenu}
             tabIndex="0"
-            className="pt-button pt-icon-add">
+            className="pt-button pt-icon-add"
+          >
             {/*
               <FormattedMessage
                 id="plugins.numberRange.addServer"
                 defaultMessage="Add a New Server"
-              />*/}
+              /> */}
           </button>
         </Popover>
       </div>

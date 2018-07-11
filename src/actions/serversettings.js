@@ -26,4 +26,3 @@ export default {
   deleteServer: createAction("SERVER_SETTINGS_DELETE_SERVER")
 };
 window.qu4rtet.exports("actions/serversettings", this);
-

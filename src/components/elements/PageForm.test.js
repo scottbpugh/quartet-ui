@@ -18,7 +18,6 @@
 import React from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import PageForm from "./PageForm";
 import {TestWrapper} from "tools/mockStore";
 import Enzyme, {mount, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -26,6 +25,7 @@ import sinon from "sinon";
 import toJson from "enzyme-to-json";
 import * as authAPI from "lib/server-api";
 import {reduxForm, change as changeFieldValue} from "redux-form";
+import PageForm from "./PageForm";
 
 // a real life example of a form options response to test form rendering.
 // this is taking a shortcut and formatting the data the way getFormInfo does it.

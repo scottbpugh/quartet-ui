@@ -70,19 +70,22 @@ export const initialData = () => {
   };
 };
 
-export const setEnablePlugin = pluginEntries => {
+export const setEnablePlugin = (pluginEntries, showToast = true) => {
   return dispatch => {
-    for (let plugin in pluginEntries) {
+    for (const plugin in pluginEntries) {
       pluginEntries[plugin].enabled = true;
     }
-    showMessage({type: "success", id: "app.plugins.pluginEnabled"});
+    if (showToast) {
+      showMessage({type: "success", id: "app.plugins.pluginEnabled"});
+    }
+
     return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
   };
 };
 
 export const setDisablePlugin = pluginEntries => {
   return dispatch => {
-    for (let plugin in pluginEntries) {
+    for (const plugin in pluginEntries) {
       pluginEntries[plugin].enabled = false;
     }
     showMessage({type: "success", id: "app.plugins.pluginDisabled"});
@@ -93,10 +96,10 @@ export const setDisablePlugin = pluginEntries => {
 export const fetchRemotePlugins = () => {
   return async dispatch => {
     try {
-      let pluginRequire = window
+      const pluginRequire = window
         .require("electron")
         .remote.require("./main-process/plugin-manager.js");
-      let pluginList = require(require("path").join(
+      const pluginList = require(require("path").join(
         window.qu4rtet.userData,
         "pluginList.json"
       )); // loads the module
@@ -142,11 +145,11 @@ export default handleActions(
       };
     },
     [actions.removeFromTreeServers]: (state, action) => {
-      let navTreeItems = {...state.navTreeItems};
+      const navTreeItems = {...state.navTreeItems};
       delete navTreeItems[action.payload.pluginComponentName];
       return {
         ...state,
-        navTreeItems: navTreeItems
+        navTreeItems
       };
     },
     [actions.pluginEnabled]: (state, action) => {

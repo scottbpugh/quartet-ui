@@ -33,21 +33,23 @@ const StepForm = reduxForm({
 class _AddStep extends Component {
   constructor(props) {
     super(props);
-    let rule = this.getRule(this.props.rules, this.props.match);
-    let step = this.getStep(rule, this.props.match);
+    const rule = this.getRule(this.props.rules, this.props.match);
+    const step = this.getStep(rule, this.props.match);
     this.state = {
-      rule: rule,
-      step: step
+      rule,
+      step
     };
   }
+
   getRule(rules, match) {
     return rules.find(rule => {
       return Number(rule.id) === Number(match.params.ruleID);
     });
   }
+
   editStepParam(param) {
     const {server} = this.props;
-    let step = this.getStep(this.state.rule, this.props.match);
+    const step = this.getStep(this.state.rule, this.props.match);
     if (step) {
       this.props.history.push({
         pathname: `/capture/edit-step-param/${server.serverID}/rule/${
@@ -57,36 +59,41 @@ class _AddStep extends Component {
       });
     }
   }
+
   componentDidMount() {
-    let rule = this.getRule(this.props.rules, this.props.match);
-    let step = this.getStep(rule, this.props.match);
-    this.setState({rule: rule, step: step});
+    const rule = this.getRule(this.props.rules, this.props.match);
+    const step = this.getStep(rule, this.props.match);
+    this.setState({rule, step});
   }
+
   componentWillReceiveProps(nextProps) {
-    let rule = this.getRule(nextProps.rules, nextProps.match);
-    let step = this.getStep(rule, nextProps.match);
-    this.setState({rule: rule, step: step});
+    const rule = this.getRule(nextProps.rules, nextProps.match);
+    const step = this.getStep(rule, nextProps.match);
+    this.setState({rule, step});
   }
+
   deleteStepParam(param) {
     this.props.deleteStepParam(this.props.server, param);
   }
+
   getStep(rule = null, match = null) {
     if (rule && match) {
       return rule.steps.find(step => {
         return Number(step.id) === Number(match.params.stepID);
       });
-    } else if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.defaultValues
+    } if (
+      this.props.location
+      && this.props.location.state
+      && this.props.location.state.defaultValues
     ) {
       return this.props.location.state.defaultValues;
     }
     return null;
   }
+
   render() {
-    let {step, rule} = this.state;
-    let editMode = step ? true : false;
+    const {step, rule} = this.state;
+    const editMode = !!step;
     return (
       <RightPanel
         title={
@@ -95,7 +102,8 @@ class _AddStep extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editStep" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
@@ -103,8 +111,11 @@ class _AddStep extends Component {
                 <FormattedMessage id="plugins.capture.addStep" />
               ) : (
                 <FormattedMessage id="plugins.capture.editStep" />
-              )}{" "}
-              to {rule.name}
+              )}
+              {" "}
+              to
+              {' '}
+              {rule.name}
             </h5>
             <StepForm
               edit={editMode}
@@ -132,7 +143,8 @@ class _AddStep extends Component {
                         this.props.server.serverID
                       }/rule/${step.rule}/step/${step.id}`
                     );
-                  }}>
+                  }}
+                >
                   <FormattedMessage id="plugins.capture.addStepParam" />
                 </button>
                 <FormattedMessage id="plugins.capture.stepParameters" />
@@ -154,23 +166,27 @@ class _AddStep extends Component {
                         defaultMessage="Value"
                       />
                     </th>
-                    <th> </th>
+                    <th />
                   </thead>
                   <tbody>
                     {step.params.map(param => {
                       return (
                         <tr key={param.id}>
-                          <td>{param.name}</td>
-                          <td>{param.value}</td>
+                          <td>
+                            {param.name}
+                          </td>
+                          <td>
+                            {param.value}
+                          </td>
                           <td style={{width: "80px"}}>
-                            <ButtonGroup minimal={true} small={true}>
+                            <ButtonGroup minimal small>
                               <Button
-                                small={true}
+                                small
                                 iconName="edit"
                                 onClick={this.editStepParam.bind(this, param)}
                               />
                               <Button
-                                small={true}
+                                small
                                 iconName="trash"
                                 onClick={this.deleteStepParam.bind(this, param)}
                               />

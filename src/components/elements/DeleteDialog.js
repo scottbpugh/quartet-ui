@@ -50,22 +50,30 @@ class _DeleteDialog extends Component {
           "pt-dark": theme.includes("dark")
         })}
         isOpen={this.props.isOpen}
-        onClose={toggle}>
+        onClose={toggle}
+      >
         <div className="pt-dialog-header">
-          <h5>{title}</h5>
+          <h5>
+            {title}
+          </h5>
         </div>
         <div className="pt-dialog-body">
-          <Callout intent={Intent.DANGER}>{body}</Callout>
+          <Callout intent={Intent.DANGER}>
+            {body}
+          </Callout>
         </div>
         <div className="pt-dialog-footer">
           <div className="pt-dialog-footer-actions">
             <Button
               onClick={deleteAction}
               iconName="trash"
-              intent={Intent.DANGER}>
+              intent={Intent.DANGER}
+            >
               Delete
             </Button>
-            <Button onClick={toggle}>Cancel</Button>
+            <Button onClick={toggle}>
+Cancel
+            </Button>
           </div>
         </div>
       </Dialog>
@@ -80,4 +88,3 @@ export const DeleteDialog = connect((state, ownProps) => {
 }, {})(_DeleteDialog);
 
 window.qu4rtet.exports("components/elements/DeleteDialog", this);
-

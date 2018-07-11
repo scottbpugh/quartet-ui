@@ -5,7 +5,7 @@ Object {
   "en-US": Object {
     "app": Object {
       "common": Object {
-        "entriesTotal": "Entries Total",
+        "entriesTotal": "{entriesCount} Entries Total",
         "mainError": "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
       },
       "dashboard": Object {

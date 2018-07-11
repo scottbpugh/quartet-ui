@@ -33,8 +33,9 @@ class _AddEvent extends Component {
   componentDidMount() {
     // reminder: load epcis events for refresh later.
   }
+
   render() {
-    let editMode = this.props.event ? true : false;
+    const editMode = !!this.props.event;
     return (
       <RightPanel
         title={
@@ -43,7 +44,8 @@ class _AddEvent extends Component {
           ) : (
             <FormattedMessage id="plugins.epcis.editEvent" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>
@@ -59,7 +61,7 @@ class _AddEvent extends Component {
                 editMode ? "epcis_events_update" : "epcis_events_create"
               }
               objectName="event"
-              redirectPath={`/epcis`}
+              redirectPath="/epcis"
               djangoPath="epcis/events"
               existingValues={this.props.event || {}}
               parameters={this.props.event ? {id: this.props.event.id} : {}}

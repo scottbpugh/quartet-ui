@@ -35,16 +35,13 @@ class _AddRuleParam extends Component {
       return Number(rule.id) === Number(this.props.match.params.ruleID);
     });
     let ruleParam = null;
-    let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.edit
-        ? true
-        : false;
+    const editMode = !!(this.props.location
+      && this.props.location.state
+      && this.props.location.state.edit);
     if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.defaultValues
+      this.props.location
+      && this.props.location.state
+      && this.props.location.state.defaultValues
     ) {
       // to prepopulate with existing values.
       ruleParam = this.props.location.state.defaultValues;
@@ -57,7 +54,8 @@ class _AddRuleParam extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editRuleParam" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>

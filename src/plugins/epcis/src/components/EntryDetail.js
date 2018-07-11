@@ -33,6 +33,7 @@ class _EntryDetail extends Component {
     super(props);
     this.state = {geoEvents: []};
   }
+
   componentDidMount() {
     this.setState({
       geoEvents: this.props.geoEvents ? this.props.geoEvents : []
@@ -43,24 +44,29 @@ class _EntryDetail extends Component {
       this.props.match.params.entryID
     );
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.geoEvents) {
       this.setState({geoEvents: nextProps.geoEvents});
     }
   }
+
   render() {
-    let {currentEntryEvents, server} = this.props;
+    const {currentEntryEvents, server} = this.props;
     return (
       <RightPanel
-        title={
+        title={(
           <FormattedMessage
             id="plugins.epcis.entryDetail"
             defaultMessage="Entry Detail"
           />
-        }>
+)}
+      >
         <div className="large-cards-container full-large">
           <Card>
-            <h5>{this.props.match.params.entryID}</h5>
+            <h5>
+              {this.props.match.params.entryID}
+            </h5>
             {currentEntryEvents && currentEntryEvents.events ? (
               <div>
                 <EventsTimeline events={currentEntryEvents.events} />
@@ -91,9 +97,9 @@ export const EntryDetail = connect(
   (state, ownProps) => {
     const hasProp = propName => {
       return (
-        state.epcis.servers &&
-        state.epcis.servers[ownProps.match.params.serverID] &&
-        state.epcis.servers[ownProps.match.params.serverID][propName]
+        state.epcis.servers
+        && state.epcis.servers[ownProps.match.params.serverID]
+        && state.epcis.servers[ownProps.match.params.serverID][propName]
       );
     };
     return {
@@ -103,8 +109,8 @@ export const EntryDetail = connect(
         : [],
       currentEntryEvents: hasProp("detailItems")
         ? state.epcis.servers[ownProps.match.params.serverID].detailItems[
-            ownProps.match.params.entryID
-          ]
+          ownProps.match.params.entryID
+        ]
         : null
     };
   },

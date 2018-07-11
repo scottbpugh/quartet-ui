@@ -21,16 +21,16 @@ import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadCompanies} from "../../reducers/masterdata";
 import {SingleMarkerMap} from "components/elements/SingleMarkerMap";
 import {PaginatedList} from "components/elements/PaginatedList";
+import {loadCompanies} from "../../reducers/masterdata";
 
 const CompanyEntry = props => {
   const goTo = path => {
     props.history.push(path);
   };
 
-  let goToPayload = goTo.bind(this, {
+  const goToPayload = goTo.bind(this, {
     pathname: `/masterdata/edit-company/${props.server.serverID}/company/${
       props.entry.id
     }`,
@@ -50,12 +50,24 @@ const CompanyEntry = props => {
           />
         ) : null}
       </td>
-      <td onClick={goToPayload}>{props.entry.GLN13}</td>
-      <td onClick={goToPayload}>{props.entry.name}</td>
-      <td onClick={goToPayload}>{props.entry.address1}</td>
-      <td onClick={goToPayload}>{props.entry.country}</td>
-      <td onClick={goToPayload}>{props.entry.city}</td>
-      <td onClick={goToPayload}>{props.entry.company_type}</td>
+      <td onClick={goToPayload}>
+        {props.entry.GLN13}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.name}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.address1}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.country}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.city}
+      </td>
+      <td onClick={goToPayload}>
+        {props.entry.company_type}
+      </td>
     </tr>
   );
 };
@@ -105,15 +117,16 @@ const CompanyTableHeader = props => (
 
 class _CompaniesList extends Component {
   render() {
-    let {server, companies, loadCompanies, count, next} = this.props;
+    const {server, companies, loadCompanies, count, next} = this.props;
     return (
       <RightPanel
-        title={
+        title={(
           <FormattedMessage
             id="plugins.epcis.entryList"
             defaultMessage="Entries"
           />
-        }>
+)}
+      >
         <div className="large-cards-container full-large">
           <PaginatedList
             history={this.props.history}
@@ -137,8 +150,8 @@ export const CompaniesList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.masterdata.servers &&
-        state.masterdata.servers[ownProps.match.params.serverID]
+        state.masterdata.servers
+        && state.masterdata.servers[ownProps.match.params.serverID]
       );
     };
     return {

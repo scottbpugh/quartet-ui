@@ -30,16 +30,28 @@ export default class extends Component {
           <table className="pt-table pt-bordered pt-striped">
             <tbody>
               <tr>
-                <td>Event Time</td>
-                <td>{currentEntry[objectType].eventTime}</td>
+                <td>
+Event Time
+                </td>
+                <td>
+                  {currentEntry[objectType].eventTime}
+                </td>
               </tr>
               <tr>
-                <td>eventTimezoneOffset</td>
-                <td>{currentEntry[objectType].eventTimezoneOffset}</td>
+                <td>
+eventTimezoneOffset
+                </td>
+                <td>
+                  {currentEntry[objectType].eventTimezoneOffset}
+                </td>
               </tr>
               <tr>
-                <td>Record Time</td>
-                <td>{currentEntry[objectType].recordTime}</td>
+                <td>
+Record Time
+                </td>
+                <td>
+                  {currentEntry[objectType].recordTime}
+                </td>
               </tr>
             </tbody>
           </table>

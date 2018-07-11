@@ -19,16 +19,16 @@
 import {handleActions} from "redux-actions";
 import {showMessage} from "lib/message";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import actions from "../actions/capture";
 import serverActions from "actions/serversettings";
 import {setServerState} from "lib/reducer-helper";
+import actions from "../actions/capture";
 
 export const initialData = () => ({
   servers: {}
 });
 
 export const loadRules = server => {
-  let serverObject = pluginRegistry.getServer(server.serverID);
+  const serverObject = pluginRegistry.getServer(server.serverID);
   return dispatch => {
     serverObject.fetchListAll("capture_rules_list", {}, []).then(rules => {
       serverObject
@@ -61,7 +61,7 @@ export const loadRules = server => {
                 type: actions.loadRules,
                 payload: {
                   serverID: server.serverID,
-                  rules: rules
+                  rules
                 }
               });
             });
@@ -84,7 +84,7 @@ export const deleteRule = (server, rule) => {
 };
 
 export const loadTasks = (server, search, page, ordering) => {
-  let params = {};
+  const params = {};
   if (search) {
     params.search = search;
   }

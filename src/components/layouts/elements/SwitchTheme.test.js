@@ -19,8 +19,8 @@
 import React, {Component} from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {SwitchTheme} from "./SwitchTheme";
 import {TestWrapper} from "tools/mockStore";
+import {SwitchTheme} from "./SwitchTheme";
 
 it("renders correctly", () => {
   const props = {};

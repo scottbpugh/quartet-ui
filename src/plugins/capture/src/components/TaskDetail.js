@@ -28,8 +28,12 @@ const yieldDataPairRowIfSet = (key, value) => {
   if (key && value) {
     return (
       <tr>
-        <td>{key}</td>
-        <td>{value}</td>
+        <td>
+          {key}
+        </td>
+        <td>
+          {value}
+        </td>
       </tr>
     );
   }
@@ -46,6 +50,7 @@ class _TaskDetail extends Component {
         }) || null
     };
   }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       task:
@@ -54,6 +59,7 @@ class _TaskDetail extends Component {
         }) || null
     });
   }
+
   render() {
     const {task} = this.state;
     let intent = Intent.PRIMARY;
@@ -78,14 +84,20 @@ class _TaskDetail extends Component {
         {task ? (
           <div className="cards-container">
             <Card className="pt-elevation-4">
-              <h5>{task.name}</h5>
+              <h5>
+                {task.name}
+              </h5>
               <table className="pt-table data-pair-table pt-bordered pt-striped">
                 <tbody>
                   {yieldDataPairRowIfSet("Name", task.name)}
                   <tr>
-                    <td>Status</td>
                     <td>
-                      <Tag intent={intent}>{task.status}</Tag>
+Status
+                    </td>
+                    <td>
+                      <Tag intent={intent}>
+                        {task.status}
+                      </Tag>
                     </td>
                   </tr>
                   {yieldDataPairRowIfSet("Status Changed", task.status_changed)}
@@ -94,7 +106,9 @@ class _TaskDetail extends Component {
             </Card>
             {task.ruleObject ? (
               <Card className="pt-elevation-4">
-                <h5>Rule</h5>
+                <h5>
+Rule
+                </h5>
                 <table className="pt-table data-pair-table pt-bordered pt-striped">
                   <tbody>
                     {yieldDataPairRowIfSet("Rule Name", task.ruleObject.name)}
@@ -109,7 +123,9 @@ class _TaskDetail extends Component {
               <Card className="pt-elevation-4" />
             )}
             <Card className="task-messages pt-elevation-4">
-              <h5>Messages</h5>
+              <h5>
+Messages
+              </h5>
               {task.taskmessage_set.map((message, index) => {
                 let intent = Intent.PRIMARY;
                 let numberedClass = "default";
@@ -133,24 +149,32 @@ class _TaskDetail extends Component {
                   <div
                     key={`task-message-${message.id}`}
                     style={{position: "relative"}}
-                    className="inset-card">
+                    className="inset-card"
+                  >
                     <div className="message-info">
                       <span className={`numbered-message ${numberedClass}`}>
-                        #{index + 1}
+                        #
+                        {index + 1}
                       </span>
                       <table className="data-pair-table">
                         <tbody>
                           <tr>
-                            <td>Level</td>
                             <td>
-                              <Tag intent={intent}>{message.level}</Tag>
+Level
+                            </td>
+                            <td>
+                              <Tag intent={intent}>
+                                {message.level}
+                              </Tag>
                             </td>
                           </tr>
                           {yieldDataPairRowIfSet("Created", message.created)}
                         </tbody>
                       </table>
                     </div>
-                    <pre>{message.message}</pre>
+                    <pre>
+                      {message.message}
+                    </pre>
                   </div>
                 );
               })}

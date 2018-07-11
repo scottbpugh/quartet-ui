@@ -25,7 +25,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {Callout, Intent, FormGroup} from "@blueprintjs/core";
 
-class _PageForm extends Component {
+export class _PageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +37,7 @@ class _PageForm extends Component {
   componentDidMount() {
     this.constructForm(this.props);
   }
+
   submit = postValues => {
     let {
       server,
@@ -45,13 +46,18 @@ class _PageForm extends Component {
       objectName,
       redirectPath,
       parameters,
-      submitCallback
+      submitCallback, // gets called after a response is received.
+      submitPrecall // gets called before submit, but after prepopulated values have been added.
     } = this.props;
     if (prepopulatedValues) {
       for (let field of prepopulatedValues) {
         // replaces/sets programmatically.
         postValues[field.name] = field.value;
       }
+    }
+    if (submitPrecall) {
+      // only executed if Form has a submitPrecall prop.
+      submitPrecall(postValues, this.props);
     }
     let validatedData = {};
     // set to null if empty string
@@ -95,6 +101,11 @@ class _PageForm extends Component {
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
+            showMessage({
+              id: "app.common.mainError",
+              values: {msg: JSON.stringify(error.response.body)},
+              type: "error"
+            });
             if ("non_field_errors" in error.response.body) {
               // a form-wide error is present.
               throw new SubmissionError({
@@ -102,6 +113,7 @@ class _PageForm extends Component {
                 _error: error.response.body.non_field_errors
               });
             }
+
             // we have an object with validation errors.
             throw new SubmissionError(error.response.body);
           }
@@ -247,4 +259,6 @@ export default connect((state, ownProps) => {
   };
 }, {})(withRouter(_PageForm));
 
+// For plugins, you will need to use _PageForm instead of default, due to bug.
+// Don't forget to pass history as a prop when doing so.
 window.qu4rtet.exports("components/elements/PageForm", this);

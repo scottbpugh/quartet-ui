@@ -28,13 +28,17 @@ import {PaginatedList} from "./PaginatedList";
 
 const TestTableHeader = props => (
   <thead>
-    <th>A Single Value</th>
+    <th>
+A Single Value
+    </th>
   </thead>
 );
 
 const TestEntry = props => (
   <tr key={props.entry.key}>
-    <td>{props.entry.name}</td>
+    <td>
+      {props.entry.name}
+    </td>
   </tr>
 );
 

@@ -27,7 +27,11 @@ const returnComponentWithIntl = (
   children,
   props = {locale: "en-US", messages: flattenMessages(messages["en-US"])}
 ) => {
-  return <IntlProvider {...props}>{children}</IntlProvider>;
+  return (
+    <IntlProvider {...props}>
+      {children}
+    </IntlProvider>
+  );
 };
 
 export default returnComponentWithIntl;

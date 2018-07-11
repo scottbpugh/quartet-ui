@@ -29,7 +29,8 @@ export class Large4 extends Component {
           opacity: "0.06",
           zIndex: "-1",
           right: "0"
-        }}>
+        }}
+      >
         <svg version="1.1" id="letter-4-bck" viewBox="0 0 17 17">
           <g transform="translate(1, 0)">
             <path
@@ -43,4 +44,3 @@ export class Large4 extends Component {
   }
 }
 window.qu4rtet.exports("components/screens/Large4.js", this);
-

@@ -16,12 +16,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React from "react";
+import {Route} from "react-router";
 import {AddRule} from "./components/AddRule";
 import {AddStep} from "./components/AddStep";
 import {AddTask} from "./components/CreateTask";
 import {AddRuleParam} from "./components/AddRuleParam";
 import {AddStepParam} from "./components/AddStepParam";
-import {Route} from "react-router";
 import {RuleList} from "./components/RuleList";
 import {TasksList} from "./components/TasksList";
 import {TaskDetail} from "./components/TaskDetail";

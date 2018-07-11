@@ -18,7 +18,7 @@
 import React, {Component} from "react";
 import "openlayers/dist/ol.css";
 
-var ol = require("openlayers/dist/ol.js");
+const ol = require("openlayers/dist/ol.js");
 
 export class SingleMarkerMap extends Component {
   componentDidMount() {
@@ -32,14 +32,16 @@ export class SingleMarkerMap extends Component {
       this._map.setTarget(this.props.targetId);
     }, delay);
   }
+
   componentWillUnmount() {
     this._map.setTarget(undefined);
     this._map = null;
   }
+
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.markerLocation) !==
-      JSON.stringify(nextProps.markerLocation)
+      JSON.stringify(this.props.markerLocation)
+      !== JSON.stringify(nextProps.markerLocation)
     ) {
       if (this._map) {
         this._map
@@ -50,13 +52,14 @@ export class SingleMarkerMap extends Component {
       }
     }
   }
+
   setMarkers(props) {
     if (!props.markerLocation) {
       // no markers, no need to do anything.
       return;
     }
-    //create the style
-    var iconStyle = new ol.style.Style({
+    // create the style
+    const iconStyle = new ol.style.Style({
       image: new ol.style.Icon(
         /** @type {olx.style.IconOptions} */ ({
           anchor: [0.5, 1],
@@ -70,18 +73,18 @@ export class SingleMarkerMap extends Component {
       )
     });
 
-    let f = new ol.Feature({
+    const f = new ol.Feature({
       geometry: new ol.geom.Point(ol.proj.fromLonLat(props.markerLocation)),
-      name: "Location" + props.targetId,
-      id: "location" + props.targetId
+      name: `Location${props.targetId}`,
+      id: `location${props.targetId}`
     });
 
-    let vectorSource = new ol.source.Vector({features: [f]});
+    const vectorSource = new ol.source.Vector({features: [f]});
     if (this._vectorLayer) {
       // remove previous marker, since this is single marker.
       this._map.removeLayer(this._vectorLayer);
     }
-    let vectorLayer = new ol.layer.Vector({
+    const vectorLayer = new ol.layer.Vector({
       source: vectorSource,
       style: iconStyle
     });
@@ -89,6 +92,7 @@ export class SingleMarkerMap extends Component {
     this._map.addLayer(this._vectorLayer);
     this._map.getView().fit(vectorSource.getExtent(), false);
   }
+
   setUpMap(props) {
     this._map = new ol.Map({
       layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
@@ -100,6 +104,7 @@ export class SingleMarkerMap extends Component {
       })
     });
   }
+
   render() {
     return (
       <div
@@ -113,4 +118,3 @@ export class SingleMarkerMap extends Component {
 }
 
 window.qu4rtet.exports("components/elements/SingleMarkerMap", this);
-

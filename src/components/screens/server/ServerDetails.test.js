@@ -19,8 +19,6 @@
 import React, {Component} from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {ServerDetails} from "./ServerDetails";
-import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 import {IntlProvider, intlReducer} from "react-intl-redux";
@@ -30,10 +28,12 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import {Server} from "lib/servers";
 import sinon from "sinon";
 import * as message from "lib/message";
+import {initialData} from "../../../reducers/serversettings";
+import {ServerDetails} from "./ServerDetails";
 
 it("renders correctly", () => {
   sinon.stub(message, "showMessage").callsFake(() => {});
-  let store = mockStore(initialState);
+  const store = mockStore(initialState);
   const props = {
     match: {
       params: {

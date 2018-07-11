@@ -19,11 +19,11 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadEvents} from "../reducers/epcis";
 import {FormattedMessage, FormattedDate, FormattedTime} from "react-intl";
 import {PaginatedList} from "components/elements/PaginatedList";
 import {withRouter} from "react-router";
 import {Icon, Intent} from "@blueprintjs/core";
+import {loadEvents} from "../reducers/epcis";
 
 const EventTableHeader = props => (
   <thead>
@@ -118,29 +118,43 @@ const EventEntry = props => {
         this,
         `/epcis/event-detail/${props.server.serverID}/uuid/${props.entry.id}`
       )}
-      key={props.entry.id}>
+      key={props.entry.id}
+    >
       <td
         style={{
           align: "center",
           textAlign: "center",
           verticalAlign: "middle"
-        }}>
+        }}
+      >
         <Icon intent={Intent.PRIMARY} iconName="search-template" />
       </td>
       <td>
-        <FormattedDate value={props.entry.event_time} />{" "}
+        <FormattedDate value={props.entry.event_time} />
+        {" "}
         <FormattedTime value={props.entry.event_time} />
       </td>
       <td>
         {" "}
-        <FormattedDate value={props.entry.record_time} />{" "}
+        <FormattedDate value={props.entry.record_time} />
+        {" "}
         <FormattedTime value={props.entry.record_time} />
       </td>
-      <td>{getEventType(props.entry.type)}</td>
-      <td>{props.entry.biz_step}</td>
-      <td>{props.entry.disposition}</td>
-      <td>{props.entry.action}</td>
-      <td>{props.entry.read_point}</td>
+      <td>
+        {getEventType(props.entry.type)}
+      </td>
+      <td>
+        {props.entry.biz_step}
+      </td>
+      <td>
+        {props.entry.disposition}
+      </td>
+      <td>
+        {props.entry.action}
+      </td>
+      <td>
+        {props.entry.read_point}
+      </td>
     </tr>
   );
 };
@@ -151,25 +165,29 @@ class _EventList extends Component {
     this.fetchEvents = null;
     this.eventType = null;
   }
+
   componentDidMount() {
     if (this.props.match.params.eventType) {
       this.eventType = this.props.match.params.eventType;
     }
   }
+
   componentWillUnmount() {
     clearInterval(this.fetchEvents);
     this.fetchEvents = null;
   }
+
   render() {
-    let {server, events, loadEvents, count, next} = this.props;
+    const {server, events, loadEvents, count, next} = this.props;
     return (
       <RightPanel
-        title={
+        title={(
           <FormattedMessage
             id="plugins.epcis.eventList"
             defaultMessage="Events"
           />
-        }>
+)}
+      >
         <div className="large-cards-container full-large">
           <PaginatedList
             loadEntries={loadEvents}
@@ -191,8 +209,8 @@ export const EventList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.epcis.servers &&
-        state.epcis.servers[ownProps.match.params.serverID]
+        state.epcis.servers
+        && state.epcis.servers[ownProps.match.params.serverID]
       );
     };
     return {
