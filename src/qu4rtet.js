@@ -45,7 +45,7 @@ class Qu4rtet {
       let pluginPath = this.path.join(this.pluginPath, installedPlugin.name);
       // make sure to uncache first. We want to refresh the content.
       try {
-        console.log(installedPlugin.name);
+        //console.log(installedPlugin.name);
         clearModule.match(new RegExp(installedPlugin.name));
       } catch (e) {
         console.log(e);

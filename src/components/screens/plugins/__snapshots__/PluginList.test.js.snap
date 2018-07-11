@@ -6,17 +6,6 @@ exports[`renders correctly 1`] = `
     className="right-panel"
   >
     <div>
-      <button
-        className="pt-button pt-icon-add"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        type="button"
-      >
-        <span>
-          Add a Local Plugin
-        </span>
-      </button>
       <div
         className="cards-container"
       />
