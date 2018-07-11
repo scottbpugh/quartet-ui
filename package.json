@@ -54,8 +54,7 @@
   "homepage": "./",
   "scripts": {
     "start": "nf start",
-    "build":
-      "rm -r public/build; rm -r ./build/; ./node_modules/.bin/babel src/ --out-dir public/build --copy-files; mkdir ./build; cp -r ./public ./build; cp ./public/icon.png ./build",
+    "build": "./build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "test": "CI=true jest --env=jsdom",
     "electron": "electron .",
