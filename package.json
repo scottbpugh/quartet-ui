@@ -1,6 +1,6 @@
 {
   "name": "qu4rtet-ui",
-  "version": "1.0.3",
+  "version": "1.0.3-devel",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -64,7 +64,9 @@
     "fix-keytar":
       "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table",
-    "lint": "./node_modules/.bin/eslint src"
+    "lint": "./node_modules/.bin/eslint src",
+    "publish-npm":
+      "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files; npm publish"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -118,8 +120,7 @@
     }
   },
   "jest": {
-    "setupFiles": ["jest-canvas-mock"],
-    "transform": {}
+    "setupFiles": ["jest-canvas-mock"]
   },
   "postinstall": "electron-builder install-app-deps"
 }
