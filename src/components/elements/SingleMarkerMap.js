@@ -26,7 +26,7 @@ export class SingleMarkerMap extends Component {
     if (this.props.delay) {
       delay = Number(this.props.delay);
     }
-    window.setTimeout(() => {
+    this.mapMarkerTimeout = window.setTimeout(() => {
       this.setUpMap(this.props);
       this.setMarkers(this.props);
       this._map.setTarget(this.props.targetId);
@@ -34,14 +34,20 @@ export class SingleMarkerMap extends Component {
   }
 
   componentWillUnmount() {
-    this._map.setTarget(undefined);
-    this._map = null;
+    try {
+      clearTimeout(this.mapMarkerTimeout);
+      this._map.setTarget(undefined);
+      this._map = null;
+    } catch (e) {
+      // setTarget may not always be available.
+      console.log("map was not able to set target");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.markerLocation)
-      !== JSON.stringify(nextProps.markerLocation)
+      JSON.stringify(this.props.markerLocation) !==
+      JSON.stringify(nextProps.markerLocation)
     ) {
       if (this._map) {
         this._map
