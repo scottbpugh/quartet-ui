@@ -49,6 +49,7 @@ class _CompaniesNav extends Component {
     return (
       <TreeNode
         depth={this.props.depth}
+        nodeType="companies"
         onContextMenu={this.renderContextMenu}
         path={`/masterdata/companies/${this.props.serverID}`}
         childrenNodes={[]}>

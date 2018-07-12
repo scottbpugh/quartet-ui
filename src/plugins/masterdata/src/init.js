@@ -21,7 +21,7 @@ import reducer, {initialData} from "./reducers/masterdata";
 import {MasterDataNav} from "./components/NavItems/MasterDataNav";
 import messages from "./messages";
 import routes from "./routes";
-
+require("./masterdata-style.css");
 const PLUGIN_NAME = "MasterData";
 
 export const enablePlugin = () => {

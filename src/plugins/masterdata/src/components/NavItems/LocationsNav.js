@@ -61,6 +61,7 @@ class _LocationsNav extends Component {
         onContextMenu={this.renderContextMenu}
         serverID={this.props.serverID}
         server={this.props.server}
+        nodeType="locations"
         path={`/masterdata/locations/${this.props.serverID}`}
         childrenNodes={[]}>
         <FormattedMessage id="plugins.masterData.locations" />

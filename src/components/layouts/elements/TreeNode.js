@@ -133,4 +133,3 @@ TreeNode.propTypes = {
   childrenNodes: PropTypes.arrayOf(PropTypes.element)
 };
 window.qu4rtet.exports("components/layouts/elements/TreeNode", this);
-

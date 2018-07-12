@@ -43,6 +43,7 @@ class _MasterDataNav extends Component {
       return (
         <TreeNode
           depth={this.props.depth}
+          nodeType="masterdata"
           onContextMenu={e => {}}
           childrenNodes={[
             <LocationsNav
@@ -60,8 +61,7 @@ class _MasterDataNav extends Component {
               serverID={serverID}
               server={server}
             />
-          ]}
-        >
+          ]}>
           <FormattedMessage id="plugins.masterData.masterDataNav" />
         </TreeNode>
       );
