@@ -18,4 +18,5 @@
 
 // here we're exporting the require from the qu4rtet context.
 // This can be used to import anything from the qu4rtet context.
-exports.module = require;
+exports.default = require;
+
