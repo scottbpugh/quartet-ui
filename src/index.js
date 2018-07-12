@@ -23,10 +23,10 @@ import "./index.css";
 import {Provider} from "react-redux";
 import {IntlProvider} from "react-intl-redux";
 import {Router} from "react-router-dom";
-import RouteSwitcher from "./routes";
-import {store} from "./store";
 import {routeLocationDidUpdate} from "reducers/layout";
 import {createHashHistory} from "history";
+import RouteSwitcher from "./routes";
+import {store} from "./store";
 
 const hashHistory = createHashHistory();
 

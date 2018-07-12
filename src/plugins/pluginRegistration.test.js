@@ -17,8 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 
-import {pluginRegistry} from "./pluginRegistration";
 import {Server} from "lib/servers";
+import {pluginRegistry} from "./pluginRegistration";
 
 it("adds a server when registering a server", () => {
   pluginRegistry.registerServer(new Server({serverID: "random-id"}));
@@ -36,7 +36,7 @@ it("removes a server when triggering removeServer", () => {
 });
 
 it("can retrieve a server based on server object or serverID", () => {
-  let s = new Server({serverID: "random-id"});
+  const s = new Server({serverID: "random-id"});
   pluginRegistry.registerServer(s);
   expect(pluginRegistry.getServer(s)).toMatchSnapshot();
 });

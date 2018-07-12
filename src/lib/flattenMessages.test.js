@@ -16,8 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
-import {flattenMessages} from "./flattenMessages";
 import messages from "messages";
+import {flattenMessages} from "./flattenMessages";
 
 it("flattens the main messages properly", () => {
   expect(flattenMessages(messages)).toMatchSnapshot();

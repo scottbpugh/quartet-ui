@@ -16,19 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-export function flattenMessages(nestedMessages, prefix = "") {
-  return Object.keys(nestedMessages).reduce((messages, key) => {
-    const value = nestedMessages[key];
-    const prefixedKey = prefix ? `${prefix}.${key}` : key;
+// here we're exporting the require from the qu4rtet context.
+// This can be used to import anything from the qu4rtet context.
+exports.default = require;
 
-    if (typeof value === "string") {
-      messages[prefixedKey] = value;
-    } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey));
-    }
-
-    return messages;
-  }, {});
-}
-
-window.qu4rtet.exports("lib/flattenMessages", this);

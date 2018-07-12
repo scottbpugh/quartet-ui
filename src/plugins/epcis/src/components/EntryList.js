@@ -19,10 +19,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadEntries} from "../reducers/epcis";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {PaginatedList} from "components/elements/PaginatedList";
+import {loadEntries} from "../reducers/epcis";
 
 import "./EntryList.css";
 
@@ -58,24 +58,30 @@ const EntryEntry = props => {
           props.entry.identifier
         }`
       )}
-      key={props.entry.id}>
-      <td>{props.entry.identifier}</td>
-      <td>{props.entry.id}</td>
+      key={props.entry.id}
+    >
+      <td>
+        {props.entry.identifier}
+      </td>
+      <td>
+        {props.entry.id}
+      </td>
     </tr>
   );
 };
 
 class _EntryList extends Component {
   render() {
-    let {server, entries, loadEntries, count, next} = this.props;
+    const {server, entries, loadEntries, count, next} = this.props;
     return (
       <RightPanel
-        title={
+        title={(
           <FormattedMessage
             id="plugins.epcis.entryList"
             defaultMessage="Entries"
           />
-        }>
+)}
+      >
         <div className="large-cards-container full-large">
           <PaginatedList
             history={this.props.history}
@@ -97,8 +103,8 @@ export const EntryList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.epcis.servers &&
-        state.epcis.servers[ownProps.match.params.serverID]
+        state.epcis.servers
+        && state.epcis.servers[ownProps.match.params.serverID]
       );
     };
     return {

@@ -25,9 +25,9 @@ import messages from "messages";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 export const returnAllMessages = locale => {
-  let coreMessages = {...messages};
-  let newMessages = pluginRegistry.getMessages();
-  for (let language in newMessages) {
+  const coreMessages = {...messages};
+  const newMessages = pluginRegistry.getMessages();
+  for (const language in newMessages) {
     if (language in messages) {
       coreMessages[language].plugins = {
         ...coreMessages[language].plugins,
@@ -42,10 +42,10 @@ export const returnAllMessages = locale => {
 
 export const updateMessages = locale => {
   return dispatch => {
-    let newMessages = returnAllMessages(locale);
+    const newMessages = returnAllMessages(locale);
     dispatch(
       updateIntl({
-        locale: locale,
+        locale,
         messages: newMessages
       })
     );
@@ -56,7 +56,7 @@ export const updateMessages = locale => {
 export const switchLocale = newLocale => {
   const newMessages = flattenMessages(messages[newLocale]);
   return dispatch => {
-    let dispatchedAction = dispatch(
+    const dispatchedAction = dispatch(
       updateIntl({
         locale: newLocale,
         messages: newMessages
@@ -70,8 +70,8 @@ export const switchLocale = newLocale => {
 // updates locale and messages.
 const updateRegistryIntl = (locale, messages) => {
   const {intl} = new IntlProvider({
-    locale: locale,
-    messages: messages,
+    locale,
+    messages,
     defaultLocale: "en-US"
   }).getChildContext();
   pluginRegistry.registerIntl(intl);
@@ -90,4 +90,3 @@ export default handleActions(
 );
 
 window.qu4rtet.exports("reducers/locales", this);
-

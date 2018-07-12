@@ -93,7 +93,7 @@ exports[`renders correctly 1`] = `
             className="label-info-display"
           >
             <span>
-              Entries Total
+              0 Entries Total
             </span>
           </div>
         </div>

@@ -18,4 +18,3 @@ export default class NavLink extends Component {
   }
 }
 window.qu4rtet.exports("components/layouts/elements/NavLink", this);
-

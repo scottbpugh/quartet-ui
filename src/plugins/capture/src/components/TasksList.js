@@ -37,19 +37,20 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {loadRules, loadTasks} from "../reducers/capture";
 import {FormattedMessage} from "react-intl";
+import {loadRules, loadTasks} from "../reducers/capture";
 import "./RuleList.css";
 import {ServerTasks} from "./ServerTasks";
 
 class _TasksList extends Component {
   render() {
-    let {server, rules, tasks, loadTasks, count, next} = this.props;
+    const {server, rules, tasks, loadTasks, count, next} = this.props;
     return (
       <RightPanel
         title={
           <FormattedMessage id="plugins.capture.tasks" defaultMessage="Tasks" />
-        }>
+        }
+      >
         <div className="large-cards-container full-large">
           <ServerTasks
             server={server}

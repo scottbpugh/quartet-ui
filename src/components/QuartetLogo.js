@@ -29,4 +29,3 @@ export default class QuartetLogo extends Component {
   }
 }
 window.qu4rtet.exports("components/QuartetLogo", this);
-

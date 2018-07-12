@@ -31,28 +31,42 @@ export default class extends Component {
           <table className="pt-table pt-bordered pt-striped">
             <tbody>
               <tr>
-                <td>Business Step</td>
                 <td>
-                  <Tag>{currentEntry[objectType].bizStep}</Tag>
+Business Step
+                </td>
+                <td>
+                  <Tag>
+                    {currentEntry[objectType].bizStep}
+                  </Tag>
                 </td>
               </tr>
               <tr>
-                <td>Disposition</td>
                 <td>
-                  <Tag>{currentEntry[objectType].disposition}</Tag>
+Disposition
+                </td>
+                <td>
+                  <Tag>
+                    {currentEntry[objectType].disposition}
+                  </Tag>
                 </td>
               </tr>
               <tr />
               <tr>
-                <td>Action</td>
                 <td>
-                  <Tag>{currentEntry[objectType].action}</Tag>
+Action
+                </td>
+                <td>
+                  <Tag>
+                    {currentEntry[objectType].action}
+                  </Tag>
                 </td>
               </tr>
               <tr />
 
               <tr>
-                <td>Error Declaration</td>
+                <td>
+Error Declaration
+                </td>
                 <td>
                   <pre>
                     {JSON.stringify(

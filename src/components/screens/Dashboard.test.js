@@ -18,8 +18,8 @@
 import React from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import Dashboard from "./Dashboard";
 import {TestWrapper} from "tools/mockStore";
+import Dashboard from "./Dashboard";
 
 // Recharts resizable chart prevents this from working. Skipping for now.
 it("renders correctly", () => {

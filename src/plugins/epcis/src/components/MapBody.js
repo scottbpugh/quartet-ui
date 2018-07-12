@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import "openlayers/dist/ol.css";
 
-var ol = require("openlayers/dist/ol.js");
+const ol = require("openlayers/dist/ol.js");
 
 class _MapBody extends Component {
   componentDidMount() {
@@ -27,24 +27,27 @@ class _MapBody extends Component {
     this.setUpMap();
     this._map.setTarget("map");
   }
+
   componentWillUnmount() {
     this._map.removeEventListener("click"); // remove click listener.
     this._map.removeEventListener("pointermove");
     this._map = null;
   }
+
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.geoEvents) !==
-      JSON.stringify(nextProps.geoEvents)
+      JSON.stringify(this.props.geoEvents)
+      !== JSON.stringify(nextProps.geoEvents)
     ) {
       // don't modify state here, modify the classic dom-based map (yay!)
       this.setMarkers(nextProps.geoEvents);
     }
   }
+
   setMarkers(geoEvents) {
     let newMarkers = [];
-    //create the style
-    var iconStyle = new ol.style.Style({
+    // create the style
+    const iconStyle = new ol.style.Style({
       image: new ol.style.Icon(
         /** @type {olx.style.IconOptions} */ ({
           anchor: [0.5, 1],
@@ -69,33 +72,31 @@ class _MapBody extends Component {
     });
     // deduplicate newMarkers
     newMarkers = newMarkers.filter(
-      (marker, index, self) =>
-        index ===
-        self.findIndex(
-          m =>
-            m.longitude === marker.longitude && m.latitude === marker.latitude
+      (marker, index, self) => index
+        === self.findIndex(
+          m => m.longitude === marker.longitude && m.latitude === marker.latitude
         )
     );
-    let iconFeatures = newMarkers.map((marker, index) => {
-      let f = new ol.Feature({
+    const iconFeatures = newMarkers.map((marker, index) => {
+      const f = new ol.Feature({
         geometry: new ol.geom.Point(
           ol.proj.fromLonLat([
             Number(marker.longitude),
             Number(marker.latitude)
           ])
         ),
-        name: "Event" + index,
+        name: `Event${index}`,
         id: marker.id
       });
       return f;
     });
     if (iconFeatures.length > 0) {
-      let vectorSource = new ol.source.Vector({features: iconFeatures});
+      const vectorSource = new ol.source.Vector({features: iconFeatures});
       if (this._vectorLayer) {
         this._map.removeLayer(this._vectorLayer);
       }
 
-      let vectorLayer = new ol.layer.Vector({
+      const vectorLayer = new ol.layer.Vector({
         source: vectorSource,
         style: iconStyle
       });
@@ -104,6 +105,7 @@ class _MapBody extends Component {
       this._map.getView().fit(vectorSource.getExtent(), false);
     }
   }
+
   setUpMap() {
     this._map = new ol.Map({
       layers: [new ol.layer.Tile({source: new ol.source.OSM()})],
@@ -117,13 +119,13 @@ class _MapBody extends Component {
     this._map.on("click", e => {
       this._map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
         if (feature.get("id") && document.getElementById(feature.get("id"))) {
-          var top = document.getElementById(feature.get("id")).offsetTop; //Getting Y of target element
+          const top = document.getElementById(feature.get("id")).offsetTop; // Getting Y of target element
           window.scrollTo(0, top);
         }
       });
     });
-    this._map.on("pointermove", function(evt) {
-      var hit = this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+    this._map.on("pointermove", function (evt) {
+      const hit = this.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
         return true;
       });
       if (hit) {
@@ -134,6 +136,7 @@ class _MapBody extends Component {
     });
     this.setMarkers(this.props.geoEvents ? this.props.geoEvents : []);
   }
+
   render() {
     return (
       <div

@@ -34,7 +34,7 @@ class _LeftPanel extends Component {
   render() {
     return (
       <ResizableBox className="left-panel" axis="x" width={300}>
-        {/*<div className="left-panel">*/}
+        {/* <div className="left-panel"> */}
         <h4 className="left-panel-title pt-dark">
           {/* We use a new message from passed props because Redux uses plain objects. */}
           <FormattedMessage {...this.props.pageTitle} />
@@ -44,10 +44,11 @@ class _LeftPanel extends Component {
             overflowX: "hidden",
             overflowY: "visible",
             whiteSpace: "nowrap"
-          }}>
+          }}
+        >
           {this.props.children}
         </div>
-        {/*</div>*/}
+        {/* </div> */}
       </ResizableBox>
     );
   }
@@ -71,23 +72,26 @@ export const LeftPanel = connect(
  */
 class _RightPanel extends Component {
   componentDidMount() {
-    //this.props.loadPageTitle(this.props.title.props.id);
+    // this.props.loadPageTitle(this.props.title.props.id);
     this.props.loadPageTitle({...this.props.title.props});
   }
 
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(nextProps.title.props) !==
-      JSON.stringify(this.props.pageTitle)
+      JSON.stringify(nextProps.title.props)
+      !== JSON.stringify(this.props.pageTitle)
     ) {
       // formattedMessage props have changed.
       this.props.loadPageTitle({...nextProps.title.props});
     }
   }
+
   render() {
     return (
       <div className="right-panel">
-        <div ref="rightPanel">{this.props.children}</div>
+        <div ref="rightPanel">
+          {this.props.children}
+        </div>
       </div>
     );
   }
@@ -113,16 +117,20 @@ export const RightPanel = connect(
  */
 class _Panels extends Component {
   render() {
-    let clonedChildren = this.props.children.map((child, index) => {
+    const clonedChildren = this.props.children.map((child, index) => {
       if (index === 1) {
         // Add a unique currentPath key to force unmounting of right panel
         // whenever the path changes.
-        let newProps = {...child.props, key: this.props.currentPath};
+        const newProps = {...child.props, key: this.props.currentPath};
         return React.cloneElement(child, newProps);
       }
       return child;
     });
-    return <div className="main-container">{clonedChildren}</div>;
+    return (
+      <div className="main-container">
+        {clonedChildren}
+      </div>
+    );
   }
 }
 

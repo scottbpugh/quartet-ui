@@ -123,6 +123,7 @@ class _AddLocation extends Component {
                 site: (
                   <SiteDialog
                     {...this.props}
+                    formName={"locationForm"}
                     changeFieldValue={this.props.changeFieldValue}
                     isSiteOpen={this.state.isSiteOpen}
                     toggleSiteDialog={this.toggleSiteDialog}
@@ -133,6 +134,7 @@ class _AddLocation extends Component {
                 location_type: (
                   <LocationTypeDialog
                     {...this.props}
+                    formName={"locationForm"}
                     changeFieldValue={this.props.changeFieldValue}
                     isLocationTypeOpen={this.state.isLocationTypeOpen}
                     toggleLocationTypeDialog={this.toggleLocationTypeDialog}

@@ -19,8 +19,6 @@
 import React, {Component} from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {AddServerButton} from "./AddServerButton";
-import {initialData} from "../../../reducers/serversettings";
 import configureStore from "redux-mock-store";
 import {MemoryRouter as Router, withRouter} from "react-router-dom";
 import {IntlProvider, intlReducer} from "react-intl-redux";
@@ -28,9 +26,11 @@ import {Provider} from "react-redux";
 import {mockStore, TestWrapper, initialState} from "tools/mockStore";
 import {Server} from "lib/servers";
 import {FormattedMessage} from "react-intl";
+import {initialData} from "../../../reducers/serversettings";
+import {AddServerButton} from "./AddServerButton";
 
 it("renders correctly", () => {
-  let store = mockStore(initialState);
+  const store = mockStore(initialState);
 
   const serverButton = renderer
     .create(

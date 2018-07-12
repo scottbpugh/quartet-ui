@@ -17,6 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from "react";
+import clearModule from "clear-module";
 
 let electron = window.require("electron");
 let path = window.require("path");
@@ -44,7 +45,8 @@ class Qu4rtet {
       let pluginPath = this.path.join(this.pluginPath, installedPlugin.name);
       // make sure to uncache first. We want to refresh the content.
       try {
-        delete window.require.cache[window.require.resolve(pluginPath)];
+        //console.log(installedPlugin.name);
+        clearModule.match(new RegExp(installedPlugin.name));
       } catch (e) {
         console.log(e);
       }

@@ -35,12 +35,25 @@ it("renders correctly", () => {
     return (
       <div
         key={props.entry.id}
-        onClick={updateFieldVal.bind(this, props.entry)}>
-        <h5>{props.entry.name}</h5>
+        onClick={updateFieldVal.bind(this, props.entry)}
+      >
+        <h5>
+          {props.entry.name}
+        </h5>
         <ul className="picker-data-list">
-          <li>{props.entry.GLN13}</li>
-          {props.entry.city ? <li>{props.entry.city}</li> : null}
-          {props.entry.country ? <li>{props.entry.country}</li> : null}
+          <li>
+            {props.entry.GLN13}
+          </li>
+          {props.entry.city ? (
+            <li>
+              {props.entry.city}
+            </li>
+          ) : null}
+          {props.entry.country ? (
+            <li>
+              {props.entry.country}
+            </li>
+          ) : null}
         </ul>
       </div>
     );

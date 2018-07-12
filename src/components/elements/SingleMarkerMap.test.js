@@ -32,7 +32,7 @@ it("renders correctly", () => {
       <TestWrapper>
         <SingleMarkerMap
           size={{width: "260px"}}
-          targetId={"map"}
+          targetId="map"
           delay={0}
           markerLocation={[0.0, 10.0]}
         />

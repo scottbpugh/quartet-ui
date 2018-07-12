@@ -28,7 +28,9 @@ const SiteEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.name}</h5>
+      <h5>
+        {props.entry.name}
+      </h5>
       {props.entry.longitude && props.entry.latitude ? (
         <SingleMarkerMap
           size={{width: "260px"}}
@@ -44,9 +46,19 @@ const SiteEntry = props => {
       )}
 
       <ul className="picker-data-list">
-        <li>{props.entry.GLN13}</li>
-        {props.entry.city ? <li>{props.entry.city}</li> : null}
-        {props.entry.country ? <li>{props.entry.country}</li> : null}
+        <li>
+          {props.entry.GLN13}
+        </li>
+        {props.entry.city ? (
+          <li>
+            {props.entry.city}
+          </li>
+        ) : null}
+        {props.entry.country ? (
+          <li>
+            {props.entry.country}
+          </li>
+        ) : null}
       </ul>
     </div>
   );
@@ -60,17 +72,20 @@ export class SiteDialog extends Component {
       edited: false // to preserve overridden company if changed from the form.
     };
   }
+
   componentDidMount() {
     this.setSiteName(this.props);
   }
+
   componentWillReceiveProps(nextProps) {
     this.setSiteName(nextProps);
   }
+
   setSiteName(props) {
     if (
-      this.state.edited === false &&
-      props.existingValues &&
-      props.existingValues.site
+      this.state.edited === false
+      && props.existingValues
+      && props.existingValues.site
     ) {
       pluginRegistry
         .getServer(props.server)
@@ -82,12 +97,14 @@ export class SiteDialog extends Component {
         });
     }
   }
+
   changeValue(entry) {
     this.setState({siteName: entry.name, edited: true}, () => {
       this.props.changeFieldValue("locationForm", "site", entry.id);
       this.props.toggleSiteDialog();
     });
   }
+
   render() {
     return (
       <div>
@@ -96,7 +113,8 @@ export class SiteDialog extends Component {
             <Tag
               style={{cursor: "pointer"}}
               className="pt-intent-primary"
-              onClick={this.props.toggleSiteDialog}>
+              onClick={this.props.toggleSiteDialog}
+            >
               {this.state.siteName}
             </Tag>
           ) : (
@@ -115,7 +133,8 @@ export class SiteDialog extends Component {
             "pt-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
-          title="Select a Site">
+          title="Select a Site"
+        >
           <div className="pt-dialog-body">
             <SingleCardPicker
               {...this.props}

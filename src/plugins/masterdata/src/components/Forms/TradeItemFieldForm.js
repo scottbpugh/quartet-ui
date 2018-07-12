@@ -37,10 +37,12 @@ class _AddTradeItemField extends Component {
       formStructure: []
     };
   }
+
   submitCallback() {
     // refresh list of trade items when field is saved...
     this.props.loadTradeItems(this.props.server);
   }
+
   render() {
     const tradeItem = this.props.tradeItems.find(tradeItem => {
       return (
@@ -49,14 +51,14 @@ class _AddTradeItemField extends Component {
     });
     let tradeItemField = null;
     if (
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.defaultValues
+      this.props.location
+      && this.props.location.state
+      && this.props.location.state.defaultValues
     ) {
       // to prepopulate with existing values.
       tradeItemField = this.props.location.state.defaultValues;
     }
-    let editMode = tradeItemField ? true : false;
+    const editMode = !!tradeItemField;
     return (
       <RightPanel
         title={
@@ -65,7 +67,8 @@ class _AddTradeItemField extends Component {
           ) : (
             <FormattedMessage id="plugins.masterData.editTradeItemField" />
           )
-        }>
+        }
+      >
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>

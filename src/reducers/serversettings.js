@@ -31,7 +31,7 @@ import {Server} from "lib/servers";
  * It is a JSON-serializable object representing the form
  */
 export const initialData = () => {
-  let _initialData = {
+  const _initialData = {
     servers: {} // uuid key to objects
   };
   return _initialData;
@@ -43,7 +43,7 @@ export const saveServer = postData => {
       type: "success",
       id: "app.serverSettings.serverSettingsSaved"
     });
-    let server = {...postData};
+    const server = {...postData};
     server.plugins = [];
     server.plugins.push("number-range");
     if (!postData.serverID) {
@@ -88,11 +88,11 @@ export default handleActions(
       };
     },
     [actions.deleteServer]: (state, action) => {
-      let servers = {...state.servers};
+      const servers = {...state.servers};
       delete servers[action.payload]; // serverID
       return {
         ...state,
-        servers: servers
+        servers
       };
     },
     [actions.resetAppList]: (state, action) => {
@@ -105,4 +105,3 @@ export default handleActions(
   {}
 );
 window.qu4rtet.exports("reducers/serversettings", this);
-

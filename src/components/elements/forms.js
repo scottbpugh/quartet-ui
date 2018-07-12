@@ -98,7 +98,7 @@ export const DefaultField = ({
     inputField = (
       <div className="pt-select">
         <select {...input} name={fieldData.name} type="select" width={300}>
-          {children ? children : null}
+          {children || null}
           {!children && fieldData.description.choices
             ? Object.keys(fieldData.description.choices).map(choice => {
                 return (
@@ -111,7 +111,10 @@ export const DefaultField = ({
         </select>
       </div>
     );
+  } else if (fieldData.description.type === "nested object") {
+    return null;
   } else {
+    // just a plain input.
     inputField = (
       <input
         {...input}
@@ -125,8 +128,10 @@ export const DefaultField = ({
     );
   }
 
-  let helperInstruction = fieldData.description.help_text || "";
-  let helperText = error ? `${helperInstruction} ${error} ` : helperInstruction;
+  const helperInstruction = fieldData.description.help_text || "";
+  const helperText = error
+    ? `${helperInstruction} ${error} `
+    : helperInstruction;
   const shouldHide =
     fieldData.description.type === "hidden" || fieldData.hidden;
   const style = {};
@@ -152,8 +157,8 @@ export const DefaultField = ({
  * @return {array} Array of validators.
  */
 export const getSyncValidators = field => {
-  let validate = []; // Dynamically build this.
-  //validate.push(required);
+  const validate = []; // Dynamically build this.
+  // validate.push(required);
   if (field.description.required === true) {
     validate.push(required);
   }

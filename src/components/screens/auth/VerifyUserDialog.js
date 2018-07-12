@@ -18,8 +18,8 @@
 
 import React, {Component} from "react";
 import {Dialog} from "@blueprintjs/core";
-import {VerifyUserForm} from "./VerifyUserForm";
 import classNames from "classnames";
+import {VerifyUserForm} from "./VerifyUserForm";
 
 export class VerifyUserDialog extends Component {
   render() {
@@ -30,11 +30,12 @@ export class VerifyUserDialog extends Component {
         isOpen={isOpen}
         onClose={closeDialog}
         className={classNames({
-          "pt-dark": theme.startsWith("dark") ? true : false
+          "pt-dark": !!theme.startsWith("dark")
         })}
         title={`${intl.formatMessage({id: "app.servers.verifyUser"})} - ${
           server.serverSettingName
-        }`}>
+        }`}
+      >
         <div className="pt-dialog-body">
           <VerifyUserForm isOpen={isOpen} server={server} />
         </div>

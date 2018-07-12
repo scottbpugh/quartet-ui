@@ -23,10 +23,10 @@ import en from "react-intl/locale-data/en";
 import fr from "react-intl/locale-data/fr";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import MockInitialState from "./mock-initial-state";
 import {Provider} from "react-redux";
 import {MemoryRouter as Router} from "react-router-dom";
 import {injectIntl} from "react-intl";
+import MockInitialState from "./mock-initial-state";
 
 // Fake local storage.
 class LocalStorageMock {
@@ -98,12 +98,12 @@ if (window && !window.require) {
   };
 }
 
-let {qu4rtet} = require("qu4rtet");
-let {pluginRegistry} = require("plugins/pluginRegistration");
-let {returnAllMessages} = require("reducers/locales");
+const {qu4rtet} = require("qu4rtet");
+const {pluginRegistry} = require("plugins/pluginRegistration");
+const {returnAllMessages} = require("reducers/locales");
 
 addLocaleData([...en, ...fr]);
-let defaultLocale = "en-US";
+const defaultLocale = "en-US";
 const middlewares = [thunk];
 /*
       remote: {
@@ -118,8 +118,8 @@ export const initialState = MockInitialState;
 // Used by certain tests.
 export const updateRegistryIntl = (locale, messages) => {
   const {intl} = new IntlProvider({
-    locale: locale,
-    messages: messages,
+    locale,
+    messages,
     defaultLocale: "en-US"
   }).getChildContext();
   pluginRegistry.registerIntl(intl);
@@ -132,8 +132,13 @@ class _Wrapper extends Component {
   componentDidMount() {
     pluginRegistry.registerIntl(this.props.intl);
   }
+
   render() {
-    return <div>{this.props.children}</div>;
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    );
   }
 }
 const Wrapper = injectIntl(_Wrapper);
@@ -154,7 +159,9 @@ export const TestWrapper = ({locale, messages, store, children}) => {
     <IntlProvider locale={locale} messages={messages}>
       <Wrapper>
         <Provider store={store}>
-          <Router>{children}</Router>
+          <Router>
+            {children}
+          </Router>
         </Provider>
       </Wrapper>
     </IntlProvider>

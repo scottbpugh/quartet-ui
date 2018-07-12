@@ -33,7 +33,7 @@ export const setServerState = (state = {}, serverID, mergeObject = {}) => {
       "A server ID must be defined to set the server state in reducer."
     );
   }
-  let copy = {...state}; // use a copy of state for manipulations.
+  const copy = {...state}; // use a copy of state for manipulations.
   if (!copy.servers) {
     // if servers are not created yet, create an object.
     copy.servers = {};
