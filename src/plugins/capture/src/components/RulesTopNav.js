@@ -72,6 +72,7 @@ class _NavPluginRoot extends Component {
       return (
         <TreeNode
           depth={this.props.depth}
+          nodeType="rule"
           onContextMenu={this.renderContextMenu}
           path={`/capture/rules/${serverID}`}
           childrenNodes={children}>

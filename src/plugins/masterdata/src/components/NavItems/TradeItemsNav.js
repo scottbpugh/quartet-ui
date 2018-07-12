@@ -52,6 +52,7 @@ class _TradeItemsNav extends Component {
         onContextMenu={this.renderContextMenu}
         serverID={this.props.serverID}
         server={this.props.server}
+        nodeType="trade-items"
         path={`/masterdata/trade-items/${this.props.serverID}`}
         childrenNodes={[]}>
         <FormattedMessage id="plugins.masterData.tradeItems" />

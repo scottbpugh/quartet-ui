@@ -46,3 +46,22 @@
 .pt-dark .task-messages .inset-card .numbered-message {
     background-color: rgba(255, 255, 255, 0.02);
 }
+
+.tree-node-task {
+  background-image: url("../images/tasks.svg");
+}
+.tree-node-task.tree-node-active {
+  background-image: url("../images/tasks-active.svg");
+}
+.tree-node-rule {
+  background-image: url("../images/rule.svg");
+}
+.tree-node-rule.tree-node-active {
+  background-image: url("../images/rule-active.svg");
+}
+.tree-node-step {
+  background-image: url("../images/step2.svg");
+}
+.tree-node-step.tree-node-active {
+  background-image: url("../images/step2-active.svg");
+}

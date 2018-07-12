@@ -15,3 +15,45 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+.tree-node-event {
+  background-image: url("../images/events.svg");
+}
+.tree-node-event.tree-node-active {
+  background-image: url("../images/events-active.svg");
+}
+.tree-node-event-data {
+  background-image: url("../images/event-data.svg");
+}
+.tree-node-event-data.tree-node-active {
+  background-image: url("../images/event-data-active.svg");
+}
+.tree-node-aggregation {
+  background-image: url("../images/aggregation.svg");
+}
+.tree-node-aggregation.tree-node-active {
+  background-image: url("../images/aggregation-active.svg");
+}
+.tree-node-object {
+  background-image: url("../images/object.svg");
+}
+.tree-node-object.tree-node-active {
+  background-image: url("../images/object-active.svg");
+}
+.tree-node-transform {
+  background-image: url("../images/transform.svg");
+}
+.tree-node-transform.tree-node-active {
+  background-image: url("../images/transform-active.svg");
+}
+.tree-node-entries {
+  background-image: url("../images/entries.svg");
+}
+.tree-node-entries.tree-node-active {
+  background-image: url("../images/entries-active.svg");
+}
+.tree-node-transaction {
+  background-image: url("../images/transaction.svg");
+}
+.tree-node-transaction.tree-node-active {
+  background-image: url("../images/transaction-active.svg");
+}
