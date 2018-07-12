@@ -49,31 +49,18 @@
 
 .tree-node-task {
   background-image: url("../images/tasks.svg");
-  background-size: 16px 16px;
-  background-repeat: no-repeat;
-  background-position: 2px 3px;
-  fill:#8DC449;
-  stroke-fill:#8DC449;
 }
 .tree-node-task.tree-node-active {
   background-image: url("../images/tasks-active.svg");
 }
 .tree-node-rule {
   background-image: url("../images/rule.svg");
-  background-size: 16px 16px;
-  background-repeat: no-repeat;
-  background-position: 2px 3px;
 }
 .tree-node-rule.tree-node-active {
   background-image: url("../images/rule-active.svg");
 }
 .tree-node-step {
   background-image: url("../images/step2.svg");
-  background-size: 16px 16px;
-  background-repeat: no-repeat;
-  background-position: 2px 3px;
-  fill:#8DC449;
-  stroke-fill:#8DC449;
 }
 .tree-node-step.tree-node-active {
   background-image: url("../images/step2-active.svg");
