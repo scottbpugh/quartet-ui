@@ -173,6 +173,10 @@ export default function configureStore(coreInitialState) {
                 false
               )
             );
+          })
+          .catch(e => {
+            // importing of plugin failed at startup.
+            // fail silently.
           });
       }
     } catch (e) {

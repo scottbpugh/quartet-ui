@@ -1,7 +1,7 @@
 {
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
-  "version": "1.0.3-devel",
+  "version": "1.0.4",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -12,6 +12,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "base-64": "^0.1.0",
+    "clear-module": "^3.0.0",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.14",
     "electron-reload": "^1.2.5",
@@ -56,7 +57,8 @@
     "start": "nf start",
     "build": "./build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
-    "test": "CI=true jest --env=jsdom",
+    "test": "jest --env=jsdom",
+    "ci-test": "CI=true jest --env=jsdom",
     "electron": "electron .",
     "react-start":
       "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
@@ -66,7 +68,7 @@
     "security-check": "nsp check --preprocessor yarn --reporter table",
     "lint": "./node_modules/.bin/eslint src",
     "publish-npm":
-      "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files; npm publish"
+      "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -76,7 +78,6 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "clear-module": "^2.1.0",
     "console-warn-throws-error": "^1.1.0",
     "electron": "^2.0.1",
     "electron-builder": "^20.13.4",
