@@ -101,6 +101,7 @@ class _NavPluginRoot extends Component {
         <TreeNode
           depth={this.props.depth}
           onContextMenu={this.renderContextMenu.bind(this)}
+          nodeType="task"
           path={`/capture/tasks/${serverID}`}
           childrenNodes={children}>
           <FormattedMessage id="plugins.capture.tasksTopNav" />
