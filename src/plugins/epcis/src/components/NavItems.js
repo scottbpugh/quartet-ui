@@ -42,6 +42,7 @@ class SubNode extends Component {
     return (
       <TreeNode
         depth={this.props.depth}
+        nodeType={this.props.nodeType || null}
         path={this.props.path ? this.props.path : null}
         onContextMenu={this.renderContextMenu.bind(this)}
         childrenNodes={this.props.childrenNodes}>
@@ -111,11 +112,13 @@ class _NavPluginRoot extends Component {
         server={server}
         menuItems={eventMenuItem}
         path={`/epcis/event-list/${serverID}`}
+        nodeType="event"
         currentPath={currentPath}
         childrenNodes={[
           <SubNode
             depth={this.props.depth}
             serverID={serverID}
+            nodeType="aggregation"
             server={server}
             key="aggreg"
             menuItems={eventMenuItem}
@@ -128,6 +131,7 @@ class _NavPluginRoot extends Component {
             depth={this.props.depth}
             serverID={serverID}
             server={server}
+            nodeType="object"
             menuItems={eventMenuItem}
             currentPath={currentPath}
             key="obj"
@@ -139,6 +143,7 @@ class _NavPluginRoot extends Component {
             depth={this.props.depth}
             serverID={serverID}
             server={server}
+            nodeType="transaction"
             menuItems={eventMenuItem}
             currentPath={currentPath}
             key="tx"
@@ -150,6 +155,7 @@ class _NavPluginRoot extends Component {
             depth={this.props.depth}
             serverID={serverID}
             server={server}
+            nodeType="transform"
             menuItems={eventMenuItem}
             currentPath={currentPath}
             path={`/epcis/event-list/${serverID}/type/tf`}
@@ -164,6 +170,7 @@ class _NavPluginRoot extends Component {
         depth={this.props.depth}
         serverID={serverID}
         server={server}
+        nodeType="entries"
         currentPath={currentPath}
         menuItems={entryMenuItem}
         path={`/epcis/entry-list/${serverID}`}
@@ -177,6 +184,7 @@ class _NavPluginRoot extends Component {
         <TreeNode
           onContextMenu={this.renderContextMenu}
           depth={this.props.depth}
+          nodeType="event-data"
           serverID={serverID}
           server={server}
           childrenNodes={children}>

@@ -22,7 +22,7 @@ import {NavPluginRoot} from "./components/NavItems";
 import routes from "./routes";
 import reducer, {initialData} from "./reducers/epcis";
 import messages from "./messages";
-
+require("./styles.css");
 const PLUGIN_NAME = "EPCIS";
 
 export const enablePlugin = () => {

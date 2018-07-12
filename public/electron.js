@@ -96,7 +96,19 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", () => {
+  if (isDev) {
+    console.log("Delaying display of window.");
+    // cheap way of preventing the constant reload from electron-reload.
+    const setTimeout = require("timers").setTimeout;
+    setTimeout(() => {
+      console.log("About to display dev window");
+      createWindow();
+    }, 8000);
+  } else {
+    createWindow();
+  }
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function() {
