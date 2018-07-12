@@ -102,6 +102,7 @@ class StepItem extends Component {
     return (
       <TreeNode
         depth={depth}
+        nodeType="step"
         onContextMenu={this.renderContextMenu.bind(this)}
         onClick={this.goToEdit.bind(this)}
         path={`/capture/edit-step/${serverID}/rule/${step.rule}/step/${
@@ -244,11 +245,12 @@ class _RuleItem extends Component {
       <TreeNode
         onContextMenu={this.renderContextMenu.bind(this)}
         depth={depth}
+        nodeType="rule"
         path={`/capture/add-rule/${this.props.serverID}/rule/${rule.id}`}
         onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         childrenNodes={[
-          <TreeNode depth={depth} childrenNodes={steps}>
+          <TreeNode nodeType="step" depth={depth} childrenNodes={steps}>
             <FormattedMessage id="plugins.capture.steps" />
           </TreeNode>
         ]}>
