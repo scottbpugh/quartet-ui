@@ -71,7 +71,10 @@ export default {
       common: {
         mainError:
           "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
-        entriesTotal: "{entriesCount} Entries Total"
+        entriesTotal: "{entriesCount} Entries Total",
+        submit: "Submit",
+        cancelSubmit: "Cancel",
+        backButton: "Back"
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -140,6 +143,14 @@ export default {
         addPlugin: "Ajouter un plugin",
         errorFetchRemotePlugins:
           "Une erreur s'est produite lors de la requete des données plugins: {error}"
+      },
+      common: {
+        mainError:
+          "Une erreur s'est produite pendant l'execution de cette action. {msg}",
+        entriesTotal: "{entriesCount} objets",
+        submit: "Soumettre",
+        cancelSubmit: "Annuler",
+        backButton: "Retour"
       }
     },
     plugins: {}
