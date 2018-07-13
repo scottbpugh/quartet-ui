@@ -119,6 +119,24 @@ app.on("window-all-closed", function() {
   }
 });
 
+// only allow a single instance cross-OS.
+var shouldQuit = app.makeSingleInstance(function(
+  commandLine,
+  workingDirectory
+) {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
+    mainWindow.focus();
+  }
+});
+if (shouldQuit) {
+  console.log("QU4RTET UI already running. Quitting.");
+  app.quit();
+  return;
+}
+
 app.on("activate", function() {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
