@@ -22,7 +22,10 @@ const PLUGINS_PATH = require("path").join(
   require("electron").app.getPath("userData"),
   "packages"
 );
-
+const PLUGINS_LIST_PATH = path.join(
+  require("electron").app.getPath("userData"),
+  "pluginList.json"
+);
 const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
 
 const fs = require("fs");
@@ -30,11 +33,7 @@ var https = require("https");
 
 exports.getPlugins = async function() {
   try {
-    const pluginListPath = path.join(
-      require("electron").app.getPath("userData"),
-      "pluginList.json"
-    );
-    var file = fs.createWriteStream(pluginListPath);
+    var file = fs.createWriteStream(PLUGINS_LIST_PATH);
     var request = https.get(
       "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json",
       function(response) {
@@ -47,10 +46,13 @@ exports.getPlugins = async function() {
 };
 
 exports.install = async function(pluginEntry) {
-  console.log("about to install ", pluginEntry);
-
-  let installedPlugin = null;
   try {
+    let pluginList = require(PLUGINS_LIST_PATH);
+    if (pluginList[pluginEntry.pluginName].version === pluginEntry.version) {
+      // this is already the latest version, don't DDOS NPM.
+      return await manager.createPluginInfo(pluginEntry.pluginName);
+    }
+    let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);
     } else {
