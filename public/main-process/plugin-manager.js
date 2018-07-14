@@ -22,7 +22,10 @@ const PLUGINS_PATH = require("path").join(
   require("electron").app.getPath("userData"),
   "packages"
 );
-
+const PLUGINS_LIST_PATH = path.join(
+  require("electron").app.getPath("userData"),
+  "pluginList.json"
+);
 const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
 
 const fs = require("fs");
@@ -30,11 +33,7 @@ var https = require("https");
 
 exports.getPlugins = async function() {
   try {
-    const pluginListPath = path.join(
-      require("electron").app.getPath("userData"),
-      "pluginList.json"
-    );
-    var file = fs.createWriteStream(pluginListPath);
+    var file = fs.createWriteStream(PLUGINS_LIST_PATH);
     var request = https.get(
       "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json",
       function(response) {
@@ -47,15 +46,27 @@ exports.getPlugins = async function() {
 };
 
 exports.install = async function(pluginEntry) {
-  console.log("about to install ", pluginEntry);
-
-  let installedPlugin = null;
   try {
+    /*
+    11:28:34 AM electron.1 |  INSTALLED PLUGIN { name: 'quartet-ui-output',
+    11:28:34 AM electron.1 |    version: '1.0.12',
+    11:28:34 AM electron.1 |    location: '/Users/lduros/Library/Application Support/QU4RTET/packages/quartet-ui-output',
+    11:28:34 AM electron.1 |    mainFile: '/Users/lduros/Library/Application Support/QU4RTET/packages/quartet-ui-output/lib/init.js',
+    11:28:34 AM electron.1 |    dependencies: {} }
+    */
+    let pluginList = require(PLUGINS_LIST_PATH);
+    if (pluginList[pluginEntry.pluginName].version === pluginEntry.version) {
+      // this is already the latest version, don't DDOS NPM.
+      return await manager.createPluginInfo(pluginEntry.pluginName);
+    }
+    console.log("about to install ", pluginEntry);
+    let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);
     } else {
       installedPlugin = await manager.install(pluginEntry.packagePath);
     }
+    console.log("INSTALLED PLUGIN", installedPlugin);
     return installedPlugin;
   } catch (e) {
     console.log(e);
