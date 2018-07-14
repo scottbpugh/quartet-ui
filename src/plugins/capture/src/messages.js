@@ -49,7 +49,11 @@ const defaultLocaleMsg = {
     taskCreated: "Task with id {taskID} has been created.",
     tasksTotal: "{tasksCount} tasks total.",
     selectRule: "Select a Rule",
-    taskDetail: "Task Detail"
+    taskDetail: "Task Detail",
+    restart: "Restart",
+    confirmRestart: "Are you sure you want to restart this task?",
+    confirmRestartBody:
+      "Restarting this task will re-execute all of the logic for this rule."
   }
 };
 
@@ -83,7 +87,8 @@ const french = {
   taskCreated: "Une tâche avec l'ID {taskID} a été créée.",
   tasksTotal: "Total des tâches: {tasksCount}",
   steps: "Étapes",
-  selectRule: "Sélectionner une règle"
+  selectRule: "Sélectionner une règle",
+  restart: "Recommencer"
 };
 
 export default {

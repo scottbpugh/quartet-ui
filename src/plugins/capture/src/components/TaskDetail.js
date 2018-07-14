@@ -22,18 +22,15 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import objectPath from "object-path";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage, FormattedTime, FormattedDate} from "react-intl";
+import {ConfirmDialog} from "components/elements/ConfirmDialog";
 import "../styles.css";
 
 const yieldDataPairRowIfSet = (key, value) => {
   if (key && value) {
     return (
       <tr>
-        <td>
-          {key}
-        </td>
-        <td>
-          {value}
-        </td>
+        <td>{key}</td>
+        <td>{value}</td>
       </tr>
     );
   }
@@ -47,7 +44,8 @@ class _TaskDetail extends Component {
       task:
         this.props.tasks.find(task => {
           return task.name === this.props.match.params.taskName;
-        }) || null
+        }) || null,
+      confirmOpened: false
     };
   }
 
@@ -59,7 +57,12 @@ class _TaskDetail extends Component {
         }) || null
     });
   }
-
+  toggleConfirmRestart = () => {
+    this.setState({confirmOpened: !this.state.confirmOpened});
+  };
+  restartTask = () => {
+    this.toggleConfirmRestart();
+  };
   render() {
     const {task} = this.state;
     let intent = Intent.PRIMARY;
@@ -86,18 +89,30 @@ class _TaskDetail extends Component {
             <Card className="pt-elevation-4">
               <h5>
                 {task.name}
+                {!["FINISHED", "RUNNING", "WAITING"].includes(task.status) ? (
+                  <button
+                    onClick={this.toggleConfirmRestart}
+                    className="pt-button right-aligned-elem pt-interactive pt-intent-primary">
+                    <FormattedMessage id="plugins.capture.restart" />
+                  </button>
+                ) : null}
               </h5>
+              <ConfirmDialog
+                isOpen={this.state.confirmOpened}
+                title={<FormattedMessage id="plugins.capture.confirmRestart" />}
+                body={
+                  <FormattedMessage id="plugins.capture.confirmRestartBody" />
+                }
+                toggle={this.toggleConfirmRestart.bind(this)}
+                confirmAction={this.restartTask.bind(this)}
+              />
               <table className="pt-table data-pair-table pt-bordered pt-striped">
                 <tbody>
                   {yieldDataPairRowIfSet("Name", task.name)}
                   <tr>
+                    <td>Status</td>
                     <td>
-Status
-                    </td>
-                    <td>
-                      <Tag intent={intent}>
-                        {task.status}
-                      </Tag>
+                      <Tag intent={intent}>{task.status}</Tag>
                     </td>
                   </tr>
                   {yieldDataPairRowIfSet("Status Changed", task.status_changed)}
@@ -106,9 +121,7 @@ Status
             </Card>
             {task.ruleObject ? (
               <Card className="pt-elevation-4">
-                <h5>
-Rule
-                </h5>
+                <h5>Rule</h5>
                 <table className="pt-table data-pair-table pt-bordered pt-striped">
                   <tbody>
                     {yieldDataPairRowIfSet("Rule Name", task.ruleObject.name)}
@@ -123,9 +136,7 @@ Rule
               <Card className="pt-elevation-4" />
             )}
             <Card className="task-messages pt-elevation-4">
-              <h5>
-Messages
-              </h5>
+              <h5>Messages</h5>
               {task.taskmessage_set.map((message, index) => {
                 let intent = Intent.PRIMARY;
                 let numberedClass = "default";
@@ -149,8 +160,7 @@ Messages
                   <div
                     key={`task-message-${message.id}`}
                     style={{position: "relative"}}
-                    className="inset-card"
-                  >
+                    className="inset-card">
                     <div className="message-info">
                       <span className={`numbered-message ${numberedClass}`}>
                         #
@@ -159,22 +169,16 @@ Messages
                       <table className="data-pair-table">
                         <tbody>
                           <tr>
+                            <td>Level</td>
                             <td>
-Level
-                            </td>
-                            <td>
-                              <Tag intent={intent}>
-                                {message.level}
-                              </Tag>
+                              <Tag intent={intent}>{message.level}</Tag>
                             </td>
                           </tr>
                           {yieldDataPairRowIfSet("Created", message.created)}
                         </tbody>
                       </table>
                     </div>
-                    <pre>
-                      {message.message}
-                    </pre>
+                    <pre>{message.message}</pre>
                   </div>
                 );
               })}

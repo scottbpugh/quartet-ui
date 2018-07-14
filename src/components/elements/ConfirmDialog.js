@@ -19,31 +19,31 @@ import React, {Component} from "react";
 import {Callout, Intent, Button, Dialog} from "@blueprintjs/core";
 import classNames from "classnames";
 import {connect} from "react-redux";
+import {FormattedMessage} from "react-intl";
 
 /**
  *
  *
  *  Instantiate as follows, here the region example:
- *    <DeleteDialog
+ *    <ConfirmDialog
           isOpen={this.state.myOpenToggleBool}
           title={
             <FormattedMessage
-              id="plugins.numberRange.deleteRegion"
-              values={{regionName: region.readable_name}}
+              id="plugins.numberRange.confirmSomething"
             />
           }
           body={
-            <FormattedMessage id="plugins.numberRange.deleteRegionConfirm" />
+            <FormattedMessage id="plugins.numberRange.confirmBody" />
           }
           toggle={this.toggleDialog.bind(this)}
-          deleteAction={this.trashRegion.bind(this)}
+          confirmAction={this.doSomething.bind(this)}
         />
  *
  *
  * */
-class _DeleteDialog extends Component {
+class _ConfirmDialog extends Component {
   render() {
-    const {title, body, deleteAction, theme, toggle} = this.props;
+    const {title, body, confirmAction, theme, toggle} = this.props;
     return (
       <Dialog
         className={classNames({
@@ -55,17 +55,19 @@ class _DeleteDialog extends Component {
           <h5>{title}</h5>
         </div>
         <div className="pt-dialog-body">
-          <Callout intent={Intent.DANGER}>{body}</Callout>
+          <Callout intent={Intent.WARNING}>{body}</Callout>
         </div>
         <div className="pt-dialog-footer">
           <div className="pt-dialog-footer-actions">
             <Button
-              onClick={deleteAction}
-              iconName="trash"
-              intent={Intent.DANGER}>
-              Delete
+              onClick={confirmAction}
+              iconName="warning"
+              intent={Intent.WARNING}>
+              <FormattedMessage id="app.common.confirm" />
             </Button>
-            <Button onClick={toggle}>Cancel</Button>
+            <Button onClick={toggle}>
+              <FormattedMessage id="app.common.cancelConfirm" />
+            </Button>
           </div>
         </div>
       </Dialog>
@@ -73,10 +75,10 @@ class _DeleteDialog extends Component {
   }
 }
 
-export const DeleteDialog = connect((state, ownProps) => {
+export const ConfirmDialog = connect((state, ownProps) => {
   return {
     theme: state.layout.theme
   };
-}, {})(_DeleteDialog);
+}, {})(_ConfirmDialog);
 
-window.qu4rtet.exports("components/elements/DeleteDialog", this);
+window.qu4rtet.exports("components/elements/ConfirmDialog", this);

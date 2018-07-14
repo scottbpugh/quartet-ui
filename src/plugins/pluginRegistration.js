@@ -96,9 +96,9 @@ class PluginRegistry {
 
   registerKeybinding = (pluginName, key, keyCallback) => {
     if (pluginName in this._keybindings) {
-      this._keybindings.push({key, keyCallback});
+      this._keybindings[pluginName].push({key, keyCallback});
     } else {
-      this._keybindings = [{key, keyCallback}];
+      this._keybindings[pluginName] = [{key, keyCallback}];
     }
     this._keybindings[pluginName];
     MouseTrap.bind(key, keyCallback);

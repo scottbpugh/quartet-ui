@@ -74,7 +74,9 @@ export default {
         entriesTotal: "{entriesCount} Entries Total",
         submit: "Submit",
         cancelSubmit: "Cancel",
-        backButton: "Back"
+        backButton: "Back",
+        confirm: "Confirm",
+        cancelConfirm: "Cancel"
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -150,7 +152,9 @@ export default {
         entriesTotal: "{entriesCount} objets",
         submit: "Soumettre",
         cancelSubmit: "Annuler",
-        backButton: "Retour"
+        backButton: "Retour",
+        confirm: "Confirmer",
+        cancelConfirm: "Annuler"
       }
     },
     plugins: {}
