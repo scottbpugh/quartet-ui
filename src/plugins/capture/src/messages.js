@@ -53,7 +53,9 @@ const defaultLocaleMsg = {
     restart: "Restart",
     confirmRestart: "Are you sure you want to restart this task?",
     confirmRestartBody:
-      "Restarting this task will re-execute all of the logic for this rule."
+      "Restarting this task will re-execute all of the logic for this rule.",
+    executeTaskError:
+      "An error occurred while attempting to re-excute this task: {error}"
   }
 };
 

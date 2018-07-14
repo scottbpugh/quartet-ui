@@ -48,18 +48,53 @@ class _TaskDetail extends Component {
         }) || null,
       confirmOpened: false
     };
+    this.autoRefresh = null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      task:
-        nextProps.tasks.find(task => {
-          return task.name === nextProps.match.params.taskName;
-        }) || null
-    });
+  componentDidMount() {
+    if (this.state.task && this.state.task.status !== "FINISHED") {
+      this.autoRefresh = window.setInterval(() => {
+        this.refetchTask();
+      }, 5000);
+    }
+  }
+  componentWillUnmount() {
+    if (this.autoRefresh) {
+      clearInterval(this.autoRefresh);
+    }
   }
   toggleConfirmRestart = () => {
     this.setState({confirmOpened: !this.state.confirmOpened});
+  };
+  refetchTask = () => {
+    let serverObject = pluginRegistry.getServer(this.props.server);
+    serverObject
+      .fetchObject("capture_tasks_read", {name: this.state.task.name})
+      .then(response => {
+        if (
+          this.state.task.ruleObject &&
+          typeof this.state.task.ruleObject === "object"
+        ) {
+          // add rule detail from list.
+          response.ruleObject = this.state.task.ruleObject;
+        } else {
+          let task =
+            this.props.tasks.find(task => {
+              return task.name === this.props.match.params.taskName;
+            }) || null;
+          if (task) {
+            response.ruleObject = task.ruleObject;
+          }
+        }
+        this.setState({task: response});
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.capture.executeTaskError",
+          values: {error: e}
+        });
+      });
   };
   restartTask = () => {
     this.toggleConfirmRestart();
@@ -70,6 +105,12 @@ class _TaskDetail extends Component {
       })
       .then(response => {
         showMessage({type: "success", msg: response});
+        if (this.autoRefresh) {
+          clearInterval(this.autoRefresh);
+        }
+        this.autoRefresh = window.setInterval(() => {
+          this.refetchTask();
+        }, 5000);
       })
       .catch(e => {
         showMessage({
