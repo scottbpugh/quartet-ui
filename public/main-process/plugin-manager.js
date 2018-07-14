@@ -47,26 +47,17 @@ exports.getPlugins = async function() {
 
 exports.install = async function(pluginEntry) {
   try {
-    /*
-    11:28:34 AM electron.1 |  INSTALLED PLUGIN { name: 'quartet-ui-output',
-    11:28:34 AM electron.1 |    version: '1.0.12',
-    11:28:34 AM electron.1 |    location: '/Users/lduros/Library/Application Support/QU4RTET/packages/quartet-ui-output',
-    11:28:34 AM electron.1 |    mainFile: '/Users/lduros/Library/Application Support/QU4RTET/packages/quartet-ui-output/lib/init.js',
-    11:28:34 AM electron.1 |    dependencies: {} }
-    */
     let pluginList = require(PLUGINS_LIST_PATH);
     if (pluginList[pluginEntry.pluginName].version === pluginEntry.version) {
       // this is already the latest version, don't DDOS NPM.
       return await manager.createPluginInfo(pluginEntry.pluginName);
     }
-    console.log("about to install ", pluginEntry);
     let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);
     } else {
       installedPlugin = await manager.install(pluginEntry.packagePath);
     }
-    console.log("INSTALLED PLUGIN", installedPlugin);
     return installedPlugin;
   } catch (e) {
     console.log(e);
