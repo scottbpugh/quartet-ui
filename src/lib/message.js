@@ -48,6 +48,7 @@ export const showMessage = msg => {
         intent: getIntent(msg.type)
       });
     } else if (msg.msg) {
+      //let formatMsg = typeof msg.msg === "object" ? JSON.stringify(msg.msg) : msg.msg;
       msgToaster.show({message: msg.msg, intent: getIntent(msg.type)});
     }
   } catch (e) {

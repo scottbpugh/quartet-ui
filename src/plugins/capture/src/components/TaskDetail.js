@@ -23,6 +23,7 @@ import objectPath from "object-path";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage, FormattedTime, FormattedDate} from "react-intl";
 import {ConfirmDialog} from "components/elements/ConfirmDialog";
+import {showMessage} from "lib/message";
 import "../styles.css";
 
 const yieldDataPairRowIfSet = (key, value) => {
@@ -62,6 +63,21 @@ class _TaskDetail extends Component {
   };
   restartTask = () => {
     this.toggleConfirmRestart();
+    let serverObject = pluginRegistry.getServer(this.props.server);
+    serverObject
+      .fetchObject("capture_execute_read", {
+        task_name: this.state.task.name
+      })
+      .then(response => {
+        showMessage({type: "success", msg: response});
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.capture.executeTaskError",
+          values: {error: e}
+        });
+      });
   };
   render() {
     const {task} = this.state;
