@@ -169,31 +169,40 @@ exports[`returns main 1`] = `
             }
           >
             <div
-              className="tree-wrapper"
+              className="leftbar-group"
             >
               <div
-                className="leftbar-group"
+                className="pt-button-group pt-minimal pt-dark"
               >
-                <div
-                  className="pt-button-group pt-minimal pt-dark"
-                >
+                <button
+                  className="pt-button pt-icon-home"
+                  onClick={[Function]}
+                  tabIndex="0"
+                />
+                <div>
                   <button
-                    className="pt-button pt-icon-home"
+                    className="pt-button pt-icon-arrow-left"
+                    disabled={false}
                     onClick={[Function]}
                     tabIndex="0"
+                    title="Back"
                   />
-                  <div>
-                    <span
-                      className="pt-popover-target pt-dark"
-                      onClick={[Function]}
-                    >
-                      <button
-                        className="pt-button pt-icon-add"
-                      />
-                    </span>
-                  </div>
+                </div>
+                <div>
+                  <span
+                    className="pt-popover-target pt-dark"
+                    onClick={[Function]}
+                  >
+                    <button
+                      className="pt-button pt-icon-add"
+                    />
+                  </span>
                 </div>
               </div>
+            </div>
+            <div
+              className="tree-wrapper"
+            >
               <div
                 style={
                   Object {
