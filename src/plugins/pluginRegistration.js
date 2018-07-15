@@ -19,6 +19,7 @@
 import {injectIntl} from "react-intl";
 import React, {Component} from "react";
 import injectCss from "inject-css";
+import MouseTrap from "mousetrap";
 /**
  * PluginRegistry - Holds references to various plugin objects
  * such as routes, reducers, components, and localization messages.
@@ -75,6 +76,7 @@ class PluginRegistry {
     * Holds all the CSS objects dynamically injected from plugins.
     */
     this._registeredCss = {};
+    this._keybindings = {}; // an object with all keybindings from plugins and core.
   }
   /*
   Building blocks used for plugins. Prevents having to import/dups etc.
@@ -91,6 +93,25 @@ class PluginRegistry {
       }
     }
   }
+
+  registerKeybinding = (pluginName, key, keyCallback) => {
+    if (pluginName in this._keybindings) {
+      this._keybindings[pluginName].push({key, keyCallback});
+    } else {
+      this._keybindings[pluginName] = [{key, keyCallback}];
+    }
+    this._keybindings[pluginName];
+    MouseTrap.bind(key, keyCallback);
+  };
+
+  unregisterKeybinding = (pluginName, key) => {
+    this._keybindings[pluginName] = this._keybindings[pluginName].filter(
+      keybinding => {
+        return keybinding.key !== key;
+      }
+    );
+    MouseTrap.unbind(key);
+  };
 
   registerComponent = (pluginName, component, injectAction) => {
     if (!pluginName || !component) {
@@ -246,7 +267,16 @@ class PluginRegistry {
   }
   getIntl() {
     // might do some checks first here.
-    return this.intl;
+    if (this.intl) {
+      return this.intl;
+    } else {
+      // stub when intl is not yet available.
+      return {
+        formatMessage: msg => {
+          return "";
+        }
+      };
+    }
   }
 
   setChangeListener(listener) {

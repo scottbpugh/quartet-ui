@@ -2,8 +2,13 @@
 
 exports[`flattens the main messages properly 1`] = `
 Object {
+  "en-US.app.common.backButton": "Back",
+  "en-US.app.common.cancelConfirm": "Cancel",
+  "en-US.app.common.cancelSubmit": "Cancel",
+  "en-US.app.common.confirm": "Confirm",
   "en-US.app.common.entriesTotal": "{entriesCount} Entries Total",
   "en-US.app.common.mainError": "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
+  "en-US.app.common.submit": "Submit",
   "en-US.app.dashboard.connectServer": "Connect to a Server",
   "en-US.app.dashboard.dashboardHeader3": "The Open Source Level 4",
   "en-US.app.dashboard.documentation": "{projectName} Module Documentation",
@@ -42,6 +47,13 @@ Object {
   "en-US.app.themes.darkTheme": "Dark Theme",
   "en-US.app.themes.lightTheme": "Light Theme",
   "en-US.app.themes.polarTheme": "Polar Theme",
+  "fr-FR.app.common.backButton": "Retour",
+  "fr-FR.app.common.cancelConfirm": "Annuler",
+  "fr-FR.app.common.cancelSubmit": "Annuler",
+  "fr-FR.app.common.confirm": "Confirmer",
+  "fr-FR.app.common.entriesTotal": "{entriesCount} objets",
+  "fr-FR.app.common.mainError": "Une erreur s'est produite pendant l'execution de cette action. {msg}",
+  "fr-FR.app.common.submit": "Soumettre",
   "fr-FR.app.dashboard.connectServer": "Se connecter a un serveur",
   "fr-FR.app.dashboard.dashboardHeader3": "Le logiciel libre de Niveau 4",
   "fr-FR.app.dashboard.documentation": "Documentation du module {projectName}",

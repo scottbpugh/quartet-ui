@@ -5298,6 +5298,10 @@ morgan@^1.9.0:
     on-finished "~2.3.0"
     on-headers "~1.0.1"
 
+mousetrap@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.2.tgz#caadd9cf886db0986fb2fee59a82f6bd37527587"
+
 mout@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/mout/-/mout-1.0.0.tgz#9bdf1d4af57d66d47cb353a6335a3281098e1501"

@@ -26,12 +26,14 @@ import {
   NavbarDivider
 } from "@blueprintjs/core";
 import "@blueprintjs/core/dist/blueprint.css";
+import MouseTrap from "mousetrap";
 import {withRouter} from "react-router-dom";
 import NavLink from "components/layouts/elements/NavLink";
 import {FormattedMessage} from "react-intl";
 import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
 import {SwitchTheme} from "components/layouts/elements/SwitchTheme";
 import {NavTree} from "components/layouts/elements/NavTree";
+import {ControlPanel} from "components/layouts/elements/ControlPanel";
 import {connect} from "react-redux";
 import {LeftPanel, Panels} from "components/layouts/Panels";
 import classNames from "classnames";
@@ -44,6 +46,21 @@ import QuartetLogo from "./QuartetLogo";
 window.pluginRegistry = pluginRegistry;
 
 class _App extends Component {
+  constructor(props) {
+    super(props);
+    pluginRegistry.registerKeybinding("core", "backspace", this.goBack);
+  }
+  componentWillUnmount() {
+    pluginRegistry.unregisterKeybinding("core", "backspace");
+  }
+  goBack = () => {
+    if (this.props.currentPath !== "/") {
+      this.props.history.goBack();
+    }
+  };
+  goForward() {
+    this.props.history.goForward();
+  }
   componentDidMount() {
     // make intl easily available to plugins.
     pluginRegistry.registerIntl(this.props.intl);
@@ -79,15 +96,13 @@ class _App extends Component {
           contrasted: this.props.theme === "contrasted",
           "dark-brown": this.props.theme === "dark-brown",
           polar: this.props.theme === "polar"
-        })}
-      >
+        })}>
         <header>
           <Navbar
             className={classNames({
               "pt-fixed-top": true,
               "pt-dark": this.props.theme !== "polar"
-            })}
-          >
+            })}>
             <NavbarGroup>
               <NavbarHeading>
                 <QuartetLogo style={{width: "50%", height: "50%"}} />
@@ -113,6 +128,7 @@ class _App extends Component {
         <div className="wrapper">
           <Panels>
             <LeftPanel key="leftpanel">
+              <ControlPanel />
               {/* Important not to rerender this component on router changes. */}
               <NavTree />
             </LeftPanel>
