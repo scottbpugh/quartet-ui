@@ -64,8 +64,7 @@ class _AddRule extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editRule" />
           )
-        }
-      >
+        }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
@@ -100,8 +99,7 @@ class _AddRule extends Component {
                         this.props.server.serverID
                       }/rule/${rule.id}`
                     );
-                  }}
-                >
+                  }}>
                   <FormattedMessage id="plugins.capture.addRuleParameter" />
                 </button>
                 <FormattedMessage id="plugins.capture.ruleParameters" />
@@ -110,40 +108,38 @@ class _AddRule extends Component {
               {Array.isArray(rule.params) && rule.params.length > 0 ? (
                 <table className="pt-table pt-interactive pt-bordered pt-striped">
                   <thead>
-                    <th>
-                      <FormattedMessage
-                        id="plugins.capture.name"
-                        defaultMessage="name"
-                      />
-                    </th>
-                    <th>
-                      {" "}
-                      <FormattedMessage
-                        id="plugins.capture.value"
-                        defaultMessage="value"
-                      />
-                    </th>
-                    <th />
+                    <tr>
+                      <th>
+                        <FormattedMessage
+                          id="plugins.capture.name"
+                          defaultMessage="name"
+                        />
+                      </th>
+                      <th>
+                        {" "}
+                        <FormattedMessage
+                          id="plugins.capture.value"
+                          defaultMessage="value"
+                        />
+                      </th>
+                      <th />
+                    </tr>
                   </thead>
                   <tbody>
                     {rule.params.map(param => {
                       return (
                         <tr key={param.id}>
-                          <td>
-                            {param.name}
-                          </td>
-                          <td>
-                            {param.value}
-                          </td>
+                          <td>{param.name}</td>
+                          <td>{param.value}</td>
                           <td style={{width: "80px"}}>
                             <ButtonGroup minimal small>
                               <Button
-                                small
+                                small="true"
                                 iconName="edit"
                                 onClick={this.editRuleParam.bind(this, param)}
                               />
                               <Button
-                                small
+                                small="true"
                                 iconName="trash"
                                 onClick={this.deleteRuleParam.bind(this, param)}
                               />
@@ -169,10 +165,10 @@ export const AddRule = connect(
       server: state.serversettings.servers[ownProps.match.params.serverID],
       rule: ownProps.match.params.ruleID
         ? state.capture.servers[ownProps.match.params.serverID].rules.find(
-          rule => {
-            return Number(rule.id) === Number(ownProps.match.params.ruleID);
-          }
-        )
+            rule => {
+              return Number(rule.id) === Number(ownProps.match.params.ruleID);
+            }
+          )
         : null
     };
   },
