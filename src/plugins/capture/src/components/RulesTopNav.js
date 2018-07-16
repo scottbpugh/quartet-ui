@@ -65,7 +65,11 @@ class _NavPluginRoot extends Component {
       let children = rules
         ? rules.map(rule => {
             return (
-              <RuleItem rule={rule} serverID={this.props.server.serverID} />
+              <RuleItem
+                key={`${rule.name}-${this.props.server.serverID}`}
+                rule={rule}
+                serverID={this.props.server.serverID}
+              />
             );
           })
         : [];

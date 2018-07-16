@@ -38,7 +38,6 @@ export class _PageForm extends Component {
   componentDidMount() {
     this.constructForm(this.props);
   }
-
   submit = postValues => {
     let {
       server,

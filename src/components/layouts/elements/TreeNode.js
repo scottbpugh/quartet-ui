@@ -126,7 +126,7 @@ export const TreeNode = connect((state, ownProps) => {
 }, {})(withRouter(_TreeNode));
 
 TreeNode.propTypes = {
-  onContextMenu: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func,
   depth: PropTypes.number.isRequired,
   active: PropTypes.bool,
   serverID: PropTypes.string,
