@@ -46,6 +46,7 @@
     "redux-form": "^7.2.1",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
+    "string-hash": "^1.1.3",
     "swagger-client": "^3.5.0"
   },
   "author": {
@@ -61,15 +62,12 @@
     "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
-    "react-start":
-      "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
+    "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar":
-      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table",
     "lint": "./node_modules/.bin/eslint src",
-    "publish-npm":
-      "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish"
+    "publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -105,24 +103,30 @@
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
-      "target": ["zip"]
+      "target": [
+        "zip"
+      ]
     },
     "win": {
-      "target": ["nsis", "zip"]
+      "target": [
+        "nsis",
+        "zip"
+      ]
     },
     "directories": {
       "buildResources": "build"
     },
     "publish": {
       "provider": "generic",
-      "url":
-        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+      "url": "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }
   },
   "jest": {
-    "setupFiles": ["jest-canvas-mock"]
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   },
   "postinstall": "electron-builder install-app-deps"
 }
