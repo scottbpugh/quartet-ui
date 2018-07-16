@@ -121,7 +121,9 @@ export const getGeoForEntry = (server, epc) => {
         type: actions.clearGeoEvents,
         payload: {serverID: server.serverID}
       });
-      const client = await pluginRegistry.getServer(server.serverID).getClient();
+      const client = await pluginRegistry
+        .getServer(server.serverID)
+        .getClient();
       const response = await client.apis.masterdata.masterdata_entry_geohistory_by_epc_read(
         {epc}
       );
@@ -135,11 +137,12 @@ export const getGeoForEntry = (server, epc) => {
         });
       }
     } catch (e) {
-      showMessage({
+      // remove geo location error.
+      /*showMessage({
         type: "error",
         id: "plugins.epcis.errorLoadingEntryGeo",
         values: {error: e}
-      });
+      });*/
     }
   };
 };
