@@ -84,9 +84,15 @@ const LocationEntry = props => {
     `/masterdata/${props.server.serverID}/sgln/${props.entry.SGLN}`
   );
 
+  const goToPayloadIfNoGeo = () => {
+    if (!props.entry.longitude) {
+      goTo(`/masterdata/${props.server.serverID}/sgln/${props.entry.SGLN}`);
+    }
+  };
+
   return (
     <tr key={props.entry.id}>
-      <td style={{width: "200px"}}>
+      <td style={{width: "200px"}} onClick={goToPayloadIfNoGeo}>
         {props.entry.longitude && props.entry.latitude ? (
           <SingleMarkerMap
             targetId={props.entry.SGLN}
@@ -98,27 +104,13 @@ const LocationEntry = props => {
           />
         ) : null}
       </td>
-      <td onClick={goToPayload}>
-        {props.entry.GLN13}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.name}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.company}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.address1}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.country}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.city}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.location_type}
-      </td>
+      <td onClick={goToPayload}>{props.entry.GLN13}</td>
+      <td onClick={goToPayload}>{props.entry.name}</td>
+      <td onClick={goToPayload}>{props.entry.company}</td>
+      <td onClick={goToPayload}>{props.entry.address1}</td>
+      <td onClick={goToPayload}>{props.entry.country}</td>
+      <td onClick={goToPayload}>{props.entry.city}</td>
+      <td onClick={goToPayload}>{props.entry.location_type}</td>
     </tr>
   );
 };
@@ -128,13 +120,12 @@ class _LocationsList extends Component {
     const {server, locations, loadLocations, count, next} = this.props;
     return (
       <RightPanel
-        title={(
+        title={
           <FormattedMessage
             id="plugins.epcis.entryList"
             defaultMessage="Entries"
           />
-)}
-      >
+        }>
         <div className="large-cards-container full-large">
           <PaginatedList
             {...this.props}
@@ -160,8 +151,8 @@ export const LocationsList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.masterdata.servers
-        && state.masterdata.servers[ownProps.match.params.serverID]
+        state.masterdata.servers &&
+        state.masterdata.servers[ownProps.match.params.serverID]
       );
     };
     return {
