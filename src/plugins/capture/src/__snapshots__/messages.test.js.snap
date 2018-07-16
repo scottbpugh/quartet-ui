@@ -23,7 +23,7 @@ Object {
         "editStep": "Edit Step",
         "editStepParam": "Edit Step Parameter",
         "errorFetchRuleParams": "An error occurred while retrieving parameters for this rule. Please check the QU4RTET server for more information.",
-        "executeTaskError": "An error occurred while attempting to re-excute this task: {error}",
+        "executeTaskError": "An error occurred while attempting to re-execute this task: {error}",
         "noRuleFound": "No Capture module detected on server",
         "processFileError": "An error occurred while processing this file. Please check the QU4RTET server for more information. {error}",
         "restart": "Restart",
