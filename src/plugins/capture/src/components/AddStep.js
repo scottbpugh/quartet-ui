@@ -81,10 +81,11 @@ class _AddStep extends Component {
       return rule.steps.find(step => {
         return Number(step.id) === Number(match.params.stepID);
       });
-    } if (
-      this.props.location
-      && this.props.location.state
-      && this.props.location.state.defaultValues
+    }
+    if (
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.defaultValues
     ) {
       return this.props.location.state.defaultValues;
     }
@@ -102,8 +103,7 @@ class _AddStep extends Component {
           ) : (
             <FormattedMessage id="plugins.capture.editStep" />
           )
-        }
-      >
+        }>
         <div className="large-cards-container">
           <Card className="pt-elevation-4 form-card">
             <h5>
@@ -111,11 +111,8 @@ class _AddStep extends Component {
                 <FormattedMessage id="plugins.capture.addStep" />
               ) : (
                 <FormattedMessage id="plugins.capture.editStep" />
-              )}
-              {" "}
-              to
-              {' '}
-              {rule.name}
+              )}{" "}
+              to {rule.name}
             </h5>
             <StepForm
               edit={editMode}
@@ -143,8 +140,7 @@ class _AddStep extends Component {
                         this.props.server.serverID
                       }/rule/${step.rule}/step/${step.id}`
                     );
-                  }}
-                >
+                  }}>
                   <FormattedMessage id="plugins.capture.addStepParam" />
                 </button>
                 <FormattedMessage id="plugins.capture.stepParameters" />
@@ -153,40 +149,38 @@ class _AddStep extends Component {
               {Array.isArray(step.params) && step.params.length > 0 ? (
                 <table className="pt-table pt-interactive pt-bordered pt-striped">
                   <thead>
-                    <th>
-                      <FormattedMessage
-                        id="plugins.capture.name"
-                        defaultMessage="Name"
-                      />
-                    </th>
-                    <th>
-                      {" "}
-                      <FormattedMessage
-                        id="plugins.capture.value"
-                        defaultMessage="Value"
-                      />
-                    </th>
-                    <th />
+                    <tr>
+                      <th>
+                        <FormattedMessage
+                          id="plugins.capture.name"
+                          defaultMessage="Name"
+                        />
+                      </th>
+                      <th>
+                        {" "}
+                        <FormattedMessage
+                          id="plugins.capture.value"
+                          defaultMessage="Value"
+                        />
+                      </th>
+                      <th />
+                    </tr>
                   </thead>
                   <tbody>
                     {step.params.map(param => {
                       return (
                         <tr key={param.id}>
-                          <td>
-                            {param.name}
-                          </td>
-                          <td>
-                            {param.value}
-                          </td>
+                          <td>{param.name}</td>
+                          <td>{param.value}</td>
                           <td style={{width: "80px"}}>
                             <ButtonGroup minimal small>
                               <Button
-                                small
+                                small="true"
                                 iconName="edit"
                                 onClick={this.editStepParam.bind(this, param)}
                               />
                               <Button
-                                small
+                                small="true"
                                 iconName="trash"
                                 onClick={this.deleteStepParam.bind(this, param)}
                               />

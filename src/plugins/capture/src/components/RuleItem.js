@@ -250,7 +250,11 @@ class _RuleItem extends Component {
         onClick={this.goToEdit.bind(this)}
         collapsed={this.state.collapsed}
         childrenNodes={[
-          <TreeNode nodeType="step" depth={depth} childrenNodes={steps}>
+          <TreeNode
+            key={`step-parent`}
+            nodeType="step"
+            depth={depth}
+            childrenNodes={steps}>
             <FormattedMessage id="plugins.capture.steps" />
           </TreeNode>
         ]}>

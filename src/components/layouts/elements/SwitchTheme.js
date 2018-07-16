@@ -44,8 +44,7 @@ class _SwitchTheme extends Component {
       <div className="pt-select">
         <select
           value={currentTheme}
-          onChange={e => this.props.switchTheme(e.target.value)}
-        >
+          onChange={e => this.props.switchTheme(e.target.value)}>
           {themes.map(theme => (
             <option key={theme.id} value={theme.id}>
               <FormattedMessage id={theme.msgId} defaultMessage={theme.name} />
