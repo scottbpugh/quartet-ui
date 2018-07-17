@@ -64,12 +64,14 @@ exports.getPlugins = async function() {
 
 var isPluginInstalled = pluginEntry => {
   try {
-    if (
-      fs.existsSync(
-        path.join(PLUGINS_PATH, pluginEntry.pluginName, "package.json")
-      )
-    ) {
-      return true;
+    let pluginInfoPath = path.join(
+      PLUGINS_PATH,
+      pluginEntry.pluginName,
+      "package.json"
+    );
+    if (fs.existsSync(pluginInfoPath)) {
+      let version = require(pluginInfoPath).version;
+      return version;
     }
     return false;
   } catch (e) {
@@ -81,15 +83,29 @@ var isPluginInstalled = pluginEntry => {
 exports.install = async function(pluginEntry) {
   try {
     let pluginList = require(PLUGINS_LIST_PATH);
-    if (
-      isPluginInstalled(pluginEntry) &&
-      pluginList[pluginEntry.pluginName].version === pluginEntry.version
-    ) {
+    let version = isPluginInstalled(pluginEntry); // version if true, false if not installed.
+    console.log(
+      "plugin",
+      pluginEntry.pluginName,
+      "already installed",
+      "list version",
+      pluginList[pluginEntry.pluginName].version,
+      "redux version",
+      pluginEntry.version,
+      "actual version",
+      version
+    );
+    if (version === pluginList[pluginEntry.pluginName].version) {
       // this is already the latest version, don't DDOS NPM
-      console.log("plugin", pluginEntry.pluginName, "already installed");
+      console.log("Not reinstalling");
       return await manager.createPluginInfo(pluginEntry.pluginName);
     }
-    console.log("Installing plugin", pluginEntry.packagePath);
+    console.log(
+      "Installing plugin",
+      pluginEntry.packagePath,
+      "for version",
+      pluginEntry.version
+    );
     let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);
