@@ -55,7 +55,11 @@ function createWindow() {
       callback({responseHeaders: `script-src 'self'; child-src 'self';`});
     }
   );
-  require("./main-process/plugin-manager.js").getPlugins(app.getAppPath());
+  try {
+    require("./main-process/plugin-manager.js").getPlugins(app.getAppPath());
+  } catch (e) {
+    // recover from any kind of network or Gitlab issues.
+  }
 
   // Create the browser window.
   const mainOptions = {

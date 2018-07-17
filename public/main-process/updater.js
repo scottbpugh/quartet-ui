@@ -21,7 +21,12 @@ autoUpdater.logger = require("electron-log");
 autoUpdater.logger.transports.file.level = "info";
 
 exports.checkLatestUpdate = function() {
-  autoUpdater.checkForUpdatesAndNotify();
+  try {
+    autoUpdater.checkForUpdatesAndNotify();
+  } catch (e) {
+    console.log("Updater failed", e);
+  }
+
   /*
   autoUpdater.setFeedURL({
     provider: "generic",

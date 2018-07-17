@@ -26,22 +26,74 @@ const PLUGINS_LIST_PATH = path.join(
   require("electron").app.getPath("userData"),
   "pluginList.json"
 );
+
+const PLUGINS_LIST_PATH_BACKUP = path.join(
+  require("electron").app.getPath("userData"),
+  "pluginList-backup.json"
+);
+
 const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
 
 const fs = require("fs");
 var https = require("https");
-
+process.on("uncaughtException", function(err) {
+  console.log("an error occurred in the main process", err);
+});
 exports.getPlugins = async function() {
   try {
+    backupPluginList();
     var file = fs.createWriteStream(PLUGINS_LIST_PATH);
-    var request = https.get(
+    var request = await https.get(
       "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json",
       function(response) {
-        response.pipe(file);
+        try {
+          response.pipe(file);
+        } catch (e) {
+          console.log("error writing file", e);
+        }
       }
     );
   } catch (e) {
-    console.log("an error occurred fetching plugins", e);
+    console.log("an error occurred fetching plugins, using fallback list", e);
+    try {
+      // use the local backup instead.
+      fs.writeFileSync(PLUGINS_LIST_PATH, fs.readFileSync(PLUGINS_LIST_PATH));
+      let pluginList = require(PLUGINS_LIST_PATH);
+      if (Object.keys(pluginList).length < 1) {
+        throw new Error("bad plugins list");
+      }
+    } catch (e) {
+      console.log(
+        "There is a bad plugin list and network failed, now going to copy a core cache file",
+        e
+      );
+      // last resort.
+      fallbackUseCorePluginsList();
+    }
+  }
+};
+
+var backupPluginList = () => {
+  try {
+    //make a backup of plugins file if it exists, synchronously (yay!)
+    fs.writeFileSync(
+      PLUGINS_LIST_PATH_BACKUP,
+      fs.readFileSync(PLUGINS_LIST_PATH)
+    );
+  } catch (e) {
+    console.log("creating a plugins list backup failed", e);
+  }
+};
+
+var fallbackUseCorePluginsList = () => {
+  // copy the core plugins list file... Last resort.
+  try {
+    fs.writeFileSync(
+      PLUGINS_LIST_PATH,
+      fs.readFileSync("./pluginsList-fallback.json")
+    );
+  } catch (e) {
+    console.log("creating a plugins list backup failed", e);
   }
 };
 
