@@ -64,11 +64,16 @@ exports.getPlugins = async function() {
 
 var isPluginInstalled = pluginEntry => {
   try {
-    let aPlugin = require(pluginEntry.pluginName);
-    if (aPlugin.enablePlugin) {
+    if (
+      fs.existsSync(
+        path.join(PLUGINS_PATH, pluginEntry.pluginName, "package.json")
+      )
+    ) {
       return true;
     }
+    return false;
   } catch (e) {
+    console.log(e);
     return false;
   }
 };
@@ -80,14 +85,19 @@ exports.install = async function(pluginEntry) {
       isPluginInstalled(pluginEntry) &&
       pluginList[pluginEntry.pluginName].version === pluginEntry.version
     ) {
-      // this is already the latest version, don't DDOS NPM.
+      // this is already the latest version, don't DDOS NPM
+      console.log("plugin", pluginEntry.pluginName, "already installed");
       return await manager.createPluginInfo(pluginEntry.pluginName);
     }
+    console.log("Installing plugin", pluginEntry.packagePath);
     let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);
     } else {
-      installedPlugin = await manager.install(pluginEntry.packagePath);
+      installedPlugin = await manager.install(
+        pluginEntry.packagePath,
+        pluginEntry.version
+      );
     }
     return installedPlugin;
   } catch (e) {
