@@ -10,6 +10,19 @@ exports[`renders correctly 1`] = `
       <div
         className="right-aligned-elem"
       >
+        <button
+          className="pt-button pt-icon-refresh"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          style={
+            Object {
+              "marginRight": "5px",
+            }
+          }
+          title="refresh"
+          type="button"
+        />
         <span
           className="pt-tag pt-large"
         >
