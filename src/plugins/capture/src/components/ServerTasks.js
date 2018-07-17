@@ -88,7 +88,7 @@ class _ServerTasks extends Component {
     this.processTasks();
     this.fetchTasks = setInterval(() => {
       this.processTasks();
-    }, 5000);
+    }, 10000);
   }
 
   componentWillUnmount() {
