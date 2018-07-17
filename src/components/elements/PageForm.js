@@ -24,6 +24,7 @@ import {getFormInfo} from "lib/server-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import {Callout, Intent, FormGroup} from "@blueprintjs/core";
+import {FormattedMessage} from "react-intl";
 
 export class _PageForm extends Component {
   constructor(props) {
@@ -37,7 +38,6 @@ export class _PageForm extends Component {
   componentDidMount() {
     this.constructForm(this.props);
   }
-
   submit = postValues => {
     let {
       server,
@@ -240,7 +240,16 @@ export class _PageForm extends Component {
             className="pt-button pt-intent-primary"
             type="submit"
             disabled={submitting}>
-            Submit
+            <FormattedMessage id="app.common.submit" />
+          </button>{" "}
+          |{" "}
+          <button
+            className="pt-button"
+            type="button"
+            onClick={e => {
+              this.props.history.goBack();
+            }}>
+            <FormattedMessage id="app.common.cancelSubmit" />
           </button>
           {error ? (
             <Callout iconName="warning" intent={Intent.DANGER}>

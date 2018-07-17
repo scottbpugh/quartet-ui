@@ -61,7 +61,8 @@ const defaultLocaleMsg = {
     where: "Where",
     why: "Why",
     when: "When",
-    objectEvent: "Object Event"
+    objectEvent: "Object Event",
+    entryList: "Entries"
   }
 };
 
@@ -101,6 +102,7 @@ const french = {
   transformationEvents: "Événements de transformation",
   events: "Événements",
   entries: "Entrées",
+  entryList: "Entrées",
   errorLoadingEvent:
     "Une erreur s'est produite lors du chargement de cet événement. {error}",
   errorLoadingEntry:

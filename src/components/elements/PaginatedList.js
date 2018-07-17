@@ -48,7 +48,6 @@ class _PaginatedList extends Component {
     this.setState({filter: evt.currentTarget.value}, () => {
       this.offset = 0;
       this.currentPage = 1;
-      this.processEntries();
     });
   };
 
@@ -68,14 +67,6 @@ class _PaginatedList extends Component {
       maxPages: 1,
       count: 0
     });
-    this.fetchEntries = setInterval(() => {
-      this.processEntries();
-    }, 5000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.fetchEntries);
-    this.fetchEntries = null;
   }
 
   // refresh the lists, keeping the search filters.
@@ -130,6 +121,12 @@ class _PaginatedList extends Component {
         <h5>
           {" "}
           <div className="right-aligned-elem">
+            <Button
+              style={{marginRight: "5px"}}
+              title="refresh"
+              iconName="refresh"
+              onClick={this.processEntries.bind(this, true)}
+            />
             <Tag className="pt-large">
               {this.currentPage}/{this.state.maxPages}
             </Tag>

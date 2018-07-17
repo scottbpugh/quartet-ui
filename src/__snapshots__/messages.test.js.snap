@@ -5,8 +5,13 @@ Object {
   "en-US": Object {
     "app": Object {
       "common": Object {
+        "backButton": "Back",
+        "cancelConfirm": "Cancel",
+        "cancelSubmit": "Cancel",
+        "confirm": "Confirm",
         "entriesTotal": "{entriesCount} Entries Total",
         "mainError": "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
+        "submit": "Submit",
       },
       "dashboard": Object {
         "connectServer": "Connect to a Server",
@@ -63,6 +68,15 @@ Object {
   },
   "fr-FR": Object {
     "app": Object {
+      "common": Object {
+        "backButton": "Retour",
+        "cancelConfirm": "Annuler",
+        "cancelSubmit": "Annuler",
+        "confirm": "Confirmer",
+        "entriesTotal": "{entriesCount} objets",
+        "mainError": "Une erreur s'est produite pendant l'execution de cette action. {msg}",
+        "submit": "Soumettre",
+      },
       "dashboard": Object {
         "connectServer": "Se connecter a un serveur",
         "dashboardHeader3": "Le logiciel libre de Niveau 4",

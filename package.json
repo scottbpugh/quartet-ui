@@ -1,7 +1,7 @@
 {
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -25,6 +25,7 @@
     "keytar": "^4.2.1",
     "live-plugin-manager": "^0.12.0",
     "moment": "^2.20.1",
+    "mousetrap": "^1.6.2",
     "object-path": "^0.11.4",
     "openlayers": "^4.6.5",
     "opn": "^5.3.0",
@@ -45,6 +46,7 @@
     "redux-form": "^7.2.1",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
+    "string-hash": "^1.1.3",
     "swagger-client": "^3.5.0"
   },
   "author": {
@@ -54,10 +56,10 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
-    "start": "nf start",
+    "start": "./node_modules/.bin/nf start",
     "build": "./build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
-    "test": "./node_modules/.bin/jest --env=jsdom",
+    "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
     "react-start":

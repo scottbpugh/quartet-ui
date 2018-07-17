@@ -36,9 +36,14 @@ const CompanyEntry = props => {
     }`,
     state: {defaultValues: props.entry, edit: true}
   });
+  const goToPayloadIfNoGeo = () => {
+    if (!props.entry.longitude) {
+      goTo(`/masterdata/${props.server.serverID}/sgln/${props.entry.SGLN}`);
+    }
+  };
   return (
     <tr key={props.entry.id}>
-      <td style={{width: "200px"}}>
+      <td style={{width: "200px"}} onClick={goToPayloadIfNoGeo}>
         {props.entry.longitude && props.entry.latitude ? (
           <SingleMarkerMap
             targetId={props.entry.GLN13}
@@ -50,24 +55,12 @@ const CompanyEntry = props => {
           />
         ) : null}
       </td>
-      <td onClick={goToPayload}>
-        {props.entry.GLN13}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.name}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.address1}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.country}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.city}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.company_type}
-      </td>
+      <td onClick={goToPayload}>{props.entry.GLN13}</td>
+      <td onClick={goToPayload}>{props.entry.name}</td>
+      <td onClick={goToPayload}>{props.entry.address1}</td>
+      <td onClick={goToPayload}>{props.entry.country}</td>
+      <td onClick={goToPayload}>{props.entry.city}</td>
+      <td onClick={goToPayload}>{props.entry.company_type}</td>
     </tr>
   );
 };
@@ -120,13 +113,12 @@ class _CompaniesList extends Component {
     const {server, companies, loadCompanies, count, next} = this.props;
     return (
       <RightPanel
-        title={(
+        title={
           <FormattedMessage
             id="plugins.epcis.entryList"
             defaultMessage="Entries"
           />
-)}
-      >
+        }>
         <div className="large-cards-container full-large">
           <PaginatedList
             history={this.props.history}
@@ -150,8 +142,8 @@ export const CompaniesList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.masterdata.servers
-        && state.masterdata.servers[ownProps.match.params.serverID]
+        state.masterdata.servers &&
+        state.masterdata.servers[ownProps.match.params.serverID]
       );
     };
     return {

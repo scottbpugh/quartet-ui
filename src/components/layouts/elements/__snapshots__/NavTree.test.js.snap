@@ -6,29 +6,6 @@ exports[`renders correctly 1`] = `
     className="tree-wrapper"
   >
     <div
-      className="leftbar-group"
-    >
-      <div
-        className="pt-button-group pt-minimal pt-dark"
-      >
-        <button
-          className="pt-button pt-icon-home"
-          onClick={[Function]}
-          tabIndex="0"
-        />
-        <div>
-          <span
-            className="pt-popover-target pt-dark"
-            onClick={[Function]}
-          >
-            <button
-              className="pt-button pt-icon-add"
-            />
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
       style={
         Object {
           "width": "100%",
