@@ -104,15 +104,15 @@ exports.install = async function(pluginEntry) {
       "Installing plugin",
       pluginEntry.packagePath,
       "for version",
-      pluginEntry.version
+      pluginList[pluginEntry.pluginName].version
     );
     let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);
     } else {
       installedPlugin = await manager.install(
-        pluginEntry.packagePath,
-        pluginEntry.version
+        pluginList[pluginEntry.pluginName].packagePath,
+        pluginList[pluginEntry.pluginName].version
       );
     }
     return installedPlugin;
