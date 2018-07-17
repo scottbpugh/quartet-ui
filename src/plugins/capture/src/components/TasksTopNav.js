@@ -73,11 +73,7 @@ class _NavPluginRoot extends Component {
   goTo = path => {
     this.props.history.push(path);
   };
-  componentDidMount() {
-    if (this.props.server && this.serverHasCapture()) {
-      this.props.loadRules(pluginRegistry.getServer(this.props.serverID));
-    }
-  }
+
   renderContextMenu = () => {
     const {server} = this.props;
     return (

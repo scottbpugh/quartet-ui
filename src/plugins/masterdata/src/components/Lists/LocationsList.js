@@ -106,7 +106,11 @@ const LocationEntry = props => {
       </td>
       <td onClick={goToPayload}>{props.entry.GLN13}</td>
       <td onClick={goToPayload}>{props.entry.name}</td>
-      <td onClick={goToPayload}>{props.entry.company}</td>
+      <td onClick={goToPayload}>
+        {props.entry.companyObject
+          ? props.entry.companyObject.name
+          : props.entry.company}
+      </td>
       <td onClick={goToPayload}>{props.entry.address1}</td>
       <td onClick={goToPayload}>{props.entry.country}</td>
       <td onClick={goToPayload}>{props.entry.city}</td>
