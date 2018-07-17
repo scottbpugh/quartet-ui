@@ -58,14 +58,9 @@ const EntryEntry = props => {
           props.entry.identifier
         }`
       )}
-      key={props.entry.id}
-    >
-      <td>
-        {props.entry.identifier}
-      </td>
-      <td>
-        {props.entry.id}
-      </td>
+      key={props.entry.id}>
+      <td>{props.entry.identifier}</td>
+      <td>{props.entry.id}</td>
     </tr>
   );
 };
@@ -75,17 +70,22 @@ class _EntryList extends Component {
     const {server, entries, loadEntries, count, next} = this.props;
     return (
       <RightPanel
-        title={(
+        title={
           <FormattedMessage
             id="plugins.epcis.entryList"
             defaultMessage="Entries"
           />
-)}
-      >
+        }>
         <div className="large-cards-container full-large">
           <PaginatedList
             history={this.props.history}
             loadEntries={loadEntries}
+            listTitle={
+              <FormattedMessage
+                id="plugins.epcis.entryList"
+                defaultMessage="Entries"
+              />
+            }
             tableHeaderClass={EntryTableHeader}
             entryClass={EntryEntry}
             server={server}
@@ -103,8 +103,8 @@ export const EntryList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.epcis.servers
-        && state.epcis.servers[ownProps.match.params.serverID]
+        state.epcis.servers &&
+        state.epcis.servers[ownProps.match.params.serverID]
       );
     };
     return {
