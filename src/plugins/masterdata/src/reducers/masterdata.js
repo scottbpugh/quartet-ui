@@ -28,6 +28,41 @@ export const initialData = () => {
   };
 };
 
+// used to load all companies initially and cache them.
+let companiesMap = {};
+
+const setCompaniesForLocations = async (serverObject, locations) => {
+  if (!companiesMap[serverObject.serverID]) {
+    // initialize cache object for companies.
+    companiesMap[serverObject.serverID] = {};
+  }
+  try {
+    if (Object.keys(companiesMap[serverObject.serverID]).length === 0) {
+      // load companies so we can have a match in the list.
+      let _companiesArray = await serverObject.fetchListAll(
+        "masterdata_companies_list",
+        {},
+        []
+      );
+      _companiesArray.forEach(company => {
+        companiesMap[serverObject.serverID][company.id] = company;
+      });
+    }
+    locations.forEach(location => {
+      if (
+        location.company &&
+        companiesMap[serverObject.serverID][location.company]
+      ) {
+        location.companyObject =
+          companiesMap[serverObject.serverID][location.company];
+      }
+    });
+  } catch (e) {
+    // proceed without companies.
+    console.log(e);
+  }
+};
+
 export const loadLocations = (server, search, page, ordering) => {
   const params = {};
   if (search) {
@@ -39,11 +74,12 @@ export const loadLocations = (server, search, page, ordering) => {
   if (ordering) {
     params.ordering = ordering;
   }
-  return dispatch => {
-    pluginRegistry
-      .getServer(server.serverID)
+  return async dispatch => {
+    let serverObject = pluginRegistry.getServer(server.serverID);
+    serverObject
       .fetchPageList("masterdata_locations_list", params, [])
-      .then(response => {
+      .then(async response => {
+        await setCompaniesForLocations(serverObject, response.results);
         return dispatch({
           type: actions.loadLocations,
           payload: {
@@ -80,6 +116,13 @@ export const loadCompanies = (server, search, page, ordering) => {
       .getServer(server.serverID)
       .fetchPageList("masterdata_companies_list", params, [])
       .then(response => {
+        // update company cache based on latest fetch.
+        response.results.forEach(company => {
+          if (!companiesMap[server.serverID]) {
+            companiesMap[server.serverID] = {};
+          }
+          companiesMap[server.serverID][company.id] = company;
+        });
         return dispatch({
           type: actions.loadCompanies,
           payload: {
