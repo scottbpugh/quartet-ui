@@ -40,7 +40,7 @@ var https = require("https");
 exports.getPlugins = async function() {
   try {
     backupPluginList();
-    var request = await https.get(
+    var request = https.get(
       "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json",
       function(response) {
         try {
@@ -62,10 +62,24 @@ exports.getPlugins = async function() {
   }
 };
 
+var isPluginInstalled = pluginEntry => {
+  try {
+    let aPlugin = require(pluginEntry.pluginName);
+    if (aPlugin.enablePlugin) {
+      return true;
+    }
+  } catch (e) {
+    return false;
+  }
+};
+
 exports.install = async function(pluginEntry) {
   try {
     let pluginList = require(PLUGINS_LIST_PATH);
-    if (pluginList[pluginEntry.pluginName].version === pluginEntry.version) {
+    if (
+      isPluginInstalled(pluginEntry) &&
+      pluginList[pluginEntry.pluginName].version === pluginEntry.version
+    ) {
       // this is already the latest version, don't DDOS NPM.
       return await manager.createPluginInfo(pluginEntry.pluginName);
     }
@@ -81,8 +95,28 @@ exports.install = async function(pluginEntry) {
   }
 };
 
+var validJSONFile = () => {
+  try {
+    let pluginsList = require(PLUGINS_LIST_PATH);
+    JSON.stringify(pluginsList);
+    if (Object.keys(pluginsList).length < 1) {
+      throw new Error("bad JSON");
+    }
+    return true;
+  } catch (e) {
+    console.log("plugins list file is bad", e);
+    return false;
+  }
+};
+
 var networkErrorHandler = () => {
   try {
+    if (validJSONFile()) {
+      // there is nothing else to do, we have a good pluginsList.json file
+      // and it's better to keep the last one fetched.
+      console.log("Previous fetch had a good plugin list file.");
+      return;
+    }
     // use the local backup instead.
     fs.writeFileSync(
       PLUGINS_LIST_PATH,
@@ -101,6 +135,7 @@ var networkErrorHandler = () => {
     fallbackUseCorePluginsList();
   }
 };
+
 var backupPluginList = () => {
   try {
     //make a backup of plugins file if it exists, synchronously (yay!)
