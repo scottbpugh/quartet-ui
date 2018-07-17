@@ -30,7 +30,6 @@ export const initialData = () => {
         readableName: "Serial Number Range Management",
         pluginName: "quartet-ui-number-range",
         packagePath: "quartet-ui-number-range",
-        version: "1.0.0",
         description:
           "\n                The Serial Number Range Management plugin offers users the\n                ability to interact with SerialBox, the backend solution for\n                your serial number range management requirements.\n\n                Among other functions, this plugin offers the ability to create\n                pools and serial number ranges as well as allocate numbers on\n                the fly from the QU4RTET interface.\n            ",
         enabled: true
@@ -78,7 +77,6 @@ export const setEnablePlugin = (pluginEntries, showToast = true) => {
     if (showToast) {
       showMessage({type: "success", id: "app.plugins.pluginEnabled"});
     }
-
     return dispatch({type: actions.pluginEnabled, payload: pluginEntries});
   };
 };

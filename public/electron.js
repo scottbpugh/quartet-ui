@@ -45,6 +45,9 @@ const isDev = require("electron-is-dev");
 if (isDev) {
   console.log("Enabling hot reload.");
   require("electron-reload")(path.join(__dirname));
+}
+if (process.env.REACT_DEV === "dev") {
+  process.env.NODE_ENV = "development";
 } else {
   process.env.NODE_ENV = "production";
 }
