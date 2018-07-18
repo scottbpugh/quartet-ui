@@ -40,7 +40,6 @@ class _SingleCardPicker extends Component {
     this.offset = 0;
     this.currentPage = 1;
     this.debounced = null;
-    this.fetchEntries = null;
   }
 
   // filter by a field in the rows.
@@ -67,14 +66,6 @@ class _SingleCardPicker extends Component {
       entries: this.props.entries,
       maxPages: 1
     });
-    this.fetchEntries = setInterval(() => {
-      this.processEntries();
-    }, 5000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.fetchEntries);
-    this.fetchEntries = null;
   }
 
   // refresh the lists, keeping the search filters.
@@ -188,4 +179,3 @@ class _SingleCardPicker extends Component {
 
 export const SingleCardPicker = withRouter(_SingleCardPicker);
 window.qu4rtet.exports("components/elements/SingleCardPicker", this);
-

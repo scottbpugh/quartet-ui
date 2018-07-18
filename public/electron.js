@@ -45,6 +45,9 @@ const isDev = require("electron-is-dev");
 if (isDev) {
   console.log("Enabling hot reload.");
   require("electron-reload")(path.join(__dirname));
+}
+if (process.env.REACT_DEV === "dev") {
+  process.env.NODE_ENV = "development";
 } else {
   process.env.NODE_ENV = "production";
 }
@@ -55,7 +58,11 @@ function createWindow() {
       callback({responseHeaders: `script-src 'self'; child-src 'self';`});
     }
   );
-  require("./main-process/plugin-manager.js").getPlugins(app.getAppPath());
+  try {
+    require("./main-process/plugin-manager.js").getPlugins(app.getAppPath());
+  } catch (e) {
+    // recover from any kind of network or Gitlab issues.
+  }
 
   // Create the browser window.
   const mainOptions = {
