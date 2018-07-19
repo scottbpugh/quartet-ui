@@ -30,7 +30,8 @@ class _TreeNode extends Component {
       childrenNodes: [],
       collapsed: true,
       persistent: false,
-      active: false
+      active: false,
+      highlightedNode: false
     };
   }
   toggleChildren = evt => {
@@ -71,6 +72,7 @@ class _TreeNode extends Component {
       return this.props.onContextMenu();
     }
   }
+
   render() {
     let expandable = this.props.childrenNodes.length > 0 ? true : false;
     let childrenNodes = this.props.childrenNodes.map(elem => {
@@ -88,7 +90,8 @@ class _TreeNode extends Component {
           className={classNames({
             "tree-node-content": true,
             "tree-node-content-active": this.props.active || this.state.active,
-            [`tree-node-depth-${this.props.depth}`]: true
+            [`tree-node-depth-${this.props.depth}`]: true,
+            "tree-node-content-highlighted": this.state.highlightedNode
           })}>
           <a onClick={this.toggleChildren}>
             <span

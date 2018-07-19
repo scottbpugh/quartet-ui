@@ -19,6 +19,7 @@ import React, {Component} from "react";
 import {Callout, Intent, Button, Dialog} from "@blueprintjs/core";
 import classNames from "classnames";
 import {connect} from "react-redux";
+import {FormattedMessage} from "react-intl";
 
 /**
  *
@@ -63,9 +64,11 @@ class _DeleteDialog extends Component {
               onClick={deleteAction}
               iconName="trash"
               intent={Intent.DANGER}>
-              Delete
+              <FormattedMessage id="app.common.deleteButton" />
             </Button>
-            <Button onClick={toggle}>Cancel</Button>
+            <Button onClick={toggle}>
+              <FormattedMessage id="app.common.cancelDelete" />
+            </Button>
           </div>
         </div>
       </Dialog>
