@@ -28,7 +28,8 @@ export class DeleteObject extends Component {
     server: PropTypes.object.required,
     title: PropTypes.element.required,
     body: PropTypes.element.required,
-    operationId: PropTypes.string.required
+    operationId: PropTypes.string.required,
+    postDeleteAction: PropTypes.func
   };
   constructor(props) {
     super(props);
@@ -39,18 +40,28 @@ export class DeleteObject extends Component {
   toggleConfirmDialog = () => {
     this.setState({isConfirmDialogOpen: !this.state.isConfirmDialogOpen});
   };
-  confirmDeleteEntry = () => {};
   deleteEntry = async () => {
+    debugger;
     if (this.props.entry && this.props.operationId) {
       try {
         let response = await pluginRegistry
           .getServer(this.props.server.serverID)
           .deleteObject(this.props.operationId, this.props.entry);
         showMessage({
-          id: "app.common.objectDeletedSuccessfully"
+          id: "app.common.objectDeletedSuccessfully",
+          type: "success"
         });
+
+        if (this.props.postDeleteAction) {
+          debugger;
+          this.props.postDeleteAction();
+        }
       } catch (e) {
-        showMessage({id: "app.common.errorDeletingObject", values: {error: e}});
+        showMessage({
+          id: "app.common.errorDeletingObject",
+          values: {error: e},
+          type: "error"
+        });
       }
     }
   };
@@ -63,7 +74,7 @@ export class DeleteObject extends Component {
           isOpen={this.state.isConfirmDialogOpen}
           title={title}
           body={body}
-          toggle={this.toggleConfirmDelete.bind(this)}
+          toggle={this.toggleConfirmDialog.bind(this)}
           deleteAction={this.deleteEntry.bind(this)}
         />
       </div>

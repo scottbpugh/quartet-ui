@@ -82,7 +82,10 @@ export default {
         cancelDelete: "Cancel",
         objectCreatedSuccessfully: "New {objectName} created successfully",
         objectUpdatedSuccessfully: "Existing {objectName} updated successfully",
-        enterKeywords: "Enter Keywords..."
+        enterKeywords: "Enter Keywords...",
+        objectDeletedSuccessfully: "Object deleted successfully",
+        errorDeletingObject:
+          "An error occurred while attempting to delete this object: {error}"
       },
       plugins: {
         addPlugin: "Add a Plugin",

@@ -188,6 +188,7 @@ class _PaginatedList extends Component {
                         <this.props.entryClass
                           key={`entry-${index}`}
                           entry={entry}
+                          loadEntries={this.props.loadEntries}
                           server={this.props.server}
                           history={this.props.history}
                         />

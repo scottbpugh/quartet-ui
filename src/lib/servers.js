@@ -20,7 +20,12 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
 import base64 from "base-64";
-import {fetchObject, fetchPageList, fetchListAll} from "lib/server-api";
+import {
+  fetchObject,
+  fetchPageList,
+  fetchListAll,
+  deleteObject
+} from "lib/server-api";
 
 // all issues with fs see:
 // https://github.com/electron/electron/issues/9920
@@ -92,6 +97,7 @@ export class Server {
   };
 
   deleteObject = async (operationId = "", parameters = {}) => {
+    debugger;
     return await deleteObject(this, operationId, parameters);
   };
 

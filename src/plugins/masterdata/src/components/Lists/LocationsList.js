@@ -24,6 +24,7 @@ import {RightPanel} from "components/layouts/Panels";
 import {SingleMarkerMap} from "components/elements/SingleMarkerMap";
 import {PaginatedList} from "components/elements/PaginatedList";
 import {loadLocations} from "../../reducers/masterdata";
+import {DeleteObject} from "components/elements/DeleteObject";
 
 const LocationTableHeader = props => (
   <thead style={{textAlign: "center", verticalAlign: "middle"}}>
@@ -70,6 +71,7 @@ const LocationTableHeader = props => (
           defaultMessage="Location Type"
         />
       </th>
+      <th />
     </tr>
   </thead>
 );
@@ -115,6 +117,20 @@ const LocationEntry = props => {
       <td onClick={goToPayload}>{props.entry.country}</td>
       <td onClick={goToPayload}>{props.entry.city}</td>
       <td onClick={goToPayload}>{props.entry.location_type}</td>
+      <td>
+        <DeleteObject
+          entry={props.entry}
+          operationId="masterdata_locations_delete"
+          server={props.server}
+          title={
+            <FormattedMessage id="plugins.masterData.deleteLocationConfirm" />
+          }
+          body={
+            <FormattedMessage id="plugins.masterData.deleteLocationConfirmBody" />
+          }
+          postDeleteAction={props.loadEntries}
+        />
+      </td>
     </tr>
   );
 };
