@@ -79,14 +79,43 @@ export class Server {
     this.listApps();
   };
 
+  /**
+   * fetchObject - fetches a single object from any Swagger API endpoint.
+   *
+   * @param {string} [operationId=]  The Swagger operation id
+   * @param {object} [parameters={}] Parameter passed with the call.
+   *
+   * @return {object} An object from the API call.
+   */
   fetchObject = async (operationId = "", parameters = {}) => {
     return await fetchObject(this, operationId, parameters);
   };
 
+  deleteObject = async (operationId = "", parameters = {}) => {
+    return await deleteObject(this, operationId, parameters);
+  };
+
+  /**
+   * fetchPageList - Fetches a single list page.
+   *
+   * @param {type} operationId    The Swagger
+   * @param {type} parameters     Parameters passed to the call (page...)
+   *
+   * @return {object} A response body
+   */
   fetchPageList = async (operationId, parameters) => {
     return await fetchPageList(this, operationId, parameters, {});
   };
 
+  /**
+   * fetchListAll - Loops through all pages of a list and concats the result.
+   *
+   * @param {string} [operationId=]  Swagger operation id
+   * @param {object} [parameters={}] Parameters passed to the call.
+   * @param {array}  [results=[]]    The results, all objects for this API list.
+   *
+   * @return {type} Description
+   */
   fetchListAll = async (operationId, parameters, results = []) => {
     return await fetchListAll(this, operationId, parameters, results);
   };
