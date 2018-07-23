@@ -225,4 +225,31 @@ export const fetchListAll = async (
   });
 };
 
+/**
+ * deleteObject - Deletes an object.
+ *
+ * @param {string} [operationId=]  The operationId to execute.
+ * @param {object} [parameters={}] Object data
+ *
+ * @return {object} response.
+ */
+export const deleteObject = async (
+  serverInstance,
+  operationId = "",
+  parameters = {}
+) => {
+  const client = await serverInstance.getClient();
+  const response = await client.execute({
+    operationId,
+    parameters,
+    securities: {
+      authorized: client.securities,
+      specSecurity: [client.spec.securityDefinitions]
+    }
+  });
+  if (response.ok) {
+    return response;
+  }
+};
+
 window.qu4rtet.exports("lib/server-api", this);

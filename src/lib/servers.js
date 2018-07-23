@@ -20,7 +20,12 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/serversettings";
 import {showMessage} from "lib/message";
 import base64 from "base-64";
-import {fetchObject, fetchPageList, fetchListAll} from "lib/server-api";
+import {
+  fetchObject,
+  fetchPageList,
+  fetchListAll,
+  deleteObject
+} from "lib/server-api";
 
 // all issues with fs see:
 // https://github.com/electron/electron/issues/9920
@@ -79,14 +84,43 @@ export class Server {
     this.listApps();
   };
 
+  /**
+   * fetchObject - fetches a single object from any Swagger API endpoint.
+   *
+   * @param {string} [operationId=]  The Swagger operation id
+   * @param {object} [parameters={}] Parameter passed with the call.
+   *
+   * @return {object} An object from the API call.
+   */
   fetchObject = async (operationId = "", parameters = {}) => {
     return await fetchObject(this, operationId, parameters);
   };
 
+  deleteObject = async (operationId = "", parameters = {}) => {
+    return await deleteObject(this, operationId, parameters);
+  };
+
+  /**
+   * fetchPageList - Fetches a single list page.
+   *
+   * @param {type} operationId    The Swagger
+   * @param {type} parameters     Parameters passed to the call (page...)
+   *
+   * @return {object} A response body
+   */
   fetchPageList = async (operationId, parameters) => {
     return await fetchPageList(this, operationId, parameters, {});
   };
 
+  /**
+   * fetchListAll - Loops through all pages of a list and concats the result.
+   *
+   * @param {string} [operationId=]  Swagger operation id
+   * @param {object} [parameters={}] Parameters passed to the call.
+   * @param {array}  [results=[]]    The results, all objects for this API list.
+   *
+   * @return {type} Description
+   */
   fetchListAll = async (operationId, parameters, results = []) => {
     return await fetchListAll(this, operationId, parameters, results);
   };

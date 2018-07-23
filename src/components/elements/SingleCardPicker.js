@@ -21,6 +21,7 @@ import {Button, ControlGroup, InputGroup} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import "./SingleCardPicker.css";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 /*
   Displays a list of objects (entries, events, companies, locations) as
@@ -142,7 +143,9 @@ class _SingleCardPicker extends Component {
               <InputGroup
                 onChange={this.searchBy}
                 value={this.state.keywordSearch}
-                placeholder="Enter Keywords..."
+                placeholder={pluginRegistry
+                  .getIntl()
+                  .formatMessage({id: "app.common.enterKeywords"})}
               />
             </ControlGroup>
             <div className="label-info-display">

@@ -86,12 +86,14 @@ export class _PageForm extends Component {
           }
           if (result.status === 201) {
             showMessage({
-              msg: `New ${objectName} created successfully`,
+              id: "app.common.objectCreatedSuccessfully",
+              values: {objectName: objectName},
               type: "success"
             });
           } else if (result.status === 200) {
             showMessage({
-              msg: `Existing ${objectName} updated successfully`,
+              id: "app.common.objectUpdatedSuccessfully",
+              values: {objectName: objectName},
               type: "success"
             });
           }
