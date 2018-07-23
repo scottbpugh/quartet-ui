@@ -127,7 +127,6 @@ export const addLocalPlugin = localPlugin => {
 export default handleActions(
   {
     [actions.resetPlugins]: (state, action) => {
-      debugger;
       return {
         ...state,
         plugins: {...action.payload}

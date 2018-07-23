@@ -41,7 +41,6 @@ export class DeleteObject extends Component {
     this.setState({isConfirmDialogOpen: !this.state.isConfirmDialogOpen});
   };
   deleteEntry = async () => {
-    debugger;
     if (this.props.entry && this.props.operationId) {
       try {
         let response = await pluginRegistry
@@ -51,10 +50,8 @@ export class DeleteObject extends Component {
           id: "app.common.objectDeletedSuccessfully",
           type: "success"
         });
-
         if (this.props.postDeleteAction) {
-          debugger;
-          this.props.postDeleteAction();
+          this.props.postDeleteAction(this.props.server);
         }
       } catch (e) {
         showMessage({
@@ -68,8 +65,11 @@ export class DeleteObject extends Component {
   render() {
     const {entry, operationId, title, body} = this.props;
     return (
-      <div>
-        <Button onClick={this.toggleConfirmDialog.bind(this)} icon="trash" />
+      <div style={{textAlign: "center"}}>
+        <Button
+          onClick={this.toggleConfirmDialog.bind(this)}
+          iconName="trash"
+        />
         <DeleteDialog
           isOpen={this.state.isConfirmDialogOpen}
           title={title}

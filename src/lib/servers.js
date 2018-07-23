@@ -97,7 +97,6 @@ export class Server {
   };
 
   deleteObject = async (operationId = "", parameters = {}) => {
-    debugger;
     return await deleteObject(this, operationId, parameters);
   };
 
