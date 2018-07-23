@@ -23,6 +23,7 @@ import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {PaginatedList} from "components/elements/PaginatedList";
 import {loadTradeItems} from "../../reducers/masterdata";
+import {DeleteObject} from "components/elements/DeleteObject";
 
 const TradeItemTableHeader = props => (
   <thead style={{textAlign: "center", verticalAlign: "middle"}}>
@@ -78,23 +79,25 @@ const TradeItemEntry = props => {
 
   return (
     <tr key={props.entry.id}>
-      <td onClick={goToPayload}>
-        {props.entry.GTIN14}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.NDC}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.country_of_origin}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.functional_name}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.manufacturer_name}
-      </td>
-      <td onClick={goToPayload}>
-        {props.entry.regulated_product_name}
+      <td onClick={goToPayload}>{props.entry.GTIN14}</td>
+      <td onClick={goToPayload}>{props.entry.NDC}</td>
+      <td onClick={goToPayload}>{props.entry.country_of_origin}</td>
+      <td onClick={goToPayload}>{props.entry.functional_name}</td>
+      <td onClick={goToPayload}>{props.entry.manufacturer_name}</td>
+      <td onClick={goToPayload}>{props.entry.regulated_product_name}</td>
+      <td>
+        <DeleteObject
+          entry={props.entry}
+          operationId="masterdata_trade_items_delete"
+          server={props.server}
+          title={
+            <FormattedMessage id="plugins.masterData.deleteTradeItemConfirm" />
+          }
+          body={
+            <FormattedMessage id="plugins.masterData.deleteTradeItemConfirmBody" />
+          }
+          postDeleteAction={props.loadEntries}
+        />
       </td>
     </tr>
   );
@@ -105,13 +108,12 @@ class _TradeItemsList extends Component {
     const {server, tradeItems, loadTradeItems, count, next} = this.props;
     return (
       <RightPanel
-        title={(
+        title={
           <FormattedMessage
             id="plugins.masterData.tradeItems"
             defaultMessage="Trade Items"
           />
-)}
-      >
+        }>
         <div className="large-cards-container full-large">
           <PaginatedList
             history={this.props.history}
@@ -136,8 +138,8 @@ export const TradeItemsList = connect(
   (state, ownProps) => {
     const isServerSet = () => {
       return (
-        state.masterdata.servers
-        && state.masterdata.servers[ownProps.match.params.serverID]
+        state.masterdata.servers &&
+        state.masterdata.servers[ownProps.match.params.serverID]
       );
     };
     return {
