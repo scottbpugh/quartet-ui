@@ -59,6 +59,7 @@ export default {
         userCreated: "User {username} successfully created.",
         userVerified: "User successfully verified.",
         deleteServer: "Remove Server",
+        serverDetails: "Server Details",
         deleteServerConfirm:
           "Are you sure you want to remove this server? No data from this server will be deleted.",
         noServerMsg:
@@ -76,7 +77,15 @@ export default {
         cancelSubmit: "Cancel",
         backButton: "Back",
         confirm: "Confirm",
-        cancelConfirm: "Cancel"
+        cancelConfirm: "Cancel",
+        deleteButton: "Delete",
+        cancelDelete: "Cancel",
+        objectCreatedSuccessfully: "New {objectName} created successfully",
+        objectUpdatedSuccessfully: "Existing {objectName} updated successfully",
+        enterKeywords: "Enter Keywords...",
+        objectDeletedSuccessfully: "Object deleted successfully",
+        errorDeletingObject:
+          "An error occurred while attempting to delete this object: {error}"
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -154,7 +163,12 @@ export default {
         cancelSubmit: "Annuler",
         backButton: "Retour",
         confirm: "Confirmer",
-        cancelConfirm: "Annuler"
+        cancelConfirm: "Annuler",
+        deleteButton: "Supprimer",
+        cancelDelete: "Annuler",
+        objectCreatedSuccessfully: "{objectName} créé(e) avec succès",
+        objectUpdatedSuccessfully: "{objectName} actualisé(e) avec succès",
+        enterKeywords: "Entrer un mot-clé..."
       }
     },
     plugins: {}

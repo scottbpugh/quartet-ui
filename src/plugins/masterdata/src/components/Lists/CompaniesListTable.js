@@ -24,6 +24,7 @@ import {RightPanel} from "components/layouts/Panels";
 import {SingleMarkerMap} from "components/elements/SingleMarkerMap";
 import {PaginatedList} from "components/elements/PaginatedList";
 import {loadCompanies} from "../../reducers/masterdata";
+import {DeleteObject} from "components/elements/DeleteObject";
 
 const CompanyEntry = props => {
   const goTo = path => {
@@ -61,6 +62,20 @@ const CompanyEntry = props => {
       <td onClick={goToPayload}>{props.entry.country}</td>
       <td onClick={goToPayload}>{props.entry.city}</td>
       <td onClick={goToPayload}>{props.entry.company_type}</td>
+      <td>
+        <DeleteObject
+          entry={props.entry}
+          operationId="masterdata_companies_delete"
+          server={props.server}
+          title={
+            <FormattedMessage id="plugins.masterData.deleteCompanyConfirm" />
+          }
+          body={
+            <FormattedMessage id="plugins.masterData.deleteCompanyConfirmBody" />
+          }
+          postDeleteAction={props.loadEntries}
+        />
+      </td>
     </tr>
   );
 };

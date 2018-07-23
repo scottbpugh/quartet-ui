@@ -24,7 +24,13 @@ const defaultLocaleMsg = {
     editTradeItem: "Edit Trade Item",
     addLocationType: "Add a Location Type",
     noMasterDataFound: "No Master Data module detected on server.",
-    locationDetail: "Location Detail"
+    locationDetail: "Location Detail",
+    deleteLocationConfirm: "Are you sure you want to delete this location?",
+    deleteLocationConfirmBody: "This will delete this location permanently.",
+    deleteCompanyConfirm: "Are you sure you want to delete this company?",
+    deleteCompanyConfirmBody: "This will delete this company permanently.",
+    deleteTradeItemConfirm: "Are you sure you want to delete this trade item?",
+    deleteTradeItemConfirmBody: "This will delete this trade item permanently."
   }
 };
 
@@ -43,7 +49,9 @@ const french = {
   addTradeItem: "Ajouter un article commercial",
   addTradeItemField: "Ajouter un champ d'article commercial",
   tradeItemFields: "Champs d'articles commerciaux",
-  editTradeItem: "Editer un article commercial"
+  editTradeItem: "Editer un article commercial",
+  deleteLocationConfirm: "Are you sure you want to delete this entry?",
+  deleteLocationConfirmBody: "This will delete this location permanently."
 };
 
 export default {
