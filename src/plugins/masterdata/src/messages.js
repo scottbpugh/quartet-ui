@@ -29,8 +29,9 @@ const defaultLocaleMsg = {
     deleteLocationConfirmBody:
       "This will delete this delete this location permanently.",
     deleteCompanyConfirm: "Are you sure you want to delete this company?",
-    deleteCompanyConfirmBody:
-      "This will delete this delete this company permanently."
+    deleteCompanyConfirmBody: "This will delete this company permanently.",
+    deleteTradeItemConfirm: "Are you sure you want to delete this trade item?",
+    deleteTradeItemConfirmBody: "This will delete this trade item permanently."
   }
 };
 
