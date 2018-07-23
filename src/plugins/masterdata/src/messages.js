@@ -26,8 +26,7 @@ const defaultLocaleMsg = {
     noMasterDataFound: "No Master Data module detected on server.",
     locationDetail: "Location Detail",
     deleteLocationConfirm: "Are you sure you want to delete this location?",
-    deleteLocationConfirmBody:
-      "This will delete this delete this location permanently.",
+    deleteLocationConfirmBody: "This will delete this location permanently.",
     deleteCompanyConfirm: "Are you sure you want to delete this company?",
     deleteCompanyConfirmBody: "This will delete this company permanently.",
     deleteTradeItemConfirm: "Are you sure you want to delete this trade item?",
