@@ -84,6 +84,7 @@ exports.install = async function(pluginEntry) {
   try {
     let pluginList = require(PLUGINS_LIST_PATH);
     let version = isPluginInstalled(pluginEntry); // version if true, false if not installed.
+    /*
     console.log(
       "plugin",
       pluginEntry.pluginName,
@@ -105,7 +106,7 @@ exports.install = async function(pluginEntry) {
       pluginEntry.packagePath,
       "for version",
       pluginList[pluginEntry.pluginName].version
-    );
+    );*/
     let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);

@@ -15,6 +15,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import React from "react";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import actions from "actions/plugins";
 import reducer, {initialData} from "./reducers/masterdata";
