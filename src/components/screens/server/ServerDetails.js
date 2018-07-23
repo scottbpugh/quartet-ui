@@ -65,13 +65,7 @@ class _ServerDetails extends Component {
           })
       : [];
     return (
-      <RightPanel
-        title={
-          <FormattedMessage
-            id="nav.app.serverDetails"
-            defaultMessage="Server Details"
-          />
-        }>
+      <RightPanel title={<FormattedMessage id="app.servers.serverDetails" />}>
         {serverObject ? (
           <div className="cards-container">
             <Card className="pt-elevation-4">

@@ -138,6 +138,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   /*background: #1E7DBB;*/
     background: #8DC449;
 }
+.tree-root .tree-node-content-highlighted {
+    background: #CCC !important;
+}
+.pt-dark .tree-root .tree-node-content-highlighted {
+    background: #444 !important;
+}
+
 /*
 .pt-dark .tree-node-content-active {
   /*background: #1E7DBB;
