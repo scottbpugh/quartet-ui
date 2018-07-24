@@ -35,9 +35,37 @@ export class _PageForm extends Component {
     this.formObject = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
+
   componentDidMount() {
     this.constructForm(this.props);
   }
+
+  formatError = error => {
+    try {
+      let formattedMessage = Object.keys(error.response.body)
+        .map(key => {
+          return `${this.capitalize(
+            key.replace("_", " ")
+          )}: ${error.response.body[key].map(innerMsg => {
+            return ` ${innerMsg}\n`;
+          })}`;
+        })
+        .join(" ");
+      showMessage({
+        id: "app.common.mainError",
+        values: {msg: formattedMessage},
+        type: "error"
+      });
+    } catch (e) {
+      // ignore an error formatting an error.
+      console.log("Error occurred while formatting error msg", e);
+    }
+  };
+
+  capitalize = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   submit = postValues => {
     let {
       server,
@@ -103,11 +131,13 @@ export class _PageForm extends Component {
         })
         .catch(error => {
           if (error.status === 400 && error.response && error.response.body) {
-            showMessage({
-              id: "app.common.mainError",
-              values: {msg: JSON.stringify(error.response.body)},
-              type: "error"
-            });
+            if (
+              typeof error.response.body === "object" &&
+              error.response.body !== null
+            ) {
+              this.formatError(error);
+            }
+
             if ("non_field_errors" in error.response.body) {
               // a form-wide error is present.
               throw new SubmissionError({
@@ -149,6 +179,7 @@ export class _PageForm extends Component {
       getFormInfo(props.server, djangoPath, createForm);
     }
   };
+
   render() {
     const {
       error,
