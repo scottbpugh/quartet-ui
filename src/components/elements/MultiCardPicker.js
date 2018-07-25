@@ -15,16 +15,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import React, {Component} from "react";
-import {Button, ControlGroup, InputGroup} from "@blueprintjs/core";
+import {Button, ControlGroup, InputGroup, Tag} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 /*
   Displays a list of objects (entries, events, companies, locations) as
-  single cards.
+  single cards and adds them to an array for M2Ms.
 */
 class _MultiCardPicker extends Component {
   constructor(props) {
@@ -35,11 +34,31 @@ class _MultiCardPicker extends Component {
       entries: [],
       entriesPerPage: 20,
       inputSize: 50,
-      maxPages: 1
+      maxPages: 1,
+      pickedItems: null
     };
     this.offset = 0;
     this.currentPage = 1;
     this.debounced = null;
+  }
+
+  componentDidMount() {
+    this.setState({pickedItems: {}});
+  }
+  componentDidMount() {
+    this.processEntries();
+    this.setState(
+      {
+        entries: this.props.entries,
+        maxPages: 1,
+        pickedItems: {}
+      },
+      () => {
+        if (this.props.prepopulatedValues) {
+          this.selectItems(this.props.prepopulatedValues);
+        }
+      }
+    );
   }
 
   // filter by a field in the rows.
@@ -59,14 +78,6 @@ class _MultiCardPicker extends Component {
       this.processEntries();
     });
   };
-
-  componentDidMount() {
-    this.processEntries();
-    this.setState({
-      entries: this.props.entries,
-      maxPages: 1
-    });
-  }
 
   // refresh the lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
@@ -112,6 +123,40 @@ class _MultiCardPicker extends Component {
     }, clear ? 0 : 250);
   };
 
+  saveSelection = e => {
+    this.props.changeValue(this.state.pickedItems);
+  };
+
+  selectItems = entries => {
+    let newPicked = {};
+    entries.forEach(entry => {
+      newPicked[entry.id] = entry;
+    });
+    this.setState({pickedItems: newPicked});
+  };
+
+  selectItem = entry => {
+    let newPicked = {...this.state.pickedItems};
+    if (newPicked[entry.id]) {
+      delete newPicked[entry.id];
+    } else {
+      newPicked[entry.id] = entry;
+    }
+    this.setState({pickedItems: newPicked});
+  };
+
+  clearSelection = () => {
+    this.setState({pickedItems: []});
+  };
+
+  removeSelected = selectedItem => {
+    let newPicked = {...this.state.pickedItems};
+    if (newPicked[selectedItem]) {
+      delete newPicked[selectedItem];
+      this.setState({pickedItems: newPicked});
+    }
+  };
+
   render() {
     const {entries} = this.state;
     return (
@@ -132,6 +177,7 @@ class _MultiCardPicker extends Component {
               </Button>
             </div>
           </div>
+
           <div>
             <ControlGroup fill={false} vertical={false}>
               <div className="pt-select">
@@ -155,16 +201,86 @@ class _MultiCardPicker extends Component {
             </div>
           </div>
         </div>
+
         <div className="pick-cards-container">
+          <div
+            style={{
+              margin: "30px 0",
+              width: "90%",
+              minHeight: "160px",
+              background: "rgba(0, 0, 0, 0.2)"
+            }}>
+            <div
+              style={{
+                display: "flex",
+
+                justifyContent: "space-between"
+              }}>
+              <h6 style={{paddingTop: "15px", paddingLeft: "20px"}}>
+                <FormattedMessage
+                  id="app.common.selectedItems"
+                  defaultValue="{count} Items Selected"
+                  values={{
+                    count: this.state.pickedItems
+                      ? Object.keys(this.state.pickedItems).length
+                      : 0
+                  }}
+                />
+              </h6>
+              <div>
+                <button
+                  style={{margin: "5px"}}
+                  className="pt-button"
+                  onClick={this.props.toggleDialog}>
+                  <FormattedMessage id="app.common.cancelSubmit" />
+                </button>
+                <button
+                  style={{margin: "5px"}}
+                  className="pt-button pt-intent-warning"
+                  onClick={this.clearSelection}>
+                  <FormattedMessage id="app.common.clearSelection" />
+                </button>
+                <button
+                  style={{margin: "5px"}}
+                  className="pt-button pt-intent-primary"
+                  onClick={this.saveSelection.bind(this)}>
+                  <FormattedMessage id="app.common.saveSelection" />
+                </button>
+              </div>
+            </div>
+            <div
+              style={{
+                minHeight: "90px",
+                margin: "10px"
+              }}>
+              {this.state.pickedItems
+                ? Object.keys(this.state.pickedItems).map(item => {
+                    return (
+                      <Tag
+                        style={{margin: "5px"}}
+                        onRemove={this.removeSelected.bind(this, item)}>
+                        {this.state.pickedItems[item].name}
+                      </Tag>
+                    );
+                  })
+                : null}
+            </div>
+          </div>
           {Array.isArray(entries) && entries.length > 0
             ? entries.map((entry, index) => {
+                let selected = false;
+                if (this.state.pickedItems[entry.id]) {
+                  selected = true;
+                }
                 return (
                   <div
                     className="card-picker"
                     key={`entry-card-${index}`}
-                    style={this.props.entryStyle ? this.props.entryStyle : {}}>
+                    style={this.props.entryStyle ? this.props.entryStyle : {}}
+                    onClick={this.selectItem.bind(this, entry)}>
                     <this.props.entryClass
                       {...this.props}
+                      selected={selected}
                       entry={entry}
                       server={this.props.server}
                       history={this.props.history}

@@ -63,7 +63,6 @@ class _RouteSwitcher extends Component {
     // add new components.
     const pluginComponents = pluginRegistry.getRegisteredComponents();
     for (const pluginComponentName in pluginComponents) {
-      console.log(pluginComponentName);
       const entry = pluginComponents[pluginComponentName];
       this.props.dispatch({
         type: entry.action,
@@ -127,4 +126,3 @@ const RouteSwitcher = connect(
   }
 )(_RouteSwitcher);
 export default withRouter(RouteSwitcher);
-window.qu4rtet.exports("routes", this);

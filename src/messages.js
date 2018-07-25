@@ -85,7 +85,10 @@ export default {
         enterKeywords: "Enter Keywords...",
         objectDeletedSuccessfully: "Object deleted successfully",
         errorDeletingObject:
-          "An error occurred while attempting to delete this object: {error}"
+          "An error occurred while attempting to delete this object: {error}",
+        selectedItems: "{count} Items Selected",
+        clearSelection: "Clear Selection",
+        saveSelection: "Save Selection"
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -150,11 +153,7 @@ export default {
         errorServerFetch:
           "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}"
       },
-      plugins: {
-        addPlugin: "Ajouter un plugin",
-        errorFetchRemotePlugins:
-          "Une erreur s'est produite lors de la requete des données plugins: {error}"
-      },
+      plugins: {},
       common: {
         mainError:
           "Une erreur s'est produite pendant l'execution de cette action. {msg}",
@@ -168,10 +167,19 @@ export default {
         cancelDelete: "Annuler",
         objectCreatedSuccessfully: "{objectName} créé(e) avec succès",
         objectUpdatedSuccessfully: "{objectName} actualisé(e) avec succès",
-        enterKeywords: "Entrer un mot-clé..."
+        enterKeywords: "Entrer un mot-clé...",
+        selectedItems: "{count} objets sélectionnés",
+        saveSelection: "Enregistrer la sélection",
+        clearSelection: "Effacer la sélection"
       }
     },
-    plugins: {}
+    plugins: {
+      addPlugin: "Ajouter un plugin",
+      errorFetchRemotePlugins:
+        "Une erreur s'est produite lors de la requete des données plugins: {error}",
+      pluginEnabled: "Plugin activé",
+      pluginDisabled: "Plugin désactivé"
+    }
   }
 };
 window.qu4rtet.exports("messages", this);

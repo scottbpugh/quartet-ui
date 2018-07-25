@@ -108,13 +108,6 @@ export class _PluginList extends Component {
   render() {
     return (
       <RightPanel title={<formattedMessage id="app.nav.plugins" />}>
-        <Button
-          iconName="pt-icon-add"
-          onClick={e => {
-            this.props.history.push("/plugins/add");
-          }}>
-          Add a Local Plugin
-        </Button>
         <div className="cards-container">
           {this.state.plugins
             ? Object.keys(this.state.plugins).map(pluginName => {

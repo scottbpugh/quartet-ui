@@ -301,6 +301,3 @@ export default connect((state, ownProps) => {
   };
 }, {})(withRouter(_PageForm));
 
-// For plugins, you will need to use _PageForm instead of default, due to bug.
-// Don't forget to pass history as a prop when doing so.
-window.qu4rtet.exports("components/elements/PageForm", this);
