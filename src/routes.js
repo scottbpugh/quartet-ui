@@ -93,10 +93,14 @@ class _RouteSwitcher extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.plugins)
-        !== JSON.stringify(nextProps.plugins)
-      || nextProps.pluginListUpdated
+      JSON.stringify(this.props.plugins) !==
+        JSON.stringify(nextProps.plugins) ||
+      nextProps.pluginListUpdated
     ) {
+      nextProps.dispatch({
+        type: "PLUGINS_PLUGIN_LIST_UPDATED",
+        payload: false
+      });
       this.processPlugins();
     }
   }
@@ -104,9 +108,7 @@ class _RouteSwitcher extends Component {
   render() {
     return (
       <App>
-        <Switch>
-          {this.routes}
-        </Switch>
+        <Switch>{this.routes}</Switch>
       </App>
     );
   }
@@ -124,4 +126,3 @@ const RouteSwitcher = connect(
   }
 )(_RouteSwitcher);
 export default withRouter(RouteSwitcher);
-window.qu4rtet.exports("routes", this);
