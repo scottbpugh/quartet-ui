@@ -40,6 +40,13 @@ class _MultiCardPicker extends Component {
     this.offset = 0;
     this.currentPage = 1;
     this.debounced = null;
+    if (this.props.prepopulatedValues) {
+      let newPicked = {};
+      this.props.prepopulatedValues.forEach(entry => {
+        newPicked[entry.id] = entry;
+      });
+      this.state.pickedItems = newPicked;
+    }
   }
 
   componentDidMount() {
@@ -47,18 +54,10 @@ class _MultiCardPicker extends Component {
   }
   componentDidMount() {
     this.processEntries();
-    this.setState(
-      {
-        entries: this.props.entries,
-        maxPages: 1,
-        pickedItems: {}
-      },
-      () => {
-        if (this.props.prepopulatedValues) {
-          this.selectItems(this.props.prepopulatedValues);
-        }
-      }
-    );
+    this.setState({
+      entries: this.props.entries,
+      maxPages: 1
+    });
   }
 
   // filter by a field in the rows.
@@ -124,7 +123,12 @@ class _MultiCardPicker extends Component {
   };
 
   saveSelection = e => {
-    this.props.changeValue(this.state.pickedItems);
+    this.props.changeValue(
+      // convert to an array of objects for the rest of the app.
+      Object.keys(this.state.pickedItems).map(key => {
+        return this.state.pickedItems[key];
+      })
+    );
   };
 
   selectItems = entries => {
