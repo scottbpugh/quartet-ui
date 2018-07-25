@@ -43,6 +43,21 @@ export class _ControlPanel extends Component {
     return true;
   };
   render() {
+    const {controlButtons} = this.props;
+    let pluginButtons = controlButtons
+      ? Object.keys(controlButtons).map(componentName => {
+          let ComponentClass = pluginRegistry.getRegisteredComponent(
+            componentName
+          );
+          return (
+            <ComponentClass
+              key={componentName}
+              theme={this.props.theme}
+              currentPath={this.props.currentPath}
+            />
+          );
+        })
+      : [];
     return (
       <div className="leftbar-group">
         <div
@@ -68,6 +83,7 @@ export class _ControlPanel extends Component {
             history={this.props.history}
             isDark={this.state.isDark}
           />
+          {pluginButtons}
         </div>
       </div>
     );
@@ -77,6 +93,7 @@ export class _ControlPanel extends Component {
 export const ControlPanel = connect((state, ownProps) => {
   return {
     currentPath: state.layout.currentPath,
-    theme: state.layout.theme
+    theme: state.layout.theme,
+    controlButtons: state.plugins.controlButtons
   };
 })(withRouter(_ControlPanel));

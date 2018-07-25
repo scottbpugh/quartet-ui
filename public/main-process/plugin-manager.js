@@ -36,22 +36,26 @@ const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
 
 const fs = require("fs");
 var https = require("https");
-
+let pluginRepoPath =
+  "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json";
+const isDev = require("electron-is-dev");
+if (isDev) {
+  // use the develop version of plugins.json.
+  pluginRepoPath =
+    "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
+}
 exports.getPlugins = async function() {
   try {
     backupPluginList();
-    var request = https.get(
-      "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json",
-      function(response) {
-        try {
-          var file = fs.createWriteStream(PLUGINS_LIST_PATH);
-          response.pipe(file);
-        } catch (e) {
-          console.log("error writing file", e);
-          networkErrorHandler();
-        }
+    var request = https.get(pluginRepoPath, function(response) {
+      try {
+        var file = fs.createWriteStream(PLUGINS_LIST_PATH);
+        response.pipe(file);
+      } catch (e) {
+        console.log("error writing file", e);
+        networkErrorHandler();
       }
-    );
+    });
     request.on("error", function(err) {
       console.log("ERROR OCCURRED", err);
       networkErrorHandler();
@@ -84,6 +88,7 @@ exports.install = async function(pluginEntry) {
   try {
     let pluginList = require(PLUGINS_LIST_PATH);
     let version = isPluginInstalled(pluginEntry); // version if true, false if not installed.
+    /*
     console.log(
       "plugin",
       pluginEntry.pluginName,
@@ -105,7 +110,7 @@ exports.install = async function(pluginEntry) {
       pluginEntry.packagePath,
       "for version",
       pluginList[pluginEntry.pluginName].version
-    );
+    );*/
     let installedPlugin = null;
     if (pluginEntry.local === true) {
       installedPlugin = await manager.installFromPath(pluginEntry.packagePath);

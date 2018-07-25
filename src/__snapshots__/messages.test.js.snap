@@ -9,6 +9,7 @@ Object {
         "cancelConfirm": "Cancel",
         "cancelDelete": "Cancel",
         "cancelSubmit": "Cancel",
+        "clearSelection": "Clear Selection",
         "confirm": "Confirm",
         "deleteButton": "Delete",
         "enterKeywords": "Enter Keywords...",
@@ -18,6 +19,8 @@ Object {
         "objectCreatedSuccessfully": "New {objectName} created successfully",
         "objectDeletedSuccessfully": "Object deleted successfully",
         "objectUpdatedSuccessfully": "Existing {objectName} updated successfully",
+        "saveSelection": "Save Selection",
+        "selectedItems": "{count} Items Selected",
         "submit": "Submit",
       },
       "dashboard": Object {
@@ -81,6 +84,7 @@ Object {
         "cancelConfirm": "Annuler",
         "cancelDelete": "Annuler",
         "cancelSubmit": "Annuler",
+        "clearSelection": "Effacer la sélection",
         "confirm": "Confirmer",
         "deleteButton": "Supprimer",
         "enterKeywords": "Entrer un mot-clé...",
@@ -88,6 +92,8 @@ Object {
         "mainError": "Une erreur s'est produite pendant l'execution de cette action. {msg}",
         "objectCreatedSuccessfully": "{objectName} créé(e) avec succès",
         "objectUpdatedSuccessfully": "{objectName} actualisé(e) avec succès",
+        "saveSelection": "Enregistrer la sélection",
+        "selectedItems": "{count} objets sélectionnés",
         "submit": "Soumettre",
       },
       "dashboard": Object {
@@ -108,10 +114,7 @@ Object {
         "server": "Serveur",
         "servers": "Serveurs",
       },
-      "plugins": Object {
-        "addPlugin": "Ajouter un plugin",
-        "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
-      },
+      "plugins": Object {},
       "serverSettings": Object {
         "addAServer": "Ajouter un serveur",
         "serverDeleted": "Le serveur a bien été retiré",
@@ -139,7 +142,12 @@ Object {
         "polarTheme": "Thème polaire",
       },
     },
-    "plugins": Object {},
+    "plugins": Object {
+      "addPlugin": "Ajouter un plugin",
+      "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
+      "pluginDisabled": "Plugin désactivé",
+      "pluginEnabled": "Plugin activé",
+    },
   },
 }
 `;

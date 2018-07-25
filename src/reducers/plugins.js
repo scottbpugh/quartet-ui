@@ -65,7 +65,7 @@ export const initialData = () => {
         enabled: true
       }
     },
-    pluginsUpdated: false
+    pluginListUpdated: false
   };
 };
 
@@ -149,6 +149,23 @@ export default handleActions(
         navTreeItems
       };
     },
+    [actions.addButtonToControls]: (state, action) => {
+      return {
+        ...state,
+        controlButtons: {
+          ...state.controlButtons,
+          [action.payload.pluginComponentName]: {...action.payload}
+        }
+      };
+    },
+    [actions.removeButtonFromControls]: (state, action) => {
+      const controlButtons = {...state.controlButtons};
+      delete controlButtons[action.payload.pluginComponentName];
+      return {
+        ...state,
+        controlButtons
+      };
+    },
     [actions.pluginEnabled]: (state, action) => {
       return {
         ...state,
@@ -189,10 +206,10 @@ export default handleActions(
         navTreeItems: {...state.navTreeItems}
       };
     },
-    [actions.pluginListUpdated]: state => {
+    [actions.pluginListUpdated]: (state, action) => {
       return {
         ...state,
-        pluginListUpdated: true
+        pluginListUpdated: action.payload
       };
     }
   },
