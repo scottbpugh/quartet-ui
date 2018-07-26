@@ -20,6 +20,8 @@ import {Position, Toaster, Intent} from "@blueprintjs/core";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import stringHash from "string-hash";
 
+const MINIMUM_EXPIRE = 7000;
+
 const msgToaster = Toaster.create({
   className: "my-toaster",
   position: Position.BOTTOM_RIGHT
@@ -41,7 +43,7 @@ const getIntent = type => {
 
 const _msgHashMap = {};
 
-const showMessageNoRepeat = (toastMessage, expires_in = 7000) => {
+const showMessageNoRepeat = (toastMessage, expires_in = MINIMUM_EXPIRE) => {
   let msgHash = stringHash(JSON.stringify(toastMessage));
   let timestamp = new Date().getTime();
   if (msgHash in _msgHashMap && _msgHashMap[msgHash].expires > timestamp) {
@@ -59,13 +61,19 @@ export const showMessage = msg => {
     // for errors etc out of a component context.
     const intl = pluginRegistry.getIntl();
     if (msg.id) {
-      showMessageNoRepeat({
-        message: intl.formatMessage({id: msg.id}, msg.values),
-        intent: getIntent(msg.type)
-      });
+      showMessageNoRepeat(
+        {
+          message: intl.formatMessage({id: msg.id}, msg.values),
+          intent: getIntent(msg.type)
+        },
+        msg.expires_in || MINIMUM_EXPIRE
+      );
     } else if (msg.msg) {
       //let formatMsg = typeof msg.msg === "object" ? JSON.stringify(msg.msg) : msg.msg;
-      showMessageNoRepeat({message: msg.msg, intent: getIntent(msg.type)});
+      showMessageNoRepeat(
+        {message: msg.msg, intent: getIntent(msg.type)},
+        msg.expires_in || MINIMUM_EXPIRE
+      );
     }
   } catch (e) {
     console.log(

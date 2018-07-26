@@ -39,6 +39,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue={null}
+                    disabled={false}
                     name="serverSettingName"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -133,6 +134,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue={null}
+                    disabled={false}
                     name="hostname"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -173,6 +175,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue={null}
+                    disabled={false}
                     name="port"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -213,6 +216,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue={null}
+                    disabled={false}
                     name="path"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -352,6 +356,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue="Token"
+                    disabled={false}
                     name="tokenType"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -392,6 +397,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue={null}
+                    disabled={false}
                     name="username"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -432,6 +438,7 @@ exports[`renders correctly 1`] = `
                   <input
                     className="pt-input "
                     defaultValue={null}
+                    disabled={false}
                     name="password"
                     onBlur={[Function]}
                     onChange={[Function]}
