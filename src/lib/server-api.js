@@ -60,10 +60,14 @@ export const getFormInfo = async (server, path, createForm, processField) => {
       const postFields = data.actions.POST;
       const formStructure = Object.keys(postFields)
         .map(field => {
-          if (postFields[field].read_only === false) {
-            return {name: field, description: postFields[field]};
+          if (
+            field === "id" ||
+            (postFields[field].type === "field" &&
+              postFields[field].read_only === true)
+          ) {
+            return null;
           }
-          return null;
+          return {name: field, description: postFields[field]};
         })
         .filter(fieldObj => {
           if (processField) {
