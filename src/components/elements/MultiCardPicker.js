@@ -242,16 +242,14 @@ class _MultiCardPicker extends Component {
                 </button>
               </div>
             </div>
-            <div
-              style={{
-                minHeight: "90px",
-                margin: "10px"
-              }}>
+            <div className="picked-items-tags">
               {this.state.pickedItems
                 ? Object.keys(this.state.pickedItems).map(item => {
                     return (
                       <Tag
-                        style={{margin: "5px"}}
+                        key={`${this.state.pickedItems[item].id}-${
+                          this.state.pickedItems[item].name
+                        }`}
                         onRemove={this.removeSelected.bind(this, item)}>
                         {this.state.pickedItems[item].name}
                       </Tag>
@@ -269,7 +267,7 @@ class _MultiCardPicker extends Component {
                 return (
                   <div
                     className="card-picker"
-                    key={`entry-card-${index}`}
+                    key={`entry-card-${index}-${entry.id}`}
                     style={this.props.entryStyle ? this.props.entryStyle : {}}
                     onClick={this.selectItem.bind(this, entry)}>
                     <this.props.entryClass

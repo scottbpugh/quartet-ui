@@ -37,3 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .picked-items-controls button {
   margin: 5px;
 }
+
+.picked-items-tags {
+  min-height:90px;
+  margin:10px;
+}
+
+.picked-items-tags .pt-tag {
+  margin: 5px;
+}
