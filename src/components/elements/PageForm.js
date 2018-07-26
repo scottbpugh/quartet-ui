@@ -52,9 +52,9 @@ export class _PageForm extends Component {
         })
         .join(" ");
       showMessage({
-        id: "app.common.mainError",
-        values: {msg: formattedMessage},
-        type: "error"
+        msg: formattedMessage,
+        type: "warning",
+        expires_in: 1000
       });
     } catch (e) {
       // ignore an error formatting an error.
@@ -151,9 +151,9 @@ export class _PageForm extends Component {
           }
           if (error.message) {
             showMessage({
-              id: "app.common.mainError",
+              msg: "app.common.mainError",
               values: {msg: error.message},
-              type: "error"
+              type: "warning"
             });
           }
         });
@@ -300,4 +300,3 @@ export default connect((state, ownProps) => {
     servers: state.serversettings.servers
   };
 }, {})(withRouter(_PageForm));
-

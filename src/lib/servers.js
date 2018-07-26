@@ -410,7 +410,9 @@ export class Server {
     this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
     let client = await this.getClient();
     try {
-      this.appList = Object.keys(client.apis);
+      this.appList = Object.keys(client.apis).filter(app => {
+        return !app.startsWith("read-only-");
+      });
       // let redux know we got our data
       this.store.dispatch({
         type: actions.appsListUpdated,
