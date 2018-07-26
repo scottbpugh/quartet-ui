@@ -54,7 +54,7 @@ class _ServerForm extends Component {
     let serverSettingNames = Object.keys(this.props.servers).map(server => {
       return this.props.servers[server].serverSettingName.toLowerCase().trim();
     });
-    if (serverSettingNames.includes(value.toLowerCase().trim())) {
+    if (value && serverSettingNames.includes(value.toLowerCase().trim())) {
       return "Server Setting Name already used.";
     }
     return undefined;

@@ -77,32 +77,6 @@ class _ServerNode extends Component {
         path={`/server-details/${server.serverID}`}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}
-        <RegisterUserDialog
-          intl={intl}
-          server={server}
-          closeDialog={this.toggleRegisterDialog.bind(this)}
-          isOpen={this.state.registerDialogOpen}
-          theme={this.props.theme}
-        />
-        <VerifyUserDialog
-          intl={intl}
-          server={server}
-          closeDialog={this.toggleVerifyDialog.bind(this)}
-          isOpen={this.state.verifyDialogOpen}
-          theme={this.props.theme}
-        />
-        <DeleteDialog
-          isOpen={this.state.confirmDeleteOpen}
-          title={
-            <FormattedMessage
-              id="app.servers.deleteServer"
-              values={{serverName: server.serverSettingName}}
-            />
-          }
-          body={<FormattedMessage id="app.servers.deleteServerConfirm" />}
-          toggle={this.toggleConfirmDelete.bind(this)}
-          deleteAction={this.trashServer.bind(this)}
-        />
       </TreeNode>
     );
   }
