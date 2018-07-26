@@ -69,6 +69,9 @@ class _ServerForm extends Component {
     }
   };
   validateServerName = value => {
+    if (this.props.defaultValues["serverSettingName"] === value) {
+      return undefined;
+    }
     let serverSettingNames = Object.keys(this.props.servers).map(server => {
       return this.props.servers[server].serverSettingName.toLowerCase().trim();
     });
