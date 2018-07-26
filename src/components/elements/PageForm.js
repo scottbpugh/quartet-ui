@@ -80,9 +80,7 @@ export class _PageForm extends Component {
     });
     // set to null if empty string
     Object.keys(postValues).forEach(item => {
-      if (postValues[item] !== "") {
-        processedData[item] = postValues[item];
-      }
+      processedData[item] = postValues[item] === "" ? null : postValues[item];
     });
     return processedData;
   };
@@ -103,11 +101,11 @@ export class _PageForm extends Component {
         postValues[field.name] = field.value;
       }
     }
+    let processedData = this.processUnsetFields(postValues);
     if (submitPrecall) {
       // only executed if Form has a submitPrecall prop.
-      submitPrecall(postValues, this.props);
+      submitPrecall(processedData, this.props);
     }
-    let processedData = this.processUnsetFields(postValues);
     if (parameters) {
       parameters.data = processedData;
     } else {
