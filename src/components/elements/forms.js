@@ -160,7 +160,10 @@ export const DefaultField = ({
 export const getSyncValidators = field => {
   const validate = []; // Dynamically build this.
   // validate.push(required);
-  if (field.description.required === true) {
+  if (
+    field.description.required === true &&
+    field.description.type !== "boolean"
+  ) {
     validate.push(required);
   }
   if (field.description.max_length) {
@@ -182,5 +185,3 @@ export const getSyncValidators = field => {
   }
   return validate;
 };
-
-window.qu4rtet.exports("components/elements/forms", this);
