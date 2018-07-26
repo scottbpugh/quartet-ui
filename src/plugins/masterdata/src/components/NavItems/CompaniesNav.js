@@ -42,6 +42,15 @@ class _CompaniesNav extends Component {
             `/masterdata/add-company/${server.serverID}`
           )}
         />
+        <MenuItem
+          text={pluginRegistry
+            .getIntl()
+            .formatMessage({id: "plugins.masterData.addCompanyType"})}
+          onClick={this.goTo.bind(
+            this,
+            `/masterdata/add-company-type/${server.serverID}`
+          )}
+        />
       </Menu>
     );
   };

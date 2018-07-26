@@ -6,6 +6,7 @@ Object {
     "plugins": Object {
       "masterData": Object {
         "addCompany": "Add a Company",
+        "addCompanyType": "Add a Company Type",
         "addLocation": "Add a Location",
         "addLocationType": "Add a Location Type",
         "addTradeItem": "Add a Trade Item",
@@ -18,9 +19,11 @@ Object {
         "deleteTradeItemConfirm": "Are you sure you want to delete this trade item?",
         "deleteTradeItemConfirmBody": "This will delete this trade item permanently.",
         "editCompany": "Edit a Company",
+        "editCompanyType": "Edit Company Type",
         "editLocation": "Edit a Location",
         "editTradeItem": "Edit Trade Item",
         "errorLoadingCompanies": "An error occurred while loading companies from this server. {error}",
+        "errorLoadingCompanyTypes": "An error occurred while loading company types from this server. {error}",
         "errorLoadingEntries": "An error occurred while loading locations from this server. {error}",
         "errorLoadingLocationTypes": "An error occurred while loading location types from this server. {error}",
         "errorLoadingLocations": "An error occurred while loading locations from this server. {error}",
@@ -38,6 +41,7 @@ Object {
     "plugins": Object {
       "masterData": Object {
         "addCompany": "Ajouter une compagnie",
+        "addCompanyType": "Ajouter un type de compagnie",
         "addLocation": "Ajouter un site",
         "addLocationType": "Ajouter un type de site",
         "addTradeItem": "Ajouter un article commercial",
@@ -50,9 +54,11 @@ Object {
         "deleteTradeItemConfirm": "Are you sure you want to delete this trade item?",
         "deleteTradeItemConfirmBody": "This will delete this trade item permanently.",
         "editCompany": "Modifier une compagnie",
+        "editCompanyType": "Modifier type de compagnie",
         "editLocation": "Modifier un site",
         "editTradeItem": "Editer un article commercial",
         "errorLoadingCompanies": "An error occurred while loading companies from this server. {error}",
+        "errorLoadingCompanyTypes": "An error occurred while loading company types from this server. {error}",
         "errorLoadingEntries": "An error occurred while loading locations from this server. {error}",
         "errorLoadingLocationTypes": "An error occurred while loading location types from this server. {error}",
         "errorLoadingLocations": "An error occurred while loading locations from this server. {error}",

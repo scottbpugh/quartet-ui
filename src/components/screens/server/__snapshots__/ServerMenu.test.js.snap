@@ -26,26 +26,6 @@ exports[`renders correctly 1`] = `
     <li
       className="pt-menu-divider"
     />
-    <li
-      className=""
-    >
-      <a
-        className="pt-menu-item pt-popover-dismiss"
-        tabIndex={0}
-      >
-        Register User
-      </a>
-    </li>
-    <li
-      className=""
-    >
-      <a
-        className="pt-menu-item pt-popover-dismiss"
-        tabIndex={0}
-      >
-        Verify User
-      </a>
-    </li>
   </ul>
 </div>
 `;
