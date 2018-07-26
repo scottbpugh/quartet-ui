@@ -20,6 +20,8 @@ import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
 
+let isAboutToScroll = false; // checks whether there is a scroll about to happen.
+
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 
 /**
@@ -55,6 +57,14 @@ export const DefaultField = ({
   let intent = "";
   let intentClass = "";
   if (touched && error) {
+    // short on time poorman's way of fixing relative navbar issue.
+    if (!isAboutToScroll) {
+      setTimeout(() => {
+        window.scrollBy(0, -300);
+        isAboutToScroll = false;
+      }, 300);
+    }
+    isAboutToScroll = true;
     intent = Intent.DANGER;
     intentClass = "pt-intent-danger";
   }
@@ -182,5 +192,7 @@ export const getSyncValidators = field => {
   }
   return validate;
 };
+
+window.qu4rtet.exports("components/elements/forms", this);
 
 window.qu4rtet.exports("components/elements/forms", this);
