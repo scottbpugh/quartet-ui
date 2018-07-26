@@ -66,6 +66,26 @@ export class _PageForm extends Component {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
+  // Ensure booleans that were never set are {false}
+  // and remove empty strings from the postValues
+  processUnsetFields = postValues => {
+    let processedData = {};
+    this.state.formStructure.map(field => {
+      if (field.description.type === "boolean") {
+        if (!postValues[field.name] && postValues[field.name] !== false) {
+          // we are missing this boolean from the submit. Add it.
+          processedData[field.name] = false; // we set it as false in validated data.
+        }
+      }
+    });
+    // set to null if empty string
+    Object.keys(postValues).forEach(item => {
+      if (postValues[item] !== "") {
+        processedData[item] = postValues[item];
+      }
+    });
+    return processedData;
+  };
   submit = postValues => {
     let {
       server,
@@ -87,15 +107,11 @@ export class _PageForm extends Component {
       // only executed if Form has a submitPrecall prop.
       submitPrecall(postValues, this.props);
     }
-    let validatedData = {};
-    // set to null if empty string
-    Object.keys(postValues).forEach(item => {
-      validatedData[item] = postValues[item] === "" ? null : postValues[item];
-    });
+    let processedData = this.processUnsetFields(postValues);
     if (parameters) {
-      parameters.data = validatedData;
+      parameters.data = processedData;
     } else {
-      parameters = {data: validatedData};
+      parameters = {data: processedData};
     }
     return server.getClient().then(client => {
       return client
@@ -151,7 +167,7 @@ export class _PageForm extends Component {
           }
           if (error.message) {
             showMessage({
-              msg: "app.common.mainError",
+              id: "app.common.mainError",
               values: {msg: error.message},
               type: "warning"
             });
@@ -242,7 +258,6 @@ export class _PageForm extends Component {
               </Field>
             );
           }
-
           return (
             <Field
               key={field.name}
