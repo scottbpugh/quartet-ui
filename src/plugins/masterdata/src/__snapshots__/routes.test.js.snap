@@ -28,6 +28,10 @@ Array [
   />,
   <Route
     component={[Function]}
+    path="/masterdata/add-company-type/:serverID"
+  />,
+  <Route
+    component={[Function]}
     path="/masterdata/add-trade-item/:serverID"
   />,
   <Route
