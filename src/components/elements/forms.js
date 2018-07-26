@@ -121,6 +121,7 @@ export const DefaultField = ({
         name={fieldData.name}
         defaultValue={fieldData.defaultValue ? fieldData.defaultValue : null}
         type={type}
+        disabled={fieldData.description.read_only}
         width={300}
         className={classNames({"pt-input": true, [intentClass]: true})}
         required={fieldData.description.required}
