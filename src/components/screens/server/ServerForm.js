@@ -42,24 +42,6 @@ class _ServerForm extends Component {
     if (this.props.defaultValues) {
       this.props.initialize(this.props.defaultValues);
     }
-  }
-  submit = postValues => {
-    this.props.saveServer(postValues);
-    if (this.props.submitCallback) {
-      // defer to parent to do whatever it needs post saved.
-      this.props.submitCallback(postValues);
-    }
-  };
-  validateServerName = value => {
-    let serverSettingNames = Object.keys(this.props.servers).map(server => {
-      return this.props.servers[server].serverSettingName.toLowerCase().trim();
-    });
-    if (value && serverSettingNames.includes(value.toLowerCase().trim())) {
-      return "Server Setting Name already used.";
-    }
-    return undefined;
-  };
-  render() {
     this.formElems = this.props.formData.map(field => {
       field.validate = getSyncValidators(field);
       if (field.name === "serverSettingName") {
@@ -78,6 +60,24 @@ class _ServerForm extends Component {
         />
       );
     });
+  }
+  submit = postValues => {
+    this.props.saveServer(postValues);
+    if (this.props.submitCallback) {
+      // defer to parent to do whatever it needs post saved.
+      this.props.submitCallback(postValues);
+    }
+  };
+  validateServerName = value => {
+    let serverSettingNames = Object.keys(this.props.servers).map(server => {
+      return this.props.servers[server].serverSettingName.toLowerCase().trim();
+    });
+    if (serverSettingNames.includes(value.toLowerCase().trim())) {
+      return "Server Setting Name already used.";
+    }
+    return undefined;
+  };
+  render() {
     const {handleSubmit} = this.props;
     return (
       <form onSubmit={handleSubmit(this.submit)}>

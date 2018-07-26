@@ -17,9 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // string validations
-export const required = value => {
-  return value !== false || value !== true ? undefined : "Required";
-};
+export const required = value => (value ? undefined : "Required");
 
 export const maxLength = max => value =>
   value && value.length > max ? `Must be ${max} characters or less` : undefined;

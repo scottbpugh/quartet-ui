@@ -19,10 +19,8 @@ import React, {Component} from "react";
 import {injectIntl} from "react-intl";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {RegisterUserDialog} from "components/screens/auth/RegisterUserDialog";
 import {ServerMenu} from "./ServerMenu";
 import {TreeNode} from "components/layouts/elements/TreeNode";
-import {VerifyUserDialog} from "components/screens/auth/VerifyUserDialog";
 import {DeleteDialog} from "components/elements/DeleteDialog";
 import {FormattedMessage} from "react-intl";
 import {deleteServer} from "reducers/serversettings";
@@ -42,20 +40,13 @@ class _ServerNode extends Component {
     const {server, intl} = this.props;
     return (
       <ServerMenu
-        toggleRegisterDialog={this.toggleRegisterDialog}
-        toggleVerifyDialog={this.toggleVerifyDialog}
         toggleConfirmDelete={this.toggleConfirmDelete}
         intl={intl}
         server={server}
       />
     );
   }
-  toggleRegisterDialog = () => {
-    this.setState({registerDialogOpen: !this.state.registerDialogOpen});
-  };
-  toggleVerifyDialog = () => {
-    this.setState({verifyDialogOpen: !this.state.verifyDialogOpen});
-  };
+
   toggleConfirmDelete = () => {
     this.setState({confirmDeleteOpen: !this.state.confirmDeleteOpen});
   };
@@ -77,6 +68,18 @@ class _ServerNode extends Component {
         path={`/server-details/${server.serverID}`}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}
+        <DeleteDialog
+          isOpen={this.state.confirmDeleteOpen}
+          title={
+            <FormattedMessage
+              id="app.servers.deleteServer"
+              values={{serverName: server.serverSettingName}}
+            />
+          }
+          body={<FormattedMessage id="app.servers.deleteServerConfirm" />}
+          toggle={this.toggleConfirmDelete.bind(this)}
+          deleteAction={this.trashServer.bind(this)}
+        />
       </TreeNode>
     );
   }
