@@ -20,6 +20,7 @@ import {Button, ControlGroup, InputGroup, Tag} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import "./MultiCardPicker.css";
 
 /*
   Displays a list of objects (entries, events, companies, locations) as
@@ -40,25 +41,25 @@ class _MultiCardPicker extends Component {
     this.offset = 0;
     this.currentPage = 1;
     this.debounced = null;
+    if (this.props.prepopulatedValues) {
+      let newPicked = {};
+      this.props.prepopulatedValues.forEach(entry => {
+        newPicked[entry.id] = entry;
+      });
+      this.state.pickedItems = newPicked;
+    }
   }
 
   componentDidMount() {
     this.setState({pickedItems: {}});
   }
+
   componentDidMount() {
     this.processEntries();
-    this.setState(
-      {
-        entries: this.props.entries,
-        maxPages: 1,
-        pickedItems: {}
-      },
-      () => {
-        if (this.props.prepopulatedValues) {
-          this.selectItems(this.props.prepopulatedValues);
-        }
-      }
-    );
+    this.setState({
+      entries: this.props.entries,
+      maxPages: 1
+    });
   }
 
   // filter by a field in the rows.
@@ -124,7 +125,12 @@ class _MultiCardPicker extends Component {
   };
 
   saveSelection = e => {
-    this.props.changeValue(this.state.pickedItems);
+    this.props.changeValue(
+      // convert to an array of objects for the rest of the app.
+      Object.keys(this.state.pickedItems).map(key => {
+        return this.state.pickedItems[key];
+      })
+    );
   };
 
   selectItems = entries => {
@@ -203,17 +209,10 @@ class _MultiCardPicker extends Component {
         </div>
 
         <div className="pick-cards-container">
-          <div
-            style={{
-              margin: "30px 0",
-              width: "90%",
-              minHeight: "160px",
-              background: "rgba(0, 0, 0, 0.2)"
-            }}>
+          <div className="picked-items-container">
             <div
               style={{
                 display: "flex",
-
                 justifyContent: "space-between"
               }}>
               <h6 style={{paddingTop: "15px", paddingLeft: "20px"}}>
@@ -227,37 +226,30 @@ class _MultiCardPicker extends Component {
                   }}
                 />
               </h6>
-              <div>
-                <button
-                  style={{margin: "5px"}}
-                  className="pt-button"
-                  onClick={this.props.toggleDialog}>
+              <div className="picked-items-controls">
+                <button className="pt-button" onClick={this.props.toggleDialog}>
                   <FormattedMessage id="app.common.cancelSubmit" />
                 </button>
                 <button
-                  style={{margin: "5px"}}
                   className="pt-button pt-intent-warning"
                   onClick={this.clearSelection}>
                   <FormattedMessage id="app.common.clearSelection" />
                 </button>
                 <button
-                  style={{margin: "5px"}}
                   className="pt-button pt-intent-primary"
                   onClick={this.saveSelection.bind(this)}>
                   <FormattedMessage id="app.common.saveSelection" />
                 </button>
               </div>
             </div>
-            <div
-              style={{
-                minHeight: "90px",
-                margin: "10px"
-              }}>
+            <div className="picked-items-tags">
               {this.state.pickedItems
                 ? Object.keys(this.state.pickedItems).map(item => {
                     return (
                       <Tag
-                        style={{margin: "5px"}}
+                        key={`${this.state.pickedItems[item].id}-${
+                          this.state.pickedItems[item].name
+                        }`}
                         onRemove={this.removeSelected.bind(this, item)}>
                         {this.state.pickedItems[item].name}
                       </Tag>
@@ -275,7 +267,7 @@ class _MultiCardPicker extends Component {
                 return (
                   <div
                     className="card-picker"
-                    key={`entry-card-${index}`}
+                    key={`entry-card-${index}-${entry.id}`}
                     style={this.props.entryStyle ? this.props.entryStyle : {}}
                     onClick={this.selectItem.bind(this, entry)}>
                     <this.props.entryClass
