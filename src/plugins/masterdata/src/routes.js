@@ -25,6 +25,7 @@ import {CompaniesList} from "./components/Lists/CompaniesListTable";
 import {TradeItemsList} from "./components/Lists/TradeItemsList";
 import {AddTradeItemField} from "./components/Forms/TradeItemFieldForm";
 import {AddLocationType} from "./components/Forms/LocationTypeForm";
+import {AddCompanyType} from "./components/Forms/CompanyTypeForm";
 import {SGLNDetail} from "./components/Detail/SGLNDetail";
 
 export default (() => {
@@ -58,6 +59,11 @@ export default (() => {
       key="addCompany"
       path="/masterdata/add-company/:serverID"
       component={AddCompany}
+    />,
+    <Route
+      key="addCompanyType"
+      path="/masterdata/add-company-type/:serverID"
+      component={AddCompanyType}
     />,
     <Route
       key="addTradeItem"

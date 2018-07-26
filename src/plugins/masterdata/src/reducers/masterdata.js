@@ -215,13 +215,49 @@ export const loadLocationTypes = (server, search, page, ordering) => {
   };
 };
 
+export const loadCompanyTypes = (server, search, page, ordering) => {
+  const params = {};
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .fetchPageList("masterdata_company_types_list", params, [])
+      .then(response => {
+        return dispatch({
+          type: actions.loadCompanyTypes,
+          payload: {
+            serverID: server.serverID,
+            companyTypes: response.results,
+            count: response.count,
+            next: response.next
+          }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          id: "plugins.masterData.errorLoadingCompanyTypes",
+          values: {error: e}
+        });
+      });
+  };
+};
+
 export const loadLocationDetail = (server, identifier) => {
   return async dispatch => {
     const params = {identifier};
     try {
       const location = await pluginRegistry
         .getServer(server)
-        .fetchObject("masterdata_location_by_identifier_read", params);
+        .fetchPageList("masterdata_location_by_identifier_read", params);
       return dispatch({
         type: actions.loadLocationDetail,
         payload: {
@@ -268,6 +304,27 @@ export default handleActions(
     [actions.loadLocationTypes]: (state, action) => {
       return setServerState(state, action.payload.serverID, {
         locationTypes: action.payload.locationTypes,
+        count: action.payload.count,
+        next: action.payload.next
+      });
+    },
+    [actions.loadCompanyTypes]: (state, action) => {
+      return setServerState(state, action.payload.serverID, {
+        companyTypes: action.payload.companyTypes,
+        count: action.payload.count,
+        next: action.payload.next
+      });
+    },
+    [actions.loadAllCompanyTypes]: (state, action) => {
+      return setServerState(state, action.payload.serverID, {
+        allLocationTypes: action.payload.allLocationTypes,
+        count: action.payload.count,
+        next: action.payload.next
+      });
+    },
+    [actions.loadAllLocationTypes]: (state, action) => {
+      return setServerState(state, action.payload.serverID, {
+        allCompanyTypes: action.payload.allCompanyTypes,
         count: action.payload.count,
         next: action.payload.next
       });

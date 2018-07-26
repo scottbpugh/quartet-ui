@@ -7,6 +7,8 @@ const defaultLocaleMsg = {
     editLocation: "Edit a Location",
     addCompany: "Add a Company",
     editCompany: "Edit a Company",
+    addCompanyType: "Add a Company Type",
+    editCompanyType: "Edit Company Type",
     errorLoadingEntries:
       "An error occurred while loading locations from this server. {error}",
     errorLoadingTradeItems:
@@ -17,6 +19,8 @@ const defaultLocaleMsg = {
       "An error occurred while loading locations from this server. {error}",
     errorLoadingLocationTypes:
       "An error occurred while loading location types from this server. {error}",
+    errorLoadingCompanyTypes:
+      "An error occurred while loading company types from this server. {error}",
     tradeItems: "Trade Items",
     addTradeItem: "Add a Trade Item",
     addTradeItemField: "Add a Trade Item Field",
@@ -41,6 +45,8 @@ const french = {
   companies: "Compagnies",
   addCompany: "Ajouter une compagnie",
   editCompany: "Modifier une compagnie",
+  addCompanyType: "Ajouter un type de compagnie",
+  editCompanyType: "Modifier type de compagnie",
   addLocation: "Ajouter un site",
   editLocation: "Modifier un site",
   errorLoadingEntries:

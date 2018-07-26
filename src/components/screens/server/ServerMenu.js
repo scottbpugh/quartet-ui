@@ -42,18 +42,6 @@ export class ServerMenu extends Component {
         </ButtonGroup>
         <MenuDivider title={server.serverSettingName} />
         <MenuDivider />
-        <MenuItem
-          onClick={toggleRegisterDialog}
-          text={`${intl.formatMessage({
-            id: "app.servers.registerUser"
-          })}`}
-        />
-        <MenuItem
-          onClick={toggleVerifyDialog}
-          text={`${intl.formatMessage({
-            id: "app.servers.verifyUser"
-          })}`}
-        />
         {/*
         <MenuItem
           text={`${intl.formatMessage({
