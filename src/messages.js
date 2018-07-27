@@ -72,6 +72,9 @@ export default {
       common: {
         mainError:
           "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
+        accessDeniedTitle: "Access Denied",
+        accessDeniedBlurb:
+          "You do not have permissions to perform this action. Please reach out to your system administrator in order to gain access.",
         entriesTotal: "{entriesCount} Entries Total",
         submit: "Submit",
         cancelSubmit: "Cancel",
@@ -88,7 +91,8 @@ export default {
           "An error occurred while attempting to delete this object: {error}",
         selectedItems: "{count} Items Selected",
         clearSelection: "Clear Selection",
-        saveSelection: "Save Selection"
+        saveSelection: "Save Selection",
+        takeMeBack: "Take me back"
       },
       plugins: {
         addPlugin: "Add a Plugin",
