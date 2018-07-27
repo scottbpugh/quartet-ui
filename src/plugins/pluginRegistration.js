@@ -77,6 +77,9 @@ class PluginRegistry {
     */
     this._registeredCss = {};
     this._keybindings = {}; // an object with all keybindings from plugins and core.
+
+    this.history = null; // A global reference to the history object. Useful to use history in redux bind action creators etc, ...
+    // this.history only becomes available after the app has loaded.
   }
   /*
   Building blocks used for plugins. Prevents having to import/dups etc.
@@ -240,14 +243,6 @@ class PluginRegistry {
     }
   }
 
-  registerIntl(intl) {
-    // not the best way to get a hold of the intl element,
-    // but we need it in certain lib methods in plugins to
-    // send a message without cluttering each component
-    // that use them.
-    this.intl = intl;
-  }
-
   registerCss(pluginName, cssString) {
     if (!this._registeredCss[pluginName]) {
       this._registeredCss[pluginName] = [injectCss(cssString)];
@@ -265,6 +260,60 @@ class PluginRegistry {
       delete this._registeredCss[pluginName];
     }
   }
+
+  /**
+   * registerHistory - Makes the history object available. Called when stack of components are instantiated.
+   *
+   *
+   * @param {object} history The history object.
+   *
+   */
+
+  registerHistory(history) {
+    this.history = history;
+  }
+
+  /**
+   * getHistory - Returns the history object. To be used
+   * in bind action creators etc... This is used to redirect
+   * to the AccessDenied route on 403 error, for instance.
+   *
+   * @return {type} Description
+   */
+  getHistory() {
+    if (this.history) {
+      return this.history;
+    } else {
+      return {
+        push: () => {
+          // we don't want to break the entire app if this is called too early.
+          // therefore we stub the push function.
+          return "";
+        },
+        go: () => {
+          return "";
+        },
+        goBack: () => {
+          return "";
+        },
+        previous: () => {
+          return "";
+        },
+        next: () => {
+          return "";
+        }
+      };
+    }
+  }
+
+  registerIntl(intl) {
+    // not the best way to get a hold of the intl element,
+    // but we need it in certain lib methods in plugins to
+    // send a message without cluttering each component
+    // that use them.
+    this.intl = intl;
+  }
+
   getIntl() {
     // might do some checks first here.
     if (this.intl) {

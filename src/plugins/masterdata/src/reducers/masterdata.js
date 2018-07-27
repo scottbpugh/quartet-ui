@@ -257,7 +257,7 @@ export const loadLocationDetail = (server, identifier) => {
     try {
       const location = await pluginRegistry
         .getServer(server)
-        .fetchPageList("masterdata_location_by_identifier_read", params);
+        .fetchObject("masterdata_location_by_identifier_read", params);
       return dispatch({
         type: actions.loadLocationDetail,
         payload: {

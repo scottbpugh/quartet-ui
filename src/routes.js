@@ -27,6 +27,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import {updateMessages} from "reducers/locales";
 import {ServerDetails} from "components/screens/server/ServerDetails";
 import AddLocalPlugin from "components/screens/plugins/AddLocalPlugin";
+import {AccessDenied} from "components/screens/auth/AccessDenied";
 
 const coreRoutes = () => {
   return [
@@ -43,7 +44,8 @@ const coreRoutes = () => {
       component={ServerDetails}
     />,
     <Route key="pluginList" path="/plugins/add" component={AddLocalPlugin} />,
-    <Route key="pluginList" path="/plugins" component={PluginList} />
+    <Route key="pluginList" path="/plugins" component={PluginList} />,
+    <Route key="accessDenied" path="/access-denied" component={AccessDenied} />
   ];
 };
 
