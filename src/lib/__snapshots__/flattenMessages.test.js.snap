@@ -2,6 +2,8 @@
 
 exports[`flattens the main messages properly 1`] = `
 Object {
+  "en-US.app.common.accessDeniedBlurb": "You do not have permissions to perform this action. Please reach out to your system administrator in order to gain access.",
+  "en-US.app.common.accessDeniedTitle": "Access Denied",
   "en-US.app.common.backButton": "Back",
   "en-US.app.common.cancelConfirm": "Cancel",
   "en-US.app.common.cancelDelete": "Cancel",
@@ -19,6 +21,7 @@ Object {
   "en-US.app.common.saveSelection": "Save Selection",
   "en-US.app.common.selectedItems": "{count} Items Selected",
   "en-US.app.common.submit": "Submit",
+  "en-US.app.common.takeMeBack": "Take me back",
   "en-US.app.dashboard.connectServer": "Connect to a Server",
   "en-US.app.dashboard.dashboardHeader3": "The Open Source Level 4",
   "en-US.app.dashboard.documentation": "{projectName} Module Documentation",
