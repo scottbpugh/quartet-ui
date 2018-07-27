@@ -85,13 +85,12 @@ export const getFormInfo = async (server, path, createForm, processField) => {
       } catch (e) {
         if (e.message.startsWith("Cannot read property 'POST'")) {
           pluginRegistry.getHistory().push("/access-denied");
+        } else {
+          throw e;
         }
       }
     })
     .catch(error => {
-      debugger;
-      console.log("About to redirect to access denied");
-      //pluginRegistry.getHistory().push("/access-denied");
       showMessage({
         type: "danger",
         id: "app.servers.errorFormFetch",
