@@ -64,6 +64,8 @@ class _App extends Component {
   componentDidMount() {
     // make intl easily available to plugins.
     pluginRegistry.registerIntl(this.props.intl);
+    // make history available to non-component code
+    pluginRegistry.registerHistory(this.props.history);
     // redirect to / first thing. Fix for electron build.
     // While it was tempting to redirect to the currentPath persisted
     // through local storage, it can be dangerous if items or plugins have been
