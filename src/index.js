@@ -28,6 +28,7 @@ import {createHashHistory} from "history";
 import RouteSwitcher from "./routes";
 import {store} from "./store";
 
+// we use hash history because it's more electron-friendly.
 const hashHistory = createHashHistory();
 
 hashHistory.listen(location => {
