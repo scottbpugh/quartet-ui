@@ -21,6 +21,7 @@ const checkLatestUpdate = require("./main-process/updater").checkLatestUpdate;
 const electron = require("electron");
 // Module to control application life.
 const app = electron.app;
+const Menu = electron.Menu;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
@@ -41,6 +42,52 @@ function openBrowserResource(url) {
 }
 
 const isDev = require("electron-is-dev");
+
+function setAppMenu() {
+  let viewArray = [
+    {role: "resetzoom"},
+    {role: "zoomin"},
+    {role: "zoomout"},
+    {type: "separator"},
+    {role: "togglefullscreen"}
+  ];
+  if (isDev) {
+    viewArray.push({type: "separator"});
+    viewArray.push({role: "toggledevtools"});
+  }
+  var template = [
+    {
+      label: "QU4RTET",
+      submenu: [
+        {
+          label: "Quit",
+          accelerator: "Command+Q",
+          click: function() {
+            app.quit();
+          }
+        }
+      ]
+    },
+    {
+      label: "Edit",
+      submenu: [
+        {label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:"},
+        {label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:"},
+        {label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:"},
+        {
+          label: "Select All",
+          accelerator: "CmdOrCtrl+A",
+          selector: "selectAll:"
+        }
+      ]
+    },
+    {
+      label: "View",
+      submenu: viewArray
+    }
+  ];
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+}
 
 if (isDev) {
   console.log("Enabling hot reload.");
@@ -93,7 +140,7 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
-
+  setAppMenu();
   mainWindow.webContents.on("new-window", function(event, url) {
     event.preventDefault();
     openBrowserResource(url);
