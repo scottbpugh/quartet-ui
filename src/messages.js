@@ -174,7 +174,11 @@ export default {
         enterKeywords: "Entrer un mot-clé...",
         selectedItems: "{count} objets sélectionnés",
         saveSelection: "Enregistrer la sélection",
-        clearSelection: "Effacer la sélection"
+        clearSelection: "Effacer la sélection",
+        accessDeniedTitle: "Accès refusé",
+        accessDeniedBlurb:
+          "Vous n'êtes pas autorisé à effectuer cette action. Veuillez contacter votre administrateur système pour accéder.",
+        takeMeBack: "Retourner"
       }
     },
     plugins: {
