@@ -83,6 +83,8 @@ Object {
   "fr-FR": Object {
     "app": Object {
       "common": Object {
+        "accessDeniedBlurb": "Vous n'êtes pas autorisé à effectuer cette action. Veuillez contacter votre administrateur système pour accéder.",
+        "accessDeniedTitle": "Accès refusé",
         "backButton": "Retour",
         "cancelConfirm": "Annuler",
         "cancelDelete": "Annuler",
@@ -98,6 +100,7 @@ Object {
         "saveSelection": "Enregistrer la sélection",
         "selectedItems": "{count} objets sélectionnés",
         "submit": "Soumettre",
+        "takeMeBack": "Retourner",
       },
       "dashboard": Object {
         "connectServer": "Se connecter a un serveur",
