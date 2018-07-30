@@ -33,8 +33,14 @@ export class _AccessDenied extends Component {
       <RightPanel
         key="AccessDenied"
         title={<FormattedMessage id="app.common.accessDeniedTitle" />}>
-        <div className="access-denied-contents">
-          {this.props.theme && this.props.theme.startsWith("dark") ? (
+        <div
+          className={classNames({
+            "access-denied-contents": true,
+            "pt-dark": this.props.theme && this.props.theme === "contrasted"
+          })}>
+          {this.props.theme &&
+          (this.props.theme.startsWith("dark") ||
+            this.props.theme === "contrasted") ? (
             <img
               className="lock-animation dark-lock"
               src="../svgs/quartet-lock.svg"
