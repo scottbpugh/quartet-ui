@@ -127,11 +127,18 @@ export const fetchObject = async (
     if (response.ok) {
       return response.body;
     }
+    throw new Error(response);
   } catch (e) {
+    if (e.name === "OperationNotFoundError" || e.status === 403) {
+      // this is a permission issue, the operation is unavailable, hence not defined.
+      // or it can be a 403.
+      pluginRegistry.getHistory().push("/access-denied");
+      return;
+    }
     showMessage({
       type: "error",
-      id: "plugins.numberRange.errorVanilla",
-      values: {error: e}
+      id: "app.common.mainError",
+      values: {msg: e}
     });
     throw e;
   }
@@ -166,10 +173,16 @@ export const fetchPageList = async (
     }
     throw new Error(response);
   } catch (e) {
+    if (e.name === "OperationNotFoundError" || e.status === 403) {
+      // this is a permission issue, the operation is unavailable, hence not defined.
+      // or it can be a 403.
+      pluginRegistry.getHistory().push("/access-denied");
+      return;
+    }
     showMessage({
       type: "error",
-      id: "plugins.numberRange.errorVanilla",
-      values: {error: e}
+      id: "app.common.mainError",
+      values: {msg: e}
     });
     throw e;
   }
