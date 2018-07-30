@@ -58,5 +58,9 @@ Array [
     component={[Function]}
     path="/masterdata/:serverID/sgln/:locationIdentifier"
   />,
+  <Route
+    component={[Function]}
+    path="/masterdata/add-location-identifier/:serverID/"
+  />,
 ]
 `;
