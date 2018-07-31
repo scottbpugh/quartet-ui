@@ -40,6 +40,12 @@ class _ServerDetails extends Component {
       serverObject.listApps();
     }
   };
+  fetchAppListRefresh = evt => {
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    if (serverObject) {
+      serverObject.listApps(true);
+    }
+  };
   toggleEditMode = () => {
     this.setState({editMode: !this.state.editMode});
   };
@@ -128,7 +134,7 @@ class _ServerDetails extends Component {
               <h5>
                 Services Enabled{" "}
                 <Button
-                  onClick={this.fetchAppList}
+                  onClick={this.fetchAppListRefresh}
                   iconName="pt-icon-refresh add-incard-button"
                 />
               </h5>

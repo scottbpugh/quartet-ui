@@ -218,7 +218,25 @@ class _SGLNDetail extends Component {
               </Card>
               {detail ? (
                 <Card style={{position: "relative"}} className="pt-elevation-4">
-                  <h5>Additional Identifiers</h5>
+                  <h5>
+                    Additional Identifiers
+                    <button
+                      className="pt-button pt-intent-primary add-incard-button"
+                      onClick={e => {
+                        this.props.history.push({
+                          pathname: `/masterdata/add-location-identifier/${
+                            this.props.server.serverID
+                          }`,
+                          state: {
+                            defaultValues: {
+                              location: detail.id
+                            }
+                          }
+                        });
+                      }}>
+                      <FormattedMessage id="plugins.masterData.addLocationIdentifier" />
+                    </button>
+                  </h5>
                   <table className="pt-table data-pair-table pt-bordered pt-striped">
                     <tbody>
                       {yieldKeyValPairs(detail.locationidentifier_set, [

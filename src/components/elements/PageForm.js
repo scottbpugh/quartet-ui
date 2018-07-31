@@ -84,6 +84,7 @@ export class _PageForm extends Component {
     });
     return processedData;
   };
+
   submit = async postValues => {
     let {
       server,
@@ -164,7 +165,6 @@ export class _PageForm extends Component {
             _error: error.response.body.non_field_errors
           });
         }
-
         // we have an object with validation errors.
         throw new SubmissionError(error.response.body);
       }
