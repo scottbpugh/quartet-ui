@@ -396,7 +396,7 @@ export class Server {
     }
   };
 
-  listApps = async () => {
+  listApps = async (reset = false) => {
     if (!this.password && !this.loadingPassword) {
       // fetch password first.
       this.getPassword();
@@ -408,7 +408,8 @@ export class Server {
     }
     this.appList = [];
     this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
-    let client = await this.getClient();
+    let client = await this.getClient(reset);
+
     try {
       this.appList = Object.keys(client.apis).filter(app => {
         return !app.startsWith("read-only-");
