@@ -28,10 +28,21 @@ import {createHashHistory} from "history";
 import RouteSwitcher from "./routes";
 import {store} from "./store";
 
+// we use hash history because it's more electron-friendly.
 const hashHistory = createHashHistory();
 
 hashHistory.listen(location => {
   store.dispatch(routeLocationDidUpdate(location));
+  setTimeout(() => {
+    // Keep default behavior of restoring scroll position when user:
+    // - clicked back button
+    // - clicked on a link that programmatically calls `history.goBack()`
+    if (location.action === "POP") {
+      return;
+    }
+    // In all other cases, scroll to top
+    window.scrollTo(0, 0);
+  });
 });
 
 ReactDOM.render(

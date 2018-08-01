@@ -34,7 +34,8 @@ const defaultLocaleMsg = {
     deleteCompanyConfirm: "Are you sure you want to delete this company?",
     deleteCompanyConfirmBody: "This will delete this company permanently.",
     deleteTradeItemConfirm: "Are you sure you want to delete this trade item?",
-    deleteTradeItemConfirmBody: "This will delete this trade item permanently."
+    deleteTradeItemConfirmBody: "This will delete this trade item permanently.",
+    addLocationIdentifier: "Add an Identifier"
   }
 };
 
@@ -57,7 +58,8 @@ const french = {
   tradeItemFields: "Champs d'articles commerciaux",
   editTradeItem: "Editer un article commercial",
   deleteLocationConfirm: "Are you sure you want to delete this entry?",
-  deleteLocationConfirmBody: "This will delete this location permanently."
+  deleteLocationConfirmBody: "This will delete this location permanently.",
+  addLocationIdentifier: "Ajouter un identifiant"
 };
 
 export default {

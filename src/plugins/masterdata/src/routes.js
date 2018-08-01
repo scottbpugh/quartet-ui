@@ -27,6 +27,7 @@ import {AddTradeItemField} from "./components/Forms/TradeItemFieldForm";
 import {AddLocationType} from "./components/Forms/LocationTypeForm";
 import {AddCompanyType} from "./components/Forms/CompanyTypeForm";
 import {SGLNDetail} from "./components/Detail/SGLNDetail";
+import {AddLocationIdentifier} from "./components/Forms/LocationIdentifierForm";
 
 export default (() => {
   return [
@@ -99,6 +100,11 @@ export default (() => {
       key="SGLNDetail"
       path="/masterdata/:serverID/sgln/:locationIdentifier"
       component={SGLNDetail}
+    />,
+    <Route
+      key="addLocationIdentifier"
+      path="/masterdata/add-location-identifier/:serverID/"
+      component={AddLocationIdentifier}
     />
   ];
 })();
