@@ -60,7 +60,11 @@ Array [
   />,
   <Route
     component={[Function]}
-    path="/masterdata/add-location-identifier/:serverID/"
+    path="/masterdata/add-location-identifier/:serverID"
+  />,
+  <Route
+    component={[Function]}
+    path="/masterdata/add-location-field/:serverID"
   />,
 ]
 `;
