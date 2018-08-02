@@ -34,7 +34,8 @@ class FormPrompt extends React.Component {
     this.bypass = false;
   }
   static propTypes = {
-    when: PropTypes.bool
+    when: PropTypes.bool,
+    cancelForm: PropTypes.bool
   };
 
   static defaultProps = {
