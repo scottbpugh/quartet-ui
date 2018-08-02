@@ -110,43 +110,41 @@ async function createWindow() {
   let pluginManager = null;
 
   var removeSplashAndLoadApp = function() {
-    setTimeout(function() {
-      // Create the browser window.
-      const mainOptions = {
-        width: 1600,
-        height: 1200,
-        show: false
-      };
-      mainWindow = new BrowserWindow(mainOptions);
-      // Setting this to exchange credentials information
-      credManagement.setCredentialEvents(mainWindow);
-      // and load the index.html of the app.
-      mainWindow.loadURL("file://" + __dirname + "/build/index.html");
-      // Open the DevTools.
-      //mainWindow.webContents.openDevTools();
+    // Create the browser window.
+    const mainOptions = {
+      width: 1600,
+      height: 1200,
+      show: false
+    };
+    mainWindow = new BrowserWindow(mainOptions);
+    // Setting this to exchange credentials information
+    credManagement.setCredentialEvents(mainWindow);
+    // and load the index.html of the app.
+    mainWindow.loadURL("file://" + __dirname + "/build/index.html");
+    // Open the DevTools.
+    //mainWindow.webContents.openDevTools();
 
-      mainWindow.webContents.on("will-navigate", evt => {
-        console.log("no navigation allowed.");
-        evt.preventDefault();
-      });
-      mainWindow.once("ready-to-show", () => {
-        mainWindow.show();
-        splash.destroy();
-        checkLatestUpdate();
-      });
-      // Emitted when the window is closed.
-      mainWindow.on("closed", function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-      });
-      setAppMenu();
-      mainWindow.webContents.on("new-window", function(event, url) {
-        event.preventDefault();
-        openBrowserResource(url);
-      });
-    }, 500);
+    mainWindow.webContents.on("will-navigate", evt => {
+      console.log("no navigation allowed.");
+      evt.preventDefault();
+    });
+    mainWindow.once("ready-to-show", () => {
+      mainWindow.show();
+      splash.destroy();
+      checkLatestUpdate();
+    });
+    // Emitted when the window is closed.
+    mainWindow.on("closed", function() {
+      // Dereference the window object, usually you would store windows
+      // in an array if your app supports multi windows, this is the time
+      // when you should delete the corresponding element.
+      mainWindow = null;
+    });
+    setAppMenu();
+    mainWindow.webContents.on("new-window", function(event, url) {
+      event.preventDefault();
+      openBrowserResource(url);
+    });
   };
 
   try {
