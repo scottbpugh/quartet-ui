@@ -39,30 +39,40 @@ var https = require("https");
 let pluginRepoPath =
   "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json";
 const isDev = require("electron-is-dev");
+
 if (isDev) {
   // use the develop version of plugins.json.
   pluginRepoPath =
     "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
 }
-exports.getPlugins = async function() {
+
+exports.getPlugins = function(readyCallback) {
+  if (!readyCallback) {
+    // stub if callback isn't passed.
+    readyCallback = function() {};
+  }
   try {
     backupPluginList();
     var request = https.get(pluginRepoPath, function(response) {
       try {
         var file = fs.createWriteStream(PLUGINS_LIST_PATH);
         response.pipe(file);
+        readyCallback();
       } catch (e) {
         console.log("error writing file", e);
         networkErrorHandler();
+        readyCallback();
       }
     });
     request.on("error", function(err) {
       console.log("ERROR OCCURRED", err);
       networkErrorHandler();
+      readyCallback();
     });
   } catch (e) {
     console.log("an error occurred fetching plugins, using fallback list", e);
     networkErrorHandler();
+    readyCallback();
   }
 };
 

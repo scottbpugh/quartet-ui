@@ -29,6 +29,7 @@ const opn = require("opn");
 const url = require("url");
 const path = require("path");
 const fs = require("fs");
+const setTimeout = require("timers").setTimeout;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -99,52 +100,63 @@ if (process.env.REACT_DEV === "dev") {
   process.env.NODE_ENV = "production";
 }
 
-function createWindow() {
+async function createWindow() {
+  let splash = require("./main-process/splash.js").renderSplashScreen();
   electron.session.defaultSession.webRequest.onHeadersReceived(
     (details, callback) => {
       callback({responseHeaders: `script-src 'self'; child-src 'self';`});
     }
   );
-  try {
-    require("./main-process/plugin-manager.js").getPlugins(app.getAppPath());
-  } catch (e) {
-    // recover from any kind of network or Gitlab issues.
-  }
+  let pluginManager = null;
 
-  // Create the browser window.
-  const mainOptions = {
-    width: 1600,
-    height: 1200,
-    show: false
+  var removeSplashAndLoadApp = function() {
+    setTimeout(function() {
+      // Create the browser window.
+      const mainOptions = {
+        width: 1600,
+        height: 1200,
+        show: false
+      };
+      mainWindow = new BrowserWindow(mainOptions);
+      // Setting this to exchange credentials information
+      credManagement.setCredentialEvents(mainWindow);
+      // and load the index.html of the app.
+      mainWindow.loadURL("file://" + __dirname + "/build/index.html");
+      // Open the DevTools.
+      //mainWindow.webContents.openDevTools();
+
+      mainWindow.webContents.on("will-navigate", evt => {
+        console.log("no navigation allowed.");
+        evt.preventDefault();
+      });
+      mainWindow.once("ready-to-show", () => {
+        mainWindow.show();
+        splash.destroy();
+        checkLatestUpdate();
+      });
+      // Emitted when the window is closed.
+      mainWindow.on("closed", function() {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null;
+      });
+      setAppMenu();
+      mainWindow.webContents.on("new-window", function(event, url) {
+        event.preventDefault();
+        openBrowserResource(url);
+      });
+    }, 500);
   };
-  mainWindow = new BrowserWindow(mainOptions);
-  // Setting this to exchange credentials information
-  credManagement.setCredentialEvents(mainWindow);
-  // and load the index.html of the app.
-  mainWindow.loadURL("file://" + __dirname + "/build/index.html");
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
 
-  mainWindow.webContents.on("will-navigate", evt => {
-    console.log("no navigation allowed.");
-    evt.preventDefault();
-  });
-  mainWindow.once("ready-to-show", () => {
-    mainWindow.show();
-    checkLatestUpdate();
-  });
-  // Emitted when the window is closed.
-  mainWindow.on("closed", function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
-  setAppMenu();
-  mainWindow.webContents.on("new-window", function(event, url) {
-    event.preventDefault();
-    openBrowserResource(url);
-  });
+  try {
+    pluginManager = require("./main-process/plugin-manager.js");
+    pluginManager.getPlugins(removeSplashAndLoadApp);
+  } catch (e) {
+    console.log("error", e);
+    // recover from any kind of network or Gitlab issues.
+    removeSplashAndLoadApp();
+  }
 }
 
 // This method will be called when Electron has finished
@@ -154,7 +166,7 @@ app.on("ready", () => {
   if (isDev) {
     console.log("Delaying display of window.");
     // cheap way of preventing the constant reload from electron-reload.
-    const setTimeout = require("timers").setTimeout;
+
     setTimeout(() => {
       console.log("About to display dev window");
       createWindow();
