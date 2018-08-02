@@ -100,11 +100,13 @@ class FormPrompt extends React.Component {
     return (
       <Dialog isOpen={this.state.showDialog} onClose={this.toggleDialog}>
         <div className="pt-dialog-header">
-          <h5>Are you sure?</h5>
+          <h5>
+            <FormattedMessage id="app.common.areYouSureNavigateAwayTitle" />
+          </h5>
         </div>
         <div className="pt-dialog-body">
-          <Callout intent={Intent.WARNING}>
-            You have made changes to this form?
+          <Callout>
+            <FormattedMessage id="app.common.areYouSureNavigateAwayBody" />
           </Callout>
         </div>
         <div className="pt-dialog-footer">
