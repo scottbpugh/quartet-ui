@@ -21,6 +21,8 @@ import PropTypes from "prop-types";
 import invariant from "invariant";
 import {Callout, Intent, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import {connect} from "react-redux";
+import classNames from "classnames";
 
 /**
  * The public API for prompting the user before navigating away
@@ -98,7 +100,12 @@ class FormPrompt extends React.Component {
 
   render() {
     return (
-      <Dialog isOpen={this.state.showDialog} onClose={this.toggleDialog}>
+      <Dialog
+        className={classNames({
+          "pt-dark": this.props.theme.includes("dark")
+        })}
+        isOpen={this.state.showDialog}
+        onClose={this.toggleDialog}>
         <div className="pt-dialog-header">
           <h5>
             <FormattedMessage id="app.common.areYouSureNavigateAwayTitle" />
@@ -124,4 +131,8 @@ class FormPrompt extends React.Component {
   }
 }
 
-export default FormPrompt;
+export default connect((state, ownProps) => {
+  return {
+    theme: state.layout.theme || ""
+  };
+})(FormPrompt);
