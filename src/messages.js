@@ -92,7 +92,9 @@ export default {
         selectedItems: "{count} Items Selected",
         clearSelection: "Clear Selection",
         saveSelection: "Save Selection",
-        takeMeBack: "Take me back"
+        takeMeBack: "Take me back",
+        proceedWithoutSubmit: "Proceed without saving changes",
+        continueEditingForm: "Continue editing form"
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -178,7 +180,9 @@ export default {
         accessDeniedTitle: "Accès refusé",
         accessDeniedBlurb:
           "Vous n'êtes pas autorisé à effectuer cette action. Veuillez contacter votre administrateur système pour accéder.",
-        takeMeBack: "Retourner"
+        takeMeBack: "Retourner",
+        proceedWithoutSubmit: "Continuer sans soumettre",
+        continueEditingForm: "Continuer a editer le formulaire"
       }
     },
     plugins: {
