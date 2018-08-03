@@ -46,10 +46,13 @@ if (isDev) {
     "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
 }
 
-exports.getPlugins = function(readyCallback) {
+exports.getPlugins = function(readyCallback, timeout) {
   if (!readyCallback) {
     // stub if callback isn't passed.
     readyCallback = function() {};
+  }
+  if (!timeout) {
+    timeout = 5000;
   }
   try {
     backupPluginList();
@@ -63,6 +66,13 @@ exports.getPlugins = function(readyCallback) {
         networkErrorHandler();
         readyCallback();
       }
+    });
+    request.setTimeout(timeout, function() {
+      console.log("plugin list taking too long to be downloaded.");
+      request.abort();
+      networkErrorHandler();
+      readyCallback();
+      return;
     });
     request.on("error", function(err) {
       console.log("ERROR OCCURRED", err);

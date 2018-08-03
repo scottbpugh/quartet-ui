@@ -133,14 +133,18 @@ async function createWindow() {
       splash.destroy();
       checkLatestUpdate();
     });
+    setAppMenu();
     // Emitted when the window is closed.
-    mainWindow.on("closed", function() {
+    mainWindow.once("closed", function() {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
+      //mainWindow.webContents.removeListener("new-window");
+      //mainWindow.webContents.removeListener("will-navigate");
+      //credManagement.unregisterCredentialEvents(mainWindow);
+      mainWindow.destroy();
       mainWindow = null;
     });
-    setAppMenu();
     mainWindow.webContents.on("new-window", function(event, url) {
       event.preventDefault();
       openBrowserResource(url);
@@ -164,7 +168,6 @@ app.on("ready", () => {
   if (isDev) {
     console.log("Delaying display of window.");
     // cheap way of preventing the constant reload from electron-reload.
-
     setTimeout(() => {
       console.log("About to display dev window");
       createWindow();

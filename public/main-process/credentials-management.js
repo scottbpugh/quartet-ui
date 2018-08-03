@@ -50,3 +50,9 @@ exports.setCredentialEvents = function(mainWindow) {
     keytar.deletePassword("QU4RTET", account.account);
   });
 };
+
+exports.unregisterCredentialEvents = function(mainWindow) {
+  const ipcMain = require("electron").ipcMain;
+  ipcMain.removeListener("getServerCredentials");
+  ipcMain.removeListener("deleteServerCredentials");
+};
