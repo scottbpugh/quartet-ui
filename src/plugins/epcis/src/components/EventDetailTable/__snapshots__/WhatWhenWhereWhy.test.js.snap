@@ -666,7 +666,7 @@ exports[`renders correctly a transformation event with most data 1`] = `
             <td>
                
               <span>
-                Instance/Lot Master Data
+                ILMD
               </span>
             </td>
             <td>
@@ -1699,7 +1699,7 @@ exports[`renders correctly an object with most data 1`] = `
             <td>
                
               <span>
-                Instance/Lot Master Data
+                ILMD
               </span>
             </td>
             <td>
@@ -2262,7 +2262,7 @@ exports[`renders correctly an unknown event with most data 1`] = `
             <td>
                
               <span>
-                Instance/Lot Master Data
+                ILMD
               </span>
             </td>
             <td>

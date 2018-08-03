@@ -21,11 +21,9 @@ import {showMessage} from "lib/message";
 
 export const initialData = () => {
   // load the plugins list when there is nothing in the local storage.
-  const pluginList = require(require("path").join(
-    window.qu4rtet.userData,
-    "pluginList.json"
-  ));
-  console.log("pluginList", pluginList);
+  const pluginList = window.require(
+    require("path").join(window.qu4rtet.userData, "pluginList.json")
+  );
   return {
     navTreeItems: [],
     plugins: {...pluginList},
@@ -61,10 +59,9 @@ export const fetchRemotePlugins = () => {
       const pluginRequire = window
         .require("electron")
         .remote.require("./main-process/plugin-manager.js");
-      const pluginList = require(require("path").join(
-        window.qu4rtet.userData,
-        "pluginList.json"
-      )); // loads the module
+      const pluginList = window.require(
+        require("path").join(window.qu4rtet.userData, "pluginList.json")
+      ); // loads the module
       return dispatch({
         type: actions.receivedPluginsData,
         payload: pluginList
@@ -179,4 +176,5 @@ export default handleActions(
   },
   {}
 );
+window.qu4rtet.exports("reducers/plugins", this);
 window.qu4rtet.exports("reducers/plugins", this);
