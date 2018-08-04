@@ -21,6 +21,8 @@ import {createAction} from "redux-actions";
 export default {
   addToTreeServers: createAction("PLUGINS_ADD_TO_TREE_SERVERS"),
   removeFromTreeServers: createAction("PLUGINS_REMOVE_FROM_TREE_SERVERS"),
+  addButtonToControls: createAction("PLUGINS_ADD_BUTTON_TO_CONTROLS"),
+  removeButtonFromControls: createAction("PLUGINS_REMOVE_BUTTON_FROM_CONTROLS"),
   pluginEnabled: createAction("PLUGINS_NEW_PLUGIN_ENABLED"),
   pluginDisabled: createAction("PLUGINS_PLUGIN_DISABLED"),
   receivedPluginsData: createAction("PLUGINS_RECEIVED_PLUGINS_DATA"),

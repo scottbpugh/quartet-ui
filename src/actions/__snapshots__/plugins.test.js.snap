@@ -2,12 +2,14 @@
 
 exports[`returns the right actions 1`] = `
 Object {
+  "addButtonToControls": [Function],
   "addLocalPlugin": [Function],
   "addToTreeServers": [Function],
   "pluginDisabled": [Function],
   "pluginEnabled": [Function],
   "pluginListUpdated": [Function],
   "receivedPluginsData": [Function],
+  "removeButtonFromControls": [Function],
   "removeFromTreeServers": [Function],
   "resetPlugins": [Function],
 }

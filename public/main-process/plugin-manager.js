@@ -36,29 +36,65 @@ const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
 
 const fs = require("fs");
 var https = require("https");
+let pluginRepoPath =
+  "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json";
+const isDev = require("electron-is-dev");
 
-exports.getPlugins = async function() {
+if (isDev) {
+  // use the develop version of plugins.json.
+  pluginRepoPath =
+    "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
+}
+
+exports.getPlugins = function(readyCallback, timeout) {
+  if (!readyCallback) {
+    // stub if callback isn't passed.
+    readyCallback = function() {};
+  }
+  if (!timeout) {
+    timeout = 5000;
+  }
   try {
     backupPluginList();
-    var request = https.get(
-      "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json",
-      function(response) {
-        try {
+    var request = https.get(pluginRepoPath, function(response) {
+      try {
+        console.log(
+          "An error occurred while fetching",
+          pluginRepoPath,
+          response.statusCode
+        );
+        if (response.statusCode < 200 || response.statusCode > 299) {
+          // response is an error.
+          networkErrorHandler();
+          readyCallback();
+          return;
+        } else {
           var file = fs.createWriteStream(PLUGINS_LIST_PATH);
           response.pipe(file);
-        } catch (e) {
-          console.log("error writing file", e);
-          networkErrorHandler();
+          readyCallback();
         }
+      } catch (e) {
+        console.log("error writing file", e);
+        networkErrorHandler();
+        readyCallback();
       }
-    );
+    });
+    request.setTimeout(timeout, function() {
+      console.log("plugin list taking too long to be downloaded.");
+      request.abort();
+      networkErrorHandler();
+      readyCallback();
+      return;
+    });
     request.on("error", function(err) {
       console.log("ERROR OCCURRED", err);
       networkErrorHandler();
+      readyCallback();
     });
   } catch (e) {
     console.log("an error occurred fetching plugins, using fallback list", e);
     networkErrorHandler();
+    readyCallback();
   }
 };
 
@@ -84,6 +120,7 @@ exports.install = async function(pluginEntry) {
   try {
     let pluginList = require(PLUGINS_LIST_PATH);
     let version = isPluginInstalled(pluginEntry); // version if true, false if not installed.
+
     console.log(
       "plugin",
       pluginEntry.pluginName,

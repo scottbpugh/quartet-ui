@@ -54,6 +54,10 @@ export class DeleteObject extends Component {
           this.props.postDeleteAction(this.props.server);
         }
       } catch (e) {
+        if (e.name === "OperationNotFoundError" || e.status === 403) {
+          pluginRegistry.getHistory().push("/access-denied");
+          return;
+        }
         showMessage({
           id: "app.common.errorDeletingObject",
           values: {error: e},

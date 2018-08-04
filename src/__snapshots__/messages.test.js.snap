@@ -5,11 +5,17 @@ Object {
   "en-US": Object {
     "app": Object {
       "common": Object {
+        "accessDeniedBlurb": "You do not have permissions to perform this action. Please reach out to your system administrator in order to gain access.",
+        "accessDeniedTitle": "Access Denied",
+        "areYouSureNavigateAwayBody": "This will discard all changes made to this form.",
+        "areYouSureNavigateAwayTitle": "Are you sure you want to leave this form?",
         "backButton": "Back",
         "cancelConfirm": "Cancel",
         "cancelDelete": "Cancel",
         "cancelSubmit": "Cancel",
+        "clearSelection": "Clear Selection",
         "confirm": "Confirm",
+        "continueEditingForm": "Continue editing form",
         "deleteButton": "Delete",
         "enterKeywords": "Enter Keywords...",
         "entriesTotal": "{entriesCount} Entries Total",
@@ -18,7 +24,11 @@ Object {
         "objectCreatedSuccessfully": "New {objectName} created successfully",
         "objectDeletedSuccessfully": "Object deleted successfully",
         "objectUpdatedSuccessfully": "Existing {objectName} updated successfully",
+        "proceedWithoutSubmit": "Proceed without saving changes",
+        "saveSelection": "Save Selection",
+        "selectedItems": "{count} Items Selected",
         "submit": "Submit",
+        "takeMeBack": "Take me back",
       },
       "dashboard": Object {
         "connectServer": "Connect to a Server",
@@ -77,18 +87,28 @@ Object {
   "fr-FR": Object {
     "app": Object {
       "common": Object {
+        "accessDeniedBlurb": "Vous n'êtes pas autorisé à effectuer cette action. Veuillez contacter votre administrateur système pour accéder.",
+        "accessDeniedTitle": "Accès refusé",
+        "areYouSureNavigateAwayBody": "Cette action annulera toutes les modifications apportées à ce formulaire.",
+        "areYouSureNavigateAwayTitle": "Êtes-vous sûr de vouloir quitter ce formulaire?",
         "backButton": "Retour",
         "cancelConfirm": "Annuler",
         "cancelDelete": "Annuler",
         "cancelSubmit": "Annuler",
+        "clearSelection": "Effacer la sélection",
         "confirm": "Confirmer",
+        "continueEditingForm": "Continuer a editer le formulaire",
         "deleteButton": "Supprimer",
         "enterKeywords": "Entrer un mot-clé...",
         "entriesTotal": "{entriesCount} objets",
         "mainError": "Une erreur s'est produite pendant l'execution de cette action. {msg}",
         "objectCreatedSuccessfully": "{objectName} créé(e) avec succès",
         "objectUpdatedSuccessfully": "{objectName} actualisé(e) avec succès",
+        "proceedWithoutSubmit": "Continuer sans soumettre",
+        "saveSelection": "Enregistrer la sélection",
+        "selectedItems": "{count} objets sélectionnés",
         "submit": "Soumettre",
+        "takeMeBack": "Retourner",
       },
       "dashboard": Object {
         "connectServer": "Se connecter a un serveur",
@@ -108,10 +128,7 @@ Object {
         "server": "Serveur",
         "servers": "Serveurs",
       },
-      "plugins": Object {
-        "addPlugin": "Ajouter un plugin",
-        "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
-      },
+      "plugins": Object {},
       "serverSettings": Object {
         "addAServer": "Ajouter un serveur",
         "serverDeleted": "Le serveur a bien été retiré",
@@ -139,7 +156,12 @@ Object {
         "polarTheme": "Thème polaire",
       },
     },
-    "plugins": Object {},
+    "plugins": Object {
+      "addPlugin": "Ajouter un plugin",
+      "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
+      "pluginDisabled": "Plugin désactivé",
+      "pluginEnabled": "Plugin activé",
+    },
   },
 }
 `;

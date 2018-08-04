@@ -72,6 +72,9 @@ export default {
       common: {
         mainError:
           "An error occurred while performing this action. Please check the QU4RTET server for more information. {msg}",
+        accessDeniedTitle: "Access Denied",
+        accessDeniedBlurb:
+          "You do not have permissions to perform this action. Please reach out to your system administrator in order to gain access.",
         entriesTotal: "{entriesCount} Entries Total",
         submit: "Submit",
         cancelSubmit: "Cancel",
@@ -85,7 +88,17 @@ export default {
         enterKeywords: "Enter Keywords...",
         objectDeletedSuccessfully: "Object deleted successfully",
         errorDeletingObject:
-          "An error occurred while attempting to delete this object: {error}"
+          "An error occurred while attempting to delete this object: {error}",
+        selectedItems: "{count} Items Selected",
+        clearSelection: "Clear Selection",
+        saveSelection: "Save Selection",
+        takeMeBack: "Take me back",
+        proceedWithoutSubmit: "Proceed without saving changes",
+        continueEditingForm: "Continue editing form",
+        areYouSureNavigateAwayTitle:
+          "Are you sure you want to leave this form?",
+        areYouSureNavigateAwayBody:
+          "This will discard all changes made to this form."
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -150,11 +163,7 @@ export default {
         errorServerFetch:
           "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}"
       },
-      plugins: {
-        addPlugin: "Ajouter un plugin",
-        errorFetchRemotePlugins:
-          "Une erreur s'est produite lors de la requete des données plugins: {error}"
-      },
+      plugins: {},
       common: {
         mainError:
           "Une erreur s'est produite pendant l'execution de cette action. {msg}",
@@ -168,10 +177,28 @@ export default {
         cancelDelete: "Annuler",
         objectCreatedSuccessfully: "{objectName} créé(e) avec succès",
         objectUpdatedSuccessfully: "{objectName} actualisé(e) avec succès",
-        enterKeywords: "Entrer un mot-clé..."
+        enterKeywords: "Entrer un mot-clé...",
+        selectedItems: "{count} objets sélectionnés",
+        saveSelection: "Enregistrer la sélection",
+        clearSelection: "Effacer la sélection",
+        accessDeniedTitle: "Accès refusé",
+        accessDeniedBlurb:
+          "Vous n'êtes pas autorisé à effectuer cette action. Veuillez contacter votre administrateur système pour accéder.",
+        takeMeBack: "Retourner",
+        proceedWithoutSubmit: "Continuer sans soumettre",
+        continueEditingForm: "Continuer a editer le formulaire",
+        areYouSureNavigateAwayTitle:
+          "Êtes-vous sûr de vouloir quitter ce formulaire?",
+        areYouSureNavigateAwayBody:
+          "Cette action annulera toutes les modifications apportées à ce formulaire."
       }
     },
-    plugins: {}
+    plugins: {
+      addPlugin: "Ajouter un plugin",
+      errorFetchRemotePlugins:
+        "Une erreur s'est produite lors de la requete des données plugins: {error}",
+      pluginEnabled: "Plugin activé",
+      pluginDisabled: "Plugin désactivé"
+    }
   }
 };
-window.qu4rtet.exports("messages", this);

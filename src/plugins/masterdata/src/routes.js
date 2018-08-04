@@ -25,7 +25,10 @@ import {CompaniesList} from "./components/Lists/CompaniesListTable";
 import {TradeItemsList} from "./components/Lists/TradeItemsList";
 import {AddTradeItemField} from "./components/Forms/TradeItemFieldForm";
 import {AddLocationType} from "./components/Forms/LocationTypeForm";
+import {AddCompanyType} from "./components/Forms/CompanyTypeForm";
 import {SGLNDetail} from "./components/Detail/SGLNDetail";
+import {AddLocationIdentifier} from "./components/Forms/LocationIdentifierForm";
+import {AddLocationField} from "./components/Forms/LocationFieldForm";
 
 export default (() => {
   return [
@@ -58,6 +61,11 @@ export default (() => {
       key="addCompany"
       path="/masterdata/add-company/:serverID"
       component={AddCompany}
+    />,
+    <Route
+      key="addCompanyType"
+      path="/masterdata/add-company-type/:serverID"
+      component={AddCompanyType}
     />,
     <Route
       key="addTradeItem"
@@ -93,6 +101,16 @@ export default (() => {
       key="SGLNDetail"
       path="/masterdata/:serverID/sgln/:locationIdentifier"
       component={SGLNDetail}
+    />,
+    <Route
+      key="addLocationIdentifier"
+      path="/masterdata/add-location-identifier/:serverID"
+      component={AddLocationIdentifier}
+    />,
+    <Route
+      key="addLocationField"
+      path="/masterdata/add-location-field/:serverID"
+      component={AddLocationField}
     />
   ];
 })();

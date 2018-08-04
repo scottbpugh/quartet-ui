@@ -1,0 +1,48 @@
+/* Copyright (c) 2018 SerialLab Corp.
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+
+
+.picked-items-container {
+  margin: 30px 0;
+  width: 90%;
+  min-height: 160px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.pt-dark .picked-items-container {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.picked-items-controls {
+  margin:10px;
+}
+
+.picked-items-controls button {
+  margin: 5px;
+}
+
+.picked-items-tags {
+  min-height:90px;
+  margin:10px;
+}
+
+.picked-items-tags .pt-tag {
+  margin: 5px;
+}

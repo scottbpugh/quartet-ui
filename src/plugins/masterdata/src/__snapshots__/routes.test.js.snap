@@ -28,6 +28,10 @@ Array [
   />,
   <Route
     component={[Function]}
+    path="/masterdata/add-company-type/:serverID"
+  />,
+  <Route
+    component={[Function]}
     path="/masterdata/add-trade-item/:serverID"
   />,
   <Route
@@ -53,6 +57,14 @@ Array [
   <Route
     component={[Function]}
     path="/masterdata/:serverID/sgln/:locationIdentifier"
+  />,
+  <Route
+    component={[Function]}
+    path="/masterdata/add-location-identifier/:serverID"
+  />,
+  <Route
+    component={[Function]}
+    path="/masterdata/add-location-field/:serverID"
   />,
 ]
 `;

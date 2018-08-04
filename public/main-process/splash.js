@@ -15,21 +15,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+const BrowserWindow = require("electron").BrowserWindow;
 
-// string validations
-export const required = value => (value ? undefined : "Required");
-
-export const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
-export const minLength = min => value =>
-  value && value.length < min ? `Must be ${min} characters or more` : undefined;
-
-// number validations
-export const number = value =>
-  value && isNaN(Number(value)) ? "Must be a number" : undefined;
-export const minValue = min => value =>
-  value && value < min ? `Must be at least ${min}` : undefined;
-export const maxValue = max => value =>
-  value && value > max ? `Must be less or equal to ${max}` : undefined;
-
-window.qu4rtet.exports("lib/forms/validators", this);
+exports.renderSplashScreen = function() {
+  let splash = new BrowserWindow({
+    width: 810,
+    height: 610,
+    transparent: true,
+    frame: false,
+    alwaysOnTop: true
+  });
+  splash.loadURL("file://" + __dirname + "/splash.html");
+  return splash;
+};

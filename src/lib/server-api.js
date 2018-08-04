@@ -57,26 +57,38 @@ export const getFormInfo = async (server, path, createForm, processField) => {
     })
     .then(data => {
       // parse the values and filter to the one that are not readonly.
-      const postFields = data.actions.POST;
-      const formStructure = Object.keys(postFields)
-        .map(field => {
-          if (postFields[field].read_only === false) {
+      try {
+        const postFields = data.actions.POST;
+        const formStructure = Object.keys(postFields)
+          .map(field => {
+            if (
+              field === "id" ||
+              (postFields[field].type === "field" &&
+                postFields[field].read_only === true)
+            ) {
+              return null;
+            }
             return {name: field, description: postFields[field]};
-          }
-          return null;
-        })
-        .filter(fieldObj => {
-          if (processField) {
-            return processField(fieldObj);
-          }
-          if (fieldObj) {
-            // create sync validation arrays.
-            fieldObj.validate = getSyncValidators(fieldObj);
-            return true;
-          }
-          return false;
-        });
-      createForm(formStructure);
+          })
+          .filter(fieldObj => {
+            if (processField) {
+              return processField(fieldObj);
+            }
+            if (fieldObj) {
+              // create sync validation arrays.
+              fieldObj.validate = getSyncValidators(fieldObj);
+              return true;
+            }
+            return false;
+          });
+        createForm(formStructure);
+      } catch (e) {
+        if (e.message.startsWith("Cannot read property 'POST'")) {
+          pluginRegistry.getHistory().push("/access-denied");
+        } else {
+          throw e;
+        }
+      }
     })
     .catch(error => {
       showMessage({
@@ -115,11 +127,18 @@ export const fetchObject = async (
     if (response.ok) {
       return response.body;
     }
+    throw new Error(response);
   } catch (e) {
+    if (e.name === "OperationNotFoundError" || e.status === 403) {
+      // this is a permission issue, the operation is unavailable, hence not defined.
+      // or it can be a 403.
+      pluginRegistry.getHistory().push("/access-denied");
+      return;
+    }
     showMessage({
       type: "error",
-      id: "plugins.numberRange.errorVanilla",
-      values: {error: e}
+      id: "app.common.mainError",
+      values: {msg: e}
     });
     throw e;
   }
@@ -154,10 +173,16 @@ export const fetchPageList = async (
     }
     throw new Error(response);
   } catch (e) {
+    if (e.name === "OperationNotFoundError" || e.status === 403) {
+      // this is a permission issue, the operation is unavailable, hence not defined.
+      // or it can be a 403.
+      pluginRegistry.getHistory().push("/access-denied");
+      return;
+    }
     showMessage({
       type: "error",
-      id: "plugins.numberRange.errorVanilla",
-      values: {error: e}
+      id: "app.common.mainError",
+      values: {msg: e}
     });
     throw e;
   }

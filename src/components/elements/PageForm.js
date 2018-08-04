@@ -23,22 +23,71 @@ import {Field, SubmissionError} from "redux-form";
 import {getFormInfo} from "lib/server-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {Callout, Intent, FormGroup} from "@blueprintjs/core";
+import {Callout, Intent, FormGroup, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import FormPrompt from "./FormPrompt";
 
 export class _PageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: []
+      formStructure: [],
+      cancelForm: false
     };
     this.formObject = {}; // populated for updates.
     this.formStructureRetrieved = false;
   }
+
   componentDidMount() {
     this.constructForm(this.props);
   }
-  submit = postValues => {
+
+  formatError = error => {
+    try {
+      let formattedMessage = Object.keys(error.response.body)
+        .map(key => {
+          return `${this.capitalize(
+            key.replace("_", " ")
+          )}: ${error.response.body[key].map(innerMsg => {
+            return ` ${innerMsg}\n`;
+          })}`;
+        })
+        .join(" ");
+      showMessage({
+        msg: formattedMessage,
+        type: "warning",
+        expires_in: 1000
+      });
+    } catch (e) {
+      // ignore an error formatting an error.
+      console.log("Error occurred while formatting error msg", e);
+    }
+  };
+
+  capitalize = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  // Ensure booleans that were never set are {false}
+  // and remove empty strings from the postValues
+  processUnsetFields = postValues => {
+    let processedData = {};
+    this.state.formStructure.map(field => {
+      if (field.description.type === "boolean") {
+        if (!postValues[field.name] && postValues[field.name] !== false) {
+          // we are missing this boolean from the submit. Add it.
+          processedData[field.name] = false; // we set it as false in validated data.
+        }
+      }
+    });
+    // set to null if empty string
+    Object.keys(postValues).forEach(item => {
+      processedData[item] = postValues[item] === "" ? null : postValues[item];
+    });
+    return processedData;
+  };
+
+  submit = async postValues => {
     let {
       server,
       operationId,
@@ -55,79 +104,80 @@ export class _PageForm extends Component {
         postValues[field.name] = field.value;
       }
     }
+    let processedData = this.processUnsetFields(postValues);
     if (submitPrecall) {
       // only executed if Form has a submitPrecall prop.
-      submitPrecall(postValues, this.props);
+      submitPrecall(processedData, this.props);
     }
-    let validatedData = {};
-    // set to null if empty string
-    Object.keys(postValues).forEach(item => {
-      validatedData[item] = postValues[item] === "" ? null : postValues[item];
-    });
     if (parameters) {
-      parameters.data = validatedData;
+      parameters.data = processedData;
     } else {
-      parameters = {data: validatedData};
+      parameters = {data: processedData};
     }
-    return server.getClient().then(client => {
-      return client
-        .execute({
-          operationId: operationId,
-          parameters: parameters,
-          securities: {
-            authorized: client.securities,
-            specSecurity: [client.spec.securityDefinitions]
-          }
-        })
-        .then(result => {
-          if (submitCallback) {
-            // execute post submit logic...
-            submitCallback();
-          }
-          if (result.status === 201) {
-            showMessage({
-              id: "app.common.objectCreatedSuccessfully",
-              values: {objectName: objectName},
-              type: "success"
-            });
-          } else if (result.status === 200) {
-            showMessage({
-              id: "app.common.objectUpdatedSuccessfully",
-              values: {objectName: objectName},
-              type: "success"
-            });
-          }
-          if (redirectPath) {
-            this.props.history.push(redirectPath);
-          }
-        })
-        .catch(error => {
-          if (error.status === 400 && error.response && error.response.body) {
-            showMessage({
-              id: "app.common.mainError",
-              values: {msg: JSON.stringify(error.response.body)},
-              type: "error"
-            });
-            if ("non_field_errors" in error.response.body) {
-              // a form-wide error is present.
-              throw new SubmissionError({
-                ...error.response.body,
-                _error: error.response.body.non_field_errors
-              });
-            }
-
-            // we have an object with validation errors.
-            throw new SubmissionError(error.response.body);
-          }
-          if (error.message) {
-            showMessage({
-              id: "app.common.mainError",
-              values: {msg: error.message},
-              type: "error"
-            });
-          }
+    try {
+      let client = await server.getClient();
+      let result = await client.execute({
+        operationId: operationId,
+        parameters: parameters,
+        securities: {
+          authorized: client.securities,
+          specSecurity: [client.spec.securityDefinitions]
+        }
+      });
+      if (submitCallback) {
+        // execute post submit logic...
+        submitCallback();
+      }
+      if (result.status === 201) {
+        showMessage({
+          id: "app.common.objectCreatedSuccessfully",
+          values: {objectName: objectName},
+          type: "success"
         });
-    });
+      } else if (result.status === 200) {
+        showMessage({
+          id: "app.common.objectUpdatedSuccessfully",
+          values: {objectName: objectName},
+          type: "success"
+        });
+      }
+      if (redirectPath) {
+        this.props.history.push(redirectPath);
+      }
+    } catch (error) {
+      if (error.name === "OperationNotFoundError" || error.status === 403) {
+        console.log(error);
+        // this is a permission issue, the operation is unavailable, hence not defined.
+        // or it can be a 403.
+        this.props.history.push("/access-denied");
+        return;
+      }
+      if (error.status === 400 && error.response && error.response.body) {
+        if (
+          typeof error.response.body === "object" &&
+          error.response.body !== null
+        ) {
+          this.formatError(error);
+        }
+
+        if ("non_field_errors" in error.response.body) {
+          // a form-wide error is present.
+          throw new SubmissionError({
+            ...error.response.body,
+            _error: error.response.body.non_field_errors
+          });
+        }
+        // we have an object with validation errors.
+        throw new SubmissionError(error.response.body);
+      }
+      if (error.message) {
+        showMessage({
+          id: "app.common.mainError",
+          values: {msg: error.message},
+          type: "warning"
+        });
+      }
+    }
   };
 
   constructForm = props => {
@@ -149,6 +199,7 @@ export class _PageForm extends Component {
       getFormInfo(props.server, djangoPath, createForm);
     }
   };
+
   render() {
     const {
       error,
@@ -211,7 +262,6 @@ export class _PageForm extends Component {
               </Field>
             );
           }
-
           return (
             <Field
               key={field.name}
@@ -236,6 +286,10 @@ export class _PageForm extends Component {
       });
     return (
       <div>
+        <FormPrompt
+          cancelForm={this.state.cancelForm}
+          when={!this.props.pristine && !this.props.submitting}
+        />
         <form onSubmit={handleSubmit(this.submit.bind(this))}>
           {form}
           <button
@@ -249,7 +303,9 @@ export class _PageForm extends Component {
             className="pt-button"
             type="button"
             onClick={e => {
-              this.props.history.goBack();
+              this.setState({cancelForm: true}, () => {
+                this.props.history.goBack();
+              });
             }}>
             <FormattedMessage id="app.common.cancelSubmit" />
           </button>
@@ -269,7 +325,3 @@ export default connect((state, ownProps) => {
     servers: state.serversettings.servers
   };
 }, {})(withRouter(_PageForm));
-
-// For plugins, you will need to use _PageForm instead of default, due to bug.
-// Don't forget to pass history as a prop when doing so.
-window.qu4rtet.exports("components/elements/PageForm", this);

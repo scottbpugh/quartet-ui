@@ -27,6 +27,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import {updateMessages} from "reducers/locales";
 import {ServerDetails} from "components/screens/server/ServerDetails";
 import AddLocalPlugin from "components/screens/plugins/AddLocalPlugin";
+import {AccessDenied} from "components/screens/auth/AccessDenied";
 
 const coreRoutes = () => {
   return [
@@ -43,7 +44,8 @@ const coreRoutes = () => {
       component={ServerDetails}
     />,
     <Route key="pluginList" path="/plugins/add" component={AddLocalPlugin} />,
-    <Route key="pluginList" path="/plugins" component={PluginList} />
+    <Route key="pluginList" path="/plugins" component={PluginList} />,
+    <Route key="accessDenied" path="/access-denied" component={AccessDenied} />
   ];
 };
 
@@ -93,10 +95,14 @@ class _RouteSwitcher extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(this.props.plugins)
-        !== JSON.stringify(nextProps.plugins)
-      || nextProps.pluginListUpdated
+      JSON.stringify(this.props.plugins) !==
+        JSON.stringify(nextProps.plugins) ||
+      nextProps.pluginListUpdated
     ) {
+      nextProps.dispatch({
+        type: "PLUGINS_PLUGIN_LIST_UPDATED",
+        payload: false
+      });
       this.processPlugins();
     }
   }
@@ -104,9 +110,7 @@ class _RouteSwitcher extends Component {
   render() {
     return (
       <App>
-        <Switch>
-          {this.routes}
-        </Switch>
+        <Switch>{this.routes}</Switch>
       </App>
     );
   }
@@ -124,4 +128,3 @@ const RouteSwitcher = connect(
   }
 )(_RouteSwitcher);
 export default withRouter(RouteSwitcher);
-window.qu4rtet.exports("routes", this);
