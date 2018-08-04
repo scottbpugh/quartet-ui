@@ -58,7 +58,11 @@ exports.getPlugins = function(readyCallback, timeout) {
     backupPluginList();
     var request = https.get(pluginRepoPath, function(response) {
       try {
-        console.log(response.statusCode);
+        console.log(
+          "An error occurred while fetching",
+          pluginRepoPath,
+          response.statusCode
+        );
         if (response.statusCode < 200 || response.statusCode > 299) {
           // response is an error.
           networkErrorHandler();
