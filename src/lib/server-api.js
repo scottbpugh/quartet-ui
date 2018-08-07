@@ -118,11 +118,7 @@ export const fetchObject = async (
   try {
     const response = await client.execute({
       operationId,
-      parameters,
-      securities: {
-        authorized: client.securities,
-        specSecurity: [client.spec.securityDefinitions]
-      }
+      parameters
     });
     if (response.ok) {
       return response.body;
@@ -162,11 +158,7 @@ export const fetchPageList = async (
   try {
     const response = await client.execute({
       operationId,
-      parameters,
-      securities: {
-        authorized: client.securities,
-        specSecurity: [client.spec.securityDefinitions]
-      }
+      parameters
     });
     if (response.ok) {
       return response.body;
@@ -211,11 +203,7 @@ export const fetchListAll = async (
         client
           .execute({
             operationId,
-            parameters,
-            securities: {
-              authorized: client.securities,
-              specSecurity: [client.spec.securityDefinitions]
-            }
+            parameters
           })
           .then(response => {
             if (response.ok) {
@@ -266,11 +254,7 @@ export const deleteObject = async (
   const client = await serverInstance.getClient();
   const response = await client.execute({
     operationId,
-    parameters,
-    securities: {
-      authorized: client.securities,
-      specSecurity: [client.spec.securityDefinitions]
-    }
+    parameters
   });
   if (response.ok) {
     return response;

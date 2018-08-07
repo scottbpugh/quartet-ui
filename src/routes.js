@@ -57,6 +57,7 @@ class _RouteSwitcher extends Component {
   constructor(props) {
     super(props);
     this.routes = coreRoutes();
+    this.processingPlugins = false;
   }
 
   processPlugins() {
@@ -87,6 +88,7 @@ class _RouteSwitcher extends Component {
         }
       });
     }
+    this.processingPlugins = false;
   }
 
   componentDidMount() {
@@ -94,16 +96,36 @@ class _RouteSwitcher extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.processingPlugins === true) {
+      // Don't process multiple times plugin changes or
+      // multiple plugins being loaded at the same time (as in startup.)
+      console.log("reload prevented");
+      return;
+    }
     if (
-      JSON.stringify(this.props.plugins) !==
-        JSON.stringify(nextProps.plugins) ||
-      nextProps.pluginListUpdated
+      JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
     ) {
-      nextProps.dispatch({
+      // we only allow this to be triggered once every 1 second.
+      this.processingPlugins = true;
+      console.log("diff plugins executed");
+      setTimeout(() => {
+        this.processPlugins();
+      }, 1000);
+    } else if (
+      nextProps.pluginListUpdated &&
+      this.props.pluginListUpdated != true
+    ) {
+      console.log("Executed once");
+      this.props.dispatch({
         type: "PLUGINS_PLUGIN_LIST_UPDATED",
         payload: false
       });
-      this.processPlugins();
+      if (this.processingPlugins === false) {
+        this.processingPlugins = true;
+        setTimeout(() => {
+          this.processPlugins();
+        }, 1000);
+      }
     }
   }
 
