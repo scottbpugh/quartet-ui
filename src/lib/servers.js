@@ -39,7 +39,6 @@ let _client = new WeakMap();
 /* Listen for global credentials notifications */
 ipcRenderer.on("credentialsRetrieved", (event, payload) => {
   pluginRegistry.getServer(payload.account).setPassword(payload.password);
-  pluginRegistry.getServer(payload.account).listApps(true);
 });
 
 /*
@@ -107,6 +106,7 @@ export class Server {
     this.password = null;
     _password.set(this, password);
     this.loadingPassword = false;
+    this.listApps(true);
   };
 
   fetchWithHeaders = async (path, req, contentType) => {
