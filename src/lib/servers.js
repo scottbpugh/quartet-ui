@@ -111,8 +111,8 @@ export class Server {
     this.listApps(true);
   };
 
-  fetchWithHeaders = async (path, req) => {
-    return await fetchWithHeaders(this, path, req);
+  fetchWithHeaders = async (path, req, contentType) => {
+    return await fetchWithHeaders(this, path, req, contentType);
   };
 
   /**

@@ -267,9 +267,18 @@ export const deleteObject = async (
   }
 };
 
-export const fetchWithHeaders = async (serverInstance, path, req = {}) => {
+export const fetchWithHeaders = async (
+  serverInstance,
+  path,
+  req = {},
+  contentType
+) => {
   const body = req.body || null;
-  let authedHeaders = await prepHeadersAuth(serverInstance, req.method);
+  let authedHeaders = await prepHeadersAuth(
+    serverInstance,
+    req.method,
+    contentType
+  );
   if (body) {
     authedHeaders.body = body;
   }
