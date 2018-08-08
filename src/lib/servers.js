@@ -108,7 +108,7 @@ export class Server {
     _password.set(this, password);
     this.loadingPassword = false;
     // refetch client/app list.
-    this.listApps();
+    this.listApps(true);
   };
 
   fetchWithHeaders = async (path, req) => {
@@ -499,5 +499,3 @@ export class Server {
     }
   };
 }
-
-window.qu4rtet.exports("lib/servers", this);
