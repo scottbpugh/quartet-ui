@@ -26,10 +26,10 @@ import {pluginRegistry} from "plugins/pluginRegistration";
  *
  * @return {object} A request init object with headers and basic auth.
  */
-export const prepHeadersAuth = async (server, method = "GET") => {
+const prepHeadersAuth = async (server, method = "GET") => {
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
+  //headers.append("Content-Type", "application/json");
   headers.append(
     "Authorization",
     await pluginRegistry.getServer(server.serverID).getAuthorization()
@@ -118,11 +118,7 @@ export const fetchObject = async (
   try {
     const response = await client.execute({
       operationId,
-      parameters,
-      securities: {
-        authorized: client.securities,
-        specSecurity: [client.spec.securityDefinitions]
-      }
+      parameters
     });
     if (response.ok) {
       return response.body;
@@ -162,11 +158,7 @@ export const fetchPageList = async (
   try {
     const response = await client.execute({
       operationId,
-      parameters,
-      securities: {
-        authorized: client.securities,
-        specSecurity: [client.spec.securityDefinitions]
-      }
+      parameters
     });
     if (response.ok) {
       return response.body;
@@ -211,11 +203,7 @@ export const fetchListAll = async (
         client
           .execute({
             operationId,
-            parameters,
-            securities: {
-              authorized: client.securities,
-              specSecurity: [client.spec.securityDefinitions]
-            }
+            parameters
           })
           .then(response => {
             if (response.ok) {
@@ -266,15 +254,18 @@ export const deleteObject = async (
   const client = await serverInstance.getClient();
   const response = await client.execute({
     operationId,
-    parameters,
-    securities: {
-      authorized: client.securities,
-      specSecurity: [client.spec.securityDefinitions]
-    }
+    parameters
   });
   if (response.ok) {
     return response;
   }
 };
 
-window.qu4rtet.exports("lib/server-api", this);
+export const fetchWithHeaders = async (serverInstance, path, req = {}) => {
+  const body = req.body || null;
+  let authedHeaders = await prepHeadersAuth(serverInstance, req.method);
+  if (body) {
+    authedHeaders.body = body;
+  }
+  return await fetch(path, {...authedHeaders});
+};
