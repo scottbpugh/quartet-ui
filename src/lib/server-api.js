@@ -26,10 +26,16 @@ import {pluginRegistry} from "plugins/pluginRegistration";
  *
  * @return {object} A request init object with headers and basic auth.
  */
-const prepHeadersAuth = async (server, method = "GET") => {
+const prepHeadersAuth = async (
+  server,
+  method = "GET",
+  contentType = "application/json"
+) => {
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  //headers.append("Content-Type", "application/json");
+  if (contentType) {
+    headers.append("Content-Type", contentType);
+  }
   headers.append(
     "Authorization",
     await pluginRegistry.getServer(server.serverID).getAuthorization()
