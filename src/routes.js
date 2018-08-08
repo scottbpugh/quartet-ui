@@ -105,12 +105,7 @@ class _RouteSwitcher extends Component {
     if (
       JSON.stringify(this.props.plugins) !== JSON.stringify(nextProps.plugins)
     ) {
-      // we only allow this to be triggered once every 1 second.
-      this.processingPlugins = true;
-      console.log("diff plugins executed");
-      setTimeout(() => {
-        this.processPlugins();
-      }, 1000);
+      this.processPlugins();
     } else if (
       nextProps.pluginListUpdated &&
       this.props.pluginListUpdated != true

@@ -29,7 +29,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 export const prepHeadersAuth = async (server, method = "GET") => {
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Content-Type", "application/json");
+  //headers.append("Content-Type", "application/json");
   headers.append(
     "Authorization",
     await pluginRegistry.getServer(server.serverID).getAuthorization()
@@ -261,4 +261,11 @@ export const deleteObject = async (
   }
 };
 
-window.qu4rtet.exports("lib/server-api", this);
+export const fetchWithHeaders = async (serverInstance, path, req = {}) => {
+  const body = req.body || null;
+  let authedHeaders = await prepHeadersAuth(serverInstance, req.method);
+  if (body) {
+    authedHeaders.body = body;
+  }
+  return await fetch(path, {...authedHeaders});
+};

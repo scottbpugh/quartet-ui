@@ -24,7 +24,8 @@ import {
   fetchObject,
   fetchPageList,
   fetchListAll,
-  deleteObject
+  deleteObject,
+  fetchWithHeaders
 } from "lib/server-api";
 
 // all issues with fs see:
@@ -108,6 +109,10 @@ export class Server {
     this.loadingPassword = false;
     // refetch client/app list.
     this.listApps();
+  };
+
+  fetchWithHeaders = async (path, req) => {
+    return await fetchWithHeaders(this, path, req);
   };
 
   /**
