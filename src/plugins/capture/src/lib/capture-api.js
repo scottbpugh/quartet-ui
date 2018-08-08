@@ -28,7 +28,8 @@ export const fileUpload = (server, rule, fileObject) => {
     .getServer(server.serverID)
     .fetchWithHeaders(
       `${server.url}capture/quartet-capture/?rule=${rule.name}`,
-      req
+      req,
+      null // don't send a content type for this.
     )
     .then(resp => {
       resp

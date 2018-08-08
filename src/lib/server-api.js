@@ -26,10 +26,16 @@ import {pluginRegistry} from "plugins/pluginRegistration";
  *
  * @return {object} A request init object with headers and basic auth.
  */
-const prepHeadersAuth = async (server, method = "GET") => {
+const prepHeadersAuth = async (
+  server,
+  method = "GET",
+  contentType = "application/json"
+) => {
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  //headers.append("Content-Type", "application/json");
+  if (contentType) {
+    headers.append("Content-Type", contentType);
+  }
   headers.append(
     "Authorization",
     await pluginRegistry.getServer(server.serverID).getAuthorization()
@@ -261,9 +267,18 @@ export const deleteObject = async (
   }
 };
 
-export const fetchWithHeaders = async (serverInstance, path, req = {}) => {
+export const fetchWithHeaders = async (
+  serverInstance,
+  path,
+  req = {},
+  contentType
+) => {
   const body = req.body || null;
-  let authedHeaders = await prepHeadersAuth(serverInstance, req.method);
+  let authedHeaders = await prepHeadersAuth(
+    serverInstance,
+    req.method,
+    contentType
+  );
   if (body) {
     authedHeaders.body = body;
   }
