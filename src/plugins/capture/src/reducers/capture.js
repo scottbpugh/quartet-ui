@@ -29,7 +29,9 @@ export const initialData = () => ({
 
 export const loadRules = server => {
   const serverObject = pluginRegistry.getServer(server.serverID);
+
   return dispatch => {
+    let state = store.getState().capture;
     serverObject.fetchListAll("capture_rules_list", {}, []).then(rules => {
       serverObject
         .fetchListAll("capture_rule_parameters_list", {}, [])

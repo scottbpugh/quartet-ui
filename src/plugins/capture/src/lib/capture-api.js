@@ -22,18 +22,15 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 
 export const fileUpload = (server, rule, fileObject) => {
   const data = new FormData();
-  const headers = new Headers();
-  headers.append(
-    "Authorization",
-    `Basic ${base64.encode(`${server.username}:${server.password}`)}`
-  );
-  headers.append("Accept", "application/json");
   data.append("file", fileObject);
-  fetch(`${server.url}capture/quartet-capture/?rule=${rule.name}`, {
-    method: "POST",
-    headers,
-    body: data
-  })
+  let req = {method: "POST", body: data};
+  pluginRegistry
+    .getServer(server.serverID)
+    .fetchWithHeaders(
+      `${server.url}capture/quartet-capture/?rule=${rule.name}`,
+      req,
+      null // don't send a content type for this.
+    )
     .then(resp => {
       resp
         .json()

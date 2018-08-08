@@ -58,9 +58,21 @@ exports.getPlugins = function(readyCallback, timeout) {
     backupPluginList();
     var request = https.get(pluginRepoPath, function(response) {
       try {
-        var file = fs.createWriteStream(PLUGINS_LIST_PATH);
-        response.pipe(file);
-        readyCallback();
+        if (response.statusCode < 200 || response.statusCode > 299) {
+          // response is an error.
+          console.log(
+            "An error occurred while fetching",
+            pluginRepoPath,
+            response.statusCode
+          );
+          networkErrorHandler();
+          readyCallback();
+          return;
+        } else {
+          var file = fs.createWriteStream(PLUGINS_LIST_PATH);
+          response.pipe(file);
+          readyCallback();
+        }
       } catch (e) {
         console.log("error writing file", e);
         networkErrorHandler();

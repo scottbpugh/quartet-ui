@@ -24,7 +24,8 @@ import {
   fetchObject,
   fetchPageList,
   fetchListAll,
-  deleteObject
+  deleteObject,
+  fetchWithHeaders
 } from "lib/server-api";
 
 // all issues with fs see:
@@ -32,11 +33,36 @@ import {
 
 const {ipcRenderer} = window.require("electron");
 
+let _password = new WeakMap();
+let _client = new WeakMap();
+
 /* Listen for global credentials notifications */
 ipcRenderer.on("credentialsRetrieved", (event, payload) => {
   pluginRegistry.getServer(payload.account).setPassword(payload.password);
   pluginRegistry.getServer(payload.account).listApps();
 });
+
+/*
+  This class is meant to be used as an interface,
+  so that plugins don't have the same unrestricted access
+  to the swagger client, which contains the securities object.
+*/
+class SafeClient {
+  constructor(realClient) {
+    this.apis = realClient.apis;
+    this.execute = this.getSandboxedExecute(realClient);
+  }
+  getSandboxedExecute = realClient => {
+    return async function(executeObject) {
+      // add securities programmatically.
+      executeObject.securities = {
+        authorized: realClient.securities,
+        specSecurity: [realClient.spec.securityDefinitions]
+      };
+      return await realClient.execute(executeObject);
+    };
+  };
+}
 
 /**
  * Server - Holds data about a server and its settings, API client, ...
@@ -78,10 +104,15 @@ export class Server {
     ipcRenderer.send("deleteServerCredentials", {account: this.serverID});
   };
   setPassword = password => {
-    this.password = password;
+    this.password = null;
+    _password.set(this, password);
     this.loadingPassword = false;
     // refetch client/app list.
-    this.listApps();
+    this.listApps(true);
+  };
+
+  fetchWithHeaders = async (path, req, contentType) => {
+    return await fetchWithHeaders(this, path, req, contentType);
   };
 
   /**
@@ -332,7 +363,7 @@ export class Server {
     if (this.authType === "basic" || !this.authType) {
       // default to basic.
       this._securities = {
-        basic: {username: this.username, password: this.password}
+        basic: {username: this.username, password: _password.get(this)}
       };
       return this._securities;
     } else if (this.authType === "token") {
@@ -345,7 +376,7 @@ export class Server {
         },
         body: JSON.stringify({
           username: this.username,
-          password: this.password
+          password: _password.get(this)
         })
       });
       if (response.ok) {
@@ -358,7 +389,8 @@ export class Server {
 
   getAuthorization = async () => {
     try {
-      let {username, password} = this;
+      let {username} = this;
+      let password = _password.get(this);
       let securities = await this.returnSecurities();
       if (this.authType === "basic" || !this.authType) {
         let encodedBasicToken = base64.encode(username + ":" + password);
@@ -380,13 +412,15 @@ export class Server {
     let {url} = this;
     try {
       let securities = await this.returnSecurities();
-      return await Swagger(`${url}schema/`, {
+      let client = await Swagger(`${url}schema/`, {
         securities: securities,
         requestInterceptor: async req => {
           req.headers.Authorization = await this.getAuthorization(securities);
           return req;
         }
       });
+      // private instance.
+      _client.set(this, new SafeClient(client));
     } catch (error) {
       showMessage({
         type: "error",
@@ -397,7 +431,7 @@ export class Server {
   };
 
   listApps = async (reset = false) => {
-    if (!this.password && !this.loadingPassword) {
+    if (!_password.get(this) && !this.loadingPassword) {
       // fetch password first.
       this.getPassword();
       return;
@@ -408,7 +442,7 @@ export class Server {
     }
     this.appList = [];
     this.store.dispatch({type: actions.resetAppList, payload: this.toJSON()});
-    let client = await this.getClient(reset);
+    let client = await this._getClient(reset);
 
     try {
       this.appList = Object.keys(client.apis).filter(app => {
@@ -429,21 +463,34 @@ export class Server {
       });
     }
   };
-
+  /*
+  This is the client for "apis" and "execute", it does not
+  contain the securities.
+  */
   getClient = async (reset = false) => {
+    return this._client;
+  };
+  /*
+  We don't make the real client available outside of this module.
+  */
+  _getClient = async (reset = false) => {
     if (this._client && reset === false) {
       return this._client;
     } else {
       // we don't have a client yet.
       // Fetch it.
-      this._client = await this.parseSchema(true);
+      await this.parseSchema(true);
+      this._client = {
+        apis: _client.get(this).apis,
+        execute: _client.get(this).execute
+      };
       return this._client;
     }
   };
 
   getManifest = async (reset = false) => {
     if (!this.manifest && reset) {
-      let client = await this.getClient();
+      let client = await this._getClient();
       let result = await client.apis.manifest.quartet_manifest_list();
       this.manifest = result.body;
       return this.manifest;
@@ -452,5 +499,3 @@ export class Server {
     }
   };
 }
-
-window.qu4rtet.exports("lib/servers", this);

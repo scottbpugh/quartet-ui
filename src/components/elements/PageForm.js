@@ -118,11 +118,7 @@ export class _PageForm extends Component {
       let client = await server.getClient();
       let result = await client.execute({
         operationId: operationId,
-        parameters: parameters,
-        securities: {
-          authorized: client.securities,
-          specSecurity: [client.spec.securityDefinitions]
-        }
+        parameters: parameters
       });
       if (submitCallback) {
         // execute post submit logic...

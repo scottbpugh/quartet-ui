@@ -193,25 +193,3 @@ Array [
   },
 ]
 `;
-
-exports[`yields the correct header object with auth 1`] = `
-Object {
-  "headers": Headers {
-    "_headers": Object {
-      "accept": Array [
-        "application/json",
-      ],
-      "authorization": Array [
-        "Token someToken",
-      ],
-      "content-type": Array [
-        "application/json",
-      ],
-    },
-  },
-  "method": "GET",
-  "mode": "cors",
-}
-`;
-
-exports[`yields the correct header object with auth 2`] = `"{\\"method\\":\\"GET\\",\\"headers\\":{\\"_headers\\":{\\"accept\\":[\\"application/json\\"],\\"content-type\\":[\\"application/json\\"],\\"authorization\\":[\\"Token someToken\\"]}},\\"mode\\":\\"cors\\"}"`;
