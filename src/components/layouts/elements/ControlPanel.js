@@ -94,6 +94,7 @@ export const ControlPanel = connect((state, ownProps) => {
   return {
     currentPath: state.layout.currentPath,
     theme: state.layout.theme,
-    controlButtons: state.plugins.controlButtons
+    controlButtons: state.plugins.controlButtons,
+    messages: state.intl.messages
   };
 })(withRouter(_ControlPanel));
