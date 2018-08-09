@@ -106,7 +106,7 @@
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
-      "target": ["zip", "dmg"]
+      "target": ["zip"]
     },
     "win": {
       "target": ["nsis", "zip"]
