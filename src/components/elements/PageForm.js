@@ -23,14 +23,16 @@ import {Field, SubmissionError} from "redux-form";
 import {getFormInfo} from "lib/server-api";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {Callout, Intent, FormGroup} from "@blueprintjs/core";
+import {Callout, Intent, FormGroup, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
+import FormPrompt from "./FormPrompt";
 
 export class _PageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formStructure: []
+      formStructure: [],
+      cancelForm: false
     };
     this.formObject = {}; // populated for updates.
     this.formStructureRetrieved = false;
@@ -116,11 +118,7 @@ export class _PageForm extends Component {
       let client = await server.getClient();
       let result = await client.execute({
         operationId: operationId,
-        parameters: parameters,
-        securities: {
-          authorized: client.securities,
-          specSecurity: [client.spec.securityDefinitions]
-        }
+        parameters: parameters
       });
       if (submitCallback) {
         // execute post submit logic...
@@ -284,6 +282,10 @@ export class _PageForm extends Component {
       });
     return (
       <div>
+        <FormPrompt
+          cancelForm={this.state.cancelForm}
+          when={!this.props.pristine && !this.props.submitting}
+        />
         <form onSubmit={handleSubmit(this.submit.bind(this))}>
           {form}
           <button
@@ -297,7 +299,9 @@ export class _PageForm extends Component {
             className="pt-button"
             type="button"
             onClick={e => {
-              this.props.history.goBack();
+              this.setState({cancelForm: true}, () => {
+                this.props.history.goBack();
+              });
             }}>
             <FormattedMessage id="app.common.cancelSubmit" />
           </button>

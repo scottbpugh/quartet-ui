@@ -92,7 +92,13 @@ export default {
         selectedItems: "{count} Items Selected",
         clearSelection: "Clear Selection",
         saveSelection: "Save Selection",
-        takeMeBack: "Take me back"
+        takeMeBack: "Take me back",
+        proceedWithoutSubmit: "Proceed without saving changes",
+        continueEditingForm: "Continue editing form",
+        areYouSureNavigateAwayTitle:
+          "Are you sure you want to leave this form?",
+        areYouSureNavigateAwayBody:
+          "This will discard all changes made to this form."
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -178,7 +184,13 @@ export default {
         accessDeniedTitle: "Accès refusé",
         accessDeniedBlurb:
           "Vous n'êtes pas autorisé à effectuer cette action. Veuillez contacter votre administrateur système pour accéder.",
-        takeMeBack: "Retourner"
+        takeMeBack: "Retourner",
+        proceedWithoutSubmit: "Continuer sans soumettre",
+        continueEditingForm: "Continuer a editer le formulaire",
+        areYouSureNavigateAwayTitle:
+          "Êtes-vous sûr de vouloir quitter ce formulaire?",
+        areYouSureNavigateAwayBody:
+          "Cette action annulera toutes les modifications apportées à ce formulaire."
       }
     },
     plugins: {
@@ -190,4 +202,3 @@ export default {
     }
   }
 };
-window.qu4rtet.exports("messages", this);

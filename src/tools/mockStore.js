@@ -66,6 +66,10 @@ if (window && !window.require) {
           return "";
         }
       };
+      if (module === "somepath/pluginList.json") {
+        console.log("this is DIRNAME", __dirname);
+        return require("../../main-process/pluginsList-fallback.json");
+      }
     }
     if (module === "electron") {
       return {
@@ -134,11 +138,7 @@ class _Wrapper extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    return <div>{this.props.children}</div>;
   }
 }
 const Wrapper = injectIntl(_Wrapper);
@@ -159,9 +159,7 @@ export const TestWrapper = ({locale, messages, store, children}) => {
     <IntlProvider locale={locale} messages={messages}>
       <Wrapper>
         <Provider store={store}>
-          <Router>
-            {children}
-          </Router>
+          <Router>{children}</Router>
         </Provider>
       </Wrapper>
     </IntlProvider>

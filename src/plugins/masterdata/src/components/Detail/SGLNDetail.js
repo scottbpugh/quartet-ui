@@ -288,7 +288,25 @@ class _SGLNDetail extends Component {
 
           {detail ? (
             <Card className="pt-elevation-4">
-              <h5>Location Fields</h5>
+              <h5>
+                Location Fields{" "}
+                <button
+                  className="pt-button pt-intent-primary add-incard-button"
+                  onClick={e => {
+                    this.props.history.push({
+                      pathname: `/masterdata/add-location-field/${
+                        this.props.server.serverID
+                      }`,
+                      state: {
+                        defaultValues: {
+                          location: detail.id
+                        }
+                      }
+                    });
+                  }}>
+                  <FormattedMessage id="plugins.masterData.addLocationField" />
+                </button>
+              </h5>
               <table className="pt-table data-pair-table pt-bordered pt-striped">
                 <tbody>
                   {yieldKeyValPairs(detail.locationfield_set, [
