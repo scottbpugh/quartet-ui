@@ -26,8 +26,20 @@ import {withRouter} from "react-router";
 import {Callout, Intent, FormGroup, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import FormPrompt from "./FormPrompt";
+import PropTypes from "prop-types";
 
 export class _PageForm extends Component {
+  static propTypes = {
+    edit: PropTypes.bool,
+    operationId: PropTypes.string.required,
+    objectName: PropTypes.string.required,
+    djangoPath: PropTypes.string.required,
+    existingValue: PropTypes.object.required,
+    fieldElements: PropTypes.object,
+    parameters: PropTypes.object,
+    server: PropTypes.object.required,
+    history: PropTypes.object.required
+  };
   constructor(props) {
     super(props);
     this.state = {

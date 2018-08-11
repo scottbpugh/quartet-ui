@@ -52,7 +52,7 @@ exports.getPlugins = function(readyCallback, timeout) {
     readyCallback = function() {};
   }
   if (!timeout) {
-    timeout = 5000;
+    timeout = 8000; // 8s to get the plugin list frin gitlab.
   }
   try {
     backupPluginList();
