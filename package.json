@@ -1,7 +1,8 @@
 {
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
-  "version": "1.0.12",
+  "description": "The Open-Source Level 4",
+  "version": "1.0.13",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -110,6 +111,7 @@
       ]
     },
     "win": {
+      "publisherName": "Serial Lab",
       "target": [
         "nsis",
         "zip"
