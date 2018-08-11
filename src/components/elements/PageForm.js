@@ -31,14 +31,14 @@ import PropTypes from "prop-types";
 export class _PageForm extends Component {
   static propTypes = {
     edit: PropTypes.bool,
-    operationId: PropTypes.string.required,
-    objectName: PropTypes.string.required,
-    djangoPath: PropTypes.string.required,
-    existingValue: PropTypes.object.required,
-    fieldElements: PropTypes.object,
+    operationId: PropTypes.string.isRequired,
+    objectName: PropTypes.string.isRequired,
+    djangoPath: PropTypes.string.isRequired,
     parameters: PropTypes.object,
-    server: PropTypes.object.required,
-    history: PropTypes.object.required
+    server: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    existingValue: PropTypes.object,
+    fieldElements: PropTypes.object
   };
   constructor(props) {
     super(props);
@@ -241,6 +241,7 @@ export class _PageForm extends Component {
           // return the element as is with descriptions.
           return (
             <FormGroup
+              key={`group-${field.name}`}
               helperText={field.description.help_text}
               label={field.description.label}
               required={field.description.required}>
