@@ -399,12 +399,34 @@ exports[`returns main 1`] = `
                         </li>
                         <li>
                           <a
+                            href="https://serial-lab.gitlab.io/quartet_masterdata"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              Master Data Module Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
                             href="https://serial-lab.gitlab.io/serialbox/"
                             rel="noopener noreferrer"
                             target="_blank"
                           >
                             <span>
                               Number Range Module Documentation
+                            </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://serial-lab.gitlab.io/quartet_output"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              Output Module Documentation
                             </span>
                           </a>
                         </li>

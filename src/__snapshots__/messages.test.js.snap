@@ -128,7 +128,12 @@ Object {
         "server": "Serveur",
         "servers": "Serveurs",
       },
-      "plugins": Object {},
+      "plugins": Object {
+        "addPlugin": "Ajouter un plugin",
+        "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
+        "pluginDisabled": "Plugin désactivé",
+        "pluginEnabled": "Plugin activé",
+      },
       "serverSettings": Object {
         "addAServer": "Ajouter un serveur",
         "serverDeleted": "Le serveur a bien été retiré",
@@ -156,12 +161,7 @@ Object {
         "polarTheme": "Thème polaire",
       },
     },
-    "plugins": Object {
-      "addPlugin": "Ajouter un plugin",
-      "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
-      "pluginDisabled": "Plugin désactivé",
-      "pluginEnabled": "Plugin activé",
-    },
+    "plugins": Object {},
   },
 }
 `;

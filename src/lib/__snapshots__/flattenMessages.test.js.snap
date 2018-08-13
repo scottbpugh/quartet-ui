@@ -101,6 +101,10 @@ Object {
   "fr-FR.app.nav.plugins": "Plugins",
   "fr-FR.app.nav.server": "Serveur",
   "fr-FR.app.nav.servers": "Serveurs",
+  "fr-FR.app.plugins.addPlugin": "Ajouter un plugin",
+  "fr-FR.app.plugins.errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
+  "fr-FR.app.plugins.pluginDisabled": "Plugin désactivé",
+  "fr-FR.app.plugins.pluginEnabled": "Plugin activé",
   "fr-FR.app.serverSettings.addAServer": "Ajouter un serveur",
   "fr-FR.app.serverSettings.serverDeleted": "Le serveur a bien été retiré",
   "fr-FR.app.serverSettings.serverSettings": "Paramètres serveur",
@@ -121,9 +125,5 @@ Object {
   "fr-FR.app.themes.darkTheme": "Thème sombre",
   "fr-FR.app.themes.lightTheme": "Thème clair",
   "fr-FR.app.themes.polarTheme": "Thème polaire",
-  "fr-FR.plugins.addPlugin": "Ajouter un plugin",
-  "fr-FR.plugins.errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
-  "fr-FR.plugins.pluginDisabled": "Plugin désactivé",
-  "fr-FR.plugins.pluginEnabled": "Plugin activé",
 }
 `;
