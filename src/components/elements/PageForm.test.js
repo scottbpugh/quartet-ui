@@ -256,8 +256,7 @@ const formattedFields = [
   }
 ];
 
-// Recharts resizable chart prevents this from working. Skipping for now.
-it.skip("renders correctly", () => {
+it("renders correctly", () => {
   const form = renderer
     .create(
       <TestWrapper>

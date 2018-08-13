@@ -26,8 +26,20 @@ import {withRouter} from "react-router";
 import {Callout, Intent, FormGroup, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import FormPrompt from "./FormPrompt";
+import PropTypes from "prop-types";
 
 export class _PageForm extends Component {
+  static propTypes = {
+    edit: PropTypes.bool,
+    operationId: PropTypes.string.isRequired,
+    objectName: PropTypes.string.isRequired,
+    djangoPath: PropTypes.string.isRequired,
+    parameters: PropTypes.object,
+    server: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    existingValue: PropTypes.object,
+    fieldElements: PropTypes.object
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -229,6 +241,7 @@ export class _PageForm extends Component {
           // return the element as is with descriptions.
           return (
             <FormGroup
+              key={`group-${field.name}`}
               helperText={field.description.help_text}
               label={field.description.label}
               required={field.description.required}>
