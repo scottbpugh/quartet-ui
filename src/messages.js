@@ -163,7 +163,14 @@ export default {
         errorServerFetch:
           "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}"
       },
-      plugins: {},
+      plugins: {
+        addPlugin: "Ajouter un plugin",
+        errorFetchRemotePlugins:
+          "Une erreur s'est produite lors de la requete des données plugins: {error}",
+        pluginEnabled: "Plugin activé",
+        pluginDisabled: "Plugin désactivé",
+        addPlugin: "Ajouter un plugin"
+      },
       common: {
         mainError:
           "Une erreur s'est produite pendant l'execution de cette action. {msg}",
@@ -193,12 +200,6 @@ export default {
           "Cette action annulera toutes les modifications apportées à ce formulaire."
       }
     },
-    plugins: {
-      addPlugin: "Ajouter un plugin",
-      errorFetchRemotePlugins:
-        "Une erreur s'est produite lors de la requete des données plugins: {error}",
-      pluginEnabled: "Plugin activé",
-      pluginDisabled: "Plugin désactivé"
-    }
+    plugins: {}
   }
 };

@@ -146,12 +146,34 @@ class _DashboardRight extends Component {
                   </li>
                   <li>
                     <a
+                      href="https://serial-lab.gitlab.io/quartet_masterdata"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <FormattedMessage
+                        id="app.dashboard.documentation"
+                        values={{projectName: "Master Data"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="https://serial-lab.gitlab.io/serialbox/"
                       target="_blank"
                       rel="noopener noreferrer">
                       <FormattedMessage
                         id="app.dashboard.documentation"
                         values={{projectName: "Number Range"}}
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://serial-lab.gitlab.io/quartet_output"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <FormattedMessage
+                        id="app.dashboard.documentation"
+                        values={{projectName: "Output"}}
                       />
                     </a>
                   </li>
