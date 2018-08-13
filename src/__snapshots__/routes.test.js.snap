@@ -430,6 +430,17 @@ exports[`returns main 1`] = `
                             </span>
                           </a>
                         </li>
+                        <li>
+                          <a
+                            href="https://gitlab.com/lduros/quartet-ui-plugins-boilerplate/blob/tutorial/README.md"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            <span>
+                              QU4RTET Desktop Plugin Development Tutorial
+                            </span>
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   </div>

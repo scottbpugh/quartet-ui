@@ -177,6 +177,14 @@ class _DashboardRight extends Component {
                       />
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="https://gitlab.com/lduros/quartet-ui-plugins-boilerplate/blob/tutorial/README.md"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <FormattedMessage id="app.dashboard.desktopPluginTutorial" />
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

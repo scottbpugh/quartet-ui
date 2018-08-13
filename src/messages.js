@@ -36,7 +36,8 @@ export default {
         servers: "Servers",
         noServerFound:
           "You currently have no QU4RTET server in your configuration.",
-        version: "Version {appVersion}"
+        version: "Version {appVersion}",
+        desktopPluginTutorial: "QU4RTET Desktop Plugin Development Tutorial"
       },
       serverSettings: {
         serverSettings: "Server Settings",
@@ -130,7 +131,9 @@ export default {
         servers: "Serveurs",
         noServerFound:
           "Il n'y a aucun serveur QU4RTET dans votre configuration.",
-        version: "Version {appVersion}"
+        version: "Version {appVersion}",
+        desktopPluginTutorial:
+          "Tutoriel de développement de plugins QU4RTET Desktop"
       },
       serverSettings: {
         serverSettings: "Paramètres serveur",
