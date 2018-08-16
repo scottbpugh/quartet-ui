@@ -1,53 +1,54 @@
 {
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
-  "version": "1.0.12",
+  "description": "The Open-Source Level 4",
+  "version": "1.0.13",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
     "@blueprintjs/core": "1",
     "@blueprintjs/datetime": "^1.25.1",
-    "about-window": "^1.11.0",
+    "about-window": "^1.12.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "base-64": "^0.1.0",
     "clear-module": "^3.0.0",
     "electron-is-dev": "^0.3.0",
-    "electron-log": "^2.2.14",
+    "electron-log": "^2.2.16",
     "electron-reload": "^1.2.5",
-    "electron-updater": "^2.21.10",
+    "electron-updater": "^3.1.1",
     "history": "^4.7.2",
     "inject-css": "^0.2.1",
-    "json-server": "^0.12.1",
-    "json2csv": "^4.0.2",
+    "json-server": "^0.14.0",
+    "json2csv": "^4.2.1",
     "jsontoxml": "^1.0.0",
     "keytar": "^4.2.1",
     "live-plugin-manager": "^0.12.0",
-    "moment": "^2.20.1",
+    "moment": "^2.22.2",
     "mousetrap": "^1.6.2",
     "object-path": "^0.11.4",
     "openlayers": "^4.6.5",
     "opn": "^5.3.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.4.2",
     "react-intl": "^2.4.0",
-    "react-intl-redux": "^0.7.0",
+    "react-intl-redux": "^2.0.2",
     "react-redux": "^5.0.6",
     "react-resizable": "^1.7.5",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
-    "react-transition-group": "^2.2.1",
-    "redux": "^3.7.2",
-    "redux-actions": "^2.2.1",
-    "redux-form": "^7.2.1",
+    "react-transition-group": "^2.4.0",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.1",
+    "redux-form": "^7.4.2",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
     "string-hash": "^1.1.3",
-    "swagger-client": "^3.5.0"
+    "swagger-client": "^3.8.12"
   },
   "author": {
     "name": "Serial Lab",
@@ -62,68 +63,74 @@
     "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
-    "react-start":
-      "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
+    "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
     "dev-server": "json-server -p 8080 ./dev/db.json",
-    "fix-keytar":
-      "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
+    "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table",
     "lint": "./node_modules/.bin/eslint src",
-    "publish-npm":
-      "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish"
+    "publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.5",
+    "babel-eslint": "^8.2.6",
     "babel-plugin-css-modules-transform": "^1.6.1",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-electron": "^1.4.15",
     "console-warn-throws-error": "^1.1.0",
-    "electron": "^2.0.1",
-    "electron-builder": "^20.13.4",
-    "electron-rebuild": "^1.7.3",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "electron": "^2.0.7",
+    "electron-builder": "^20.27.1",
+    "electron-rebuild": "^1.8.2",
+    "enzyme": "^3.4.1",
+    "enzyme-adapter-react-16": "^1.2.0",
     "enzyme-to-json": "^3.3.4",
-    "eslint": "^5.1.0",
+    "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "foreman": "^2.0.0",
-    "jest": "^23.2.0",
+    "foreman": "^3.0.1",
+    "jest": "^23.4.2",
     "jest-canvas-mock": "^1.1.0",
     "nsp": "^3.2.1",
     "nsp-preprocessor-yarn": "^1.1.2",
-    "react-test-renderer": "^16.2.0",
-    "redux-mock-store": "^1.4.0",
-    "sinon": "^6.0.1",
+    "react-test-renderer": "^16.4.2",
+    "redux-mock-store": "^1.5.3",
+    "sinon": "^6.1.5",
     "version": "^0.1.2"
   },
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
-      "target": ["zip", "dmg"]
+      "target": [
+        "zip",
+        "dmg"
+      ]
     },
     "win": {
-      "target": ["nsis", "zip"]
+      "publisherName": "Serial Lab",
+      "target": [
+        "nsis",
+        "zip"
+      ]
     },
     "directories": {
       "buildResources": "build"
     },
     "publish": {
       "provider": "generic",
-      "url":
-        "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
+      "url": "https://gitlab.com/serial-lab/quartet-ui/builds/artifacts/master/raw/dist?job=build",
       "channel": "latest",
       "publishAutoUpdate": true
     }
   },
   "jest": {
-    "setupFiles": ["jest-canvas-mock"]
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   },
   "postinstall": "electron-builder install-app-deps"
 }

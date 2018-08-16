@@ -33,6 +33,7 @@ Object {
       "dashboard": Object {
         "connectServer": "Connect to a Server",
         "dashboardHeader3": "The Open Source Level 4",
+        "desktopPluginTutorial": "QU4RTET Desktop Plugin Development Tutorial",
         "documentation": "{projectName} Module Documentation",
         "documentationOnly": "{projectName} Documentation",
         "noServerFound": "You currently have no QU4RTET server in your configuration.",
@@ -113,6 +114,7 @@ Object {
       "dashboard": Object {
         "connectServer": "Se connecter a un serveur",
         "dashboardHeader3": "Le logiciel libre de Niveau 4",
+        "desktopPluginTutorial": "Tutoriel de développement de plugins QU4RTET Desktop",
         "documentation": "Documentation du module {projectName}",
         "documentationOnly": "Documentation de {projectName}",
         "noServerFound": "Il n'y a aucun serveur QU4RTET dans votre configuration.",
@@ -128,7 +130,12 @@ Object {
         "server": "Serveur",
         "servers": "Serveurs",
       },
-      "plugins": Object {},
+      "plugins": Object {
+        "addPlugin": "Ajouter un plugin",
+        "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
+        "pluginDisabled": "Plugin désactivé",
+        "pluginEnabled": "Plugin activé",
+      },
       "serverSettings": Object {
         "addAServer": "Ajouter un serveur",
         "serverDeleted": "Le serveur a bien été retiré",
@@ -156,12 +163,7 @@ Object {
         "polarTheme": "Thème polaire",
       },
     },
-    "plugins": Object {
-      "addPlugin": "Ajouter un plugin",
-      "errorFetchRemotePlugins": "Une erreur s'est produite lors de la requete des données plugins: {error}",
-      "pluginDisabled": "Plugin désactivé",
-      "pluginEnabled": "Plugin activé",
-    },
+    "plugins": Object {},
   },
 }
 `;
