@@ -173,7 +173,7 @@ html, body {
 
 /* headers for all cards */
 
-.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5, .inset-card h5 {
+.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5, .inset-card h5, .twin-cards-container h5 {
   background: #EEE;
   top:0;
   position: absolute;
@@ -211,7 +211,7 @@ html, body {
 }
 
 /* Dark theme color h5 */
-.pt-dark .auto-cards-container h5, .pt-dark .large-cards-container h5, .pt-dark .cards-container h5, .pt-dark .form-card h5 {
+.pt-dark .auto-cards-container h5, .pt-dark .large-cards-container h5, .pt-dark .cards-container h5, .pt-dark .form-card h5, .pt-dark .twin-cards-container h5 {
   background: #293742;
 }
 
