@@ -10,10 +10,23 @@ exports[`renders correctly 1`] = `
     >
       <button
         className="pt-button pt-intent-primary"
-        disabled={undefined}
         type="submit"
       >
-        Submit
+        <span>
+          Submit
+        </span>
+      </button>
+       
+      |
+       
+      <button
+        className="pt-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Cancel
+        </span>
       </button>
     </form>
   </div>

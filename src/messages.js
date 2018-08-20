@@ -36,7 +36,8 @@ export default {
         servers: "Servers",
         noServerFound:
           "You currently have no QU4RTET server in your configuration.",
-        version: "Version {appVersion}"
+        version: "Version {appVersion}",
+        desktopPluginTutorial: "QU4RTET Desktop Plugin Development Tutorial"
       },
       serverSettings: {
         serverSettings: "Server Settings",
@@ -130,7 +131,9 @@ export default {
         servers: "Serveurs",
         noServerFound:
           "Il n'y a aucun serveur QU4RTET dans votre configuration.",
-        version: "Version {appVersion}"
+        version: "Version {appVersion}",
+        desktopPluginTutorial:
+          "Tutoriel de développement de plugins QU4RTET Desktop"
       },
       serverSettings: {
         serverSettings: "Paramètres serveur",
@@ -163,7 +166,14 @@ export default {
         errorServerFetch:
           "Une erreur s'est produite lors de la demande des données initiales du serveur {serverName}. Veuillez vérifier vos paramètres et vos informations d'identification. {error}"
       },
-      plugins: {},
+      plugins: {
+        addPlugin: "Ajouter un plugin",
+        errorFetchRemotePlugins:
+          "Une erreur s'est produite lors de la requete des données plugins: {error}",
+        pluginEnabled: "Plugin activé",
+        pluginDisabled: "Plugin désactivé",
+        addPlugin: "Ajouter un plugin"
+      },
       common: {
         mainError:
           "Une erreur s'est produite pendant l'execution de cette action. {msg}",
@@ -193,12 +203,6 @@ export default {
           "Cette action annulera toutes les modifications apportées à ce formulaire."
       }
     },
-    plugins: {
-      addPlugin: "Ajouter un plugin",
-      errorFetchRemotePlugins:
-        "Une erreur s'est produite lors de la requete des données plugins: {error}",
-      pluginEnabled: "Plugin activé",
-      pluginDisabled: "Plugin désactivé"
-    }
+    plugins: {}
   }
 };
