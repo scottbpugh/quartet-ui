@@ -66,6 +66,63 @@ exports[`renders correctly a transaction event with most data 1`] = `
           </tr>
           <tr>
             <td>
+              <span>
+                EPC List
+              </span>
+            </td>
+            <td>
+              <div
+                className="scrollable-list-container"
+              >
+                <ul
+                  className="w4-list float"
+                >
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.4
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.5
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.3
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.1
+                    </span>
+                  </li>
+                  <li>
+                    <span
+                      className="pt-tag epc-item"
+                      onClick={[Function]}
+                    >
+                      urn:epc:id:sgtin:305555.0555555.2
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
                
               <span>
                 Quantity List
