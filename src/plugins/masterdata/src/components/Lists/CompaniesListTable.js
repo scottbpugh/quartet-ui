@@ -39,7 +39,7 @@ const CompanyEntry = props => {
   });
   const goToPayloadIfNoGeo = () => {
     if (!props.entry.longitude) {
-      goTo(`/masterdata/${props.server.serverID}/sgln/${props.entry.SGLN}`);
+      goToPayload();
     }
   };
   return (
