@@ -57,6 +57,10 @@ export default class extends Component {
   };
   render() {
     const {goTo, currentEntry, objectType, serverID} = this.props;
+    // fix for transactionEvent
+    let epcList =
+      currentEntry[objectType].epc_list || currentEntry[objectType].epcList;
+
     return (
       <div className="what">
         <div className="question-left">
@@ -113,7 +117,7 @@ export default class extends Component {
                   </td>
                 </tr>
               ) : null}
-              {currentEntry[objectType].epc_list ? (
+              {epcList ? (
                 <tr>
                   <td>
                     <FormattedMessage
@@ -124,7 +128,7 @@ export default class extends Component {
                   <td>
                     <div className="scrollable-list-container">
                       <ul className="w4-list float">
-                        {currentEntry[objectType].epc_list.map((epc, index) => {
+                        {epcList.map((epc, index) => {
                           return (
                             <li key={`${epc}-${index}`}>
                               <Tag
