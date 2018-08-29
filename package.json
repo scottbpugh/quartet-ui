@@ -2,7 +2,7 @@
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
   "description": "The Open-Source Level 4",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -108,7 +108,7 @@
   "build": {
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
-      "target": ["zip", "dmg"]
+      "target": ["zip"]
     },
     "win": {
       "publisherName": "Serial Lab",
