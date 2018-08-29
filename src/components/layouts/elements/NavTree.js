@@ -71,19 +71,25 @@ class Tree extends Component {
 class _NavTree extends Component {
   constructor(props) {
     super(props);
-    this.getTree(props);
+    this.state = {servers: [], navTreeItems: {}};
   }
   componentDidMount() {
-    this.tree = this.getTree(this.props);
+    this.updateNavTree(this.props);
   }
   componentWillReceiveProps(nextProps) {
-    this.tree = this.getTree(nextProps);
+    this.updateNavTree(nextProps);
+  }
+  updateNavTree(props) {
+    this.setState({
+      servers: pluginRegistry.getServers(),
+      navTreeItems: props.navTreeItems
+    });
   }
   getTree = props => {
-    let serverNodes = Object.keys(pluginRegistry._servers).map(serverID => {
+    let serverNodes = Object.keys(this.state.servers).map(serverID => {
       const server = pluginRegistry.getServer(serverID);
-      let children = props.navTreeItems
-        ? Object.keys(props.navTreeItems).map(componentName => {
+      let children = this.state.navTreeItems
+        ? Object.keys(this.state.navTreeItems).map(componentName => {
             let ComponentClass = pluginRegistry.getRegisteredComponent(
               componentName
             );
@@ -121,7 +127,7 @@ class _NavTree extends Component {
     return (
       <div className="tree-wrapper">
         <div style={{width: "100%"}}>
-          <Tree>{this.tree}</Tree>
+          <Tree>{this.getTree()}</Tree>
         </div>
       </div>
     );

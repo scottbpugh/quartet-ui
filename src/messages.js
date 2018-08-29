@@ -76,6 +76,9 @@ export default {
         accessDeniedTitle: "Access Denied",
         accessDeniedBlurb:
           "You do not have permissions to perform this action. Please reach out to your system administrator in order to gain access.",
+        screenErrorBoundaryTitle: "Error",
+        screenErrorBoundaryBlurb:
+          "An unrecoverable error occurred while loading this functionality. You will be redirected to the dashboard in 3 seconds.",
         entriesTotal: "{entriesCount} Entries Total",
         submit: "Submit",
         cancelSubmit: "Cancel",
@@ -200,7 +203,10 @@ export default {
         areYouSureNavigateAwayTitle:
           "Êtes-vous sûr de vouloir quitter ce formulaire?",
         areYouSureNavigateAwayBody:
-          "Cette action annulera toutes les modifications apportées à ce formulaire."
+          "Cette action annulera toutes les modifications apportées à ce formulaire.",
+        screenErrorBoundaryTitle: "Erreur",
+        screenErrorBoundaryBlurb:
+          "Une erreur irrécupérable s'est produite lors du chargement de cette fonctionnalité. Vous serez redirigé vers le tableau de bord dans 3 secondes."
       }
     },
     plugins: {}
