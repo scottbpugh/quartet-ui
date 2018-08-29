@@ -160,4 +160,3 @@ const App = connect(
   }
 )(_App);
 export default withRouter(injectIntl(App));
-window.qu4rtet.exports("components/App", this);
