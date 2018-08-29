@@ -44,8 +44,7 @@ class _LeftPanel extends Component {
             overflowX: "hidden",
             overflowY: "visible",
             whiteSpace: "nowrap"
-          }}
-        >
+          }}>
           {this.props.children}
         </div>
         {/* </div> */}
@@ -78,8 +77,8 @@ class _RightPanel extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      JSON.stringify(nextProps.title.props)
-      !== JSON.stringify(this.props.pageTitle)
+      JSON.stringify(nextProps.title.props) !==
+      JSON.stringify(this.props.pageTitle)
     ) {
       // formattedMessage props have changed.
       this.props.loadPageTitle({...nextProps.title.props});
@@ -89,9 +88,7 @@ class _RightPanel extends Component {
   render() {
     return (
       <div className="right-panel">
-        <div ref="rightPanel">
-          {this.props.children}
-        </div>
+        <div ref="rightPanel">{this.props.children}</div>
       </div>
     );
   }
@@ -126,11 +123,7 @@ class _Panels extends Component {
       }
       return child;
     });
-    return (
-      <div className="main-container">
-        {clonedChildren}
-      </div>
-    );
+    return <div className="main-container">{clonedChildren}</div>;
   }
 }
 
@@ -143,5 +136,3 @@ export const Panels = connect(
   },
   {loadPageTitle}
 )(_Panels);
-
-window.qu4rtet.exports("components/layouts/Panels", this);
