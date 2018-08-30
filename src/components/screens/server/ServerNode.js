@@ -57,10 +57,6 @@ class _ServerNode extends Component {
     this.props.deleteServer(this.props.server);
   };
   isCurrentServer = () => {
-    console.log(
-      this.props.server.serverID,
-      this.props.currentPath.includes(this.props.server.serverID)
-    );
     if (this.props.currentPath.includes(this.props.server.serverID)) {
       return true;
     }

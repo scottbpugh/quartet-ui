@@ -36,6 +36,7 @@ class _AddEntry extends Component {
 
   render() {
     const editMode = !!this.props.entry;
+
     return (
       <RightPanel
         title={
@@ -44,8 +45,7 @@ class _AddEntry extends Component {
           ) : (
             <FormattedMessage id="plugins.epcis.editEntry" />
           )
-        }
-      >
+        }>
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>
@@ -61,7 +61,7 @@ class _AddEntry extends Component {
                 editMode ? "epcis_entries_update" : "epcis_entries_create"
               }
               objectName="entry"
-              redirectPath="/epcis"
+              redirectPath={`/epcis/entry-list/${this.props.server.serverID}`}
               djangoPath="epcis/entries"
               existingValues={this.props.entry || {}}
               parameters={this.props.entry ? {id: this.props.entry.id} : {}}
