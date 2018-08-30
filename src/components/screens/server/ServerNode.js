@@ -56,6 +56,16 @@ class _ServerNode extends Component {
     this.props.history.push("/");
     this.props.deleteServer(this.props.server);
   };
+  isCurrentServer = () => {
+    console.log(
+      this.props.server.serverID,
+      this.props.currentPath.includes(this.props.server.serverID)
+    );
+    if (this.props.currentPath.includes(this.props.server.serverID)) {
+      return true;
+    }
+    return false;
+  };
   render() {
     const {server, intl, childrenNodes, children} = this.props;
     return (
@@ -65,6 +75,7 @@ class _ServerNode extends Component {
         nodeType="server"
         depth={0}
         serverID={server.serverID}
+        parentActive={this.isCurrentServer()}
         path={`/server-details/${server.serverID}`}
         childrenNodes={childrenNodes ? childrenNodes : []}>
         {children}

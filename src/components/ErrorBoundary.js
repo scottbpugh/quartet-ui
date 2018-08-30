@@ -90,24 +90,13 @@ class _ScreenErrorBoundary extends Component {
               </h5>
               <div className="access-denied-blurb">
                 <FormattedMessage id="app.common.screenErrorBoundaryBlurb" />
-                <div
-                  className="button-shelf"
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    margin: "15px 0",
-                    justifyContent: "flex-end"
-                  }}>
+                <div className="button-shelf">
                   <button
                     onClick={this.takeMeBack}
-                    style={{alignSelf: "flex-end", margin: "0 0 0 10px"}}
                     className="pt-button pt-intent-primary">
                     <FormattedMessage id="app.common.takeMeBack" />
                   </button>
-                  <button
-                    onClick={this.copyErrorMessage}
-                    style={{alignSelf: "flex-end", margin: "0 0 0 10px"}}
-                    className="pt-button">
+                  <button onClick={this.copyErrorMessage} className="pt-button">
                     <FormattedMessage id="app.common.copyErrorMessage" />
                   </button>
                 </div>
