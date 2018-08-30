@@ -15,6 +15,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import {clipboard} from "electron";
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {FormattedMessage} from "react-intl";
@@ -24,21 +25,34 @@ import classNames from "classnames";
 import {NavTree} from "components/layouts/elements/NavTree";
 import {ControlPanel} from "components/layouts/elements/ControlPanel";
 import {LeftPanel, Panels, RightPanel} from "components/layouts/Panels";
+import {showMessage} from "lib/message";
 
 class _ScreenErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = {error: null, errorInfo: null};
   }
+  takeMeBack = () => {
+    this.props.history.push("/");
+    this.setState({error: null, errorInfo: null});
+  };
+  copyErrorMessage = () => {
+    clipboard.writeText(this.state.errorMessage);
+    showMessage({id: "app.common.messageCopiedToClipboard", type: "success"});
+  };
+  constructErrorFeedback = (error, errorInfo) => {
+    if (error.stack) {
+      return `${error.stack.toString()}`;
+    }
+    return `${error.toString()}`;
+  };
+
   componentDidCatch(error, errorInfo) {
     this.setState({
       error: error,
-      errorInfo: errorInfo
+      errorInfo: errorInfo,
+      errorMessage: this.constructErrorFeedback(error, errorInfo)
     });
-    setTimeout(() => {
-      this.props.history.push("/");
-      this.setState({error: null, errorInfo: null});
-    }, 3000);
   }
   render() {
     if (this.state.errorInfo) {
@@ -53,7 +67,7 @@ class _ScreenErrorBoundary extends Component {
             }>
             <div
               className={classNames({
-                "access-denied-contents": true,
+                "single-column-center-msg": true,
                 "pt-dark": this.props.theme && this.props.theme === "contrasted"
               })}>
               {this.props.theme &&
@@ -62,13 +76,13 @@ class _ScreenErrorBoundary extends Component {
                 <img
                   className="lock-animation dark-lock"
                   src="../svgs/quartet-lock.svg"
-                  width="60%"
+                  width="40%"
                 />
               ) : (
                 <img
                   className="lock-animation light-lock"
                   src="../svgs/quartet-lock-dark.svg"
-                  width="60%"
+                  width="40%"
                 />
               )}
               <h5 className="access-denied-title">
@@ -76,6 +90,30 @@ class _ScreenErrorBoundary extends Component {
               </h5>
               <div className="access-denied-blurb">
                 <FormattedMessage id="app.common.screenErrorBoundaryBlurb" />
+                <div
+                  className="button-shelf"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    margin: "15px 0",
+                    justifyContent: "flex-end"
+                  }}>
+                  <button
+                    onClick={this.takeMeBack}
+                    style={{alignSelf: "flex-end", margin: "0 0 0 10px"}}
+                    className="pt-button pt-intent-primary">
+                    <FormattedMessage id="app.common.takeMeBack" />
+                  </button>
+                  <button
+                    onClick={this.copyErrorMessage}
+                    style={{alignSelf: "flex-end", margin: "0 0 0 10px"}}
+                    className="pt-button">
+                    <FormattedMessage id="app.common.copyErrorMessage" />
+                  </button>
+                </div>
+                <pre style={{whiteSpace: "pre-wrap"}}>
+                  {this.state.errorMessage}
+                </pre>
               </div>
             </div>
           </RightPanel>

@@ -364,3 +364,14 @@ html, body {
 .data-pair-table tr td {
   padding-bottom:10px;
 }
+
+.button-shelf {
+
+}
+.single-column-center-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15% 0;
+}
