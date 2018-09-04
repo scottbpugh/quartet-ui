@@ -243,6 +243,10 @@ class PluginRegistry {
     }
   }
 
+  getServers() {
+    return this._servers;
+  }
+
   registerCss(pluginName, cssString) {
     if (!this._registeredCss[pluginName]) {
       this._registeredCss[pluginName] = [injectCss(cssString)];

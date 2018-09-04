@@ -44,8 +44,7 @@ class _AddEvent extends Component {
           ) : (
             <FormattedMessage id="plugins.epcis.editEvent" />
           )
-        }
-      >
+        }>
         <div className="large-cards-container">
           <Card className="form-card">
             <h5>
@@ -61,7 +60,7 @@ class _AddEvent extends Component {
                 editMode ? "epcis_events_update" : "epcis_events_create"
               }
               objectName="event"
-              redirectPath="/epcis"
+              redirectPath={`/epcis/event-list/${this.props.server.serverID}`}
               djangoPath="epcis/events"
               existingValues={this.props.event || {}}
               parameters={this.props.event ? {id: this.props.event.id} : {}}

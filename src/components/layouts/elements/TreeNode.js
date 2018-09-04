@@ -90,7 +90,10 @@ class _TreeNode extends Component {
             "tree-node-content": true,
             "tree-node-content-active": this.props.active || this.state.active,
             [`tree-node-depth-${this.props.depth}`]: true,
-            "tree-node-content-highlighted": this.state.highlightedNode
+            "tree-node-content-highlighted": this.state.highlightedNode,
+            "tree-node-parent-active":
+              this.props.parentActive &&
+              (!this.props.active && !this.state.active)
           })}>
           <a onClick={this.toggleChildren}>
             <span
@@ -131,6 +134,7 @@ TreeNode.propTypes = {
   onContextMenu: PropTypes.func,
   depth: PropTypes.number.isRequired,
   active: PropTypes.bool,
+  parentActive: PropTypes.bool,
   serverID: PropTypes.string,
   childrenNodes: PropTypes.arrayOf(PropTypes.element)
 };

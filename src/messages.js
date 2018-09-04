@@ -76,6 +76,9 @@ export default {
         accessDeniedTitle: "Access Denied",
         accessDeniedBlurb:
           "You do not have permissions to perform this action. Please reach out to your system administrator in order to gain access.",
+        screenErrorBoundaryTitle: "Error",
+        screenErrorBoundaryBlurb:
+          "An unrecoverable error occurred while loading this functionality. You may copy this error message and report it at gitlab.com/serial-lab/quartet-ui to get support. Click on the Take me back button to get back to the dashboard.",
         entriesTotal: "{entriesCount} Entries Total",
         submit: "Submit",
         cancelSubmit: "Cancel",
@@ -99,7 +102,9 @@ export default {
         areYouSureNavigateAwayTitle:
           "Are you sure you want to leave this form?",
         areYouSureNavigateAwayBody:
-          "This will discard all changes made to this form."
+          "This will discard all changes made to this form.",
+        copyErrorMessage: "Copy Error to Clipboard",
+        messageCopiedToClipboard: "Error copied to clipboard successfully."
       },
       plugins: {
         addPlugin: "Add a Plugin",
@@ -157,6 +162,7 @@ export default {
         userCreated: "L'utilisateur {username} a été créé avec succès.",
         userVerified: "Compte d'utilisateur confirmé.",
         deleteServer: "Retirer le server",
+        serverDetails: "Détails du serveur",
         noServerMsg:
           "Aucun serveur disponible dans cette configuration. Veuillez cliquer sur l'icone + au dessus pour ajouter un nouveau serveur.",
         deleteServerConfirm:
@@ -200,7 +206,12 @@ export default {
         areYouSureNavigateAwayTitle:
           "Êtes-vous sûr de vouloir quitter ce formulaire?",
         areYouSureNavigateAwayBody:
-          "Cette action annulera toutes les modifications apportées à ce formulaire."
+          "Cette action annulera toutes les modifications apportées à ce formulaire.",
+        screenErrorBoundaryTitle: "Erreur",
+        screenErrorBoundaryBlurb:
+          "Une erreur irrécupérable s'est produite lors du chargement de cette fonctionnalité. Vous pouvez copier ce message d'erreur et le signaler à gitlab.com/serial-lab/quartet-ui pour obtenir de l'aide. Cliquez sur le bouton Retourner pour revenir au tableau de bord.",
+        copyErrorMessage: "Copier l'érreur",
+        messageCopiedToClipboard: "Érreur copiée dans le bloc-notes."
       }
     },
     plugins: {}
