@@ -41,6 +41,7 @@ import {Server} from "lib/servers";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {injectIntl} from "react-intl";
 import QuartetLogo from "./QuartetLogo";
+import {ScreenErrorBoundary} from "./ErrorBoundary";
 
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
@@ -128,14 +129,16 @@ class _App extends Component {
         </header>
 
         <div className="wrapper">
-          <Panels>
-            <LeftPanel key="leftpanel">
-              <ControlPanel />
-              {/* Important not to rerender this component on router changes. */}
-              <NavTree />
-            </LeftPanel>
-            {this.props.children}
-          </Panels>
+          <ScreenErrorBoundary history={this.props.history}>
+            <Panels>
+              <LeftPanel key="leftpanel">
+                <ControlPanel />
+                {/* Important not to rerender this component on router changes. */}
+                <NavTree />
+              </LeftPanel>
+              {this.props.children}
+            </Panels>
+          </ScreenErrorBoundary>
         </div>
       </div>
     );
