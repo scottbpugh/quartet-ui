@@ -364,3 +364,21 @@ html, body {
 .data-pair-table tr td {
   padding-bottom:10px;
 }
+
+.button-shelf {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+  justify-content: flex-end;
+}
+.button-shelf button {
+  align-self: flex-end;
+  margin: 0 0 0 10px;
+}
+.single-column-center-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15% 0;
+}

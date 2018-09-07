@@ -344,7 +344,8 @@ export default class extends Component {
                   </td>
                 </tr>
               ) : null}
-              {currentEntry[objectType].quantityList ? (
+              {currentEntry[objectType].quantityList &&
+              Array.isArray(currentEntry[objectType].quantityList) ? (
                 <tr>
                   <td>
                     {" "}

@@ -146,13 +146,11 @@ class _TaskDetail extends Component {
             <Card className="pt-elevation-4">
               <h5>
                 {task.name}
-                {!["FINISHED", "RUNNING", "WAITING"].includes(task.status) ? (
-                  <button
-                    onClick={this.toggleConfirmRestart}
-                    className="pt-button right-aligned-elem pt-interactive pt-intent-primary">
-                    <FormattedMessage id="plugins.capture.restart" />
-                  </button>
-                ) : null}
+                <button
+                  onClick={this.toggleConfirmRestart}
+                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary">
+                  <FormattedMessage id="plugins.capture.restart" />
+                </button>
               </h5>
               <ConfirmDialog
                 isOpen={this.state.confirmOpened}

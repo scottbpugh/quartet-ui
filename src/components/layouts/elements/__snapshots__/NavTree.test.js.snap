@@ -14,7 +14,15 @@ exports[`renders correctly 1`] = `
     >
       <ul
         className="tree-root"
-      />
+      >
+        <div
+          className="pt-callout pt-icon-info-sign no-server-info"
+        >
+          <span>
+            You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server.
+          </span>
+        </div>
+      </ul>
     </div>
   </div>
 </div>
