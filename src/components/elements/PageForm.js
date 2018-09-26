@@ -37,7 +37,7 @@ export class _PageForm extends Component {
     parameters: PropTypes.object,
     server: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-    existingValue: PropTypes.object,
+    existingValues: PropTypes.object,
     fieldElements: PropTypes.object
   };
   constructor(props) {
