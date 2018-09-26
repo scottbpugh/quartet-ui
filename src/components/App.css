@@ -234,7 +234,7 @@ html, body {
   margin:30px;
   position:relative;
   padding-top: 60px;
-  min-width:60%;
+  min-width:80%;
 }
 
 .no-header > * {

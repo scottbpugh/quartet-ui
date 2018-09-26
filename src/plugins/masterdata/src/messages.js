@@ -36,7 +36,8 @@ const defaultLocaleMsg = {
     deleteTradeItemConfirm: "Are you sure you want to delete this trade item?",
     deleteTradeItemConfirmBody: "This will delete this trade item permanently.",
     addLocationIdentifier: "Add an Identifier",
-    addLocationField: "Add a Field"
+    addLocationField: "Add a Field",
+    editTradeItemField: "Edit Trade Item Field"
   }
 };
 
