@@ -179,7 +179,9 @@ export default handleActions(
   {
     [actions.loadRules]: (state, action) => {
       return setServerState(state, action.payload.serverID, {
-        rules: action.payload.rules
+        rules: action.payload.rules,
+        count: action.payload.rules.length || 0,
+        next: null
       });
     },
     [actions.loadTasks]: (state, action) => {
