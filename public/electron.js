@@ -52,7 +52,8 @@ function setAppMenu() {
     {type: "separator"},
     {role: "togglefullscreen"}
   ];
-  if (isDev) {
+  if (isDev || process.env.REACT_DEV === "dev") {
+    console.log("Enabling Dev Tools");
     viewArray.push({type: "separator"});
     viewArray.push({role: "toggledevtools"});
   }
@@ -121,9 +122,10 @@ async function createWindow() {
     credManagement.setCredentialEvents(mainWindow);
     // and load the index.html of the app.
     mainWindow.loadURL("file://" + __dirname + "/build/index.html");
-    // Open the DevTools.
-    //mainWindow.webContents.openDevTools();
-
+    if (process.env.REACT_DEV === "dev") {
+      // Open the DevTools.
+      mainWindow.webContents.openDevTools();
+    }
     mainWindow.webContents.on("will-navigate", evt => {
       console.log("no navigation allowed.");
       evt.preventDefault();
