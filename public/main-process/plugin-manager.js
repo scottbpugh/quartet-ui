@@ -40,12 +40,12 @@ let pluginRepoPath =
   "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json";
 const isDev = require("electron-is-dev");
 
-if (isDev) {
+if (isDev || process.env.REACT_DEV === "dev") {
   // use the develop version of plugins.json.
   pluginRepoPath =
     "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
 }
-
+console.log("Using " + pluginRepoPath + " as remote.");
 exports.getPlugins = function(readyCallback, timeout) {
   if (!readyCallback) {
     // stub if callback isn't passed.
@@ -116,26 +116,43 @@ var isPluginInstalled = pluginEntry => {
   }
 };
 
-exports.install = async function(pluginEntry) {
+var install = (exports.install = async function(pluginEntry) {
   try {
     let pluginList = require(PLUGINS_LIST_PATH);
     let version = isPluginInstalled(pluginEntry); // version if true, false if not installed.
 
     console.log(
-      "plugin",
+      "plugin ",
       pluginEntry.pluginName,
-      "already installed",
+      " | ",
       "list version",
       pluginList[pluginEntry.pluginName].version,
+      " | ",
       "redux version",
       pluginEntry.version,
-      "actual version",
+      " | ",
+      "actual version (false if not installed)",
       version
     );
     if (version === pluginList[pluginEntry.pluginName].version) {
       // this is already the latest version, don't DDOS NPM
       console.log("Not reinstalling");
       return await manager.createPluginInfo(pluginEntry.pluginName);
+    }
+    if (pluginList[pluginEntry.pluginName].dependencies) {
+      // install dependencies.
+      for (dependency of pluginList[pluginEntry.pluginName].dependencies) {
+        if (pluginList[dependency]) {
+          console.log("attempting install of plugin dependency", dependency);
+          await install(pluginList[dependency]);
+        } else {
+          console.log(
+            "Dependency ",
+            dependency,
+            "was not found in plugin list."
+          );
+        }
+      }
     }
     console.log(
       "Installing plugin",
@@ -156,7 +173,7 @@ exports.install = async function(pluginEntry) {
   } catch (e) {
     console.log(e);
   }
-};
+});
 
 var validJSONFile = () => {
   try {

@@ -1,16 +1,4 @@
 {
-  "quartet-ui-number-range": {
-    "core": true,
-    "preview": "",
-    "initPath": "lib/init.js",
-    "readableName": "Serial Number Range Management",
-    "pluginName": "quartet-ui-number-range",
-    "packagePath": "quartet-ui-number-range",
-    "version": "1.0.3",
-    "description":
-      "\n                The Serial Number Range Management plugin offers users the\n                ability to interact with SerialBox, the backend solution for\n                your serial number range management requirements.\n\n                Among other functions, this plugin offers the ability to create\n                pools and serial number ranges as well as allocate numbers on\n                the fly from the QU4RTET interface.\n            ",
-    "enabled": true
-  },
   "quartet-ui-output": {
     "core": true,
     "preview": "",
@@ -18,9 +6,44 @@
     "readableName": "Output",
     "pluginName": "quartet-ui-output",
     "packagePath": "quartet-ui-output",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "description":
       "User Interface for the Output Rules and logic for QU4RTET supply chain messaging.",
+    "enabled": true
+  },
+  "quartet-ui-plugin-fda": {
+    "core": false,
+    "preview": "",
+    "initPath": "lib/init.js",
+    "readableName": "FDA Lookup Plugin",
+    "pluginName": "quartet-ui-plugin-fda",
+    "packagePath": "quartet-ui-plugin-fda",
+    "version": "0.0.9",
+    "description":
+      "Interface to lookup the OpenFDA API searching by NDC, manufacturer, brand or generic drug names",
+    "enabled": true
+  },
+  "quartet-ui-templates": {
+    "core": false,
+    "preview": "",
+    "initPath": "lib/init.js",
+    "readableName": "QU4RTET Templates",
+    "pluginName": "quartet-ui-templates",
+    "packagePath": "quartet-ui-templates",
+    "version": "1.0.1",
+    "description":
+      "Create and manage QU4RTET templates from the user interface",
+    "enabled": true
+  },
+  "quartet-ui-gtin-calculator": {
+    "core": false,
+    "preview": "",
+    "initPath": "lib/init.js",
+    "readableName": "GTIN Calculator Plugin",
+    "pluginName": "quartet-ui-gtin-calculator",
+    "packagePath": "quartet-ui-gtin-calculator",
+    "version": "0.0.1",
+    "description": "Calculate full GTIN numbers based on NDC codes",
     "enabled": true
   },
   "quartet-ui-users": {
@@ -30,20 +53,9 @@
     "readableName": "User Management",
     "pluginName": "quartet-ui-users",
     "packagePath": "quartet-ui-users",
-    "version": "1.0.6",
+    "version": "1.0.9",
     "description": "Interface to manage users, groups, and permissions.",
     "enabled": true
-  },
-  "quartet-ui-developer": {
-    "core": false,
-    "preview": "",
-    "initPath": "lib/init.js",
-    "readableName": "Developer Tools",
-    "pluginName": "quartet-ui-developer",
-    "packagePath": "quartet-ui-developer",
-    "version": "1.0.2",
-    "description": "Developer tools, in active development.",
-    "enabled": false
   },
   "Capture": {
     "core": true,
@@ -74,5 +86,19 @@
     "description":
       "\n              The interface plugin to handle material, lot and location master data.\n            ",
     "enabled": true
+  },
+  "quartet-ui-number-range": {
+    "core": true,
+    "preview": "",
+    "initPath": "lib/init.js",
+    "readableName": "Serial Number Range Management",
+    "pluginName": "quartet-ui-number-range",
+    "packagePath": "quartet-ui-number-range",
+    "version": "1.0.10",
+    "dependencies": ["Capture", "quartet-ui-templates", "quartet-ui-output"],
+    "description":
+      "\n                The Serial Number Range Management plugin offers users the\n                ability to interact with SerialBox, the backend solution for\n                your serial number range management requirements.\n\n                Among other functions, this plugin offers the ability to create\n                pools and serial number ranges as well as allocate numbers on\n                the fly from the QU4RTET interface.\n            ",
+    "enabled": true
   }
 }
+
