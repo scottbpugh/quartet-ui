@@ -40,12 +40,12 @@ let pluginRepoPath =
   "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/master/plugins.json";
 const isDev = require("electron-is-dev");
 
-if (isDev) {
+if (isDev || process.env.REACT_DEV) {
   // use the develop version of plugins.json.
   pluginRepoPath =
     "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
 }
-
+console.log("Using " + pluginRepoPath + " as remote.");
 exports.getPlugins = function(readyCallback, timeout) {
   if (!readyCallback) {
     // stub if callback isn't passed.
