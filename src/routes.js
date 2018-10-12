@@ -15,6 +15,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import stringHash from "string-hash";
 import React, {Component} from "react";
 import {Switch, Route} from "react-router";
 import {withRouter} from "react-router-dom";
@@ -58,13 +59,48 @@ class _RouteSwitcher extends Component {
     super(props);
     this.routes = coreRoutes();
     this.processingPlugins = false;
+    this.queueProcessPlugins = null;
+    //this.processCallsCount = 0;
+    this.previousComponentsCount = 0;
   }
 
   processPlugins() {
+    if (!this.queueProcessPlugins) {
+      this.props.dispatch(updateMessages(this.props.intl.locale));
+    }
+    if (this.queueProcessPlugins) {
+      window.clearTimeout(this.queueProcessPlugins);
+    }
+    const pluginComponents = pluginRegistry.getRegisteredComponents();
+    const disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
+    // Compare whether this is a component disable or enable.
+    if (Object.keys(pluginComponents).length < this.previousComponentsCount) {
+      this.previousComponentsCount = Object.keys(pluginComponents).length;
+      this._processPlugins();
+      return;
+    }
+    // for enabling, we can stack execution and prevent other executions in parallel.
+    this.previousComponentsCount = Object.keys(pluginComponents).length;
+    // delayed call for enabling, to prevent massive
+    // loops in plugin processing (for large number of plugins.)
+    this.queueProcessPlugins = window.setTimeout(
+      this._processPlugins.bind(this),
+      500
+    );
+  }
+  _processPlugins() {
     // add new routes
     this.routes = coreRoutes().concat(pluginRegistry.getArrayRoutes());
-    // add new components.
     const pluginComponents = pluginRegistry.getRegisteredComponents();
+    const disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
+    /*console.log(
+      "processPlugins called with",
+      this.routes.length,
+      " routes, call number",
+      ++this.processCallsCount
+    );*/
+    // add new components.
+
     for (const pluginComponentName in pluginComponents) {
       const entry = pluginComponents[pluginComponentName];
       this.props.dispatch({
@@ -76,8 +112,7 @@ class _RouteSwitcher extends Component {
       });
     }
     this.props.dispatch(updateMessages(this.props.intl.locale));
-    // remove unregistered componments.
-    const disabledPluginComponents = pluginRegistry.getUnregisteredComponents();
+    // remove unregistered components.
     for (const pluginComponentName in disabledPluginComponents) {
       const entry = disabledPluginComponents[pluginComponentName];
       this.props.dispatch({
