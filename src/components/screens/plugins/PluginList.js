@@ -18,7 +18,7 @@
 
 import React, {Component} from "react";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Button} from "@blueprintjs/core";
+import {Card, Button, Tag} from "@blueprintjs/core";
 import {
   setEnablePlugin,
   setDisablePlugin,
@@ -29,6 +29,16 @@ import "./PluginList.css";
 import {updateMessages} from "reducers/locales";
 
 class Plugin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {runtimeVersion: this.getVersionIfInstalled()};
+  }
+  componentDidMount() {
+    this.setState({runtimeVersion: this.getVersionIfInstalled()});
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({runtimeVersion: this.getVersionIfInstalled()});
+  }
   handleEnable = async evt => {
     let pluginModule = await window.qu4rtet.getPluginModule(
       this.props.pluginEntry
@@ -38,6 +48,20 @@ class Plugin extends Component {
       [this.props.pluginName]: {...this.props.pluginEntry}
     });
     this.props.updateMessages(this.props.locale);
+  };
+  getVersionIfInstalled = () => {
+    try {
+      if (this.props.pluginEntry.packagePath) {
+        return qu4rtet.require(
+          `${qu4rtet.pluginPath}/${
+            this.props.pluginEntry.packagePath
+          }/package.json`
+        ).version;
+      }
+    } catch (e) {
+      // we don't care if it's not available.
+      return null;
+    }
   };
   handleDisable = async evt => {
     let pluginModule = await window.qu4rtet.getPluginModule(
@@ -77,17 +101,21 @@ class Plugin extends Component {
             </Button>
           )}
         </h5>
-
-        <div className="pt-callout pt-intent-primary pt-callout-plugin">
-          {this.props.pluginEntry.preview ? (
-            <img
-              className="plugin-screenshot"
-              src={this.props.pluginEntry.preview}
-              title={this.props.pluginEntry.readableName}
-              alt={this.props.pluginEntry.readableName}
-            />
+        <div>
+          {this.state.runtimeVersion ? (
+            <Tag>{`version ${this.state.runtimeVersion}`}</Tag>
           ) : null}
-          <p>{this.props.pluginEntry.description}</p>
+          <div className="pt-callout pt-intent-primary pt-callout-plugin">
+            {this.props.pluginEntry.preview ? (
+              <img
+                className="plugin-screenshot"
+                src={this.props.pluginEntry.preview}
+                title={this.props.pluginEntry.readableName}
+                alt={this.props.pluginEntry.readableName}
+              />
+            ) : null}
+            <p>{this.props.pluginEntry.description}</p>
+          </div>
         </div>
       </Card>
     );

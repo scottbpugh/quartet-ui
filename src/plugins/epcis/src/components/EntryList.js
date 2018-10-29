@@ -37,8 +37,8 @@ const EntryTableHeader = props => (
       </th>
       <th>
         <FormattedMessage
-          id="plugins.epcis.entryUUID"
-          defaultMessage="Entry UUID"
+          id="plugins.epcis.lastKnownDisposition"
+          defaultMessage="Last Known Disposition"
         />
       </th>
     </tr>
@@ -60,7 +60,7 @@ const EntryEntry = props => {
       )}
       key={props.entry.id}>
       <td>{props.entry.identifier}</td>
-      <td>{props.entry.id}</td>
+      <td>{props.entry.last_disposition}</td>
     </tr>
   );
 };
