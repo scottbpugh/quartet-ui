@@ -24,11 +24,11 @@ import PropTypes from "prop-types";
 
 export class DeleteObject extends Component {
   static propTypes = {
-    entry: PropTypes.object.required,
-    server: PropTypes.object.required,
-    title: PropTypes.element.required,
-    body: PropTypes.element.required,
-    operationId: PropTypes.string.required,
+    entry: PropTypes.object.isRequired,
+    server: PropTypes.object.isRequired,
+    title: PropTypes.element.isRequired,
+    body: PropTypes.element.isRequired,
+    operationId: PropTypes.string.isRequired,
     postDeleteAction: PropTypes.func
   };
   constructor(props) {

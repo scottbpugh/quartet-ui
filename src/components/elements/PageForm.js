@@ -134,7 +134,7 @@ export class _PageForm extends Component {
       });
       if (submitCallback) {
         // execute post submit logic...
-        submitCallback();
+        submitCallback(result);
       }
       if (result.status === 201) {
         showMessage({

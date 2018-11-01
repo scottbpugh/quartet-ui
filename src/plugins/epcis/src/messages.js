@@ -62,7 +62,8 @@ const defaultLocaleMsg = {
     why: "Why",
     when: "When",
     objectEvent: "Object Event",
-    entryList: "Entries"
+    entryList: "Entries",
+    lastKnownDisposition: "Last Known Disposition"
   }
 };
 
@@ -112,7 +113,9 @@ const french = {
   errorLoadingEvents:
     "Une erreur s'est produite lors du chargement des événements de ce serveur. {error}",
   errorLoadingEntryGeo:
-    "Une erreur s'est produite lors du chargement des données géographiques liées à cettre entrée. {error}"
+  "Une erreur s'est produite lors du chargement des données géographiques liées à cettre entrée. {error}",
+  lastKnownDisposition: "Dernière disposition",
+  entryIdentifier: "Identifiant"
 };
 
 export default {
