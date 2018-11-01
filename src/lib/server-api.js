@@ -223,7 +223,12 @@ export const fetchListAll = async (
                   const url = new URL(response.body.next);
                   const page = new URLSearchParams(url.search).get("page");
                   const subParameters = {...parameters, page};
-                  fetchListAll(operationId, subParameters, results)
+                  fetchListAll(
+                    serverInstance,
+                    operationId,
+                    subParameters,
+                    results
+                  )
                     .then(resolve)
                     .catch(reject);
                 } else {
