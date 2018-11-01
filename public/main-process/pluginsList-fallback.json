@@ -18,7 +18,7 @@
     "readableName": "FDA Lookup Plugin",
     "pluginName": "quartet-ui-plugin-fda",
     "packagePath": "quartet-ui-plugin-fda",
-    "version": "0.0.9",
+    "version": "1.0.0",
     "description":
       "Interface to lookup the OpenFDA API searching by NDC, manufacturer, brand or generic drug names",
     "enabled": true
@@ -94,10 +94,11 @@
     "readableName": "Serial Number Range Management",
     "pluginName": "quartet-ui-number-range",
     "packagePath": "quartet-ui-number-range",
-    "version": "1.0.10",
+    "version": "1.0.15",
     "dependencies": ["Capture", "quartet-ui-templates", "quartet-ui-output"],
     "description":
       "\n                The Serial Number Range Management plugin offers users the\n                ability to interact with SerialBox, the backend solution for\n                your serial number range management requirements.\n\n                Among other functions, this plugin offers the ability to create\n                pools and serial number ranges as well as allocate numbers on\n                the fly from the QU4RTET interface.\n            ",
     "enabled": true
   }
 }
+
