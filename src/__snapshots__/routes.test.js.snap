@@ -91,37 +91,27 @@ exports[`returns main 1`] = `
               <option
                 value="light"
               >
-                <span>
-                  Light Theme
-                </span>
+                Light Theme
               </option>
               <option
                 value="dark"
               >
-                <span>
-                  Dark Theme
-                </span>
+                Dark Theme
               </option>
               <option
                 value="contrasted"
               >
-                <span>
-                  Contrasted Theme
-                </span>
+                Contrasted Theme
               </option>
               <option
                 value="dark-brown"
               >
-                <span>
-                  Dark Brown Theme
-                </span>
+                Dark Brown Theme
               </option>
               <option
                 value="polar"
               >
-                <span>
-                  Polar Theme
-                </span>
+                Polar Theme
               </option>
             </select>
           </div>
@@ -182,7 +172,7 @@ exports[`returns main 1`] = `
                 <div>
                   <button
                     className="pt-button pt-icon-arrow-left"
-                    disabled={false}
+                    disabled={true}
                     onClick={[Function]}
                     tabIndex="0"
                     title="Back"

@@ -20,6 +20,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {switchTheme} from "reducers/layout";
 import {FormattedMessage} from "react-intl";
+import {pluginRegistry} from "plugins/pluginRegistration";
 
 const themes = [
   {msgId: "app.themes.lightTheme", name: "Light Theme", id: "light"},
@@ -47,7 +48,9 @@ class _SwitchTheme extends Component {
           onChange={e => this.props.switchTheme(e.target.value)}>
           {themes.map(theme => (
             <option key={theme.id} value={theme.id}>
-              <FormattedMessage id={theme.msgId} defaultMessage={theme.name} />
+              {pluginRegistry
+                .getIntl()
+                .formatMessage({id: theme.msgId, defaultMessage: theme.name})}
             </option>
           ))}
         </select>
@@ -57,7 +60,11 @@ class _SwitchTheme extends Component {
 }
 
 export const SwitchTheme = connect(
-  state => ({currentTheme: state.layout.theme, locale: state.intl.locale}),
+  state => ({
+    currentTheme: state.layout.theme,
+    locale: state.intl.locale,
+    messages: state.intl.messages
+  }),
   {switchTheme}
 )(_SwitchTheme);
 
