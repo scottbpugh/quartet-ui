@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {Card, Callout, Button, Tag, Intent} from "@blueprintjs/core";
+import {Card, Callout, Button, Tag, Intent, Icon} from "@blueprintjs/core";
 import {connect} from "react-redux";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import objectPath from "object-path";
@@ -41,22 +41,39 @@ const yieldDataPairRowIfSet = (key, value) => {
 class _TaskDetail extends Component {
   constructor(props) {
     super(props);
+    let task =
+      this.props.tasks.find(task => {
+        return task.name === this.props.match.params.taskName;
+      }) || null;
     this.state = {
-      task:
-        this.props.tasks.find(task => {
-          return task.name === this.props.match.params.taskName;
-        }) || null,
-      confirmOpened: false
+      task: task,
+      confirmOpened: false,
+      downloadLink: ""
     };
     this.autoRefresh = null;
   }
-
+  setDownloadLink = async () => {
+    let serverObject = await pluginRegistry.getServer(this.props.server);
+    let client = await serverObject.getClient();
+    try {
+      if (typeof client.apis.capture.capture_task_data_read === "function") {
+        this.setState({
+          downloadLink: `${serverObject.url}capture/task-data/${
+            this.state.task.name
+          }/`
+        });
+      }
+    } catch (e) {
+      // just leave the downloadLink empty if any ancestor of capture_task_data_read is undefined.
+    }
+  };
   componentDidMount() {
     if (this.state.task && this.state.task.status !== "FINISHED") {
       this.autoRefresh = window.setInterval(() => {
         this.refetchTask();
-      }, 5000);
+      }, 10000);
     }
+    this.setDownloadLink();
   }
   componentWillUnmount() {
     if (this.autoRefresh) {
@@ -139,6 +156,7 @@ class _TaskDetail extends Component {
       default:
         intent = Intent.PRIMARY;
     }
+    let linkColor = this.props.theme.startsWith("dark") ? "#CCC" : "#555";
     return (
       <RightPanel title={<FormattedMessage id="plugins.capture.taskDetail" />}>
         {task ? (
@@ -146,6 +164,17 @@ class _TaskDetail extends Component {
             <Card className="pt-elevation-4">
               <h5>
                 {task.name}
+                {this.state.downloadLink ? (
+                  <a
+                    style={{color: linkColor, paddingLeft: "10px"}}
+                    href={this.state.downloadLink}
+                    target="_blank">
+                    <Icon
+                      disabled={this.state.downloadLink ? false : true}
+                      iconName="pt-icon-cloud-download"
+                    />
+                  </a>
+                ) : null}
                 <button
                   onClick={this.toggleConfirmRestart}
                   className="pt-button right-aligned-elem pt-interactive pt-intent-primary">
@@ -252,6 +281,7 @@ export const TaskDetail = connect((state, ownProps) => {
       state,
       ["capture", "servers", ownProps.match.params.serverID, "tasks"],
       []
-    )
+    ),
+    theme: state.layout.theme
   };
 })(_TaskDetail);
