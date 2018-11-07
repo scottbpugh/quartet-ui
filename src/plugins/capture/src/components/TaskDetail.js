@@ -45,6 +45,7 @@ class _TaskDetail extends Component {
       this.props.tasks.find(task => {
         return task.name === this.props.match.params.taskName;
       }) || null;
+
     this.state = {
       task: task,
       confirmOpened: false,
@@ -219,6 +220,39 @@ class _TaskDetail extends Component {
             ) : (
               <Card className="pt-elevation-4" />
             )}
+            {task.taskhistory_set &&
+            Array.isArray(task.taskhistory_set) &&
+            task.taskhistory_set.length > 0 ? (
+              <Card className="pt-elevation-4">
+                <h5>Task History</h5>
+
+                <div>
+                  <table className="pt-table pt-bordered pt-striped">
+                    <thead>
+                      <tr>
+                        <td>Created</td>
+                        <td>Modified</td>
+                        <td>Username</td>
+                        <td>Email</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {" "}
+                      {task.taskhistory_set.map(history => {
+                        return (
+                          <tr>
+                            <th>{history.created}</th>
+                            <th>{history.modified}</th>
+                            <th>{history.user.username}</th>
+                            <th>{history.user.email}</th>
+                          </tr>
+                        );
+                      })}{" "}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+            ) : null}
             <Card className="task-messages pt-elevation-4">
               <h5>Messages</h5>
               {task.taskmessage_set.map((message, index) => {
@@ -284,4 +318,4 @@ export const TaskDetail = connect((state, ownProps) => {
     ),
     theme: state.layout.theme
   };
-})(_TaskDetail);
+}, {})(_TaskDetail);
