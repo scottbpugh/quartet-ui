@@ -116,7 +116,9 @@ class _NavPluginRoot extends Component {
                       onChange={this.ruleSelect.bind(this)}
                       value={this.state.rule ? this.state.rule.id : null}>
                       <option selected>
-                        <FormattedMessage id="plugins.capture.selectRule" />
+                        {pluginRegistry
+                          .getIntl()
+                          .formatMessage({id: "plugins.capture.selectRule"})}
                       </option>
                       {this.props.rules
                         ? this.props.rules.map(rule => {
