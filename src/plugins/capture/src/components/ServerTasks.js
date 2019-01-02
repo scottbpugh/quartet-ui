@@ -66,6 +66,13 @@ class _ServerTasks extends Component {
   updateSearch = evt => {
     this.setState({keywordSearch: evt.currentTarget.value});
   };
+
+  handleEnterKeySearch = evt => {
+    if (evt.key === "Enter") {
+      this.searchBy(evt);
+    }
+  };
+  
   // search by a field in the rows or all of them.
   searchBy = evt => {
      this.offset = 0;
@@ -184,6 +191,7 @@ class _ServerTasks extends Component {
                 <Button intent={Intent.PRIMARY} onClick={this.searchBy}>Search</Button>
                 <InputGroup
                   onChange={this.updateSearch}
+                  onKeyPress={this.handleEnterKeySearch}
                   value={this.state.keywordSearch}
                   placeholder="Enter Keywords..."
                 />
