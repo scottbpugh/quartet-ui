@@ -88,7 +88,7 @@ class _ServerTasks extends Component {
     this.processTasks();
     this.fetchTasks = setInterval(() => {
       this.processTasks();
-    }, 10000);
+    }, 30000);
   }
 
   componentWillUnmount() {
@@ -104,15 +104,20 @@ class _ServerTasks extends Component {
       maxPages = Math.ceil(nextProps.count / nextProps.tasks.length);
     }
     let tasks = [];
-    if (nextProps.tasks) {
-      tasks = nextProps.tasks.map(task => {
-        task.ruleObject = rules.find(rule => {
-          return Number(rule.id) === Number(task.rule);
+    if (nextProps.tasks && nextProps.tasks.length > 0) {
+      // only map task to rule name if task is an int.
+      if (typeof nextProps.tasks[0].rule === 'number') {
+        tasks = nextProps.tasks.map(task => {
+          task.ruleObject = rules.find(rule => {
+            return Number(rule.id) === Number(task.rule);
+          });
+          return task;
         });
-        return task;
-      });
+      } else {
+        // Rule already mapped from API. Do nothing.
+        tasks = nextProps.tasks;
+      }
     }
-
     this.setState({
       tasks: tasks,
       maxPages: maxPages
@@ -264,6 +269,7 @@ class _ServerTasks extends Component {
                           key={task.name}>
                           <td>
                             {task.rule ? task.rule.name : null}
+                            {task.ruleObject ? task.ruleObject.name : null}
                           </td>
                           <td>{task.name}</td>
                           <td>

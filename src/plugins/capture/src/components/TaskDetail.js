@@ -45,7 +45,10 @@ class _TaskDetail extends Component {
       this.props.tasks.find(task => {
         return task.name === this.props.match.params.taskName;
       }) || null;
-
+    if (typeof task.rule === 'object') {
+      // backward compatible.
+      task.ruleObject = task.rule;
+    }
     this.state = {
       task: task,
       confirmOpened: false,
@@ -95,6 +98,10 @@ class _TaskDetail extends Component {
         ) {
           // add rule detail from list.
           response.ruleObject = this.state.task.ruleObject;
+        } else if (
+          typeof this.state.task.rule === 'object'
+        ) {
+          response.ruleObject = this.state.task.rule;
         } else {
           let task =
             this.props.tasks.find(task => {
