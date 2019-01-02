@@ -63,22 +63,14 @@ class _ServerTasks extends Component {
     this.fetchTasks = null;
   }
 
-  // filter by a field in the rows.
-  filterBy = evt => {
-    this.setState({filter: evt.currentTarget.value}, () => {
-      this.offset = 0;
-      this.currentPage = 1;
-      this.processTasks();
-    });
+  updateSearch = evt => {
+    this.setState({keywordSearch: evt.currentTarget.value});
   };
-
   // search by a field in the rows or all of them.
   searchBy = evt => {
-    this.setState({keywordSearch: evt.currentTarget.value}, () => {
-      this.offset = 0;
-      this.currentPage = 1;
-      this.processTasks();
-    });
+     this.offset = 0;
+     this.currentPage = 1;
+     this.processTasks();
   };
 
   componentDidMount() {
@@ -88,7 +80,7 @@ class _ServerTasks extends Component {
     this.processTasks();
     this.fetchTasks = setInterval(() => {
       this.processTasks();
-    }, 10000);
+    }, 20000);
   }
 
   componentWillUnmount() {
@@ -104,15 +96,20 @@ class _ServerTasks extends Component {
       maxPages = Math.ceil(nextProps.count / nextProps.tasks.length);
     }
     let tasks = [];
-    if (nextProps.tasks) {
-      tasks = nextProps.tasks.map(task => {
-        task.ruleObject = rules.find(rule => {
-          return Number(rule.id) === Number(task.rule);
+    if (nextProps.tasks && nextProps.tasks.length > 0) {
+      // only map task to rule name if task is an int.
+      if (typeof nextProps.tasks[0].rule === 'number') {
+        tasks = nextProps.tasks.map(task => {
+          task.ruleObject = rules.find(rule => {
+            return Number(rule.id) === Number(task.rule);
+          });
+          return task;
         });
-        return task;
-      });
+      } else {
+        // Rule already mapped from API. Do nothing.
+        tasks = nextProps.tasks;
+      }
     }
-
     this.setState({
       tasks: tasks,
       maxPages: maxPages
@@ -184,13 +181,9 @@ class _ServerTasks extends Component {
             </div>
             <div>
               <ControlGroup fill={false} vertical={false}>
-                <div className="pt-select">
-                  <select value={this.state.filter}>
-                    <option value="">Search</option>
-                  </select>
-                </div>
+                <Button intent={Intent.PRIMARY} onClick={this.searchBy}>Search</Button>
                 <InputGroup
-                  onChange={this.searchBy}
+                  onChange={this.updateSearch}
                   value={this.state.keywordSearch}
                   placeholder="Enter Keywords..."
                 />
@@ -263,7 +256,8 @@ class _ServerTasks extends Component {
                           )}
                           key={task.name}>
                           <td>
-                            {task.rule ? task.rule.name : null}
+                            {typeof task.rule === 'object' ? task.rule.name : null}
+                            {task.ruleObject ? task.ruleObject.name : null}
                           </td>
                           <td>{task.name}</td>
                           <td>
