@@ -263,7 +263,7 @@ class _ServerTasks extends Component {
                           )}
                           key={task.name}>
                           <td>
-                            {task.ruleObject ? task.ruleObject.name : null}
+                            {task.rule ? task.rule.name : null}
                           </td>
                           <td>{task.name}</td>
                           <td>
