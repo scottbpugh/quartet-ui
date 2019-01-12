@@ -70,21 +70,20 @@ export const LeftPanel = connect(
  * @return {ReactElement} The right panel element.
  */
 class _RightPanel extends Component {
-  componentDidMount() {
-    // this.props.loadPageTitle(this.props.title.props.id);
-    this.props.loadPageTitle({...this.props.title.props});
-  }
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      JSON.stringify(nextProps.title.props) !==
-      JSON.stringify(this.props.pageTitle)
-    ) {
-      // formattedMessage props have changed.
-      this.props.loadPageTitle({...nextProps.title.props});
+  loadTitle() {
+    if (typeof this.props.title === "string") {
+      this.props.loadPageTitle({id: "plugins.unimplemented.noTitle", defaultMessage: this.props.title});
+    } else {
+      this.props.loadPageTitle({...this.props.title.props});
     }
   }
-
+  
+  componentDidMount() {
+    // this.props.loadPageTitle(this.props.title.props.id);
+    this.loadTitle(this.props.title);
+  }
+ 
   render() {
     return (
       <div className="right-panel">
