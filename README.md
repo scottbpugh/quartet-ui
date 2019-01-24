@@ -7,6 +7,8 @@
 
 For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://serial-lab.gitlab.io/quartet-ui/).
 
+For a guide on developing Qu4rtet UI plugins, please refer to [the Plugins Boilerplate Documentation.](https://gitlab.com/lduros/quartet-ui-plugins-boilerplate/blob/master/README.md)
+
 Run `yarn install` and `yarn start` to get started and spawn the Electron app (with React bootstrapped inside Electron.)
 This will spawn an Electron window, as well as the React app in Google Chrome browser on port 5000 by default.
 
@@ -48,7 +50,7 @@ The right panel is where the components for the main functionality for the scree
 
 #### Panels Layout
 
-A RightPanel component can be used as followed, by passing a title (in the form of a FormattedMessage from react-intl) and children elements:
+From a core plugin or core component, a RightPanel component is used as followed, by passing a title (in the form of a FormattedMessage from react-intl) and children elements:
 
     import {RightPanel} from "components/layouts/panels";
     import {FormattedMessage} from "react-intl";
@@ -204,29 +206,5 @@ You must pass the intl prop explicitely for items used in props.childrenNodes to
 
 ### Getting your plugin available in the PluginList component
 
-Currently, the list of plugins available is strictly offline and they are contained within the src/plugins/ directory of quartet-ui.
-Eventually, non-core plugins will be enabled and installed through npm or another package manager and the metadata on the plugins should be available through a remote server providing a list formatted in JSON for the plugins (after review and approval.)
-To add your core plugin to the list of plugins that can be installed, add an entry in the default export object of the src/plugins/plugin-repo.js file with the following key/value pairs:
-
-NumberRange: {
-core: true,
-preview: "/plugin-screenshots/number-range.png",
-initPath: "number-range/src/init.js",
-readableName: "Serial Number Range Management",
-pluginName: "NumberRange",
-description: `
-The Serial Number Range Management plugin offers users the
-ability to interact with SerialBox, the backend solution for
-your serial number range management requirements.
-
-                Among other functions, this plugin offers the ability to create
-                pools and serial number ranges as well as allocate numbers on
-                the fly from the QU4RTET interface.
-            `
-       }
-    };
-
-The plugin will then appear in the list of plugins that you can enable and disable from the <PluginList/> component.
-Clicking the Enable button will trigger enablePlugin function in init.js and plugin-specific actions from the core plugin reducer.
-The state of the plugin enabled is added to the redux store and saved persistently in the localstorage.
-Further restart of the app trigger the enablePlugin function from the custom init.js and adds the routes, reducer, and components registered there.
+Plugins that are ready for use by end-users should be submitted to the developer branch of the [quartet-ui-plugins repository](https://gitlab.com/serial-lab/quartet-ui-plugins/blob/develop/plugins.json). Plugins in the development branch become available to the developers who use the development version of Quartet-UI. Once a plugin is approved for a given version, its entry will be moved to the master branch.
+For actual plugin development and the injection of development code into the UI, please refer to the [Quartet Plugins Boilerplate Documentation](https://gitlab.com/lduros/quartet-ui-plugins-boilerplate/blob/master/README.md).

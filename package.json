@@ -2,7 +2,7 @@
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
   "description": "The Open-Source Level 4",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -74,6 +74,7 @@
     "babel-eslint": "^8.2.6",
     "babel-plugin-css-modules-transform": "^1.6.1",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-source-map-support": "^2.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -100,6 +101,7 @@
     "react-test-renderer": "^16.4.2",
     "redux-mock-store": "^1.5.3",
     "sinon": "^6.1.5",
+    "source-map-support": "^0.5.10",
     "version": "^0.1.2"
   },
   "build": {
