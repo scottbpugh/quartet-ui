@@ -38,4 +38,13 @@ any of the gitlab JSON files the fallback file will be utilized.
 If you are developing a plugin for QU4RTET UI and you wish to use the 
 UI *Developer Tools* that allow for hot-loading new plugins, you must
 run the UI from the development branch since the developer plugins
-are only defined in the development banch.
+are only defined in the development branch.
+
+## Plugin Distribution and Updates
+
+It is important to understand that any new plugins or new
+plugin versions **must** be maintained in the `quartet-ui-plugins`
+repository.  If you initiate a pull request for a plugin and/or
+add a new plugin, you must also submit a corresponding pull request
+for the update to the appropriate `quartet-ui-plugins/plugins.json` 
+file.  
