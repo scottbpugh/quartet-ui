@@ -6,5 +6,6 @@ pages:
     - Number Range: number-range.md
     - Rules: capture.md
     - EPCIS: epcis.md
+    - Build Notes For Maintainers: build.md
 theme: cinder
 repo_url: https://gitlab.com/serial-lab/quartet-ui

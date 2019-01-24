@@ -46,6 +46,7 @@ if (isDev || process.env.REACT_DEV === "dev") {
     "https://gitlab.com/serial-lab/quartet-ui-plugins/raw/develop/plugins.json";
 }
 console.log("Using " + pluginRepoPath + " as remote.");
+// ready callback is the removeSplashAndLoadApp function in electron.js
 exports.getPlugins = function(readyCallback, timeout) {
   if (!readyCallback) {
     // stub if callback isn't passed.
@@ -56,6 +57,7 @@ exports.getPlugins = function(readyCallback, timeout) {
   }
   try {
     backupPluginList();
+    //  get the plugin data from gitlab
     var request = https.get(pluginRepoPath, function(response) {
       try {
         if (response.statusCode < 200 || response.statusCode > 299) {
@@ -69,6 +71,7 @@ exports.getPlugins = function(readyCallback, timeout) {
           readyCallback();
           return;
         } else {
+          // write the file out
           var file = fs.createWriteStream(PLUGINS_LIST_PATH);
           response.pipe(file);
           readyCallback();
