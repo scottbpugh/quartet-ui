@@ -18,7 +18,7 @@
 import React from "react";
 import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
 import renderer from "react-test-renderer";
-import {TestWrapper} from "tools/mockStore";
+import { TestWrapper } from "tools/mockStore";
 import RouteSwitcher from "./routes";
 
 it("returns main", () => {

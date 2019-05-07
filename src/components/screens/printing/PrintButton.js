@@ -30,7 +30,7 @@ export class PrintButton extends Component {
             <div>
                 <button
                     onClick={e => {
-                        window.print();
+                         return window.print();
                     }}
                     tabIndex="1"
                     className="pt-button pt-icon-print"
