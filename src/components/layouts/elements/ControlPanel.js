@@ -75,6 +75,7 @@ export class _ControlPanel extends Component {
               "pt-icon-home": true
             })}
           />
+
           <GoBackButton
             history={this.props.history}
             currentPath={this.props.currentPath}
