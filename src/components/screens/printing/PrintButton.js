@@ -15,19 +15,28 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React from "react";
-import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
-import renderer from "react-test-renderer";
-import { TestWrapper } from "tools/mockStore";
-import RouteSwitcher from "./routes";
+import React, { Component } from "react";
+import { Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
+import classNames from "classnames";
+import { FormattedMessage } from "react-intl";
 
-it("returns main", () => {
-  const routeSwitcher = renderer
-    .create(
-      <TestWrapper>
-        <RouteSwitcher />
-      </TestWrapper>
-    )
-    .toJSON();
-  expect(routeSwitcher).toMatchSnapshot();
-});
+export class PrintButton extends Component {
+    goTo(path) {
+        this.props.history.push(path);
+    }
+
+    render() {
+        return (
+            <div>
+                <button
+                    onClick={e => {
+                         return window.print();
+                    }}
+                    tabIndex="1"
+                    className="pt-button pt-icon-print"
+                    title="Print current page."
+                />
+            </div>
+        );
+    }
+}
