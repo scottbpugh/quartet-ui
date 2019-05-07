@@ -15,26 +15,27 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
-import {AddServerButton} from "components/screens/server/AddServerButton";
-import {GoBackButton} from "components/layouts/elements/GoBackButton";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { AddServerButton } from "components/screens/server/AddServerButton";
+import { GoBackButton } from "components/layouts/elements/GoBackButton";
+import { PrintButton } from "components/screens/printing/PrintButton";
 import classNames from "classnames";
 
 export class _ControlPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = {isDark: this.isDark(this.props.theme)};
+    this.state = { isDark: this.isDark(this.props.theme) };
   }
   goTo = path => {
     this.props.history.push(path);
   };
   componentDidMount() {
-    this.setState({isDark: this.isDark(this.props.theme)});
+    this.setState({ isDark: this.isDark(this.props.theme) });
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({isDark: this.isDark(nextProps.theme)});
+    this.setState({ isDark: this.isDark(nextProps.theme) });
   }
   isDark = theme => {
     if (theme === "polar") {
@@ -43,20 +44,20 @@ export class _ControlPanel extends Component {
     return true;
   };
   render() {
-    const {controlButtons} = this.props;
+    const { controlButtons } = this.props;
     let pluginButtons = controlButtons
       ? Object.keys(controlButtons).map(componentName => {
-          let ComponentClass = pluginRegistry.getRegisteredComponent(
-            componentName
-          );
-          return (
-            <ComponentClass
-              key={componentName}
-              theme={this.props.theme}
-              currentPath={this.props.currentPath}
-            />
-          );
-        })
+        let ComponentClass = pluginRegistry.getRegisteredComponent(
+          componentName
+        );
+        return (
+          <ComponentClass
+            key={componentName}
+            theme={this.props.theme}
+            currentPath={this.props.currentPath}
+          />
+        );
+      })
       : [];
     return (
       <div className="leftbar-group">
@@ -74,12 +75,17 @@ export class _ControlPanel extends Component {
               "pt-icon-home": true
             })}
           />
+
           <GoBackButton
             history={this.props.history}
             currentPath={this.props.currentPath}
             isDark={this.state.isDark}
           />
           <AddServerButton
+            history={this.props.history}
+            isDark={this.state.isDark}
+          />
+          <PrintButton
             history={this.props.history}
             isDark={this.state.isDark}
           />
