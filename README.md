@@ -1,5 +1,5 @@
 [![build status](https://gitlab.com/serial-lab/quartet-ui/badges/master/build.svg)](https://gitlab.com/serial-lab/quartet-ui/commits/master)
-[ ![Download](https://api.bintray.com/packages/seriallab/QU4RTET-UI/Quartet-ui/images/download.svg) ](https://bintray.com/seriallab/QU4RTET-UI/Quartet-ui/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/seriallab/QU4RTET-UI/QU4RTET-UI/images/download.svg) ](https://bintray.com/seriallab/QU4RTET-UI/Quartet-ui/_latestVersion)
 
 # QU4RTET Desktop Application
 
