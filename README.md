@@ -3,7 +3,7 @@
 
 # QU4RTET Desktop Application
 
-[Download this program (MS Windows and Mac OS X) on bintray](https://bintray.com/seriallab/QU4RTET-UI/Quartet-ui/).
+[Download this program (MS Windows and Mac OS X) on bintray](https://bintray.com/seriallab/QU4RTET-UI/QU4RTET-UI).
 
 For a guide on how to use this application, please see the [QU4RTET App End User Documentation](https://serial-lab.gitlab.io/quartet-ui/).
 

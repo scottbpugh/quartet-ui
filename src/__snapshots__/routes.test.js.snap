@@ -188,14 +188,6 @@ exports[`returns main 1`] = `
                     />
                   </span>
                 </div>
-                <div>
-                  <button
-                    className="pt-button pt-icon-print"
-                    onClick={[Function]}
-                    tabIndex="1"
-                    title="Print current page."
-                  />
-                </div>
               </div>
             </div>
             <div
