@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "./App.css";
 import {
   Button,
@@ -27,21 +27,21 @@ import {
 } from "@blueprintjs/core";
 import "@blueprintjs/core/dist/blueprint.css";
 import MouseTrap from "mousetrap";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import NavLink from "components/layouts/elements/NavLink";
-import {FormattedMessage} from "react-intl";
-import {SwitchLocale} from "components/layouts/elements/SwitchLocale";
-import {SwitchTheme} from "components/layouts/elements/SwitchTheme";
-import {NavTree} from "components/layouts/elements/NavTree";
-import {ControlPanel} from "components/layouts/elements/ControlPanel";
-import {connect} from "react-redux";
-import {LeftPanel, Panels} from "components/layouts/Panels";
+import { FormattedMessage } from "react-intl";
+import { SwitchLocale } from "components/layouts/elements/SwitchLocale";
+import { SwitchTheme } from "components/layouts/elements/SwitchTheme";
+import { NavTree } from "components/layouts/elements/NavTree";
+import { ControlPanel } from "components/layouts/elements/ControlPanel";
+import { connect } from "react-redux";
+import { LeftPanel, Panels } from "components/layouts/Panels";
 import classNames from "classnames";
-import {Server} from "lib/servers";
-import {pluginRegistry} from "plugins/pluginRegistration";
-import {injectIntl} from "react-intl";
+import { Server } from "lib/servers";
+import { pluginRegistry } from "plugins/pluginRegistration";
+import { injectIntl } from "react-intl";
 import QuartetLogo from "./QuartetLogo";
-import {ScreenErrorBoundary} from "./ErrorBoundary";
+import { ScreenErrorBoundary } from "./ErrorBoundary";
 
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
@@ -82,13 +82,14 @@ class _App extends Component {
     // pull the server data from redux, instantiate Server classes based on this.
     // Register them with the pluginRegistry so that core and plugins can use
     // the class instances for their own API calls etc...
-    const {servers} = this.props.serversettings;
+    const { servers } = this.props.serversettings;
     Object.keys(servers).forEach(serverID => {
       const server = new Server(servers[serverID]);
       pluginRegistry.registerServer(server);
       server.listApps();
     });
   }
+
 
   render() {
     return (
@@ -108,7 +109,7 @@ class _App extends Component {
             })}>
             <NavbarGroup>
               <NavbarHeading>
-                <QuartetLogo style={{width: "50%", height: "50%"}} />
+                <QuartetLogo style={{ width: "50%", height: "50%" }} />
               </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
@@ -159,7 +160,7 @@ const App = connect(
     };
   },
   dispatch => {
-    return {dispatch};
+    return { dispatch };
   }
 )(_App);
 export default withRouter(injectIntl(App));
