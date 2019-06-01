@@ -214,3 +214,4 @@ app.on("activate", function () {
     createWindow();
   }
 
+});
