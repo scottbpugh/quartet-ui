@@ -2,7 +2,7 @@
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
   "description": "The Open-Source Level 4",
-  "version": "1.0.24",
+  "version": "1.0.26",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -21,7 +21,7 @@
     "json-server": "^0.14.0",
     "json2csv": "^4.2.1",
     "jsontoxml": "^1.0.0",
-    "keytar": "^4.3.0",
+    "keytar": "^4.9.0",
     "live-plugin-manager": "^0.12.0",
     "moment": "^2.22.2",
     "mousetrap": "^1.6.2",
@@ -81,7 +81,7 @@
     "babel-preset-electron": "^1.4.15",
     "babel-preset-react": "^6.24.1",
     "console-warn-throws-error": "^1.1.0",
-    "electron": "^2.0",
+    "electron": "^2.0.18",
     "electron-builder": "^20",
     "electron-rebuild": "^1.8.2",
     "enzyme": "^3.4.1",
@@ -101,7 +101,7 @@
     "react-test-renderer": "^16.4.2",
     "redux-mock-store": "^1.5.3",
     "sinon": "^6.1.5",
-    "source-map-support": "^0.5.10",
+    "source-map-support": "^0.5.12",
     "version": "^0.1.2"
   },
   "build": {
