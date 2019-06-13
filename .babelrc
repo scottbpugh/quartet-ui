@@ -2,10 +2,13 @@
   "env": {
     "development": {
       "sourceMaps": "inline",
-      "plugins": ["source-map-support"]
+      //"plugins": ["source-map-support"]
     }
   },
-  "presets": ["electron", "react"],
+  "presets": [
+    "electron",
+    "react"
+  ],
   "plugins": [
     [
       "css-modules-transform",
@@ -19,7 +22,13 @@
       "module-resolver",
       {
         "root": "./src/",
-        "stripExtensions": [".js", ".jsx", ".es", ".es6", ".mjs"]
+        "stripExtensions": [
+          ".js",
+          ".jsx",
+          ".es",
+          ".es6",
+          ".mjs"
+        ]
       }
     ]
   ]

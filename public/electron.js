@@ -31,6 +31,7 @@ const path = require("path");
 const fs = require("fs");
 const setTimeout = require("timers").setTimeout;
 
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -46,16 +47,16 @@ const isDev = require("electron-is-dev");
 
 function setAppMenu() {
   let viewArray = [
-    {role: "resetzoom"},
-    {role: "zoomin"},
-    {role: "zoomout"},
-    {type: "separator"},
-    {role: "togglefullscreen"}
+    { role: "resetzoom" },
+    { role: "zoomin" },
+    { role: "zoomout" },
+    { type: "separator" },
+    { role: "togglefullscreen" }
   ];
   if (isDev || process.env.REACT_DEV === "dev") {
     console.log("Enabling Dev Tools");
-    viewArray.push({type: "separator"});
-    viewArray.push({role: "toggledevtools"});
+    viewArray.push({ type: "separator" });
+    viewArray.push({ role: "toggledevtools" });
   }
   var template = [
     {
@@ -64,7 +65,7 @@ function setAppMenu() {
         {
           label: "Quit",
           accelerator: "Command+Q",
-          click: function() {
+          click: function () {
             app.quit();
           }
         }
@@ -73,9 +74,9 @@ function setAppMenu() {
     {
       label: "Edit",
       submenu: [
-        {label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:"},
-        {label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:"},
-        {label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:"},
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
         {
           label: "Select All",
           accelerator: "CmdOrCtrl+A",
@@ -105,12 +106,12 @@ async function createWindow() {
   let splash = require("./main-process/splash.js").renderSplashScreen();
   electron.session.defaultSession.webRequest.onHeadersReceived(
     (details, callback) => {
-      callback({responseHeaders: `script-src 'self'; child-src 'self';`});
+      callback({ responseHeaders: `script-src 'self'; child-src 'self';` });
     }
   );
   let pluginManager = null;
 
-  var removeSplashAndLoadApp = function() {
+  var removeSplashAndLoadApp = function () {
     // Create the browser window.
     const mainOptions = {
       width: 1600,
@@ -137,7 +138,7 @@ async function createWindow() {
     });
     setAppMenu();
     // Emitted when the window is closed.
-    mainWindow.once("closed", function() {
+    mainWindow.once("closed", function () {
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
@@ -147,7 +148,7 @@ async function createWindow() {
       mainWindow.destroy();
       mainWindow = null;
     });
-    mainWindow.webContents.on("new-window", function(event, url) {
+    mainWindow.webContents.on("new-window", function (event, url) {
       event.preventDefault();
       openBrowserResource(url);
     });
@@ -180,7 +181,7 @@ app.on("ready", () => {
 });
 
 // Quit when all windows are closed.
-app.on("window-all-closed", function() {
+app.on("window-all-closed", function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
@@ -189,7 +190,7 @@ app.on("window-all-closed", function() {
 });
 
 // only allow a single instance cross-OS.
-var shouldQuit = app.makeSingleInstance(function(
+var shouldQuit = app.makeSingleInstance(function (
   commandLine,
   workingDirectory
 ) {
@@ -206,7 +207,7 @@ if (shouldQuit) {
   return;
 }
 
-app.on("activate", function() {
+app.on("activate", function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
