@@ -18,11 +18,20 @@
 import {handleActions} from "redux-actions";
 import actions from "actions/plugins";
 import {showMessage} from "lib/message";
+const path = require("path");
+const isDev = require("electron-is-dev");
+
+const pluginFile = path.join(__dirname, '../../main-process/plugins.json')
+
+if (isDev || process.env.REACT_DEV === "dev") {
+  // use the develop version of plugins.json.
+  const pluginFile = path.join(__dirname, "../../main-process/devPlugins.json")
+}
 
 export const initialData = () => {
   // load the plugins list when there is nothing in the local storage.
   const pluginList = window.require(
-    require("path").join(window.qu4rtet.userData, "pluginList.json")
+    pluginFile
   );
   return {
     navTreeItems: [],
@@ -60,7 +69,7 @@ export const fetchRemotePlugins = () => {
         .require("electron")
         .remote.require("./main-process/plugin-manager.js");
       const pluginList = window.require(
-        require("path").join(window.qu4rtet.userData, "pluginList.json")
+          pluginFile
       ); // loads the module
       return dispatch({
         type: actions.receivedPluginsData,
