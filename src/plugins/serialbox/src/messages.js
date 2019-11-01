@@ -44,7 +44,7 @@ const defaultLocaleMsg = {
     editPool: "Edit Pool",
     noRegionInPool: "There is currently no region in this pool.",
     regionDetailTitle: "Pool {poolName} Regions",
-    navItemsTitle: "Number Pools",
+    navItemsTitle: "Number Ranges",
     current: "Current",
     remaining: "Remaining",
     serial: "Sequential",
@@ -116,7 +116,7 @@ const french = {
   addParamEditOnly: "Ajouter paramètre (Région existante)",
   addResponseRule: "Ajouter une règle de réponse",
   responseRules: "Règles de réponse",
-  editResponseRule: "Modifier règle de réponse"  
+  editResponseRule: "Modifier règle de réponse"
 };
 
 export default {

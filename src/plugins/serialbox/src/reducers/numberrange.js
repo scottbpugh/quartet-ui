@@ -62,24 +62,10 @@ const loadResponseRules = async (server, pools) => {
 	}
       });
     }
-    return Object.keys(poolsMap)
-      .map(k => poolsMap[k])
-      .sort(sortPools);
+    return pools
   } catch (e) {
-    // Response Rules may not be implemented on server.
-    console.log(e);
-    return pools.sort(sortPools);
+    return pools
   }
-};
-
-const sortPools = (pool1, pool2) => {
-  if (pool1.machine_name < pool2.machine_name) {
-    return -1;
-  }
-  if (pool1.machine_name > pool2.machine_name) {
-    return 1;
-  }
-  return 0;
 };
 
 export const loadPools = server => {

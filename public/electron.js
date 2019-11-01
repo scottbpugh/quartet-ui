@@ -31,6 +31,11 @@ const path = require("path");
 const fs = require("fs");
 const setTimeout = require("timers").setTimeout;
 
+'use strict';
+
+
+const reload = require('electron-reload')(path.join(__dirname, '../src'));
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -168,16 +173,7 @@ async function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-  if (isDev) {
-    console.log("Delaying display of window.");
-    // cheap way of preventing the constant reload from electron-reload.
-    setTimeout(() => {
-      console.log("About to display dev window");
-      createWindow();
-    }, 8000);
-  } else {
     createWindow();
-  }
 });
 
 // Quit when all windows are closed.

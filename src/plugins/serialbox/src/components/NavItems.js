@@ -316,7 +316,7 @@ export class _NavPluginRoot extends Component {
           onContextMenu={this.renderContextMenu}
           nodeType="plugin"
           depth={this.props.depth}
-          childrenNodes={children}
+          childrenNodes={[]}
           path={`/number-range/pools/${serverID}`}>
           <FormattedMessage id="plugins.numberRange.navItemsTitle" />
         </TreeNode>
