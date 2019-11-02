@@ -43,19 +43,39 @@ const {Link} = qu4rtet.require("react-router-dom");
 const {pluginRegistry} = qu4rtet.require("./plugins/pluginRegistration");
 
 class ServerPools extends Component {
+    getAllowedRegionTypes = (pool) => {
+        if (pool.sequentialregion_set.length > 0) {
+            return {sequential: true, randomized: false, listBased: false};
+        } else if (this.poolHasRandom(pool) && pool.randomizedregion_set.length > 0) {
+            return {sequential: false, randomized: true, listBased: false};
+        } else if (this.poolHasListBased(pool) && pool.listbasedregion_set.length > 0) {
+            return {sequential: false, randomized: false, listBased: true};
+        }
+        return {
+            sequential: true,
+            randomized: this.poolHasRandom(pool),
+            listBased: this.poolHasListBased(pool)
+        };
+    };
 
-
-    renderContextMenu2() {
-        // return a single element, or nothing to use default browser behavior
-        return (
-            <Menu>
-                <MenuItem text="Save" />
-                <MenuItem text="Delete" />
-            </Menu>
-        );
-    }
-
-
+    poolHasRandom = (pool) => {
+        pool.randomizedregion_set !== undefined;
+    };
+    poolHasListBased = (pool) => {
+        pool.listbasedregion_set !== undefined;
+    };
+    goTo = path => {
+        this.props.history.push(path);
+    };
+    goToEdit = (evt,pool) => {
+        ContextMenu.hide();
+        this.props.history.push({
+            pathname: `/number-range/edit-pool/${this.props.server.serverID}/${
+                pool.machine_name
+            }`,
+            state: {defaultValues: this.props.pool, editPool: true}
+        });
+    };
 
     render() {
         let serverName = this.props.server.serverSettingName;

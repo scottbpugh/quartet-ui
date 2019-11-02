@@ -24,7 +24,6 @@ const defaultLocaleMsg = {
     addEntry: "Add Entry",
     editEntry: "Edit Entry",
     aggregationEvent: "Aggregation Event",
-    objectEvent: "Object Event",
     transactionEvent: "Transaction Event",
     transformationEvent: "Transformation Event",
     what: "What",

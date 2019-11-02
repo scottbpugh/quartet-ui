@@ -2,6 +2,10 @@ const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
+import {pluginRegistry} from "../../../pluginRegistration";
+const classNames = qu4rtet.require("classnames");
+const intl = pluginRegistry.getIntl()
+import {DeleteDialog} from "components/elements/DeleteDialog";
 const {
     Card,
     Menu,
@@ -19,19 +23,24 @@ const {FormattedMessage, FormattedDate, FormattedNumber} = qu4rtet.require(
     "react-intl"
 );
 const {Link} = qu4rtet.require("react-router-dom");
-const {pluginRegistry} = qu4rtet.require("./plugins/pluginRegistration");
 
 class PoolListItem extends Component {
-    // renderContextMenu = () => {
-    //     console.info('Rendering menu...')
-    //     // return a single element, or nothing to use default browser behavior
-    //     return (
-    //         <Menu>
-    //             <MenuItem text="Save" />
-    //             <MenuItem text="Delete" />
-    //         </Menu>
-    //     );
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAllocationOpen: false,
+            alloc: 0,
+            isConfirmDeleteOpen: false,
+            exportType: "json"
+        };
+    }
+
+    toggleAllocation = () => {
+        let pool = this.props.pool;
+        let serverID = this.props.server.serverID;
+        this.setState({isAllocationOpen: !this.state.isAllocationOpen});
+    };
+
     getAllowedRegionTypes = () => {
         const pool = this.props.pool;
         if (pool.sequentialregion_set.length > 0) {
@@ -59,7 +68,7 @@ class PoolListItem extends Component {
     goTo = path => {
         this.props.history.push(path);
     };
-    goToEdit = (evt,pool) => {
+    goToEdit = (evt, pool) => {
         ContextMenu.hide();
         this.props.history.push({
             pathname: `/number-range/edit-pool/${this.props.server.serverID}/${
@@ -134,6 +143,35 @@ class PoolListItem extends Component {
         );
     }
 
+    setAllocation = evt => {
+        evt.preventDefault();
+        const {pool, serverID} = this.props;
+        this.props.setAllocation(
+            pluginRegistry.getServer(serverID),
+            pool,
+            this.state.alloc,
+            this.state.exportType
+        );
+        this.toggleAllocation();
+    };
+    allocChange = evt => {
+        this.setState({alloc: evt.target.value});
+    };
+    toggleConfirmDelete = evt => {
+        this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
+    };
+    trashRegion = evt => {
+        const {serverID, pool, deleteAPool} = this.props;
+        const serverObject = pluginRegistry.getServer(serverID);
+        this.toggleConfirmDelete();
+        ContextMenu.hide();
+        deleteAPool(serverObject, pool);
+        this.props.history.push(`/number-range/pools/${serverObject.serverID}`);
+    };
+    handleExportChange = evt => {
+        this.setState({exportType: evt.target.value});
+    };
+
     render() {
         const serverID = this.props.server.serverID;
         const pool = this.props.pool;
@@ -188,6 +226,59 @@ class PoolListItem extends Component {
                         />
                     </Link>
                 </td>
+                <Dialog
+                    isOpen={this.state.isAllocationOpen}
+                    onClose={this.toggleAllocation}
+                    title={`${intl.formatMessage({
+                        id: "plugins.numberRange.allocateButton"
+                    })} ${pool.readable_name}`}
+                    className={classNames({
+                        "pt-dark": this.props.theme.startsWith("dark")
+                    })}>
+                    <div className="pt-dialog-body">
+                        <form onSubmit={this.setAllocation} className="mini-form">
+                            <input
+                                placeholder="allocate"
+                                className="pt-input"
+                                type="number"
+                                defaultValue={1}
+                                value={this.state.alloc}
+                                onChange={this.allocChange}
+                                min={1}
+                                max={Number(pool.request_threshold)}
+                                style={{width: 200}}
+                            />
+                            <div style={{marginTop: "30px", marginBottom: "20px"}}>
+                                <RadioGroup
+                                    inline={true}
+                                    label="Export Type"
+                                    onChange={this.handleExportChange}
+                                    selectedValue={this.state.exportType}>
+                                    <Radio label="JSON" value="json"/>
+                                    <Radio label="CSV" value="csv"/>
+                                    <Radio label="XML" value="xml"/>
+                                </RadioGroup>
+                            </div>
+                            <button type="submit" className="pt-button">
+                                <FormattedMessage id="plugins.numberRange.allocateButton"/>
+                            </button>
+                        </form>
+                    </div>
+                </Dialog>
+                <DeleteDialog
+                    isOpen={this.state.isConfirmDeleteOpen}
+                    title={
+                        <FormattedMessage
+                            id="plugins.numberRange.deleteRegion"
+                            values={{regionName: pool.readable_name}}
+                        />
+                    }
+                    body={
+                        <FormattedMessage id="plugins.numberRange.deleteRegionConfirm"/>
+                    }
+                    toggle={this.toggleConfirmDelete.bind(this)}
+                    deleteAction={this.trashRegion.bind(this)}
+                />
             </tr>
         );
     }
@@ -195,4 +286,11 @@ class PoolListItem extends Component {
 
 ContextMenuTarget(PoolListItem);
 
-export default PoolListItem;
+const mapStateToProps = state => ({
+    theme: state.layout.theme
+});
+
+export default connect(
+    mapStateToProps
+)(PoolListItem);
+
