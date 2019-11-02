@@ -1,11 +1,15 @@
+import {deleteAPool, setAllocation} from "../reducers/numberrange";
+const {showMessage} = qu4rtet.require("./lib/message");
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
 import {pluginRegistry} from "../../../pluginRegistration";
+
 const classNames = qu4rtet.require("classnames");
 const intl = pluginRegistry.getIntl()
 import {DeleteDialog} from "components/elements/DeleteDialog";
+
 const {
     Card,
     Menu,
@@ -34,6 +38,19 @@ class PoolListItem extends Component {
             exportType: "json"
         };
     }
+
+    setAllocation = evt => {
+        evt.preventDefault();
+        const pool = this.props.pool;
+        const serverID = this.props.server.serverID;
+        this.props.setAllocation(
+            pluginRegistry.getServer(serverID),
+            pool,
+            this.state.alloc,
+            this.state.exportType
+        );
+        this.toggleAllocation();
+    };
 
     toggleAllocation = () => {
         let pool = this.props.pool;
@@ -143,17 +160,6 @@ class PoolListItem extends Component {
         );
     }
 
-    setAllocation = evt => {
-        evt.preventDefault();
-        const {pool, serverID} = this.props;
-        this.props.setAllocation(
-            pluginRegistry.getServer(serverID),
-            pool,
-            this.state.alloc,
-            this.state.exportType
-        );
-        this.toggleAllocation();
-    };
     allocChange = evt => {
         this.setState({alloc: evt.target.value});
     };
@@ -192,7 +198,7 @@ class PoolListItem extends Component {
                 <td>{pool.readable_name}</td>
                 <td>
                     <Link
-                        to={`/number-range/region-detail/${serverID}/${
+                        to={`/number-range/edit-pool/${serverID}/${
                             pool.machine_name
                         }`}>
                         {pool.machine_name}
@@ -291,6 +297,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    {setAllocation, deleteAPool}
 )(PoolListItem);
 

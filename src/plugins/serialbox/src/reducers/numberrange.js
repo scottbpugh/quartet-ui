@@ -224,6 +224,7 @@ const generateFile = (server, pool, exportType, data, size) => {
 export const setAllocation = (server, pool, value, exportType) => {
   return dispatch => {
     allocate(server, pool, value, exportType).then(data => {
+      console.info('dispatch called...')
       if (typeof data === "object") {
         // let's take a look at the data.
         if (data.detail) {

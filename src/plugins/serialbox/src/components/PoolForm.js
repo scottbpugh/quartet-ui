@@ -45,17 +45,7 @@ class _PoolForm extends Component {
   }
   cancel = evt => {
     evt.preventDefault();
-    if (this.isEditMode()) {
-      this.props.history.push(
-        `/number-range/region-detail/${this.props.match.params.serverID}/${
-          this.props.match.params.poolName
-        }`
-      );
-    } else {
-      this.props.history.push(
-        `/number-range/pools/${this.props.match.params.serverID}/`
-      );
-    }
+    this.props.history.goBack();
   };
 
   constructForm(props) {
@@ -92,12 +82,10 @@ class _PoolForm extends Component {
   }
 
   isEditMode = () => {
-    return (this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.editPool) ||
-      (this.props.pool && this.props.pool.id)
-      ? true
-      : false;
+    return !!((this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.editPool) ||
+        (this.props.pool && this.props.pool.id));
   };
   // Handles the PoolForm post.
   submit = postValues => {
