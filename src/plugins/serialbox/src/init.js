@@ -22,6 +22,7 @@ import messages from "./messages";
 const actions = qu4rtet.require("./actions/plugins").default;
 const {pluginRegistry} = qu4rtet.require("./plugins/pluginRegistration");
 const PLUGIN_NAME = "NumberRange";
+require("./styles.css");
 
 var fs = require("fs");
 

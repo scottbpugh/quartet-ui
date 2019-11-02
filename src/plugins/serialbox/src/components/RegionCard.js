@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import "../style.css";
 import RegionRange from "./RegionRange";
 import {deleteARegion} from "../reducers/numberrange";
 const React = qu4rtet.require("react");
