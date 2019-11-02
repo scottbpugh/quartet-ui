@@ -16,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {PoolList} from "./components/PoolList";
+import {PoolsList} from "./components/lists/PoolsList";
 import {RegionDetail} from "./components/RegionDetail";
 import {AddRegion} from "./components/AddRegion";
 import {AddRandomizedRegion} from "./components/AddRandomizedRegion";
@@ -36,7 +37,7 @@ export default (() => {
     <Route
       key="poolList"
       path="/number-range/pools/:serverID"
-      component={PoolList}
+      component={PoolsList}
     />,
     <Route
       key="regionDetail"

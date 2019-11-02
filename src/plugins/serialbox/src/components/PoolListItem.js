@@ -41,7 +41,7 @@ class PoolListItem extends Component {
 
     setAllocation = evt => {
         evt.preventDefault();
-        const pool = this.props.pool;
+        const pool = this.props.entry;
         const serverID = this.props.server.serverID;
         this.props.setAllocation(
             pluginRegistry.getServer(serverID),
@@ -53,13 +53,13 @@ class PoolListItem extends Component {
     };
 
     toggleAllocation = () => {
-        let pool = this.props.pool;
+        let pool = this.props.entry;
         let serverID = this.props.server.serverID;
         this.setState({isAllocationOpen: !this.state.isAllocationOpen});
     };
 
     getAllowedRegionTypes = () => {
-        const pool = this.props.pool;
+        const pool = this.props.entry;
         if (pool.sequentialregion_set.length > 0) {
             return {sequential: true, randomized: false, listBased: false};
         } else if (this.poolHasRandom(pool) && pool.randomizedregion_set.length > 0) {
@@ -75,11 +75,11 @@ class PoolListItem extends Component {
     };
 
     poolHasRandom = () => {
-        const pool = this.props.pool;
+        const pool = this.props.entry;
         return pool.randomizedregion_set !== undefined;
     };
     poolHasListBased = () => {
-        const pool = this.props.pool;
+        const pool = this.props.entry;
         return pool.listbasedregion_set !== undefined;
     };
     goTo = path => {
@@ -91,13 +91,13 @@ class PoolListItem extends Component {
             pathname: `/number-range/edit-pool/${this.props.server.serverID}/${
                 pool.machine_name
             }`,
-            state: {defaultValues: this.props.pool, editPool: true}
+            state: {defaultValues: this.props.entry, editPool: true}
         });
     };
 
     renderContextMenu() {
         const serverID = this.props.server.serverID;
-        const pool = this.props.pool;
+        const pool = this.props.entry;
         const {sequential, randomized, listBased} = this.getAllowedRegionTypes(pool);
         const intl = pluginRegistry.getIntl();
         console.info('Rendering menu for pool ' + pool.readable_name);
@@ -180,7 +180,7 @@ class PoolListItem extends Component {
 
     render() {
         const serverID = this.props.server.serverID;
-        const pool = this.props.pool;
+        const pool = this.props.entry;
         return (
             <tr key={pool.machine_name}
                 onContextMenu={

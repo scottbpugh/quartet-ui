@@ -312,3 +312,39 @@ export default handleActions(
   },
   {}
 );
+
+export const loadPoolList = (server, search, page, ordering) => {
+  const params = {};
+  if (search) {
+    params.search = search;
+  }
+  if (page) {
+    params.page = page;
+  }
+  if (ordering) {
+    params.ordering = ordering;
+  }
+  return async dispatch => {
+    let serverObject = pluginRegistry.getServer(server.serverID);
+    serverObject
+        .fetchPageList("serialbox_pools_list", params, [])
+        .then(async response => {
+          return dispatch({
+            type: actions.loadPools,
+            payload: {
+              serverID: server.serverID,
+              pools: response.results,
+              count: response.count,
+              next: response.next
+            }
+          });
+        })
+        .catch(e => {
+          showMessage({
+            type: "error",
+            id: "plugins.masterData.errorFetchPools",
+            values: {error: e}
+          });
+        });
+  };
+};
