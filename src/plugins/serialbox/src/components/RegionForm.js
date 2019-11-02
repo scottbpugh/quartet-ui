@@ -44,10 +44,8 @@ class _RegionForm extends Component {
   }
   cancel = evt => {
     evt.preventDefault();
-    const {params} = this.props.match;
-    this.props.history.push(
-      `/number-range/region-detail/${params.serverID}/${params.pool}`
-    );
+    // go back to whence you came
+    this.props.history.goBack()
   };
   constructForm(props) {
     if (
@@ -91,9 +89,7 @@ class _RegionForm extends Component {
   }
 
   isEditMode = () => {
-    return this.props.location.state && this.props.location.state.editRegion
-      ? true
-      : false;
+    return !!(this.props.location.state && this.props.location.state.editRegion);
   };
   // Handles the RegionForm post.
   submit = postValues => {

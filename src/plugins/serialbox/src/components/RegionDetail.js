@@ -16,7 +16,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {loadPools, loadRegions} from "../reducers/numberrange";
 import {RegionCard} from "./RegionCard";
 const React = qu4rtet.require("react");
 const {Component} = React;
@@ -28,6 +27,7 @@ const {FormattedMessage} = qu4rtet.require("react-intl");
 const classNames = qu4rtet.require("classnames");
 const {DeleteDialog} = qu4rtet.require("./components/elements/DeleteDialog");
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
+import {loadPools, loadRegions} from "../reducers/numberrange";
 
 /**
  * _RegionDetail - Description
