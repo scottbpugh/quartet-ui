@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {loadPools} from "../reducers/numberrange";
+import {loadPools, loadResponseRules} from "../reducers/numberrange";
 import PoolListItem from "./PoolListItem";
 
 const React = qu4rtet.require("react");
@@ -67,7 +67,7 @@ class ServerPools extends Component {
     goTo = path => {
         this.props.history.push(path);
     };
-    goToEdit = (evt,pool) => {
+    goToEdit = (evt, pool) => {
         ContextMenu.hide();
         this.props.history.push({
             pathname: `/number-range/edit-pool/${this.props.server.serverID}/${
@@ -165,7 +165,6 @@ class ServerPools extends Component {
 }
 
 
-
 class _PoolList extends Component {
     componentDidMount() {
         let {server} = this.props;
@@ -203,5 +202,5 @@ export var PoolList = connect(
                 : []
         };
     },
-    {loadPools}
+    {loadPools, loadResponseRules}
 )(_PoolList);

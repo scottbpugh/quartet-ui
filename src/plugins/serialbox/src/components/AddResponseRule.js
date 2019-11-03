@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {loadPools} from "../reducers/numberrange";
+import {loadPoolList} from "../reducers/numberrange";
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
@@ -46,13 +46,13 @@ class _AddResponseRule extends Component {
 
   }
   submitCallback() {
-    this.props.loadPools(this.props.server);
+    this.props.loadPoolList(this.props.server);
   }
 
   toggleRuleDialog = evt => {
     this.setState({isRuleOpen: !this.state.isRuleOpen});
   };
-  
+
   render() {
     const editMode = !!(this.props.location
                         && this.props.location.state
@@ -66,9 +66,9 @@ class _AddResponseRule extends Component {
       responseRule = this.props.location.state.defaultValues;
     } else {
       responseRule = {};
-    }    
+    }
     const pool = this.props.location.state.pool;
-    
+
     return (
       <RightPanel
         title={
@@ -124,9 +124,9 @@ class _AddResponseRule extends Component {
               history={this.props.history}
             />
           </Card>
-        </div>        
+        </div>
       </RightPanel>
-      
+
     );
   }
 }
@@ -141,5 +141,5 @@ export const AddResponseRule = connect(
       theme: state.layout.theme
     };
   },
-  {loadRules, change, loadPools}
+  {loadRules, change, loadPoolList}
 )(_AddResponseRule);

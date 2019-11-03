@@ -28,7 +28,7 @@ const defaultLocaleMsg = {
     status: "Status",
     requestThreshold: "Request Threshold",
     regions: "Regions",
-    numberRangePools: "Number Range Pools",
+    numberRangePools: "Number Pools",
     active: "active",
     inactive: "inactive",
     range: "Range",

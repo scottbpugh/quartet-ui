@@ -16,12 +16,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import {PoolList} from "./components/PoolList";
-import {PoolsList} from "./components/lists/PoolsList";
+import {PoolsList} from "./components/Lists/PoolsList";
 import {RegionDetail} from "./components/RegionDetail";
 import {AddRegion} from "./components/AddRegion";
 import {AddRandomizedRegion} from "./components/AddRandomizedRegion";
 import {AddListBasedRegion} from "./components/AddListBasedRegion";
 import {AddPool} from "./components/AddPool";
+import PoolForm from "./components/PoolForm";
 import {AddResponseRule} from "./components/AddResponseRule";
 
 const React = qu4rtet.require("react");

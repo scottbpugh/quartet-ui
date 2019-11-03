@@ -33,7 +33,7 @@ const PoolTableHeader = props => (
     <tr>
         <th>
             <FormattedMessage
-                id="plugins.numberrange.pool"
+                id="plugins.numberrange.numberRangePools"
                 defaultMessage="Pool"
             />
         </th>
@@ -83,8 +83,10 @@ const PoolEntry = props => {
 };
 
 class _PoolsList extends Component {
+
     render() {
         const {server, pools, loadPoolList, count, next} = this.props;
+
         return (
             <RightPanel
                 title={
@@ -96,7 +98,7 @@ class _PoolsList extends Component {
                 <div className="large-cards-container full-large">
                     <PaginatedList
                         {...this.props}
-                        listTitle={<FormattedMessage id="plugins.numberRange.pools"/>}
+                        listTitle={<FormattedMessage id="plugins.numberRange.numberRangePools"/>}
                         history={this.props.history}
                         loadEntries={loadPoolList}
                         server={server}
@@ -105,6 +107,7 @@ class _PoolsList extends Component {
                         tableHeaderClass={PoolTableHeader}
                         count={count}
                         next={next}
+                        interactive={false}
                     />
 
                     {/* keep prop name generic for entries */}

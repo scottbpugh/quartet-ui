@@ -198,9 +198,7 @@ class PoolListItem extends Component {
                 <td>{pool.readable_name}</td>
                 <td>
                     <Link
-                        to={`/number-range/edit-pool/${serverID}/${
-                            pool.machine_name
-                        }`}>
+                        to={`/number-range/edit-pool/${serverID}/${pool.machine_name}?returnpage=${this.props.page}`}>
                         {pool.machine_name}
                     </Link>
                 </td>
@@ -222,9 +220,7 @@ class PoolListItem extends Component {
                 </td>
                 <td>
                     <Link
-                        to={`/number-range/region-detail/${serverID}/${
-                            pool.machine_name
-                        }/`}>
+                        to={`/number-range/region-detail/${serverID}/${pool.machine_name}/`}>
                         {this.props.regionNumber}{" "}
                         <FormattedMessage
                             id="plugins.numberRange.regions"
