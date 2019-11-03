@@ -168,7 +168,7 @@ export const deleteAPool = (server, pool) => {
                     return;
                 }
                 if (response.ok && response.status === 204) {
-                    dispatch(loadPools(server, pool));
+                    dispatch(loadPoolList(server));
                     showMessage({type: "warning", msg: "Pool deleted successfully"});
                 }
             })

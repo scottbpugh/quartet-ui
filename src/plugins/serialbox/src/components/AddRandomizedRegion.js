@@ -38,11 +38,9 @@ class _AddRandomizedRegion extends Component {
 
   render() {
     let editMode =
-      this.props.location &&
-      this.props.location.state &&
-      this.props.location.state.editRegion
-        ? true
-        : false;
+        this.props.location &&
+        this.props.location.state &&
+        this.props.location.state.editRegion;
     return (
       <RightPanel
         title={

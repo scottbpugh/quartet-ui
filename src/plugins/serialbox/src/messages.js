@@ -54,7 +54,9 @@ const defaultLocaleMsg = {
     allocatedSuccess:
       "{size} allocated to region {regionName}. You will be prompted to save the export file shortly.",
     regionDeletedSuccessfully: "Region deleted successfully",
+    deletePool: "Delete Pool {poolName}",
     deleteRegionConfirm: "Are you sure you want to delete this region?",
+    deletePoolConfirm: "Are you sure you want to delete this pool?",
     errorFetchPools:
       "An error occurred while attempting to fetch pools from {serverName}",
     errorVanilla: "An error occurred while performing this operation. {error}",

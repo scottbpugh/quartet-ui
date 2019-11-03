@@ -166,13 +166,13 @@ class PoolListItem extends Component {
     toggleConfirmDelete = evt => {
         this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
     };
-    trashRegion = evt => {
-        const {serverID, pool, deleteAPool} = this.props;
+    trashPool = evt => {
+        const serverID = this.props.server.serverID;
         const serverObject = pluginRegistry.getServer(serverID);
         this.toggleConfirmDelete();
         ContextMenu.hide();
-        deleteAPool(serverObject, pool);
-        this.props.history.push(`/number-range/pools/${serverObject.serverID}`);
+        this.props.deleteAPool(serverObject, this.props.entry);
+        this.props.history.push(`/number-range/pools/${serverID}`);
     };
     handleExportChange = evt => {
         this.setState({exportType: evt.target.value});
@@ -271,15 +271,15 @@ class PoolListItem extends Component {
                     isOpen={this.state.isConfirmDeleteOpen}
                     title={
                         <FormattedMessage
-                            id="plugins.numberRange.deleteRegion"
-                            values={{regionName: pool.readable_name}}
+                            id="plugins.numberRange.deletePool"
+                            values={{poolName: pool.readable_name}}
                         />
                     }
                     body={
-                        <FormattedMessage id="plugins.numberRange.deleteRegionConfirm"/>
+                        <FormattedMessage id="plugins.numberRange.deletePoolConfirm"/>
                     }
                     toggle={this.toggleConfirmDelete.bind(this)}
-                    deleteAction={this.trashRegion.bind(this)}
+                    deleteAction={this.trashPool.bind(this)}
                 />
             </tr>
         );
