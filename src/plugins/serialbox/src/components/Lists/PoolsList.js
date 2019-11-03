@@ -33,8 +33,8 @@ const PoolTableHeader = props => (
     <tr>
         <th>
             <FormattedMessage
-                id="plugins.numberrange.numberRangePools"
-                defaultMessage="Pool"
+                id="plugins.numberrange.createdOn"
+                defaultMessage="Created On"
             />
         </th>
         <th>

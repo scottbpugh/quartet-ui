@@ -44,7 +44,7 @@ const defaultLocaleMsg = {
     editPool: "Edit Pool",
     noRegionInPool: "There is currently no region in this pool.",
     regionDetailTitle: "Pool {poolName} Regions",
-    navItemsTitle: "Number Ranges",
+    navItemsTitle: "Number Pools",
     current: "Current",
     remaining: "Remaining",
     serial: "Sequential",
