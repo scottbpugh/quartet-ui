@@ -19,16 +19,8 @@
 image: electronuserland/builder:wine
 
 stages:
-  - test
   - build-docs
   - build
-
-test:
-  stage: test
-  script:
-    - yarn install
-    - yarn build
-    - yarn test
 
 pages:
   image: seriallab/python3.6dev
