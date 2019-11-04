@@ -72,7 +72,7 @@ class _ServerTasks extends Component {
       this.searchBy(evt);
     }
   };
-  
+
   // search by a field in the rows or all of them.
   searchBy = evt => {
      this.offset = 0;
@@ -95,7 +95,7 @@ class _ServerTasks extends Component {
     this.fetchTasks = null;
   }
 
-  // refresh the lists, keeping the search filters.
+  // refresh the Lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     const {rules} = this.props;
     let maxPages = this.currentPage;

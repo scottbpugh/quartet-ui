@@ -23,13 +23,19 @@ const electron = require("electron");
 const app = electron.app;
 const Menu = electron.Menu;
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
+const BrowserWindow = electron.BrowserWindow
 
+const os = require("os");
 const opn = require("opn");
 const url = require("url");
 const path = require("path");
 const fs = require("fs");
 const setTimeout = require("timers").setTimeout;
+
+'use strict';
+
+
+const reload = require('electron-reload')(path.join(__dirname, '../src'));
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -124,7 +130,15 @@ async function createWindow() {
     // and load the index.html of the app.
     mainWindow.loadURL("file://" + __dirname + "/build/index.html");
     if (process.env.REACT_DEV === "dev") {
-      // Open the DevTools.
+      console.info('Trying to add react dev tools extension.')
+      BrowserWindow.addDevToolsExtension(
+          path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.2.0_0')
+      )
+      console.info('Trying to add the redux devtools extension.')
+      BrowserWindow.addDevToolsExtension(
+          path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
+      )
+      // Open the DevTools
       mainWindow.webContents.openDevTools();
     }
     mainWindow.webContents.on("will-navigate", evt => {
@@ -168,16 +182,7 @@ async function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-  if (isDev) {
-    console.log("Delaying display of window.");
-    // cheap way of preventing the constant reload from electron-reload.
-    setTimeout(() => {
-      console.log("About to display dev window");
-      createWindow();
-    }, 8000);
-  } else {
     createWindow();
-  }
 });
 
 // Quit when all windows are closed.

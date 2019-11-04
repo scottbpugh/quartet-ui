@@ -69,7 +69,7 @@ class _SingleCardPicker extends Component {
     });
   }
 
-  // refresh the lists, keeping the search filters.
+  // refresh the Lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     let maxPages = this.currentPage;
     if (nextProps.next !== null && Array.isArray(nextProps.entries)) {

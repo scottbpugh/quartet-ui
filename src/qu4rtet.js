@@ -37,6 +37,7 @@ class Qu4rtet {
   };
 
   getPluginModule = async pluginEntry => {
+    console.info('activating plugin at path ' + pluginEntry.initPath)
     let pluginObject;
     if (pluginEntry.packagePath) {
       let installedPlugin = await window.qu4rtet.pluginManager.install(
@@ -52,6 +53,7 @@ class Qu4rtet {
       }
       pluginObject = window.require(pluginPath);
     } else {
+      console.info('looking for plugin here: ' + "./plugins/" + pluginEntry.initPath)
       pluginObject = require("./plugins/" + pluginEntry.initPath);
     }
     return pluginObject;

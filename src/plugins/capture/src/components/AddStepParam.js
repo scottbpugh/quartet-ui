@@ -32,7 +32,7 @@ const StepParamForm = reduxForm({
 
 class _AddStepParam extends Component {
   submitCallback() {
-    // refresh rules lists and children when param is saved.
+    // refresh rules Lists and children when param is saved.
     this.props.loadRules(this.props.server);
   }
 

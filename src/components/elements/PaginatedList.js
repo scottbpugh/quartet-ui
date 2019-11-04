@@ -36,7 +36,8 @@ class _PaginatedList extends Component {
       entriesPerPage: 20,
       inputSize: 50,
       maxPages: 1,
-      count: 0
+      count: 0,
+      interactive: 'pt-interactive'
     };
     this.offset = 0;
     this.currentPage = 1;
@@ -70,7 +71,7 @@ class _PaginatedList extends Component {
     });
   }
 
-  // refresh the lists, keeping the search filters.
+  // refresh the Lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     let maxPages = this.currentPage;
     if (nextProps.next !== null && Array.isArray(nextProps.entries)) {
@@ -79,7 +80,8 @@ class _PaginatedList extends Component {
     this.setState({
       entries: nextProps.entries,
       maxPages: maxPages,
-      count: nextProps.count
+      count: nextProps.count,
+      interactive: this.props.interactive === false ? '' : ' pt-interactive'
     });
   }
 
@@ -175,7 +177,7 @@ class _PaginatedList extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table className="pt-table pt-bordered pt-striped pt-interactive">
+            <table className={`pt-table pt-bordered pt-striped ${this.state.interactive}`}>
               <this.props.tableHeaderClass server={this.props.server} />
               <tbody
                 style={{
@@ -191,6 +193,7 @@ class _PaginatedList extends Component {
                           loadEntries={this.props.loadEntries}
                           server={this.props.server}
                           history={this.props.history}
+                          page={this.currentPage}
                         />
                       );
                     })

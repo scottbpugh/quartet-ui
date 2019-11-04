@@ -178,7 +178,6 @@ export default {
           "Une erreur s'est produite lors de la requete des données plugins: {error}",
         pluginEnabled: "Plugin activé",
         pluginDisabled: "Plugin désactivé",
-        addPlugin: "Ajouter un plugin"
       },
       common: {
         mainError:
