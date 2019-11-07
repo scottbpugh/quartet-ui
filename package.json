@@ -109,7 +109,7 @@
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
       "target": [
-        "dmg"
+        "zip"
       ]
     },
     "win": {
