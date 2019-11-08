@@ -19,6 +19,7 @@
 import React, {Component} from "react";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
+import Loader from "../../../../../components/Loader";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {PaginatedList} from "components/elements/PaginatedList";
@@ -85,8 +86,7 @@ const PoolEntry = props => {
 class _PoolsList extends Component {
 
     render() {
-        const {server, pools, loadPoolList, count, next} = this.props;
-
+        const {server, pools, loadPoolList, count, next, loading} = this.props;
         return (
             <RightPanel
                 title={
@@ -108,6 +108,7 @@ class _PoolsList extends Component {
                         count={count}
                         next={next}
                         interactive={false}
+                        loading={loading}
                     />
 
                     {/* keep prop name generic for entries */}
@@ -126,6 +127,7 @@ export const PoolsList = connect(
             );
         };
         return {
+            loading: state.numberrange.loading,
             server: state.serversettings.servers[ownProps.match.params.serverID],
             pools: isServerSet()
                 ? state.numberrange.servers[ownProps.match.params.serverID].pools

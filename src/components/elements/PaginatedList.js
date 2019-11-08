@@ -21,6 +21,7 @@ import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import Loader from "../Loader";
 
 /*
   Displays a list of objects (entries, events, companies, locations) as
@@ -119,91 +120,98 @@ class _PaginatedList extends Component {
 
   render() {
     const {entries} = this.state;
-    return (
-      <Card className="pt-elevation-4">
-        <h5>
-          {" "}
-          <div className="right-aligned-elem">
-            <Button
-              style={{marginRight: "5px"}}
-              title="refresh"
-              iconName="refresh"
-              onClick={this.processEntries.bind(this, true)}
-            />
-            <Tag className="pt-large">
-              {this.currentPage}/{this.state.maxPages}
-            </Tag>
-          </div>
-          {this.props.listTitle ? this.props.listTitle : null}
-        </h5>
-        <div>
-          <div className="table-control">
-            <div className="pagination-control">
-              <div>
+    if(!this.props.loading){
+      return (
+          <Card className="pt-elevation-4">
+            <h5>
+              {" "}
+              <div className="right-aligned-elem">
                 <Button
-                  disabled={this.currentPage - 1 < 1}
-                  onClick={this.previous.bind(this)}>
-                  previous
-                </Button>{" "}
-                |{" "}
-                <Button
-                  disabled={this.currentPage >= this.state.maxPages}
-                  onClick={this.next.bind(this)}>
-                  next
-                </Button>
+                    style={{marginRight: "5px"}}
+                    title="refresh"
+                    iconName="refresh"
+                    onClick={this.processEntries.bind(this, true)}
+                />
+                <Tag className="pt-large">
+                  {this.currentPage}/{this.state.maxPages}
+                </Tag>
               </div>
-            </div>
+              {this.props.listTitle ? this.props.listTitle : null}
+            </h5>
             <div>
-              <ControlGroup fill={false} vertical={false}>
-                <div className="pt-select">
-                  <select value={this.state.filter}>
-                    <option value="">Search</option>
-                  </select>
+              <div className="table-control">
+                <div className="pagination-control">
+                  <div>
+                    <Button
+                        disabled={this.currentPage - 1 < 1}
+                        onClick={this.previous.bind(this)}>
+                      previous
+                    </Button>{" "}
+                    |{" "}
+                    <Button
+                        disabled={this.currentPage >= this.state.maxPages}
+                        onClick={this.next.bind(this)}>
+                      next
+                    </Button>
+                  </div>
                 </div>
-                <InputGroup
-                  onChange={this.searchBy}
-                  value={this.state.keywordSearch}
-                  placeholder={pluginRegistry
-                    .getIntl()
-                    .formatMessage({id: "app.common.enterKeywords"})}
-                />
-              </ControlGroup>
-              <div className="label-info-display">
-                <FormattedMessage
-                  id="app.common.entriesTotal"
-                  values={{entriesCount: this.state.count}}
-                />
+                <div>
+                  <ControlGroup fill={false} vertical={false}>
+                    <div className="pt-select">
+                      <select value={this.state.filter}>
+                        <option value="">Search</option>
+                      </select>
+                    </div>
+                    <InputGroup
+                        onChange={this.searchBy}
+                        value={this.state.keywordSearch}
+                        placeholder={pluginRegistry
+                            .getIntl()
+                            .formatMessage({id: "app.common.enterKeywords"})}
+                    />
+                  </ControlGroup>
+                  <div className="label-info-display">
+                    <FormattedMessage
+                        id="app.common.entriesTotal"
+                        values={{entriesCount: this.state.count}}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="overflowed-table">
+                <table className={`pt-table pt-bordered pt-striped ${this.state.interactive}`}>
+                  <this.props.tableHeaderClass server={this.props.server} />
+                  <tbody
+                      style={{
+                        textAlign: "center",
+                        verticalAlign: "middle !important"
+                      }}>
+                  {Array.isArray(entries) && entries.length > 0
+                      ? entries.map((entry, index) => {
+                        return (
+                            <this.props.entryClass
+                                key={`entry-${index}`}
+                                entry={entry}
+                                loadEntries={this.props.loadEntries}
+                                server={this.props.server}
+                                history={this.props.history}
+                                page={this.currentPage}
+                            />
+                        );
+                      })
+                      : null}
+                  </tbody>
+                </table>
               </div>
             </div>
-          </div>
-          <div className="overflowed-table">
-            <table className={`pt-table pt-bordered pt-striped ${this.state.interactive}`}>
-              <this.props.tableHeaderClass server={this.props.server} />
-              <tbody
-                style={{
-                  textAlign: "center",
-                  verticalAlign: "middle !important"
-                }}>
-                {Array.isArray(entries) && entries.length > 0
-                  ? entries.map((entry, index) => {
-                      return (
-                        <this.props.entryClass
-                          key={`entry-${index}`}
-                          entry={entry}
-                          loadEntries={this.props.loadEntries}
-                          server={this.props.server}
-                          history={this.props.history}
-                          page={this.currentPage}
-                        />
-                      );
-                    })
-                  : null}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </Card>
-    );
+          </Card>
+      );
+    }else{
+      return (
+          <Loader/>
+      )
+    }
+
   }
 }
 

@@ -18,7 +18,7 @@
 
 import {loadPools, loadResponseRules} from "../reducers/numberrange";
 import PoolListItem from "./PoolListItem";
-
+import Loader from "../../../../components/Loader";
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
@@ -172,30 +172,46 @@ class _PoolList extends Component {
     }
 
     render() {
-        let {server, pools} = this.props;
-        return (
-            <RightPanel
-                title={
-                    <FormattedMessage
-                        id="plugins.numberRange.numberRangePools"
-                        defaultMessage="Number Range Pools"
-                    />
-                }>
-                <div className="large-cards-container">
-                    <ServerPools
-                        history={this.props.history}
-                        server={server}
-                        pools={pools}
-                    />
-                </div>
-            </RightPanel>
-        );
+        let {server, pools, loading} = this.props;
+        if(!loading){
+            return (
+                <RightPanel
+                    title={
+                        <FormattedMessage
+                            id="plugins.numberRange.numberRangePools"
+                            defaultMessage="Number Range Pools"
+                        />
+                    }>
+                    <div className="large-cards-container">
+                        <ServerPools
+                            history={this.props.history}
+                            server={server}
+                            pools={pools}
+                        />
+                    </div>
+                </RightPanel>
+            );
+        }else{
+            return(
+                <RightPanel
+                    title={
+                        <FormattedMessage
+                            id="plugins.numberRange.numberRangePools"
+                            defaultMessage="Number Range Pools"
+                        />
+                    }>
+                    <Loader/>
+                </RightPanel>
+            )
+        }
+
     }
 }
 
 export var PoolList = connect(
     (state, ownProps) => {
         return {
+            loading: state.numberrange.loading,
             server: state.serversettings.servers[ownProps.match.params.serverID],
             pools: state.numberrange.servers
                 ? state.numberrange.servers[ownProps.match.params.serverID].pools
