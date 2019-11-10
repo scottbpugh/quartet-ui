@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 /* Global CSS settings */
+
 @media print {
   header, footer,
   #root > div > div > div > div.left-panel.react-resizable {
@@ -28,7 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     margin:0!important;
   }
 }
-
+.application{
+  box-sizing: border-box;padding-top:50px;
+}
+.navbar{
+}
 
 .wrapper, html, body, #root, .App {
     min-height:100%;
@@ -37,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 html, body {
   scroll-behavior: smooth;
+  overflow-y: hidden;
 }
 .wrapper {
     display: flex;
@@ -45,9 +51,10 @@ html, body {
     min-height:100%;
 }
 .main-container {
+
     flex:2;
     display: flex;
-    margin-top:50px;
+
 }
 
 .tags .tag:not(:last-child) {

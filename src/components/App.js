@@ -99,7 +99,7 @@ class _App extends Component {
   render() {
     return (
       <div
-        className={classNames({
+        className={classNames('application', {
           App: true,
           "bp3-dark": !!["dark", "dark-brown"].includes(this.props.theme),
           contrasted: this.props.theme === "contrasted",
@@ -108,9 +108,9 @@ class _App extends Component {
         })}>
         <header>
           <Navbar
-            className={classNames({
+            className={classNames('navbar', {
               "bp3-fixed-top": true,
-              "bp3-dark": this.props.theme !== "polar"
+              "bp3-dark": this.props.theme !== "polar",
             })}>
             <NavbarGroup>
               <NavbarHeading>
