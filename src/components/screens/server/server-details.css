@@ -38,10 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   font-variant: small-caps;
 }
 
-.pt-dark .service-list li {
+.bp3-dark .service-list li {
   border-bottom: 3px solid #DDD;
 }
-.pt-dark .service-list li span.icon-dot {
+.bp3-dark .service-list li span.icon-dot {
   border: 2px solid #DDD;
   background:#DDD;
 }

@@ -92,7 +92,7 @@ class _RegionDetail extends Component {
                   ))
               ) : (
                   <Callout>
-                    <div className="pt-running-text">
+                    <div className="bp3-running-text">
                       <FormattedMessage id="plugins.numberRange.noRegionInPool" />
                     </div>
                   </Callout>

@@ -110,7 +110,7 @@ class _VerifyUserForm extends Component {
             fieldData={field}
             type={type}
             component={DefaultField}
-            className="pt-input"
+            className="bp3-input"
             width={300}
             validate={field.validate}
           />
@@ -125,14 +125,14 @@ class _VerifyUserForm extends Component {
     return (
       <div>
         {success ? (
-          <Callout iconName="pt-icon-saved" intent={Intent.SUCCESS}>
+          <Callout iconName="bp3-icon-saved" intent={Intent.SUCCESS}>
             <FormattedMessage id="app.servers.userVerified" />
           </Callout>
         ) : (
           <form onSubmit={handleSubmit(this.submit.bind(this))}>
             {form}
             <button
-              className="pt-button pt-intent-primary"
+              className="bp3-button bp3-intent-primary"
               type="submit"
               disabled={submitting}>
               Submit

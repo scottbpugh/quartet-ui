@@ -92,7 +92,7 @@ export class LocationTypeDialog extends Component {
           {this.state.locationType ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="pt-intent-primary"
+              className="bp3-intent-primary"
               onClick={this.props.toggleLocationTypeDialog}
             >
               {this.state.locationType}
@@ -110,12 +110,12 @@ export class LocationTypeDialog extends Component {
           onClose={this.props.toggleLocationTypeDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Location Type"
         >
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -125,7 +125,7 @@ export class LocationTypeDialog extends Component {
               entryClass={LocationTypeEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

@@ -68,7 +68,7 @@ export default class extends Component {
           <FormattedMessage id="plugins.epcis.what" defaultMessage="What" />
         </div>
         <div className="detail-table-container">
-          <table className="pt-table pt-bordered pt-striped">
+          <table className="bp3-table bp3-bordered bp3-striped">
             <tbody>
               <tr>
                 <td>

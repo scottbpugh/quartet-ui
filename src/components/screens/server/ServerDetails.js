@@ -74,13 +74,13 @@ class _ServerDetails extends Component {
       <RightPanel title={<FormattedMessage id="app.servers.serverDetails" />}>
         {serverObject ? (
           <div className="cards-container">
-            <Card className="pt-elevation-4">
+            <Card className="bp3-elevation-4">
               <h5>
                 Settings
                 <Button
                   onClick={this.toggleEditMode}
-                  className="pt-intent-primary add-incard-button"
-                  iconName="pt-icon-edit">
+                  className="bp3-intent-primary add-incard-button"
+                  iconName="bp3-icon-edit">
                   Edit
                 </Button>
               </h5>
@@ -97,7 +97,7 @@ class _ServerDetails extends Component {
                 </div>
               ) : (
                 <div>
-                  <table className="pt-table pt-bordered pt-striped">
+                  <table className="bp3-table bp3-bordered bp3-striped">
                     <thead>
                       <tr>
                         <th>Server API Endpoint</th>
@@ -130,12 +130,12 @@ class _ServerDetails extends Component {
                 </div>
               )}
             </Card>
-            <Card className="pt-elevation-4">
+            <Card className="bp3-elevation-4">
               <h5>
                 Services Enabled{" "}
                 <Button
                   onClick={this.fetchAppListRefresh}
-                  iconName="pt-icon-refresh add-incard-button"
+                  iconName="bp3-icon-refresh add-incard-button"
                 />
               </h5>
               {services.length > 0 ? (
@@ -143,7 +143,7 @@ class _ServerDetails extends Component {
               ) : (
                 <div onClick={this.fetchAppList} className="centered-action">
                   <Icon
-                    iconName="pt-icon-refresh"
+                    iconName="bp3-icon-refresh"
                     className="very-large-icon"
                   />
                   <span>Retry</span>

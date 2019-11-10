@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders form properly 1`] = `
+<div>
+  <div
+    className="right-panel"
+  >
+    <div>
+      <div
+        className="large-cards-container"
+      >
+        <div
+          className="pt-card pt-elevation-0 form-card"
+        >
+          <h5>
+            <span>
+              plugins.output.addEndpoint
+            </span>
+          </h5>
+          <div>
+            <form
+              onSubmit={[Function]}
+            >
+              <button
+                className="pt-button pt-intent-primary"
+                disabled={false}
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

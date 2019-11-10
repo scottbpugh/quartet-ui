@@ -30,13 +30,13 @@ export class VerifyUserDialog extends Component {
         isOpen={isOpen}
         onClose={closeDialog}
         className={classNames({
-          "pt-dark": !!theme.startsWith("dark")
+          "bp3-dark": !!theme.startsWith("dark")
         })}
         title={`${intl.formatMessage({id: "app.servers.verifyUser"})} - ${
           server.serverSettingName
         }`}
       >
-        <div className="pt-dialog-body">
+        <div className="bp3-dialog-body">
           <VerifyUserForm isOpen={isOpen} server={server} />
         </div>
       </Dialog>

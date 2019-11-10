@@ -81,7 +81,7 @@ class _AddPool extends Component {
               )
             }>
           <div className="large-cards-container">
-            <Card className="pt-elevation-4 form-card">
+            <Card className="bp3-elevation-4 form-card">
               <h5>
                 {!editMode ? (
                     <FormattedMessage id="plugins.numberRange.addPool" />
@@ -96,10 +96,10 @@ class _AddPool extends Component {
               />
             </Card>
             {editMode ? (
-                <Card className="pt-elevation-4 form-card">
+                <Card className="bp3-elevation-4 form-card">
                   <h5>
                     <button
-                        className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
+                        className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
                         onClick={e => {
                           this.props.history.push({
                             pathname: `/number-range/add-response-rule/${
@@ -115,7 +115,7 @@ class _AddPool extends Component {
                   {pool &&
                   Array.isArray(pool.response_rules) &&
                   pool.response_rules.length > 0 ? (
-                      <table className="pt-table pt-interactive pt-bordered pt-striped">
+                      <table className="bp3-table bp3-interactive bp3-bordered bp3-striped">
                         <thead>
                         <tr>
                           <th>

@@ -106,12 +106,12 @@ class _NavPluginRoot extends Component {
             onClose={this.toggleUpload}
             title={<FormattedMessage id="plugins.capture.addTask" />}
             className={classNames({
-              "pt-dark": this.props.theme.startsWith("dark") ? true : false
+              "bp3-dark": this.props.theme.startsWith("dark") ? true : false
             })}>
-            <div className="pt-dialog-body">
+            <div className="bp3-dialog-body">
               <div className="mini-form">
                 <div style={{marginBottom: "20px"}}>
-                  <div className="pt-select">
+                  <div className="bp3-select">
                     <select
                       onChange={this.ruleSelect.bind(this)}
                       value={this.state.rule ? this.state.rule.id : null}>

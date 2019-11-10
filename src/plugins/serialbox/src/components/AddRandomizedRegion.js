@@ -51,7 +51,7 @@ class _AddRandomizedRegion extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="pt-elevation-4 form-card">
+          <Card className="bp3-elevation-4 form-card">
             <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.numberRange.addRandomizedRegion" />

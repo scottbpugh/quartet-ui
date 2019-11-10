@@ -276,9 +276,9 @@ class _RuleItem extends Component {
             />
           }
           className={classNames({
-            "pt-dark": this.props.theme.startsWith("dark") ? true : false
+            "bp3-dark": this.props.theme.startsWith("dark") ? true : false
           })}>
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <div className="mini-form">
               <FileUpload
                 text="Choose file..."

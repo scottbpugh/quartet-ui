@@ -117,7 +117,7 @@ export class CompanyDialog extends Component {
           {this.state.companyName ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="pt-intent-primary"
+              className="bp3-intent-primary"
               onClick={this.props.toggleCompanyDialog}
             >
               {this.state.companyName}
@@ -135,12 +135,12 @@ export class CompanyDialog extends Component {
           onClose={this.props.toggleCompanyDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Company"
         >
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -149,7 +149,7 @@ export class CompanyDialog extends Component {
               entryClass={CompanyEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

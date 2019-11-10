@@ -6,7 +6,7 @@ exports[`renders correctly 1`] = `
     onSubmit={[Function]}
   >
     <button
-      className="pt-button pt-icon-add pt-button pt-intent-primary"
+      className="bp3-button bp3-icon-add bp3-button bp3-intent-primary"
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       type="submit"

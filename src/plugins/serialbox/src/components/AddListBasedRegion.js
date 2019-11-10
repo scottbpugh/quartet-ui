@@ -73,7 +73,7 @@ class KeyValuePairForm extends Component {
       <tr>
         <td>
           <input
-            className="pt-input"
+            className="bp3-input"
             placeholder="Key"
             name="key"
             value={this.state.key}
@@ -83,7 +83,7 @@ class KeyValuePairForm extends Component {
         </td>
         <td>
           <input
-            className="pt-input"
+            className="bp3-input"
             placeholder="value"
             name="value"
             value={this.state.value}
@@ -137,12 +137,12 @@ class ForeignKeyRelated extends Component {
       <div>
         <button
           disabled={!this.props.editMode}
-          className="pt-button pt-intent-primary"
+          className="bp3-button bp3-intent-primary"
           onClick={this.addParam}>
           <FormattedMessage id="plugins.numberRange.addParamEditOnly" />
         </button>
         {this.props.editMode ? (
-          <table className="pt-table pt-striped">
+          <table className="bp3-table bp3-striped">
             <thead>
               <tr>
                 <td>Key</td>
@@ -260,7 +260,7 @@ class _AddListBasedRegion extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="pt-elevation-4 form-card">
+          <Card className="bp3-elevation-4 form-card">
             <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.numberRange.addListBasedRegion" />

@@ -27,7 +27,7 @@ export default class extends Component {
           <FormattedMessage id="plugins.epcis.when" defaultMessage="When" />
         </div>
         <div className="detail-table-container" style={{width: "100%"}}>
-          <table className="pt-table pt-bordered pt-striped">
+          <table className="bp3-table bp3-bordered bp3-striped">
             <tbody>
               <tr>
                 <td>

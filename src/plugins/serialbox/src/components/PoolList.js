@@ -81,10 +81,10 @@ class ServerPools extends Component {
         let serverName = this.props.server.serverSettingName;
         let serverID = this.props.server.serverID;
         return (
-            <Card className="pt-elevation-4">
+            <Card className="bp3-elevation-4">
                 <h5>
                     <button
-                        className="pt-button add-pool-button pt-intent-primary"
+                        className="bp3-button add-pool-button bp3-intent-primary"
                         onClick={e => {
                             this.props.history.push(`/number-range/add-pool/${serverID}/`);
                         }}>
@@ -94,7 +94,7 @@ class ServerPools extends Component {
                 </h5>
                 <div/>
                 <div>
-                    <table className="pool-list-table pt-table pt-bordered pt-striped">
+                    <table className="pool-list-table bp3-table bp3-bordered bp3-striped">
                         <thead>
                         <tr>
                             <th>

@@ -31,10 +31,10 @@ class ServerRules extends Component {
     const {rules} = this.props;
 
     return (
-      <Card className="pt-elevation-4">
+      <Card className="bp3-elevation-4">
         <h5>
           <button
-            className="pt-button right-aligned-elem pt-intent-primary"
+            className="bp3-button right-aligned-elem bp3-intent-primary"
             onClick={e => {
               this.props.history.push(`/capture/add-rule/${serverID}/rule`);
             }}
@@ -47,7 +47,7 @@ Rules
         </h5>
         <div />
         <div>
-          <table className="pool-list-table pt-table pt-bordered pt-striped">
+          <table className="pool-list-table bp3-table bp3-bordered bp3-striped">
             <thead>
               <tr>
                 <th>

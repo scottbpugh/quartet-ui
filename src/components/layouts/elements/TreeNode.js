@@ -102,7 +102,7 @@ class _TreeNode extends Component {
                 "arrow-rotated": !collapsed
               })}>
               <Icon
-                iconName="pt-icon-chevron-right"
+                iconName="bp3-icon-chevron-right"
                 style={{visibility: expandable ? "visible" : "hidden"}}
               />
             </span>

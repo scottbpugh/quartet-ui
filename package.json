@@ -6,8 +6,11 @@
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
-    "@blueprintjs/core": "1",
+    "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/datetime": "^1.25.1",
+    "@blueprintjs/icons": "^3.11.0",
+    "@blueprintjs/select": "^3.11.1",
+    "@blueprintjs/table": "^3.8.1",
     "about-window": "^1.12.1",
     "babel-register": "^6.26.0",
     "base-64": "^0.1.0",

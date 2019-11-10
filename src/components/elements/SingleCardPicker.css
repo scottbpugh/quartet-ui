@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     cursor: pointer;
     transform: scale(1.08); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
-.pt-dark .pick-cards-container .card-picker {
+.bp3-dark .pick-cards-container .card-picker {
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.4);
     border: 0px;
 }

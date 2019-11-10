@@ -278,7 +278,7 @@ export class _PageForm extends Component {
               fieldData={field}
               type={type}
               component={DefaultField}
-              className="pt-input"
+              className="bp3-input"
               width={300}
               validate={field.validate}
             />
@@ -302,14 +302,14 @@ export class _PageForm extends Component {
         <form onSubmit={handleSubmit(this.submit.bind(this))}>
           {form}
           <button
-            className="pt-button pt-intent-primary"
+            className="bp3-button bp3-intent-primary"
             type="submit"
             disabled={submitting}>
             <FormattedMessage id="app.common.submit" />
           </button>{" "}
           |{" "}
           <button
-            className="pt-button"
+            className="bp3-button"
             type="button"
             onClick={e => {
               this.setState({cancelForm: true}, () => {

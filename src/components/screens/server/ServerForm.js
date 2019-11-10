@@ -54,7 +54,7 @@ class _ServerForm extends Component {
           fieldData={field}
           component={DefaultField}
           type={field.description.type}
-          className="pt-input"
+          className="bp3-input"
           width={300}
           validate={field.validate}
         />
@@ -87,7 +87,7 @@ class _ServerForm extends Component {
         {this.formElems}
         <Button
           type="submit"
-          className="pt-button pt-intent-primary"
+          className="bp3-button bp3-intent-primary"
           iconName="add">
           {this.props.saveButtonMsg}
         </Button>

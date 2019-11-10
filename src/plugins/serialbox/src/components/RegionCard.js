@@ -118,7 +118,7 @@ export class _RegionCard extends Component {
       <div>
         <Card
           className={classNames({
-            "pt-elevation-4": true,
+            "bp3-elevation-4": true,
             "region-detail": true,
             updated: lastUpdated === region.machine_name
           })}

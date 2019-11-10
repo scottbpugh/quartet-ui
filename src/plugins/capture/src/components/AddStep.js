@@ -105,7 +105,7 @@ class _AddStep extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="pt-elevation-4 form-card">
+          <Card className="bp3-elevation-4 form-card">
             <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.capture.addStep" />
@@ -130,10 +130,10 @@ class _AddStep extends Component {
             />
           </Card>
           {editMode ? (
-            <Card className="pt-elevation-4 form-card">
+            <Card className="bp3-elevation-4 form-card">
               <h5>
                 <button
-                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
+                  className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
                   onClick={e => {
                     this.props.history.push(
                       `/capture/add-step-param/${
@@ -147,7 +147,7 @@ class _AddStep extends Component {
               </h5>
 
               {Array.isArray(step.params) && step.params.length > 0 ? (
-                <table className="pt-table pt-interactive pt-bordered pt-striped">
+                <table className="bp3-table bp3-interactive bp3-bordered bp3-striped">
                   <thead>
                     <tr>
                       <th>

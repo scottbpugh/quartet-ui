@@ -36,7 +36,7 @@ export class _AccessDenied extends Component {
         <div
           className={classNames({
             "access-denied-contents": true,
-            "pt-dark": this.props.theme && this.props.theme === "contrasted"
+            "bp3-dark": this.props.theme && this.props.theme === "contrasted"
           })}>
           {this.props.theme &&
           (this.props.theme.startsWith("dark") ||
@@ -64,7 +64,7 @@ export class _AccessDenied extends Component {
               this.props.history.go(-2);
             }}
             style={{alignSelf: "flex-end"}}
-            className="pt-button pt-intent-primary">
+            className="bp3-button bp3-intent-primary">
             <FormattedMessage id="app.common.takeMeBack" />
           </button>
         </div>

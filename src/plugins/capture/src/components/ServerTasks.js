@@ -159,11 +159,11 @@ class _ServerTasks extends Component {
     let serverName = this.props.server.serverSettingName;
     const {tasks} = this.state;
     return (
-      <Card className="pt-elevation-4">
+      <Card className="bp3-elevation-4">
         <h5>
           {" "}
           <div className="right-aligned-elem">
-            <Tag className="pt-large">
+            <Tag className="bp3-large">
               {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
@@ -205,7 +205,7 @@ class _ServerTasks extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
+            <table className="pool-list-table bp3-table bp3-bordered bp3-striped bp3-interactive">
               <thead>
                 <tr>
                   <th>

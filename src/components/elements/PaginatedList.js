@@ -38,7 +38,7 @@ class _PaginatedList extends Component {
       inputSize: 50,
       maxPages: 1,
       count: 0,
-      interactive: 'pt-interactive'
+      interactive: 'bp3-interactive'
     };
     this.offset = 0;
     this.currentPage = 1;
@@ -82,7 +82,7 @@ class _PaginatedList extends Component {
       entries: nextProps.entries,
       maxPages: maxPages,
       count: nextProps.count,
-      interactive: this.props.interactive === false ? '' : ' pt-interactive'
+      interactive: this.props.interactive === false ? '' : ' bp3-interactive'
     });
   }
 
@@ -122,7 +122,7 @@ class _PaginatedList extends Component {
     const {entries} = this.state;
     if(!this.props.loading){
       return (
-          <Card className="pt-elevation-4">
+          <Card className="bp3-elevation-4">
             <h5>
               {" "}
               <div className="right-aligned-elem">
@@ -132,7 +132,7 @@ class _PaginatedList extends Component {
                     iconName="refresh"
                     onClick={this.processEntries.bind(this, true)}
                 />
-                <Tag className="pt-large">
+                <Tag className="bp3-large">
                   {this.currentPage}/{this.state.maxPages}
                 </Tag>
               </div>
@@ -157,7 +157,7 @@ class _PaginatedList extends Component {
                 </div>
                 <div>
                   <ControlGroup fill={false} vertical={false}>
-                    <div className="pt-select">
+                    <div className="bp3-select">
                       <select value={this.state.filter}>
                         <option value="">Search</option>
                       </select>
@@ -179,7 +179,7 @@ class _PaginatedList extends Component {
                 </div>
               </div>
               <div className="overflowed-table">
-                <table className={`pt-table pt-bordered pt-striped ${this.state.interactive}`}>
+                <table className={`bp3-table bp3-bordered bp3-striped ${this.state.interactive}`}>
                   <this.props.tableHeaderClass server={this.props.server} />
                   <tbody
                       style={{

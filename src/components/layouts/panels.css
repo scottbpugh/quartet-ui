@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .contrasted .right-panel {
   background:#282B30;
 }
-.pt-dark .right-panel {
+.bp3-dark .right-panel {
   background:#394B59;
 }
 .dark-brown .right-panel {
@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     height:100%;
     cursor: ew-resize;
 }
-.contrasted .pt-callout {
+.contrasted .bp3-callout {
   background:#F5F8FA;
   color:#182026;
 }

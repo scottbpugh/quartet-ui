@@ -235,13 +235,13 @@ class PoolListItem extends Component {
                         id: "plugins.numberRange.allocateButton"
                     })} ${pool.readable_name}`}
                     className={classNames({
-                        "pt-dark": this.props.theme.startsWith("dark")
+                        "bp3-dark": this.props.theme.startsWith("dark")
                     })}>
-                    <div className="pt-dialog-body">
+                    <div className="bp3-dialog-body">
                         <form onSubmit={this.setAllocation} className="mini-form">
                             <input
                                 placeholder="allocate"
-                                className="pt-input"
+                                className="bp3-input"
                                 type="number"
                                 defaultValue={1}
                                 value={this.state.alloc}
@@ -261,7 +261,7 @@ class PoolListItem extends Component {
                                     <Radio label="XML" value="xml"/>
                                 </RadioGroup>
                             </div>
-                            <button type="submit" className="pt-button">
+                            <button type="submit" className="bp3-button">
                                 <FormattedMessage id="plugins.numberRange.allocateButton"/>
                             </button>
                         </form>

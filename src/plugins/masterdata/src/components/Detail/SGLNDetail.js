@@ -175,16 +175,16 @@ class _SGLNDetail extends Component {
             <div
               className="twin-cards-container"
               style={{position: "relative"}}>
-              <Card className="pt-elevation-4">
+              <Card className="bp3-elevation-4">
                 <h5>
                   {detail.SGLN}{" "}
                   <Button
                     onClick={this.goToEdit}
-                    className="pt-button pt-icon-edit pt-intent-primary add-incard-button">
+                    className="bp3-button bp3-icon-edit bp3-intent-primary add-incard-button">
                     Edit
                   </Button>
                 </h5>
-                <table className="pt-table data-pair-table pt-bordered pt-striped">
+                <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                   <tbody>
                     {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
                     {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
@@ -192,7 +192,7 @@ class _SGLNDetail extends Component {
                     <tr>
                       <td>Company</td>
                       <td>
-                        <Tag className="pt-intent-primary">
+                        <Tag className="bp3-intent-primary">
                           {this.state.companyName}
                         </Tag>
                       </td>
@@ -200,7 +200,7 @@ class _SGLNDetail extends Component {
                     <tr>
                       <td>Site</td>
                       <td>
-                        <Tag className="pt-intent-primary">
+                        <Tag className="bp3-intent-primary">
                           {this.state.siteName}
                         </Tag>
                       </td>
@@ -208,7 +208,7 @@ class _SGLNDetail extends Component {
                     <tr>
                       <td>Location Type</td>
                       <td>
-                        <Tag className="pt-intent-primary">
+                        <Tag className="bp3-intent-primary">
                           {this.state.locationTypeName}
                         </Tag>
                       </td>
@@ -217,11 +217,11 @@ class _SGLNDetail extends Component {
                 </table>
               </Card>
               {detail ? (
-                <Card style={{position: "relative"}} className="pt-elevation-4">
+                <Card style={{position: "relative"}} className="bp3-elevation-4">
                   <h5>
                     Additional Identifiers
                     <button
-                      className="pt-button pt-intent-primary add-incard-button"
+                      className="bp3-button bp3-intent-primary add-incard-button"
                       onClick={e => {
                         this.props.history.push({
                           pathname: `/masterdata/add-location-identifier/${
@@ -237,7 +237,7 @@ class _SGLNDetail extends Component {
                       <FormattedMessage id="plugins.masterData.addLocationIdentifier" />
                     </button>
                   </h5>
-                  <table className="pt-table data-pair-table pt-bordered pt-striped">
+                  <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                     <tbody>
                       {yieldKeyValPairs(detail.locationidentifier_set, [
                         "identifier_type",
@@ -251,7 +251,7 @@ class _SGLNDetail extends Component {
             </div>
           ) : null}
           {detail ? (
-            <Card className="pt-elevation-4">
+            <Card className="bp3-elevation-4">
               <h5>Geographic Information</h5>
               {detail && detail.longitude && detail.latitude ? (
                 <SingleMarkerMap
@@ -267,7 +267,7 @@ class _SGLNDetail extends Component {
                   ]}
                 />
               ) : null}
-              <table className="pt-table data-pair-table  pt-bordered pt-striped">
+              <table className="bp3-table data-pair-table  bp3-bordered bp3-striped">
                 <tbody>
                   {yieldDataPairRowIfSet("Address", detail.address1)}
                   {yieldDataPairRowIfSet("Address 2", detail.address2)}
@@ -287,11 +287,11 @@ class _SGLNDetail extends Component {
           ) : null}
 
           {detail ? (
-            <Card className="pt-elevation-4">
+            <Card className="bp3-elevation-4">
               <h5>
                 Location Fields{" "}
                 <button
-                  className="pt-button pt-intent-primary add-incard-button"
+                  className="bp3-button bp3-intent-primary add-incard-button"
                   onClick={e => {
                     this.props.history.push({
                       pathname: `/masterdata/add-location-field/${
@@ -307,7 +307,7 @@ class _SGLNDetail extends Component {
                   <FormattedMessage id="plugins.masterData.addLocationField" />
                 </button>
               </h5>
-              <table className="pt-table data-pair-table pt-bordered pt-striped">
+              <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                 <tbody>
                   {yieldKeyValPairs(detail.locationfield_set, [
                     "name",

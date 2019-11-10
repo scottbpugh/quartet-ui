@@ -3,15 +3,15 @@
 exports[`renders correctly 1`] = `
 <div>
   <div
-    className="pt-card pt-elevation-0 pt-elevation-4"
+    className="bp3-card bp3-elevation-0 bp3-elevation-4"
   >
     <h5>
-       
+
       <div
         className="right-aligned-elem"
       >
         <button
-          className="pt-button pt-icon-refresh"
+          className="bp3-button bp3-icon-refresh"
           onClick={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
@@ -24,7 +24,7 @@ exports[`renders correctly 1`] = `
           type="button"
         />
         <span
-          className="pt-tag pt-large"
+          className="bp3-tag bp3-large"
         >
           1
           /
@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
         >
           <div>
             <button
-              className="pt-button pt-disabled"
+              className="bp3-button bp3-disabled"
               disabled={true}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -52,11 +52,11 @@ exports[`renders correctly 1`] = `
                 previous
               </span>
             </button>
-             
+
             |
-             
+
             <button
-              className="pt-button pt-disabled"
+              className="bp3-button bp3-disabled"
               disabled={true}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -70,10 +70,10 @@ exports[`renders correctly 1`] = `
         </div>
         <div>
           <div
-            className="pt-control-group"
+            className="bp3-control-group"
           >
             <div
-              className="pt-select"
+              className="bp3-select"
             >
               <select
                 value=""
@@ -86,10 +86,10 @@ exports[`renders correctly 1`] = `
               </select>
             </div>
             <div
-              className="pt-input-group"
+              className="bp3-input-group"
             >
               <input
-                className="pt-input"
+                className="bp3-input"
                 onChange={[Function]}
                 placeholder="Enter Keywords..."
                 style={
@@ -115,7 +115,7 @@ exports[`renders correctly 1`] = `
         className="overflowed-table"
       >
         <table
-          className="pt-table pt-bordered pt-striped pt-interactive"
+          className="bp3-table bp3-bordered bp3-striped bp3-interactive"
         >
           <thead>
             <th>

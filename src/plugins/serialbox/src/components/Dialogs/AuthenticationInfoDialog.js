@@ -99,7 +99,7 @@ export class AuthenticationInfoDialog extends Component {
           {this.state.authenticationInfoName ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="pt-intent-primary"
+              className="bp3-intent-primary"
               onClick={this.props.toggleAuthenticationInfoDialog}>
               {this.state.authenticationInfoName}
             </Tag>
@@ -116,11 +116,11 @@ export class AuthenticationInfoDialog extends Component {
           onClose={this.props.toggleAuthenticationInfoDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select an End-Point">
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -128,7 +128,7 @@ export class AuthenticationInfoDialog extends Component {
               entryClass={AuthenticationInfoEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

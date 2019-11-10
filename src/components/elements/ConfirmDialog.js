@@ -47,18 +47,18 @@ class _ConfirmDialog extends Component {
     return (
       <Dialog
         className={classNames({
-          "pt-dark": theme.includes("dark")
+          "bp3-dark": theme.includes("dark")
         })}
         isOpen={this.props.isOpen}
         onClose={toggle}>
-        <div className="pt-dialog-header">
+        <div className="bp3-dialog-header">
           <h5>{title}</h5>
         </div>
-        <div className="pt-dialog-body">
+        <div className="bp3-dialog-body">
           <Callout intent={Intent.WARNING}>{body}</Callout>
         </div>
-        <div className="pt-dialog-footer">
-          <div className="pt-dialog-footer-actions">
+        <div className="bp3-dialog-footer">
+          <div className="bp3-dialog-footer-actions">
             <Button
               onClick={confirmAction}
               iconName="warning"

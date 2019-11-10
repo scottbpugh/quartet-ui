@@ -94,7 +94,7 @@ export class EndpointDialog extends Component {
           {this.state.endpointName ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="pt-intent-primary"
+              className="bp3-intent-primary"
               onClick={this.props.toggleEndpointDialog}>
               {this.state.endpointName}
             </Tag>
@@ -111,11 +111,11 @@ export class EndpointDialog extends Component {
           onClose={this.props.toggleEndpointDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select an End-Point">
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -124,7 +124,7 @@ export class EndpointDialog extends Component {
               entryClass={EndpointEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

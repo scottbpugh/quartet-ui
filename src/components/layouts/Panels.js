@@ -35,7 +35,7 @@ class _LeftPanel extends Component {
     return (
       <ResizableBox className="left-panel" axis="x" width={300}>
         {/* <div className="left-panel"> */}
-        <h4 className="left-panel-title pt-dark">
+        <h4 className="left-panel-title bp3-dark">
           {/* We use a new message from passed props because Redux uses plain objects. */}
           <FormattedMessage {...this.props.pageTitle} />
         </h4>
