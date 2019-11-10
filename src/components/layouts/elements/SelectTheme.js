@@ -19,8 +19,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {switchTheme} from "reducers/layout";
-import {FormattedMessage} from "react-intl";
-import {pluginRegistry} from "plugins/pluginRegistration";
 import {Button, MenuItem} from "@blueprintjs/core";
 import {Select} from "@blueprintjs/select";
 
@@ -43,19 +41,20 @@ const themes = [
 
 
 class SelectTheme extends Component {
-    renderListItem(theme, a) {
+    static renderListItem(theme, a) {
         return (
             <MenuItem
                 text={theme.name}
                 onClick={a.modifiers.active ? undefined : a.handleClick}
                 id={theme.id}
+                key={theme.id}
             >
             </MenuItem>
         )
     }
 
     handleItemChange(activeItem) {
-        console.info('handleitemchange being called.')
+        console.info('handleitemchange being called.');
         this.props.switchTheme(activeItem);
     }
 
@@ -69,7 +68,7 @@ class SelectTheme extends Component {
         return (
             <Select
                 items={themes}
-                itemRenderer={this.renderListItem}
+                itemRenderer={SelectTheme.renderListItem}
                 filterable={false}
                 activeItem={this.props.currentLocale}
                 onItemSelect={handleChange}

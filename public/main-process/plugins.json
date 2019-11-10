@@ -74,14 +74,5 @@
     "description":
     "\n                The Serial Number Range Management plugin offers users the\n                ability to interact with SerialBox, the backend solution for\n                your serial number range management requirements.\n\n                Among other functions, this plugin offers the ability to create\n                pools and serial number ranges as well as allocate numbers on\n                the fly from the QU4RTET interface.\n            ",
     "enabled": true
-  },
-  "quartet-ui-gtin-calculator": {
-    "core": false,
-    "preview": "",
-    "initPath": "calculator/src/init.js",
-    "readableName": "GTIN Calculator Plugin",
-    "pluginName": "quartet-ui-gtin-calculator",
-    "description": "Calculate full GTIN numbers based on NDC codes",
-    "enabled": true
   }
 }

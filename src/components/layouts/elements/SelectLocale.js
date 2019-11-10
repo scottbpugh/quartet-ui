@@ -19,33 +19,33 @@ class SelectLocale extends Component {
         let ret = [];
         Object.keys(messages).map((locale) => {
             ret.push(locale);
-        })
+        });
         return ret;
 
     }
 
-    renderListItem(item, a){
+    static renderListItem(item, a){
         return(
             <MenuItem
                 text={item}
                 onClick={a.modifiers.active ? undefined : a.handleClick}
+                key={item}
             >
             </MenuItem>
         )
     }
 
     handleItemChange(activeItem){
-        console.info('handleitemchange being called.')
+        console.info('handleitemchange being called.');
         this.props.switchLocale(activeItem);
     }
 
     render() {
         let handleItem = this.handleItemChange.bind(this);
-        let items=this.getItems();
         return (
             <Select
                 items={this.getItems()}
-                itemRenderer={this.renderListItem}
+                itemRenderer={SelectLocale.renderListItem}
                 filterable={false}
                 activeItem={this.props.currentLocale}
                 onItemSelect={handleItem}

@@ -16,7 +16,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {loadPools, setAllocation, deleteAPool} from "../reducers/numberrange";
+import {deleteAPool, loadPools, setAllocation} from "../reducers/numberrange";
+
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
@@ -32,7 +33,6 @@ const {
   Radio
 } = qu4rtet.require("@blueprintjs/core");
 const {FormattedMessage} = qu4rtet.require("react-intl");
-const {withRoute} = qu4rtet.require("react-router-dom");
 const {TreeNode} = qu4rtet.require("./components/layouts/elements/TreeNode");
 const classNames = qu4rtet.require("classnames");
 const {pluginRegistry} = qu4rtet.require("./plugins/pluginRegistration");
@@ -79,7 +79,7 @@ class _PoolItem extends Component {
       listBased: this.poolHasListBased()
     };
   };
-  goToEdit = evt => {
+  goToEdit = () => {
     let {pool} = this.props;
     ContextMenu.hide();
     this.props.history.push({
@@ -95,11 +95,11 @@ class _PoolItem extends Component {
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button small={true} onClick={this.goToEdit} icon="edit" />
           <Button
             small={true}
             onClick={this.toggleConfirmDelete}
-            iconName="trash"
+            icon="trash"
           />
         </ButtonGroup>
         <MenuDivider title={pool.readable_name} />
@@ -164,10 +164,10 @@ class _PoolItem extends Component {
   allocChange = evt => {
     this.setState({alloc: evt.target.value});
   };
-  toggleConfirmDelete = evt => {
+  toggleConfirmDelete = () => {
     this.setState({isConfirmDeleteOpen: !this.state.isConfirmDeleteOpen});
   };
-  trashRegion = evt => {
+  trashRegion = () => {
     const {serverID, pool, deleteAPool} = this.props;
     const serverObject = pluginRegistry.getServer(serverID);
     this.toggleConfirmDelete();
@@ -197,7 +197,7 @@ class _PoolItem extends Component {
             id: "plugins.numberRange.allocateButton"
           })} ${pool.readable_name}`}
           className={classNames({
-            "bp3-dark": this.props.theme.startsWith("dark") ? true : false
+            "bp3-dark": !!this.props.theme.startsWith("dark")
           })}>
           <div className="bp3-dialog-body">
             <form onSubmit={this.setAllocation} className="mini-form">
@@ -307,9 +307,8 @@ export class _NavPluginRoot extends Component {
     );
   };
   render() {
-    const {serverID, pools} = this.props;
+    const {serverID} = this.props;
     if (this.props.server && this.serverHasSerialbox()) {
-      let children = NavItems(pools, serverID, this.props.intl);
       return (
         <TreeNode
           serverID={serverID}

@@ -31,13 +31,13 @@ class Qu4rtet {
   path = path;
   pluginManager = pluginManager;
   userData = electron.remote.app.getPath("userData");
-  pluginPath = path.join(this.userData, "packages");
+  pluginPath = path.join(__dirname, "plugins");
   exports = (path, exports) => {
     this.modules[path] = exports || {};
   };
 
   getPluginModule = async pluginEntry => {
-    console.info('activating plugin at path ' + pluginEntry.initPath)
+    console.info('activating plugin at path ' + pluginEntry.initPath);
     let pluginObject;
     if (pluginEntry.packagePath) {
       let installedPlugin = await window.qu4rtet.pluginManager.install(
@@ -53,7 +53,7 @@ class Qu4rtet {
       }
       pluginObject = window.require(pluginPath);
     } else {
-      console.info('looking for plugin here: ' + "./plugins/" + pluginEntry.initPath)
+      console.info('looking for plugin here: ' + "./plugins/" + pluginEntry.initPath);
       pluginObject = require("./plugins/" + pluginEntry.initPath);
     }
     return pluginObject;

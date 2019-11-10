@@ -21,12 +21,9 @@ import {showMessage} from "lib/message";
 const path = require("path");
 const isDev = require("electron-is-dev");
 
-const pluginFile = path.join(__dirname, '../../main-process/plugins.json')
-
-if (isDev || process.env.REACT_DEV === "dev") {
-  // use the develop version of plugins.json.
-  const pluginFile = path.join(__dirname, "../../main-process/devPlugins.json")
-}
+const pluginFile = (isDev || process.env.REACT_DEV === "dev") ?
+    path.join(__dirname, "../../main-process/devPlugins.json") :
+    path.join(__dirname, '../../main-process/plugins.json');
 
 export const initialData = () => {
   // load the plugins list when there is nothing in the local storage.
@@ -65,9 +62,6 @@ export const setDisablePlugin = pluginEntries => {
 export const fetchRemotePlugins = () => {
   return async dispatch => {
     try {
-      const pluginRequire = window
-        .require("electron")
-        .remote.require("./main-process/plugin-manager.js");
       const pluginList = window.require(
           pluginFile
       ); // loads the module
@@ -170,7 +164,7 @@ export default handleActions(
         plugins: {...state.plugins, ...action.payload}
       };
     },
-    [actions.pluginsActivated]: (state, action) => {
+    [actions.pluginsActivated]: (state) => {
       return {
         ...state,
         navTreeItems: {...state.navTreeItems}
