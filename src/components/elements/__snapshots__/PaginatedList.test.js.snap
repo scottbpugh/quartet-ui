@@ -5,7 +5,7 @@ exports[`renders correctly 1`] = `
   <div
     className="bp3-card bp3-elevation-0 bp3-elevation-4"
   >
-    <h5>
+    <h5 className="bp3-heading">
 
       <div
         className="right-aligned-elem"

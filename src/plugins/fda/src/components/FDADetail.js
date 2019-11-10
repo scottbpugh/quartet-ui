@@ -62,7 +62,7 @@ class _FDADetail extends Component {
       <RightPanel title={<FormattedMessage id="plugins.fda.FDALookup" />}>
         <div className="twin-cards-container" style={{position: "relative"}}>
           <Card className="pt-elevation-4">
-            <h5>
+            <h5 className="bp3-heading">
               {openfda.brand_name}
               <button
                 onClick={e => {

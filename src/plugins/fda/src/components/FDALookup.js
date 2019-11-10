@@ -204,7 +204,7 @@ class _FDALookup extends Component {
                   onClick={this.goToDetail.bind(this, item, index)}
                   className="region-detail pt-elevation-2 pt-interactive"
                   key={uuidv1()}>
-                  <h5>{item.openfda ? item.openfda.brand_name : null} </h5>
+                  <h5 className="bp3-heading">{item.openfda ? item.openfda.brand_name : null} </h5>
                   <table className="pt-table" style={{width: "100%"}}>
                     <tbody>
                       {yieldDataPairRowIfSet(

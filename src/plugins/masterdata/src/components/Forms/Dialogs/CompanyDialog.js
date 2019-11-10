@@ -29,7 +29,7 @@ const CompanyEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>
+      <h5 className="bp3-heading">
         {props.entry.name}
       </h5>
       {props.entry.longitude && props.entry.latitude ? (

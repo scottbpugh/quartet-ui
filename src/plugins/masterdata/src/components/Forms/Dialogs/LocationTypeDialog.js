@@ -27,7 +27,7 @@ const LocationTypeEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>
+      <h5 className="bp3-heading">
         {props.entry.identifier}
       </h5>
       <ul className="picker-data-list">

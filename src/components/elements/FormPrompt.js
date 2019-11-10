@@ -107,7 +107,7 @@ class FormPrompt extends React.Component {
         isOpen={this.state.showDialog}
         onClose={this.toggleDialog}>
         <div className="bp3-dialog-header">
-          <h5>
+          <h5 className="bp3-heading">
             <FormattedMessage id="app.common.areYouSureNavigateAwayTitle" />
           </h5>
         </div>

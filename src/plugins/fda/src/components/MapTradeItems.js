@@ -281,7 +281,7 @@ class _MapTradeItems extends Component {
       <RightPanel title={<FormattedMessage id="plugins.fda.FDALookup" />}>
         <div className="twin-cards-container" style={{position: "relative"}}>
           <Card className="pt-elevation-4">
-            <h5>{openfda.brand_name}</h5>
+            <h5 className="bp3-heading">{openfda.brand_name}</h5>
             <form
               onSubmit={this.generateTradeItems}
               style={{marginTop: "30px"}}

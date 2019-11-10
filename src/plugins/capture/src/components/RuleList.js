@@ -32,7 +32,7 @@ class ServerRules extends Component {
 
     return (
       <Card className="bp3-elevation-4">
-        <h5>
+        <h5 className="bp3-heading">
           <button
             className="bp3-button right-aligned-elem bp3-intent-primary"
             onClick={e => {

@@ -31,7 +31,7 @@ const AuthenticationInfoEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.type}</h5>
+      <h5 className="bp3-heading">{props.entry.type}</h5>
       <div style={{width: "260px", height: "130px", background: "#CCC"}} />
       <ul className="picker-data-list">
         <li>{props.entry.type}</li>

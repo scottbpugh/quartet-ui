@@ -75,7 +75,7 @@ class Plugin extends Component {
   render() {
     return (
       <Card className="bp3-elevation-4">
-        <h5>
+        <h5 className="bp3-heading">
           {this.props.pluginEntry.readableName}{" "}
           {this.props.pluginEntry.local ? (
             <Button

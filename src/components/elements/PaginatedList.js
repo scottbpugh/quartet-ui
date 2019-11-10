@@ -124,7 +124,7 @@ class _PaginatedList extends Component {
     if(!this.props.loading){
       return (
           <Card className="bp3-elevation-4">
-            <h5>
+            <h5 className="bp3-heading">
               {" "}
               <div className="right-aligned-elem">
                 <Button

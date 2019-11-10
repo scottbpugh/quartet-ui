@@ -102,7 +102,7 @@ class _AddTradeItem extends Component {
         }>
         <div className="large-cards-container">
           <Card className="form-card">
-            <h5>
+            <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.masterData.addTradeItem" />
               ) : (
@@ -143,7 +143,7 @@ class _AddTradeItem extends Component {
           </Card>
           {editMode ? (
             <Card className="bp3-elevation-4 form-card">
-              <h5>
+              <h5 className="bp3-heading">
                 <button
                   className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
                   onClick={e => {

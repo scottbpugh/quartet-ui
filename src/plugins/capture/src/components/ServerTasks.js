@@ -160,7 +160,7 @@ class _ServerTasks extends Component {
     const {tasks} = this.state;
     return (
       <Card className="bp3-elevation-4">
-        <h5>
+        <h5 className="bp3-heading">
           {" "}
           <div className="right-aligned-elem">
             <Tag className="bp3-large">

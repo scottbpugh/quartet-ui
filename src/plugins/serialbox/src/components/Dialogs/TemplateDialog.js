@@ -31,7 +31,7 @@ const TemplateEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.name}</h5>
+      <h5 className="bp3-heading">{props.entry.name}</h5>
       <div style={{width: "260px", height: "130px", background: "#CCC"}} />
       <ul className="picker-data-list">
         {props.entry.name ? <li>{props.entry.name}</li> : null}

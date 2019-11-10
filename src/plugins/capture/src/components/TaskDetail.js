@@ -170,7 +170,7 @@ class _TaskDetail extends Component {
         {task ? (
           <div className="cards-container">
             <Card className="bp3-elevation-4">
-              <h5>
+              <h5 className="bp3-heading">
                 {task.name}
                 {this.state.downloadLink ? (
                   <a
@@ -213,7 +213,7 @@ class _TaskDetail extends Component {
             </Card>
             {task.ruleObject ? (
               <Card className="bp3-elevation-4">
-                <h5>Rule</h5>
+                <h5 className="bp3-heading">Rule</h5>
                 <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                   <tbody>
                     {yieldDataPairRowIfSet("Rule Name", task.ruleObject.name)}
@@ -231,7 +231,7 @@ class _TaskDetail extends Component {
             Array.isArray(task.taskhistory_set) &&
             task.taskhistory_set.length > 0 ? (
               <Card className="bp3-elevation-4">
-                <h5>Task History</h5>
+                <h5 className="bp3-heading">Task History</h5>
 
                 <div>
                   <table className="bp3-table bp3-bordered bp3-striped">
@@ -261,7 +261,7 @@ class _TaskDetail extends Component {
               </Card>
             ) : null}
             <Card className="task-messages bp3-elevation-4">
-              <h5>Messages</h5>
+              <h5 className="bp3-heading">Messages</h5>
               {task.taskmessage_set.map((message, index) => {
                 let intent = Intent.PRIMARY;
                 let numberedClass = "default";

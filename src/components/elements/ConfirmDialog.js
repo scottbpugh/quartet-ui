@@ -52,7 +52,7 @@ class _ConfirmDialog extends Component {
         isOpen={this.props.isOpen}
         onClose={toggle}>
         <div className="bp3-dialog-header">
-          <h5>{title}</h5>
+          <h5 className="bp3-heading">{title}</h5>
         </div>
         <div className="bp3-dialog-body">
           <Callout intent={Intent.WARNING}>{body}</Callout>

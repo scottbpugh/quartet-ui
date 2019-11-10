@@ -35,7 +35,7 @@ class _ServerSettings extends Component {
     return (
       <div className="large-cards-container">
         <Card className="bp3-elevation-4 form-card">
-          <h5>Connect to a Server</h5>
+          <h5 className="bp3-heading">Connect to a Server</h5>
           <ServerForm
             defaultValues={{tokenType: "Token"}}
             formData={Server.getFormStructure()}

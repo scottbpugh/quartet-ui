@@ -27,7 +27,7 @@ const CompanyTypeEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.identifier}</h5>
+      <h5 className="bp3-heading">{props.entry.identifier}</h5>
       <ul className="picker-data-list">
         <li>{props.entry.identifier}</li>
         {props.entry.description ? <li>{props.entry.description}</li> : null}

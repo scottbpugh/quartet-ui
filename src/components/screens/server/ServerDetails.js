@@ -75,7 +75,7 @@ class _ServerDetails extends Component {
         {serverObject ? (
           <div className="cards-container">
             <Card className="bp3-elevation-4">
-              <h5>
+              <h5 className="bp3-heading">
                 Settings
                 <Button
                   onClick={this.toggleEditMode}
@@ -131,7 +131,7 @@ class _ServerDetails extends Component {
               )}
             </Card>
             <Card className="bp3-elevation-4">
-              <h5>
+              <h5 className="bp3-heading">
                 Services Enabled{" "}
                 <Button
                   onClick={this.fetchAppListRefresh}

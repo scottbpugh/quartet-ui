@@ -176,7 +176,7 @@ class _SGLNDetail extends Component {
               className="twin-cards-container"
               style={{position: "relative"}}>
               <Card className="bp3-elevation-4">
-                <h5>
+                <h5 className="bp3-heading">
                   {detail.SGLN}{" "}
                   <Button
                     onClick={this.goToEdit}
@@ -218,7 +218,7 @@ class _SGLNDetail extends Component {
               </Card>
               {detail ? (
                 <Card style={{position: "relative"}} className="bp3-elevation-4">
-                  <h5>
+                  <h5 className="bp3-heading">
                     Additional Identifiers
                     <button
                       className="bp3-button bp3-intent-primary add-incard-button"
@@ -252,7 +252,7 @@ class _SGLNDetail extends Component {
           ) : null}
           {detail ? (
             <Card className="bp3-elevation-4">
-              <h5>Geographic Information</h5>
+              <h5 className="bp3-heading">Geographic Information</h5>
               {detail && detail.longitude && detail.latitude ? (
                 <SingleMarkerMap
                   targetId={detail.SGLN}
@@ -288,7 +288,7 @@ class _SGLNDetail extends Component {
 
           {detail ? (
             <Card className="bp3-elevation-4">
-              <h5>
+              <h5 className="bp3-heading">
                 Location Fields{" "}
                 <button
                   className="bp3-button bp3-intent-primary add-incard-button"

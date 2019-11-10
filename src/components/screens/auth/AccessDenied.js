@@ -53,7 +53,7 @@ export class _AccessDenied extends Component {
               width="60%"
             />
           )}
-          <h5 className="access-denied-title">
+          <h5 className="access-denied-title bp3-heading">
             <FormattedMessage id="app.common.accessDeniedTitle" />
           </h5>
           <div className="access-denied-blurb">

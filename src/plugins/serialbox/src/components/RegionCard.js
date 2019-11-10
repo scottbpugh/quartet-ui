@@ -124,7 +124,7 @@ export class _RegionCard extends Component {
           })}
           key={region.machine_name}>
           <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
-            <h5>
+            <h5 className="bp3-heading">
               <Tag className="tag-header" intent={Intent.PRIMARY}>
                 {regionTitle}
               </Tag>

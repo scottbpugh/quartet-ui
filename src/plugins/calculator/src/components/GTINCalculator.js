@@ -50,7 +50,7 @@ export class GTINCalculator extends Component {
         }>
         <div className="calculator-cards-container">
           <Card>
-            <h5>
+            <h5 className="bp3-heading">
               <FormattedMessage id="plugins.gtinCalculator.GTINCalculatorTitle" />
             </h5>
             <input
@@ -62,7 +62,7 @@ export class GTINCalculator extends Component {
             />
           </Card>
           <Card>
-            <h5>
+            <h5 className="bp3-heading">
               <FormattedMessage id="plugins.gtinCalculator.GTINs" />
             </h5>
             <table

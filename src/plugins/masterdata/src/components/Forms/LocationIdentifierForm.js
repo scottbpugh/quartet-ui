@@ -66,7 +66,7 @@ class _AddLocationIdentifier extends Component {
         }>
         <div className="large-cards-container">
           <Card className="form-card">
-            <h5>
+            <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.masterData.addLocationIdentifier" />
               ) : (

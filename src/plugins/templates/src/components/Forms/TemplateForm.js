@@ -91,7 +91,7 @@ export class _AddTemplate extends Component {
         }>
         <div className="large-cards-container full-form-container">
           <Card className="form-card">
-            <h5>
+            <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.templates.addTemplate" />
               ) : (

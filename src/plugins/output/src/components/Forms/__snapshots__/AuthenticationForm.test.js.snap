@@ -12,7 +12,7 @@ exports[`renders form properly 1`] = `
         <div
           className="pt-card pt-elevation-0 form-card"
         >
-          <h5>
+          <h5 className="bp3-heading">
             <span>
               plugins.output.addAuthentication
             </span>
