@@ -22,6 +22,7 @@ import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import Loader from "../Loader";
+import "./PaginatedList.css";
 
 /*
   Displays a list of objects (entries, events, companies, locations) as
@@ -179,7 +180,7 @@ class _PaginatedList extends Component {
                 </div>
               </div>
               <div className="overflowed-table">
-                <table className={`bp3-table bp3-bordered bp3-striped ${this.state.interactive}`}>
+                <table class={`paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped ${this.state.interactive}`}>
                   <this.props.tableHeaderClass server={this.props.server} />
                   <tbody
                       style={{

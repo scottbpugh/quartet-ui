@@ -97,7 +97,7 @@ class _ServerDetails extends Component {
                 </div>
               ) : (
                 <div>
-                  <table className="bp3-table bp3-bordered bp3-striped">
+                  <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                     <thead>
                       <tr>
                         <th>Server API Endpoint</th>
