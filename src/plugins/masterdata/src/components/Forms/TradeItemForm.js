@@ -160,7 +160,7 @@ class _AddTradeItem extends Component {
 
               {Array.isArray(tradeItem.tradeitemfield_set) &&
               tradeItem.tradeitemfield_set.length > 0 ? (
-                <table className="bp3-table bp3-interactive bp3-bordered bp3-striped">
+                <table className="bp3-interactive paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-stripedd">
                   <thead>
                     <th>
                       <FormattedMessage

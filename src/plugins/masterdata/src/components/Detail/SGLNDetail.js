@@ -184,7 +184,7 @@ class _SGLNDetail extends Component {
                     Edit
                   </Button>
                 </h5>
-                <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
+                <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                   <tbody>
                     {yieldDataPairRowIfSet("GLN13", detail.GLN13)}
                     {yieldDataPairRowIfSet("SGLN", detail.SGLN)}
@@ -237,7 +237,7 @@ class _SGLNDetail extends Component {
                       <FormattedMessage id="plugins.masterData.addLocationIdentifier" />
                     </button>
                   </h5>
-                  <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
+                  <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                     <tbody>
                       {yieldKeyValPairs(detail.locationidentifier_set, [
                         "identifier_type",
@@ -267,7 +267,7 @@ class _SGLNDetail extends Component {
                   ]}
                 />
               ) : null}
-              <table className="bp3-table data-pair-table  bp3-bordered bp3-striped">
+              <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                 <tbody>
                   {yieldDataPairRowIfSet("Address", detail.address1)}
                   {yieldDataPairRowIfSet("Address 2", detail.address2)}
@@ -307,7 +307,7 @@ class _SGLNDetail extends Component {
                   <FormattedMessage id="plugins.masterData.addLocationField" />
                 </button>
               </h5>
-              <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
+              <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                 <tbody>
                   {yieldKeyValPairs(detail.locationfield_set, [
                     "name",

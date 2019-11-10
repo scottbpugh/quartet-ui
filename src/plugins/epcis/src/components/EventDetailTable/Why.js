@@ -28,7 +28,7 @@ export default class extends Component {
           <FormattedMessage id="plugins.epcis.why" defaultMessage="Why" />
         </div>
         <div className="detail-table-container">
-          <table className="bp3-table bp3-bordered bp3-striped">
+          <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
             <tbody>
               <tr>
                 <td>

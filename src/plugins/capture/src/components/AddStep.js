@@ -147,7 +147,7 @@ class _AddStep extends Component {
               </h5>
 
               {Array.isArray(step.params) && step.params.length > 0 ? (
-                <table className="bp3-table bp3-interactive bp3-bordered bp3-striped">
+                <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                   <thead>
                     <tr>
                       <th>

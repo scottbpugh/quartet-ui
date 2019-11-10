@@ -78,7 +78,7 @@ class _FDADetail extends Component {
             </h5>
             <table
               style={{paddingTop: "60px"}}
-              className="pt-table data-pair-table pt-bordered pt-striped">
+              className="bp3-table data-pair-table paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
               <tbody>
                 {Object.keys(openfda).map(item => {
                   return yieldDataPairRowIfSet(item, openfda[item]);

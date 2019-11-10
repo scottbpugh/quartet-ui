@@ -115,7 +115,7 @@ class _AddPool extends Component {
                   {pool &&
                   Array.isArray(pool.response_rules) &&
                   pool.response_rules.length > 0 ? (
-                      <table className="bp3-table bp3-interactive bp3-bordered bp3-striped">
+                      <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
                         <thead>
                         <tr>
                           <th>

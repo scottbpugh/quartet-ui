@@ -141,7 +141,7 @@ class ForeignKeyRelated extends Component {
           <FormattedMessage id="plugins.numberRange.addParamEditOnly" />
         </button>
         {this.props.editMode ? (
-          <table className="bp3-table bp3-striped">
+          <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
             <thead>
               <tr>
                 <td>Key</td>

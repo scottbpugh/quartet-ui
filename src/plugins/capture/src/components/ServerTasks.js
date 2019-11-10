@@ -205,7 +205,7 @@ class _ServerTasks extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table className="pool-list-table bp3-table bp3-bordered bp3-striped bp3-interactive">
+            <table className="pool-list-table paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
               <thead>
                 <tr>
                   <th>
