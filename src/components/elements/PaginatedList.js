@@ -24,6 +24,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import Loader from "../Loader";
 import "./PaginatedList.css";
 
+
 /*
   Displays a list of objects (entries, events, companies, locations) as
   single cards.
@@ -126,6 +127,14 @@ class _PaginatedList extends Component {
           <Card className="bp3-elevation-1">
             <h5 className="bp3-heading">
               {" "}
+              <div className="left-aligned-elem">
+                <Button
+                    icon="menu"
+                    style={{float:"left"}}
+                    active={!this.props.context}
+                    onClick={this.props.context}
+                />
+              </div>
               <div className="right-aligned-elem">
                 <Button
                     style={{marginRight: "5px"}}

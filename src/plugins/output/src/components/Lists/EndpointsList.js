@@ -17,6 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {loadEndpoints} from "../../reducers/output";
+
+import {Menu, MenuItem, MenuDivider, ContextMenu} from "@blueprintjs/core";
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
@@ -26,99 +28,120 @@ const {PaginatedList} = qu4rtet.require("./components/elements/PaginatedList");
 const {DeleteObject} = qu4rtet.require("./components/elements/DeleteObject");
 
 const EndpointsTableHeader = props => (
-  <thead style={{textAlign: "center", verticalAlign: "middle"}}>
+    <thead style={{textAlign: "center", verticalAlign: "middle"}}>
     <tr>
-      <th>
-        {" "}
-        <FormattedMessage id="plugins.output.id" />
-      </th>
-      <th>
-        {" "}
-        <FormattedMessage id="plugins.output.name" />
-      </th>
-      <th>
-        {" "}
-        <FormattedMessage id="plugins.output.urn" />
-      </th>
+        <th>
+            {" "}
+            <FormattedMessage id="plugins.output.id"/>
+        </th>
+        <th>
+            {" "}
+            <FormattedMessage id="plugins.output.name"/>
+        </th>
+        <th>
+            {" "}
+            <FormattedMessage id="plugins.output.urn"/>
+        </th>
     </tr>
-  </thead>
+    </thead>
 );
 
 const EndpointsEntry = props => {
-  const goTo = path => {
-    props.history.push(path);
-  };
-  const goToPayload = goTo.bind(this, {
-    pathname: `/output/${props.server.serverID}/add-endpoint`,
-    state: {defaultValues: props.entry, edit: true}
-  });
-  let deleteObj = DeleteObject ? (
-    <DeleteObject
-      entry={props.entry}
-      operationId="output_end_points_delete"
-      server={props.server}
-      title={<FormattedMessage id="plugins.output.deleteEndpointConfirm" />}
-      body={<FormattedMessage id="plugins.output.deleteEndpointConfirmBody" />}
-      postDeleteAction={props.loadEntries}
-    />
-  ) : null;
-  return (
-    <tr key={props.entry.id}>
-      <td onClick={goToPayload}>{props.entry.id}</td>
-      <td onClick={goToPayload}>{props.entry.name}</td>
-      <td onClick={goToPayload}>{props.entry.urn}</td>
-      <td>{deleteObj}</td>
-    </tr>
-  );
+    const goTo = path => {
+        props.history.push(path);
+    };
+    const goToPayload = goTo.bind(this, {
+        pathname: `/output/${props.server.serverID}/add-endpoint`,
+        state: {defaultValues: props.entry, edit: true}
+    });
+    let deleteObj = DeleteObject ? (
+        <DeleteObject
+            entry={props.entry}
+            operationId="output_end_points_delete"
+            server={props.server}
+            title={<FormattedMessage id="plugins.output.deleteEndpointConfirm"/>}
+            body={<FormattedMessage id="plugins.output.deleteEndpointConfirmBody"/>}
+            postDeleteAction={props.loadEntries}
+        />
+    ) : null;
+    return (
+        <tr key={props.entry.id}>
+            <td onClick={goToPayload}>{props.entry.id}</td>
+            <td onClick={goToPayload}>{props.entry.name}</td>
+            <td onClick={goToPayload}>{props.entry.urn}</td>
+            <td>{deleteObj}</td>
+        </tr>
+    );
 };
 
 class _EndpointsList extends Component {
-  render() {
-    const {server, endpoints, loadEndpoints, count, next} = this.props;
-    return (
-      <RightPanel
-        title={<FormattedMessage id="plugins.output.endpointsList" />}>
-        <div className="large-cards-container full-large">
-          <PaginatedList
-            {...this.props}
-            listTitle={<FormattedMessage id="plugins.output.endpointsList" />}
-            history={this.props.history}
-            loadEntries={loadEndpoints}
-            server={server}
-            entries={endpoints}
-            entryClass={EndpointsEntry}
-            tableHeaderClass={EndpointsTableHeader}
-            count={count}
-            next={next}
-          />
 
-          {/* keep prop name generic for entries */}
-        </div>
-      </RightPanel>
-    );
-  }
+    goTo = path => {
+        return this.props.history.push(path);
+    };
+    renderContextMenu = (e) => {
+        e.preventDefault();
+        const {server, serverID, history} = this.props;
+        ContextMenu.show (
+            <Menu>
+                <MenuItem
+                    onClick={this.goTo.bind(this, `/output/${server.serverID}/add-endpoint`)}
+                    text={pluginRegistry.getIntl().formatMessage({
+                        id: "plugins.output.addEndpoint"
+                    })}
+                    icon="add"
+                />
+            </Menu>, {left: e.clientX, top: e.clientY}
+        );
+    };
+
+    render() {
+        const {server, endpoints, loadEndpoints, count, next} = this.props;
+        return (
+            <RightPanel
+                title={<FormattedMessage id="plugins.output.endpointsList"/>}>
+                <div className="large-cards-container full-large">
+                    <PaginatedList
+                        {...this.props}
+                        listTitle={<FormattedMessage id="plugins.output.endpointsList"/>}
+                        history={this.props.history}
+                        loadEntries={loadEndpoints}
+                        server={server}
+                        entries={endpoints}
+                        entryClass={EndpointsEntry}
+                        tableHeaderClass={EndpointsTableHeader}
+                        count={count}
+                        next={next}
+                        context={this.renderContextMenu.bind(this)}
+                    />
+
+                    {/* keep prop name generic for entries */}
+                </div>
+            </RightPanel>
+        );
+    }
 }
 
 export const EndpointsList = connect(
-  (state, ownProps) => {
-    const isServerSet = () => {
-      return (
-        state.output.servers &&
-        state.output.servers[ownProps.match.params.serverID]
-      );
-    };
-    return {
-      server: state.serversettings.servers[ownProps.match.params.serverID],
-      endpoints: isServerSet()
-        ? state.output.servers[ownProps.match.params.serverID].endpoints
-        : [],
-      count: isServerSet()
-        ? state.output.servers[ownProps.match.params.serverID].count
-        : 0,
-      next: isServerSet()
-        ? state.output.servers[ownProps.match.params.serverID].next
-        : null
-    };
-  },
-  {loadEndpoints}
+    (state, ownProps) => {
+        const isServerSet = () => {
+            return (
+                state.output.servers &&
+                state.output.servers[ownProps.match.params.serverID]
+            );
+        };
+        return {
+            server: state.serversettings.servers[ownProps.match.params.serverID],
+            endpoints: isServerSet()
+                ? state.output.servers[ownProps.match.params.serverID].endpoints
+                : [],
+            count: isServerSet()
+                ? state.output.servers[ownProps.match.params.serverID].count
+                : 0,
+            next: isServerSet()
+                ? state.output.servers[ownProps.match.params.serverID].next
+                : null
+        };
+    },
+    {loadEndpoints}
 )(_EndpointsList);

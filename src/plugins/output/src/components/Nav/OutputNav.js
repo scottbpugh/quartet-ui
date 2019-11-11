@@ -36,29 +36,8 @@ const {connect} = qu4rtet.require("react-redux");
 const {FormattedMessage} = qu4rtet.require("react-intl");
 const {pluginRegistry} = qu4rtet.require("./plugins/pluginRegistration");
 
-export class _AuthenticationNav extends Component {
-    goTo = path => {
-        return this.props.history.push(path);
-    };
-    renderContextMenu = () => {
-        const {server, serverID, history} = this.props;
-        return (
-            <Menu>
-                <MenuDivider title={server.serverSettingName}/>
-                <MenuDivider/>
-                <MenuItem
-                    onClick={this.goTo.bind(
-                        this,
-                        `/output/${serverID}/add-authentication`
-                    )}
-                    text={pluginRegistry.getIntl().formatMessage({
-                        id: "plugins.output.addAuthentication"
-                    })}
-                />
-            </Menu>
-        );
-    };
 
+export class _AuthenticationNav extends Component {
     render() {
         const {serverID, server} = this.props;
         return (
@@ -76,25 +55,6 @@ export class _AuthenticationNav extends Component {
 }
 
 export class _EndpointsNav extends Component {
-    goTo = path => {
-        return this.props.history.push(path);
-    };
-    renderContextMenu = () => {
-        const {server, serverID, history} = this.props;
-        return (
-            <Menu>
-                <MenuDivider title={server.serverSettingName}/>
-                <MenuDivider/>
-                <MenuItem
-                    onClick={this.goTo.bind(this, `/output/${serverID}/add-endpoint`)}
-                    text={pluginRegistry.getIntl().formatMessage({
-                        id: "plugins.output.addEndpoint"
-                    })}
-                />
-            </Menu>
-        );
-    };
-
     render() {
         const {serverID, server} = this.props;
         return (
@@ -112,30 +72,6 @@ export class _EndpointsNav extends Component {
 }
 
 export class _EPCISOutputNav extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    goTo = path => {
-        return this.props.history.push(path);
-    };
-
-    renderContextMenu = () => {
-        const {server, serverID, history} = this.props;
-        return (
-            <Menu>
-                <MenuDivider title={server.serverSettingName}/>
-                <MenuDivider/>
-                <MenuItem
-                    onClick={this.goTo.bind(this, `/output/${serverID}/add-criteria`)}
-                    text={pluginRegistry.getIntl().formatMessage({
-                        id: "plugins.output.addEPCISOutputCriteria"
-                    })}
-                />
-            </Menu>
-        );
-    };
-
     render() {
         const {serverID, server} = this.props;
         return (

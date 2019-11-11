@@ -148,6 +148,12 @@ html, body {
   right:10px;
   top: 7px;
 }
+
+.left-aligned-elem {
+  position:absolute;
+  left:10px;
+  top: 7px;
+}
 .label-info-display {
   font-style:italic;
   font-size:12px;
