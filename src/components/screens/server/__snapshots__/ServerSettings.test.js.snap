@@ -10,7 +10,7 @@ exports[`renders correctly 1`] = `
         className="large-cards-container"
       >
         <div
-          className="bp3-card bp3-elevation-0 bp3-elevation-4 form-card"
+          className="bp3-card bp3-elevation-0 bp3-elevation-1form-card"
         >
           <h5 className="bp3-heading">
             Connect to a Server
@@ -19,7 +19,7 @@ exports[`renders correctly 1`] = `
             onSubmit={[Function]}
           >
             <button
-              className="bp3-button bp3-icon-add bp3-button bp3-intent-primary"
+              className="bp3-button add bp3-button bp3-intent-primary"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="submit"

@@ -130,7 +130,7 @@ export class CompanyDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isCompanyOpen}
           onClose={this.props.toggleCompanyDialog}
           style={{width: "80%"}}

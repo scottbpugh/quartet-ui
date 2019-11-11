@@ -21,7 +21,7 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {Card, Button, Icon, Tag, Intent} from "@blueprintjs/core";
+import {Card, Button, Icon, Tag, Intent, HTMLTable} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 
@@ -63,10 +63,10 @@ class _ServerDetails extends Component {
           })
           .map(service => {
             return (
-              <li key={service}>
-                {service}
-                <span className="icon-dot" />
-              </li>
+              <tr key={service}>
+                <td>{service.toUpperCase()}</td>
+                <td bgcolor="#6b8e23"><Button intent="success" enabled={false} minimal={true} fill={true} icon="exchange"/></td>
+              </tr>
             );
           })
       : [];
@@ -74,13 +74,13 @@ class _ServerDetails extends Component {
       <RightPanel title={<FormattedMessage id="app.servers.serverDetails" />}>
         {serverObject ? (
           <div className="cards-container">
-            <Card className="bp3-elevation-4">
+            <Card className="bp3-elevation-1">
               <h5 className="bp3-heading">
                 Settings
                 <Button
                   onClick={this.toggleEditMode}
                   className="bp3-intent-primary add-incard-button"
-                  iconName="bp3-icon-edit">
+                  icon="edit">
                   Edit
                 </Button>
               </h5>
@@ -97,22 +97,16 @@ class _ServerDetails extends Component {
                 </div>
               ) : (
                 <div>
-                  <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+                  <HTMLTable
+                      className="paginated-list-table"
+                      bordered={true}
+                      condensed={true}
+                      interactive={true}
+                      striped={true}
+                  >
                     <thead>
                       <tr>
-                        <th>Server API Endpoint</th>
-                        <th>
-                          <h6>
-                            <Tag intent={Intent.PRIMARY}>
-                              <a
-                                style={{color: "#FFF"}}
-                                href={serverObject.url}
-                                target="_blank">
-                                {serverObject.url}
-                              </a>
-                            </Tag>
-                          </h6>
-                        </th>
+                        <th colSpan="2">Connection Details</th>
                       </tr>
                     </thead>
 
@@ -126,29 +120,38 @@ class _ServerDetails extends Component {
                         );
                       })}
                     </tbody>
-                  </table>
+                  </HTMLTable>
                 </div>
               )}
             </Card>
-            <Card className="bp3-elevation-4">
+            <Card className="bp3-elevation-1">
               <h5 className="bp3-heading">
-                Services Enabled{" "}
-                <Button
+                Installed APIs{" "}
+                <Button className="add-incard-button"
                   onClick={this.fetchAppListRefresh}
-                  iconName="bp3-icon-refresh add-incard-button"
+                  icon="refresh"
                 />
               </h5>
-              {services.length > 0 ? (
-                <ul className="service-list">{services}</ul>
-              ) : (
-                <div onClick={this.fetchAppList} className="centered-action">
-                  <Icon
-                    iconName="bp3-icon-refresh"
-                    className="very-large-icon"
-                  />
-                  <span>Retry</span>
-                </div>
-              )}
+              <HTMLTable
+                striped={true}
+                bordered={true}
+                condensed={true}
+                interactive={false}
+              >
+                <tbody>
+                {services.length > 0 ? (
+                    services
+                ) : (
+                    <div onClick={this.fetchAppList} className="centered-action">
+                      <Icon
+                          icon="refresh"
+                          className="very-large-icon"
+                      />
+                      <span>Retry</span>
+                    </div>
+                )}</tbody>
+              </HTMLTable>
+
             </Card>
           </div>
         ) : null}

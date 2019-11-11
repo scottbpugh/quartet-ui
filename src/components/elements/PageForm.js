@@ -319,7 +319,7 @@ export class _PageForm extends Component {
             <FormattedMessage id="app.common.cancelSubmit" />
           </button>
           {error ? (
-            <Callout iconName="warning" intent={Intent.DANGER}>
+            <Callout icon="warning" intent={Intent.DANGER}>
               {error}
             </Callout>
           ) : null}

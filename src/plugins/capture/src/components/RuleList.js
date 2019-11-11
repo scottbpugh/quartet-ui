@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Tag, Intent} from "@blueprintjs/core";
+import {Card, Tag, Intent, HTMLTable} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {loadRules} from "../reducers/capture";
 import "./RuleList.css";
@@ -31,7 +31,7 @@ class ServerRules extends Component {
     const {rules} = this.props;
 
     return (
-      <Card className="bp3-elevation-4">
+      <Card className="bp3-elevation-1">
         <h5 className="bp3-heading">
           <button
             className="bp3-button right-aligned-elem bp3-intent-primary"
@@ -47,7 +47,12 @@ Rules
         </h5>
         <div />
         <div>
-          <table className="pool-list-table paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+          <HTMLTable className="pool-list-table paginated-list-table"
+                 bordered={true}
+                 condensed={true}
+                 interactive={true}
+                 striped={true}
+          >
             <thead>
               <tr>
                 <th>
@@ -101,7 +106,7 @@ Rules
                 })
                 : null}
             </tbody>
-          </table>
+          </HTMLTable>
         </div>
       </Card>
     );

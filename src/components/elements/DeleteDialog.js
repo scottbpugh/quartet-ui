@@ -62,7 +62,7 @@ class _DeleteDialog extends Component {
           <div className="bp3-dialog-footer-actions">
             <Button
               onClick={deleteAction}
-              iconName="trash"
+              icon="trash"
               intent={Intent.DANGER}>
               <FormattedMessage id="app.common.deleteButton" />
             </Button>

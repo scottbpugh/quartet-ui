@@ -142,7 +142,7 @@ class _AddTradeItem extends Component {
             />
           </Card>
           {editMode ? (
-            <Card className="bp3-elevation-4 form-card">
+            <Card className="bp3-elevation-1form-card">
               <h5 className="bp3-heading">
                 <button
                   className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
@@ -187,7 +187,7 @@ class _AddTradeItem extends Component {
                             <ButtonGroup minimal={true} small={true}>
                               <Button
                                 small={true}
-                                iconName="edit"
+                                icon="edit"
                                 onClick={this.editTradeItemField.bind(
                                   this,
                                   field
@@ -195,7 +195,7 @@ class _AddTradeItem extends Component {
                               />
                               <Button
                                 small={true}
-                                iconName="trash"
+                                icon="trash"
                                 onClick={this.deleteTradeItemField.bind(
                                   this,
                                   field

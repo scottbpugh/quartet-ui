@@ -26,7 +26,7 @@ export class VerifyUserDialog extends Component {
     const {intl, isOpen, server, theme, closeDialog} = this.props;
     return (
       <Dialog
-        iconName="user"
+        icon="user"
         isOpen={isOpen}
         onClose={closeDialog}
         className={classNames({

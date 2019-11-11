@@ -30,7 +30,7 @@ import {ServerNode} from "components/screens/server/ServerNode";
 
 export class CustomIcon extends Component {
   render() {
-    return <span className={classNames({"bp3-icon-standard": true})} />;
+    return <span className={classNames({"standard": true})} />;
   }
 }
 
@@ -116,7 +116,7 @@ class _NavTree extends Component {
     if (serverNodes.length === 0) {
       // placeholder if no server.
       return (
-        <Callout className="bp3-icon-info-sign no-server-info">
+        <Callout className="info-sign no-server-info">
           <FormattedMessage id="app.servers.noServerMsg" />
         </Callout>
       );

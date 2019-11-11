@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Button, ButtonGroup} from "@blueprintjs/core";
+import {Card, Button, ButtonGroup, HTMLTable} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {reduxForm} from "redux-form";
@@ -66,7 +66,7 @@ class _AddRule extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="bp3-elevation-4 form-card">
+          <Card className="bp3-elevation-1form-card">
             <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.capture.addRule" />
@@ -89,7 +89,7 @@ class _AddRule extends Component {
             />
           </Card>
           {editMode ? (
-            <Card className="bp3-elevation-4 form-card">
+            <Card className="bp3-elevation-1form-card">
               <h5 className="bp3-heading">
                 <button
                   className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
@@ -106,7 +106,13 @@ class _AddRule extends Component {
               </h5>
 
               {Array.isArray(rule.params) && rule.params.length > 0 ? (
-                <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+                <HTMLTable className="paginated-list-table"
+                       bordered={true}
+                       condensed={true}
+                       interactive={true}
+                       striped={true}
+
+                >
                   <thead>
                     <tr>
                       <th>
@@ -135,12 +141,12 @@ class _AddRule extends Component {
                             <ButtonGroup minimal small>
                               <Button
                                 small="true"
-                                iconName="edit"
+                                icon="edit"
                                 onClick={this.editRuleParam.bind(this, param)}
                               />
                               <Button
                                 small="true"
-                                iconName="trash"
+                                icon="trash"
                                 onClick={this.deleteRuleParam.bind(this, param)}
                               />
                             </ButtonGroup>
@@ -149,7 +155,7 @@ class _AddRule extends Component {
                       );
                     })}
                   </tbody>
-                </table>
+                </HTMLTable>
               ) : null}
             </Card>
           ) : null}

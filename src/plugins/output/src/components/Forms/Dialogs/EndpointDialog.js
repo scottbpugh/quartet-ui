@@ -110,7 +110,7 @@ export class EndpointDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isEndpointOpen}
           onClose={this.props.toggleEndpointDialog}
           style={{width: "80%"}}

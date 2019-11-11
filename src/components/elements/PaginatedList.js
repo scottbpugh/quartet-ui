@@ -17,7 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
+import {Card, Tag, ControlGroup, Button, InputGroup, HTMLTable, HTMLSelect} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
@@ -123,14 +123,14 @@ class _PaginatedList extends Component {
     const {entries} = this.state;
     if(!this.props.loading){
       return (
-          <Card className="bp3-elevation-4">
+          <Card className="bp3-elevation-1">
             <h5 className="bp3-heading">
               {" "}
               <div className="right-aligned-elem">
                 <Button
                     style={{marginRight: "5px"}}
                     title="refresh"
-                    iconName="refresh"
+                    icon="refresh"
                     onClick={this.processEntries.bind(this, true)}
                 />
                 <Tag className="bp3-large">
@@ -158,11 +158,7 @@ class _PaginatedList extends Component {
                 </div>
                 <div>
                   <ControlGroup fill={false} vertical={false}>
-                    <div className="bp3-select">
-                      <select value={this.state.filter}>
-                        <option value="">Search</option>
-                      </select>
-                    </div>
+                    <HTMLSelect options={['Search']}/>
                     <InputGroup
                         onChange={this.searchBy}
                         value={this.state.keywordSearch}
@@ -180,7 +176,13 @@ class _PaginatedList extends Component {
                 </div>
               </div>
               <div className="overflowed-table">
-                <table class={`paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped ${this.state.interactive}`}>
+                <HTMLTable className="paginated-list-table"
+                       bordered={true}
+                       condensed={true}
+                       interactive={true}
+                       striped={true}
+                       interactive={this.state.interactive}
+                >
                   <this.props.tableHeaderClass server={this.props.server} />
                   <tbody
                       style={{
@@ -202,7 +204,7 @@ class _PaginatedList extends Component {
                       })
                       : null}
                   </tbody>
-                </table>
+                </HTMLTable>
               </div>
             </div>
           </Card>

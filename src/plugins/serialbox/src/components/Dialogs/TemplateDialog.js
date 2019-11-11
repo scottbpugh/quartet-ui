@@ -136,7 +136,7 @@ export class TemplateDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isTemplateOpen}
           onClose={this.props.toggleTemplateDialog}
           style={{width: "80%"}}

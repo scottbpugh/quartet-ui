@@ -25,7 +25,7 @@ export class RegisterUserDialog extends Component {
     const {intl, isOpen, server, theme} = this.props;
     return (
       <Dialog
-        iconName="user"
+        icon="user"
         isOpen={this.props.isOpen}
         onClose={this.props.closeDialog}
         className={classNames({

@@ -93,7 +93,7 @@ class KeyValuePairForm extends Component {
         </td>
         <td>
           <Icon
-            iconName="trash"
+            icon="trash"
             onClick={this.props.deleteEntry.bind(this, this.props.index)}
           />
         </td>
@@ -257,7 +257,7 @@ class _AddListBasedRegion extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="bp3-elevation-4 form-card">
+          <Card className="bp3-elevation-1form-card">
             <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.numberRange.addListBasedRegion" />

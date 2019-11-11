@@ -22,6 +22,7 @@ import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import {ContextMenuTarget, Icon} from "@blueprintjs/core";
 import {SubTree} from "./NavTree";
+import "./TreeNode.css";
 
 class _TreeNode extends Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class _TreeNode extends Component {
     let collapsed = this.state.collapsed; // for future use to have more logic.
     return (
       <li
-        className={classNames({
+        className={classNames("tree-node",{
           arrow: true,
           collapsed: collapsed
         })}
@@ -102,7 +103,7 @@ class _TreeNode extends Component {
                 "arrow-rotated": !collapsed
               })}>
               <Icon
-                iconName="bp3-icon-chevron-right"
+                icon={this.props.icon}
                 style={{visibility: expandable ? "visible" : "hidden"}}
               />
             </span>

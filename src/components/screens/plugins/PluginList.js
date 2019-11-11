@@ -74,12 +74,12 @@ class Plugin extends Component {
   };
   render() {
     return (
-      <Card className="bp3-elevation-4">
+      <Card className="bp3-elevation-1">
         <h5 className="bp3-heading">
           {this.props.pluginEntry.readableName}{" "}
           {this.props.pluginEntry.local ? (
             <Button
-              iconName="bp3-icon-edit"
+              icon="edit"
               className="bp3-button add-plugin-button bp3-intent-primary"
               onClick={this.handleEnable.bind(this)}>
               Edit
@@ -87,14 +87,14 @@ class Plugin extends Component {
           ) : null}
           {!this.props.pluginEntry || !this.props.pluginEntry.enabled ? (
             <Button
-              iconName="bp3-icon-add"
+              icon="add"
               className="bp3-button add-plugin-button bp3-intent-primary"
               onClick={this.handleEnable.bind(this)}>
               Enable
             </Button>
           ) : (
             <Button
-              iconName="bp3-icon-remove"
+              icon="remove"
               className="bp3-button add-plugin-button bp3-intent-primary"
               onClick={this.handleDisable.bind(this)}>
               Disable

@@ -107,7 +107,7 @@ export class GroupDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isGroupOpen}
           onClose={this.props.toggleGroupDialog}
           style={{width: "80%"}}

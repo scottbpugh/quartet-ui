@@ -35,7 +35,7 @@ exports[`returns main 1`] = `
             onClick={[Function]}
           >
             <button
-              className="bp3-button bp3-icon-home bp3-minimal"
+              className="bp3-button home bp3-minimal"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -50,7 +50,7 @@ exports[`returns main 1`] = `
             onClick={[Function]}
           >
             <button
-              className="bp3-button bp3-icon-exchange bp3-minimal"
+              className="bp3-button exchange bp3-minimal"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -119,7 +119,7 @@ exports[`returns main 1`] = `
             className="bp3-navbar-divider"
           />
           <button
-            className="bp3-button bp3-icon-user bp3-minimal"
+            className="bp3-button user bp3-minimal"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
             type="button"
@@ -165,13 +165,13 @@ exports[`returns main 1`] = `
                 className="bp3-button-group bp3-minimal bp3-dark"
               >
                 <button
-                  className="bp3-button bp3-icon-home"
+                  className="bp3-button home"
                   onClick={[Function]}
                   tabIndex="0"
                 />
                 <div>
                   <button
-                    className="bp3-button bp3-icon-arrow-left"
+                    className="bp3-button arrow-left"
                     disabled={true}
                     onClick={[Function]}
                     tabIndex="0"
@@ -184,13 +184,13 @@ exports[`returns main 1`] = `
                     onClick={[Function]}
                   >
                     <button
-                      className="bp3-button bp3-icon-add"
+                      className="bp3-button add"
                     />
                   </span>
                 </div>
                 <div>
                   <button
-                    className="bp3-button bp3-icon-print"
+                    className="bp3-button print"
                     onClick={[Function]}
                     tabIndex="1"
                     title="Print current page."
@@ -212,7 +212,7 @@ exports[`returns main 1`] = `
                   className="tree-root"
                 >
                   <div
-                    className="bp3-callout bp3-icon-info-sign no-server-info"
+                    className="bp3-callout info-sign no-server-info"
                   >
                     <span>
                       You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server.

@@ -118,7 +118,7 @@ export class _RegionCard extends Component {
       <div>
         <Card
           className={classNames({
-            "bp3-elevation-4": true,
+            "bp3-elevation-1": true,
             "region-detail": true,
             updated: lastUpdated === region.machine_name
           })}
@@ -136,12 +136,12 @@ export class _RegionCard extends Component {
                   small={true}>
                   <Button
                     small={true}
-                    iconName="edit"
+                    icon="edit"
                     onClick={this.goToEdit}
                   />
                   <Button
                     small={true}
-                    iconName="trash"
+                    icon="trash"
                     onClick={this.toggleDialog}
                   />
                 </ButtonGroup>

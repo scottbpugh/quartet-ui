@@ -131,7 +131,7 @@ class _TaskForm extends Component {
     return (
       <div>
         {success ? (
-          <Callout iconName="bp3-icon-saved" intent={Intent.SUCCESS}>
+          <Callout icon="saved" intent={Intent.SUCCESS}>
             <FormattedMessage
               id="app.servers.userCreated"
               values={{username: this.state.username}}
@@ -149,7 +149,7 @@ class _TaskForm extends Component {
               Submit
             </button>
             {error ? (
-              <Callout iconName="warning" intent={Intent.DANGER}>
+              <Callout icon="warning" intent={Intent.DANGER}>
                 {error}
               </Callout>
             ) : null}

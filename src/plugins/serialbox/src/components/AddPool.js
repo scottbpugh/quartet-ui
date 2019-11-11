@@ -81,7 +81,7 @@ class _AddPool extends Component {
               )
             }>
           <div className="large-cards-container">
-            <Card className="bp3-elevation-4 form-card">
+            <Card className="bp3-elevation-1form-card">
               <h5 className="bp3-heading">
                 {!editMode ? (
                     <FormattedMessage id="plugins.numberRange.addPool" />
@@ -96,7 +96,7 @@ class _AddPool extends Component {
               />
             </Card>
             {editMode ? (
-                <Card className="bp3-elevation-4 form-card">
+                <Card className="bp3-elevation-1form-card">
                   <h5 className="bp3-heading">
                     <button
                         className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
@@ -151,7 +151,7 @@ class _AddPool extends Component {
                                       <ButtonGroup minimal small>
                                         <Button
                                             small="true"
-                                            iconName="edit"
+                                            icon="edit"
                                             onClick={this.editResponseRule.bind(
                                                 this,
                                                 responseRule
@@ -159,7 +159,7 @@ class _AddPool extends Component {
                                         />
                                         <Button
                                             small="true"
-                                            iconName="trash"
+                                            icon="trash"
                                             onClick={this.deleteResponseRule.bind(
                                                 this,
                                                 responseRule

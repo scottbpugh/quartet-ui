@@ -118,10 +118,10 @@ class _App extends Component {
               </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
-              <NavLink to="/" iconName="home" minimal={true}>
+              <NavLink to="/" icon="home" minimal={true}>
                 <FormattedMessage id="app.nav.dashboard" />
               </NavLink>
-              <NavLink to="/plugins" iconName="exchange">
+              <NavLink to="/plugins" icon="exchange">
                 <FormattedMessage id="app.nav.plugins" />
               </NavLink>
               <NavbarDivider />

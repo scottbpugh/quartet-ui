@@ -88,7 +88,7 @@ class _ServerForm extends Component {
         <Button
           type="submit"
           className="bp3-button bp3-intent-primary"
-          iconName="add">
+          icon="add">
           {this.props.saveButtonMsg}
         </Button>
       </form>

@@ -102,18 +102,6 @@ class PoolListItem extends Component {
         const {sequential, randomized, listBased} = this.getAllowedRegionTypes(pool);
         const intl = pluginRegistry.getIntl();
         console.info('Rendering menu for pool ' + pool.readable_name);
-        e.preventDefault();
-        // ContextMenu.show(
-        //     <Menu>
-        //         <MenuItem icon="search-around" text="Search around..." />
-        //         <MenuItem icon="search" text="Object viewer" />
-        //         <MenuItem icon="graph-remove" text="Remove" />
-        //         <MenuItem icon="group-objects" text="Group" />
-        //         <MenuDivider />
-        //         <MenuItem disabled={true} text="Clicked on node" />
-        //     </Menu>, { left: e.clientX, top: e.clientY }
-        // );
-
         ContextMenu.show (
             <Menu>
                 <ButtonGroup className="context-menu-control" minimal={true}>

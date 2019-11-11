@@ -81,7 +81,7 @@ class ServerPools extends Component {
         let serverName = this.props.server.serverSettingName;
         let serverID = this.props.server.serverID;
         return (
-            <Card className="bp3-elevation-4">
+            <Card className="bp3-elevation-1">
                 <h5 className="bp3-heading">
                     <button
                         className="bp3-button add-pool-button bp3-intent-primary"

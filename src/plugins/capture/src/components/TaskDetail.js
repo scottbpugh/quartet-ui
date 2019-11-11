@@ -169,7 +169,7 @@ class _TaskDetail extends Component {
       <RightPanel title={<FormattedMessage id="plugins.capture.taskDetail" />}>
         {task ? (
           <div className="cards-container">
-            <Card className="bp3-elevation-4">
+            <Card className="bp3-elevation-1">
               <h5 className="bp3-heading">
                 {task.name}
                 {this.state.downloadLink ? (
@@ -179,7 +179,7 @@ class _TaskDetail extends Component {
                     target="_blank">
                     <Icon
                       disabled={this.state.downloadLink ? false : true}
-                      iconName="bp3-icon-cloud-download"
+                      icon="cloud-download"
                     />
                   </a>
                 ) : null}
@@ -212,7 +212,7 @@ class _TaskDetail extends Component {
               </table>
             </Card>
             {task.ruleObject ? (
-              <Card className="bp3-elevation-4">
+              <Card className="bp3-elevation-1">
                 <h5 className="bp3-heading">Rule</h5>
                 <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                   <tbody>
@@ -225,12 +225,12 @@ class _TaskDetail extends Component {
                 </table>
               </Card>
             ) : (
-              <Card className="bp3-elevation-4" />
+              <Card className="bp3-elevation-1" />
             )}
             {task.taskhistory_set &&
             Array.isArray(task.taskhistory_set) &&
             task.taskhistory_set.length > 0 ? (
-              <Card className="bp3-elevation-4">
+              <Card className="bp3-elevation-1">
                 <h5 className="bp3-heading">Task History</h5>
 
                 <div>
@@ -260,7 +260,7 @@ class _TaskDetail extends Component {
                 </div>
               </Card>
             ) : null}
-            <Card className="task-messages bp3-elevation-4">
+            <Card className="task-messages bp3-elevation-1">
               <h5 className="bp3-heading">Messages</h5>
               {task.taskmessage_set.map((message, index) => {
                 let intent = Intent.PRIMARY;

@@ -72,11 +72,11 @@ class StepItem extends Component {
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button small={true} onClick={this.goToEdit} icon="edit" />
           <Button
             small={true}
             onClick={this.toggleConfirmDelete}
-            iconName="trash"
+            icon="trash"
           />
         </ButtonGroup>
         <MenuDivider title={step.name} />
@@ -177,11 +177,11 @@ class _RuleItem extends Component {
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button small={true} onClick={this.goToEdit} icon="edit" />
           <Button
             small={true}
             onClick={this.toggleConfirmDelete}
-            iconName="trash"
+            icon="trash"
           />
         </ButtonGroup>
         <MenuDivider title={rule.name} />

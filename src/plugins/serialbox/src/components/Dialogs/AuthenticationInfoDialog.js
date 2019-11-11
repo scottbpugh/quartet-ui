@@ -111,7 +111,7 @@ export class AuthenticationInfoDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isAuthenticationInfoOpen}
           onClose={this.props.toggleAuthenticationInfoDialog}
           style={{width: "80%"}}

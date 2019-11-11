@@ -126,7 +126,7 @@ const EventEntry = props => {
           textAlign: "center",
           verticalAlign: "middle"
         }}>
-        <Icon intent={Intent.PRIMARY} iconName="search-template" />
+        <Icon intent={Intent.PRIMARY} icon="search-template" />
       </td>
       <td>
         <FormattedDate value={props.entry.event_time} />{" "}

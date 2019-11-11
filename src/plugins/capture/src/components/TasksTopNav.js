@@ -95,6 +95,7 @@ class _NavPluginRoot extends Component {
       let children = [];
       return (
         <TreeNode
+            className="tree-node"
           depth={this.props.depth}
           onContextMenu={this.renderContextMenu.bind(this)}
           nodeType="task"

@@ -111,7 +111,7 @@ export class RuleDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isRuleOpen}
           onClose={this.props.toggleRuleDialog}
           style={{width: "80%"}}

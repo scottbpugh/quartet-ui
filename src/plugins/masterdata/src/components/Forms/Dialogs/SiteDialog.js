@@ -125,7 +125,7 @@ export class SiteDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isSiteOpen}
           onClose={this.props.toggleSiteDialog}
           style={{width: "80%"}}

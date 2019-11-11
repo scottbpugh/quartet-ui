@@ -38,7 +38,7 @@ class _ServerNode extends Component {
 
   renderContextMenu() {
     const {server, intl} = this.props;
-    return (
+    ContextMenu.show (
       <ServerMenu
         toggleConfirmDelete={this.toggleConfirmDelete}
         intl={intl}
@@ -67,7 +67,7 @@ class _ServerNode extends Component {
     return (
       <TreeNode
         key={server.serverID}
-        onContextMenu={this.renderContextMenu.bind(this)}
+        onNodeContextMenu={this.renderContextMenu.bind(this)}
         nodeType="server"
         depth={0}
         serverID={server.serverID}

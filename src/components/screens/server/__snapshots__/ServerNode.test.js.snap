@@ -17,7 +17,7 @@ exports[`renders correctly 1`] = `
           className="arrow-straight"
         >
           <span
-            className="bp3-icon-standard bp3-icon-chevron-right"
+            className="standard chevron-right"
             style={
               Object {
                 "visibility": "hidden",

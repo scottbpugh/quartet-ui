@@ -61,7 +61,7 @@ class _ConfirmDialog extends Component {
           <div className="bp3-dialog-footer-actions">
             <Button
               onClick={confirmAction}
-              iconName="warning"
+              icon="warning"
               intent={Intent.WARNING}>
               <FormattedMessage id="app.common.confirm" />
             </Button>

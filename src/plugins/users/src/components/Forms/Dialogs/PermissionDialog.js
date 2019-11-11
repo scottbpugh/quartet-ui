@@ -112,7 +112,7 @@ export class PermissionDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isPermissionOpen}
           onClose={this.props.togglePermissionDialog}
           style={{width: "80%"}}

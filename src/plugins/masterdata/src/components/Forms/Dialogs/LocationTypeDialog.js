@@ -105,7 +105,7 @@ export class LocationTypeDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isLocationTypeOpen}
           onClose={this.props.toggleLocationTypeDialog}
           style={{width: "80%"}}

@@ -9,7 +9,7 @@ exports[`renders correctly 1`] = `
       className="bp3-button-group bp3-minimal context-menu-control"
     >
       <button
-        className="bp3-button bp3-icon-trash"
+        className="bp3-button trash"
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         small={true}

@@ -124,7 +124,7 @@ class _ServerCompanies extends Component {
               });
               return (
                 <div>
-                  <Card className="region-detail bp3-elevation-4 bp3-interactive">
+                  <Card className="region-detail bp3-elevation-1bp3-interactive">
                     <h5 onClick={goToPayload}>{entry.name}</h5>
                     {entry.longitude && entry.latitude ? (
                       <SingleMarkerMap
