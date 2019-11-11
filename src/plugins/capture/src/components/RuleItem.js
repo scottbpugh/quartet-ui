@@ -210,18 +210,6 @@ class _RuleItem extends Component {
             id: "plugins.capture.uploadFile"
           })}
         />
-        {/*
-        <MenuItem
-          onClick={this.goTo.bind(
-            this,
-            `/capture/add-task/${serverID}/rule/${rule.id}`
-          )}
-          text={
-            pluginRegistry.getIntl().formatMessage({
-              id: "plugins.capture.addTask"
-            }) + " - Dev"
-          }
-        />*/}
       </Menu>
     );
   }

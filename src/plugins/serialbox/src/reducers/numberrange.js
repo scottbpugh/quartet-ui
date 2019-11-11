@@ -78,17 +78,12 @@ export const loadPools = server => {
         getPools(server).then(async pools => {
             // load response rules, if available.
             pools = await loadResponseRules(server, pools);
-            await dispatch({
+            dispatch({
                 type: actions.loadPools,
                 payload: {
                     [server.serverID]: {pools: pools, server: server}
                 }
-            }).then(() => {
-                dispatch({
-                    type: actions.setLoadingStatus,
-                    payload: false
-                });
-            });
+            })
         });
     };
 };

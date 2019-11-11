@@ -25,6 +25,7 @@ import {pluginRegistry} from "plugins/pluginRegistration";
 import {reduxForm} from "redux-form";
 import PageForm from "components/elements/PageForm";
 import {loadRules, deleteRuleParam} from "../reducers/capture";
+import {StepsList} from "./StepsList";
 
 const RuleForm = reduxForm({
   form: "ruleForm"
@@ -157,9 +158,13 @@ class _AddRule extends Component {
                   </tbody>
                 </HTMLTable>
               ) : null}
+                <StepsList
+                    rule={rule}
+                />
             </Card>
           ) : null}
         </div>
+
       </RightPanel>
     );
   }

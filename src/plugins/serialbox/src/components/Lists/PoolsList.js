@@ -19,15 +19,11 @@
 import React, {Component} from "react";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
-import Loader from "../../../../../components/Loader";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {PaginatedList} from "components/elements/PaginatedList";
-import {DeleteObject} from "components/elements/DeleteObject";
 import PoolListItem from "../PoolListItem";
-import PoolForm from "../PoolForm";
 import {loadPoolList} from "../../reducers/numberrange";
-import {PoolList} from "../PoolList";
 
 const PoolTableHeader = props => (
     <thead style={{textAlign: "center", verticalAlign: "middle"}}>
@@ -69,19 +65,6 @@ const PoolTableHeader = props => (
     </tr>
     </thead>
 );
-
-const PoolEntry = props => {
-    const goTo = path => {
-        props.history.push(path);
-    };
-
-    const goToPayload = goTo.bind(
-        this,
-        `/number-range/edit-pool/${props.server.serverID}/${props.entry.machine_name}`
-    );
-
-    return (<PoolListItem pool={pool} {...this.props} />);
-};
 
 class _PoolsList extends Component {
 
