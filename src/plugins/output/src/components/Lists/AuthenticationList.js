@@ -99,6 +99,7 @@ class _AuthenticationList extends Component {
                     text={pluginRegistry.getIntl().formatMessage({
                         id: "plugins.output.addAuthentication"
                     })}
+                    icon="add"
                 />
             </Menu>, {left: e.clientX, top: e.clientY}
         );

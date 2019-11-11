@@ -17,6 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import {loadGroups} from "../../reducers/users";
+import {ContextMenu, Menu, MenuItem} from "@blueprintjs/core";
+
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
@@ -26,91 +28,111 @@ const {PaginatedList} = qu4rtet.require("./components/elements/PaginatedList");
 const {DeleteObject} = qu4rtet.require("./components/elements/DeleteObject");
 
 const GroupTableHeader = props => (
-  <thead style={{textAlign: "center", verticalAlign: "middle"}}>
+    <thead style={{textAlign: "center", verticalAlign: "middle"}}>
     <tr>
-      <th>
-        {" "}
-        <FormattedMessage id="plugins.users.id" />
-      </th>
-      <th>
-        {" "}
-        <FormattedMessage id="plugins.users.name" />
-      </th>
+        <th>
+            {" "}
+            <FormattedMessage id="plugins.users.id"/>
+        </th>
+        <th>
+            {" "}
+            <FormattedMessage id="plugins.users.name"/>
+        </th>
     </tr>
-  </thead>
+    </thead>
 );
 
 const GroupEntry = props => {
-  const goTo = path => {
-    props.history.push(path);
-  };
-  const goToPayload = goTo.bind(this, {
-    pathname: `/users/${props.server.serverID}/add-group`,
-    state: {defaultValues: props.entry, edit: true}
-  });
-  let deleteObj = DeleteObject ? (
-    <DeleteObject
-      entry={props.entry}
-      operationId="group_delete"
-      server={props.server}
-      title={<FormattedMessage id="plugins.users.deleteGroupConfirm" />}
-      body={<FormattedMessage id="plugins.users.deleteGroupConfirmBody" />}
-      postDeleteAction={props.loadEntries}
-    />
-  ) : null;
-  return (
-    <tr key={props.entry.id}>
-      <td onClick={goToPayload}>{props.entry.id}</td>
-      <td onClick={goToPayload}>{props.entry.name}</td>
-      <td>{deleteObj}</td>
-    </tr>
-  );
+    const goTo = path => {
+        props.history.push(path);
+    };
+    const goToPayload = goTo.bind(this, {
+        pathname: `/users/${props.server.serverID}/add-group`,
+        state: {defaultValues: props.entry, edit: true}
+    });
+    let deleteObj = DeleteObject ? (
+        <DeleteObject
+            entry={props.entry}
+            operationId="group_delete"
+            server={props.server}
+            title={<FormattedMessage id="plugins.users.deleteGroupConfirm"/>}
+            body={<FormattedMessage id="plugins.users.deleteGroupConfirmBody"/>}
+            postDeleteAction={props.loadEntries}
+        />
+    ) : null;
+    return (
+        <tr key={props.entry.id}>
+            <td onClick={goToPayload}>{props.entry.id}</td>
+            <td onClick={goToPayload}>{props.entry.name}</td>
+            <td>{deleteObj}</td>
+        </tr>
+    );
 };
 
 class _GroupsList extends Component {
-  render() {
-    const {server, groups, loadGroups, count, next} = this.props;
-    return (
-      <RightPanel title={<FormattedMessage id="plugins.users.groupsList" />}>
-        <div className="large-cards-container full-large">
-          <PaginatedList
-            {...this.props}
-            listTitle={<FormattedMessage id="plugins.users.groupsList" />}
-            history={this.props.history}
-            loadEntries={loadGroups}
-            server={server}
-            entries={groups}
-            entryClass={GroupEntry}
-            tableHeaderClass={GroupTableHeader}
-            count={count}
-            next={next}
-          />
-        </div>
-      </RightPanel>
-    );
-  }
+    goTo = path => {
+        return this.props.history.push(path);
+    };
+    renderContextMenu = (e) => {
+        e.preventDefault();
+        const {server, serverID, history} = this.props;
+        ContextMenu.show(
+            <Menu>
+                <MenuItem
+                    onClick={this.goTo.bind(this, `/users/${this.props.server.serverID}/add-group`)}
+                    text={pluginRegistry.getIntl().formatMessage({
+                        id: "plugins.users.addGroup"
+                    })}
+                    icon="add"
+                />
+            </Menu>, {left: e.clientX, top: e.clientY}
+        );
+    };
+
+    render() {
+        const {server, groups, loadGroups, count, next} = this.props;
+        return (
+            <RightPanel title={<FormattedMessage id="plugins.users.groupsList"/>}>
+                <div className="large-cards-container full-large">
+                    <PaginatedList
+                        {...this.props}
+                        listTitle={<FormattedMessage id="plugins.users.groupsList"/>}
+                        history={this.props.history}
+                        loadEntries={loadGroups}
+                        server={server}
+                        entries={groups}
+                        entryClass={GroupEntry}
+                        tableHeaderClass={GroupTableHeader}
+                        count={count}
+                        next={next}
+                        context={this.renderContextMenu.bind(this)}
+                    />
+                </div>
+            </RightPanel>
+        );
+    }
 }
 
 export const GroupsList = connect(
-  (state, ownProps) => {
-    const isServerSet = () => {
-      return (
-        state.users.servers &&
-        state.users.servers[ownProps.match.params.serverID]
-      );
-    };
-    return {
-      server: state.serversettings.servers[ownProps.match.params.serverID],
-      groups: isServerSet()
-        ? state.users.servers[ownProps.match.params.serverID].groups
-        : [],
-      count: isServerSet()
-        ? state.users.servers[ownProps.match.params.serverID].count
-        : 0,
-      next: isServerSet()
-        ? state.users.servers[ownProps.match.params.serverID].next
-        : null
-    };
-  },
-  {loadGroups}
+    (state, ownProps) => {
+        const isServerSet = () => {
+            return (
+                state.users.servers &&
+                state.users.servers[ownProps.match.params.serverID]
+            );
+        };
+        return {
+            server: state.serversettings.servers[ownProps.match.params.serverID],
+            groups: isServerSet()
+                ? state.users.servers[ownProps.match.params.serverID].groups
+                : [],
+            count: isServerSet()
+                ? state.users.servers[ownProps.match.params.serverID].count
+                : 0,
+            next: isServerSet()
+                ? state.users.servers[ownProps.match.params.serverID].next
+                : null
+        };
+    },
+    {loadGroups}
 )(_GroupsList);

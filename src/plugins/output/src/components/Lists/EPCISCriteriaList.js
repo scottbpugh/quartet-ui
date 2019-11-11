@@ -121,6 +121,7 @@ class _EPCISCriteriaList extends Component {
                     text={pluginRegistry.getIntl().formatMessage({
                         id: "plugins.output.addEPCISOutputCriteria"
                     })}
+                    icon="add"
                 />
             </Menu>,{left: e.clientX, top: e.clientY}
         );
