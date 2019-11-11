@@ -105,7 +105,7 @@ class _AddStep extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="bp3-elevation-1form-card">
+          <Card className=" bp3-elevation-1 form-card">
             <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.capture.addStep" />
@@ -130,7 +130,7 @@ class _AddStep extends Component {
             />
           </Card>
           {editMode ? (
-            <Card className="bp3-elevation-1form-card">
+            <Card className=" bp3-elevation-1 form-card">
               <h5 className="bp3-heading">
                 <button
                   className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
