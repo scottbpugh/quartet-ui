@@ -25,130 +25,136 @@ import {loadRules} from "../reducers/capture";
 import "./RuleList.css";
 
 class ServerRules extends Component {
-  render() {
-    const serverName = this.props.server.serverSettingName;
-    const serverID = this.props.server.serverID;
-    const {rules} = this.props;
 
-    return (
-      <Card className="bp3-elevation-1">
-        <h5 className="bp3-heading">
-          <button
-            className="bp3-button right-aligned-elem bp3-intent-primary"
-            onClick={e => {
-              this.props.history.push(`/capture/add-rule/${serverID}/rule`);
-            }}
-          >
-            <FormattedMessage id="plugins.capture.addRule" />
-          </button>
-          {serverName}
-          {' '}
-Rules
-        </h5>
-        <div />
-        <div>
-          <HTMLTable className="pool-list-table paginated-list-table"
-                 bordered={true}
-                 condensed={true}
-                 interactive={true}
-                 striped={true}
-          >
-            <thead>
-              <tr>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.name"
-                    defaultMessage="Name"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.description"
-                    defaultMessage="Description"
-                  />
-                </th>
-                <th>
-                  <FormattedMessage
-                    id="plugins.capture.steps"
-                    defaultMessage="Steps"
-                  />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(rules) && rules.length > 0
-                ? rules.map(rule => {
-                  return (
-                    <tr key={rule.id}>
-                      <td>
-                        {rule.name.charAt(0).toUpperCase()
-                            + rule.name.slice(1)}
-                      </td>
-                      <td>
-                        {rule.description}
-                      </td>
-                      <td>
-                        {rule.steps.map(step => (
-                          <Tag
-                            key={step.name}
-                            intent={Intent.PRIMARY}
-                            className="step"
-                          >
-                              #
-                            {step.order}
-                            {' '}
-                            {step.name}
-                          </Tag>
-                        ))}
-                      </td>
-                    </tr>
-                  );
-                })
-                : null}
-            </tbody>
-          </HTMLTable>
-        </div>
-      </Card>
-    );
-  }
+    editRule(ruleID){
+        console.info('ruleID' + ruleID);
+        this.props.history.push(`/capture/add-rule/${this.props.server.serverID}/rule/${ruleID}/?edit=true`)
+    }
+
+    render() {
+        const serverName = this.props.server.serverSettingName;
+        const serverID = this.props.server.serverID;
+        const {rules} = this.props;
+
+        return (
+            <Card className="bp3-elevation-1">
+                <h5 className="bp3-heading">
+                    <button
+                        className="bp3-button right-aligned-elem bp3-intent-primary"
+                        onClick={e => {
+                            this.props.history.push(`/capture/add-rule/${serverID}/rule`);
+                        }}
+                    >
+                        <FormattedMessage id="plugins.capture.addRule"/>
+                    </button>
+                    {serverName}
+                    {' '}
+                    Rules
+                </h5>
+                <div/>
+                <div>
+                    <HTMLTable className="pool-list-table paginated-list-table"
+                               bordered={true}
+                               condensed={true}
+                               interactive={true}
+                               striped={true}
+                    >
+                        <thead>
+                        <tr>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.name"
+                                    defaultMessage="Name"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.description"
+                                    defaultMessage="Description"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.steps"
+                                    defaultMessage="Steps"
+                                />
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {Array.isArray(rules) && rules.length > 0
+                            ? rules.map(rule => {
+                                return (
+                                    <tr key={rule.id}>
+                                        <td onClick={() => this.editRule(rule.id)}>
+                                            {rule.name.charAt(0).toUpperCase()
+                                            + rule.name.slice(1)}
+                                        </td>
+                                        <td onClick={() => this.editRule(rule.id)}>
+                                            {rule.description}
+                                        </td>
+                                        <td onClick={() => this.editRule(rule.id)}>
+                                            {rule.steps.map(step => (
+                                                <Tag
+                                                    key={step.name}
+                                                    intent={Intent.PRIMARY}
+                                                    className="step"
+                                                >
+                                                    #
+                                                    {step.order}
+                                                    {' '}
+                                                    {step.name}
+                                                </Tag>
+                                            ))}
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                            : null}
+                        </tbody>
+                    </HTMLTable>
+                </div>
+            </Card>
+        );
+    }
 }
 
 class _RuleList extends Component {
-  componentDidMount() {
-    this.props.loadRules(this.props.server);
-  }
+    componentDidMount() {
+        this.props.loadRules(this.props.server);
+    }
 
-  render() {
-    const {server, rules} = this.props;
-    return (
-      <RightPanel
-        title={(
-          <FormattedMessage
-            id="plugins.capture.captureRules"
-            defaultMessage="Capture Rules"
-          />
-)}
-      >
-        <div className="large-cards-container full-large">
-          <ServerRules
-            history={this.props.history}
-            server={server}
-            rules={rules}
-          />
-        </div>
-      </RightPanel>
-    );
-  }
+    render() {
+        const {server, rules} = this.props;
+        return (
+            <RightPanel
+                title={(
+                    <FormattedMessage
+                        id="plugins.capture.captureRules"
+                        defaultMessage="Capture Rules"
+                    />
+                )}
+            >
+                <div className="large-cards-container full-large">
+                    <ServerRules
+                        history={this.props.history}
+                        server={server}
+                        rules={rules}
+                    />
+                </div>
+            </RightPanel>
+        );
+    }
 }
 
 export const RuleList = connect(
-  (state, ownProps) => {
-    return {
-      server: state.serversettings.servers[ownProps.match.params.serverID],
-      rules: state.capture.servers
-        ? state.capture.servers[ownProps.match.params.serverID].rules
-        : []
-    };
-  },
-  {loadRules}
+    (state, ownProps) => {
+        return {
+            server: state.serversettings.servers[ownProps.match.params.serverID],
+            rules: state.capture.servers
+                ? state.capture.servers[ownProps.match.params.serverID].rules
+                : []
+        };
+    },
+    {loadRules}
 )(_RuleList);
