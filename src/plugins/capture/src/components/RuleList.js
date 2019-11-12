@@ -18,17 +18,41 @@
 
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {DeleteDialog} from "../../../../components/elements/DeleteDialog";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Tag, Intent, HTMLTable} from "@blueprintjs/core";
+import {Card, Tag, Intent, HTMLTable, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
-import {loadRules} from "../reducers/capture";
+import {loadRules, deleteRule} from "../reducers/capture";
 import "./RuleList.css";
 
 class ServerRules extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            deleteDialogOpen: false,
+            currentRule: null
+        }
+    }
 
-    editRule(ruleID){
+    closeDialog = () => {
+        this.setState({deleteDialogOpen: false})
+    }
+
+    editRule(ruleID) {
         console.info('ruleID' + ruleID);
         this.props.history.push(`/capture/add-rule/${this.props.server.serverID}/rule/${ruleID}/?edit=true`)
+    }
+
+    promptDeleteRule(rule){
+        this.setState({currentRule: rule, deleteDialogOpen: true});
+    }
+
+    deleteRule(){
+        try{
+            this.props.deleteRule(this.props.server, this.state.currentRule)
+        }finally{
+            this.setState({deleteDialogOpen: false});
+        }
     }
 
     render() {
@@ -79,6 +103,11 @@ class ServerRules extends Component {
                                     defaultMessage="Steps"
                                 />
                             </th>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.deleteRule"
+                                    defaultMessage="Delete"/>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,6 +136,12 @@ class ServerRules extends Component {
                                                 </Tag>
                                             ))}
                                         </td>
+                                        <td>
+                                            <Button icon="trash"
+                                                    minimal={true}
+                                                    onClick={() => this.promptDeleteRule(rule)}
+                                            />
+                                        </td>
                                     </tr>
                                 );
                             })
@@ -114,6 +149,13 @@ class ServerRules extends Component {
                         </tbody>
                     </HTMLTable>
                 </div>
+                <DeleteDialog
+                    isOpen={this.state.deleteDialogOpen}
+                    title={<FormattedMessage id="plugins.capture.deleteRule" />}
+                    body={<FormattedMessage id="plugins.capture.deleteRuleConfirm" />}
+                    toggle={this.closeDialog.bind(this)}
+                    deleteAction={this.deleteRule.bind(this)}
+                />
             </Card>
         );
     }
@@ -137,9 +179,8 @@ class _RuleList extends Component {
             >
                 <div className="large-cards-container full-large">
                     <ServerRules
+                        {...this.props}
                         history={this.props.history}
-                        server={server}
-                        rules={rules}
                     />
                 </div>
             </RightPanel>
@@ -156,5 +197,5 @@ export const RuleList = connect(
                 : []
         };
     },
-    {loadRules}
+    {loadRules, deleteRule}
 )(_RuleList);
