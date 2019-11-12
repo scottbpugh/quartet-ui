@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {FormattedMessage} from "react-intl";
 import {Card, HTMLTable} from "@blueprintjs/core";
+import {connect} from 'react-redux';
+import {withRouter} from "react-router-dom";
 
 const StepsListTableHeader = (props) => (
     <thead style={{textAlign: "center", verticalAlign: "middle"}}>
@@ -30,14 +32,18 @@ const StepsListTableHeader = (props) => (
     </thead>
 );
 
-export class StepsList extends Component {
+class StepsList extends Component {
+    editStep(stepID){
+        this.props.history.push(`/capture/edit-step/${this.props.server.serverID}/rule/${this.props.rule.id}/step/${stepID}`)
+    }
+
     steprow = (step) => {
         return (
             <tr id={step.id}>
-                <td>{step.name}</td>
-                <td>{step.order}</td>
-                <td>{step.step_class}</td>
-                <td>{step.description}</td>
+                <td onClick={() => this.editStep(step.id)}>{step.name}</td>
+                <td onClick={() => this.editStep(step.id)}>{step.order}</td>
+                <td onClick={() => this.editStep(step.id)}>{step.step_class}</td>
+                <td onClick={() => this.editStep(step.id)}>{step.description}</td>
             </tr>
         )
     };
@@ -67,3 +73,13 @@ export class StepsList extends Component {
     }
 }
 
+
+function mapStateToProps(state, ownProps) {
+    return {
+        server: state.serversettings.servers[ownProps.match.params.serverID],
+    };
+}
+
+export default connect(
+    mapStateToProps,
+)(withRouter(StepsList));
