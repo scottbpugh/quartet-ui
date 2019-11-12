@@ -19,7 +19,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Button, ButtonGroup, HTMLTable} from "@blueprintjs/core";
+import {Card, Button, ButtonGroup, HTMLTable, MenuItem, Menu, ContextMenu} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {reduxForm} from "redux-form";
@@ -32,10 +32,31 @@ const RuleForm = reduxForm({
 })(PageForm);
 
 class _AddRule extends Component {
+
     componentDidMount() {
         // reload all rules.
         this.props.loadRules(this.props.server);
     }
+
+    renderContextMenu(e) {
+        e.preventDefault();
+        ContextMenu.show(
+            <Menu>
+                <MenuItem
+                    text={pluginRegistry.getIntl().formatMessage({
+                        id: "plugins.capture.addStep"
+                    })}
+                    icon="add"
+                    onClick={() =>
+                        this.props.history.push(
+                            `/capture/add-step/${this.props.server.serverID}/rule/${this.props.rule.id}`
+                        )
+                    }
+                />
+            </Menu>, {left: e.clientX, top: e.clientY}
+        )
+    }
+
 
     editRuleParam(param) {
         const {server, rule} = this.props;
@@ -73,8 +94,8 @@ class _AddRule extends Component {
                                 <Button
                                     icon="menu"
                                     style={{float: "left"}}
-                                    active={!this.props.context}
-                                    onClick={this.props.context}
+                                    onClick={this.renderContextMenu.bind(this)}
+                                    minimal={true}
                                 />
                             </div>
                             {!editMode ? (
@@ -169,15 +190,16 @@ class _AddRule extends Component {
 
                         </Card>
                     ) : null}
-                    <Card className=" bp3-elevation-1 form-card">
-                        <h5 className="bp3-heading">Steps</h5>
-                        <StepsList
-                            {...this.props}
-                            rule={rule}
-                        />
-                    </Card>
+                    {editMode ? (
+                            <Card className=" bp3-elevation-1 form-card">
+                                <h5 className="bp3-heading">Steps</h5>
+                                <StepsList
+                                    {...this.props}
+                                    rule={rule}
+                                />
+                            </Card>)
+                        : null}
                 </div>
-
             </RightPanel>
         );
     }

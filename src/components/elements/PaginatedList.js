@@ -133,6 +133,7 @@ class _PaginatedList extends Component {
                     style={{float:"left"}}
                     active={!this.props.context}
                     onClick={this.props.context}
+                    minimal={true}
                 />
               </div>
               <div className="right-aligned-elem">
