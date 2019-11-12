@@ -86,9 +86,9 @@ class _AddStepParam extends Component {
               }
               objectName="Step Parameter"
               submitCallback={this.submitCallback.bind(this)}
-              redirectPath={`/capture/edit-step/${
+              redirectPath={`/capture/edit-rule/${
                 this.props.server.serverID
-              }/rule/${rule.id}/step/${step.id}`}
+              }/rule/${rule.id}/step/${step.id}?stepEdit=True`}
               djangoPath="capture/step-parameters/"
               existingValues={stepParam}
               prepopulatedValues={[{name: "step", value: step.id}]}

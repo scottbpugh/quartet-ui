@@ -19,23 +19,36 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Button, ButtonGroup, HTMLTable, MenuItem, Menu, ContextMenu} from "@blueprintjs/core";
+import {Card, Button, ButtonGroup, HTMLTable, Dialog, MenuItem, Menu, ContextMenu} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {reduxForm} from "redux-form";
 import PageForm from "components/elements/PageForm";
 import {loadRules, deleteRuleParam} from "../reducers/capture";
 import StepsList from "./StepsList";
+import {AddStep} from "./AddStep";
+import queryString from "querystring";
+
 
 const RuleForm = reduxForm({
     form: "ruleForm"
 })(PageForm);
 
 class _AddRule extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            openDialog:false
+        }
+    }
 
     componentDidMount() {
         // reload all rules.
         this.props.loadRules(this.props.server);
+        let vals = queryString.parse(this.props.location.search);
+        if(vals["?stepEdit"]){
+            this.setState({openDialog:true});
+        }
     }
 
     renderContextMenu(e) {
@@ -47,16 +60,17 @@ class _AddRule extends Component {
                         id: "plugins.capture.addStep"
                     })}
                     icon="add"
-                    onClick={() =>
-                        this.props.history.push(
-                            `/capture/add-step/${this.props.server.serverID}/rule/${this.props.rule.id}`
-                        )
-                    }
+                    onClick={() => this.openStepDialog()}
                 />
             </Menu>, {left: e.clientX, top: e.clientY}
         )
     }
 
+    openStepDialog = () => this.setState({ openDialog: true });
+    closeStepDialog = () => {
+        this.setState({ openDialog: false });
+        this.props.history.render();
+    }
 
     editRuleParam(param) {
         const {server, rule} = this.props;
@@ -89,13 +103,22 @@ class _AddRule extends Component {
                 }>
                 <div className="large-cards-container">
                     <Card className=" bp3-elevation-1 form-card">
+                        <Dialog
+                            isOpen={this.state.openDialog}
+                            enforceFocus={true}
+                        >
+                            <AddStep
+                                {...this.props}
+                                closeDialog={this.closeStepDialog.bind(this)}
+                            />
+                        </Dialog>
                         <h5 className="bp3-heading">
                             <div className="left-aligned-elem">
                                 <Button
                                     icon="menu"
                                     style={{float: "left"}}
-                                    onClick={this.renderContextMenu.bind(this)}
                                     minimal={true}
+                                    onClick={this.renderContextMenu.bind(this)}
                                 />
                             </div>
                             {!editMode ? (
