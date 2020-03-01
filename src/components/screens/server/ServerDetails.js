@@ -22,7 +22,7 @@ import {connect} from "react-redux";
 import {saveServer, deleteServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {DeleteDialog} from "components/elements/DeleteDialog";
-import {Card, Button, Icon, Tag, Intent, HTMLTable, ContextMenu} from "@blueprintjs/core";
+import {Card, Button, Icon, Tag, Intent, Spinner, HTMLTable, ContextMenu} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 
@@ -46,6 +46,7 @@ class _ServerDetails extends Component {
             serverObject.listApps();
         }
     };
+
     fetchAppListRefresh = evt => {
         let serverObject = pluginRegistry.getServer(this.props.server.serverID);
         if (serverObject) {
@@ -83,10 +84,7 @@ class _ServerDetails extends Component {
                     return (
                         <tr key={service}>
                             <td>{service.toUpperCase()}</td>
-                            <td bgcolor="#6b8e23"><Button intent="success" active={false}
-                                                          minimal={true}
-                                                          fill={true}
-                                                          icon="exchange"/></td>
+                            <td style={{"text-align":"center"}} bgcolor="#6b8e23"><Icon icon="exchange"/></td>
                         </tr>
                     );
                 })
@@ -95,18 +93,18 @@ class _ServerDetails extends Component {
             <RightPanel title={<FormattedMessage id="app.servers.serverDetails"/>}>
                 {serverObject ? (
                     <div className="cards-container">
-                      <DeleteDialog
-                          isOpen={this.state.confirmDeleteOpen}
-                          title={
-                            <FormattedMessage
-                                id="app.servers.deleteServer"
-                                values={{serverName: server.serverSettingName}}
-                            />
-                          }
-                          body={<FormattedMessage id="app.servers.deleteServerConfirm"/>}
-                          toggle={this.toggleConfirmDelete.bind(this)}
-                          deleteAction={this.trashServer.bind(this)}
-                      />
+                        <DeleteDialog
+                            isOpen={this.state.confirmDeleteOpen}
+                            title={
+                                <FormattedMessage
+                                    id="app.servers.deleteServer"
+                                    values={{serverName: server.serverSettingName}}
+                                />
+                            }
+                            body={<FormattedMessage id="app.servers.deleteServerConfirm"/>}
+                            toggle={this.toggleConfirmDelete.bind(this)}
+                            deleteAction={this.trashServer.bind(this)}
+                        />
                         <Card className="bp3-elevation-1">
                             <h5 className="bp3-heading">
                                 <Button
@@ -139,7 +137,7 @@ class _ServerDetails extends Component {
                                         className="paginated-list-table"
                                         bordered={true}
                                         condensed={true}
-                                        interactive={true}
+                                        interactive={false}
                                         striped={true}
                                     >
                                         <thead>
@@ -171,27 +169,27 @@ class _ServerDetails extends Component {
                                         icon="refresh"
                                 />
                             </h5>
-                            <HTMLTable
-                                striped={true}
-                                bordered={true}
-                                condensed={true}
-                                interactive={false}
-                            >
-                                <tbody>
-                                {services.length > 0 ? (
-                                    services
-                                ) : (
-                                    <tr onClick={this.fetchAppList} className="centered-action">
-                                        <td>
-                                            <Icon
-                                                icon="refresh"
-                                                className="very-large-icon"
-                                            />
-                                            <span>Retry</span>
-                                        </td>
-                                    </tr>
-                                )}</tbody>
-                            </HTMLTable>
+
+                            {services.length > 0 ? (
+                                <HTMLTable
+                                    striped={services.length > 0}
+                                    bordered={true}
+                                    condensed={true}
+                                    interactive={false}
+                                >
+                                    <tbody>
+                                    {services}
+                                    </tbody>
+                                </HTMLTable>
+                            ) : (
+                                <div style={{"margin":"10px"}}>
+                                    <Spinner
+                                        intent={Intent.PRIMARY}
+                                        size={100}
+                                    />
+                                </div>
+
+                            )}
                         </Card>
                     </div>
                 ) : null}
