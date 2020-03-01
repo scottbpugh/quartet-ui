@@ -375,9 +375,21 @@ export const loadPoolList = (server, search, page, ordering) => {
         });
         serverObject
             .fetchPageList("serialbox_pools_list", params, [])
-            .then(async response => {
-                response = await loadResponseRules(server, response);
-                await dispatch({
+            // .then(async response => {
+            //     response = await loadResponseRules(server, response);
+            //     await dispatch({
+            //         type: actions.loadPools,
+            //         payload: {
+            //             serverID: server.serverID,
+            //             server: server,
+            //             pools: response.results,
+            //             count: response.count,
+            //             next: response.next
+            //         }
+            //     })
+            // })
+            .then(response => {
+                dispatch({
                     type: actions.loadPools,
                     payload: {
                         serverID: server.serverID,

@@ -19,16 +19,20 @@ import React, {Component} from "react";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
-import {saveServer} from "reducers/serversettings";
+import {saveServer, deleteServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {Card, Button, Icon, Tag, Intent, HTMLTable} from "@blueprintjs/core";
+import {DeleteDialog} from "components/elements/DeleteDialog";
+import {Card, Button, Icon, Tag, Intent, HTMLTable, ContextMenu} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 
 class _ServerDetails extends Component {
     constructor(props) {
         super(props);
-        this.state = {editMode: false};
+        this.state = {
+            editMode: false,
+            confirmDeleteOpen: false
+        };
     }
 
     componentDidMount() {
@@ -36,7 +40,7 @@ class _ServerDetails extends Component {
         this.fetchAppList();
     }
 
-    fetchAppList = evt => {
+    fetchAppList = (evt) => {
         let serverObject = pluginRegistry.getServer(this.props.server.serverID);
         if (serverObject) {
             serverObject.listApps();
@@ -55,8 +59,19 @@ class _ServerDetails extends Component {
         // leave form on successful submit.
         this.setState({editMode: false});
     };
+    toggleConfirmDelete = () => {
+        this.setState({confirmDeleteOpen: !this.state.confirmDeleteOpen});
+    };
+
+    trashServer = () => {
+        this.toggleConfirmDelete();
+        ContextMenu.hide();
+        this.props.history.push("/");
+        this.props.deleteServer(this.props.server);
+    };
 
     render() {
+        const server = this.props.server;
         let serverObject = pluginRegistry.getServer(this.props.server.serverID);
         let services = serverObject
             ? serverObject.appList
@@ -68,7 +83,9 @@ class _ServerDetails extends Component {
                     return (
                         <tr key={service}>
                             <td>{service.toUpperCase()}</td>
-                            <td bgcolor="#6b8e23"><Button intent="success" active={false} minimal={true} fill={true}
+                            <td bgcolor="#6b8e23"><Button intent="success" active={false}
+                                                          minimal={true}
+                                                          fill={true}
                                                           icon="exchange"/></td>
                         </tr>
                     );
@@ -78,8 +95,25 @@ class _ServerDetails extends Component {
             <RightPanel title={<FormattedMessage id="app.servers.serverDetails"/>}>
                 {serverObject ? (
                     <div className="cards-container">
+                      <DeleteDialog
+                          isOpen={this.state.confirmDeleteOpen}
+                          title={
+                            <FormattedMessage
+                                id="app.servers.deleteServer"
+                                values={{serverName: server.serverSettingName}}
+                            />
+                          }
+                          body={<FormattedMessage id="app.servers.deleteServerConfirm"/>}
+                          toggle={this.toggleConfirmDelete.bind(this)}
+                          deleteAction={this.trashServer.bind(this)}
+                      />
                         <Card className="bp3-elevation-1">
                             <h5 className="bp3-heading">
+                                <Button
+                                    onClick={this.toggleConfirmDelete}
+                                    className="bp3-minimal delete-button"
+                                    icon="trash">
+                                </Button>
                                 Settings
                                 <Button
                                     onClick={this.toggleEditMode}
@@ -115,14 +149,15 @@ class _ServerDetails extends Component {
                                         </thead>
 
                                         <tbody>
-                                        {serverObject.getArrayFields().map(elem => {
-                                            return (
-                                                <tr key={elem.name}>
-                                                    <td>{elem.name}</td>
-                                                    <td>{"" + elem.value}</td>
-                                                </tr>
-                                            );
-                                        })}
+                                        {serverObject.getArrayFields()
+                                            .map(elem => {
+                                                return (
+                                                    <tr key={elem.name}>
+                                                        <td>{elem.name}</td>
+                                                        <td>{"" + elem.value}</td>
+                                                    </tr>
+                                                );
+                                            })}
                                         </tbody>
                                     </HTMLTable>
                                 </div>
@@ -170,6 +205,7 @@ export var ServerDetails = connect(
         server: state.serversettings.servers[ownProps.match.params.serverID]
     }),
     {
-        saveServer
+        saveServer,
+        deleteServer
     }
 )(_ServerDetails);

@@ -23,7 +23,7 @@ const electron = require("electron");
 const app = electron.app;
 const Menu = electron.Menu;
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const BrowserWindow = electron.BrowserWindow;
 
 const os = require("os");
 const opn = require("opn");
@@ -35,13 +35,11 @@ const setTimeout = require("timers").setTimeout;
 'use strict';
 
 
-const reload = require('electron-reload')(path.join(__dirname, '../src'));
-
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 global.mainWindow = mainWindow;
+
 /**
  * Opens a window for the default browser.
  */
@@ -51,18 +49,22 @@ function openBrowserResource(url) {
 
 const isDev = require("electron-is-dev");
 
+if (isDev === true) {
+  const reload = require('electron-reload')(path.join(__dirname, '../src'));
+}
+
 function setAppMenu() {
   let viewArray = [
-    { role: "resetzoom" },
-    { role: "zoomin" },
-    { role: "zoomout" },
-    { type: "separator" },
-    { role: "togglefullscreen" }
+    {role: "resetzoom"},
+    {role: "zoomin"},
+    {role: "zoomout"},
+    {type: "separator"},
+    {role: "togglefullscreen"}
   ];
   if (isDev || process.env.REACT_DEV === "dev") {
     console.log("Enabling Dev Tools");
-    viewArray.push({ type: "separator" });
-    viewArray.push({ role: "toggledevtools" });
+    viewArray.push({type: "separator"});
+    viewArray.push({role: "toggledevtools"});
   }
   var template = [
     {
@@ -80,9 +82,21 @@ function setAppMenu() {
     {
       label: "Edit",
       submenu: [
-        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
-        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
-        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        {
+          label: "Cut",
+          accelerator: "CmdOrCtrl+X",
+          selector: "cut:"
+        },
+        {
+          label: "Copy",
+          accelerator: "CmdOrCtrl+C",
+          selector: "copy:"
+        },
+        {
+          label: "Paste",
+          accelerator: "CmdOrCtrl+V",
+          selector: "paste:"
+        },
         {
           label: "Select All",
           accelerator: "CmdOrCtrl+A",
@@ -109,10 +123,11 @@ if (process.env.REACT_DEV === "dev") {
 }
 
 async function createWindow() {
-  let splash = require("./main-process/splash.js").renderSplashScreen();
+  let splash = require("./main-process/splash.js")
+    .renderSplashScreen();
   electron.session.defaultSession.webRequest.onHeadersReceived(
     (details, callback) => {
-      callback({ responseHeaders: `script-src 'self'; child-src 'self';` });
+      callback({responseHeaders: `script-src 'self'; child-src 'self';`});
     }
   );
   let pluginManager = null;
@@ -128,16 +143,23 @@ async function createWindow() {
     // Setting this to exchange credentials information
     credManagement.setCredentialEvents(mainWindow);
     // and load the index.html of the app.
-    mainWindow.loadURL("file://" + __dirname + "/build/index.html");
+    const options = { extraHeaders: 'pragma: no-cache\n' }
+    mainWindow.loadURL("file://" + __dirname + "/build/index.html", options);
     if (process.env.REACT_DEV === "dev") {
-      console.info('Trying to add react dev tools extension.')
-      BrowserWindow.addDevToolsExtension(
-          path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.2.0_0')
-      )
-      console.info('Trying to add the redux devtools extension.')
-      BrowserWindow.addDevToolsExtension(
+      try {
+        console.info('Trying to add react dev tools extension.');
+        BrowserWindow.addDevToolsExtension(
+          path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.4.0_0')
+        );
+        console.info('Trying to add the redux devtools extension.');
+        BrowserWindow.addDevToolsExtension(
           path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.0_0')
-      )
+        );
+      } catch (e) {
+        throw new Error('There was an error trying to load the react dev tools and/or the ' +
+          'Redux dev tools.  Check the paths specified in the electron.js and make sure they ' +
+          'contain the correct version and path info.');
+      }
       // Open the DevTools
       mainWindow.webContents.openDevTools();
     }
@@ -182,7 +204,7 @@ async function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-    createWindow();
+  createWindow();
 });
 
 // Quit when all windows are closed.

@@ -54,8 +54,7 @@ class _ServerForm extends Component {
           fieldData={field}
           component={DefaultField}
           type={field.description.type}
-          className="bp3-input"
-          width={300}
+          className="bp3-input wide-input"
           validate={field.validate}
         />
       );

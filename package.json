@@ -24,7 +24,7 @@
     "json-server": "^0.14.0",
     "json2csv": "^4.2.1",
     "jsontoxml": "^1.0.0",
-    "keytar": "^5.0.0",
+    "keytar": "^5.4.0",
     "live-plugin-manager": "^0.12.0",
     "moment": "^2.22.2",
     "mousetrap": "^1.6.2",
@@ -60,6 +60,7 @@
   "homepage": "./",
   "scripts": {
     "start": "./node_modules/.bin/nf start",
+    "css": "./build-css.sh",
     "build": "./build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",

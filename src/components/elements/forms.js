@@ -19,6 +19,7 @@ import React from "react";
 import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
+import "../screens/server/server-settings.css";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 
@@ -122,8 +123,7 @@ export const DefaultField = ({
         defaultValue={fieldData.defaultValue ? fieldData.defaultValue : null}
         type={type}
         disabled={fieldData.description.read_only}
-        width={300}
-        className={classNames({"bp3-input": true, [intentClass]: true})}
+        className={classNames({"bp3-input": true, "wide-input": true, [intentClass]: true})}
         required={fieldData.description.required}
       />
     );

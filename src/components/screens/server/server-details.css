@@ -61,3 +61,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .cards-container{
   margin-top: 25px;
 }
+.delete-button {
+  position:absolute;
+  left:10px;
+  top: 7px;
+}
