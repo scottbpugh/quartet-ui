@@ -140,6 +140,10 @@ class _ServerTasks extends Component {
     this.processTasks(true);
   };
 
+  getExecutionTime = (seconds) => {
+    return new Date(seconds * 1000).toISOString().substr(11, 8);
+  }
+
   processTasks = (clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
@@ -232,6 +236,12 @@ class _ServerTasks extends Component {
                       defaultMessage="Status"
                     />
                   </th>
+                  <th>
+                    <FormattedMessage
+                        id="plugins.capture.executionTime"
+                        defaultMessage="Execution Time"
+                    />
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -274,6 +284,9 @@ class _ServerTasks extends Component {
                           </td>
                           <td style={{textAlign: "center"}}>
                             <Tag intent={intent}>{task.status}</Tag>
+                          </td>
+                          <td style={{textAlign: "center"}}>
+                            <Tag intent={intent}>{this.getExecutionTime(task.execution_time)}</Tag>
                           </td>
                         </tr>
                       );
