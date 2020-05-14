@@ -25,6 +25,7 @@ const defaultLocaleMsg = {
     addStep: "Add a New Step",
     editStepParam: "Edit Step Parameter",
     editStep: "Edit Step",
+    executionTime: "Execution Time",
     addTask: "Create a New Task",
     deleteStep: "Delete Step",
     deleteStepConfirm: "Are you sure you want to delete this step?",

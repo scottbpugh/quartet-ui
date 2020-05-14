@@ -134,8 +134,12 @@ async function createWindow() {
 
   var removeSplashAndLoadApp = function () {
     // Create the browser window.
+    let width = 1600;
+    if(isDev){
+      width = 3200
+    }
     const mainOptions = {
-      width: 1600,
+      width: width,
       height: 1200,
       show: false
     };
@@ -149,7 +153,7 @@ async function createWindow() {
       try {
         console.info('Trying to add react dev tools extension.');
         BrowserWindow.addDevToolsExtension(
-          path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.4.0_0')
+          path.join(os.homedir(), '/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.6.0_0')
         );
         console.info('Trying to add the redux devtools extension.');
         BrowserWindow.addDevToolsExtension(

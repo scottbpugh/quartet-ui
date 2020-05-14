@@ -27,10 +27,9 @@ const pluginRepoPath = (isDev || process.env.REACT_DEV === "dev") ?
 
 console.info('Using plugin file ' + pluginRepoPath)
 
-const PLUGINS_PATH = require("path").join(
-    require("electron").app.getPath("userData"),
-    "packages"
-);
+const PLUGINS_PATH = require('path').join(
+    __dirname, '../../src/plugins'
+)
 const PLUGINS_LIST_PATH = pluginRepoPath;
 
 const manager = new PluginManager({pluginsPath: PLUGINS_PATH});
@@ -43,28 +42,10 @@ exports.getPlugins = function (readyCallback, timeout) {
 }
 
 
-var isPluginInstalled = pluginEntry => {
-    try {
-        let pluginInfoPath = path.join(
-            PLUGINS_PATH,
-            pluginEntry.pluginName,
-            "package.json"
-        );
-        if (fs.existsSync(pluginInfoPath)) {
-            let version = require(pluginInfoPath).version;
-            return version;
-        }
-        return false;
-    } catch (e) {
-        console.log(e);
-        return false;
-    }
-};
-
 var install = (exports.install = async function (pluginEntry) {
     try {
         let pluginList = require(PLUGINS_LIST_PATH);
-        let version = isPluginInstalled(pluginEntry); // version if true, false if not installed.
+        let version = '1.1.4';
 
         console.log(
             "plugin ",

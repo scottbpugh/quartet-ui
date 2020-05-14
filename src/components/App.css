@@ -112,6 +112,7 @@ html, body {
   height:90%;
   font-size:20px;
   cursor:pointer;
+  background-color: inherit;
 }
 
 .form-card {
