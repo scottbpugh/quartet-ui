@@ -63,15 +63,9 @@ export const loadResponseRules = async (server, response) => {
                 }
             });
         }
-        return response;
+        return response
     } catch (e) {
-        return response;
-    }
-};
-
-export const getResponseRules = (server, pool) => {
-    return dispatch => {
-
+        return response
     }
 };
 
@@ -81,38 +75,33 @@ export const loadPools = server => {
             type: actions.setLoadingStatus,
             payload: true
         });
-        getPools(server)
-            .then(async pools => {
-                // load response rules, if available.
-                // pools = await loadResponseRules(server, pools);
-                dispatch({
-                    type: actions.loadPools,
-                    payload: {
-                        [server.serverID]: {
-                            pools: pools,
-                            server: server
-                        }
-                    }
-                });
-            });
+        getPools(server).then(async pools => {
+            // load response rules, if available.
+            pools = await loadResponseRules(server, pools);
+            dispatch({
+                type: actions.loadPools,
+                payload: {
+                    [server.serverID]: {pools: pools, server: server}
+                }
+            })
+        });
     };
 };
 
 export const getResponseRules = pool => {
     return dispatch => {
 
-    };
-};
+    }
+}
 
 export const loadRegion = (server, regionName) => {
     return dispatch => {
-        getRegion(server, regionName)
-            .then(region => {
-                dispatch({
-                    type: actions.loadRegion,
-                    payload: region
-                });
+        getRegion(server, regionName).then(region => {
+            dispatch({
+                type: actions.loadRegion,
+                payload: region
             });
+        });
     };
 };
 
@@ -122,7 +111,7 @@ export const loadRegions = (server, pool) => {
         dispatch({
             type: actions.setLoadingStatus,
             payload: true
-        });
+        })
         getPools(server)
             .then(async pools => {
                 pools = await loadResponseRules(server, pools);
@@ -139,29 +128,24 @@ export const loadRegions = (server, pool) => {
                 let updatedPool = pools.find(aPool => {
                     return aPool.machine_name === pool.machine_name;
                 });
-                await getRegions(server, updatedPool)
-                    .then(regions => {
-                        dispatch({
-                            type: actions.loadRegions,
-                            payload: regions
-                        });
-                    })
-                    .then(() => {
-                        dispatch({
-                            type: actions.setLoadingStatus,
-                            payload: false
-                        });
+                await getRegions(server, updatedPool).then(regions => {
+                    dispatch({
+                        type: actions.loadRegions,
+                        payload: regions
                     });
+                }).then(() => {
+                    dispatch({
+                        type: actions.setLoadingStatus,
+                        payload: false
+                    })
+                });
             })
             .catch(e => {
                 dispatch({
                     type: actions.setLoadingStatus,
                     payload: false
-                });
-                showMessage({
-                    type: "error",
-                    msg: e
-                });
+                })
+                showMessage({type: "error", msg: e});
             });
     };
 };
@@ -172,8 +156,7 @@ export const deleteARegion = (server, pool, region) => {
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 403 || response.status === 401) {
-                        pluginRegistry.getHistory()
-                            .push("/access-denied");
+                        pluginRegistry.getHistory().push("/access-denied");
                         return;
                     } else {
                         throw new Error(response);
@@ -188,10 +171,7 @@ export const deleteARegion = (server, pool, region) => {
                 }
             })
             .catch(error => {
-                showMessage({
-                    type: "error",
-                    msg: error.detail
-                });
+                showMessage({type: "error", msg: error.detail});
             });
     };
 };
@@ -201,23 +181,16 @@ export const deleteAPool = (server, pool) => {
         deletePool(server, pool)
             .then(response => {
                 if (response.status === 403 || response.status === 401) {
-                    pluginRegistry.getHistory()
-                        .push("/access-denied");
+                    pluginRegistry.getHistory().push("/access-denied");
                     return;
                 }
                 if (response.ok && response.status === 204) {
                     dispatch(loadPoolList(server));
-                    showMessage({
-                        type: "warning",
-                        msg: "Pool deleted successfully"
-                    });
+                    showMessage({type: "warning", msg: "Pool deleted successfully"});
                 }
             })
             .catch(error => {
-                showMessage({
-                    type: "error",
-                    msg: error.detail
-                });
+                showMessage({type: "error", msg: error.detail});
             });
     };
 };
@@ -227,9 +200,9 @@ export const setLoadingStatus = (isLoading) => {
         dispatch({
             action: actions.setLoadingStatus,
             payload: isLoading
-        });
-    };
-};
+        })
+    }
+}
 
 export const deleteResponseRule = (server, responseRule, page) => {
     return dispatch => {
@@ -285,62 +258,48 @@ const generateFile = (server, pool, exportType, data, size) => {
 };
 export const setAllocation = (server, pool, value, exportType) => {
     return dispatch => {
-        allocate(server, pool, value, exportType)
-            .then(data => {
-                console.info('dispatch called...');
-                if (typeof data === "object") {
-                    // let's take a look at the data.
-                    if (data.detail) {
-                        // looks like an error.
-                        showMessage({
-                            type: "error",
-                            msg: data.detail
-                        });
-                    } else if (data.fulfilled === true) {
-                        showMessage({
-                            id: "plugins.numberRange.allocatedSuccess",
-                            type: "success",
-                            values: {
-                                size: data.size_granted,
-                                regionName: data.region
-                            }
-                        });
-                    }
-                } else {
+        allocate(server, pool, value, exportType).then(data => {
+            console.info('dispatch called...')
+            if (typeof data === "object") {
+                // let's take a look at the data.
+                if (data.detail) {
+                    // looks like an error.
+                    showMessage({type: "error", msg: data.detail});
+                } else if (data.fulfilled === true) {
                     showMessage({
                         id: "plugins.numberRange.allocatedSuccess",
                         type: "success",
-                        values: {
-                            size: value,
-                            regionName: ""
-                        }
+                        values: {size: data.size_granted, regionName: data.region}
                     });
                 }
-                dispatch({
-                    type: actions.allocate,
-                    payload: data
+            } else {
+                showMessage({
+                    id: "plugins.numberRange.allocatedSuccess",
+                    type: "success",
+                    values: {size: value, regionName: ""}
                 });
-                // reload regions.
-                getRegions(server, pool)
-                    .then(regions => {
-                        dispatch({
-                            type: actions.loadRegions,
-                            payload: regions
-                        });
-                    });
-                setTimeout(() => {
-                    try {
-                        if (data.size_granted || typeof data === "string") {
-                            generateFile(server, pool, exportType, data, value);
-                        }
-                    } catch (error) {
-                        showMessage({
-                            id: "plugins.numberRange.errorFailedToGenerateFile",
-                            type: "danger"
-                        });
-                    }
-                }, 500);
+            }
+            dispatch({type: actions.allocate, payload: data});
+            // reload regions.
+            getRegions(server, pool).then(regions => {
+                dispatch({
+                    type: actions.loadRegions,
+                    payload: regions
+                });
             });
+            setTimeout(() => {
+                try {
+                    if (data.size_granted || typeof data === "string") {
+                        generateFile(server, pool, exportType, data, value);
+                    }
+                } catch (error) {
+                    showMessage({
+                        id: "plugins.numberRange.errorFailedToGenerateFile",
+                        type: "danger"
+                    });
+                }
+            }, 500);
+        });
     };
 };
 
@@ -439,13 +398,13 @@ export const loadPoolList = (server, search, page, ordering) => {
                         count: response.count,
                         next: response.next
                     }
-                });
+                })
             })
             .then(() => {
                 dispatch({
                     type: actions.setLoadingStatus,
                     payload: false
-                });
+                })
             })
             .catch(e => {
                 dispatch({

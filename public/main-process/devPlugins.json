@@ -31,7 +31,7 @@
     "preview": "",
     "initPath": "users/src/init.js",
     "readableName": "User Management",
-    "pluginName": "quartet-ui-users",
+    "pluginName": "Users",
     "description": "Interface to manage users, groups, and permissions.",
     "enabled": true
   },
