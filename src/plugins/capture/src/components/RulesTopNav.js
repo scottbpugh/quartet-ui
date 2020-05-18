@@ -27,6 +27,10 @@ import {loadRules} from "../reducers/capture";
 import {RuleItem} from "./RuleItem";
 
 class _NavPluginRoot extends Component {
+    
+    // Removed : this.props.loadRules(pluginRegistry.getServer(this.props.serverID));
+    // from componentDidMount to prevent loading Rules over and over
+
     static get PLUGIN_COMPONENT_NAME() {
         return "RulesTopNav";
     }
@@ -40,12 +44,6 @@ class _NavPluginRoot extends Component {
     goTo = path => {
         this.props.history.push(path);
     };
-
-    componentDidMount() {
-        if (this.props.server && this.serverHasCapture()) {
-            this.props.loadRules(pluginRegistry.getServer(this.props.serverID));
-        }
-    }
 
     renderContextMenu = () => {
         const {server, serverID} = this.props;
@@ -66,18 +64,6 @@ class _NavPluginRoot extends Component {
     render() {
         const {serverID} = this.props;
         if (this.serverHasCapture()) {
-            const {rules} = this.props;
-            let children = rules
-                ? rules.map(rule => {
-                    return (
-                        <RuleItem
-                            key={`${rule.name}-${this.props.server.serverID}`}
-                            rule={rule}
-                            serverID={this.props.server.serverID}
-                        />
-                    );
-                })
-                : [];
             return (
                 <TreeNode
                     classNames="rules-top-nav"
@@ -85,7 +71,7 @@ class _NavPluginRoot extends Component {
                     nodeType="rule"
                     onContextMenu={this.renderContextMenu}
                     path={`/capture/rules/${serverID}`}
-                    childrenNodes={children}>
+                    childrenNodes={[]}>
                     <FormattedMessage id="plugins.capture.rulesTopNav"/>
                 </TreeNode>
             );

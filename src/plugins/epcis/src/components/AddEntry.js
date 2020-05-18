@@ -30,9 +30,6 @@ const EntryForm = reduxForm({
 })(PageForm);
 
 class _AddEntry extends Component {
-  componentDidMount() {
-    // reminder: load epcis Entrys for refresh later.
-  }
 
   render() {
     const editMode = !!this.props.entry;

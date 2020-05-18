@@ -59,6 +59,7 @@ class _FDALookup extends Component {
     );
   };
   componentDidMount() {
+    // TODO: Revist this code. Try to setState elsewhere
     this.setState({
       lookup: this.props.fdaLookup || null,
       searchField: this.props.fdaSearchField || "openfda.product_ndc.exact",

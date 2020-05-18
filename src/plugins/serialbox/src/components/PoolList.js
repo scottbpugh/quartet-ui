@@ -168,7 +168,7 @@ class ServerPools extends Component {
 class _PoolList extends Component {
     componentDidMount() {
         let {server} = this.props;
-        this.props.loadPools(pluginRegistry.getServer(server.serverID));
+        //this.props.loadPools(pluginRegistry.getServer(server.serverID));
     }
 
     render() {

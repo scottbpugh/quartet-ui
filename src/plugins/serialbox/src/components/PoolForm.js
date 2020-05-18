@@ -118,9 +118,9 @@ class _PoolForm extends Component {
               type: "success"
             });
           }
-          this.props.loadPools(
-            pluginRegistry.getServer(this.props.server.serverID)
-          );
+          // this.props.loadPools(
+          //   pluginRegistry.getServer(this.props.server.serverID)
+          // );
           setTimeout(() => {
             // tiny bit of padding.
             this.props.history.push(

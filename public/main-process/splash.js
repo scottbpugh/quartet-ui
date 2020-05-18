@@ -21,7 +21,7 @@ exports.renderSplashScreen = function() {
   const splash = new BrowserWindow({
     width: 700,
     height: 510,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
     frame:false
   });
   splash.loadURL("file://" + __dirname + "/splash.html");

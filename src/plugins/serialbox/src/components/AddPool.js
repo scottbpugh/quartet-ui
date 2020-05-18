@@ -30,8 +30,7 @@ class _AddPool extends Component {
     super(props);
     this.currentServer = this.props.servers[this.props.match.params.serverID];
   }
-  componentDidMount() {}
-
+  
   editResponseRule = responseRule => {
     let pool = this.getPool();
     this.props.history.push({

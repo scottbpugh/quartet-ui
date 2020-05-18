@@ -162,10 +162,12 @@ class ServerRules extends Component {
 }
 
 class _RuleList extends Component {
-    componentDidMount() {
+    // to load rules use : 
+    // this was removed from componentDidMount to prevent 
+    
+    componentDidMount(){
         this.props.loadRules(this.props.server);
     }
-
     render() {
         const {server, rules} = this.props;
         return (

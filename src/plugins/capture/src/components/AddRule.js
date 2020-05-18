@@ -44,7 +44,7 @@ class _AddRule extends Component {
 
     componentDidMount() {
         // reload all rules.
-        this.props.loadRules(this.props.server);
+        //this.props.loadRules(this.props.server);
         let vals = queryString.parse(this.props.location.search);
         if(vals["?stepEdit"]){
             this.setState({openDialog:true});

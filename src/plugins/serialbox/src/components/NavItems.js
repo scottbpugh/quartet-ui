@@ -299,11 +299,11 @@ export class _NavPluginRoot extends Component {
         this.props.history.push(path);
     };
 
-    componentDidMount() {
-        if (this.props.server && this.serverHasSerialbox()) {
-            this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
-        }
-    }
+    // componentDidMount() {
+    //     if (this.props.server && this.serverHasSerialbox()) {
+    //         //this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
+    //     }
+    // }
 
     renderContextMenu = (e) => {
         if (e.which === 3) {
