@@ -18,10 +18,11 @@
 const BrowserWindow = require("electron").BrowserWindow;
 
 exports.renderSplashScreen = function() {
-  let splash = new BrowserWindow({
+  const splash = new BrowserWindow({
     width: 700,
     height: 510,
-    alwaysOnTop: false
+    alwaysOnTop: true,
+    frame:false
   });
   splash.loadURL("file://" + __dirname + "/splash.html");
   return splash;
