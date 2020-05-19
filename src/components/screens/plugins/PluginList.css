@@ -17,18 +17,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .plugin-screenshot {
-  display:block;
-  margin:2px auto 15px auto;
+	display: block;
+	margin: 2px auto 15px auto;
 }
 
 .bp3-callout-plugin {
-  overflow:hidden;
-  text-align:justify;
-  margin-top:10px;
+	overflow: hidden;
+	text-align: justify;
+	margin-top: 10px;
 }
 
 .add-plugin-button {
-  position:absolute;
-  right:10px;
-  top: 7px;
+	position: absolute;
+	right: 10px;
+	top: 7px;
 }

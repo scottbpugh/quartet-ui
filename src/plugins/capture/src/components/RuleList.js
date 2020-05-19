@@ -20,7 +20,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {DeleteDialog} from "../../../../components/elements/DeleteDialog";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Tag, Intent, HTMLTable, Button} from "@blueprintjs/core";
+import {Card, Tag, Intent, HTMLTable, Button, Spinner, ButtonGroup} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {loadRules, deleteRule} from "../reducers/capture";
 import "./RuleList.css";
@@ -55,6 +55,11 @@ class ServerRules extends Component {
         }
     }
 
+    refreshRules = () => {
+        this.props.loadRules(this.props.server);
+    }
+
+
     render() {
         const serverName = this.props.server.serverSettingName;
         const serverID = this.props.server.serverID;
@@ -63,17 +68,22 @@ class ServerRules extends Component {
         return (
             <Card className="bp3-elevation-1">
                 <h5 className="bp3-heading">
-                    <button
-                        className="bp3-button right-aligned-elem bp3-intent-primary"
-                        onClick={e => {
-                            this.props.history.push(`/capture/add-rule/${serverID}/rule`);
-                        }}
-                    >
-                        <FormattedMessage id="plugins.capture.addRule"/>
-                    </button>
+                    
+                    
                     {serverName}
                     {' '}
                     Rules
+                    <ButtonGroup minimal={true} className="right-aligned-elem">
+                        <Button icon="refresh"
+                                onClick={e=>{
+                                    refreshRules();
+                                }}></Button>
+                        <Button className='bp3-button bp3-intent-primary'
+                            onClick={e => {
+                                this.props.history.push(`/capture/add-rule/${serverID}/rule`);
+                            }}><FormattedMessage id="plugins.capture.addRule"/></Button>
+                    </ButtonGroup>
+                    
                 </h5>
                 <div/>
                 <div>
@@ -145,9 +155,19 @@ class ServerRules extends Component {
                                     </tr>
                                 );
                             })
-                            : null}
+                            :   <tr>
+                                <td colspan='4' style={{width:'100%', textAlign:'center'}}>
+                                    <Spinner
+                                        intent={Intent.PRIMARY}
+                                        size={50}
+                                    />
+                                </td>
+                                </tr>
+                            }
                         </tbody>
+
                     </HTMLTable>
+                    
                 </div>
                 <DeleteDialog
                     isOpen={this.state.deleteDialogOpen}
@@ -162,8 +182,6 @@ class ServerRules extends Component {
 }
 
 class _RuleList extends Component {
-    // to load rules use : 
-    // this was removed from componentDidMount to prevent 
     
     componentDidMount(){
         this.props.loadRules(this.props.server);

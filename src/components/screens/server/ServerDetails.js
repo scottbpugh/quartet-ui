@@ -84,7 +84,7 @@ class _ServerDetails extends Component {
                     return (
                         <tr key={service}>
                             <td>{service.toUpperCase()}</td>
-                            <td style={{"text-align":"center"}} bgcolor="#6b8e23"><Icon icon="exchange"/></td>
+                            <td style={{"text-align":"center"}} bgcolor="#80bc37"><Icon icon="exchange"/></td>
                         </tr>
                     );
                 })

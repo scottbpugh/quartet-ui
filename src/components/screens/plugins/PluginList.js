@@ -80,6 +80,7 @@ class Plugin extends Component {
           {this.props.pluginEntry.local ? (
             <Button
               icon="edit"
+              
               className="bp3-button add-plugin-button bp3-intent-primary"
               onClick={this.handleEnable.bind(this)}>
               Edit
