@@ -59,22 +59,20 @@
 	"main": "public/electron.js",
 	"homepage": "./",
 	"scripts": {
-		"start": "REACT_DEV=dev ./node_modules/.bin/nf start",
+		"start": "./node_modules/.bin/nf start",
 		"css": "./build-css.sh",
 		"build": "./build.sh",
 		"dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
 		"test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
 		"ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
-		"electron:dev": "REACT_DEV=dev electron .",
-		"electron:rebuild": "REACT_DEV=dev ./node_modules/.bin/electron-rebuild && yarn electron:dev",
+		"electron": "electron .",
 		"react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
 		"dev-server": "json-server -p 8080 ./dev/db.json",
 		"fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
 		"security-check": "nsp check --preprocessor yarn --reporter table",
 		"lint": "./node_modules/.bin/eslint src",
 		"publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish",
-		"postinstall": "electron-builder install-app-deps",
-		"install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && yarn install && yarn electron:rebuild"
+		"postinstall": "electron-builder install-app-deps"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
@@ -87,7 +85,6 @@
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"babel-preset-electron": "^1.4.15",
 		"babel-preset-react": "^6.24.1",
-		"concurrently": "^5.2.0",
 		"console-warn-throws-error": "^1.1.0",
 		"electron": "^2.0.18",
 		"electron-builder": "^20",

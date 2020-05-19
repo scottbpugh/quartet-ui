@@ -22,7 +22,6 @@ import { DeleteDialog } from "../../../../components/elements/DeleteDialog";
 import { RightPanel } from "components/layouts/Panels";
 import { Card, Tag, Intent, HTMLTable, Button, Spinner, ButtonGroup } from "@blueprintjs/core";
 import { FormattedMessage } from "react-intl";
-import { PaginatedList } from "components/elements/PaginatedList";
 import { loadRules, deleteRule } from "../reducers/capture";
 import "./RuleList.css";
 
@@ -96,7 +95,29 @@ class ServerRules extends Component {
                     >
                         <thead>
                         <tr>
-                            
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.name"
+                                    defaultMessage="Name"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.description"
+                                    defaultMessage="Description"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.steps"
+                                    defaultMessage="Steps"
+                                />
+                            </th>
+                            <th>
+                                <FormattedMessage
+                                    id="plugins.capture.deleteRule"
+                                    defaultMessage="Delete"/>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -159,39 +180,6 @@ class ServerRules extends Component {
         );
     }
 }
-/**
- * RuleListHeader provides the headers for the Paginated List Table
- */
-const RuleListHeader = () => {
-    return (
-        
-        <thead style={{textAlign: "center", verticalAlign: "middle"}}>
-            <tr>
-                <th>
-                    <FormattedMessage
-                        id="plugins.capture.name"
-                        defaultMessage="Name"
-                    />
-                </th><th>
-                    <FormattedMessage
-                        id="plugins.capture.description"
-                        defaultMessage="Description"
-                    />
-                </th><th>
-                    <FormattedMessage
-                        id="plugins.capture.steps"
-                        defaultMessage="Steps"
-                    />
-                </th><th>
-                    <FormattedMessage
-                        id="plugins.capture.deleteRule"
-                        defaultMessage="Delete"/>
-                </th>
-            </tr>
-        </thead> 
-    );
-    
-}
 
 class _RuleList extends Component {
     
@@ -201,24 +189,20 @@ class _RuleList extends Component {
     render() {
         const {server, rules} = this.props;
         return (
-            
-            <RightPanel title={<FormattedMessage id="plugins.capture.RuleList" defaultMessage='Rules'/>}>
-
-                <PaginatedList
-                    {...this.props}
-                    listTitle={<FormattedMessage id="plugins.capture.RuleList"/>}
-                    history={this.props.history}
-                    loadEntries={loadRules}
-                    server={server}
-                    entries={rules}
-                    entryClass={PoolListItem}
-                    tableHeaderClass={PoolTableHeader}
-                    count={count}
-                    next={next}
-                    interactive={false}
-                    loading={loading}
-                  />
-            
+            <RightPanel
+                title={(
+                    <FormattedMessage
+                        id="plugins.capture.captureRules"
+                        defaultMessage="Capture Rules"
+                    />
+                )}
+            >
+                <div className="large-cards-container full-large">
+                    <ServerRules
+                        {...this.props}
+                        history={this.props.history}
+                    />
+                </div>
             </RightPanel>
         );
     }
