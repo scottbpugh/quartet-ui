@@ -1,0 +1,70 @@
+/* Copyright (c) 2018 SerialLab Corp.
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+.letter-4-bck {
+  opacity:1;
+  fill-opacity:1;
+  stroke:none;
+  stroke-width:0.75212598;
+  stroke-linecap:round;
+  stroke-miterlimit:4;
+  stroke-dasharray:none;
+  stroke-dashoffset:0;
+  stroke-opacity:1;
+}
+.dashboard-container {
+  margin: 50px 30px 0;
+}
+.dashboard-items-container {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content:center;
+
+}
+.dashboard-items {
+  min-width:40%;
+}
+.dashboard-container ul {
+  padding:0 10px 10px 2px;
+}
+.dashboard-container ul li {
+  list-style: none !important;
+  padding:0 0 5px;
+  margin:0;
+  font-size:15px;
+}
+.dashboard-actions-groups {
+  margin-top:50px;
+}
+.dashboard-actions-group {
+  margin:10px 20px 20px 20px;
+}
+.dashboard-container h2 {
+  margin:50px 20px 20px;
+}
+.dashboard-container h3 {
+  margin:20px;
+}
+
+.dashboard-container h4.version {
+  margin:20px;
+  font-style:italic;
+  font-size: 14px;
+}

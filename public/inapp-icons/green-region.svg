@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="22"
+   height="22"
+   viewBox="0 0 5.8208332 5.8208335"
+   version="1.1"
+   id="svg1085"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="green-region.svg">
+  <defs
+     id="defs1079" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="1.573593"
+     inkscape:cy="29.818594"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1270"
+     inkscape:window-height="938"
+     inkscape:window-x="1908"
+     inkscape:window-y="120"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata1082">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-291.17915)">
+    <g
+       class="cls-15"
+       id="g1058"
+       transform="matrix(0.26458333,0,0,0.26458333,-304.9464,216.90949)"
+       style="opacity:0.5">
+      <polyline
+         class="cls-16"
+         points="1170.1 296.77 1170.1 297.77 1169.1 297.77"
+         id="polyline1042"
+         style="fill:none;stroke:#8dc63f;stroke-miterlimit:10"
+         transform="matrix(1.5826398,0,0,1.5826398,-678.12384,-169.3704)" />
+      <line
+         class="cls-17"
+         x1="1170.4153"
+         y1="301.89224"
+         x2="1155.8076"
+         y2="301.89224"
+         id="line1044"
+         style="fill:none;stroke:#8dc63f;stroke-width:1.58263981;stroke-miterlimit:10;stroke-dasharray:3.43432843, 1.72507742" />
+      <polyline
+         class="cls-16"
+         points="1158.23 297.77 1157.23 297.77 1157.23 296.77"
+         id="polyline1046"
+         style="fill:none;stroke:#8dc63f;stroke-miterlimit:10"
+         transform="matrix(1.5826398,0,0,1.5826398,-678.12384,-169.3704)" />
+      <line
+         class="cls-17"
+         x1="1153.3544"
+         y1="298.58453"
+         x2="1153.3544"
+         y2="283.97681"
+         id="line1048"
+         style="fill:none;stroke:#8dc63f;stroke-width:1.58263981;stroke-miterlimit:10;stroke-dasharray:3.43432843, 1.72507742" />
+      <polyline
+         class="cls-16"
+         points="1157.23 285.91 1157.23 284.91 1158.23 284.91"
+         id="polyline1050"
+         style="fill:none;stroke:#8dc63f;stroke-miterlimit:10"
+         transform="matrix(1.5826398,0,0,1.5826398,-678.12384,-169.3704)" />
+      <line
+         class="cls-17"
+         x1="1156.6621"
+         y1="281.53952"
+         x2="1171.27"
+         y2="281.53952"
+         id="line1052"
+         style="fill:none;stroke:#8dc63f;stroke-width:1.58263981;stroke-miterlimit:10;stroke-dasharray:3.43432843, 1.72507742" />
+      <polyline
+         class="cls-16"
+         points="1169.1 284.91 1170.1 284.91 1170.1 285.91"
+         id="polyline1054"
+         style="fill:none;stroke:#8dc63f;stroke-miterlimit:10"
+         transform="matrix(1.5826398,0,0,1.5826398,-678.12384,-169.3704)" />
+      <line
+         class="cls-17"
+         x1="1173.723"
+         y1="284.83139"
+         x2="1173.723"
+         y2="299.45502"
+         id="line1056"
+         style="fill:none;stroke:#8dc63f;stroke-width:1.58263981;stroke-miterlimit:10;stroke-dasharray:3.43432843, 1.72507742" />
+    </g>
+    <line
+       class="cls-16"
+       x1="1.1248732"
+       y1="292.83649"
+       x2="4.6841636"
+       y2="292.83649"
+       id="line1064"
+       style="fill:none;stroke:#8dc63f;stroke-width:0.41874009;stroke-miterlimit:10" />
+    <line
+       class="cls-16"
+       x1="1.1248732"
+       y1="294.03824"
+       x2="4.6841636"
+       y2="294.03824"
+       id="line1066"
+       style="fill:none;stroke:#8dc63f;stroke-width:0.41874009;stroke-miterlimit:10" />
+    <line
+       class="cls-16"
+       x1="1.1248732"
+       y1="295.24423"
+       x2="4.6841636"
+       y2="295.24423"
+       id="line1068"
+       style="fill:none;stroke:#8dc63f;stroke-width:0.41874009;stroke-miterlimit:10" />
+  </g>
+</svg>

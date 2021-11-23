@@ -1,0 +1,402 @@
+/* Copyright (c) 2018 Serial Lab
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+/* Global CSS settings */
+@media print {
+  header, footer,
+  #root > div > div > div > div.left-panel.react-resizable {
+    display: none;
+  }
+  #root > div > div > div > div.right-panel {
+    width:100%!important;
+    padding:0!important;
+    margin:0!important;
+  }
+}
+
+
+.wrapper, html, body, #root, .App {
+    min-height:100%;
+    margin:0;
+    height:100%;
+}
+html, body {
+  scroll-behavior: smooth;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height:auto;
+    min-height:100%;
+}
+.main-container {
+    flex:2;
+    display: flex;
+    margin-top:50px;
+}
+
+.tags .tag:not(:last-child) {
+    margin-right:5px;
+}
+
+.mini-form  {
+  margin:10px;
+  text-align:center;
+}
+.mini-form button {
+  margin:10px;
+}
+.hidden {
+  display: none !important;
+}
+.context {
+  position: absolute;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
+}
+
+.add-incard-button {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+
+
+
+.very-large-icon {
+  font-size:60px !important;
+}
+
+.centered-action {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  align-content:center;
+  height:90%;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.form-card {
+  min-width:60%;
+}
+
+.form-card .pt-input {
+  width: 100%;
+}
+
+.form-card form {
+  padding:10px 5%;
+}
+
+.form-card form .pt-form-group {
+  margin: 20px 0;
+  padding-bottom:10px;
+}
+
+.table-control, .pagination-control {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:flex-start;
+}
+.pagination-control > * {
+  margin:0 10px 0 0 ;
+}
+
+.right-aligned-elem {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+.left-aligned-elem {
+  position:absolute;
+  left:10px;
+  top: 7px;
+}
+.label-info-display {
+  font-style:italic;
+  font-size:12px;
+  text-align:right;
+  margin-top:10px;
+}
+
+
+/* Cards layouts */
+
+/* Cards container contain 1 or 2 cards per row. */
+.cards-container {
+  display: flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}
+
+.cards-container > * {
+  flex-grow:0.4;
+  width:40%;
+  margin-bottom:15px;
+  position:relative;
+  padding-top:60px;
+}
+
+/* Auto-sized cards */
+.auto-cards-container {
+  display: flex;
+  flex-wrap:wrap;
+  margin:0;
+  padding:0;
+  justify-content:center;
+  align-items:center;
+}
+
+.auto-cards-container > * {
+  margin:10px 30px;
+  display: flex;
+  width:400px;
+  flex-direction:column;
+  align-self: center;
+}
+
+/* headers for all cards */
+
+.auto-cards-container h5, .large-cards-container h5, .cards-container h5, .form-card h5, .inset-card h5, .twin-cards-container h5 {
+  background: #EEE;
+  top:0;
+  position: absolute;
+  width: 100%;
+  left:0;
+  border-radius: 0;
+  margin-bottom:20px;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+}
+.twin-cards-container {
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-top:0;
+}
+.twin-cards-container > * {
+  position: relative;
+  margin: 0;
+  min-height:200px;
+}
+.twin-cards-container .pt-card:first-child {
+  margin-bottom: 20px;
+}
+
+.pt-card h5, .inset-card h5 {
+    padding:15px 10px;
+    text-align:center;
+    margin: 0px 0px 10px 0px;
+    border-radius: 3px;
+}
+
+.auto-cards-container .pt-card, .large-cards-container .pt-card, .cards-container .pt-card, .form-card .pt-card {
+  padding:60px 20px 20px 20px; /* Override blueprint since we always want card header */
+}
+
+/* Dark theme color h5 */
+.pt-dark .auto-cards-container h5, .pt-dark .large-cards-container h5, .pt-dark .cards-container h5, .pt-dark .form-card h5, .pt-dark .twin-cards-container h5 {
+  background: #293742;
+}
+
+.form-card {
+  padding:0 25px 20px;
+}
+
+/* One card per row */
+.large-cards-container {
+  display:flex;
+  width:auto;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
+
+.large-cards-container > * {
+  width:auto;
+  margin:30px;
+  position:relative;
+  padding-top: 60px;
+  min-width:80%;
+}
+
+.no-header > * {
+  padding:0 !important;
+}
+
+.large-cards-container .pt-table {
+  width:100%;
+}
+
+/* Take whole right panel (less margin than large.) */
+.full-large > * {
+  width:98%;
+}
+
+/* Style for table */
+.cards-container table {
+  width:100%;
+}
+
+.cards-container table td {
+  overflow:hidden;
+}
+
+.overflowed-table {
+  overflow-x:scroll;
+}
+
+.overflowed-table table.pt-table {
+  border-collapse:collapse ;
+  border-spacing: 0px 20px;
+}
+.overflowed-table table.pt-table td {
+  padding: 20px 10px !important;
+}
+.error-list {
+  list-style:none;
+  padding:10px 10px 0 0;
+}
+
+.error-list li {
+  padding:15px 0;
+  display:flex;
+  border-bottom:1px solid #EEE;
+}
+.error-list .pt-error-standard {
+  padding-right:10px;
+}
+.error-list span.error-msg {
+  margin-left:15px;
+  display:block;
+}
+
+.error-list .pt-icon-error {
+  color:#A82A2A;
+}
+.error-list .pt-icon-warning-sign {
+  color:#D9822B;
+}
+.card-control {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+.context-menu-control {
+  position:absolute;
+  top:2px;
+  right: 0;
+}
+
+.two-column-cards {
+  display:flex;
+  flex-direction:row;
+  width:100%;
+  align-items:stretch;
+  justify-content:space-around;
+  flex-wrap:wrap;
+}
+
+.two-column-cards > * {
+  width:40%;
+  margin:50px 0;
+}
+
+.data-pair-cards {
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  margin:45px 20px;
+}
+
+.data-pair-card {
+  background: rgba(255, 255, 255, 0.2);
+  width:auto;
+  min-width:150px;
+  margin:15px;
+  padding:15px 20px 20px;
+  diplay: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.2);
+}
+
+.data-pair-card .key {
+  display:block;
+  text-align:center;
+  font-size:14px;
+  font-weight: bold;
+  margin-bottom:10px;
+}
+
+.data-pair-card .value {
+  display:block;
+  text-align:center;
+}
+
+.data-pair-table {
+  margin-top:15px;
+}
+.data-pair-table tr td:first-child {
+  font-size:15px;
+  font-weight:bold;
+  min-width:180px;
+}
+
+.data-pair-table tr td {
+  padding-bottom:10px;
+}
+
+.button-shelf {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+  justify-content: flex-end;
+}
+.button-shelf button {
+  align-self: flex-end;
+  margin: 0 0 0 10px;
+}
+.single-column-center-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15% 0;
+}

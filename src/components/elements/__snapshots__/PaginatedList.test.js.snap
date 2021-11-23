@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="pt-card pt-elevation-0 pt-elevation-4"
+  >
+    <h5>
+       
+      <div
+        className="right-aligned-elem"
+      >
+        <button
+          className="pt-button pt-icon-refresh"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          style={
+            Object {
+              "marginRight": "5px",
+            }
+          }
+          title="refresh"
+          type="button"
+        />
+        <span
+          className="pt-tag pt-large"
+        >
+          1
+          /
+          1
+        </span>
+      </div>
+      Hello Test
+    </h5>
+    <div>
+      <div
+        className="table-control"
+      >
+        <div
+          className="pagination-control"
+        >
+          <div>
+            <button
+              className="pt-button pt-disabled"
+              disabled={true}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                previous
+              </span>
+            </button>
+             
+            |
+             
+            <button
+              className="pt-button pt-disabled"
+              disabled={true}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                next
+              </span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div
+            className="pt-control-group"
+          >
+            <div
+              className="pt-select"
+            >
+              <select
+                value=""
+              >
+                <option
+                  value=""
+                >
+                  Search
+                </option>
+              </select>
+            </div>
+            <div
+              className="pt-input-group"
+            >
+              <input
+                className="pt-input"
+                onChange={[Function]}
+                placeholder="Enter Keywords..."
+                style={
+                  Object {
+                    "paddingRight": 0,
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="label-info-display"
+          >
+            <span>
+              0 Entries Total
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="overflowed-table"
+      >
+        <table
+          className="pt-table pt-bordered pt-striped pt-interactive"
+        >
+          <thead>
+            <th>
+              A Single Value
+            </th>
+          </thead>
+          <tbody
+            style={
+              Object {
+                "textAlign": "center",
+                "verticalAlign": "middle !important",
+              }
+            }
+          >
+            <tr>
+              <td>
+                Hello World
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;

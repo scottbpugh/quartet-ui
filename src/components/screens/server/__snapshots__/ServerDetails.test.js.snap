@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="right-panel"
+  >
+    <div>
+      <div
+        className="cards-container"
+      >
+        <div
+          className="pt-card pt-elevation-0 pt-elevation-4"
+        >
+          <h5>
+            Settings
+            <button
+              className="pt-button pt-icon-edit pt-intent-primary add-incard-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            >
+              <span>
+                Edit
+              </span>
+            </button>
+          </h5>
+          <div>
+            <table
+              className="pt-table pt-bordered pt-striped"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    Server API Endpoint
+                  </th>
+                  <th>
+                    <h6>
+                      <span
+                        className="pt-tag pt-intent-primary"
+                      >
+                        <a
+                          href="http://localhost:8000/"
+                          style={
+                            Object {
+                              "color": "#FFF",
+                            }
+                          }
+                          target="_blank"
+                        >
+                          http://localhost:8000/
+                        </a>
+                      </span>
+                    </h6>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    protocol
+                  </td>
+                  <td>
+                    http
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    port
+                  </td>
+                  <td>
+                    8000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    path
+                  </td>
+                  <td>
+                    
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    ssl
+                  </td>
+                  <td>
+                    false
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    url
+                  </td>
+                  <td>
+                    http://localhost:8000/
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    hostname
+                  </td>
+                  <td>
+                    localhost
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    serverSettingName
+                  </td>
+                  <td>
+                    box 1
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    authType
+                  </td>
+                  <td>
+                    basic
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    tokenType
+                  </td>
+                  <td>
+                    Token
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    username
+                  </td>
+                  <td>
+                    lduros
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    serverID
+                  </td>
+                  <td>
+                    d0246781-67c6-474b-8ab0-29de61b6e6bb
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          className="pt-card pt-elevation-0 pt-elevation-4"
+        >
+          <h5>
+            Services Enabled
+             
+            <button
+              className="pt-button pt-icon-refresh add-incard-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="button"
+            />
+          </h5>
+          <div
+            className="centered-action"
+            onClick={[Function]}
+          >
+            <span
+              className="pt-icon-standard pt-icon-refresh very-large-icon"
+            />
+            <span>
+              Retry
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

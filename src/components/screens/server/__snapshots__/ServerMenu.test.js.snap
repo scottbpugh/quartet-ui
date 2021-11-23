@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <ul
+    className="pt-menu"
+  >
+    <div
+      className="pt-button-group pt-minimal context-menu-control"
+    >
+      <button
+        className="pt-button pt-icon-trash"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        small={true}
+        type="button"
+      />
+    </div>
+    <li
+      className="pt-menu-header"
+    >
+      <h6>
+        box 1
+      </h6>
+    </li>
+    <li
+      className="pt-menu-divider"
+    />
+  </ul>
+</div>
+`;
