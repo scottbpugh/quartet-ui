@@ -3,12 +3,12 @@
   "productName": "QU4RTET",
   "description": "The Open-Source Level 4",
   "version": "1.3.1",
-  "subversion": "M.Micherda",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
     "@blueprintjs/core": "1",
     "@blueprintjs/datetime": "^1.25.1",
+    "@sweetalert/with-react": "^0.1.1",
     "about-window": "^1.12.1",
     "babel-register": "^6.26.0",
     "base-64": "^0.1.0",
@@ -29,6 +29,7 @@
     "object-path": "^0.11.4",
     "openlayers": "^4.6.5",
     "opn": "^5.3.0",
+    "prismjs": "^1.25.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
@@ -48,6 +49,7 @@
     "redux-thunk": "^2.2.0",
     "string-hash": "^1.1.3",
     "swagger-client": "^3.8.12",
+    "sweetalert": "^2.1.2",
     "uuid": "^3.3.2"
   },
   "author": {
@@ -59,9 +61,10 @@
   "scripts": {
     "start": "./node_modules/.bin/nf start",
     "build": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder --win",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
+    "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
-    "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
+    "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom --runInBand",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
     "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
@@ -70,7 +73,7 @@
     "security-check": "nsp check --preprocessor yarn --reporter table",
     "lint": "./node_modules/.bin/eslint src",
     "publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -84,8 +87,9 @@
     "babel-preset-electron": "^1.4.15",
     "babel-preset-react": "^6.24.1",
     "console-warn-throws-error": "^1.1.0",
-    "electron": "^10.0",
-    "electron-builder": "^22",
+    "electron": "^2.0.18",
+    "electron-builder": "^20",
+    "electron-rebuild": "^1.8.2",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
     "enzyme-to-json": "^3.3.4",
@@ -110,15 +114,18 @@
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
       "target": [
-        "zip"
-      ]
+        "zip",
+        "pkg"
+      ],
+      "icon": "build/icon.png"
     },
     "win": {
       "publisherName": "SerialLab Corp",
       "target": [
         "nsis",
         "zip"
-      ]
+      ],
+      "icon": "build/icon.png"
     },
     "directories": {
       "buildResources": "build"
@@ -129,10 +136,5 @@
       "channel": "latest",
       "publishAutoUpdate": true
     }
-  },
-  "jest": {
-    "setupFiles": [
-      "jest-canvas-mock"
-    ]
   }
 }
