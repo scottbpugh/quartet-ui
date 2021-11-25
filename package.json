@@ -63,7 +63,7 @@
 		"css": "./build-css.sh",
 		"build": "./build.sh",
 		"dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
-		"test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
+		"test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
 		"ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
 		"electron": "electron .",
 		"react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
