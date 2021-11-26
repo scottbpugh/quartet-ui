@@ -60,7 +60,7 @@
   "homepage": "./",
   "scripts": {
     "start": "./node_modules/.bin/nf start",
-    "build": ".\\build.sh",
+    "build": "./build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
