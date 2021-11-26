@@ -19,6 +19,7 @@ import React from "react";
 import {required, maxLength, minValue, maxValue} from "lib/forms/validators";
 import {FormGroup, Intent} from "@blueprintjs/core";
 import classNames from "classnames";
+import "../screens/server/server-settings.css";
 
 // see https://redux-form.com/7.2.0/examples/initializefromstate/ to improve this.
 
@@ -32,7 +33,7 @@ import classNames from "classnames";
  *              fieldData={field}
  *              component={DefaultField}
  *              type={type}
- *              className="pt-input"
+ *              className="bp3-input"
  *              width={300}
  *              validate={field.validate}
  *            />
@@ -56,13 +57,13 @@ export const DefaultField = ({
   let intentClass = "";
   if (touched && error) {
     intent = Intent.DANGER;
-    intentClass = "pt-intent-danger";
+    intentClass = "bp3-intent-danger";
   }
   let inputField = "";
   if (fieldData.description.type === "hidden" || fieldData.hidden === true) {
     inputField = (
       <div style={{display: "none"}}>
-        <label className="pt-control">
+        <label className="bp3-control">
           <input
             {...input}
             type="hidden"
@@ -70,7 +71,7 @@ export const DefaultField = ({
             className={intent}
             intent={intent}
           />
-          <span className="pt-control-indicator" />
+          <span className="bp3-control-indicator" />
           {fieldData.description.label}
         </label>
       </div>
@@ -81,7 +82,7 @@ export const DefaultField = ({
       val = fieldData.defaultValue;
     }
     inputField = (
-      <label className="pt-control pt-switch">
+      <label className="bp3-control bp3-switch">
         <input
           {...input}
           type="checkbox"
@@ -90,13 +91,13 @@ export const DefaultField = ({
           className={intent}
           intent={intent}
         />
-        <span className="pt-control-indicator" />
+        <span className="bp3-control-indicator" />
         {fieldData.description.label}
       </label>
     );
   } else if (fieldData.description.type === "choice") {
     inputField = (
-      <div className="pt-select">
+      <div className="bp3-select">
         <select {...input} name={fieldData.name} type="select" width={300}>
           {children || null}
           {!children && fieldData.description.choices
@@ -122,8 +123,7 @@ export const DefaultField = ({
         defaultValue={fieldData.defaultValue ? fieldData.defaultValue : null}
         type={type}
         disabled={fieldData.description.read_only}
-        width={300}
-        className={classNames({"pt-input": true, [intentClass]: true})}
+        className={classNames({"bp3-input": true, "wide-input": true, [intentClass]: true})}
         required={fieldData.description.required}
       />
     );

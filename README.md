@@ -59,7 +59,7 @@ From a core plugin or core component, a RightPanel component is used as followed
 
     export default props => {
         return (<RightPanel
-            title={<FormattedMessage id="plugins.MyPlugin.MyTitle"/>}><h5>My Screen</h5></RightPanel>);
+            title={<FormattedMessage id="plugins.MyPlugin.MyTitle"/>}><h5 className="bp3-heading">My Screen</h5></RightPanel>);
     };
 
 ### Screen components

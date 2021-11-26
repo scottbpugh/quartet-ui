@@ -31,7 +31,7 @@ const TemplateEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.name}</h5>
+      <h5 className="bp3-heading">{props.entry.name}</h5>
       <div style={{width: "260px", height: "130px", background: "#CCC"}} />
       <ul className="picker-data-list">
         {props.entry.name ? <li>{props.entry.name}</li> : null}
@@ -114,7 +114,7 @@ export class TemplateDialog extends Component {
             <div>
               <Tag
                 style={{cursor: "pointer"}}
-                className="pt-intent-primary"
+                className="bp3-intent-primary"
                 onClick={this.props.toggleTemplateDialog}>
                 {this.state.templateName}
               </Tag>
@@ -136,16 +136,16 @@ export class TemplateDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isTemplateOpen}
           onClose={this.props.toggleTemplateDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Template">
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...props}
               changeValue={this.changeValue.bind(this)}
@@ -154,7 +154,7 @@ export class TemplateDialog extends Component {
               entryClass={TemplateEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

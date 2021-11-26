@@ -1,5 +1,8 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -7,7 +10,8 @@
     "es6": true
   },
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
   "rules": {
     "no-console": "off",
@@ -26,5 +30,4 @@
     "object-curly-newline": [0]
   },
   "plugins":["babel"]
-
 }

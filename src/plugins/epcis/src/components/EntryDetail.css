@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 
-.entry-events-container .pt-card {
+.entry-events-container .bp3-card {
   border-radius: 0;
   border: none;
   box-shadow:none;

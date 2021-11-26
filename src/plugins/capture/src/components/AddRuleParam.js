@@ -57,8 +57,8 @@ class _AddRuleParam extends Component {
         }
       >
         <div className="large-cards-container">
-          <Card className="pt-elevation-4 form-card">
-            <h5>
+          <Card className=" bp3-elevation-1 form-card">
+            <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.capture.addRuleParam" />
               ) : (

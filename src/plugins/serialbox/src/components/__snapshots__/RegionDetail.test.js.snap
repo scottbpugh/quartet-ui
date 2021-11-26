@@ -10,10 +10,10 @@ exports[`renders correctly a pool with no region 1`] = `
         className="auto-cards-container"
       >
         <div
-          className="pt-callout"
+          className="bp3-callout"
         >
           <div
-            className="pt-running-text"
+            className="bp3-running-text"
           >
             <span>
               There is currently no region in this pool.

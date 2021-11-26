@@ -41,10 +41,10 @@ export const routeLocationDidUpdate = location => {
     });
   };
 };
-export const switchTheme = themeName => {
+export const switchTheme = theme => {
   // currently either light or dark.
   return dispatch => {
-    return dispatch({type: actions.switchTheme, payload: themeName});
+    return dispatch({type: actions.switchTheme, payload: theme});
   };
 };
 
@@ -66,7 +66,8 @@ export default handleActions(
     [actions.switchTheme]: (state, action) => {
       return {
         ...state,
-        theme: action.payload
+        theme: action.payload.id,
+        themeObject: action.payload
       };
     }
   },

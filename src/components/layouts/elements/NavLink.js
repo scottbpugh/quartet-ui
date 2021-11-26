@@ -10,7 +10,7 @@ export default class NavLink extends Component {
   render() {
     return (
       <Link to={this.props.to}>
-        <Button className="pt-minimal" iconName={this.props.iconName}>
+        <Button minimal={true} icon={this.props.iconName}>
           {this.props.children}
         </Button>
       </Link>

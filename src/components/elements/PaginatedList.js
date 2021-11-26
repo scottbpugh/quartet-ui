@@ -17,10 +17,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
+import {Card, Tag, ControlGroup, Button, InputGroup, HTMLTable, HTMLSelect} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
+import Loader from "../Loader";
+import "./PaginatedList.css";
+
 
 /*
   Displays a list of objects (entries, events, companies, locations) as
@@ -37,7 +40,7 @@ class _PaginatedList extends Component {
       inputSize: 50,
       maxPages: 1,
       count: 0,
-      interactive: 'pt-interactive'
+      interactive: 'bp3-interactive'
     };
     this.offset = 0;
     this.currentPage = 1;
@@ -81,7 +84,7 @@ class _PaginatedList extends Component {
       entries: nextProps.entries,
       maxPages: maxPages,
       count: nextProps.count,
-      interactive: this.props.interactive === false ? '' : ' pt-interactive'
+      interactive: this.props.interactive === false ? '' : ' bp3-interactive'
     });
   }
 
@@ -119,91 +122,109 @@ class _PaginatedList extends Component {
 
   render() {
     const {entries} = this.state;
-    return (
-      <Card className="pt-elevation-4">
-        <h5>
-          {" "}
-          <div className="right-aligned-elem">
-            <Button
-              style={{marginRight: "5px"}}
-              title="refresh"
-              iconName="refresh"
-              onClick={this.processEntries.bind(this, true)}
-            />
-            <Tag className="pt-large">
-              {this.currentPage}/{this.state.maxPages}
-            </Tag>
-          </div>
-          {this.props.listTitle ? this.props.listTitle : null}
-        </h5>
-        <div>
-          <div className="table-control">
-            <div className="pagination-control">
-              <div>
+    if(!this.props.loading){
+      return (
+          <Card className="bp3-elevation-1">
+            <h5 className="bp3-heading">
+              {" "}
+              <div className="left-aligned-elem">
                 <Button
-                  disabled={this.currentPage - 1 < 1}
-                  onClick={this.previous.bind(this)}>
-                  previous
-                </Button>{" "}
-                |{" "}
-                <Button
-                  disabled={this.currentPage >= this.state.maxPages}
-                  onClick={this.next.bind(this)}>
-                  next
-                </Button>
+                    icon="menu"
+                    style={{float:"left"}}
+                    active={!this.props.context}
+                    onClick={this.props.context}
+                    minimal={true}
+                />
               </div>
-            </div>
+              <div className="right-aligned-elem">
+                <Button
+                    style={{marginRight: "5px"}}
+                    title="refresh"
+                    icon="refresh"
+                    onClick={this.processEntries.bind(this, true)}
+                />
+                <Tag className="bp3-large">
+                  {this.currentPage}/{this.state.maxPages}
+                </Tag>
+              </div>
+              {this.props.listTitle ? this.props.listTitle : null}
+            </h5>
             <div>
-              <ControlGroup fill={false} vertical={false}>
-                <div className="pt-select">
-                  <select value={this.state.filter}>
-                    <option value="">Search</option>
-                  </select>
+              <div className="table-control">
+                <div className="pagination-control">
+                  <div>
+                    <Button
+                        disabled={this.currentPage - 1 < 1}
+                        onClick={this.previous.bind(this)}>
+                      previous
+                    </Button>{" "}
+                    |{" "}
+                    <Button
+                        disabled={this.currentPage >= this.state.maxPages}
+                        onClick={this.next.bind(this)}>
+                      next
+                    </Button>
+                  </div>
                 </div>
-                <InputGroup
-                  onChange={this.searchBy}
-                  value={this.state.keywordSearch}
-                  placeholder={pluginRegistry
-                    .getIntl()
-                    .formatMessage({id: "app.common.enterKeywords"})}
-                />
-              </ControlGroup>
-              <div className="label-info-display">
-                <FormattedMessage
-                  id="app.common.entriesTotal"
-                  values={{entriesCount: this.state.count}}
-                />
+                <div>
+                  <ControlGroup fill={false} vertical={false}>
+                    <HTMLSelect options={['Search']}/>
+                    <InputGroup
+                        onChange={this.searchBy}
+                        value={this.state.keywordSearch}
+                        placeholder={pluginRegistry
+                            .getIntl()
+                            .formatMessage({id: "app.common.enterKeywords"})}
+                    />
+                  </ControlGroup>
+                  <div className="label-info-display">
+                    <FormattedMessage
+                        id="app.common.entriesTotal"
+                        values={{entriesCount: this.state.count}}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="overflowed-table">
+                <HTMLTable className="paginated-list-table"
+                       bordered={true}
+                       condensed={true}
+                       interactive={true}
+                       striped={true}
+                       interactive={this.state.interactive}
+                >
+                  <this.props.tableHeaderClass server={this.props.server} />
+                  <tbody
+                      style={{
+                        textAlign: "center",
+                        verticalAlign: "middle !important"
+                      }}>
+                  {Array.isArray(entries) && entries.length > 0
+                      ? entries.map((entry, index) => {
+                        return (
+                            <this.props.entryClass
+                                key={`entry-${index}`}
+                                entry={entry}
+                                loadEntries={this.props.loadEntries}
+                                server={this.props.server}
+                                history={this.props.history}
+                                page={this.currentPage}
+                            />
+                        );
+                      })
+                      : null}
+                  </tbody>
+                </HTMLTable>
               </div>
             </div>
-          </div>
-          <div className="overflowed-table">
-            <table className={`pt-table pt-bordered pt-striped ${this.state.interactive}`}>
-              <this.props.tableHeaderClass server={this.props.server} />
-              <tbody
-                style={{
-                  textAlign: "center",
-                  verticalAlign: "middle !important"
-                }}>
-                {Array.isArray(entries) && entries.length > 0
-                  ? entries.map((entry, index) => {
-                      return (
-                        <this.props.entryClass
-                          key={`entry-${index}`}
-                          entry={entry}
-                          loadEntries={this.props.loadEntries}
-                          server={this.props.server}
-                          history={this.props.history}
-                          page={this.currentPage}
-                        />
-                      );
-                    })
-                  : null}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </Card>
-    );
+          </Card>
+      );
+    }else{
+      return (
+          <Loader/>
+      )
+    }
+
   }
 }
 

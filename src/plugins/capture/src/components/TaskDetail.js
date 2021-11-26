@@ -169,20 +169,8 @@ class _TaskDetail extends Component {
       <RightPanel title={<FormattedMessage id="plugins.capture.taskDetail" />}>
         {task ? (
           <div className="cards-container">
-            <Card className="pt-elevation-4">
-            
-              <h5>
-              <button 
-                tabindex="0" 
-                className="pt-icon-arrow-left pt-button left-aligned-elem pt-interactive pt-intent-primary"
-                title="Back"
-                onClick={e => 
-                  {this.props.history.push(`/capture/tasks/${
-                    this.props.server.serverID
-                  }`)}
-                }>
-                <FormattedMessage id="plugins.capture.backToList" />
-              </button>
+            <Card className="bp3-elevation-1">
+              <h5 className="bp3-heading">
                 {task.name}
                 {this.state.downloadLink ? (
                   <a
@@ -191,13 +179,13 @@ class _TaskDetail extends Component {
                     target="_blank">
                     <Icon
                       disabled={this.state.downloadLink ? false : true}
-                      iconName="pt-icon-cloud-download"
+                      icon="cloud-download"
                     />
                   </a>
                 ) : null}
                 <button
                   onClick={this.toggleConfirmRestart}
-                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary">
+                  className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary">
                   <FormattedMessage id="plugins.capture.restart" />
                 </button>
               </h5>
@@ -210,7 +198,7 @@ class _TaskDetail extends Component {
                 toggle={this.toggleConfirmRestart.bind(this)}
                 confirmAction={this.restartTask.bind(this)}
               />
-              <table className="pt-table data-pair-table pt-bordered pt-striped">
+              <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                 <tbody>
                   {yieldDataPairRowIfSet("Name", task.name)}
                   <tr>
@@ -224,9 +212,9 @@ class _TaskDetail extends Component {
               </table>
             </Card>
             {task.ruleObject ? (
-              <Card className="pt-elevation-4">
-                <h5>Rule</h5>
-                <table className="pt-table data-pair-table pt-bordered pt-striped">
+              <Card className="bp3-elevation-1">
+                <h5 className="bp3-heading">Rule</h5>
+                <table className="bp3-table data-pair-table bp3-bordered bp3-striped">
                   <tbody>
                     {yieldDataPairRowIfSet("Rule Name", task.ruleObject.name)}
                     {yieldDataPairRowIfSet(
@@ -237,16 +225,16 @@ class _TaskDetail extends Component {
                 </table>
               </Card>
             ) : (
-              <Card className="pt-elevation-4" />
+              <Card className="bp3-elevation-1" />
             )}
             {task.taskhistory_set &&
             Array.isArray(task.taskhistory_set) &&
             task.taskhistory_set.length > 0 ? (
-              <Card className="pt-elevation-4">
-                <h5>Task History</h5>
+              <Card className="bp3-elevation-1">
+                <h5 className="bp3-heading">Task History</h5>
 
                 <div>
-                  <table className="pt-table pt-bordered pt-striped">
+                  <table className="bp3-table bp3-bordered bp3-striped">
                     <thead>
                       <tr>
                         <td>Created</td>
@@ -272,8 +260,8 @@ class _TaskDetail extends Component {
                 </div>
               </Card>
             ) : null}
-            <Card className="task-messages pt-elevation-4">
-              <h5>Messages</h5>
+            <Card className="task-messages bp3-elevation-1">
+              <h5 className="bp3-heading">Messages</h5>
               {task.taskmessage_set.map((message, index) => {
                 let intent = Intent.PRIMARY;
                 let numberedClass = "default";
