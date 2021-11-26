@@ -87,7 +87,7 @@
     "babel-preset-react": "^6.24.1",
     "console-warn-throws-error": "^1.1.0",
     "electron": "^2.0.18",
-    "electron-builder": "22.2.0",
+    "electron-builder": "^22.14.7",
     "electron-rebuild": "^1.8.2",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
@@ -141,5 +141,5 @@
       "jest-canvas-mock"
     ]
   },
-    "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
+  "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
 }
