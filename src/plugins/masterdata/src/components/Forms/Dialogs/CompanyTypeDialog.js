@@ -27,7 +27,7 @@ const CompanyTypeEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.identifier}</h5>
+      <h5 className="bp3-heading">{props.entry.identifier}</h5>
       <ul className="picker-data-list">
         <li>{props.entry.identifier}</li>
         {props.entry.description ? <li>{props.entry.description}</li> : null}
@@ -84,7 +84,7 @@ export class CompanyTypeDialog extends Component {
           {this.state.companyType ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="pt-intent-primary"
+              className="bp3-intent-primary"
               onClick={this.props.toggleCompanyTypeDialog}>
               {this.state.companyType}
             </Tag>
@@ -96,16 +96,16 @@ export class CompanyTypeDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isCompanyTypeOpen}
           onClose={this.props.toggleCompanyTypeDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Company Type">
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -115,7 +115,7 @@ export class CompanyTypeDialog extends Component {
               entryClass={CompanyTypeEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

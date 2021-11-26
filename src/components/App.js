@@ -25,13 +25,12 @@ import {
   NavbarHeading,
   NavbarDivider
 } from "@blueprintjs/core";
-import "@blueprintjs/core/dist/blueprint.css";
+import "@blueprintjs/core/lib/css/blueprint.css";
+import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import MouseTrap from "mousetrap";
 import { withRouter } from "react-router-dom";
 import NavLink from "components/layouts/elements/NavLink";
 import { FormattedMessage } from "react-intl";
-import { SwitchLocale } from "components/layouts/elements/SwitchLocale";
-import { SwitchTheme } from "components/layouts/elements/SwitchTheme";
 import { NavTree } from "components/layouts/elements/NavTree";
 import { ControlPanel } from "components/layouts/elements/ControlPanel";
 import { connect } from "react-redux";
@@ -42,6 +41,9 @@ import { pluginRegistry } from "plugins/pluginRegistration";
 import { injectIntl } from "react-intl";
 import QuartetLogo from "./QuartetLogo";
 import { ScreenErrorBoundary } from "./ErrorBoundary";
+import {IconNames} from "@blueprintjs/icons";
+import SelectLocale from "./layouts/elements/SelectLocale";
+import SelectTheme from "./layouts/elements/SelectTheme";
 
 // useful piece for testing. Never use this global in code.
 window.pluginRegistry = pluginRegistry;
@@ -90,22 +92,25 @@ class _App extends Component {
     });
   }
 
+  nav(newPath){
+    this.props.history.push(newPath)
+  }
 
   render() {
     return (
       <div
-        className={classNames({
+        className={classNames('application', {
           App: true,
-          "pt-dark": !!["dark", "dark-brown"].includes(this.props.theme),
+          "bp3-dark": !!["dark", "dark-brown"].includes(this.props.theme),
           contrasted: this.props.theme === "contrasted",
           "dark-brown": this.props.theme === "dark-brown",
           polar: this.props.theme === "polar"
         })}>
         <header>
           <Navbar
-            className={classNames({
-              "pt-fixed-top": true,
-              "pt-dark": this.props.theme !== "polar"
+            className={classNames('navbar', {
+              "bp3-fixed-top": true,
+              "bp3-dark": this.props.theme !== "polar",
             })}>
             <NavbarGroup>
               <NavbarHeading>
@@ -113,18 +118,18 @@ class _App extends Component {
               </NavbarHeading>
             </NavbarGroup>
             <NavbarGroup align="right">
-              <NavLink to="/" iconName="home">
+              <NavLink to="/" icon="home" minimal={true}>
                 <FormattedMessage id="app.nav.dashboard" />
               </NavLink>
-              <NavLink to="/plugins" iconName="pt-icon-exchange">
+              <NavLink to="/plugins" icon="exchange">
                 <FormattedMessage id="app.nav.plugins" />
               </NavLink>
               <NavbarDivider />
-              <SwitchLocale />
+              <SelectLocale />
               <NavbarDivider />
-              <SwitchTheme />
+              <SelectTheme />
               <NavbarDivider />
-              <Button className="pt-minimal" iconName="user" />
+              <Button minimal={true} icon="user" />
             </NavbarGroup>
           </Navbar>
         </header>

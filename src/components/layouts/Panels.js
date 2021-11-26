@@ -35,14 +35,14 @@ class _LeftPanel extends Component {
     return (
       <ResizableBox className="left-panel" axis="x" width={300}>
         {/* <div className="left-panel"> */}
-        <h4 className="left-panel-title pt-dark">
+        <h4 className="left-panel-title bp3-dark">
           {/* We use a new message from passed props because Redux uses plain objects. */}
           <FormattedMessage {...this.props.pageTitle} />
         </h4>
         <div
           style={{
             overflowX: "hidden",
-            overflowY: "visible",
+            overflowY: "hidden",
             whiteSpace: "nowrap"
           }}>
           {this.props.children}
@@ -78,12 +78,12 @@ class _RightPanel extends Component {
       this.props.loadPageTitle({...this.props.title.props});
     }
   }
-  
+
   componentDidMount() {
     // this.props.loadPageTitle(this.props.title.props.id);
     this.loadTitle(this.props.title);
   }
- 
+
   render() {
     return (
       <div className="right-panel">

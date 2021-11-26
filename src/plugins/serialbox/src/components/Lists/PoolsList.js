@@ -22,11 +22,8 @@ import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
 import {PaginatedList} from "components/elements/PaginatedList";
-import {DeleteObject} from "components/elements/DeleteObject";
 import PoolListItem from "../PoolListItem";
-import PoolForm from "../PoolForm";
 import {loadPoolList} from "../../reducers/numberrange";
-import {PoolList} from "../PoolList";
 
 const PoolTableHeader = props => (
     <thead style={{textAlign: "center", verticalAlign: "middle"}}>
@@ -69,24 +66,10 @@ const PoolTableHeader = props => (
     </thead>
 );
 
-const PoolEntry = props => {
-    const goTo = path => {
-        props.history.push(path);
-    };
-
-    const goToPayload = goTo.bind(
-        this,
-        `/number-range/edit-pool/${props.server.serverID}/${props.entry.machine_name}`
-    );
-
-    return (<PoolListItem pool={pool} {...this.props} />);
-};
-
 class _PoolsList extends Component {
 
     render() {
-        const {server, pools, loadPoolList, count, next} = this.props;
-
+        const {server, pools, loadPoolList, count, next, loading} = this.props;
         return (
             <RightPanel
                 title={
@@ -108,6 +91,7 @@ class _PoolsList extends Component {
                         count={count}
                         next={next}
                         interactive={false}
+                        loading={loading}
                     />
 
                     {/* keep prop name generic for entries */}
@@ -126,6 +110,7 @@ export const PoolsList = connect(
             );
         };
         return {
+            loading: state.numberrange.loading,
             server: state.serversettings.servers[ownProps.match.params.serverID],
             pools: isServerSet()
                 ? state.numberrange.servers[ownProps.match.params.serverID].pools

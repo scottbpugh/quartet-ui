@@ -31,7 +31,7 @@ const RuleEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5>{props.entry.name}</h5>
+      <h5 className="bp3-heading">{props.entry.name}</h5>
       <div style={{width: "260px", height: "130px", background: "#CCC"}} />
       <ul className="picker-data-list">
         {props.entry.name ? <li>{props.entry.name}</li> : null}
@@ -102,7 +102,7 @@ export class RuleDialog extends Component {
           {this.state.ruleName ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="pt-intent-primary"
+              className="bp3-intent-primary"
               onClick={this.props.toggleRuleDialog}>
               {this.state.ruleName}
             </Tag>
@@ -111,16 +111,16 @@ export class RuleDialog extends Component {
           )}
         </div>
         <Dialog
-          iconName="inbox"
+          icon="inbox"
           isOpen={this.props.isRuleOpen}
           onClose={this.props.toggleRuleDialog}
           style={{width: "80%"}}
           className={classNames({
-            "pt-dark": this.props.theme.includes("dark"),
+            "bp3-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Rule">
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <SingleCardPicker
               {...props}
               changeValue={this.changeValue.bind(this)}
@@ -129,7 +129,7 @@ export class RuleDialog extends Component {
               entryClass={RuleEntry}
             />
           </div>
-          <div className="pt-dialog-footer" />
+          <div className="bp3-dialog-footer" />
         </Dialog>
       </div>
     );

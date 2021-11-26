@@ -27,8 +27,9 @@ import {routeLocationDidUpdate} from "reducers/layout";
 import {createHashHistory} from "history";
 import RouteSwitcher from "./routes";
 import {store} from "./store";
+import { FocusStyleManager } from "@blueprintjs/core";
 
-// we use hash history because it's more electron-friendly.
+FocusStyleManager.onlyShowFocusOnTabs();
 const hashHistory = createHashHistory();
 
 hashHistory.listen(location => {

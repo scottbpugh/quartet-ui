@@ -16,51 +16,97 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
+::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: #394B59;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8DC449;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
 .left-panel {
-    padding:0;
-    background:#394B59;
-    color:#FFF;
+    position: relative;
+    padding: 0;
+    min-height: 100%;
+    background: #394B59;
+    color: #FFF;
+    overflow-y: scroll;
+    height: 100vh;
+    padding-left: 12px;
+    padding-top: 50px;
+    top: -50px;
 }
+
+.polar ::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: #FFFFFF;
+}
+
+.polar ::-webkit-scrollbar-thumb {
+    background: #8DC449;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
 .polar .left-panel {
-  background:#EEF1F3;
-  color:#444;
+    background: #EEF1F3;
+    color: #444;
 }
+
 .polar .left-panel-title {
-  background:#EEE;
-  color:#444;
+    background: #EEE;
+    color: #444;
 }
+
 .left-panel-title {
-  padding-top:10px;
-  text-align:center;
-  background:#293742;
-  padding:20px;
+    padding: 10px;
+    text-align: center;
+    background: #293742;
 }
+
 .right-panel {
-    padding:10px;
+    padding: 0px;
     flex: 1 1;
-    min-height:100%;
-    z-index:9;
-    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
-    background:#F5F8FA;
-    width:200px; /* Min-width to fix issue with flex growth. */
+    min-height: 100%;
+    overflow-y: scroll;
+    position: relative;
+    height: 100vh;
+    z-index: 9;
+    background: #F5F8FA;
+    padding-top: 50px;
+    top: -50px;
 }
+
 .polar .right-panel {
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.02), 0 4px 8px rgba(16, 22, 26, 0.04), 0 18px 46px 6px rgba(16, 22, 26, 0.1);
 }
+
 .contrasted .right-panel {
-  background:#282B30;
+    background: #282B30;
 }
-.pt-dark .right-panel {
-  background:#394B59;
+
+.bp3-dark .right-panel {
+    background: #394B59;
 }
+
 .dark-brown .right-panel {
-  background:#282B30;
+    background: #282B30;
 }
+
 .react-resizable-handle {
-    height:100%;
+    height: 100%;
     cursor: ew-resize;
 }
-.contrasted .pt-callout {
-  background:#F5F8FA;
-  color:#182026;
+
+.contrasted .bp3-callout {
+    background: #F5F8FA;
+    color: #182026;
 }

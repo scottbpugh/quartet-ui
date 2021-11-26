@@ -72,11 +72,11 @@ class StepItem extends Component {
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button small={true} onClick={this.goToEdit} icon="edit" />
           <Button
             small={true}
             onClick={this.toggleConfirmDelete}
-            iconName="trash"
+            icon="trash"
           />
         </ButtonGroup>
         <MenuDivider title={step.name} />
@@ -177,11 +177,11 @@ class _RuleItem extends Component {
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal={true}>
-          <Button small={true} onClick={this.goToEdit} iconName="edit" />
+          <Button small={true} onClick={this.goToEdit} icon="edit" />
           <Button
             small={true}
             onClick={this.toggleConfirmDelete}
-            iconName="trash"
+            icon="trash"
           />
         </ButtonGroup>
         <MenuDivider title={rule.name} />
@@ -210,18 +210,6 @@ class _RuleItem extends Component {
             id: "plugins.capture.uploadFile"
           })}
         />
-        {/*
-        <MenuItem
-          onClick={this.goTo.bind(
-            this,
-            `/capture/add-task/${serverID}/rule/${rule.id}`
-          )}
-          text={
-            pluginRegistry.getIntl().formatMessage({
-              id: "plugins.capture.addTask"
-            }) + " - Dev"
-          }
-        />*/}
       </Menu>
     );
   }
@@ -276,9 +264,9 @@ class _RuleItem extends Component {
             />
           }
           className={classNames({
-            "pt-dark": this.props.theme.startsWith("dark") ? true : false
+            "bp3-dark": this.props.theme.startsWith("dark") ? true : false
           })}>
-          <div className="pt-dialog-body">
+          <div className="bp3-dialog-body">
             <div className="mini-form">
               <FileUpload
                 text="Choose file..."
