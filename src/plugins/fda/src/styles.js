@@ -16,11 +16,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-.settings-form-container {
-  display: flex;
-  justify-content:space-around;
-  flex-wrap:wrap;
+let pluginPath = require("path")
+  .resolve(__dirname)
+  .replace(/\\/g, "\\\\");
+
+export default `
+.tree-node-fda-lookup {
+  background-image:url("${pluginPath}/images/fdalookup.svg");
 }
-.settings-form-container > * {
-  flex-grow:0.2;
+.tree-node-fda-lookup.tree-node-active {
+  background-image:url("${pluginPath}/images/fdalookup-active.svg");
 }
+`;

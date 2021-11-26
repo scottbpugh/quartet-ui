@@ -16,11 +16,39 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-.settings-form-container {
+export default `
+/* Auto-sized cards */
+.calculator-cards-container {
   display: flex;
-  justify-content:space-around;
   flex-wrap:wrap;
+  margin:0;
+  padding:0;
+  justify-content:flex-start;
+  align-items:flex-start;
 }
-.settings-form-container > * {
-  flex-grow:0.2;
+
+.calculator-cards-container > * {
+  margin:10px 30px;
+  padding-top: 80px;
+  display: flex;
+  width:400px;
+  flex-direction:column;
+  align-self: flex-start;
+  position:relative;
 }
+
+.calculator-cards-container h5 {
+  background: #EEE;
+  top:0;
+  position: absolute;
+  width: 100%;
+  left:0;
+  border-radius: 0;
+  margin-bottom:20px;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+}
+.pt-dark .calculator-cards-container h5 {
+  background: #293742;
+}
+`;

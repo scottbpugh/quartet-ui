@@ -18,7 +18,6 @@
 
 import {loadPools, loadResponseRules} from "../reducers/numberrange";
 import PoolListItem from "./PoolListItem";
-
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");

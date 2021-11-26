@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   }
 }
 
-
 .wrapper, html, body, #root, .App {
     min-height:100%;
     margin:0;
