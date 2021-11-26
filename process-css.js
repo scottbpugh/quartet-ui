@@ -1,3 +1,3 @@
-module.exports = function(data, filename) {
+module.exports = function(data) {
   return data.toString("utf-8");
 };
