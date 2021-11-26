@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 <div>
   <div
-    className="bp3-select"
+    className="pt-select"
   >
     <select
       onChange={[Function]}

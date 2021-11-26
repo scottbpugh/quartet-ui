@@ -31,7 +31,7 @@ const EndpointEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5 className="bp3-heading">{props.entry.name}</h5>
+      <h5>{props.entry.name}</h5>
       <div style={{width: "260px", height: "130px", background: "#CCC"}} />
       <ul className="picker-data-list">
         {props.entry.name ? <li>{props.entry.name}</li> : null}
@@ -94,7 +94,7 @@ export class EndpointDialog extends Component {
           {this.state.endpointName ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="bp3-intent-primary"
+              className="pt-intent-primary"
               onClick={this.props.toggleEndpointDialog}>
               {this.state.endpointName}
             </Tag>
@@ -106,16 +106,16 @@ export class EndpointDialog extends Component {
           )}
         </div>
         <Dialog
-          icon="inbox"
+          iconName="inbox"
           isOpen={this.props.isEndpointOpen}
           onClose={this.props.toggleEndpointDialog}
           style={{width: "80%"}}
           className={classNames({
-            "bp3-dark": this.props.theme.includes("dark"),
+            "pt-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select an End-Point">
-          <div className="bp3-dialog-body">
+          <div className="pt-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -124,7 +124,7 @@ export class EndpointDialog extends Component {
               entryClass={EndpointEntry}
             />
           </div>
-          <div className="bp3-dialog-footer" />
+          <div className="pt-dialog-footer" />
         </Dialog>
       </div>
     );

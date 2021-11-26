@@ -5,7 +5,7 @@ exports[`renders a button for dialog properly 1`] = `
   <div>
     <div>
       <button
-        className="bp3-button"
+        className="pt-button"
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         type="button"
@@ -24,7 +24,7 @@ exports[`renders a dialog properly 1`] = `
   <div>
     <div>
       <button
-        className="bp3-button"
+        className="pt-button"
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         type="button"

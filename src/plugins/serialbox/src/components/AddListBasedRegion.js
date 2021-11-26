@@ -25,21 +25,21 @@ const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
-const {Card, Icon} = qu4rtet.require("@blueprintjs/core");
+const {Card, ButtonGroup, Button, Icon} = qu4rtet.require("@blueprintjs/core");
 const {FormattedMessage} = qu4rtet.require("react-intl");
 const {reduxForm} = qu4rtet.require("redux-form");
 const changeFieldValue = qu4rtet.require("redux-form").change;
 const uuidv1 = qu4rtet.require("uuid/v1");
 const PageForm = qu4rtet.require("./components/elements/PageForm").default;
 const {loadEndpoints, loadAuthenticationList} = qu4rtet.require(
-  `${qu4rtet.pluginPath}/output/src/reducers/output.js`
+  `${qu4rtet.pluginPath}/quartet-ui-output/lib/reducers/output.js`
 );
 const {loadRules} = qu4rtet.require(
   `./plugins/capture/src/reducers/capture.js`
 );
 
 const {loadTemplates} = qu4rtet.require(
-  `${qu4rtet.pluginPath}/templates/src/reducers/templates.js`
+  `${qu4rtet.pluginPath}/quartet-ui-templates/lib/reducers/templates.js`
 );
 
 const ListBasedRegionForm = reduxForm({
@@ -51,10 +51,10 @@ class KeyValuePairForm extends Component {
     super(props);
     this.state = {key: "", value: ""};
   }
-  updateInput = () => {
+  updateInput = evt => {
     this.setState({[evt.target.name]: evt.target.value});
   };
-  updateField = () => {
+  updateField = evt => {
     let entry = {
       ...this.props.entry,
       key: this.state.key,
@@ -73,7 +73,7 @@ class KeyValuePairForm extends Component {
       <tr>
         <td>
           <input
-            className="bp3-input"
+            className="pt-input"
             placeholder="Key"
             name="key"
             value={this.state.key}
@@ -83,7 +83,7 @@ class KeyValuePairForm extends Component {
         </td>
         <td>
           <input
-            className="bp3-input"
+            className="pt-input"
             placeholder="value"
             name="value"
             value={this.state.value}
@@ -93,7 +93,7 @@ class KeyValuePairForm extends Component {
         </td>
         <td>
           <Icon
-            icon="trash"
+            iconName="trash"
             onClick={this.props.deleteEntry.bind(this, this.props.index)}
           />
         </td>
@@ -125,23 +125,24 @@ class ForeignKeyRelated extends Component {
       this.props.updateParams(this.state.entries);
     });
   };
-  addParam = () => {
+  addParam = evt => {
     let entries = [...this.state.entries];
     entries.push({uuid: uuidv1(), key: "", value: ""});
     this.setState({entries: entries});
     evt.preventDefault();
   };
   render() {
+    let lastIndex = 0;
     return (
       <div>
         <button
           disabled={!this.props.editMode}
-          className="bp3-button bp3-intent-primary"
+          className="pt-button pt-intent-primary"
           onClick={this.addParam}>
           <FormattedMessage id="plugins.numberRange.addParamEditOnly" />
         </button>
         {this.props.editMode ? (
-          <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+          <table className="pt-table pt-striped">
             <thead>
               <tr>
                 <td>Key</td>
@@ -201,17 +202,17 @@ class _AddListBasedRegion extends Component {
     this.props.loadEndpoints(this.server);
     this.props.loadAuthenticationList(this.server);
   }
-  toggleEndpointDialog = () => {
+  toggleEndpointDialog = evt => {
     this.setState({isEndpointOpen: !this.state.isEndpointOpen});
   };
-  toggleRuleDialog = () => {
+  toggleRuleDialog = evt => {
     this.setState({isRuleOpen: !this.state.isRuleOpen});
   };
-  toggleTemplateDialog = () => {
+  toggleTemplateDialog = evt => {
     this.setState({isTemplateOpen: !this.state.isTemplateOpen});
   };
 
-  toggleAuthenticationInfoDialog = () => {
+  toggleAuthenticationInfoDialog = evt => {
     this.setState({
       isAuthenticationInfoOpen: !this.state.isAuthenticationInfoOpen
     });
@@ -219,7 +220,7 @@ class _AddListBasedRegion extends Component {
   updateParams = params => {
     this.postParams = params;
   };
-  processFields = (processedData) => {
+  processFields = (processedData, props) => {
     if (!this.postParams && !processedData.processing_parameters) {
       processedData.processing_parameters = [];
     } else if (this.postParams) {
@@ -242,9 +243,11 @@ class _AddListBasedRegion extends Component {
       region.processing_parameters = [];
     }
     let editMode =
-      !!(this.props.location &&
-          this.props.location.state &&
-          this.props.location.state.editRegion);
+      this.props.location &&
+      this.props.location.state &&
+      this.props.location.state.editRegion
+        ? true
+        : false;
     // endpoint requires to specify machine_name as its own param.
     let parameters = region ? {machine_name: region.machine_name} : {};
     return (
@@ -257,8 +260,8 @@ class _AddListBasedRegion extends Component {
           )
         }>
         <div className="large-cards-container">
-          <Card className="bp3-elevation-1form-card">
-            <h5 className="bp3-heading">
+          <Card className="pt-elevation-4 form-card">
+            <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.numberRange.addListBasedRegion" />
               ) : (

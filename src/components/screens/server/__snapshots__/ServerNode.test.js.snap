@@ -17,7 +17,7 @@ exports[`renders correctly 1`] = `
           className="arrow-straight"
         >
           <span
-            className="standard chevron-right"
+            className="pt-icon-standard pt-icon-chevron-right"
             style={
               Object {
                 "visibility": "hidden",

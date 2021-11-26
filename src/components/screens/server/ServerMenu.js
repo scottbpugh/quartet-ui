@@ -38,7 +38,7 @@ export class ServerMenu extends Component {
     return (
       <Menu>
         <ButtonGroup className="context-menu-control" minimal>
-          <Button small onClick={toggleConfirmDelete} icon="trash" />
+          <Button small onClick={toggleConfirmDelete} iconName="trash" />
         </ButtonGroup>
         <MenuDivider title={server.serverSettingName} />
         <MenuDivider />

@@ -22,7 +22,6 @@ import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import {ContextMenuTarget, Icon} from "@blueprintjs/core";
 import {SubTree} from "./NavTree";
-import "./TreeNode.css";
 
 class _TreeNode extends Component {
   constructor(props) {
@@ -39,6 +38,8 @@ class _TreeNode extends Component {
     evt.stopPropagation();
     evt.preventDefault();
     this.setState({collapsed: !this.state.collapsed});
+    sessionStorage.setItem(`pageTask${this.props.serverID}`, "1");
+    sessionStorage.setItem(`pageSearch${this.props.serverID}`, "");
   };
   componentDidMount() {
     this.activateNode(this.props.currentPath, this.props.path);
@@ -81,7 +82,7 @@ class _TreeNode extends Component {
     let collapsed = this.state.collapsed; // for future use to have more logic.
     return (
       <li
-        className={classNames("tree-node",{
+        className={classNames({
           arrow: true,
           collapsed: collapsed
         })}
@@ -103,7 +104,7 @@ class _TreeNode extends Component {
                 "arrow-rotated": !collapsed
               })}>
               <Icon
-                icon={this.props.icon}
+                iconName="pt-icon-chevron-right"
                 style={{visibility: expandable ? "visible" : "hidden"}}
               />
             </span>
@@ -140,4 +141,3 @@ TreeNode.propTypes = {
   childrenNodes: PropTypes.arrayOf(PropTypes.element)
 };
 window.qu4rtet.exports("components/layouts/elements/TreeNode", this);
-

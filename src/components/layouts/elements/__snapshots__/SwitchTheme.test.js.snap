@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 <div>
   <div
-    className="bp3-select"
+    className="pt-select"
   >
     <select
       onChange={[Function]}
@@ -12,27 +12,27 @@ exports[`renders correctly 1`] = `
       <option
         value="light"
       >
-
+        
       </option>
       <option
         value="dark"
       >
-
+        
       </option>
       <option
         value="contrasted"
       >
-
+        
       </option>
       <option
         value="dark-brown"
       >
-
+        
       </option>
       <option
         value="polar"
       >
-
+        
       </option>
     </select>
   </div>

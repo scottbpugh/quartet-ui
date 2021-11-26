@@ -17,29 +17,19 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Dialog} from "@blueprintjs/core";
-import classNames from "classnames";
-import {VerifyUserForm} from "./VerifyUserForm";
+import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
+import renderer from "react-test-renderer";
+import {TestWrapper} from "tools/mockStore";
+import {SwitchLocale} from "./SwitchLocale";
 
-export class VerifyUserDialog extends Component {
-  render() {
-    const {intl, isOpen, server, theme, closeDialog} = this.props;
-    return (
-      <Dialog
-        iconName="user"
-        isOpen={isOpen}
-        onClose={closeDialog}
-        className={classNames({
-          "pt-dark": !!theme.startsWith("dark")
-        })}
-        title={`${intl.formatMessage({id: "app.servers.verifyUser"})} - ${
-          server.serverSettingName
-        }`}
-      >
-        <div className="pt-dialog-body">
-          <VerifyUserForm isOpen={isOpen} server={server} />
-        </div>
-      </Dialog>
-    );
-  }
-}
+it("renders correctly", () => {
+  const props = {};
+  const switchLocale = renderer
+    .create(
+      <TestWrapper>
+        <SwitchLocale {...props} />
+      </TestWrapper>
+    )
+    .toJSON();
+  expect(switchLocale).toMatchSnapshot();
+});

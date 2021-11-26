@@ -48,21 +48,21 @@ class _DeleteDialog extends Component {
     return (
       <Dialog
         className={classNames({
-          "bp3-dark": theme.includes("dark")
+          "pt-dark": theme.includes("dark")
         })}
         isOpen={this.props.isOpen}
         onClose={toggle}>
-        <div className="bp3-dialog-header">
-          <h5 className="bp3-heading">{title}</h5>
+        <div className="pt-dialog-header">
+          <h5>{title}</h5>
         </div>
-        <div className="bp3-dialog-body">
+        <div className="pt-dialog-body">
           <Callout intent={Intent.DANGER}>{body}</Callout>
         </div>
-        <div className="bp3-dialog-footer">
-          <div className="bp3-dialog-footer-actions">
+        <div className="pt-dialog-footer">
+          <div className="pt-dialog-footer-actions">
             <Button
               onClick={deleteAction}
-              icon="trash"
+              iconName="trash"
               intent={Intent.DANGER}>
               <FormattedMessage id="app.common.deleteButton" />
             </Button>

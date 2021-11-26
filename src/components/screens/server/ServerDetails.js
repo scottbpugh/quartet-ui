@@ -19,191 +19,149 @@ import React, {Component} from "react";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
-import {saveServer, deleteServer} from "reducers/serversettings";
+import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
-import {DeleteDialog} from "components/elements/DeleteDialog";
-import {Card, Button, Icon, Tag, Intent, Spinner, HTMLTable, ContextMenu} from "@blueprintjs/core";
+import {Card, Button, Icon, Tag, Intent} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
 
 class _ServerDetails extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            editMode: false,
-            confirmDeleteOpen: false
-        };
+  constructor(props) {
+    super(props);
+    this.state = {editMode: false};
+  }
+  componentDidMount() {
+    // retrigger a schema fetch when mounting details.
+    this.fetchAppList();
+  }
+  fetchAppList = evt => {
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    if (serverObject) {
+      serverObject.listApps();
     }
-
-    componentDidMount() {
-        // retrigger a schema fetch when mounting details.
-        this.fetchAppList();
+  };
+  fetchAppListRefresh = evt => {
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    if (serverObject) {
+      serverObject.listApps(true);
     }
+  };
+  toggleEditMode = () => {
+    this.setState({editMode: !this.state.editMode});
+  };
+  submitCallback = () => {
+    // leave form on successful submit.
+    this.setState({editMode: false});
+  };
+  render() {
+    let serverObject = pluginRegistry.getServer(this.props.server.serverID);
+    let services = serverObject
+      ? serverObject.appList
+          .filter(service => {
+            // remove empty string.
+            return service;
+          })
+          .map(service => {
+            return (
+              <li key={service}>
+                {service}
+                <span className="icon-dot" />
+              </li>
+            );
+          })
+      : [];
+    return (
+      <RightPanel title={<FormattedMessage id="app.servers.serverDetails" />}>
+        {serverObject ? (
+          <div className="cards-container">
+            <Card className="pt-elevation-4">
+              <h5>
+                Settings
+                <Button
+                  onClick={this.toggleEditMode}
+                  className="pt-intent-primary add-incard-button"
+                  iconName="pt-icon-edit">
+                  Edit
+                </Button>
+              </h5>
+              {this.state.editMode ? (
+                <div className="form-card">
+                  <ServerForm
+                    defaultValues={serverObject.toJSON()}
+                    formData={serverObject.getFormStructure()}
+                    saveButtonMsg={
+                      <FormattedMessage id="app.servers.updateServer" />
+                    }
+                    submitCallback={this.submitCallback}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <table className="pt-table pt-bordered pt-striped">
+                    <thead>
+                      <tr>
+                        <th>Server API Endpoint</th>
+                        <th>
+                          <h6>
+                            <Tag intent={Intent.PRIMARY}>
+                              <a
+                                style={{color: "#FFF"}}
+                                href={serverObject.url}
+                                target="_blank">
+                                {serverObject.url}
+                              </a>
+                            </Tag>
+                          </h6>
+                        </th>
+                      </tr>
+                    </thead>
 
-    fetchAppList = (evt) => {
-        let serverObject = pluginRegistry.getServer(this.props.server.serverID);
-        if (serverObject) {
-            serverObject.listApps();
-        }
-    };
-
-    fetchAppListRefresh = evt => {
-        let serverObject = pluginRegistry.getServer(this.props.server.serverID);
-        if (serverObject) {
-            serverObject.listApps(true);
-        }
-    };
-    toggleEditMode = () => {
-        this.setState({editMode: !this.state.editMode});
-    };
-    submitCallback = () => {
-        // leave form on successful submit.
-        this.setState({editMode: false});
-    };
-    toggleConfirmDelete = () => {
-        this.setState({confirmDeleteOpen: !this.state.confirmDeleteOpen});
-    };
-
-    trashServer = () => {
-        this.toggleConfirmDelete();
-        ContextMenu.hide();
-        this.props.history.push("/");
-        this.props.deleteServer(this.props.server);
-    };
-
-    render() {
-        const server = this.props.server;
-        let serverObject = pluginRegistry.getServer(this.props.server.serverID);
-        let services = serverObject
-            ? serverObject.appList
-                .filter(service => {
-                    // remove empty string.
-                    return service;
-                })
-                .map(service => {
-                    return (
-                        <tr key={service}>
-                            <td>{service.toUpperCase()}</td>
-                            <td style={{"text-align":"center"}} bgcolor="#80bc37"><Icon icon="exchange"/></td>
-                        </tr>
-                    );
-                })
-            : [];
-        return (
-            <RightPanel title={<FormattedMessage id="app.servers.serverDetails"/>}>
-                {serverObject ? (
-                    <div className="cards-container">
-                        <DeleteDialog
-                            isOpen={this.state.confirmDeleteOpen}
-                            title={
-                                <FormattedMessage
-                                    id="app.servers.deleteServer"
-                                    values={{serverName: server.serverSettingName}}
-                                />
-                            }
-                            body={<FormattedMessage id="app.servers.deleteServerConfirm"/>}
-                            toggle={this.toggleConfirmDelete.bind(this)}
-                            deleteAction={this.trashServer.bind(this)}
-                        />
-                        <Card className="bp3-elevation-1">
-                            <h5 className="bp3-heading">
-                                <Button
-                                    onClick={this.toggleConfirmDelete}
-                                    className="bp3-minimal delete-button"
-                                    icon="trash">
-                                </Button>
-                                Settings
-                                <Button
-                                    onClick={this.toggleEditMode}
-                                    className="bp3-intent-primary add-incard-button"
-                                    icon="edit">
-                                    Edit
-                                </Button>
-                            </h5>
-                            {this.state.editMode ? (
-                                <div className="form-card">
-                                    <ServerForm
-                                        defaultValues={serverObject.toJSON()}
-                                        formData={serverObject.getFormStructure()}
-                                        saveButtonMsg={
-                                            <FormattedMessage id="app.servers.updateServer"/>
-                                        }
-                                        submitCallback={this.submitCallback}
-                                    />
-                                </div>
-                            ) : (
-                                <div>
-                                    <HTMLTable
-                                        className="paginated-list-table"
-                                        bordered={true}
-                                        condensed={true}
-                                        interactive={false}
-                                        striped={true}
-                                    >
-                                        <thead>
-                                        <tr>
-                                            <th colSpan="2">Connection Details</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        {serverObject.getArrayFields()
-                                            .map(elem => {
-                                                return (
-                                                    <tr key={elem.name}>
-                                                        <td>{elem.name}</td>
-                                                        <td>{"" + elem.value}</td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                    </HTMLTable>
-                                </div>
-                            )}
-                        </Card>
-                        <Card className="bp3-elevation-1">
-                            <h5 className="bp3-heading">
-                                Installed APIs{" "}
-                                <Button className="add-incard-button"
-                                        onClick={this.fetchAppListRefresh}
-                                        icon="refresh"
-                                />
-                            </h5>
-
-                            {services.length > 0 ? (
-                                <HTMLTable
-                                    striped={services.length > 0}
-                                    bordered={true}
-                                    condensed={true}
-                                    interactive={false}
-                                >
-                                    <tbody>
-                                    {services}
-                                    </tbody>
-                                </HTMLTable>
-                            ) : (
-                                <div style={{"margin":"10px"}}>
-                                    <Spinner
-                                        intent={Intent.PRIMARY}
-                                        size={100}
-                                    />
-                                </div>
-
-                            )}
-                        </Card>
-                    </div>
-                ) : null}
-            </RightPanel>
-        );
-    }
+                    <tbody>
+                      {serverObject.getArrayFields().map(elem => {
+                        return (
+                          <tr key={elem.name}>
+                            <td>{elem.name}</td>
+                            <td>{"" + elem.value}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </Card>
+            <Card className="pt-elevation-4">
+              <h5>
+                Services Enabled{" "}
+                <Button
+                  onClick={this.fetchAppListRefresh}
+                  iconName="pt-icon-refresh add-incard-button"
+                />
+              </h5>
+              {services.length > 0 ? (
+                <ul className="service-list">{services}</ul>
+              ) : (
+                <div onClick={this.fetchAppList} className="centered-action">
+                  <Icon
+                    iconName="pt-icon-refresh"
+                    className="very-large-icon"
+                  />
+                  <span>Retry</span>
+                </div>
+              )}
+            </Card>
+          </div>
+        ) : null}
+      </RightPanel>
+    );
+  }
 }
 
 export var ServerDetails = connect(
-    (state, ownProps) => ({
-        server: state.serversettings.servers[ownProps.match.params.serverID]
-    }),
-    {
-        saveServer,
-        deleteServer
-    }
+  (state, ownProps) => ({
+    server: state.serversettings.servers[ownProps.match.params.serverID]
+  }),
+  {
+    saveServer
+  }
 )(_ServerDetails);

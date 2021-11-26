@@ -3,13 +3,13 @@
 exports[`renders correctly 1`] = `
 <div>
   <ul
-    className="bp3-menu"
+    className="pt-menu"
   >
     <div
-      className="bp3-button-group bp3-minimal context-menu-control"
+      className="pt-button-group pt-minimal context-menu-control"
     >
       <button
-        className="bp3-button trash"
+        className="pt-button pt-icon-trash"
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         small={true}
@@ -17,14 +17,14 @@ exports[`renders correctly 1`] = `
       />
     </div>
     <li
-      className="bp3-menu-header"
+      className="pt-menu-header"
     >
       <h6>
         box 1
       </h6>
     </li>
     <li
-      className="bp3-menu-divider"
+      className="pt-menu-divider"
     />
   </ul>
 </div>

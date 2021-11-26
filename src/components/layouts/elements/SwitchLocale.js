@@ -17,29 +17,34 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Dialog} from "@blueprintjs/core";
-import classNames from "classnames";
-import {VerifyUserForm} from "./VerifyUserForm";
+import {connect} from "react-redux";
+import messages from "messages";
+import {switchLocale} from "reducers/locales";
 
-export class VerifyUserDialog extends Component {
+class _SwitchLocale extends Component {
   render() {
-    const {intl, isOpen, server, theme, closeDialog} = this.props;
+    const {currentLocale} = this.props;
     return (
-      <Dialog
-        iconName="user"
-        isOpen={isOpen}
-        onClose={closeDialog}
-        className={classNames({
-          "pt-dark": !!theme.startsWith("dark")
-        })}
-        title={`${intl.formatMessage({id: "app.servers.verifyUser"})} - ${
-          server.serverSettingName
-        }`}
-      >
-        <div className="pt-dialog-body">
-          <VerifyUserForm isOpen={isOpen} server={server} />
-        </div>
-      </Dialog>
+      <div className="pt-select">
+        <select
+          value={currentLocale}
+          onChange={e => this.props.switchLocale(e.target.value)}
+        >
+          {Object.keys(messages).map(locale => (
+            <option key={locale}>
+              {locale}
+            </option>
+          ))}
+        </select>
+      </div>
     );
   }
 }
+
+export var SwitchLocale = connect(
+  state => ({
+    currentLocale: state.intl.locale
+  }),
+  {switchLocale}
+)(_SwitchLocale);
+window.qu4rtet.exports("components/layouts/elements/SwitchLocale", this);

@@ -64,7 +64,7 @@ class _EntryDetail extends Component {
       >
         <div className="large-cards-container full-large">
           <Card>
-            <h5 className="bp3-heading">
+            <h5>
               {this.props.match.params.entryID}
             </h5>
             {currentEntryEvents && currentEntryEvents.events ? (
