@@ -16,7 +16,7 @@
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.16",
     "electron-reload": "^1.5.0",
-    "electron-updater": "^3.1.1",
+    "electron-updater": "^4",
     "history": "^4.7.2",
     "inject-css": "^0.2.1",
     "json-server": "^0.14.0",
@@ -48,7 +48,7 @@
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
     "string-hash": "^1.1.3",
-    "swagger-client": "^3.8.12",
+    "swagger-client": "3.8.12",
     "sweetalert": "^2.1.2",
     "uuid": "^3.3.2"
   },
@@ -59,12 +59,13 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
-    "start": "./node_modules/.bin/nf start",
+    "inst": "yarn install --production=false",
+    "start": "SET NODE_ENV=production&& ./node_modules/.bin/nf start",
     "build": ".\\build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
-    "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
+    "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
     "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
@@ -72,7 +73,8 @@
     "fix-keytar": "yarn remove keytar && yarn add keytar && ./node_modules/.bin/electron-rebuild",
     "security-check": "nsp check --preprocessor yarn --reporter table",
     "lint": "./node_modules/.bin/eslint src",
-    "publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish"
+    "publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish",
+    "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -140,6 +142,5 @@
     "setupFiles": [
       "jest-canvas-mock"
     ]
-  },
-  "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
+  }
 }
