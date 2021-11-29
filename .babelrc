@@ -8,8 +8,8 @@
     }
   },
   "presets": [
-    "electron",
-    "react"
+    "@babel/electron",
+    "@babel/react"
   ],
   "plugins": [
     [
