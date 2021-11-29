@@ -116,16 +116,14 @@
       "target": [
         "zip",
         "pkg"
-      ],
-      "icon": "build/icon.png"
+      ]
     },
     "win": {
       "publisherName": "SerialLab Corp",
       "target": [
         "nsis",
         "zip"
-      ],
-      "icon": "build/icon.png"
+      ]
     },
     "directories": {
       "buildResources": "build"
