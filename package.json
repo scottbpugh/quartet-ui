@@ -16,7 +16,7 @@
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.16",
     "electron-reload": "^1.5.0",
-    "electron-updater": "^4",
+    "electron-updater": "^3.1.1",
     "history": "^4.7.2",
     "inject-css": "^0.2.1",
     "json-server": "^0.14.0",
@@ -61,12 +61,13 @@
   "scripts": {
     "inst": "yarn install --production=false",
     "start": "./node_modules/.bin/nf start",
+    "start-win": "SET NODE_ENV=production&& ./node_modules/.bin/nf start",
     "build": "./build.sh",
     "build-win": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder -m",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
-    "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
+    "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
     "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
@@ -90,7 +91,7 @@
     "babel-preset-react": "^6.24.1",
     "console-warn-throws-error": "^1.1.0",
     "electron": "^2.0.18",
-    "electron-builder": "^22.14.7",
+    "electron-builder": "20.20",
     "electron-rebuild": "^1.8.2",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
@@ -118,14 +119,16 @@
       "target": [
         "zip",
         "pkg"
-      ]
+      ],
+      "icon": "build/icon.png"
     },
     "win": {
       "publisherName": "SerialLab Corp",
       "target": [
         "nsis",
         "zip"
-      ]
+      ],
+      "icon": "build/icon.png"
     },
     "directories": {
       "buildResources": "build"
@@ -141,6 +144,5 @@
     "setupFiles": [
       "jest-canvas-mock"
     ]
-  },
-  "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
+  }
 }
