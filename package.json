@@ -48,7 +48,7 @@
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
     "string-hash": "^1.1.3",
-    "swagger-client": "^3.8.12",
+    "swagger-client": "3.8.12",
     "sweetalert": "^2.1.2",
     "uuid": "^3.3.2"
   },
@@ -63,7 +63,7 @@
     "start": "./node_modules/.bin/nf start",
     "build": "./build.sh",
     "build-win": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder -l",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -m",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
     "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
