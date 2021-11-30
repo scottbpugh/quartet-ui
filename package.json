@@ -61,12 +61,13 @@
   "scripts": {
     "inst": "yarn install --production=false",
     "start": "./node_modules/.bin/nf start",
-    "build": "./build.sh",
+    "start-win": "SET NODE_ENV=production&& ./node_modules/.bin/nf start",
+    "build": "chmod u+x .//build.sh",
     "build-win": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder -l",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -m",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
-    "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom --runInBand",
+    "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
     "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
@@ -78,7 +79,6 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {
-    "@babel/core":"^7.0.0-beta.40",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.6",
     "babel-plugin-css-modules-transform": "^1.6.1",
@@ -91,7 +91,7 @@
     "babel-preset-react": "^6.24.1",
     "console-warn-throws-error": "^1.1.0",
     "electron": "^2.0.18",
-    "electron-builder": "20",
+    "electron-builder": "20.20",
     "electron-rebuild": "^1.8.2",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
