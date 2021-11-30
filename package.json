@@ -61,8 +61,9 @@
   "scripts": {
     "inst": "yarn install --production=false",
     "start": "SET NODE_ENV=production&& ./node_modules/.bin/nf start",
-    "build": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
+    "build": "./build.sh",
+    "build-win": ".\\build.sh",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -m",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
     "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
