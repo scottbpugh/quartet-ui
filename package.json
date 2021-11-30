@@ -64,7 +64,7 @@
     "start-win": "SET NODE_ENV=production&& ./node_modules/.bin/nf start",
     "build": "chmod u+x .//build.sh",
     "build-win": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder -m",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -wl",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
     "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
