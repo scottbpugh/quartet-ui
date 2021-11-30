@@ -75,7 +75,7 @@
     "security-check": "nsp check --preprocessor yarn --reporter table",
     "lint": "./node_modules/.bin/eslint src",
     "publish-npm": "./node_modules/.bin/babel src/ --out-dir ./lib --copy-files && npm publish",
-    "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
+    "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
