@@ -118,18 +118,15 @@
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
       "target": [
-        "zip",
-        "pkg"
-      ],
-      "icon": "build/icon.png"
+        "zip"
+      ]
     },
     "win": {
       "publisherName": "SerialLab Corp",
       "target": [
         "nsis",
         "zip"
-      ],
-      "icon": "build/icon.png"
+      ]
     },
     "directories": {
       "buildResources": "build"
