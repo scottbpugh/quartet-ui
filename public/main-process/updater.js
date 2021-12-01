@@ -16,16 +16,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// const autoUpdater = require("electron-updater").autoUpdater;
-// autoUpdater.logger = require("electron-log");
-// autoUpdater.logger.transports.file.level = "info";
+const autoUpdater = require("electron-updater").autoUpdater;
+autoUpdater.logger = require("electron-log");
+autoUpdater.logger.transports.file.level = "info";
 
-// exports.checkLatestUpdate = function() {
-//   try {
-//     autoUpdater.checkForUpdatesAndNotify();
-//   } catch (e) {
-//     console.log("Updater failed", e);
-//   }
+exports.checkLatestUpdate = function() {
+  try {
+    autoUpdater.checkForUpdatesAndNotify();
+  } catch (e) {
+    console.log("Updater failed", e);
+  }
 
   /*
   autoUpdater.setFeedURL({
@@ -78,4 +78,4 @@
   function sendStatusToWindow(message, info) {
     console.log(message, info ? info : null);
   }*/
-// };
+};
