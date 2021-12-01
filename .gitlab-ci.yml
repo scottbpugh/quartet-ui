@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# image: electronuserland/builder:wine
+image: electronuserland/builder:wine
 
 stages:
   - build-docs
@@ -42,8 +42,8 @@ build:
     - npm install -g yarn
     - yarn install
     - yarn dist-lin
-    - yarn dist-mac
     - yarn dist-win
+    - yarn dist-mac
     # - yarn dist
   artifacts:
     paths:
