@@ -62,13 +62,13 @@
     "inst": "yarn install --production=false",
     "start": "./node_modules/.bin/nf start",
     "start-win": "SET NODE_ENV=production&& ./node_modules/.bin/nf start",
-    "build": ".//build.sh",
+    "build": "chmod +x .//build.sh",
     "build-win": ".\\build.sh",
-    "dist": "npm run build && ./node_modules/.bin/electron-builder -wl",
+    "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "dist-lin": "npm run build && ./node_modules/.bin/electron-builder --linux",
     "dist-win": "npm run build && ./node_modules/.bin/electron-builder --win",
     "dist-mac": "npm run build && ./node_modules/.bin/electron-builder --mac",
-    "test": "NODE_ENV=production ./node_modules/.bin/jest --env=jsdom",
+    "test": "SET NODE_ENV=production&& ./node_modules/.bin/jest --env=jsdom",
     "ci-test": "CI=true ./node_modules/.bin/jest --env=jsdom",
     "electron": "electron .",
     "react-start": "./node_modules/.bin/babel --watch src --out-dir public/build --copy-files",
@@ -120,14 +120,16 @@
       "target": [
         "zip",
         "pkg"
-      ]
+      ],
+      "icon": "build/icon.png"
     },
     "win": {
       "publisherName": "SerialLab Corp",
       "target": [
         "nsis",
         "zip"
-      ]
+      ],
+      "icon": "build/icon.png"
     },
     "directories": {
       "buildResources": "build"
@@ -143,6 +145,5 @@
     "setupFiles": [
       "jest-canvas-mock"
     ]
-  },
-  "postinstall": "./node_modules/.bin/electron-builder.cmd install-app-deps"
+  }
 }
