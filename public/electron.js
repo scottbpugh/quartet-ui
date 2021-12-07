@@ -130,7 +130,12 @@ async function createWindow() {
     const mainOptions = {
       width: 1600,
       height: 1200,
-      show: false
+      show: false,
+      frame: false,
+      transparent: true
+      // webPreferences: {
+      //   preload: path.
+      // }
     };
     mainWindow = new BrowserWindow(mainOptions);
     // Setting this to exchange credentials information
@@ -181,6 +186,7 @@ async function createWindow() {
       event.preventDefault();
       openBrowserResource(url);
     });
+
   };
 
   try {

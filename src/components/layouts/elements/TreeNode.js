@@ -22,6 +22,8 @@ import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import {ContextMenuTarget, Icon} from "@blueprintjs/core";
 import {SubTree} from "./NavTree";
+import {serverVisibility} from "reducers/layout";
+import swal from '@sweetalert/with-react';
 
 class _TreeNode extends Component {
   constructor(props) {
@@ -51,6 +53,15 @@ class _TreeNode extends Component {
     e.stopPropagation(); // prevent parent go to be triggered.
     e.preventDefault();
     this.toggleChildren(e);
+    if (e.currentTarget.classList.contains('tree-node-depth-0') && this.state.collapsed && !this.props.serverVis.includes(this.props.serverID)) {
+      this.props.serverVis.push(this.props.serverID);
+    } 
+    else if (e.currentTarget.classList.contains('tree-node-depth-0') && this.props.visibility && this.props.serverVis.includes(this.props.serverID)) {
+      this.props.serverVis.splice(this.props.serverID, 1);
+    } 
+    else {
+      console.log('Value already exist!');
+    }
     if (this.props.onClick) {
       this.props.onClick(e);
     } else if (this.props.path) {
@@ -62,6 +73,10 @@ class _TreeNode extends Component {
       let regexp = new RegExp("^" + path + "$");
       this.setState({active: regexp.test(currentPath)});
     }
+  }
+  hideActiveServer = () => {
+    console.log('Clicked server:' + this.props.serverID);
+    this.props.serverVis.splice(this.props.serverID, 1);
   }
   /**
    * renderContextMenu - Use onContextMenu={} to display a menu.
@@ -84,19 +99,28 @@ class _TreeNode extends Component {
       <li
         className={classNames({
           arrow: true,
-          collapsed: collapsed
+          collapsed: collapsed,
         })}
-        onClick={this.go}>
-        <div
+        
+        >
+          <div
           className={classNames({
             "tree-node-content": true,
             "tree-node-content-active": this.props.active || this.state.active,
             [`tree-node-depth-${this.props.depth}`]: true,
             "tree-node-content-highlighted": this.state.highlightedNode,
+            "tree-node-invisible": 
+             this.props.visibility === false && !this.props.serverVis.includes(this.props.serverID) 
+            // || 
+            // this.state.collapsed && this.props.visibility === false && !this.props.serverVis.includes(this.props.serverID)
+            ,
+            "tree-node-visible": this.props.visibility === false && this.props.serverVis.includes(this.props.serverID),
             "tree-node-parent-active":
               this.props.parentActive &&
               (!this.props.active && !this.state.active)
-          })}>
+          })}
+          onClick={this.go}
+          >
           <a onClick={this.toggleChildren}>
             <span
               className={classNames({
@@ -117,6 +141,16 @@ class _TreeNode extends Component {
             })}>
             <span className="tree-node-label">{this.props.children}</span>
           </a>
+          {this.props.visibility === false 
+          // && 
+          // this.props.serverVis.includes(this.props.serverID) 
+          ? 
+          <div 
+          className='remove_server pt-button pt-icon-disable'
+          onClick={this.hideActiveServer}
+          ></div> 
+          : ""
+          }
         </div>
         <SubTree collapsed={collapsed}>{childrenNodes}</SubTree>
       </li>
@@ -128,7 +162,10 @@ ContextMenuTarget(_TreeNode);
 
 export const TreeNode = connect((state, ownProps) => {
   return {
-    currentPath: state.layout.currentPath
+    currentPath: state.layout.currentPath,
+    visibility: state.layout.visibility,
+    serverVis: state.layout.serverVis,
+    intl: state.intl
   };
 }, {})(withRouter(_TreeNode));
 

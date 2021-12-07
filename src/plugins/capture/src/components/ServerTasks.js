@@ -283,7 +283,30 @@ class _ServerTasks extends Component {
                         </tr>
                       );
                     })
-                  : null}
+                    : 
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) != "" && tasks.length === 0 ?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                            <FormattedMessage
+                                id="app.common.searchResult"
+                                defaultMessage="No search result"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    <tr className='tableLoading'>
+                      <div class="middle">
+                          <div class="bar bar1"></div>
+                          <div class="bar bar2"></div>
+                          <div class="bar bar3"></div>
+                          <div class="bar bar4"></div>
+                          <div class="bar bar5"></div>
+                          <div class="bar bar6"></div>
+                          <div class="bar bar7"></div>
+                          <div class="bar bar8"></div>
+                      </div>
+                    </tr>
+                  }
               </tbody>
             </table>
           </div>

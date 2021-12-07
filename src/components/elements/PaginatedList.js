@@ -197,7 +197,30 @@ class _PaginatedList extends Component {
                         />
                       );
                     })
-                  : null}
+                    : 
+                    this.state.keywordSearch != "" && entries.length === 0?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                            <FormattedMessage
+                                id="app.common.searchResult"
+                                defaultMessage="No search result"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                  <tr className='tableLoading'>
+                    <div class="middle">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                        <div class="bar bar4"></div>
+                        <div class="bar bar5"></div>
+                        <div class="bar bar6"></div>
+                        <div class="bar bar7"></div>
+                        <div class="bar bar8"></div>
+                    </div>
+                  </tr>
+                  }
               </tbody>
             </table>
           </div>

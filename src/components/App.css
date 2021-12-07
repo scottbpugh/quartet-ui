@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   }
 }
 
+header div.pt-navbar.pt-fixed-top {
+  top: 30px;
+}
 
 .wrapper, html, body, #root, .App {
     min-height:100%;

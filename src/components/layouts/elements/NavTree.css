@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     user-select: none;
     cursor: pointer;
 }
+
 .tree-root li {
   list-style-type: none;
   margin:0;
@@ -38,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   cursor:pointer;
   position:relative;
   width:100%;
+  z-index: 1;
 }
 
 .tree-root a {
@@ -69,12 +71,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   display:inline-block;
   margin-left: 10px;
   white-space: nowrap;
+  flex: 11;
 }
 .tree-node-link {
   background-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjI0IgogICBoZWlnaHQ9IjI0IgogICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgIGZpbGw9Im5vbmUiCiAgIHN0cm9rZT0iY3VycmVudENvbG9yIgogICBzdHJva2Utd2lkdGg9IjIiCiAgIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIKICAgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1kaXNjIgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcyMzc5IgogICBzb2RpcG9kaTpkb2NuYW1lPSJkZWZhdWx0LnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi4yICg1YzNlODBkLCAyMDE3LTA4LTA2KSI+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhMjM4NSI+CiAgICA8cmRmOlJERj4KICAgICAgPGNjOldvcmsKICAgICAgICAgcmRmOmFib3V0PSIiPgogICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PgogICAgICAgIDxkYzp0eXBlCiAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4KICAgICAgICA8ZGM6dGl0bGU+PC9kYzp0aXRsZT4KICAgICAgPC9jYzpXb3JrPgogICAgPC9yZGY6UkRGPgogIDwvbWV0YWRhdGE+CiAgPGRlZnMKICAgICBpZD0iZGVmczIzODMiIC8+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxIgogICAgIG9iamVjdHRvbGVyYW5jZT0iMTAiCiAgICAgZ3JpZHRvbGVyYW5jZT0iMTAiCiAgICAgZ3VpZGV0b2xlcmFuY2U9IjEwIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwIgogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxMzU1IgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9Ijg0MiIKICAgICBpZD0ibmFtZWR2aWV3MjM4MSIKICAgICBzaG93Z3JpZD0iZmFsc2UiCiAgICAgaW5rc2NhcGU6em9vbT0iMjcuODEyODY3IgogICAgIGlua3NjYXBlOmN4PSIxMiIKICAgICBpbmtzY2FwZTpjeT0iMTIiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjE5MDQiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9IjE0MCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIwIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzIzNzkiCiAgICAgc2hvd2d1aWRlcz0iZmFsc2UiIC8+CiAgPGNpcmNsZQogICAgIGN4PSIxMS45MzY5MjEiCiAgICAgY3k9IjExLjg0NzM1MSIKICAgICByPSI3LjM2NTE3NzIiCiAgICAgaWQ9ImNpcmNsZTIzNzUtNyIKICAgICBzdHlsZT0ic3Ryb2tlOiM4ZGM2M2Y7c3Ryb2tlLXdpZHRoOjEuNDczMDM1MzQ7c3Ryb2tlLW9wYWNpdHk6MSIgLz4KICA8Y2lyY2xlCiAgICAgY3g9IjExLjkzNjkyMSIKICAgICBjeT0iMTEuODQ3MzUxIgogICAgIHI9IjIuMjA5NTUzMiIKICAgICBpZD0iY2lyY2xlMjM3Ny05IgogICAgIHN0eWxlPSJzdHJva2U6IzhkYzYzZjtzdHJva2Utd2lkdGg6MS40NzMwMzUzNDtzdHJva2Utb3BhY2l0eToxIiAvPgo8L3N2Zz4K");
   background-size: 16px 16px;
   background-repeat:no-repeat;
   background-position: 2px 3px;
+  flex: 11;
 }
 
 .tree-node-link.tree-node-active {
@@ -118,7 +122,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin-top:10px;
 }
 .tree-node-link {
-  height:100px;
+  /* height:100px; */
 }
 .tree-add-button {
   float:right;
@@ -132,8 +136,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 
 .tree-node-content {
-  height:30px;
+  height:40px;
   padding: 5px 0px 5px 23px;
+  display: flex;
+  align-items: center;
 }
 .tree-node-content-active {
   /*background: #1E7DBB;*/
@@ -186,9 +192,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-node-depth-9 {
   padding-left:100px;
 }
+.tree-node-depth-0.tree-node-invisible {
+  opacity: 0;
+  display: none;
+}
+.tree-node-depth-0.tree-node-visible {
+  opacity: 1;
+  display: block;
+  position: relative;
+  z-index: 1;
+  display: flex;
+}
 
+.remove_server {
+  display: none;
+}
+.tree-node-depth-0 .remove_server.pt-button.pt-icon-disable {
+  flex: 1;
+  background-color: rgb(129, 39, 23);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .tree-node-parent-active {
   background: rgba(0, 0, 0, 0.1);
+  display: flex;
 }
 
 .collapsed ul {
@@ -241,12 +269,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   transform-origin:8px 8px;
   transform: none;
   transition: all 0.2s cubic-bezier(.36,-0.64,.34,1.76);
+  position: relative;
 }
 .arrow-rotated {
   display:inline-block;
   transform-origin:8px 8px;
   transform: rotate(90deg);
   transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  position: relative;
 }
 .leftbar-group {
   background: none;
@@ -261,4 +291,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .pt-menu-header {
   /* Fix for very long pool names getting under the edit/tras buttons */
   padding-right: 80px;
+}
+
+.prompt_container {
+  position: relative; 
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.prompt_container img {
+  /* position: absolute;
+  right: 0;
+  top: 20px; */
+  width: 50px;
+  height: 50px;
+  z-index: 1;
+  margin: 0 5px;
+}
+.swal-overlay {
+  background-color: rgba(0,0,0,0.4);
+}
+
+.swal-button--confirm {
+  background-color: #8DC449;
+}
+button.pt-button.pt-icon-eye-off.button-bg-red.red.tomato-red {
+  background-color: rgb(129, 39, 23);
 }
