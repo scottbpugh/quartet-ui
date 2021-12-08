@@ -2,7 +2,7 @@
   "name": "qu4rtet-ui",
   "productName": "QU4RTET",
   "description": "The Open-Source Level 4",
-  "version": "1.3.2",
+  "version": "1.3.8",
   "license": "GPL-3.0-or-later",
   "private": false,
   "dependencies": {
@@ -59,6 +59,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
+    "version": "1.3.8",
     "inst": "yarn install --production=false",
     "start": "SET NODE_ENV=development&& ./node_modules/.bin/nf start",
     "build": ".//build.sh",
