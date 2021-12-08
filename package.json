@@ -118,8 +118,7 @@
     "appId": "com.serial-lab.qu4rtet.ui",
     "mac": {
       "target": [
-        "zip",
-        "pkg"
+        "zip"
       ],
       "icon": "build/icon.png"
     },
