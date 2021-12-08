@@ -61,7 +61,7 @@
   "scripts": {
     "inst": "yarn install --production=false",
     "start": "SET NODE_ENV=development&& ./node_modules/.bin/nf start",
-    "build": "chmod +x .//build.sh",
+    "build": ".//build.sh",
     "build-win": ".\\build.sh",
     "dist": "npm run build && ./node_modules/.bin/electron-builder -mwl",
     "dist-win": "npm run build-win && ./node_modules/.bin/electron-builder --win",
