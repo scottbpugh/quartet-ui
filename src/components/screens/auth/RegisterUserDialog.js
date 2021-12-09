@@ -25,17 +25,17 @@ export class RegisterUserDialog extends Component {
     const {intl, isOpen, server, theme} = this.props;
     return (
       <Dialog
-        icon="user"
+        iconName="user"
         isOpen={this.props.isOpen}
         onClose={this.props.closeDialog}
         className={classNames({
-          "bp3-dark": !!theme.startsWith("dark")
+          "pt-dark": !!theme.startsWith("dark")
         })}
         title={`${intl.formatMessage({id: "app.servers.registerUser"})} - ${
           server.serverSettingName
         }`}
       >
-        <div className="bp3-dialog-body">
+        <div className="pt-dialog-body">
           <RegisterForm isOpen={isOpen} server={server} />
         </div>
       </Dialog>

@@ -102,22 +102,22 @@ class FormPrompt extends React.Component {
     return (
       <Dialog
         className={classNames({
-          "bp3-dark": this.props.theme.includes("dark")
+          "pt-dark": this.props.theme.includes("dark")
         })}
         isOpen={this.state.showDialog}
         onClose={this.toggleDialog}>
-        <div className="bp3-dialog-header">
-          <h5 className="bp3-heading">
+        <div className="pt-dialog-header">
+          <h5>
             <FormattedMessage id="app.common.areYouSureNavigateAwayTitle" />
           </h5>
         </div>
-        <div className="bp3-dialog-body">
+        <div className="pt-dialog-body">
           <Callout>
             <FormattedMessage id="app.common.areYouSureNavigateAwayBody" />
           </Callout>
         </div>
-        <div className="bp3-dialog-footer">
-          <div className="bp3-dialog-footer-actions">
+        <div className="pt-dialog-footer">
+          <div className="pt-dialog-footer-actions">
             <Button intent={Intent.WARNING} onClick={this.proceedWithoutSubmit}>
               <FormattedMessage id="app.common.proceedWithoutSubmit" />
             </Button>

@@ -95,7 +95,6 @@ class _NavPluginRoot extends Component {
       let children = [];
       return (
         <TreeNode
-            className="tree-node"
           depth={this.props.depth}
           onContextMenu={this.renderContextMenu.bind(this)}
           nodeType="task"
@@ -107,12 +106,12 @@ class _NavPluginRoot extends Component {
             onClose={this.toggleUpload}
             title={<FormattedMessage id="plugins.capture.addTask" />}
             className={classNames({
-              "bp3-dark": this.props.theme.startsWith("dark") ? true : false
+              "pt-dark": this.props.theme.startsWith("dark") ? true : false
             })}>
-            <div className="bp3-dialog-body">
+            <div className="pt-dialog-body">
               <div className="mini-form">
                 <div style={{marginBottom: "20px"}}>
-                  <div className="bp3-select">
+                  <div className="pt-select">
                     <select
                       onChange={this.ruleSelect.bind(this)}
                       value={this.state.rule ? this.state.rule.id : null}>

@@ -4,11 +4,11 @@ exports[`renders correctly 1`] = `
 <div>
   <div>
     <span
-      className="bp3-popover-target"
+      className="pt-popover-target"
       onClick={[Function]}
     >
       <button
-        className="bp3-button add"
+        className="pt-button pt-icon-add"
       />
     </span>
   </div>

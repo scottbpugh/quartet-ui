@@ -11,7 +11,7 @@ exports[`renders correctly 1`] = `
       >
         <div>
           <button
-            className="bp3-button bp3-disabled"
+            className="pt-button pt-disabled"
             disabled={true}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
@@ -21,11 +21,11 @@ exports[`renders correctly 1`] = `
               previous
             </span>
           </button>
-
+           
           |
-
+           
           <button
-            className="bp3-button bp3-disabled"
+            className="pt-button pt-disabled"
             disabled={true}
             onKeyDown={[Function]}
             onKeyUp={[Function]}
@@ -39,10 +39,10 @@ exports[`renders correctly 1`] = `
       </div>
       <div>
         <div
-          className="bp3-control-group"
+          className="pt-control-group"
         >
           <div
-            className="bp3-select"
+            className="pt-select"
           >
             <select
               value=""
@@ -55,10 +55,10 @@ exports[`renders correctly 1`] = `
             </select>
           </div>
           <div
-            className="bp3-input-group"
+            className="pt-input-group"
           >
             <input
-              className="bp3-input"
+              className="pt-input"
               onChange={[Function]}
               placeholder="Enter Keywords..."
               style={

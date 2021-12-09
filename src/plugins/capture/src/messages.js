@@ -25,7 +25,6 @@ const defaultLocaleMsg = {
     addStep: "Add a New Step",
     editStepParam: "Edit Step Parameter",
     editStep: "Edit Step",
-    executionTime: "Execution Time",
     addTask: "Create a New Task",
     deleteStep: "Delete Step",
     deleteStepConfirm: "Are you sure you want to delete this step?",
@@ -47,15 +46,12 @@ const defaultLocaleMsg = {
     editRuleParam: "Edit Rule Parameter",
     noRuleFound: "No Capture module detected on server",
     steps: "Steps",
-    name: "Name",
-    class: "Class",
-    order: "Order",
-    description: "Description",
     taskCreated: "Task with id {taskID} has been created.",
     tasksTotal: "{tasksCount} tasks total.",
     selectRule: "Select a Rule",
     taskDetail: "Task Detail",
     restart: "Restart",
+    backToList: "Back to the list",
     confirmRestart: "Are you sure you want to restart this task?",
     confirmRestartBody:
       "Restarting this task will re-execute all of the logic for this rule.",
@@ -95,7 +91,8 @@ const french = {
   tasksTotal: "Total des tâches: {tasksCount}",
   steps: "Étapes",
   selectRule: "Sélectionner une règle",
-  restart: "Recommencer"
+  restart: "Recommencer",
+  backToList: "Retour à la liste",
 };
 
 export default {

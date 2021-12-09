@@ -19,227 +19,158 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {RightPanel} from "components/layouts/Panels";
-import {Card, Button, ButtonGroup, HTMLTable, Dialog, MenuItem, Menu, ContextMenu} from "@blueprintjs/core";
+import {Card, Button, ButtonGroup} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {reduxForm} from "redux-form";
 import PageForm from "components/elements/PageForm";
 import {loadRules, deleteRuleParam} from "../reducers/capture";
-import StepsList from "./StepsList";
-import {AddStep} from "./AddStep";
-import queryString from "querystring";
-
 
 const RuleForm = reduxForm({
-    form: "ruleForm"
+  form: "ruleForm"
 })(PageForm);
 
 class _AddRule extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            openDialog:false
-        }
-    }
+  componentDidMount() {
+    // reload all rules.
+    this.props.loadRules(this.props.server);
+  }
 
-    componentDidMount() {
-        // reload all rules.
-        //this.props.loadRules(this.props.server);
-        let vals = queryString.parse(this.props.location.search);
-        if(vals["?stepEdit"]){
-            this.setState({openDialog:true});
-        }
-    }
+  editRuleParam(param) {
+    const {server, rule} = this.props;
+    this.props.history.push({
+      pathname: `/capture/edit-rule-param/${server.serverID}/rule/${
+        rule.id
+      }/ruleParam/${param.id}`,
+      state: {defaultValues: param, edit: true}
+    });
+  }
 
-    renderContextMenu(e) {
-        e.preventDefault();
-        ContextMenu.show(
-            <Menu>
-                <MenuItem
-                    text={pluginRegistry.getIntl().formatMessage({
-                        id: "plugins.capture.addStep"
-                    })}
-                    icon="add"
-                    onClick={() => this.openStepDialog()}
-                />
-            </Menu>, {left: e.clientX, top: e.clientY}
-        )
-    }
+  deleteRuleParam(param) {
+    this.props.deleteRuleParam(this.props.server, param);
+  }
 
-    openStepDialog = () => this.setState({ openDialog: true });
-    closeStepDialog = () => {
-        this.setState({ openDialog: false });
-        this.props.history.render();
+  render() {
+    let rule = null; // for edit only.
+    const editMode = !!this.props.rule;
+    if (this.props.rule) {
+      rule = this.props.rule;
     }
+    return (
+      <RightPanel
+        title={
+          !editMode ? (
+            <FormattedMessage id="plugins.capture.addRule" />
+          ) : (
+            <FormattedMessage id="plugins.capture.editRule" />
+          )
+        }>
+        <div className="large-cards-container">
+          <Card className="pt-elevation-4 form-card">
+            <h5>
+              {!editMode ? (
+                <FormattedMessage id="plugins.capture.addRule" />
+              ) : (
+                <FormattedMessage id="plugins.capture.editRule" />
+              )}
+            </h5>
+            <RuleForm
+              edit={editMode}
+              operationId={
+                editMode ? "capture_rules_update" : "capture_rules_create"
+              }
+              objectName="rule"
+              redirectPath={`/capture/rules/${this.props.server.serverID}`}
+              djangoPath="capture/rules/"
+              existingValues={rule}
+              parameters={rule ? {id: rule.id} : {}}
+              server={pluginRegistry.getServer(this.props.server.serverID)}
+              history={this.props.history}
+            />
+          </Card>
+          {editMode ? (
+            <Card className="pt-elevation-4 form-card">
+              <h5>
+                <button
+                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
+                  onClick={e => {
+                    this.props.history.push(
+                      `/capture/add-rule-param/${
+                        this.props.server.serverID
+                      }/rule/${rule.id}`
+                    );
+                  }}>
+                  <FormattedMessage id="plugins.capture.addRuleParameter" />
+                </button>
+                <FormattedMessage id="plugins.capture.ruleParameters" />
+              </h5>
 
-    editRuleParam(param) {
-        const {server, rule} = this.props;
-        this.props.history.push({
-            pathname: `/capture/edit-rule-param/${server.serverID}/rule/${
-                rule.id
-            }/ruleParam/${param.id}`,
-            state: {defaultValues: param, edit: true}
-        });
-    }
-
-    deleteRuleParam(param) {
-        this.props.deleteRuleParam(this.props.server, param);
-    }
-
-    render() {
-        let rule = null; // for edit only.
-        const editMode = !!this.props.rule;
-        if (this.props.rule) {
-            rule = this.props.rule;
-        }
-        return (
-            <RightPanel
-                title={
-                    !editMode ? (
-                        <FormattedMessage id="plugins.capture.addRule"/>
-                    ) : (
-                        <FormattedMessage id="plugins.capture.editRule"/>
-                    )
-                }>
-                <div className="large-cards-container">
-                    <Card className=" bp3-elevation-1 form-card">
-                        <Dialog
-                            isOpen={this.state.openDialog}
-                            enforceFocus={true}
-                        >
-                            <AddStep
-                                {...this.props}
-                                closeDialog={this.closeStepDialog.bind(this)}
-                            />
-                        </Dialog>
-                        <h5 className="bp3-heading">
-                            <div className="left-aligned-elem">
-                                <Button
-                                    icon="menu"
-                                    style={{float: "left"}}
-                                    minimal={true}
-                                    onClick={this.renderContextMenu.bind(this)}
-                                />
-                            </div>
-                            {!editMode ? (
-                                <FormattedMessage id="plugins.capture.addRule"/>
-                            ) : (
-                                <FormattedMessage id="plugins.capture.editRule"/>
-                            )}
-                        </h5>
-                        <RuleForm
-                            edit={editMode}
-                            operationId={
-                                editMode ? "capture_rules_update" : "capture_rules_create"
-                            }
-                            objectName="rule"
-                            redirectPath={`/capture/rules/${this.props.server.serverID}`}
-                            djangoPath="capture/rules/"
-                            existingValues={rule}
-                            parameters={rule ? {id: rule.id} : {}}
-                            server={pluginRegistry.getServer(this.props.server.serverID)}
-                            history={this.props.history}
+              {Array.isArray(rule.params) && rule.params.length > 0 ? (
+                <table className="pt-table pt-interactive pt-bordered pt-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        <FormattedMessage
+                          id="plugins.capture.name"
+                          defaultMessage="name"
                         />
-                    </Card>
-                    {editMode ? (
-                        <Card className=" bp3-elevation-1 form-card">
-                            <h5 className="bp3-heading">
-                                <button
-                                    className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
-                                    onClick={e => {
-                                        this.props.history.push(
-                                            `/capture/add-rule-param/${
-                                                this.props.server.serverID
-                                            }/rule/${rule.id}`
-                                        );
-                                    }}>
-                                    <FormattedMessage id="plugins.capture.addRuleParameter"/>
-                                </button>
-                                <FormattedMessage id="plugins.capture.ruleParameters"/>
-                            </h5>
-
-                            {Array.isArray(rule.params) && rule.params.length > 0 ? (
-                                <HTMLTable className="paginated-list-table"
-                                           bordered={true}
-                                           condensed={true}
-                                           interactive={true}
-                                           striped={true}
-
-                                >
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <FormattedMessage
-                                                id="plugins.capture.name"
-                                                defaultMessage="name"
-                                            />
-                                        </th>
-                                        <th>
-                                            {" "}
-                                            <FormattedMessage
-                                                id="plugins.capture.value"
-                                                defaultMessage="value"
-                                            />
-                                        </th>
-                                        <th/>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {rule.params.map(param => {
-                                        return (
-                                            <tr key={param.id}>
-                                                <td>{param.name}</td>
-                                                <td>{param.value}</td>
-                                                <td style={{width: "80px"}}>
-                                                    <ButtonGroup minimal small>
-                                                        <Button
-                                                            small="true"
-                                                            icon="edit"
-                                                            onClick={this.editRuleParam.bind(this, param)}
-                                                        />
-                                                        <Button
-                                                            small="true"
-                                                            icon="trash"
-                                                            onClick={this.deleteRuleParam.bind(this, param)}
-                                                        />
-                                                    </ButtonGroup>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                    </tbody>
-                                </HTMLTable>
-                            ) : null}
-
-                        </Card>
-                    ) : null}
-                    {editMode ? (
-                            <Card className=" bp3-elevation-1 form-card">
-                                <h5 className="bp3-heading">Steps</h5>
-                                <StepsList
-                                    {...this.props}
-                                    rule={rule}
-                                />
-                            </Card>)
-                        : null}
-                </div>
-            </RightPanel>
-        );
-    }
+                      </th>
+                      <th>
+                        {" "}
+                        <FormattedMessage
+                          id="plugins.capture.value"
+                          defaultMessage="value"
+                        />
+                      </th>
+                      <th />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rule.params.map(param => {
+                      return (
+                        <tr key={param.id}>
+                          <td>{param.name}</td>
+                          <td>{param.value}</td>
+                          <td style={{width: "80px"}}>
+                            <ButtonGroup minimal small>
+                              <Button
+                                small="true"
+                                iconName="edit"
+                                onClick={this.editRuleParam.bind(this, param)}
+                              />
+                              <Button
+                                small="true"
+                                iconName="trash"
+                                onClick={this.deleteRuleParam.bind(this, param)}
+                              />
+                            </ButtonGroup>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              ) : null}
+            </Card>
+          ) : null}
+        </div>
+      </RightPanel>
+    );
+  }
 }
 
 export const AddRule = connect(
-    (state, ownProps) => {
-        return {
-            server: state.serversettings.servers[ownProps.match.params.serverID],
-            rule: ownProps.match.params.ruleID
-                ? state.capture.servers[ownProps.match.params.serverID].rules.find(
-                    rule => {
-                        return Number(rule.id) === Number(ownProps.match.params.ruleID);
-                    }
-                )
-                : null
-        };
-    },
-    {loadRules, deleteRuleParam}
+  (state, ownProps) => {
+    return {
+      server: state.serversettings.servers[ownProps.match.params.serverID],
+      rule: ownProps.match.params.ruleID
+        ? state.capture.servers[ownProps.match.params.serverID].rules.find(
+            rule => {
+              return Number(rule.id) === Number(ownProps.match.params.ruleID);
+            }
+          )
+        : null
+    };
+  },
+  {loadRules, deleteRuleParam}
 )(_AddRule);

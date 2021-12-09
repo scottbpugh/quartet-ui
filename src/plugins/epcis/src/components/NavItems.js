@@ -58,7 +58,7 @@ class _NavPluginRoot extends Component {
       .getServer(this.props.serverID)
       .appList.includes("epcis");
   }
-  
+  componentDidMount() {}
   componentWillReceiveProps(nextProps) {}
   static get PLUGIN_COMPONENT_NAME() {
     return "EPCISNavRoot";

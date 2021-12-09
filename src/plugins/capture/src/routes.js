@@ -49,11 +49,6 @@ export default (() => {
       component={AddRule}
     />,
     <Route
-        key="editRule"
-        path="/capture/edit-rule/:serverID/rule/:ruleID/step/:stepID?"
-        component={AddRule}
-    />,
-    <Route
       key="addStep"
       path="/capture/add-step/:serverID/rule/:ruleID"
       component={AddStep}

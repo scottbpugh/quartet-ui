@@ -42,7 +42,7 @@ class _SwitchTheme extends Component {
   render() {
     const {currentTheme} = this.props;
     return (
-      <div className="bp3-select">
+      <div className="pt-select">
         <select
           value={currentTheme}
           onChange={e => this.props.switchTheme(e.target.value)}>

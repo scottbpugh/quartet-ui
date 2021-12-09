@@ -118,9 +118,9 @@ class _PoolForm extends Component {
               type: "success"
             });
           }
-          // this.props.loadPools(
-          //   pluginRegistry.getServer(this.props.server.serverID)
-          // );
+          this.props.loadPools(
+            pluginRegistry.getServer(this.props.server.serverID)
+          );
           setTimeout(() => {
             // tiny bit of padding.
             this.props.history.push(
@@ -171,7 +171,7 @@ class _PoolForm extends Component {
             fieldData={field}
             component={DefaultField}
             type={type}
-            className="bp3-input"
+            className="pt-input"
             validate={field.validate}
           />
         );
@@ -186,14 +186,14 @@ class _PoolForm extends Component {
       <form onSubmit={handleSubmit(this.submit)}>
         {form}
         <button
-          className="bp3-button bp3-intent-primary"
+          className="pt-button pt-intent-primary"
           type="submit"
           disabled={this.props.submitting}>
           Submit
         </button>
         <button
           style={{marginLeft: "10px"}}
-          className="bp3-button"
+          className="pt-button"
           onClick={this.cancel}>
           Cancel
         </button>

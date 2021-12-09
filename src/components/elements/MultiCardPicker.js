@@ -186,7 +186,7 @@ class _MultiCardPicker extends Component {
 
           <div>
             <ControlGroup fill={false} vertical={false}>
-              <div className="bp3-select">
+              <div className="pt-select">
                 <select value={this.state.filter}>
                   <option value="">Search</option>
                 </select>
@@ -227,16 +227,16 @@ class _MultiCardPicker extends Component {
                 />
               </h6>
               <div className="picked-items-controls">
-                <button className="bp3-button" onClick={this.props.toggleDialog}>
+                <button className="pt-button" onClick={this.props.toggleDialog}>
                   <FormattedMessage id="app.common.cancelSubmit" />
                 </button>
                 <button
-                  className="bp3-button bp3-intent-warning"
+                  className="pt-button pt-intent-warning"
                   onClick={this.clearSelection}>
                   <FormattedMessage id="app.common.clearSelection" />
                 </button>
                 <button
-                  className="bp3-button bp3-intent-primary"
+                  className="pt-button pt-intent-primary"
                   onClick={this.saveSelection.bind(this)}>
                   <FormattedMessage id="app.common.saveSelection" />
                 </button>

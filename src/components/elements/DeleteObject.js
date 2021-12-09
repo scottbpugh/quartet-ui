@@ -72,8 +72,7 @@ export class DeleteObject extends Component {
       <div style={{textAlign: "center"}}>
         <Button
           onClick={this.toggleConfirmDialog.bind(this)}
-          icon="trash"
-          minimal={true}
+          iconName="trash"
         />
         <DeleteDialog
           isOpen={this.state.isConfirmDialogOpen}
