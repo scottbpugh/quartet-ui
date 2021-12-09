@@ -28,29 +28,30 @@
  * @return {type} Description
  */
 export const setServerState = (state = {}, serverID, mergeObject = {}) => {
-  if (!serverID) {
-    throw new Error(
-      "A server ID must be defined to set the server state in reducer."
-    );
-  }
-  const copy = {...state}; // use a copy of state for manipulations.
-  if (!copy.servers) {
-    // if servers are not created yet, create an object.
-    copy.servers = {};
-  }
-  if (!copy.servers[serverID]) {
-    // if there is no object for this server, create it.
-    copy.servers[serverID] = {};
-  }
-  return {
-    ...copy,
-    servers: {
-      ...copy.servers,
-      [serverID]: {
-        ...copy.servers[serverID],
-        ...mergeObject
-      }
+    if (!serverID) {
+        console.info(
+            "A server ID must be defined to set the server state in reducer."
+        );
+        return;
     }
-  };
+    const copy = {...state}; // use a copy of state for manipulations.
+    if (!copy.servers) {
+        // if servers are not created yet, create an object.
+        copy.servers = {};
+    }
+    if (!copy.servers[serverID]) {
+        // if there is no object for this server, create it.
+        copy.servers[serverID] = {};
+    }
+    return {
+        ...copy,
+        servers: {
+            ...copy.servers,
+            [serverID]: {
+                ...copy.servers[serverID],
+                ...mergeObject
+            }
+        }
+    };
 };
 window.qu4rtet.exports("lib/reducer-helper", this);

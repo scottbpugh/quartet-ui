@@ -109,7 +109,7 @@ class _RegisterForm extends Component {
             fieldData={field}
             type={type}
             component={DefaultField}
-            className="pt-input"
+            className="bp3-input"
             width={300}
             validate={field.validate}
           />
@@ -124,7 +124,7 @@ class _RegisterForm extends Component {
     return (
       <div>
         {success ? (
-          <Callout iconName="pt-icon-saved" intent={Intent.SUCCESS}>
+          <Callout icon="saved" intent={Intent.SUCCESS}>
             <FormattedMessage
               id="app.servers.userCreated"
               values={{username: this.state.username}}
@@ -136,13 +136,13 @@ class _RegisterForm extends Component {
             {form}
 
             <button
-              className="pt-button pt-intent-primary"
+              className="bp3-button bp3-intent-primary"
               type="submit"
               disabled={submitting}>
               Submit
             </button>
             {error ? (
-              <Callout iconName="warning" intent={Intent.DANGER}>
+              <Callout icon="warning" intent={Intent.DANGER}>
                 {error}
               </Callout>
             ) : null}

@@ -42,7 +42,7 @@ class _DashboardRight extends Component {
       <div
         className={classNames({
           "dashboard-container": true,
-          "pt-dark": isDark
+          "bp3-dark": isDark
         })}>
         <h2>QU4RTET</h2>
         <h3>

@@ -12,6 +12,7 @@ import {DeleteDialog} from "components/elements/DeleteDialog";
 
 const {
     Card,
+    Popover,
     Menu,
     MenuItem,
     MenuDivider,
@@ -95,26 +96,27 @@ class PoolListItem extends Component {
         });
     };
 
-    renderContextMenu() {
+    renderContextMenu(e) {
         const serverID = this.props.server.serverID;
         const pool = this.props.entry;
         const {sequential, randomized, listBased} = this.getAllowedRegionTypes(pool);
         const intl = pluginRegistry.getIntl();
         console.info('Rendering menu for pool ' + pool.readable_name);
-        return (
+        ContextMenu.show (
             <Menu>
                 <ButtonGroup className="context-menu-control" minimal={true}>
-                    <Button small={true} onClick={() => this.goToEdit(pool)} iconName="edit"/>
+                    <Button small={true} onClick={() => this.goToEdit(pool)} icon="edit"/>
                     <Button
                         small={true}
                         onClick={this.toggleConfirmDelete}
-                        iconName="trash"
+                        icon="trash"
                     />
                 </ButtonGroup>
                 <MenuDivider title={pool.readable_name}/>
                 <MenuDivider/>
                 {sequential ? (
                     <MenuItem
+                        icon="numerical"
                         onClick={this.goTo.bind(
                             this,
                             `/number-range/add-region/${serverID}/${pool.machine_name}`
@@ -126,6 +128,7 @@ class PoolListItem extends Component {
                 ) : null}
                 {randomized ? (
                     <MenuItem
+                        icon="random"
                         onClick={this.goTo.bind(
                             this,
                             `/number-range/add-randomized-region/${serverID}/${
@@ -139,6 +142,7 @@ class PoolListItem extends Component {
                 ) : null}
                 {listBased ? (
                     <MenuItem
+                        icon="numbered-list"
                         onClick={this.goTo.bind(
                             this,
                             `/number-range/add-list-based-region/${serverID}/${
@@ -151,12 +155,13 @@ class PoolListItem extends Component {
                     />
                 ) : null}
                 <MenuItem
+                    icon="download"
                     onClick={this.toggleAllocation}
                     text={intl.formatMessage({
                         id: "plugins.numberRange.allocateButton"
                     })}
                 />
-            </Menu>
+            </Menu>, { left: e.clientX, top: e.clientY }
         );
     }
 
@@ -184,7 +189,7 @@ class PoolListItem extends Component {
         return (
             <tr key={pool.machine_name}
                 onContextMenu={
-                    () => this.renderContextMenu()
+                    this.renderContextMenu.bind(this)
                 }
             >
                 <td>
@@ -235,13 +240,13 @@ class PoolListItem extends Component {
                         id: "plugins.numberRange.allocateButton"
                     })} ${pool.readable_name}`}
                     className={classNames({
-                        "pt-dark": this.props.theme.startsWith("dark")
+                        "bp3-dark": this.props.theme.startsWith("dark")
                     })}>
-                    <div className="pt-dialog-body">
+                    <div className="bp3-dialog-body">
                         <form onSubmit={this.setAllocation} className="mini-form">
                             <input
                                 placeholder="allocate"
-                                className="pt-input"
+                                className="bp3-input"
                                 type="number"
                                 defaultValue={1}
                                 value={this.state.alloc}
@@ -261,7 +266,7 @@ class PoolListItem extends Component {
                                     <Radio label="XML" value="xml"/>
                                 </RadioGroup>
                             </div>
-                            <button type="submit" className="pt-button">
+                            <button type="submit" className="bp3-button">
                                 <FormattedMessage id="plugins.numberRange.allocateButton"/>
                             </button>
                         </form>

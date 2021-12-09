@@ -68,7 +68,7 @@ class _ScreenErrorBoundary extends Component {
             <div
               className={classNames({
                 "single-column-center-msg": true,
-                "pt-dark": this.props.theme && this.props.theme === "contrasted"
+                "bp3-dark": this.props.theme && this.props.theme === "contrasted"
               })}>
               {this.props.theme &&
               (this.props.theme.startsWith("dark") ||
@@ -93,10 +93,10 @@ class _ScreenErrorBoundary extends Component {
                 <div className="button-shelf">
                   <button
                     onClick={this.takeMeBack}
-                    className="pt-button pt-intent-primary">
+                    className="bp3-button bp3-intent-primary">
                     <FormattedMessage id="app.common.takeMeBack" />
                   </button>
-                  <button onClick={this.copyErrorMessage} className="pt-button">
+                  <button onClick={this.copyErrorMessage} className="bp3-button">
                     <FormattedMessage id="app.common.copyErrorMessage" />
                   </button>
                 </div>

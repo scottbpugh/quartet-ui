@@ -37,7 +37,7 @@ it("renders correctly", () => {
         key={props.entry.id}
         onClick={updateFieldVal.bind(this, props.entry)}
       >
-        <h5>
+        <h5 className="bp3-heading">
           {props.entry.name}
         </h5>
         <ul className="picker-data-list">
