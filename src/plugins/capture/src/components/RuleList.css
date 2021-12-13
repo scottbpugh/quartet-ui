@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 .bar {
   width: 10px;
-  height: 180px;
+  height: 31px;
   background: #fff;
   display: inline-block;
   transform-origin: bottom center;

@@ -88,9 +88,7 @@ export const deleteRule = (server, rule) => {
 export const loadTasks = (server, search, page, ordering) => {
   const params = {};
   params.search = sessionStorage.getItem(`pageSearch${server.serverID}`);
-  if (page) {
-    params.page = sessionStorage.getItem(`pageTask${server.serverID}`);;
-  }
+  params.page = sessionStorage.getItem(`pageTask${server.serverID}`);;
   if (ordering) {
     params.ordering = ordering;
   }

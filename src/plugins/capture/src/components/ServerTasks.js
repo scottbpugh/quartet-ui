@@ -54,7 +54,8 @@ class _ServerTasks extends Component {
       tasks: [],
       tasksPerPage: 20,
       inputSize: 50,
-      maxPages: 1
+      maxPages: 1,
+      loading: true
     };
     this.offset = 0;
     this.serverTaskName = this.props.server.serverID;
@@ -90,7 +91,10 @@ class _ServerTasks extends Component {
     this.processTasks();
     this.fetchTasks = setInterval(() => {
       this.processTasks();
-    }, 20000);
+    }, 
+    200000
+    );
+    this.setState({loading: !this.state.loading});
   }
 
   componentWillUnmount() {
@@ -130,10 +134,20 @@ class _ServerTasks extends Component {
     this.props.history.push(path);
   };
 
+  loadingScreen = () => {
+    this.setState(
+      { loading : true },
+      () => {
+          setTimeout(()=>{this.setState({loading : false})}, 750)
+      }
+    );
+  };
+
   // go to next page if possible.
   next = () => {
     sessionStorage.setItem(`pageTask${this.serverTaskName}`, ++this.currentPage);
     this.processTasks(true);
+    
   };
 
   // go to previous page if possible.
@@ -155,13 +169,14 @@ class _ServerTasks extends Component {
         this.currentPage,
         "-status_changed"
       );
-    }, clear ? 0 : 250);
+    }, clear);
+    this.loadingScreen();
   };
 
   render() {
     let serverName = this.props.server.serverSettingName;
     const {tasks} = this.state;
-    
+    console.log(this.props)
     return (
       <Card className="pt-elevation-4">
         <h5>
@@ -240,7 +255,7 @@ class _ServerTasks extends Component {
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(tasks) && tasks.length > 0
+                {Array.isArray(tasks) && tasks.length > 0 && this.state.loading === false
                   ? tasks.map(task => {
                       let intent = Intent.PRIMARY;
                       switch (task.status) {

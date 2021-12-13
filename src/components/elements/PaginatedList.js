@@ -37,7 +37,8 @@ class _PaginatedList extends Component {
       inputSize: 50,
       maxPages: 1,
       count: 0,
-      interactive: 'pt-interactive'
+      interactive: 'pt-interactive',
+      loading: true
     };
     this.offset = 0;
     this.currentPage = 1;
@@ -101,6 +102,16 @@ class _PaginatedList extends Component {
     this.processEntries(true);
   };
 
+  loadingScreen = () => {
+    this.setState(
+      { loading : true },
+      () => {
+          setTimeout(()=>{this.setState({loading : false})}, 750)
+      }
+    );
+  };
+
+
   processEntries = (clear = false) => {
     if (this.debounced) {
       clearTimeout(this.debounced);
@@ -114,7 +125,8 @@ class _PaginatedList extends Component {
         this.props.ordering ? this.props.ordering : null,
         this.props.type ? this.props.type : null
       );
-    }, clear ? 0 : 250);
+    }, clear);
+    this.loadingScreen();
   };
 
   render() {
@@ -184,7 +196,7 @@ class _PaginatedList extends Component {
                   textAlign: "center",
                   verticalAlign: "middle !important"
                 }}>
-                {Array.isArray(entries) && entries.length > 0
+                {Array.isArray(entries) && entries.length > 0 && this.state.loading === false
                   ? entries.map((entry, index) => {
                       return (
                         <this.props.entryClass
@@ -198,12 +210,21 @@ class _PaginatedList extends Component {
                       );
                     })
                     : 
-                    this.state.keywordSearch != "" && entries.length === 0?
+                    this.state.keywordSearch != "" && entries != undefined && entries.length === 0?
                     <tr className='tableLoading'>
                         <div class="middle searchResult">
                             <FormattedMessage
                                 id="app.common.searchResult"
                                 defaultMessage="No search result"
+                            />
+                        </div>
+                    </tr>
+                    : this.state.keywordSearch === "" && entries != undefined && entries.length === 0?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                        <FormattedMessage
+                                id="app.common.emptyArray"
+                                defaultMessage="Empty array"
                             />
                         </div>
                     </tr>

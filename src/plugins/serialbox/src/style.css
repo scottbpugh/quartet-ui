@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin:10px 0 10px 50px;
 }
 
-.bar {
+.bar-info {
   height: 21px;
   transition: all 5s ease;
   cursor: pointer;
