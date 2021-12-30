@@ -25,20 +25,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin:0;
   padding:0;
   flex-wrap: wrap;
-  justify-content:space-around;
+  justify-content:space-between;
 }
 .service-list li {
-  display:block;
-  border-bottom: 3px solid #6B6B70;
-  padding:10px 20px 0 10px;
-  margin:10px 10px 30px 10px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding:10px 20px 0 20px;
+  margin:10px 10px 30px 20px;
   font-size:22px;
   position:relative;
   min-width:250px;
   font-variant: small-caps;
 }
+.service-list li::after {
+  position: absolute;
+  content: "";
+  background-color: #FFF;
+  bottom: 0;
+  left: 20px;
+  height: 1px;
+  width: 100px;
+}
+.service-list li img{
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  background-color: transparent;
 
-.pt-dark .service-list li {
+}
+/* .pt-dark .service-list li {
   border-bottom: 3px solid #DDD;
 }
 .pt-dark .service-list li span.icon-dot {
@@ -55,4 +71,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   right:-1px;
   top:53%;
   background:#6B6B70;
-}
+} */

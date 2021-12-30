@@ -53,20 +53,14 @@ class _TreeNode extends Component {
     e.stopPropagation(); // prevent parent go to be triggered.
     e.preventDefault();
     this.toggleChildren(e);
-    if (e.currentTarget.classList.contains('tree-node-depth-0') && this.state.collapsed && !this.props.serverVis.includes(this.props.serverID)) {
-      this.props.serverVis.push(this.props.serverID);
-    } 
-    else if (e.currentTarget.classList.contains('tree-node-depth-0') && this.props.visibility && this.props.serverVis.includes(this.props.serverID)) {
-      this.props.serverVis.splice(this.props.serverID, 1);
-    } 
-    else {
-      console.log('Value already exist!');
-    }
-    if (this.props.onClick) {
-      this.props.onClick(e);
-    } else if (this.props.path) {
-      this.props.history.push(this.props.path);
-    }
+      if (e.currentTarget.classList.contains('tree-node-depth-0') && this.state.collapsed && !this.props.serverVis.includes(this.props.serverID)) {
+        this.props.serverVis.push(this.props.serverID);
+      } 
+      if (this.props.onClick) {
+        this.props.onClick(e);
+      } else if (this.props.path) {
+        this.props.history.push(this.props.path);
+      }
   };
   activateNode(currentPath, path) {
     if (path) {
@@ -75,8 +69,8 @@ class _TreeNode extends Component {
     }
   }
   hideActiveServer = () => {
-    console.log('Clicked server:' + this.props.serverID);
     this.props.serverVis.splice(this.props.serverID, 1);
+    this.setState({collapsed: true})
   }
   /**
    * renderContextMenu - Use onContextMenu={} to display a menu.
@@ -96,6 +90,7 @@ class _TreeNode extends Component {
     });
     let collapsed = this.state.collapsed; // for future use to have more logic.
     return (
+      <li className="list-flex-display">
       <li
         className={classNames({
           arrow: true,
@@ -141,18 +136,25 @@ class _TreeNode extends Component {
             })}>
             <span className="tree-node-label">{this.props.children}</span>
           </a>
-          {this.props.visibility === false 
-          // && 
-          // this.props.serverVis.includes(this.props.serverID) 
-          ? 
-          <div 
-          className='remove_server pt-button pt-icon-disable'
-          onClick={this.hideActiveServer}
-          ></div> 
-          : ""
-          }
+          
         </div>
         <SubTree collapsed={collapsed}>{childrenNodes}</SubTree>
+      </li>
+      {this.props.visibility === false 
+      // && 
+      // this.props.serverVis.includes(this.props.serverID) 
+      ? 
+      <div 
+      className={
+        classNames({
+          [`tree-node-depth-${this.props.depth} remove_server pt-button pt-icon-disable`]: true,
+          [`tree-node-depth-${this.props.depth} remove_server pt-button pt-icon-disable tree-node-invisible`]: 
+             this.props.visibility === false && !this.props.serverVis.includes(this.props.serverID)
+      })}
+      onClick={this.hideActiveServer}
+      ></div> 
+      : ""
+      }
       </li>
     );
   }

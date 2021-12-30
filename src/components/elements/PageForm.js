@@ -27,7 +27,7 @@ import {Callout, Intent, FormGroup, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import FormPrompt from "./FormPrompt";
 import PropTypes from "prop-types";
-
+import {pluginRegistry} from "plugins/pluginRegistration";
 export class _PageForm extends Component {
   static propTypes = {
     edit: PropTypes.bool,
@@ -127,7 +127,7 @@ export class _PageForm extends Component {
       parameters = {data: processedData};
     }
     try {
-      let client = await server.getClient();
+      let client =  await pluginRegistry.getServer(this.props.server).getClient();
       let result = await client.execute({
         operationId: operationId,
         parameters: parameters

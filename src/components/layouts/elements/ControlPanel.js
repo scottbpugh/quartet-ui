@@ -68,7 +68,7 @@ export class _ControlPanel extends Component {
       .then((willHide) => {
         if (willHide) {
           swal(this.props.visibility ? 
-            ("INACTIVE SERVERS HIDED") : ("INACTIVE SERVERS UNHIDED"), {
+            ("Inactive servers hidden") : ("Inactive servers shown"), {
             icon: "success",
           });
           this.props.switchVisibility(!this.props.visibility)

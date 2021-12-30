@@ -158,19 +158,27 @@ class _ServerTasks extends Component {
   };
 
   processTasks = (clear = false) => {
+    
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
-    this.debounced = setTimeout(() => {
-      const {server} = this.props;
-      this.props.loadTasks(
-        server,
-        this.state.keywordSearch,
-        this.currentPage,
-        "-status_changed"
-      );
-    }, clear);
-    this.loadingScreen();
+    this.setState(
+      { loading : true },
+      () => {
+        this.debounced = setTimeout(() => {
+          const {server} = this.props;
+          this.props.loadTasks(
+            server,
+            this.state.keywordSearch,
+            this.currentPage,
+            "-status_changed"
+          );
+        }, clear);
+        setTimeout(()=>{this.setState({loading : false})}, [])
+      }
+    );
+    
+    // this.loadingScreen();
   };
 
   render() {

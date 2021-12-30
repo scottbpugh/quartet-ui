@@ -403,3 +403,22 @@ html, body {
   align-items: center;
   margin: 0 15% 0;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #394B59; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #293742; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1d272e; 
+}

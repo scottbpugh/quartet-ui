@@ -64,8 +64,10 @@ class _ServerDetails extends Component {
           .map(service => {
             return (
               <li key={service}>
+                <img  src="./icon.png" />
                 {service}
                 <span className="icon-dot" />
+                {/* <span className="icon-dot" /> */}
               </li>
             );
           })

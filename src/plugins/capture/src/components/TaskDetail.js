@@ -55,6 +55,7 @@ class _TaskDetail extends Component {
       downloadLink: ""
     };
     this.autoRefresh = null;
+    this.timeArray = [];
   }
   setDownloadLink = async () => {
     let serverObject = await pluginRegistry.getServer(this.props.server);
@@ -145,6 +146,19 @@ class _TaskDetail extends Component {
         });
       });
   };
+  msToTime = (duration) => {
+    var milliseconds = (duration),
+      seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+  
+    return hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ";
+  }
+
   render() {
     const {task} = this.state;
     let intent = Intent.PRIMARY;
@@ -293,6 +307,21 @@ class _TaskDetail extends Component {
                   default:
                     intent = Intent.PRIMARY;
                 }
+                this.timeArray.push(message.created);
+                const fillteredTimeArray = [...new Set(this.timeArray)]
+                const timesArray = [];
+                let i;
+                for (i=0;i < fillteredTimeArray.length; ++i) {
+                  if (i === 0) {
+                    timesArray.push(this.msToTime(new Date(fillteredTimeArray[i]).getTime()));
+                    const diffTime = fillteredTimeArray[i] - fillteredTimeArray[i-1];
+                  } else {
+                    const filteredArrayDiff = new Date(fillteredTimeArray[i]).getTime() - new Date(fillteredTimeArray[i-1]).getTime();
+                    timesArray.push(this.msToTime(filteredArrayDiff));
+                  }
+                  
+                };
+
                 return (
                   <div
                     key={`task-message-${message.id}`}
@@ -312,6 +341,15 @@ class _TaskDetail extends Component {
                             </td>
                           </tr>
                           {yieldDataPairRowIfSet("Created", message.created)}
+                          {
+                            index > 0 ? 
+                            <tr>
+                              <td >Time difference between messages</td><td>{timesArray[index]} <span className="pt-icon-time"></span></td>
+                            </tr> 
+                            : 
+                            null
+                          }
+
                         </tbody>
                       </table>
                     </div>

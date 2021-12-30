@@ -284,10 +284,11 @@ export class _NavPluginRoot extends Component {
   }
   goTo = path => {
     this.props.history.push(path);
+    this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
   };
   componentDidMount() {
     if (this.props.server && this.serverHasSerialbox()) {
-      this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
+      // this.props.loadPools(pluginRegistry.getServer(this.props.serverID));
     }
   }
 

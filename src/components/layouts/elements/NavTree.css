@@ -136,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 }
 
 .tree-node-content {
-  height:40px;
+  height: 30px;
   padding: 5px 0px 5px 23px;
   display: flex;
   align-items: center;
@@ -164,6 +164,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .tree-node-depth-0 {
   padding-left:10px;
+  flex: 10;
 }
 .tree-node-depth-1 {
   padding-left:20px;
@@ -193,7 +194,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   padding-left:100px;
 }
 .tree-node-depth-0.tree-node-invisible {
-  opacity: 0;
   display: none;
 }
 .tree-node-depth-0.tree-node-visible {
@@ -204,15 +204,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   display: flex;
 }
 
+.list-flex-display {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .remove_server {
   display: none;
 }
-.tree-node-depth-0 .remove_server.pt-button.pt-icon-disable {
-  flex: 1;
+.tree-node-depth-0.remove_server.pt-button.pt-icon-disable {
+  flex: 2;
   background-color: rgb(129, 39, 23);
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 30px;
+}
+
+.tree-node-depth-0.remove_server.pt-button.pt-icon-disable.tree-node-invisible {
+  display: none;
 }
 .tree-node-parent-active {
   background: rgba(0, 0, 0, 0.1);
