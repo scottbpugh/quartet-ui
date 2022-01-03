@@ -40,6 +40,10 @@ class _TreeNode extends Component {
     evt.stopPropagation();
     evt.preventDefault();
     this.setState({collapsed: !this.state.collapsed});
+    
+    if (evt.currentTarget.classList.contains('tree-arrow-0') && !this.props.serverVis.includes(this.props.serverID)) {
+      this.props.serverVis.push(this.props.serverID);
+    }
     sessionStorage.setItem(`pageTask${this.props.serverID}`, "1");
     sessionStorage.setItem(`pageSearch${this.props.serverID}`, "");
   };
@@ -116,7 +120,11 @@ class _TreeNode extends Component {
           })}
           onClick={this.go}
           >
-          <a onClick={this.toggleChildren}>
+          <a 
+          onClick={this.toggleChildren} 
+          className={classNames({
+                [`tree-arrow-${this.props.depth}`]: true,
+              })}>
             <span
               className={classNames({
                 "arrow-straight": collapsed,
@@ -141,15 +149,13 @@ class _TreeNode extends Component {
         <SubTree collapsed={collapsed}>{childrenNodes}</SubTree>
       </li>
       {this.props.visibility === false 
-      // && 
-      // this.props.serverVis.includes(this.props.serverID) 
       ? 
       <div 
       className={
         classNames({
           [`tree-node-depth-${this.props.depth} remove_server pt-button pt-icon-disable`]: true,
           [`tree-node-depth-${this.props.depth} remove_server pt-button pt-icon-disable tree-node-invisible`]: 
-             this.props.visibility === false && !this.props.serverVis.includes(this.props.serverID)
+            this.props.visibility === false && !this.props.serverVis.includes(this.props.serverID)
       })}
       onClick={this.hideActiveServer}
       ></div> 

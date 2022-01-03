@@ -105,7 +105,7 @@ export default {
           "This will discard all changes made to this form.",
         copyErrorMessage: "Copy Error to Clipboard",
         messageCopiedToClipboard: "Error copied to clipboard successfully.",
-        emptyArray: "Empty array."
+        emptyArray: "Array is empty"
       },
       plugins: {
         addPlugin: "Add a Plugin",
