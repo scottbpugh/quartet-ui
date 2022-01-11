@@ -30,12 +30,15 @@
           ".es",
           ".es6",
           ".mjs"
+        ],
+        "moduleFileExtensions": [
+          ".js",
+          ".jsx",
+          ".es",
+          ".es6",
+          ".mjs"
         ]
       }
     ]
   ]
-  // ,
-  // "test": [
-  //     "jest"
-  // ]
 }

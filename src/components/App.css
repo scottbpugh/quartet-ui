@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 /* Global CSS settings */
-
 @media print {
   header, footer,
   #root > div > div > div > div.left-panel.react-resizable {
@@ -147,7 +146,6 @@ html, body {
   right:10px;
   top: 7px;
 }
-
 .left-aligned-elem {
   position:absolute;
   left:10px;

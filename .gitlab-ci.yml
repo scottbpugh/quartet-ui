@@ -41,6 +41,9 @@ build:
   script:
     - npm install -g yarn
     - yarn install
+    # - yarn dist-lin
+    # - yarn dist-win
+    # - yarn dist-mac
     - yarn dist
   artifacts:
     paths:

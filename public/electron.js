@@ -39,7 +39,6 @@ const setTimeout = require("timers").setTimeout;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 global.mainWindow = mainWindow;
-
 /**
  * Opens a window for the default browser.
  */

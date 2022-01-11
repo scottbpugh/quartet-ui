@@ -78,12 +78,10 @@ class _RightPanel extends Component {
       this.props.loadPageTitle({...this.props.title.props});
     }
   }
-
   componentDidMount() {
     // this.props.loadPageTitle(this.props.title.props.id);
     this.loadTitle(this.props.title);
   }
-
   render() {
     return (
       <div className="right-panel">

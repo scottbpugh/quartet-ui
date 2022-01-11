@@ -8,7 +8,6 @@ exports[`renders correctly a transaction event with most data 1`] = `
     <div
       className="question-left"
     >
-
       <span>
         What
       </span>
@@ -50,7 +49,6 @@ exports[`renders correctly a transaction event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Parent ID
               </span>
@@ -123,7 +121,6 @@ exports[`renders correctly a transaction event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Quantity List
               </span>
@@ -178,7 +175,6 @@ exports[`renders correctly a transaction event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Business Transaction List
               </span>
@@ -482,7 +478,6 @@ exports[`renders correctly a transformation event with most data 1`] = `
     <div
       className="question-left"
     >
-
       <span>
         What
       </span>
@@ -623,7 +618,6 @@ exports[`renders correctly a transformation event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Output EPC List
               </span>
@@ -721,7 +715,6 @@ exports[`renders correctly a transformation event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 ILMD
               </span>
@@ -745,7 +738,6 @@ exports[`renders correctly a transformation event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Input Quantity List
               </span>
@@ -801,7 +793,6 @@ exports[`renders correctly a transformation event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Output Quantity List
               </span>
@@ -857,7 +848,6 @@ exports[`renders correctly a transformation event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Business Transaction List
               </span>
@@ -1180,7 +1170,6 @@ exports[`renders correctly an aggregation object with most data 1`] = `
     <div
       className="question-left"
     >
-
       <span>
         What
       </span>
@@ -1222,7 +1211,6 @@ exports[`renders correctly an aggregation object with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Parent ID
               </span>
@@ -1238,7 +1226,6 @@ exports[`renders correctly an aggregation object with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Child Quantity List
               </span>
@@ -1293,7 +1280,6 @@ exports[`renders correctly an aggregation object with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Child EPCs
               </span>
@@ -1351,7 +1337,6 @@ exports[`renders correctly an aggregation object with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Business Transaction List
               </span>
@@ -1655,7 +1640,6 @@ exports[`renders correctly an object with most data 1`] = `
     <div
       className="question-left"
     >
-
       <span>
         What
       </span>
@@ -1754,7 +1738,6 @@ exports[`renders correctly an object with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 ILMD
               </span>
@@ -1778,7 +1761,6 @@ exports[`renders correctly an object with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Business Transaction List
               </span>
@@ -2082,7 +2064,6 @@ exports[`renders correctly an unknown event with most data 1`] = `
     <div
       className="question-left"
     >
-
       <span>
         What
       </span>
@@ -2219,7 +2200,6 @@ exports[`renders correctly an unknown event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Output EPC List
               </span>
@@ -2317,7 +2297,6 @@ exports[`renders correctly an unknown event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 ILMD
               </span>
@@ -2341,7 +2320,6 @@ exports[`renders correctly an unknown event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Input Quantity List
               </span>
@@ -2397,7 +2375,6 @@ exports[`renders correctly an unknown event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Output Quantity List
               </span>
@@ -2453,7 +2430,6 @@ exports[`renders correctly an unknown event with most data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Business Transaction List
               </span>
@@ -2776,7 +2752,6 @@ exports[`what renders correctly an aggregation object with minimum data 1`] = `
     <div
       className="question-left"
     >
-
       <span>
         What
       </span>
@@ -2820,7 +2795,6 @@ exports[`what renders correctly an aggregation object with minimum data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Parent ID
               </span>
@@ -2836,7 +2810,6 @@ exports[`what renders correctly an aggregation object with minimum data 1`] = `
           </tr>
           <tr>
             <td>
-
               <span>
                 Business Transaction List
               </span>
