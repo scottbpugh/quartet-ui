@@ -185,10 +185,10 @@ class _TaskDetail extends Component {
           <div className="cards-container">
             <Card className="pt-elevation-4">
             
-              <h5>
+              <h5 className="task-detail-title">
               <button 
                 tabindex="0" 
-                className="pt-icon-arrow-left pt-button left-aligned-elem pt-interactive pt-intent-primary"
+                className="pt-icon-arrow-left pt-button pt-interactive pt-intent-primary"
                 title="Back"
                 onClick={e => 
                   {this.props.history.push(`/capture/tasks/${
@@ -197,10 +197,10 @@ class _TaskDetail extends Component {
                 }>
                 <FormattedMessage id="plugins.capture.backToList" />
               </button>
-                {task.name}
+                <span style={{paddingLeft: "10px"}}>{task.name}</span>
                 {this.state.downloadLink ? (
                   <a
-                    style={{color: linkColor, paddingLeft: "10px"}}
+                    style={{color: linkColor, paddingLeft: "10px",paddingRight: "10px"}}
                     href={this.state.downloadLink}
                     target="_blank">
                     <Icon
@@ -211,7 +211,7 @@ class _TaskDetail extends Component {
                 ) : null}
                 <button
                   onClick={this.toggleConfirmRestart}
-                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary">
+                  className="pt-button pt-interactive pt-intent-primary">
                   <FormattedMessage id="plugins.capture.restart" />
                 </button>
               </h5>

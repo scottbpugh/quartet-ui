@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .step {
   margin:0 5px 10px;
 }
+td {
+  word-break: break-all;
+}
 .tableLoading {
   position: relative;
   height: 600px;

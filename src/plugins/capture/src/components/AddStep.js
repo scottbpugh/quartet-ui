@@ -171,7 +171,7 @@ class _AddStep extends Component {
                       return (
                         <tr key={param.id}>
                           <td>{param.name}</td>
-                          <td>{param.value}</td>
+                          <td className="step-parameter-box">{param.value}</td>
                           <td style={{width: "80px"}}>
                             <ButtonGroup minimal small>
                               <Button
