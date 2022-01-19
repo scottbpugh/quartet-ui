@@ -54,6 +54,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   background-color: transparent;
 
 }
+/* .flex-row{
+  display: flex;
+  align-items: center;
+} */
+.hidden-line {
+  display: none;
+}
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+.password-flex {
+  flex: 8;
+}
+.button-container {
+  flex: 4;
+  justify-content: center;
+}
+.pt-button-inside-array-2,
+.pt-button-inside-array {
+  margin: 0 10px;
+}
+/* .pt-button-inside-array-2 {
+  margin-left: 140px;
+} */
 /* .pt-dark .service-list li {
   border-bottom: 3px solid #DDD;
 }

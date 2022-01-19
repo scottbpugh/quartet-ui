@@ -344,7 +344,7 @@ class _TaskDetail extends Component {
                           {
                             index > 0 ? 
                             <tr>
-                              <td >Time difference between messages</td><td>{timesArray[index]} <span className="pt-icon-time"></span></td>
+                              <td >Time</td><td>{timesArray[index]} <span className="pt-icon-time"></span></td>
                             </tr> 
                             : 
                             null

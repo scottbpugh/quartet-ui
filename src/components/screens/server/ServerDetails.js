@@ -18,17 +18,23 @@
 import React, {Component} from "react";
 import {RightPanel} from "components/layouts/Panels";
 import {FormattedMessage} from "react-intl";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {connect} from "react-redux";
 import {saveServer} from "reducers/serversettings";
 import {pluginRegistry} from "plugins/pluginRegistration";
 import {Card, Button, Icon, Tag, Intent} from "@blueprintjs/core";
 import "./server-details.css";
 import {ServerForm} from "./ServerForm";
-
+import {showMessage} from "lib/message";
+import classNames from "classnames";
 class _ServerDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = {editMode: false};
+    this.state = {
+      editMode: false, 
+      hidePassword: true,
+      copied: false
+    };
   }
   componentDidMount() {
     // retrigger a schema fetch when mounting details.
@@ -53,6 +59,20 @@ class _ServerDetails extends Component {
     // leave form on successful submit.
     this.setState({editMode: false});
   };
+  unhidePass = (event) => {
+    event.preventDefault();
+    this.setState({
+      hidePassword: !this.state.hidePassword
+    })
+    console.log(this.state.hidePassword)
+  }
+  showPopup = (event) => {
+    event.preventDefault();
+    showMessage({
+      id: "Password copied to clipboard",
+      type: "success",
+    });
+  }
   render() {
     let serverObject = pluginRegistry.getServer(this.props.server.serverID);
     let services = serverObject
@@ -121,12 +141,45 @@ class _ServerDetails extends Component {
                     <tbody>
                       {serverObject.getArrayFields().map(elem => {
                         return (
-                          <tr key={elem.name}>
+                          <tr key={elem.name} 
+                            className={
+                              classNames({
+                                "hidden-line": elem.hidden === true
+                            })}>
                             <td>{elem.name}</td>
                             <td>{"" + elem.value}</td>
                           </tr>
                         );
                       })}
+                      <tr>
+                        <td>password</td>
+                        <td className="flex-row">
+                            <div className="password-flex">
+                              {this.state.hidePassword === false ? this.props.server.password : "*******"}
+                            
+                            </div>
+                              <div className="button-container">
+                              {/* <button
+                                tabIndex="0"
+                                className={
+                                  classNames({
+                                    "pt-button pt-icon-eye-open pt-button-inside-array": this.state.hidePassword === true,
+                                    "pt-button pt-icon-eye-off button-bg-red red tomato-red pt-button-inside-array": this.state.hidePassword === false
+                                  })
+                                }
+                                onClick={this.unhidePass}
+                              >
+                              </button> */}
+                              <CopyToClipboard text={this.props.server.password}
+                                onCopy={() => this.setState({copied: true})}>
+                                <button 
+                                className="pt-button pt-icon-clipboard pt-button-inside-array-2" 
+                                onClick={this.showPopup}
+                                ></button>
+                              </CopyToClipboard>
+                            </div>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

@@ -38,6 +38,8 @@ let _client = new WeakMap();
 
 /* Listen for global credentials notifications */
 ipcRenderer.on("credentialsRetrieved", (event, payload) => {
+  console.log(payload)
+  sessionStorage.setItem(payload.account, payload.password)
   pluginRegistry.getServer(payload.account).setPassword(payload.password);
 });
 
@@ -331,6 +333,7 @@ export class Server {
       },
       {name: "tokenType", value: this.tokenType, editable: true},
       {name: "username", value: this.username},
+      {name: "password", value: sessionStorage.getItem(this.serverID), hidden: true},
       {name: "serverID", value: this.serverID}
     ];
   };
