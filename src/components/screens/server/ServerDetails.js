@@ -151,7 +151,7 @@ class _ServerDetails extends Component {
                           </tr>
                         );
                       })}
-                      <tr>
+                      {/* <tr>
                         <td>password</td>
                         <td className="flex-row">
                             <div className="password-flex">
@@ -159,7 +159,7 @@ class _ServerDetails extends Component {
                             
                             </div>
                               <div className="button-container">
-                              {/* <button
+                              <button
                                 tabIndex="0"
                                 className={
                                   classNames({
@@ -169,7 +169,7 @@ class _ServerDetails extends Component {
                                 }
                                 onClick={this.unhidePass}
                               >
-                              </button> */}
+                              </button> 
                               <CopyToClipboard text={this.props.server.password}
                                 onCopy={() => this.setState({copied: true})}>
                                 <button 
@@ -179,7 +179,7 @@ class _ServerDetails extends Component {
                               </CopyToClipboard>
                             </div>
                         </td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                 </div>

@@ -60,7 +60,7 @@ export class _ControlPanel extends Component {
           <div className='prompt_container'>
             <img src='./components/layouts/elements/icon.png' />
             {this.props.visibility ? 
-            ("Would you like to hide inactive servers?") : ("Would you like to unhide inactive servers?")
+            ("Would you like to hide inactive servers?") : ("Would you like to show inactive servers?")
             }
           </div>
         )

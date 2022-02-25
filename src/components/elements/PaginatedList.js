@@ -38,12 +38,14 @@ class _PaginatedList extends Component {
       maxPages: 1,
       count: 0,
       interactive: 'pt-interactive',
-      loading: true
+      loading: true,
+      currentPage: null,
     };
     this.offset = 0;
     this.currentPage = 1;
     this.debounced = null;
     this.fetchEntries = null;
+    this.timer = null;
   }
 
   // filter by a field in the rows.
@@ -68,22 +70,46 @@ class _PaginatedList extends Component {
     this.setState({
       entries: this.props.entries,
       maxPages: 1,
-      count: 0
+      count: 0,
     });
+    this.timer = setInterval(()=> {
+      if(sessionStorage.getItem("loading") != this.state.loading) {
+        this.setState({
+          loading: JSON.parse(sessionStorage.getItem("loading")),
+        });
+      };
+    }
+    , 5);
   }
-
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
   // refresh the Lists, keeping the search filters.
   componentWillReceiveProps(nextProps) {
     let maxPages = this.currentPage;
     if (nextProps.next !== null && Array.isArray(nextProps.entries)) {
       maxPages = Math.ceil(nextProps.count / nextProps.entries.length);
+      console.log(Math.ceil(nextProps.count / nextProps.entries.length));
+      if(Number.isNaN(maxPages)) {
+        console.log("Change state: ", Number.isNaN(maxPages));
+        
+      }
+      else {
+        this.setState({
+          maxPages: maxPages
+        });
+      }
     }
     this.setState({
+      currentPage: this.currentPage
+    })
+    this.setState({
       entries: nextProps.entries,
-      maxPages: maxPages,
       count: nextProps.count,
-      interactive: this.props.interactive === false ? '' : ' pt-interactive'
+      interactive: this.props.interactive === false ? '' : ' pt-interactive',
+      loading: JSON.parse(sessionStorage.getItem("loading"))
     });
+    
   }
 
   goTo = path => {
@@ -106,7 +132,7 @@ class _PaginatedList extends Component {
     this.setState(
       { loading : true },
       () => {
-          setTimeout(()=>{this.setState({loading : false})}, 750)
+          setTimeout(()=>{this.setState({loading : false})}, 6000);
       }
     );
   };
@@ -126,7 +152,7 @@ class _PaginatedList extends Component {
         this.props.type ? this.props.type : null
       );
     }, clear);
-    this.loadingScreen();
+    // this.loadingScreen(); 
   };
 
   render() {
@@ -196,7 +222,7 @@ class _PaginatedList extends Component {
                   textAlign: "center",
                   verticalAlign: "middle !important"
                 }}>
-                {Array.isArray(entries) && entries.length > 0 && this.state.loading === false
+                {Array.isArray(entries) && entries.length > 0 && this.state.loading === false && this.currentPage===this.state.currentPage
                   ? entries.map((entry, index) => {
                       return (
                         <this.props.entryClass
@@ -209,26 +235,7 @@ class _PaginatedList extends Component {
                         />
                       );
                     })
-                    : 
-                    this.state.keywordSearch != "" && entries != undefined && entries.length === 0?
-                    <tr className='tableLoading'>
-                        <div class="middle searchResult">
-                            <FormattedMessage
-                                id="app.common.searchResult"
-                                defaultMessage="No search result"
-                            />
-                        </div>
-                    </tr>
-                    : this.state.keywordSearch === "" && entries != undefined && entries.length === 0?
-                    <tr className='tableLoading'>
-                        <div class="middle searchResult">
-                        <FormattedMessage
-                                id="app.common.emptyArray"
-                                defaultMessage="Empty array"
-                            />
-                        </div>
-                    </tr>
-                    : 
+                    : this.state.loading === true ?
                   <tr className='tableLoading'>
                     <div class="middle">
                         <div class="bar bar1"></div>
@@ -240,7 +247,53 @@ class _PaginatedList extends Component {
                         <div class="bar bar7"></div>
                         <div class="bar bar8"></div>
                     </div>
+                  </tr>  
+                  
+                  // : this.currentPage != this.state.currentPage ?
+                  // <tr className='tableLoading'>
+                  //   <div class="middle">
+                  //       <div class="bar bar1"></div>
+                  //       <div class="bar bar2"></div>
+                  //       <div class="bar bar3"></div>
+                  //       <div class="bar bar4"></div>
+                  //       <div class="bar bar5"></div>
+                  //       <div class="bar bar6"></div>
+                  //       <div class="bar bar7"></div>
+                  //       <div class="bar bar8"></div>
+                  //   </div>
+                  // </tr>  
+                  : 
+                  this.state.keywordSearch != "" && entries != undefined && entries.length === 0&& this.state.loading === false && this.currentPage===this.state.currentPage?
+                  <tr className='tableLoading'>
+                      <div class="middle searchResult">
+                          <FormattedMessage
+                              id="app.common.searchResult"
+                              defaultMessage="No search result"
+                          />
+                      </div>
                   </tr>
+                  : this.state.keywordSearch === "" && entries != undefined && entries.length === 0&& this.state.loading === false && this.currentPage===this.state.currentPage?
+                  <tr className='tableLoading'>
+                      <div class="middle searchResult">
+                      <FormattedMessage
+                              id="app.common.emptyArray"
+                              defaultMessage="Empty array"
+                          />
+                      </div>
+                  </tr>
+                  :
+                  <tr className='tableLoading'>
+                    <div class="middle">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                        <div class="bar bar4"></div>
+                        <div class="bar bar5"></div>
+                        <div class="bar bar6"></div>
+                        <div class="bar bar7"></div>
+                        <div class="bar bar8"></div>
+                    </div>
+                  </tr> 
                   }
               </tbody>
             </table>

@@ -38,7 +38,6 @@ let _client = new WeakMap();
 
 /* Listen for global credentials notifications */
 ipcRenderer.on("credentialsRetrieved", (event, payload) => {
-  console.log(payload)
   sessionStorage.setItem(payload.account, payload.password)
   pluginRegistry.getServer(payload.account).setPassword(payload.password);
 });

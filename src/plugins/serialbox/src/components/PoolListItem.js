@@ -100,7 +100,7 @@ class PoolListItem extends Component {
         const pool = this.props.entry;
         const {sequential, randomized, listBased} = this.getAllowedRegionTypes(pool);
         const intl = pluginRegistry.getIntl();
-        console.info('Rendering menu for pool ' + pool.readable_name);
+        // console.info('Rendering menu for pool ' + pool.readable_name);
         return (
             <Menu>
                 <ButtonGroup className="context-menu-control" minimal={true}>

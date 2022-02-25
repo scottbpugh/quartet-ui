@@ -63,6 +63,7 @@ class _ServerTasks extends Component {
     this.debounced = null;
     this.taskType = null;
     this.fetchTasks = null;
+    this.timer = null;
   }
 
   updateSearch = evt => {
@@ -92,13 +93,21 @@ class _ServerTasks extends Component {
     this.fetchTasks = setInterval(() => {
       this.processTasks();
     }, 
-    200000
-    );
-    this.setState({loading: !this.state.loading});
+    200000);
+    this.timer = setInterval(()=> {
+      if(sessionStorage.getItem("loading") != this.state.loading) {
+        this.setState({
+          loading: JSON.parse(sessionStorage.getItem("loading")),
+        });
+      };
+    }
+    , 50);
+    // this.setState({loading: !this.state.loading});
   }
 
   componentWillUnmount() {
     clearInterval(this.fetchTasks);
+    clearInterval(this.timer);
     this.fetchTasks = null;
   }
 
@@ -162,29 +171,21 @@ class _ServerTasks extends Component {
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
-    this.setState(
-      { loading : true },
-      () => {
         this.debounced = setTimeout(() => {
-          const {server} = this.props;
-          this.props.loadTasks(
+          const {server, loadTasks} = this.props;
+          loadTasks(
             server,
             this.state.keywordSearch,
             this.currentPage,
             "-status_changed"
           );
         }, clear);
-        setTimeout(()=>{this.setState({loading : false})}, [])
-      }
-    );
-    
     // this.loadingScreen();
   };
 
   render() {
     let serverName = this.props.server.serverSettingName;
     const {tasks} = this.state;
-    console.log(this.props)
     return (
       <Card className="pt-elevation-4">
         <h5>
@@ -306,17 +307,7 @@ class _ServerTasks extends Component {
                         </tr>
                       );
                     })
-                    : 
-                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) != "" && tasks.length === 0 ?
-                    <tr className='tableLoading'>
-                        <div class="middle searchResult">
-                            <FormattedMessage
-                                id="app.common.searchResult"
-                                defaultMessage="No search result"
-                            />
-                        </div>
-                    </tr>
-                    : 
+                    : this.state.loading === true ?
                     <tr className='tableLoading'>
                       <div class="middle">
                           <div class="bar bar1"></div>
@@ -329,6 +320,28 @@ class _ServerTasks extends Component {
                           <div class="bar bar8"></div>
                       </div>
                     </tr>
+                    :
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) != "" && tasks.length === 0 ?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                            <FormattedMessage
+                                id="app.common.searchResult"
+                                defaultMessage="No search result"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) === "" && tasks.length === 0?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                        <FormattedMessage
+                                id="app.common.emptyArray"
+                                defaultMessage="Empty array"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    null
                   }
               </tbody>
             </table>

@@ -147,7 +147,7 @@ class _TaskDetail extends Component {
       });
   };
   msToTime = (duration) => {
-    var milliseconds = (duration),
+    var milliseconds = parseInt((duration % 1000)),
       seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),
       hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
@@ -155,11 +155,12 @@ class _TaskDetail extends Component {
     hours = (hours < 10) ? "0" + hours : hours;
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
-  
+    console.log(hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ")
     return hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ";
   }
 
   render() {
+    console.log(this.state)
     const {task} = this.state;
     let intent = Intent.PRIMARY;
     switch (task.status) {
@@ -344,7 +345,8 @@ class _TaskDetail extends Component {
                           {
                             index > 0 ? 
                             <tr>
-                              <td >Time</td><td>{timesArray[index]} <span className="pt-icon-time"></span></td>
+                              <td>Time</td>
+                              <td>{timesArray[index]} <span className="pt-icon-time"></span></td>
                             </tr> 
                             : 
                             null

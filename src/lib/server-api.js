@@ -161,12 +161,16 @@ export const fetchPageList = async (
   parameters
 ) => {
   const client = await serverInstance.getClient();
+  sessionStorage.setItem("loading", true);
   try {
     const response = await client.execute({
       operationId,
       parameters
     });
     if (response.ok) {
+      setTimeout(()=> {
+        sessionStorage.setItem("loading", false);
+      }, [])
       return response.body;
     }
     throw new Error(response);
