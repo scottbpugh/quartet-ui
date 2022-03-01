@@ -39,8 +39,6 @@ export class EventDetailTable extends Component {
     const {currentEntry, serverID} = this.props;
     let objectType = this.getObjectType(currentEntry);
     let isReady = () => {
-    console.log("this.props", this.props.currentEntry);
-    console.log(objectType)
       return currentEntry && currentEntry[objectType];
     };
     return (
