@@ -23,9 +23,24 @@ export class EventsTimeline extends Component {
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  getObjectType = currentEntry => {
+    try {
+      let key = Object.keys(currentEntry);
+      return key[0];
+    } catch (e) {
+      return null;
+    }
+  };
   goToEventDetail = event => {
     var top = document.getElementById(event.id).offsetTop; //Getting Y of target element
-    window.scrollTo(0, top);
+    document.getElementById(event.id).scrollIntoView(
+      {behavior: "smooth", 
+      block: "start", 
+      inline: "start"}
+    );
+    console.log("event", event);
+      //Previous behaviour!!!
+    // window.scrollTo(0, top);
   };
   render() {
     const {events} = this.props;
@@ -62,7 +77,8 @@ export class EventsTimeline extends Component {
                   transform={`translate(${indentation}, 0)`}
                   onClick={
                     currentEvent
-                      ? this.goToEventDetail.bind(this, currentEvent)
+                      ? 
+                      this.goToEventDetail.bind(this, currentEvent)
                       : null
                   }>
                   <path
