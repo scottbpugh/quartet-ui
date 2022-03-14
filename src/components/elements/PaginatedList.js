@@ -17,7 +17,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Card, Tag, ControlGroup, Button, InputGroup} from "@blueprintjs/core";
+import {Card, Tag, ControlGroup, Button, InputGroup,
+  Intent} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router";
 import {pluginRegistry} from "plugins/pluginRegistration";
@@ -39,6 +40,7 @@ class _PaginatedList extends Component {
       count: 0,
       interactive: 'pt-interactive',
       loading: true,
+      loadingRR: true,
       currentPage: null,
     };
     this.offset = 0;
@@ -61,7 +63,7 @@ class _PaginatedList extends Component {
     this.setState({keywordSearch: evt.currentTarget.value}, () => {
       this.offset = 0;
       this.currentPage = 1;
-      this.processEntries();
+      // this.processEntries();
     });
   };
 
@@ -76,6 +78,7 @@ class _PaginatedList extends Component {
       if(sessionStorage.getItem("loading") != this.state.loading) {
         this.setState({
           loading: JSON.parse(sessionStorage.getItem("loading")),
+          loadingRR: JSON.parse(sessionStorage.getItem("loadingRR")),
         });
       };
     }
@@ -179,13 +182,13 @@ class _PaginatedList extends Component {
             <div className="pagination-control">
               <div>
                 <Button
-                  disabled={this.currentPage - 1 < 1}
+                  disabled={this.currentPage - 1 < 1 || this.state.loading === true || this.state.loadingRR === true}
                   onClick={this.previous.bind(this)}>
                   previous
                 </Button>{" "}
                 |{" "}
                 <Button
-                  disabled={this.currentPage >= this.state.maxPages}
+                  disabled={this.currentPage >= this.state.maxPages  || this.state.loading === true || this.state.loadingRR === true}
                   onClick={this.next.bind(this)}>
                   next
                 </Button>
@@ -193,11 +196,12 @@ class _PaginatedList extends Component {
             </div>
             <div>
               <ControlGroup fill={false} vertical={false}>
-                <div className="pt-select">
+              <Button intent={Intent.PRIMARY} onClick={this.searchBy}>Search</Button>
+                {/* <div className="pt-select">
                   <select value={this.state.filter}>
                     <option value="">Search</option>
                   </select>
-                </div>
+                </div> */}
                 <InputGroup
                   onChange={this.searchBy}
                   value={this.state.keywordSearch}
@@ -235,7 +239,10 @@ class _PaginatedList extends Component {
                         />
                       );
                     })
-                    : this.state.loading === true ?
+                    : 
+                    this.state.loading === true 
+                    || 
+                    this.state.loadingRR === true ?
                   <tr className='tableLoading'>
                     <div class="middle">
                         <div class="bar bar1"></div>

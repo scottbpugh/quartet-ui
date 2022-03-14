@@ -41,6 +41,7 @@ export class _ControlPanel extends Component {
     this.props.switchVisibility(true);
     this.props.serverVisibility([]);
     this.setState({ isDark: this.isDark(this.props.theme) });
+    // console.log(this.props.visibility)
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ isDark: this.isDark(nextProps.theme) });
@@ -71,7 +72,11 @@ export class _ControlPanel extends Component {
             ("Inactive servers hidden") : ("Inactive servers shown"), {
             icon: "success",
           });
-          this.props.switchVisibility(!this.props.visibility)
+          this.props.switchVisibility(!this.props.visibility);
+          if(this.props.visibility === true) {
+            console.log(this.props.visibility);
+            this.props.serverVis.splice(0);
+          }
         } 
       })
     } else if (this.props.intl.locale === "fr-FR") {
@@ -92,6 +97,7 @@ export class _ControlPanel extends Component {
       //   } 
       // })
     }
+    
   }
   render() {
     const { controlButtons } = this.props;

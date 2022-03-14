@@ -132,7 +132,7 @@ async function createWindow() {
       height: 1200,
       show: false,
       frame: false,
-      transparent: true
+      // transparent: true
       // webPreferences: {
       //   preload: path.
       // }
@@ -155,7 +155,7 @@ async function createWindow() {
         );
       } catch (e) {
         throw new Error('There was an error trying to load the react dev tools and/or the ' +
-          'Redux dev tools.  Check the paths specified in the electron.js and make sure they ' +
+          'Redux dev tools. Check the paths specified in the electron.js and make sure they ' +
           'contain the correct version and path info.');
       }
       // Open the DevTools

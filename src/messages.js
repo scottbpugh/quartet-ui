@@ -92,8 +92,7 @@ export default {
         enterKeywords: "Enter Keywords...",
         objectDeletedSuccessfully: "Object deleted successfully",
         errorDeletingObject:
-          "An error occurred while attempting to delete this object: {error}",
-        selectedItems: "{count} Items Selected",
+          "An error occurred while attempting to delete this object: {error}", 
         clearSelection: "Clear Selection",
         saveSelection: "Save Selection",
         takeMeBack: "Take me back",
@@ -105,7 +104,7 @@ export default {
           "This will discard all changes made to this form.",
         copyErrorMessage: "Copy Error to Clipboard",
         messageCopiedToClipboard: "Error copied to clipboard successfully.",
-        emptyArray: "Array is empty"
+        emptyArray: "List is empty"
       },
       plugins: {
         addPlugin: "Add a Plugin",
