@@ -52,7 +52,8 @@ class _TreeNode extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.activateNode(nextProps.currentPath, nextProps.path);
-    if(this.props.visibility != nextProps.visibility) {
+    if(this.props.visibility === false && nextProps.visibility === true) {
+      
       if(this.state.collapsed === false && this.props.visibility === false) {
         this.setState({collapsed: true});
       }

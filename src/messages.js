@@ -93,6 +93,7 @@ export default {
         objectDeletedSuccessfully: "Object deleted successfully",
         errorDeletingObject:
           "An error occurred while attempting to delete this object: {error}", 
+        selectedItems: "{count} Items Selected",
         clearSelection: "Clear Selection",
         saveSelection: "Save Selection",
         takeMeBack: "Take me back",

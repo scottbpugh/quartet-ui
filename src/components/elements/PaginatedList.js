@@ -60,13 +60,20 @@ class _PaginatedList extends Component {
 
   // search by a field in the rows or all of them.
   searchBy = evt => {
-    this.setState({keywordSearch: evt.currentTarget.value}, () => {
+    // this.setState({keywordSearch: evt.currentTarget.value}, () => {
       this.offset = 0;
       this.currentPage = 1;
-      // this.processEntries();
-    });
+      this.processEntries();
+    // });
   };
-
+  updateSearch = evt => {
+    this.setState({keywordSearch: evt.currentTarget.value});
+  };
+  handleEnterKeySearch = evt => {
+    if (evt.key === "Enter") {
+      this.searchBy(evt);
+    }
+  };
   componentDidMount() {
     this.processEntries();
     this.setState({
@@ -80,6 +87,11 @@ class _PaginatedList extends Component {
           loading: JSON.parse(sessionStorage.getItem("loading")),
           loadingRR: JSON.parse(sessionStorage.getItem("loadingRR")),
         });
+        if (this.state.loadingRR === null) {
+          this.setState({
+            loadingRR: false
+          })
+        }
       };
     }
     , 5);
@@ -203,7 +215,8 @@ class _PaginatedList extends Component {
                   </select>
                 </div> */}
                 <InputGroup
-                  onChange={this.searchBy}
+                  onChange={this.updateSearch}
+                  onKeyPress={this.handleEnterKeySearch}
                   value={this.state.keywordSearch}
                   placeholder={pluginRegistry
                     .getIntl()
@@ -226,7 +239,7 @@ class _PaginatedList extends Component {
                   textAlign: "center",
                   verticalAlign: "middle !important"
                 }}>
-                {Array.isArray(entries) && entries.length > 0 && this.state.loading === false && this.currentPage===this.state.currentPage
+                {Array.isArray(entries) && entries.length > 0 && this.state.loading === false && this.state.loadingRR === false && this.currentPage===this.state.currentPage
                   ? entries.map((entry, index) => {
                       return (
                         <this.props.entryClass
@@ -255,22 +268,8 @@ class _PaginatedList extends Component {
                         <div class="bar bar8"></div>
                     </div>
                   </tr>  
-                  
-                  // : this.currentPage != this.state.currentPage ?
-                  // <tr className='tableLoading'>
-                  //   <div class="middle">
-                  //       <div class="bar bar1"></div>
-                  //       <div class="bar bar2"></div>
-                  //       <div class="bar bar3"></div>
-                  //       <div class="bar bar4"></div>
-                  //       <div class="bar bar5"></div>
-                  //       <div class="bar bar6"></div>
-                  //       <div class="bar bar7"></div>
-                  //       <div class="bar bar8"></div>
-                  //   </div>
-                  // </tr>  
                   : 
-                  this.state.keywordSearch != "" && entries != undefined && entries.length === 0&& this.state.loading === false && this.currentPage===this.state.currentPage?
+                  this.state.keywordSearch != "" && entries != undefined && entries.length === 0 && this.state.loading === false && this.state.loadingRR === false && this.currentPage===this.state.currentPage?
                   <tr className='tableLoading'>
                       <div class="middle searchResult">
                           <FormattedMessage
@@ -279,7 +278,7 @@ class _PaginatedList extends Component {
                           />
                       </div>
                   </tr>
-                  : this.state.keywordSearch === "" && entries != undefined && entries.length === 0&& this.state.loading === false && this.currentPage===this.state.currentPage?
+                  : this.state.keywordSearch === "" && entries != undefined && entries.length === 0 && this.state.loading === false && this.state.loadingRR === false && this.currentPage===this.state.currentPage?
                   <tr className='tableLoading'>
                       <div class="middle searchResult">
                       <FormattedMessage

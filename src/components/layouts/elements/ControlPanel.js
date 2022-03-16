@@ -74,7 +74,6 @@ export class _ControlPanel extends Component {
           });
           this.props.switchVisibility(!this.props.visibility);
           if(this.props.visibility === true) {
-            console.log(this.props.visibility);
             this.props.serverVis.splice(0);
           }
         } 
