@@ -75,6 +75,9 @@ class _PaginatedList extends Component {
     }
   };
   componentDidMount() {
+    if (sessionStorage.getItem("loadingRR") === null ) {
+      sessionStorage.setItem("loadingRR", false);
+    }
     this.processEntries();
     this.setState({
       entries: this.props.entries,
