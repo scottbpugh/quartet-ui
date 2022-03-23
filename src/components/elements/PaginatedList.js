@@ -107,10 +107,17 @@ class _PaginatedList extends Component {
     let maxPages = this.currentPage;
     if (nextProps.next !== null && Array.isArray(nextProps.entries)) {
       maxPages = Math.ceil(nextProps.count / nextProps.entries.length);
+      console.log("nextProps.count", nextProps.count)
+      console.log("nextProps.entries.length", nextProps.entries.length)
       console.log(Math.ceil(nextProps.count / nextProps.entries.length));
       if(Number.isNaN(maxPages)) {
         console.log("Change state: ", Number.isNaN(maxPages));
         
+      }
+      if(maxPages === Infinity) {
+        this.setState({
+          maxPages: 1
+        });
       }
       else {
         this.setState({
@@ -174,6 +181,7 @@ class _PaginatedList extends Component {
   };
 
   render() {
+    console.log(this.state.maxPages)
     const {entries} = this.state;
     return (
       <Card className="pt-elevation-4">
