@@ -66,6 +66,12 @@ class _TreeNode extends Component {
       if (e.currentTarget.classList.contains('tree-node-depth-0') && this.state.collapsed && !this.props.serverVis.includes(this.props.serverID)) {
         this.props.serverVis.push(this.props.serverID);
       } 
+      if (e.currentTarget.classList.contains('tree-node-depth-0') && !this.state.collapsed && this.props.serverVis.includes(this.props.serverID) && this.props.visibility===true)  {
+        const index = this.props.serverVis.indexOf(this.props.serverID);
+        if (index !== -1) {
+          this.props.serverVis.splice(index, 1);
+        }
+      } 
       if (this.props.onClick) {
         this.props.onClick(e);
       } else if (this.props.path) {
@@ -79,7 +85,10 @@ class _TreeNode extends Component {
     }
   }
   hideActiveServer = () => {
-    this.props.serverVis.splice(this.props.serverID, 1);
+    const index = this.props.serverVis.indexOf(this.props.serverID);
+    if (index !== -1) {
+      this.props.serverVis.splice(index, 1);
+    }
     this.setState({collapsed: true})
   }
   /**

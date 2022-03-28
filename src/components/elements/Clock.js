@@ -80,7 +80,7 @@ displayTimeChange = (timezoneArray, countryState) => {
         }
         else 
         {
-            console.log("Value is overdue")
+            // console.log("Value is overdue")
         }
     }
 }
