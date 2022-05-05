@@ -70,7 +70,7 @@ displayTimeChange = (timezoneArray, countryState) => {
         // const language = window.navigator.userLanguage || window.navigator.language;
         // console.log(language);
         if (newDate - nowDate > 0 ) {
-            if (newDate - nowDate > 19209600000) {
+            if (newDate - nowDate > 1209600000) {
                 break;
             } else {
                 const value = this.msToTime(newDate - nowDate);
