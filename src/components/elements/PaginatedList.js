@@ -85,17 +85,24 @@ class _PaginatedList extends Component {
       count: 0,
     });
     this.timer = setInterval(()=> {
-      if(sessionStorage.getItem("loading") != this.state.loading) {
+      if(sessionStorage.getItem("loading") != this.state.loading || sessionStorage.getItem("loadingRR") != this.state.loadingRR) {
         this.setState({
           loading: JSON.parse(sessionStorage.getItem("loading")),
           loadingRR: JSON.parse(sessionStorage.getItem("loadingRR")),
         });
-        if (this.state.loadingRR === null) {
-          this.setState({
-            loadingRR: false
-          })
-        }
+        
       };
+      if (sessionStorage.getItem("loadingRR") != this.state.loadingRR) {
+        this.setState({
+          loading: JSON.parse(sessionStorage.getItem("loading")),
+          loadingRR: JSON.parse(sessionStorage.getItem("loadingRR")),
+        });
+      }
+      if (this.state.loadingRR === null) {
+        this.setState({
+          loadingRR: false
+        })
+      }
     }
     , 5);
   }
@@ -107,18 +114,18 @@ class _PaginatedList extends Component {
     let maxPages = this.currentPage;
     if (nextProps.next !== null && Array.isArray(nextProps.entries)) {
       maxPages = Math.ceil(nextProps.count / nextProps.entries.length);
-      console.log("nextProps.count", nextProps.count)
-      console.log("nextProps.entries.length", nextProps.entries.length)
-      console.log(Math.ceil(nextProps.count / nextProps.entries.length));
-      if(Number.isNaN(maxPages)) {
-        console.log("Change state: ", Number.isNaN(maxPages));
+      // console.log("nextProps.count", nextProps.count)
+      // console.log("nextProps.entries.length", nextProps.entries.length)
+      // console.log(Math.ceil(nextProps.count / nextProps.entries.length));
+      if(Number.isNaN(maxPages) || maxPages === Infinity) {
+        // console.log("Change state: ", Number.isNaN(maxPages));
         
       }
-      if(maxPages === Infinity) {
-        this.setState({
-          maxPages: 1
-        });
-      }
+      // if(maxPages === Infinity) {
+      //   this.setState({
+      //     maxPages: 1
+      //   });
+      // }
       else {
         this.setState({
           maxPages: maxPages
@@ -132,7 +139,8 @@ class _PaginatedList extends Component {
       entries: nextProps.entries,
       count: nextProps.count,
       interactive: this.props.interactive === false ? '' : ' pt-interactive',
-      loading: JSON.parse(sessionStorage.getItem("loading"))
+      loading: JSON.parse(sessionStorage.getItem("loading")),
+      loadingRR: JSON.parse(sessionStorage.getItem("loadingRR"))
     });
     
   }
@@ -181,7 +189,7 @@ class _PaginatedList extends Component {
   };
 
   render() {
-    console.log(this.state.maxPages)
+    // console.log(this.state.maxPages)
     const {entries} = this.state;
     return (
       <Card className="pt-elevation-4">

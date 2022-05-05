@@ -155,12 +155,12 @@ class _TaskDetail extends Component {
     hours = (hours < 10) ? "0" + hours : hours;
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
-    console.log(hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ")
+    // console.log(hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ")
     return hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ";
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     const {task} = this.state;
     let intent = Intent.PRIMARY;
     switch (task.status) {
@@ -212,7 +212,7 @@ class _TaskDetail extends Component {
                 ) : null}
                 <button
                   onClick={this.toggleConfirmRestart}
-                  className="pt-button pt-interactive pt-intent-primary">
+                  className="pt-button pt-interactive pt-intent-primary pt-btn-flex">
                   <FormattedMessage id="plugins.capture.restart" />
                 </button>
               </h5>

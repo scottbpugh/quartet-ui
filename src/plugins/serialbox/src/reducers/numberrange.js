@@ -73,6 +73,13 @@ export const loadResponseRules = async (server, response) => {
         console.log(response)
         return response
     } catch (e) {
+        if (response) {
+            console.log("Error inside response!")
+            setTimeout(()=> {
+                sessionStorage.setItem("loadingRR", false);
+              }, []);
+            return response
+        }
         return response
     }
 };
