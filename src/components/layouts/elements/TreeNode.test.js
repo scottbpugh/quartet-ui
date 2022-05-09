@@ -16,13 +16,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import {createAction} from "redux-actions";
+import React, {Component} from "react";
+import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
+import renderer from "react-test-renderer";
+import {TestWrapper} from "tools/mockStore";
+import {TreeNode} from "./TreeNode";
 
-export default {
-  loadPageTitle: createAction("LAYOUT_LOAD_PAGE_TITLE"),
-  switchTheme: createAction("LAYOUT_SWITCH_THEME"),
-  locationDidUpdate: createAction("LAYOUT_LOCATION_DID_UPDATE"),
-  switchVisibility: createAction("LAYOUT_SWITCH_VISIBILITY"),
-  serverVisibility: createAction("LAYOUT_SERVER_VISIBILITY")
-};
-window.qu4rtet.exports("actions/layout", this);
+it("renders correctly", () => {
+  const props = {childrenNodes: []};
+  const treeNode = renderer
+    .create(
+      <TestWrapper>
+        <TreeNode {...props} />
+      </TestWrapper>
+    )
+    .toJSON();
+  expect(treeNode).toMatchSnapshot();
+});

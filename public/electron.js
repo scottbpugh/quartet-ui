@@ -140,7 +140,12 @@ async function createWindow() {
     const mainOptions = {
       width: width,
       height: 1200,
-      show: false
+      show: false,
+      frame: false,
+      // transparent: true
+      // webPreferences: {
+      //   preload: path.
+      // }
     };
     mainWindow = new BrowserWindow(mainOptions);
     // Setting this to exchange credentials information
@@ -160,7 +165,7 @@ async function createWindow() {
         );
       } catch (e) {
         throw new Error('There was an error trying to load the react dev tools and/or the ' +
-          'Redux dev tools.  Check the paths specified in the electron.js and make sure they ' +
+          'Redux dev tools. Check the paths specified in the electron.js and make sure they ' +
           'contain the correct version and path info.');
       }
       // Open the DevTools
@@ -191,6 +196,7 @@ async function createWindow() {
       event.preventDefault();
       openBrowserResource(url);
     });
+
   };
 
   try {

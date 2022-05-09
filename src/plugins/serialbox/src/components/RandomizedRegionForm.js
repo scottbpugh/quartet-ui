@@ -152,6 +152,14 @@ class _RandomizedRegionForm extends Component {
           type = "hidden";
           field.hidden = true;
         }
+        if (field.name ==="min" && this.props.location.pathname.split('/')[2] ==="edit-randomized-region" ||
+            field.name ==="max" && this.props.location.pathname.split('/')[2]==="edit-randomized-region" ||
+            field.name ==="start" && this.props.location.pathname.split('/')[2] ==="edit-randomized-region" 
+        ) {
+        // field.props.fieldData.description.read_only=true;
+        field.description.read_only=true;
+            
+        }
         //field.name = field.name.replace(/_/g, "");
         return (
           <Field

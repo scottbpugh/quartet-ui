@@ -37,7 +37,7 @@ export default class RegionRange extends Component {
           aria-labelledby="title desc"
           role="img">
           <g className="barchart">
-            <g className="bar">
+            <g className="bar-info">
               <rect className="unused" width="300" height="40" rx="3" ry="3" />
             </g>
 

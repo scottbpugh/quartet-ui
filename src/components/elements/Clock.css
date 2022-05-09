@@ -1,0 +1,57 @@
+.card-popup-standard {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    background-color: #EED202;
+    width: 400px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    border-radius: 6px;
+    box-shadow: 5px 5px 20px rgba(0,0,0,0.3);
+}
+.card-popup-standard div {
+    /* margin: 5px 0; */
+    font-size: 16px;
+    padding: 0 10px;
+}
+.close-button-popup {
+    position: absolute;
+    /* top: 50%;
+    transform: translateY(-50%); */
+    top: 15px;
+    right: 15px;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 9999;
+}
+.pt-button.pt-icon-cross.close-button-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup-visibility-none {
+    display: none;
+}
+
+.popup-header {
+    font-size: 17px;
+    margin: 5px 0;
+    color: #394b59;
+    font-weight: 500;
+}
+.popup-text {
+    margin: 10px 0;
+    width: 100%;
+    color: #394b59;
+}
+.clock-container span {
+    background-color: #394b59;
+    color: #bfccd6;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin: 0 2px;
+}

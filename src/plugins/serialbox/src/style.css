@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin:10px 0 10px 50px;
 }
 
-.bar {
+.bar-info {
   height: 21px;
   transition: all 5s ease;
   cursor: pointer;
@@ -90,11 +90,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 .unused {
   fill:#B6D94C;
+  text-align: center;
   /*fill:#FFC940;*/
 }
 
 .used {
   fill:#8DC449;
+  text-align: center;
   /*fill:#D99E0B;*/
 }
 

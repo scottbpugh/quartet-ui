@@ -27,7 +27,7 @@ import {Callout, Intent, FormGroup, Dialog, Button} from "@blueprintjs/core";
 import {FormattedMessage} from "react-intl";
 import FormPrompt from "./FormPrompt";
 import PropTypes from "prop-types";
-
+import {pluginRegistry} from "plugins/pluginRegistration";
 export class _PageForm extends Component {
     static propTypes = {
         edit: PropTypes.bool,
@@ -79,21 +79,48 @@ export class _PageForm extends Component {
         }
     };
 
-    capitalize = string => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    };
-
-    // Ensure booleans that were never set are {false}
-    // and remove empty strings from the postValues
-    processUnsetFields = postValues => {
-        let processedData = {};
-        this.state.formStructure.map(field => {
-            if (field.description.type === "boolean") {
-                if (!postValues[field.name] && postValues[field.name] !== false) {
-                    // we are missing this boolean from the submit. Add it.
-                    processedData[field.name] = false; // we set it as false in validated data.
-                }
-            }
+  submit = async postValues => {
+    let {
+      server,
+      operationId,
+      prepopulatedValues,
+      objectName,
+      redirectPath,
+      parameters,
+      submitCallback, // gets called after a response is received.
+      submitPrecall // gets called before submit, but after prepopulated values have been added.
+    } = this.props;
+    if (prepopulatedValues) {
+      for (let field of prepopulatedValues) {
+        // replaces/sets programmatically.
+        postValues[field.name] = field.value;
+      }
+    }
+    let processedData = this.processUnsetFields(postValues);
+    if (submitPrecall) {
+      // only executed if Form has a submitPrecall prop.
+      submitPrecall(processedData, this.props);
+    }
+    if (parameters) {
+      parameters.data = processedData;
+    } else {
+      parameters = {data: processedData};
+    }
+    try {
+      let client =  await pluginRegistry.getServer(this.props.server).getClient();
+      let result = await client.execute({
+        operationId: operationId,
+        parameters: parameters
+      });
+      if (submitCallback) {
+        // execute post submit logic...
+        submitCallback(result);
+      }
+      if (result.status === 201) {
+        showMessage({
+          id: "app.common.objectCreatedSuccessfully",
+          values: {objectName: objectName},
+          type: "success"
         });
         // set to null if empty string
         Object.keys(postValues).forEach(item => {

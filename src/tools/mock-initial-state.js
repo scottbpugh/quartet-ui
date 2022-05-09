@@ -81,6 +81,8 @@ export default {
       "plugins.numberRange.editSequentialRegion": "Edit Sequential Region",
       "plugins.numberRange.addRandomizedRegion": "Add a New Randomized Region",
       "plugins.numberRange.editRandomizedRegion": "Edit Randomized Region",
+      "plugins.numberRange.addListBasedRegion": "Add a New List Based Region",
+      "plugins.numberRange.editListBasedRegion": "Edit List Based Region",
       "plugins.numberRange.addPool": "Add a New Pool",
       "plugins.numberRange.editPool": "Edit Pool",
       "plugins.numberRange.noRegionInPool":

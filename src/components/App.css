@@ -28,10 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
     margin:0!important;
   }
 }
-.application{
-  box-sizing: border-box;padding-top:50px;
-}
-.navbar{
+
+header div.pt-navbar.pt-fixed-top {
+  top: 30px;
 }
 
 .wrapper, html, body, #root, .App {
@@ -140,7 +139,11 @@ html, body {
 .pagination-control > * {
   margin:0 10px 0 0 ;
 }
-
+.task-detail-title{   
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .right-aligned-elem {
   position:absolute;
   right:10px;
@@ -404,4 +407,23 @@ html, body {
   justify-content: center;
   align-items: center;
   margin: 0 15% 0;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #394B59; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #293742; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1d272e; 
 }

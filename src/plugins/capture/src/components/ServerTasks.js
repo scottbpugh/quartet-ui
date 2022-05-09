@@ -54,13 +54,15 @@ class _ServerTasks extends Component {
       tasks: [],
       tasksPerPage: 20,
       inputSize: 50,
-      maxPages: 1
+      maxPages: 1,
+      loading: true
     };
     this.offset = 0;
     this.currentPage = 1;
     this.debounced = null;
     this.taskType = null;
     this.fetchTasks = null;
+    this.timer = null;
   }
 
   updateSearch = evt => {
@@ -87,11 +89,22 @@ class _ServerTasks extends Component {
     this.processTasks();
     this.fetchTasks = setInterval(() => {
       this.processTasks();
-    }, 20000);
+    }, 
+    200000);
+    this.timer = setInterval(()=> {
+      if(sessionStorage.getItem("loading") != this.state.loading) {
+        this.setState({
+          loading: JSON.parse(sessionStorage.getItem("loading")),
+        });
+      };
+    }
+    , 50);
+    // this.setState({loading: !this.state.loading});
   }
 
   componentWillUnmount() {
     clearInterval(this.fetchTasks);
+    clearInterval(this.timer);
     this.fetchTasks = null;
   }
 
@@ -127,10 +140,20 @@ class _ServerTasks extends Component {
     this.props.history.push(path);
   };
 
+  loadingScreen = () => {
+    this.setState(
+      { loading : true },
+      () => {
+          setTimeout(()=>{this.setState({loading : false})}, 750)
+      }
+    );
+  };
+
   // go to next page if possible.
   next = () => {
     this.currentPage += 1;
     this.processTasks(true);
+    
   };
 
   // go to previous page if possible.
@@ -145,18 +168,20 @@ class _ServerTasks extends Component {
   }
 
   processTasks = (clear = false) => {
+    
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
-    this.debounced = setTimeout(() => {
-      const {server} = this.props;
-      this.props.loadTasks(
-        server,
-        this.state.keywordSearch,
-        this.currentPage,
-        "-status_changed"
-      );
-    }, clear ? 0 : 250);
+        this.debounced = setTimeout(() => {
+          const {server, loadTasks} = this.props;
+          loadTasks(
+            server,
+            this.state.keywordSearch,
+            this.currentPage,
+            "-status_changed"
+          );
+        }, clear);
+    // this.loadingScreen();
   };
 
   render() {
@@ -245,7 +270,7 @@ class _ServerTasks extends Component {
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(tasks) && tasks.length > 0
+                {Array.isArray(tasks) && tasks.length > 0 && this.state.loading === false
                   ? tasks.map(task => {
                       let intent = Intent.PRIMARY;
                       switch (task.status) {
@@ -291,7 +316,42 @@ class _ServerTasks extends Component {
                         </tr>
                       );
                     })
-                  : null}
+                    : this.state.loading === true ?
+                    <tr className='tableLoading'>
+                      <div class="middle">
+                          <div class="bar bar1"></div>
+                          <div class="bar bar2"></div>
+                          <div class="bar bar3"></div>
+                          <div class="bar bar4"></div>
+                          <div class="bar bar5"></div>
+                          <div class="bar bar6"></div>
+                          <div class="bar bar7"></div>
+                          <div class="bar bar8"></div>
+                      </div>
+                    </tr>
+                    :
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) != "" && tasks.length === 0 ?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                            <FormattedMessage
+                                id="app.common.searchResult"
+                                defaultMessage="No search result"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) === "" && tasks.length === 0?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                        <FormattedMessage
+                                id="app.common.emptyArray"
+                                defaultMessage="Empty array"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    null
+                  }
               </tbody>
             </table>
           </div>

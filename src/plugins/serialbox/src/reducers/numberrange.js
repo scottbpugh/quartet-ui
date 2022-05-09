@@ -43,6 +43,7 @@ export const initialData = () => ({
 
 export const loadResponseRules = async (server, response) => {
     try {
+        sessionStorage.setItem("loadingRR", true);
         let responseRules = await pluginRegistry
             .getServer(server.serverID)
             .fetchListAll("serialbox_response_rules_list", {}, []);
@@ -63,8 +64,22 @@ export const loadResponseRules = async (server, response) => {
                 }
             });
         }
+        if (response) {
+            setTimeout(()=> {
+                sessionStorage.setItem("loadingRR", false);
+              }, []);
+            return response
+        }
+        console.log(response)
         return response
     } catch (e) {
+        if (response) {
+            console.log("Error inside response!")
+            setTimeout(()=> {
+                sessionStorage.setItem("loadingRR", false);
+              }, []);
+            return response
+        }
         return response
     }
 };

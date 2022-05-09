@@ -24,7 +24,7 @@ import {FormattedMessage} from "react-intl";
 import {Large4} from "./Large4";
 import "./Dashboard.css";
 import {withRouter} from "react-router";
-
+import Clock from "../elements/Clock";
 class _DashboardRight extends Component {
   constructor(props) {
     super(props);
@@ -45,13 +45,14 @@ class _DashboardRight extends Component {
           "bp3-dark": isDark
         })}>
         <h2>QU4RTET</h2>
+        <Clock />
         <h3>
           <FormattedMessage id="app.dashboard.dashboardHeader3" />
         </h3>
         <h4 className="version">
           <FormattedMessage
             id="app.dashboard.version"
-            values={{appVersion: this.state.version}}
+            values={{appVersion: `${this.state.version}`}}
           />
         </h4>
         <Large4 />

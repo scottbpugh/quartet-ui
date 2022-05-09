@@ -161,7 +161,10 @@ const App = connect(
       theme: state.layout.theme,
       serversettings: state.serversettings,
       currentLocale: state.intl.locale,
-      intl: state.intl
+      intl: state.intl,
+      visibility: state.layout.visibility,
+      serverVisibility: state.layout.serverVisibility,
+      serverVis: state.layout.serverVis,
     };
   },
   dispatch => {

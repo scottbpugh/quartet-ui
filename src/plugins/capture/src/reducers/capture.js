@@ -86,38 +86,34 @@ export const deleteRule = (server, rule) => {
 };
 
 export const loadTasks = (server, search, page, ordering) => {
-    const params = {};
-    if (search) {
-        params.search = search;
-    }
-    if (page) {
-        params.page = page;
-    }
-    if (ordering) {
-        params.ordering = ordering;
-    }
-    return dispatch => {
-        pluginRegistry
-            .getServer(server.serverID)
-            .fetchPageList("capture_tasks_list", params, [])
-            .then(response => {
-                return dispatch({
-                    type: actions.loadTasks,
-                    payload: {
-                        serverID: server.serverID,
-                        tasks: response.results,
-                        count: response.count,
-                        next: response.next
-                    }
-                });
-            })
-            .catch(e => {
-                showMessage({
-                    type: "error",
-                    msg: "An error occurred while attempting to fetch tasks."
-                });
-            });
-    };
+  const params = {};
+  params.search = sessionStorage.getItem(`pageSearch${server.serverID}`);
+  params.page = sessionStorage.getItem(`pageTask${server.serverID}`);;
+  if (ordering) {
+    params.ordering = ordering;
+  }
+  return dispatch => {
+    pluginRegistry
+      .getServer(server.serverID)
+      .fetchPageList("capture_tasks_list", params, [])
+      .then(response => {
+        return dispatch({
+          type: actions.loadTasks,
+          payload: {
+            serverID: server.serverID,
+            tasks: response.results,
+            count: response.count,
+            next: response.next
+          }
+        });
+      })
+      .catch(e => {
+        showMessage({
+          type: "error",
+          msg: "An error occurred while attempting to fetch tasks."
+        });
+      });
+  };
 };
 
 export const deleteStep = (server, step) => {

@@ -55,6 +55,7 @@ class _TaskDetail extends Component {
       downloadLink: ""
     };
     this.autoRefresh = null;
+    this.timeArray = [];
   }
   setDownloadLink = async () => {
     let serverObject = await pluginRegistry.getServer(this.props.server);
@@ -145,7 +146,21 @@ class _TaskDetail extends Component {
         });
       });
   };
+  msToTime = (duration) => {
+    var milliseconds = parseInt((duration % 1000)),
+      seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    // console.log(hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ")
+    return hours + "h " + minutes + "m " + seconds + "s " + milliseconds+ "ms ";
+  }
+
   render() {
+    // console.log(this.state)
     const {task} = this.state;
     let intent = Intent.PRIMARY;
     switch (task.status) {
@@ -169,12 +184,24 @@ class _TaskDetail extends Component {
       <RightPanel title={<FormattedMessage id="plugins.capture.taskDetail" />}>
         {task ? (
           <div className="cards-container">
-            <Card className="bp3-elevation-1">
-              <h5 className="bp3-heading">
-                {task.name}
+            <Card className="pt-elevation-4">
+            
+              <h5 className="task-detail-title">
+              <button 
+                tabindex="0" 
+                className="pt-icon-arrow-left pt-button pt-interactive pt-intent-primary"
+                title="Back"
+                onClick={e => 
+                  {this.props.history.push(`/capture/tasks/${
+                    this.props.server.serverID
+                  }`)}
+                }>
+                <FormattedMessage id="plugins.capture.backToList" />
+              </button>
+                <span style={{paddingLeft: "10px"}}>{task.name}</span>
                 {this.state.downloadLink ? (
                   <a
-                    style={{color: linkColor, paddingLeft: "10px"}}
+                    style={{color: linkColor, paddingLeft: "10px",paddingRight: "10px"}}
                     href={this.state.downloadLink}
                     target="_blank">
                     <Icon
@@ -185,7 +212,7 @@ class _TaskDetail extends Component {
                 ) : null}
                 <button
                   onClick={this.toggleConfirmRestart}
-                  className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary">
+                  className="pt-button pt-interactive pt-intent-primary pt-btn-flex">
                   <FormattedMessage id="plugins.capture.restart" />
                 </button>
               </h5>
@@ -281,6 +308,21 @@ class _TaskDetail extends Component {
                   default:
                     intent = Intent.PRIMARY;
                 }
+                this.timeArray.push(message.created);
+                const fillteredTimeArray = [...new Set(this.timeArray)]
+                const timesArray = [];
+                let i;
+                for (i=0;i < fillteredTimeArray.length; ++i) {
+                  if (i === 0) {
+                    timesArray.push(this.msToTime(new Date(fillteredTimeArray[i]).getTime()));
+                    const diffTime = fillteredTimeArray[i] - fillteredTimeArray[i-1];
+                  } else {
+                    const filteredArrayDiff = new Date(fillteredTimeArray[i]).getTime() - new Date(fillteredTimeArray[i-1]).getTime();
+                    timesArray.push(this.msToTime(filteredArrayDiff));
+                  }
+                  
+                };
+
                 return (
                   <div
                     key={`task-message-${message.id}`}
@@ -300,6 +342,16 @@ class _TaskDetail extends Component {
                             </td>
                           </tr>
                           {yieldDataPairRowIfSet("Created", message.created)}
+                          {
+                            index > 0 ? 
+                            <tr>
+                              <td>Time</td>
+                              <td>{timesArray[index]} <span className="pt-icon-time"></span></td>
+                            </tr> 
+                            : 
+                            null
+                          }
+
                         </tbody>
                       </table>
                     </div>
