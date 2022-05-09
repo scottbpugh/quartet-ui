@@ -52,7 +52,7 @@ class _DashboardRight extends Component {
         <h4 className="version">
           <FormattedMessage
             id="app.dashboard.version"
-            values={{appVersion: `${this.state.version}_internal`}}
+            values={{appVersion: `${this.state.version}`}}
           />
         </h4>
         <Large4 />
