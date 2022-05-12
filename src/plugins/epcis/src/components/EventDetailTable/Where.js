@@ -32,7 +32,7 @@ class _Where extends Component {
           <FormattedMessage id="plugins.epcis.where" defaultMessage="Where" />
         </div>
         <div className="detail-table-container">
-          <table className="pt-table pt-bordered pt-striped">
+          <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
             <tbody>
               <tr>
                 <td>Business Location</td>

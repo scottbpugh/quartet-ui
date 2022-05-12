@@ -17,10 +17,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {Component} from "react";
-import {Menu, MenuItem, Popover, Position} from "@blueprintjs/core";
-import classNames from "classnames";
-import {FormattedMessage} from "react-intl";
-import {connect} from "react-redux";
+import {Button} from "@blueprintjs/core";
 import {pluginRegistry} from "plugins/pluginRegistration";
 
 export class GoBackButton extends Component {
@@ -35,15 +32,16 @@ export class GoBackButton extends Component {
   render() {
     return (
       <div>
-        <button
+        <Button
           onClick={e => {
             if (this.state.backAllowed) {
               this.props.history.goBack();
             }
           }}
+          icon="arrow-left"
           tabIndex="0"
           disabled={!this.state.backAllowed}
-          className="pt-button pt-icon-arrow-left"
+          className="bp3-button"
           title={pluginRegistry
             .getIntl()
             .formatMessage({id: "app.common.backButton"})}>
@@ -52,7 +50,7 @@ export class GoBackButton extends Component {
                 id="plugins.numberRange.addServer"
                 defaultMessage="Add a New Server"
               /> */}
-        </button>
+        </Button>
       </div>
     );
   }

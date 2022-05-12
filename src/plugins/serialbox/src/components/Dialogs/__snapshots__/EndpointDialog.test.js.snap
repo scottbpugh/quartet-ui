@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a button for dialog properly 1`] = `
+<div>
+  <div>
+    <div>
+      <button
+        className="bp3-button"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        type="button"
+      >
+        <span>
+          Select End-Point
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

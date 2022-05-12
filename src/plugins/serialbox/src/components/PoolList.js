@@ -18,7 +18,7 @@
 
 import {loadPools, loadResponseRules} from "../reducers/numberrange";
 import PoolListItem from "./PoolListItem";
-
+import Loader from "../../../../components/Loader";
 const React = qu4rtet.require("react");
 const {Component} = React;
 const {connect} = qu4rtet.require("react-redux");
@@ -81,10 +81,10 @@ class ServerPools extends Component {
         let serverName = this.props.server.serverSettingName;
         let serverID = this.props.server.serverID;
         return (
-            <Card className="pt-elevation-4">
-                <h5>
+            <Card className="bp3-elevation-1">
+                <h5 className="bp3-heading">
                     <button
-                        className="pt-button add-pool-button pt-intent-primary"
+                        className="bp3-button add-pool-button bp3-intent-primary"
                         onClick={e => {
                             this.props.history.push(`/number-range/add-pool/${serverID}/`);
                         }}>
@@ -94,7 +94,7 @@ class ServerPools extends Component {
                 </h5>
                 <div/>
                 <div>
-                    <table className="pool-list-table pt-table pt-bordered pt-striped">
+                    <table className="pool-list-table bp3-table bp3-bordered bp3-striped">
                         <thead>
                         <tr>
                             <th>
@@ -168,34 +168,50 @@ class ServerPools extends Component {
 class _PoolList extends Component {
     componentDidMount() {
         let {server} = this.props;
-        this.props.loadPools(pluginRegistry.getServer(server.serverID));
+        //this.props.loadPools(pluginRegistry.getServer(server.serverID));
     }
 
     render() {
-        let {server, pools} = this.props;
-        return (
-            <RightPanel
-                title={
-                    <FormattedMessage
-                        id="plugins.numberRange.numberRangePools"
-                        defaultMessage="Number Range Pools"
-                    />
-                }>
-                <div className="large-cards-container">
-                    <ServerPools
-                        history={this.props.history}
-                        server={server}
-                        pools={pools}
-                    />
-                </div>
-            </RightPanel>
-        );
+        let {server, pools, loading} = this.props;
+        if(!loading){
+            return (
+                <RightPanel
+                    title={
+                        <FormattedMessage
+                            id="plugins.numberRange.numberRangePools"
+                            defaultMessage="Number Range Pools"
+                        />
+                    }>
+                    <div className="large-cards-container">
+                        <ServerPools
+                            history={this.props.history}
+                            server={server}
+                            pools={pools}
+                        />
+                    </div>
+                </RightPanel>
+            );
+        }else{
+            return(
+                <RightPanel
+                    title={
+                        <FormattedMessage
+                            id="plugins.numberRange.numberRangePools"
+                            defaultMessage="Number Range Pools"
+                        />
+                    }>
+                    <Loader/>
+                </RightPanel>
+            )
+        }
+
     }
 }
 
 export var PoolList = connect(
     (state, ownProps) => {
         return {
+            loading: state.numberrange.loading,
             server: state.serversettings.servers[ownProps.match.params.serverID],
             pools: state.numberrange.servers
                 ? state.numberrange.servers[ownProps.match.params.serverID].pools

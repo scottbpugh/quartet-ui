@@ -326,7 +326,7 @@ class PluginRegistry {
       // stub when intl is not yet available.
       return {
         formatMessage: msg => {
-          return "";
+          return msg.defaultMessage;
         }
       };
     }

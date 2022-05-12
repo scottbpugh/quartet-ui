@@ -118,19 +118,10 @@ export class _ControlPanel extends Component {
       <div className="leftbar-group">
         <div
           className={classNames({
-            "pt-button-group": true,
-            "pt-minimal": true,
-            "pt-dark": this.state.isDark
+            "bp3-button-group": true,
+            "bp3-minimal": true,
+            "bp3-dark": this.state.isDark
           })}>
-          <button
-            onClick={this.goTo.bind(this, "/")}
-            tabIndex="0"
-            className={classNames({
-              "pt-button": true,
-              "pt-icon-home": true
-            })}
-          />
-
           <GoBackButton
             history={this.props.history}
             currentPath={this.props.currentPath}

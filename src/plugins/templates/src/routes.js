@@ -16,20 +16,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
-import "tools/mockStore"; // mock ipcRenderer, localStorage, ...
-import renderer from "react-test-renderer";
-import {TestWrapper} from "tools/mockStore";
-import {SwitchLocale} from "./SwitchLocale";
+import {TemplatesList} from "./components/Lists/TemplatesList";
+import {AddTemplate} from "./components/Forms/TemplateForm";
 
-it("renders correctly", () => {
-  const props = {};
-  const switchLocale = renderer
-    .create(
-      <TestWrapper>
-        <SwitchLocale {...props} />
-      </TestWrapper>
-    )
-    .toJSON();
-  expect(switchLocale).toMatchSnapshot();
-});
+const React = qu4rtet.require("react");
+const {Route} = qu4rtet.require("react-router");
+
+export default (() => {
+  return [
+    <Route
+      key="addTemplate"
+      path="/templates/:serverID/add-template"
+      component={AddTemplate}
+    />,
+    <Route
+      key="templatesList"
+      path="/templates/:serverID/templates"
+      component={TemplatesList}
+    />
+  ];
+})();

@@ -29,6 +29,7 @@ const classNames = qu4rtet.require("classnames");
 const {DeleteDialog} = qu4rtet.require("./components/elements/DeleteDialog");
 const {RightPanel} = qu4rtet.require("./components/layouts/Panels");
 import {loadPools, loadRegions} from "../reducers/numberrange";
+import Loader from "../../../../components/Loader";
 
 /**
  * _RegionDetail - Description
@@ -64,41 +65,54 @@ class _RegionDetail extends Component {
   render() {
     let regions = this.props.currentRegions;
 
-    return (
-      <RightPanel
-        title={
-          <FormattedMessage
-            id="plugins.numberRange.regionDetailTitle"
-            values={{poolName: this.currentPool.readable_name}}
-          />
-        }>
-        <div className="auto-cards-container">
-          {regions && regions.length > 0 ? (
-            regions.map(region => (
-              <RegionCard
-                key={region.machine_name}
-                lastUpdated={this.state.lastUpdated}
-                region={region}
-                alloc={this.state.alloc}
-                pool={this.currentPool}
-                serverID={this.props.server.serverID}
-                serverObject={pluginRegistry.getServer(
-                  this.props.server.serverID
-                )}
-                history={this.props.history}
-              />
-            ))
-          ) : (
-            <Callout>
-              <div className="pt-running-text">
-                <FormattedMessage id="plugins.numberRange.noRegionInPool" />
-              </div>
-            </Callout>
-          )}
-        </div>
-      </RightPanel>
-    );
-    //<div>{JSON.stringify(this.props.region)}</div>;
+    if(!this.props.loading){
+      return (
+          <RightPanel
+              title={
+                <FormattedMessage
+                    id="plugins.numberRange.regionDetailTitle"
+                    values={{poolName: this.currentPool.readable_name}}
+                />
+              }>
+            <div className="auto-cards-container">
+              {regions && regions.length > 0 ? (
+                  regions.map(region => (
+                      <RegionCard
+                          key={region.machine_name}
+                          lastUpdated={this.state.lastUpdated}
+                          region={region}
+                          alloc={this.state.alloc}
+                          pool={this.currentPool}
+                          serverID={this.props.server.serverID}
+                          serverObject={pluginRegistry.getServer(
+                              this.props.server.serverID
+                          )}
+                          history={this.props.history}
+                      />
+                  ))
+              ) : (
+                  <Callout>
+                    <div className="bp3-running-text">
+                      <FormattedMessage id="plugins.numberRange.noRegionInPool" />
+                    </div>
+                  </Callout>
+              )}
+            </div>
+          </RightPanel>
+      );
+    }else{
+      return (
+          <RightPanel
+              title={
+                <FormattedMessage
+                    id="plugins.numberRange.regionDetailTitle"
+                    values={{poolName: this.currentPool.readable_name}}
+                />
+              }>
+              <Loader/>
+          </RightPanel>
+      );
+    }
   }
 }
 
@@ -107,7 +121,8 @@ export var RegionDetail = connect(
     return {
       server: state.serversettings.servers[ownProps.match.params.serverID],
       pools: state.numberrange.servers[ownProps.match.params.serverID].pools,
-      currentRegions: state.numberrange.currentRegions
+      currentRegions: state.numberrange.currentRegions,
+      loading: state.numberrange.loading
     };
   },
   {loadPools, loadRegions}

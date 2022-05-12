@@ -32,12 +32,7 @@ require.extensions[".css"] = function(module, filename) {
 };
 
 export const enablePlugin = () => {
-    pluginRegistry.registerReducer(
-      PLUGIN_NAME,
-      "numberrange",
-      reducer,
-      initialData()
-    );
+    pluginRegistry.registerReducer(PLUGIN_NAME, "numberrange", reducer, initialData());
     pluginRegistry.setMessages(messages);
     pluginRegistry.registerRoutes(PLUGIN_NAME, routes);
     pluginRegistry.registerComponent(

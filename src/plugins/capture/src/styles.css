@@ -9,7 +9,7 @@
   margin: 0 0 30px;
   background:rgba(0, 0, 0, 0.04);
 }
-.pt-dark .task-messages .inset-card {
+.bp3-dark .task-messages .inset-card {
   background:rgba(0, 0, 0, 0.07);
 }
 
@@ -50,7 +50,7 @@
   white-space: pre-wrap;
   font-size:14px;
 }
-.pt-dark .task-messages .inset-card .numbered-message {
+.bp3-dark .task-messages .inset-card .numbered-message {
     background-color: rgba(255, 255, 255, 0.02);
 }
 

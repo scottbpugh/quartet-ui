@@ -102,7 +102,7 @@ class _AddTradeItem extends Component {
         }>
         <div className="large-cards-container">
           <Card className="form-card">
-            <h5>
+            <h5 className="bp3-heading">
               {!editMode ? (
                 <FormattedMessage id="plugins.masterData.addTradeItem" />
               ) : (
@@ -142,10 +142,10 @@ class _AddTradeItem extends Component {
             />
           </Card>
           {editMode ? (
-            <Card className="pt-elevation-4 form-card">
-              <h5>
+            <Card className="bp3-elevation-1form-card">
+              <h5 className="bp3-heading">
                 <button
-                  className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
+                  className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
                   onClick={e => {
                     this.props.history.push(
                       `/masterdata/add-trade-item-field/${
@@ -160,7 +160,7 @@ class _AddTradeItem extends Component {
 
               {Array.isArray(tradeItem.tradeitemfield_set) &&
               tradeItem.tradeitemfield_set.length > 0 ? (
-                <table className="pt-table pt-interactive pt-bordered pt-striped">
+                <table className="bp3-interactive paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-stripedd">
                   <thead>
                     <th>
                       <FormattedMessage
@@ -187,7 +187,7 @@ class _AddTradeItem extends Component {
                             <ButtonGroup minimal={true} small={true}>
                               <Button
                                 small={true}
-                                iconName="edit"
+                                icon="edit"
                                 onClick={this.editTradeItemField.bind(
                                   this,
                                   field
@@ -195,7 +195,7 @@ class _AddTradeItem extends Component {
                               />
                               <Button
                                 small={true}
-                                iconName="trash"
+                                icon="trash"
                                 onClick={this.deleteTradeItemField.bind(
                                   this,
                                   field

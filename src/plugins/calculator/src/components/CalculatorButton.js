@@ -16,35 +16,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import messages from "messages";
-import {switchLocale} from "reducers/locales";
+const React = qu4rtet.require("react");
+const {Component} = React;
+const {withRouter} = qu4rtet.require("react-router-dom");
+import {Button} from '@blueprintjs/core';
 
-class _SwitchLocale extends Component {
+class _CalculatorButton extends Component {
+  static get PLUGIN_COMPONENT_NAME() {
+    return "GTINCalculatorButton";
+  }
   render() {
-    const {currentLocale} = this.props;
     return (
-      <div className="pt-select">
-        <select
-          value={currentLocale}
-          onChange={e => this.props.switchLocale(e.target.value)}
-        >
-          {Object.keys(messages).map(locale => (
-            <option key={locale}>
-              {locale}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Button
+          border={false}
+        className="pt-button"
+        icon="calculator"
+        onClick={e => {
+          this.props.history.push("/calculator/gtin");
+        }}
+      />
     );
   }
 }
 
-export var SwitchLocale = connect(
-  state => ({
-    currentLocale: state.intl.locale
-  }),
-  {switchLocale}
-)(_SwitchLocale);
-window.qu4rtet.exports("components/layouts/elements/SwitchLocale", this);
+export const CalculatorButton = withRouter(_CalculatorButton);

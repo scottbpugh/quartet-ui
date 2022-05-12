@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a button for dialog properly 1`] = `
+<div>
+  <div>
+    <div>
+      <button
+        className="pt-button"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        type="button"
+      >
+        <span>
+          Select Authentication Info
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders a dialog properly 1`] = `
+<div>
+  <div>
+    <div>
+      <button
+        className="pt-button"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        type="button"
+      >
+        <span>
+          Select Authentication Info
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

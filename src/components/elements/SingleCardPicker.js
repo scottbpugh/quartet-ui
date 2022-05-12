@@ -135,7 +135,7 @@ class _SingleCardPicker extends Component {
           </div>
           <div>
             <ControlGroup fill={false} vertical={false}>
-              <div className="pt-select">
+              <div className="bp3-select">
                 <select value={this.state.filter}>
                   <option value="">Search</option>
                 </select>

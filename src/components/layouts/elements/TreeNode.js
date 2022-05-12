@@ -22,6 +22,7 @@ import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import {ContextMenuTarget, Icon} from "@blueprintjs/core";
 import {SubTree} from "./NavTree";
+import "./TreeNode.css";
 import {serverVisibility} from "reducers/layout";
 import swal from '@sweetalert/with-react';
 
@@ -125,7 +126,7 @@ class _TreeNode extends Component {
     return (
       <li className="list-flex-display">
       <li
-        className={classNames({
+        className={classNames("tree-node",{
           arrow: true,
           collapsed: collapsed,
         })}
@@ -160,7 +161,7 @@ class _TreeNode extends Component {
                 "arrow-rotated": !collapsed
               })}>
               <Icon
-                iconName="pt-icon-chevron-right"
+                icon={this.props.icon}
                 style={{visibility: expandable ? "visible" : "hidden"}}
               />
             </span>

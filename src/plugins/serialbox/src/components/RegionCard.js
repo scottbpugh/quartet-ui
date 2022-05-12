@@ -118,13 +118,13 @@ export class _RegionCard extends Component {
       <div>
         <Card
           className={classNames({
-            "pt-elevation-4": true,
+            "bp3-elevation-1": true,
             "region-detail": true,
             updated: lastUpdated === region.machine_name
           })}
           key={region.machine_name}>
           <div onMouseEnter={this.mouseIn} onMouseLeave={this.mouseOut}>
-            <h5>
+            <h5 className="bp3-heading">
               <Tag className="tag-header" intent={Intent.PRIMARY}>
                 {regionTitle}
               </Tag>
@@ -136,12 +136,12 @@ export class _RegionCard extends Component {
                   small={true}>
                   <Button
                     small={true}
-                    iconName="edit"
+                    icon="edit"
                     onClick={this.goToEdit}
                   />
                   <Button
                     small={true}
-                    iconName="trash"
+                    icon="trash"
                     onClick={this.toggleDialog}
                   />
                 </ButtonGroup>
