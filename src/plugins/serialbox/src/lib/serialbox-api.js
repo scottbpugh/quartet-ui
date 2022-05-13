@@ -45,11 +45,6 @@ export const getPools = server => {
     });
 };
 
-
-export const getReponseRules = (server, pool) => {
-  return pluginRegistry
-}
-
 /**
  * getRegion - Description
  *
@@ -176,7 +171,7 @@ export const allocate = async (server, pool, value, exportType) => {
       // Requesting XML as is.
       let headers = await prepHeadersAuth(server, "GET", "application/xml", "application/xml");
       let response = await fetch(`${server.url}serialbox/allocate/${pool.machine_name}/${value}/`, {...headers});
-      let raw = await response.text();
+      let raw = await response.text();      
       if (!response.ok) {
 	throw new Error(raw.substring(0,250))
       }

@@ -168,7 +168,7 @@ class _RandomizedRegionForm extends Component {
             fieldData={field}
             component={DefaultField}
             type={type}
-            className="bp3-input"
+            className="pt-input"
             width={300}
             validate={field.validate}
           />
@@ -185,14 +185,14 @@ class _RandomizedRegionForm extends Component {
         {form}
 
         <button
-          className="bp3-button bp3-intent-primary"
+          className="pt-button pt-intent-primary"
           type="submit"
           disabled={this.props.submitting}>
           Submit
         </button>
         <button
           style={{marginLeft: "10px"}}
-          className="bp3-button"
+          className="pt-button"
           onClick={this.cancel}>
           Cancel
         </button>

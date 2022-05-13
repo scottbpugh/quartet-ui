@@ -44,7 +44,7 @@ class _AddLocalPlugin extends Component {
               label="Plugin Name"
               require={true}>
               <Field
-                className="bp3-input"
+                className="pt-input"
                 name="pluginName"
                 component="input"
                 type="text"
@@ -56,7 +56,7 @@ class _AddLocalPlugin extends Component {
               label="Init Path"
               require={true}>
               <Field
-                className="bp3-input"
+                className="pt-input"
                 name="initPath"
                 component="input"
                 type="text"
@@ -67,7 +67,7 @@ class _AddLocalPlugin extends Component {
               helperText="The path to the preview thumbnail"
               label="preview">
               <Field
-                className="bp3-input"
+                className="pt-input"
                 name="preview"
                 component="input"
                 type="text"
@@ -78,7 +78,7 @@ class _AddLocalPlugin extends Component {
               helperText="The name as it will appear in the plugin list"
               label="Readable Name">
               <Field
-                className="bp3-input"
+                className="pt-input"
                 name="readableName"
                 component="input"
                 type="text"
@@ -90,7 +90,7 @@ class _AddLocalPlugin extends Component {
               helperText="The package path or package name in NPM."
               label="Package Path">
               <Field
-                className="bp3-input"
+                className="pt-input"
                 name="packagePath"
                 component="input"
                 type="text"
@@ -102,7 +102,7 @@ class _AddLocalPlugin extends Component {
               helperText="The description of what this plugin does."
               label="Description">
               <Field
-                className="bp3-input"
+                className="pt-input"
                 name="description"
                 component="input"
                 type="text"

@@ -43,10 +43,10 @@ export const routeLocationDidUpdate = location => {
     });
   };
 };
-export const switchTheme = theme => {
+export const switchTheme = themeName => {
   // currently either light or dark.
   return dispatch => {
-    return dispatch({type: actions.switchTheme, payload: theme});
+    return dispatch({type: actions.switchTheme, payload: themeName});
   };
 };
 export const switchVisibility = visibility => {
@@ -79,8 +79,7 @@ export default handleActions(
     [actions.switchTheme]: (state, action) => {
       return {
         ...state,
-        theme: action.payload.id,
-        themeObject: action.payload
+        theme: action.payload
       };
     },
     [actions.switchVisibility]: (state, action) => {

@@ -30,7 +30,8 @@ class _AddPool extends Component {
     super(props);
     this.currentServer = this.props.servers[this.props.match.params.serverID];
   }
-  
+  componentDidMount() {}
+
   editResponseRule = responseRule => {
     let pool = this.getPool();
     this.props.history.push({
@@ -80,8 +81,8 @@ class _AddPool extends Component {
               )
             }>
           <div className="large-cards-container">
-            <Card className="bp3-elevation-1form-card">
-              <h5 className="bp3-heading">
+            <Card className="pt-elevation-4 form-card">
+              <h5>
                 {!editMode ? (
                     <FormattedMessage id="plugins.numberRange.addPool" />
                 ) : (
@@ -95,10 +96,10 @@ class _AddPool extends Component {
               />
             </Card>
             {editMode ? (
-                <Card className="bp3-elevation-1form-card">
-                  <h5 className="bp3-heading">
+                <Card className="pt-elevation-4 form-card">
+                  <h5>
                     <button
-                        className="bp3-button right-aligned-elem bp3-interactive bp3-intent-primary"
+                        className="pt-button right-aligned-elem pt-interactive pt-intent-primary"
                         onClick={e => {
                           this.props.history.push({
                             pathname: `/number-range/add-response-rule/${
@@ -114,7 +115,7 @@ class _AddPool extends Component {
                   {pool &&
                   Array.isArray(pool.response_rules) &&
                   pool.response_rules.length > 0 ? (
-                      <table className="paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+                      <table className="pt-table pt-interactive pt-bordered pt-striped">
                         <thead>
                         <tr>
                           <th>
@@ -150,7 +151,7 @@ class _AddPool extends Component {
                                       <ButtonGroup minimal small>
                                         <Button
                                             small="true"
-                                            icon="edit"
+                                            iconName="edit"
                                             onClick={this.editResponseRule.bind(
                                                 this,
                                                 responseRule
@@ -158,7 +159,7 @@ class _AddPool extends Component {
                                         />
                                         <Button
                                             small="true"
-                                            icon="trash"
+                                            iconName="trash"
                                             onClick={this.deleteResponseRule.bind(
                                                 this,
                                                 responseRule

@@ -28,7 +28,7 @@ const SiteEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5 className="bp3-heading">
+      <h5>
         {props.entry.name}
       </h5>
       {props.entry.longitude && props.entry.latitude ? (
@@ -112,7 +112,7 @@ export class SiteDialog extends Component {
           {this.state.siteName ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="bp3-intent-primary"
+              className="pt-intent-primary"
               onClick={this.props.toggleSiteDialog}
             >
               {this.state.siteName}
@@ -125,17 +125,17 @@ export class SiteDialog extends Component {
           )}
         </div>
         <Dialog
-          icon="inbox"
+          iconName="inbox"
           isOpen={this.props.isSiteOpen}
           onClose={this.props.toggleSiteDialog}
           style={{width: "80%"}}
           className={classNames({
-            "bp3-dark": this.props.theme.includes("dark"),
+            "pt-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Site"
         >
-          <div className="bp3-dialog-body">
+          <div className="pt-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -144,7 +144,7 @@ export class SiteDialog extends Component {
               entryClass={SiteEntry}
             />
           </div>
-          <div className="bp3-dialog-footer" />
+          <div className="pt-dialog-footer" />
         </Dialog>
       </div>
     );

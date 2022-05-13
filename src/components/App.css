@@ -40,7 +40,6 @@ header div.pt-navbar.pt-fixed-top {
 }
 html, body {
   scroll-behavior: smooth;
-  overflow-y: hidden;
 }
 .wrapper {
     display: flex;
@@ -49,10 +48,9 @@ html, body {
     min-height:100%;
 }
 .main-container {
-
     flex:2;
     display: flex;
-
+    margin-top:50px;
 }
 
 .tags .tag:not(:last-child) {
@@ -97,6 +95,8 @@ html, body {
   top: 7px;
 }
 
+
+
 .very-large-icon {
   font-size:60px !important;
 }
@@ -110,14 +110,13 @@ html, body {
   height:90%;
   font-size:20px;
   cursor:pointer;
-  background-color: inherit;
 }
 
 .form-card {
   min-width:60%;
 }
 
-.form-card .bp3-input {
+.form-card .pt-input {
   width: 100%;
 }
 
@@ -125,7 +124,7 @@ html, body {
   padding:10px 5%;
 }
 
-.form-card form .bp3-form-group {
+.form-card form .pt-form-group {
   margin: 20px 0;
   padding-bottom:10px;
 }
@@ -221,23 +220,23 @@ html, body {
   margin: 0;
   min-height:200px;
 }
-.twin-cards-container .bp3-card:first-child {
+.twin-cards-container .pt-card:first-child {
   margin-bottom: 20px;
 }
 
-.bp3-card h5, .inset-card h5 {
+.pt-card h5, .inset-card h5 {
     padding:15px 10px;
     text-align:center;
     margin: 0px 0px 10px 0px;
     border-radius: 3px;
 }
 
-.auto-cards-container .bp3-card, .large-cards-container .bp3-card, .cards-container .bp3-card, .form-card .bp3-card {
+.auto-cards-container .pt-card, .large-cards-container .pt-card, .cards-container .pt-card, .form-card .pt-card {
   padding:60px 20px 20px 20px; /* Override blueprint since we always want card header */
 }
 
 /* Dark theme color h5 */
-.bp3-dark .auto-cards-container h5, .bp3-dark .large-cards-container h5, .bp3-dark .cards-container h5, .bp3-dark .form-card h5, .bp3-dark .twin-cards-container h5 {
+.pt-dark .auto-cards-container h5, .pt-dark .large-cards-container h5, .pt-dark .cards-container h5, .pt-dark .form-card h5, .pt-dark .twin-cards-container h5 {
   background: #293742;
 }
 
@@ -267,7 +266,7 @@ html, body {
   padding:0 !important;
 }
 
-.large-cards-container .bp3-table {
+.large-cards-container .pt-table {
   width:100%;
 }
 
@@ -289,11 +288,11 @@ html, body {
   overflow-x:scroll;
 }
 
-.overflowed-table table.bp3-table {
+.overflowed-table table.pt-table {
   border-collapse:collapse ;
   border-spacing: 0px 20px;
 }
-.overflowed-table table.bp3-table td {
+.overflowed-table table.pt-table td {
   padding: 20px 10px !important;
 }
 .error-list {
@@ -306,7 +305,7 @@ html, body {
   display:flex;
   border-bottom:1px solid #EEE;
 }
-.error-list .bp3-error-standard {
+.error-list .pt-error-standard {
   padding-right:10px;
 }
 .error-list span.error-msg {
@@ -314,10 +313,10 @@ html, body {
   display:block;
 }
 
-.error-list .bp3-icon-error {
+.error-list .pt-icon-error {
   color:#A82A2A;
 }
-.error-list .bp3-icon-warning-sign {
+.error-list .pt-icon-warning-sign {
   color:#D9822B;
 }
 .card-control {

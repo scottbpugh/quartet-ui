@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   border-radius: 4px;
 }
 
-.bp3-dark .picked-items-container {
+.pt-dark .picked-items-container {
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -43,6 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin:10px;
 }
 
-.picked-items-tags .bp3-tag {
+.picked-items-tags .pt-tag {
   margin: 5px;
 }

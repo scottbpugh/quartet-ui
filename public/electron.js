@@ -23,7 +23,7 @@ const electron = require("electron");
 const app = electron.app;
 const Menu = electron.Menu;
 // Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
+const BrowserWindow = electron.BrowserWindow
 
 const os = require("os");
 const opn = require("opn");
@@ -33,6 +33,9 @@ const fs = require("fs");
 const setTimeout = require("timers").setTimeout;
 
 'use strict';
+
+
+const reload = require('electron-reload')(path.join(__dirname, '../src'));
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -48,22 +51,26 @@ function openBrowserResource(url) {
 
 const isDev = require("electron-is-dev");
 
-if (isDev === true) {
-  const reload = require('electron-reload')(path.join(__dirname, '../src'));
-}
 
+//Handle the error at starting App on Dist version 
+if (!isDev) {
+  process.on('uncaughtException', function (error) {
+    // Handle the error at console.log
+    console.log(error);
+  });
+}
 function setAppMenu() {
   let viewArray = [
-    {role: "resetzoom"},
-    {role: "zoomin"},
-    {role: "zoomout"},
-    {type: "separator"},
-    {role: "togglefullscreen"}
+    { role: "resetzoom" },
+    { role: "zoomin" },
+    { role: "zoomout" },
+    { type: "separator" },
+    { role: "togglefullscreen" }
   ];
   if (isDev || process.env.REACT_DEV === "dev") {
     console.log("Enabling Dev Tools");
-    viewArray.push({type: "separator"});
-    viewArray.push({role: "toggledevtools"});
+    viewArray.push({ type: "separator" });
+    viewArray.push({ role: "toggledevtools" });
   }
   var template = [
     {
@@ -71,7 +78,7 @@ function setAppMenu() {
       submenu: [
         {
           label: "Quit",
-          accelerator: "Command+Q",
+          accelerator: "CmdOrCtrl+Q",
           click: function () {
             app.quit();
           }
@@ -81,21 +88,9 @@ function setAppMenu() {
     {
       label: "Edit",
       submenu: [
-        {
-          label: "Cut",
-          accelerator: "CmdOrCtrl+X",
-          selector: "cut:"
-        },
-        {
-          label: "Copy",
-          accelerator: "CmdOrCtrl+C",
-          selector: "copy:"
-        },
-        {
-          label: "Paste",
-          accelerator: "CmdOrCtrl+V",
-          selector: "paste:"
-        },
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
         {
           label: "Select All",
           accelerator: "CmdOrCtrl+A",
@@ -122,23 +117,18 @@ if (process.env.REACT_DEV === "dev") {
 }
 
 async function createWindow() {
-  let splash = require("./main-process/splash.js")
-    .renderSplashScreen();
+  let splash = require("./main-process/splash.js").renderSplashScreen();
   electron.session.defaultSession.webRequest.onHeadersReceived(
     (details, callback) => {
-      callback({responseHeaders: `script-src 'self'; child-src 'self';`});
+      callback({ responseHeaders: `script-src 'self'; child-src 'self';` });
     }
   );
   let pluginManager = null;
 
   var removeSplashAndLoadApp = function () {
     // Create the browser window.
-    let width = 1600;
-    if(isDev){
-      width = 3200
-    }
     const mainOptions = {
-      width: width,
+      width: 1600,
       height: 1200,
       show: false,
       frame: false,
@@ -213,13 +203,14 @@ async function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-  createWindow();
+    createWindow();
 });
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
+  
   if (process.platform !== "darwin") {
     app.quit();
   }

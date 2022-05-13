@@ -148,12 +148,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 .tree-root .tree-node-content-highlighted {
     background: #CCC !important;
 }
-.bp3-dark .tree-root .tree-node-content-highlighted {
+.pt-dark .tree-root .tree-node-content-highlighted {
     background: #444 !important;
 }
 
 /*
-.bp3-dark .tree-node-content-active {
+.pt-dark .tree-node-content-active {
   /*background: #1E7DBB;
   /* Using logo green color
   background: #8DC449;
@@ -298,7 +298,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
   margin:20% 12.5%;
   min-width:100px;
 }
-.bp3-menu-header {
+.pt-menu-header {
   /* Fix for very long pool names getting under the edit/tras buttons */
   padding-right: 80px;
 }

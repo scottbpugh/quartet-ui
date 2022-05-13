@@ -50,7 +50,7 @@ class _ServerTasks extends Component {
     super(props);
     this.state = {
       filter: "",
-      keywordSearch: "",
+      keywordSearch: sessionStorage.getItem(`pageSearch${this.serverTaskName}`),
       tasks: [],
       tasksPerPage: 20,
       inputSize: 50,
@@ -58,7 +58,8 @@ class _ServerTasks extends Component {
       loading: true
     };
     this.offset = 0;
-    this.currentPage = 1;
+    this.serverTaskName = this.props.server.serverID;
+    this.currentPage = parseInt(sessionStorage.getItem(`pageTask${this.serverTaskName}`));
     this.debounced = null;
     this.taskType = null;
     this.fetchTasks = null;
@@ -67,6 +68,8 @@ class _ServerTasks extends Component {
 
   updateSearch = evt => {
     this.setState({keywordSearch: evt.currentTarget.value});
+    sessionStorage.setItem(`pageSearch${this.serverTaskName}`, evt.currentTarget.value);
+    sessionStorage.setItem(`pageTask${this.serverTaskName}`, 1);
   };
 
   handleEnterKeySearch = evt => {
@@ -151,21 +154,17 @@ class _ServerTasks extends Component {
 
   // go to next page if possible.
   next = () => {
-    this.currentPage += 1;
+    sessionStorage.setItem(`pageTask${this.serverTaskName}`, ++this.currentPage);
     this.processTasks(true);
     
   };
 
   // go to previous page if possible.
   previous = () => {
-    this.currentPage -= 1;
+    sessionStorage.setItem(`pageTask${this.serverTaskName}`, --this.currentPage);
     this.offset = this.state.tasksPerPage * this.currentPage;
     this.processTasks(true);
   };
-
-  getExecutionTime = (seconds) => {
-    return new Date(seconds * 1000).toISOString().substr(11, 8);
-  }
 
   processTasks = (clear = false) => {
     
@@ -188,11 +187,11 @@ class _ServerTasks extends Component {
     let serverName = this.props.server.serverSettingName;
     const {tasks} = this.state;
     return (
-      <Card className="bp3-elevation-1">
-        <h5 className="bp3-heading">
+      <Card className="pt-elevation-4">
+        <h5>
           {" "}
           <div className="right-aligned-elem">
-            <Tag className="bp3-large">
+            <Tag className="pt-large">
               {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
@@ -221,8 +220,9 @@ class _ServerTasks extends Component {
                 <InputGroup
                   onChange={this.updateSearch}
                   onKeyPress={this.handleEnterKeySearch}
-                  value={this.state.keywordSearch}
+                  value={this.state.keywordSearch || sessionStorage.getItem(`pageSearch${this.serverTaskName}`)}
                   placeholder="Enter Keywords..."
+                  defaultValue= {sessionStorage.getItem(`pageSearch${this.serverTaskName}`)}
                 />
               </ControlGroup>
               <div className="label-info-display">
@@ -234,7 +234,7 @@ class _ServerTasks extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table className="pool-list-table paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
               <thead>
                 <tr>
                   <th>
@@ -259,12 +259,6 @@ class _ServerTasks extends Component {
                     <FormattedMessage
                       id="plugins.capture.taskStatus"
                       defaultMessage="Status"
-                    />
-                  </th>
-                  <th>
-                    <FormattedMessage
-                        id="plugins.capture.executionTime"
-                        defaultMessage="Execution Time"
                     />
                   </th>
                 </tr>
@@ -309,9 +303,6 @@ class _ServerTasks extends Component {
                           </td>
                           <td style={{textAlign: "center"}}>
                             <Tag intent={intent}>{task.status}</Tag>
-                          </td>
-                          <td style={{textAlign: "center"}}>
-                            <Tag intent={intent}>{this.getExecutionTime(task.execution_time)}</Tag>
                           </td>
                         </tr>
                       );

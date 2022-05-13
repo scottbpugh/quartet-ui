@@ -30,6 +30,9 @@ const EntryForm = reduxForm({
 })(PageForm);
 
 class _AddEntry extends Component {
+  componentDidMount() {
+    // reminder: load epcis Entrys for refresh later.
+  }
 
   render() {
     const editMode = !!this.props.entry;
@@ -45,7 +48,7 @@ class _AddEntry extends Component {
         }>
         <div className="large-cards-container">
           <Card className="form-card">
-            <h5 className="bp3-heading">
+            <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.epcis.addEntry" />
               ) : (

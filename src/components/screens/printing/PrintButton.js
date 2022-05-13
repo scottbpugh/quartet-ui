@@ -16,8 +16,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {Component} from "react";
-import {Button} from '@blueprintjs/core';
+import React, { Component } from "react";
+import { Menu, MenuItem, Popover, Position } from "@blueprintjs/core";
+import classNames from "classnames";
+import { FormattedMessage } from "react-intl";
 
 
 export class PrintButton extends Component {
@@ -28,14 +30,13 @@ export class PrintButton extends Component {
     render() {
         return (
             <div >
-                <Button
+                <button
                     onClick={e => {
                         window.print();
                     }}
                     tabIndex="1"
-                    className="bp3-button"
+                    className="pt-button pt-icon-print"
                     title="Print current page."
-                    icon='print'
                 />
             </div>
         );

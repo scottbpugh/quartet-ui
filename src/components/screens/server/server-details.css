@@ -16,8 +16,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-
-
 .service-list {
   display:flex;
   flex-direction:row;
@@ -84,7 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /* .pt-dark .service-list li {
   border-bottom: 3px solid #DDD;
 }
-.bp3-dark .service-list li span.icon-dot {
+.pt-dark .service-list li span.icon-dot {
   border: 2px solid #DDD;
   background:#DDD;
 }

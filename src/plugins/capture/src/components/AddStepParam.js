@@ -69,8 +69,8 @@ class _AddStepParam extends Component {
         }
       >
         <div className="large-cards-container">
-          <Card className=" bp3-elevation-1 form-card">
-            <h5 className="bp3-heading">
+          <Card className="pt-elevation-4 form-card">
+            <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.capture.addStepParam" />
               ) : (
@@ -86,9 +86,9 @@ class _AddStepParam extends Component {
               }
               objectName="Step Parameter"
               submitCallback={this.submitCallback.bind(this)}
-              redirectPath={`/capture/edit-rule/${
+              redirectPath={`/capture/edit-step/${
                 this.props.server.serverID
-              }/rule/${rule.id}/step/${step.id}?stepEdit=True`}
+              }/rule/${rule.id}/step/${step.id}`}
               djangoPath="capture/step-parameters/"
               existingValues={stepParam}
               prepopulatedValues={[{name: "step", value: step.id}]}
