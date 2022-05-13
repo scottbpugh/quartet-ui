@@ -1,0 +1,11 @@
+site_name: QU4RTET Desktop App
+pages:
+    - Overview: index.md
+    - Interface: main-screen.md
+    - Connecting to a Server: add-server.md
+    - Number Range: number-range.md
+    - Rules: capture.md
+    - EPCIS: epcis.md
+    - Build Notes For Maintainers: build.md
+theme: cinder
+repo_url: https://gitlab.com/serial-lab/quartet-ui

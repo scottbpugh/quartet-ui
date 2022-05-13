@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`setServerState returns the proper structure when server data is not yet populated 1`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure when server data populated and other keys should remain 1`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure when server data populated and other keys should remain 2`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+      "somethingElse": Array [
+        "hi",
+        "hi",
+      ],
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure with array replaced for same key 1`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure with array replaced for same key 2`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+      "somethingElse": Array [
+        "hi",
+        "hi",
+      ],
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure with array replaced for same key 3`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Object {
+        "this": Object {
+          "is": Object {
+            "something": "completely different",
+          },
+        },
+      },
+      "somethingElse": Array [
+        "hi",
+        "hi",
+      ],
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure with multiple servers 1`] = `
+Object {
+  "servers": Object {
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+      "somethingElse": Object {
+        "hello": "World",
+      },
+    },
+  },
+}
+`;
+
+exports[`setServerState returns the proper structure with multiple servers 2`] = `
+Object {
+  "servers": Object {
+    "Another-Server": Object {
+      "something": "Special",
+    },
+    "random-server-id": Object {
+      "myArray": Array [
+        "hello",
+        "hello",
+      ],
+      "somethingElse": Object {
+        "hello": "World",
+      },
+    },
+  },
+}
+`;

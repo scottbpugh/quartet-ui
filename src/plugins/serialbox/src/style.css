@@ -1,0 +1,126 @@
+/* Copyright (c) 2018 SerialLab Corp.
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+
+.auto-cards-container .region-detail {
+  position:relative;
+  padding-bottom:70px;
+}
+
+.region-detail ul {
+  padding:0;
+  margin:0;
+}
+
+.region-detail.updated {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.region-detail ul li {
+  list-style:none;
+  border-radius:5px;
+  display:block;
+  padding:15px 10px;
+  text-align:center;
+  margin:10px 40px;
+  background:#EBEBEB
+}
+
+.pt-dark .region-detail ul li {
+  background-color: rgba(138, 155, 168, 0.2);
+}
+
+.region-detail .visual {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  height:60px;
+}
+
+.region-detail svg {
+  display:block;
+  margin:10px 0 10px 50px;
+}
+
+.bar-info {
+  height: 21px;
+  transition: all 5s ease;
+  cursor: pointer;
+  font-family: Helvetica, sans-serif;
+}
+
+.unused {
+  fill:#B6D94C;
+  text-align: center;
+  /*fill:#FFC940;*/
+}
+
+.used {
+  fill:#8DC449;
+  text-align: center;
+  /*fill:#D99E0B;*/
+}
+
+.allocating {
+  fill: rgba(0, 0, 0, 0.5);
+}
+
+.barchart text {
+  fill: #fff;
+  stroke: none;
+}
+
+.pool-list-table {
+  margin-top:10px;
+}
+
+.add-pool-button {
+  position:absolute;
+  right:10px;
+  top: 7px;
+}
+
+.tag-header {
+  position:absolute;
+  top: 12px;
+  left:15px;
+}

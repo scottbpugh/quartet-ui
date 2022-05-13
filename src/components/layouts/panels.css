@@ -1,0 +1,66 @@
+/* Copyright (c) 2018 SerialLab Corp.
+
+GNU GENERAL PUBLIC LICENSE
+   Version 3, 29 June 2007
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
+.left-panel {
+    padding:0;
+    background:#394B59;
+    color:#FFF;
+}
+.polar .left-panel {
+  background:#EEF1F3;
+  color:#444;
+}
+.polar .left-panel-title {
+  background:#EEE;
+  color:#444;
+}
+.left-panel-title {
+  padding-top:10px;
+  text-align:center;
+  background:#293742;
+  padding:20px;
+}
+.right-panel {
+    padding:10px;
+    flex: 1 1;
+    min-height:100%;
+    z-index:9;
+    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 4px 8px rgba(16, 22, 26, 0.4), 0 18px 46px 6px rgba(16, 22, 26, 0.4);
+    background:#F5F8FA;
+    width:200px; /* Min-width to fix issue with flex growth. */
+}
+.polar .right-panel {
+    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.02), 0 4px 8px rgba(16, 22, 26, 0.04), 0 18px 46px 6px rgba(16, 22, 26, 0.1);
+}
+.contrasted .right-panel {
+  background:#282B30;
+}
+.pt-dark .right-panel {
+  background:#394B59;
+}
+.dark-brown .right-panel {
+  background:#282B30;
+}
+.react-resizable-handle {
+    height:100%;
+    cursor: ew-resize;
+}
+.contrasted .pt-callout {
+  background:#F5F8FA;
+  color:#182026;
+}

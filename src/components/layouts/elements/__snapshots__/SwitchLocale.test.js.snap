@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="pt-select"
+  >
+    <select
+      onChange={[Function]}
+      value="en-US"
+    >
+      <option>
+        en-US
+      </option>
+      <option>
+        fr-FR
+      </option>
+    </select>
+  </div>
+</div>
+`;

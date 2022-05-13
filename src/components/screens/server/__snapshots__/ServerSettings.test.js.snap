@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    className="right-panel"
+  >
+    <div>
+      <div
+        className="large-cards-container"
+      >
+        <div
+          className="pt-card pt-elevation-0 pt-elevation-4 form-card"
+        >
+          <h5>
+            Connect to a Server
+          </h5>
+          <form
+            onSubmit={[Function]}
+          >
+            <button
+              className="pt-button pt-icon-add pt-button pt-intent-primary"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="submit"
+            >
+              <span>
+                Add Server
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

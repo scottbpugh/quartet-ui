@@ -1,0 +1,41 @@
+{
+  "env": {
+    "development": {
+      "sourceMaps": "inline",
+      "plugins": [
+        //"source-map-support"
+      ]
+    }
+  },
+  "presets": [
+    "electron",
+    "react"
+  ],
+  "plugins": [
+    [
+      "css-modules-transform",
+      {
+        "extractCss": "./public/build/combined.css",
+        "processCss": "./process-css.js",
+        "generateScopedName": "[local]"
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": "./src/",
+        "stripExtensions": [
+          ".js",
+          ".jsx",
+          ".es",
+          ".es6",
+          ".mjs"
+        ]
+      }
+    ]
+  ]
+  // ,
+  // "test": [
+  //     "jest"
+  // ]
+}
