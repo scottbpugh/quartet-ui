@@ -45,8 +45,8 @@ class _AddTask extends Component {
         }
       >
         <div className="large-cards-container">
-          <Card className=" bp3-elevation-1 form-card">
-            <h5 className="bp3-heading">
+          <Card className="pt-elevation-4 form-card">
+            <h5>
               {!editMode ? (
                 <FormattedMessage id="plugins.capture.addTask" />
               ) : (

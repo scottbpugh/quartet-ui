@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import React, {Component} from "react";
-import {Menu, MenuItem, Popover, Position,  Button} from "@blueprintjs/core";
+import {Menu, MenuItem, Popover, Position} from "@blueprintjs/core";
 import classNames from "classnames";
 import {FormattedMessage} from "react-intl";
 
@@ -45,22 +45,21 @@ export class AddServerButton extends Component {
     return (
       <div>
         <Popover
-          className={classNames({"bp3-dark": this.props.isDark})}
+          className={classNames({"pt-dark": this.props.isDark})}
           content={addMenu}
           position={Position.RIGHT_CENTER}
         >
-          <Button
+          <button
             onClick={this.displayMenu}
             tabIndex="0"
-            className="bp3-button"
-            icon="add"
+            className="pt-button pt-icon-add"
           >
             {/*
               <FormattedMessage
                 id="plugins.numberRange.addServer"
                 defaultMessage="Add a New Server"
               /> */}
-          </Button>
+          </button>
         </Popover>
       </div>
     );

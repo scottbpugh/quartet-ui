@@ -21,6 +21,8 @@ import {createAction} from "redux-actions";
 export default {
   loadPageTitle: createAction("LAYOUT_LOAD_PAGE_TITLE"),
   switchTheme: createAction("LAYOUT_SWITCH_THEME"),
-  locationDidUpdate: createAction("LAYOUT_LOCATION_DID_UPDATE")
+  locationDidUpdate: createAction("LAYOUT_LOCATION_DID_UPDATE"),
+  switchVisibility: createAction("LAYOUT_SWITCH_VISIBILITY"),
+  serverVisibility: createAction("LAYOUT_SERVER_VISIBILITY")
 };
 window.qu4rtet.exports("actions/layout", this);

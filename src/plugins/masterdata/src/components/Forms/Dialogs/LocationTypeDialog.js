@@ -27,7 +27,7 @@ const LocationTypeEntry = props => {
   };
   return (
     <div key={props.entry.id} onClick={updateFieldVal.bind(this, props.entry)}>
-      <h5 className="bp3-heading">
+      <h5>
         {props.entry.identifier}
       </h5>
       <ul className="picker-data-list">
@@ -92,7 +92,7 @@ export class LocationTypeDialog extends Component {
           {this.state.locationType ? (
             <Tag
               style={{cursor: "pointer"}}
-              className="bp3-intent-primary"
+              className="pt-intent-primary"
               onClick={this.props.toggleLocationTypeDialog}
             >
               {this.state.locationType}
@@ -105,17 +105,17 @@ export class LocationTypeDialog extends Component {
           )}
         </div>
         <Dialog
-          icon="inbox"
+          iconName="inbox"
           isOpen={this.props.isLocationTypeOpen}
           onClose={this.props.toggleLocationTypeDialog}
           style={{width: "80%"}}
           className={classNames({
-            "bp3-dark": this.props.theme.includes("dark"),
+            "pt-dark": this.props.theme.includes("dark"),
             "wide-dialog": true
           })}
           title="Select a Location Type"
         >
-          <div className="bp3-dialog-body">
+          <div className="pt-dialog-body">
             <SingleCardPicker
               {...this.props}
               changeValue={this.changeValue.bind(this)}
@@ -125,7 +125,7 @@ export class LocationTypeDialog extends Component {
               entryClass={LocationTypeEntry}
             />
           </div>
-          <div className="bp3-dialog-footer" />
+          <div className="pt-dialog-footer" />
         </Dialog>
       </div>
     );

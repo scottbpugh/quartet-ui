@@ -3,17 +3,17 @@
 exports[`returns main 1`] = `
 <div>
   <div
-    className="App bp3-dark dark-brown"
+    className="App pt-dark dark-brown"
   >
     <header>
       <div
-        className="bp3-navbar bp3-fixed-top bp3-dark"
+        className="pt-navbar pt-fixed-top pt-dark"
       >
         <div
-          className="bp3-navbar-group bp3-align-left"
+          className="pt-navbar-group pt-align-left"
         >
           <div
-            className="bp3-navbar-heading"
+            className="pt-navbar-heading"
           >
             <img
               alt="Qu4rtet"
@@ -28,14 +28,14 @@ exports[`returns main 1`] = `
           </div>
         </div>
         <div
-          className="bp3-navbar-group bp3-align-right"
+          className="pt-navbar-group pt-align-right"
         >
           <a
             href="/"
             onClick={[Function]}
           >
             <button
-              className="bp3-button home bp3-minimal"
+              className="pt-button pt-icon-home pt-minimal"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -50,7 +50,7 @@ exports[`returns main 1`] = `
             onClick={[Function]}
           >
             <button
-              className="bp3-button exchange bp3-minimal"
+              className="pt-button pt-icon-exchange pt-minimal"
               onKeyDown={[Function]}
               onKeyUp={[Function]}
               type="button"
@@ -61,10 +61,10 @@ exports[`returns main 1`] = `
             </button>
           </a>
           <div
-            className="bp3-navbar-divider"
+            className="pt-navbar-divider"
           />
           <div
-            className="bp3-select"
+            className="pt-select"
           >
             <select
               onChange={[Function]}
@@ -79,10 +79,10 @@ exports[`returns main 1`] = `
             </select>
           </div>
           <div
-            className="bp3-navbar-divider"
+            className="pt-navbar-divider"
           />
           <div
-            className="bp3-select"
+            className="pt-select"
           >
             <select
               onChange={[Function]}
@@ -116,10 +116,10 @@ exports[`returns main 1`] = `
             </select>
           </div>
           <div
-            className="bp3-navbar-divider"
+            className="pt-navbar-divider"
           />
           <button
-            className="bp3-button user bp3-minimal"
+            className="pt-button pt-icon-user pt-minimal"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
             type="button"
@@ -143,7 +143,7 @@ exports[`returns main 1`] = `
           }
         >
           <h4
-            className="left-panel-title bp3-dark"
+            className="left-panel-title pt-dark"
           >
             <span>
               Dashboard
@@ -162,16 +162,16 @@ exports[`returns main 1`] = `
               className="leftbar-group"
             >
               <div
-                className="bp3-button-group bp3-minimal bp3-dark"
+                className="pt-button-group pt-minimal pt-dark"
               >
                 <button
-                  className="bp3-button home"
+                  className="pt-button pt-icon-home"
                   onClick={[Function]}
                   tabIndex="0"
                 />
                 <div>
                   <button
-                    className="bp3-button arrow-left"
+                    className="pt-button pt-icon-arrow-left"
                     disabled={true}
                     onClick={[Function]}
                     tabIndex="0"
@@ -180,17 +180,17 @@ exports[`returns main 1`] = `
                 </div>
                 <div>
                   <span
-                    className="bp3-popover-target bp3-dark"
+                    className="pt-popover-target pt-dark"
                     onClick={[Function]}
                   >
                     <button
-                      className="bp3-button add"
+                      className="pt-button pt-icon-add"
                     />
                   </span>
                 </div>
                 <div>
                   <button
-                    className="bp3-button print"
+                    className="pt-button pt-icon-print"
                     onClick={[Function]}
                     tabIndex="1"
                     title="Print current page."
@@ -212,7 +212,7 @@ exports[`returns main 1`] = `
                   className="tree-root"
                 >
                   <div
-                    className="bp3-callout info-sign no-server-info"
+                    className="pt-callout pt-icon-info-sign no-server-info"
                   >
                     <span>
                       You currently have no QU4RTET server in your configuration. Click the + icon above and add a new server.

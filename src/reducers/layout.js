@@ -23,7 +23,9 @@ export const initialData = () => {
   return {
     pageTitle: {id: "Main", values: {}},
     currentPath: window.location.pathname,
-    theme: "dark-brown"
+    theme: "dark-brown",
+    visibility: true,
+    serverVis: []
   };
 };
 
@@ -41,13 +43,24 @@ export const routeLocationDidUpdate = location => {
     });
   };
 };
-export const switchTheme = theme => {
+export const switchTheme = themeName => {
   // currently either light or dark.
   return dispatch => {
-    return dispatch({type: actions.switchTheme, payload: theme});
+    return dispatch({type: actions.switchTheme, payload: themeName});
   };
 };
-
+export const switchVisibility = visibility => {
+  // currently either light or dark.
+  return dispatch => {
+    return dispatch({type: actions.switchVisibility, payload: visibility});
+  };
+};
+export const serverVisibility = serverVis => {
+  // currently either light or dark.
+  return dispatch => {
+    return dispatch({type: actions.serverVisibility, payload: serverVis});
+  };
+};
 export default handleActions(
   {
     [actions.loadPageTitle]: (state, action) => {
@@ -66,10 +79,21 @@ export default handleActions(
     [actions.switchTheme]: (state, action) => {
       return {
         ...state,
-        theme: action.payload.id,
-        themeObject: action.payload
+        theme: action.payload
       };
-    }
+    },
+    [actions.switchVisibility]: (state, action) => {
+      return {
+        ...state,
+        visibility: action.payload
+      };
+    },
+    [actions.serverVisibility]: (state, action) => {
+      return {
+        ...state,
+        serverVis: action.payload
+      };
+    },
   },
   {}
 );

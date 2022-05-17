@@ -7,7 +7,7 @@ exports[`renders correctly 1`] = `
     onClick={[Function]}
   >
     <button
-      className="bp3-button test bp3-minimal"
+      className="pt-button pt-icon-test pt-minimal"
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       type="button"

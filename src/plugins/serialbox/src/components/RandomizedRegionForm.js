@@ -152,6 +152,14 @@ class _RandomizedRegionForm extends Component {
           type = "hidden";
           field.hidden = true;
         }
+        if (field.name ==="min" && this.props.location.pathname.split('/')[2] ==="edit-randomized-region" ||
+            field.name ==="max" && this.props.location.pathname.split('/')[2]==="edit-randomized-region" ||
+            field.name ==="start" && this.props.location.pathname.split('/')[2] ==="edit-randomized-region" 
+        ) {
+        // field.props.fieldData.description.read_only=true;
+        field.description.read_only=true;
+            
+        }
         //field.name = field.name.replace(/_/g, "");
         return (
           <Field
@@ -160,7 +168,7 @@ class _RandomizedRegionForm extends Component {
             fieldData={field}
             component={DefaultField}
             type={type}
-            className="bp3-input"
+            className="pt-input"
             width={300}
             validate={field.validate}
           />
@@ -177,14 +185,14 @@ class _RandomizedRegionForm extends Component {
         {form}
 
         <button
-          className="bp3-button bp3-intent-primary"
+          className="pt-button pt-intent-primary"
           type="submit"
           disabled={this.props.submitting}>
           Submit
         </button>
         <button
           style={{marginLeft: "10px"}}
-          className="bp3-button"
+          className="pt-button"
           onClick={this.cancel}>
           Cancel
         </button>

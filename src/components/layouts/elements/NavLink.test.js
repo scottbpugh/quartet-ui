@@ -23,7 +23,7 @@ import {TestWrapper} from "tools/mockStore";
 import NavLink from "./NavLink";
 
 it("renders correctly", () => {
-  const props = {to: "/", iconName: "test"};
+  const props = {to: "/", iconName: "pt-icon-test"};
   const navLink = renderer
     .create(
       <TestWrapper>

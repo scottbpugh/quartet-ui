@@ -64,6 +64,7 @@ const setCompaniesForLocations = async (serverObject, locations) => {
 };
 
 export const loadLocations = (server, search, page, ordering) => {
+  sessionStorage.setItem("loadingRR", true);
   const params = {};
   if (search) {
     params.search = search;
@@ -80,6 +81,7 @@ export const loadLocations = (server, search, page, ordering) => {
       .fetchPageList("masterdata_locations_list", params, [])
       .then(async response => {
         await setCompaniesForLocations(serverObject, response.results);
+        sessionStorage.setItem("loadingRR", false);
         return dispatch({
           type: actions.loadLocations,
           payload: {

@@ -43,6 +43,7 @@ export const initialData = () => ({
 
 export const loadResponseRules = async (server, response) => {
     try {
+        sessionStorage.setItem("loadingRR", true);
         let responseRules = await pluginRegistry
             .getServer(server.serverID)
             .fetchListAll("serialbox_response_rules_list", {}, []);
@@ -63,18 +64,28 @@ export const loadResponseRules = async (server, response) => {
                 }
             });
         }
+        if (response) {
+            setTimeout(()=> {
+                sessionStorage.setItem("loadingRR", false);
+              }, []);
+            return response
+        }
+        console.log(response)
         return response
     } catch (e) {
+        if (response) {
+            console.log("Error inside response!")
+            setTimeout(()=> {
+                sessionStorage.setItem("loadingRR", false);
+              }, []);
+            return response
+        }
         return response
     }
 };
 
 export const loadPools = server => {
     return dispatch => {
-        dispatch({
-            type: actions.setLoadingStatus,
-            payload: true
-        });
         getPools(server).then(async pools => {
             // load response rules, if available.
             pools = await loadResponseRules(server, pools);
@@ -83,7 +94,7 @@ export const loadPools = server => {
                 payload: {
                     [server.serverID]: {pools: pools, server: server}
                 }
-            })
+            });
         });
     };
 };
@@ -108,10 +119,6 @@ export const loadRegion = (server, regionName) => {
 export const loadRegions = (server, pool) => {
     return dispatch => {
         // first get all pools again to refresh pool list.
-        dispatch({
-            type: actions.setLoadingStatus,
-            payload: true
-        })
         getPools(server)
             .then(async pools => {
                 pools = await loadResponseRules(server, pools);
@@ -128,23 +135,14 @@ export const loadRegions = (server, pool) => {
                 let updatedPool = pools.find(aPool => {
                     return aPool.machine_name === pool.machine_name;
                 });
-                await getRegions(server, updatedPool).then(regions => {
+                getRegions(server, updatedPool).then(regions => {
                     dispatch({
                         type: actions.loadRegions,
                         payload: regions
                     });
-                }).then(() => {
-                    dispatch({
-                        type: actions.setLoadingStatus,
-                        payload: false
-                    })
                 });
             })
             .catch(e => {
-                dispatch({
-                    type: actions.setLoadingStatus,
-                    payload: false
-                })
                 showMessage({type: "error", msg: e});
             });
     };
@@ -194,15 +192,6 @@ export const deleteAPool = (server, pool) => {
             });
     };
 };
-
-export const setLoadingStatus = (isLoading) => {
-    return dispatch => {
-        dispatch({
-            action: actions.setLoadingStatus,
-            payload: isLoading
-        })
-    }
-}
 
 export const deleteResponseRule = (server, responseRule, page) => {
     return dispatch => {
@@ -322,13 +311,7 @@ export default handleActions(
         [actions.loadRegions]: (state, action) => {
             return {
                 ...state,
-                currentRegions: action.payload,
-            };
-        },
-        [actions.setLoadingStatus]: (state, action) => {
-            return {
-                ...state,
-                loading: action.payload,
+                currentRegions: action.payload
             };
         },
         [actions.allocate]: (state, action) => {
@@ -369,27 +352,11 @@ export const loadPoolList = (server, search, page, ordering) => {
         let serverObject = pluginRegistry.getServer(server.serverID);
         let response_pools = null;
         let pools = null;
-        dispatch({
-            type: actions.setLoadingStatus,
-            payload: true
-        });
         serverObject
             .fetchPageList("serialbox_pools_list", params, [])
-            // .then(async response => {
-            //     response = await loadResponseRules(server, response);
-            //     await dispatch({
-            //         type: actions.loadPools,
-            //         payload: {
-            //             serverID: server.serverID,
-            //             server: server,
-            //             pools: response.results,
-            //             count: response.count,
-            //             next: response.next
-            //         }
-            //     })
-            // })
-            .then(response => {
-                dispatch({
+            .then(async response => {
+                response = await loadResponseRules(server, response);
+                return dispatch({
                     type: actions.loadPools,
                     payload: {
                         serverID: server.serverID,
@@ -400,20 +367,10 @@ export const loadPoolList = (server, search, page, ordering) => {
                     }
                 })
             })
-            .then(() => {
-                dispatch({
-                    type: actions.setLoadingStatus,
-                    payload: false
-                })
-            })
             .catch(e => {
-                dispatch({
-                    type: actions.setLoadingStatus,
-                    payload: false
-                });
                 showMessage({
                     type: "error",
-                    id: "plugins.numberRange.errorFetchPools",
+                    id: "plugins.masterData.errorFetchPools",
                     values: {error: e}
                 });
             });

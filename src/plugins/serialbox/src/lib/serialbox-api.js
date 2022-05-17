@@ -32,6 +32,7 @@ export const getPools = server => {
     .getServer(server.serverID)
     .fetchListAll("serialbox_pools_list", {related: "true"}, [])
     .then(pools => {
+      // console.log(pools)
       return pools;
     })
     .catch(error => {
@@ -43,11 +44,6 @@ export const getPools = server => {
       return error;
     });
 };
-
-
-export const getReponseRules = (server, pool) => {
-  return pluginRegistry
-}
 
 /**
  * getRegion - Description
@@ -175,7 +171,7 @@ export const allocate = async (server, pool, value, exportType) => {
       // Requesting XML as is.
       let headers = await prepHeadersAuth(server, "GET", "application/xml", "application/xml");
       let response = await fetch(`${server.url}serialbox/allocate/${pool.machine_name}/${value}/`, {...headers});
-      let raw = await response.text();
+      let raw = await response.text();      
       if (!response.ok) {
 	throw new Error(raw.substring(0,250))
       }
@@ -205,7 +201,11 @@ export const allocate = async (server, pool, value, exportType) => {
   }
 };
 
-export const postAddRegion = async (server, postValues, edit = false) => {
+export const postAddRegion = async (
+  server, 
+  postValues, 
+  edit = false
+  ) => {
   let method = "POST";
   let endpoint = "sequential-region-create";
   if (edit) {
@@ -228,7 +228,34 @@ export const postAddRegion = async (server, postValues, edit = false) => {
       });
     });
 };
-
+export const postAddListBasedRegion = async (
+  server, 
+  postValues, 
+  edit = false
+  ) => {
+  let method = "POST";
+  let endpoint = "list-based-region-create";
+  if (edit) {
+    method = "PUT";
+    endpoint = `list-based-region-modify/${postValues.machine_name}`;
+  }
+  let req = {method: method};
+  req.body = JSON.stringify(postValues);
+  return await pluginRegistry
+    .getServer(server.serverID)
+    .fetchWithHeaders(`${server.url}${PREFIX_PATH}${endpoint}/`, req)
+    .then(resp => {
+      return resp;
+    })
+    .catch(error => {
+      showMessage({
+        type: "error",
+        id: "plugins.numberRange.errorVanilla",
+        values: {error: error}
+      });
+      throw error;
+    });
+};
 export const postAddRandomizedRegion = async (
   server,
   postValues,

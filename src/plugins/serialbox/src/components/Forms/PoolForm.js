@@ -52,7 +52,7 @@ class _AddPool extends Component {
                 }>
                 <div className="large-cards-container">
                     <Card className="form-card">
-                        <h5 className="bp3-heading">
+                        <h5>
                             {!editMode ? (
                                 <FormattedMessage id="plugins.masterData.addLocation" />
                             ) : (

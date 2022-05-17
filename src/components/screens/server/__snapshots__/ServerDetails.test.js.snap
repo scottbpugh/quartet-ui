@@ -10,12 +10,12 @@ exports[`renders correctly 1`] = `
         className="cards-container"
       >
         <div
-          className="bp3-card bp3-elevation-0 bp3-elevation-1"
+          className="pt-card pt-elevation-0 pt-elevation-4"
         >
-          <h5 className="bp3-heading">
+          <h5>
             Settings
             <button
-              className="bp3-button edit bp3-intent-primary add-incard-button"
+              className="pt-button pt-icon-edit pt-intent-primary add-incard-button"
               onClick={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -28,7 +28,7 @@ exports[`renders correctly 1`] = `
           </h5>
           <div>
             <table
-              className="bp3-table bp3-bordered bp3-striped"
+              className="pt-table pt-bordered pt-striped"
             >
               <thead>
                 <tr>
@@ -38,7 +38,7 @@ exports[`renders correctly 1`] = `
                   <th>
                     <h6>
                       <span
-                        className="bp3-tag bp3-intent-primary"
+                        className="pt-tag pt-intent-primary"
                       >
                         <a
                           href="http://localhost:8000/"
@@ -78,6 +78,7 @@ exports[`renders correctly 1`] = `
                     path
                   </td>
                   <td>
+                    
                   </td>
                 </tr>
                 <tr>
@@ -149,13 +150,13 @@ exports[`renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="bp3-card bp3-elevation-0 bp3-elevation-1"
+          className="pt-card pt-elevation-0 pt-elevation-4"
         >
-          <h5 className="bp3-heading">
+          <h5>
             Services Enabled
-
+             
             <button
-              className="bp3-button refresh add-incard-button"
+              className="pt-button pt-icon-refresh add-incard-button"
               onClick={[Function]}
               onKeyDown={[Function]}
               onKeyUp={[Function]}
@@ -167,7 +168,7 @@ exports[`renders correctly 1`] = `
             onClick={[Function]}
           >
             <span
-              className="standard refresh very-large-icon"
+              className="pt-icon-standard pt-icon-refresh very-large-icon"
             />
             <span>
               Retry

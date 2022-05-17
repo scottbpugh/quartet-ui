@@ -50,21 +50,26 @@ class _ServerTasks extends Component {
     super(props);
     this.state = {
       filter: "",
-      keywordSearch: "",
+      keywordSearch: sessionStorage.getItem(`pageSearch${this.serverTaskName}`),
       tasks: [],
       tasksPerPage: 20,
       inputSize: 50,
-      maxPages: 1
+      maxPages: 1,
+      loading: true
     };
     this.offset = 0;
-    this.currentPage = 1;
+    this.serverTaskName = this.props.server.serverID;
+    this.currentPage = parseInt(sessionStorage.getItem(`pageTask${this.serverTaskName}`));
     this.debounced = null;
     this.taskType = null;
     this.fetchTasks = null;
+    this.timer = null;
   }
 
   updateSearch = evt => {
     this.setState({keywordSearch: evt.currentTarget.value});
+    sessionStorage.setItem(`pageSearch${this.serverTaskName}`, evt.currentTarget.value);
+    sessionStorage.setItem(`pageTask${this.serverTaskName}`, 1);
   };
 
   handleEnterKeySearch = evt => {
@@ -87,11 +92,22 @@ class _ServerTasks extends Component {
     this.processTasks();
     this.fetchTasks = setInterval(() => {
       this.processTasks();
-    }, 20000);
+    }, 
+    200000);
+    this.timer = setInterval(()=> {
+      if(sessionStorage.getItem("loading") != this.state.loading) {
+        this.setState({
+          loading: JSON.parse(sessionStorage.getItem("loading")),
+        });
+      };
+    }
+    , 50);
+    // this.setState({loading: !this.state.loading});
   }
 
   componentWillUnmount() {
     clearInterval(this.fetchTasks);
+    clearInterval(this.timer);
     this.fetchTasks = null;
   }
 
@@ -127,47 +143,55 @@ class _ServerTasks extends Component {
     this.props.history.push(path);
   };
 
+  loadingScreen = () => {
+    this.setState(
+      { loading : true },
+      () => {
+          setTimeout(()=>{this.setState({loading : false})}, 750)
+      }
+    );
+  };
+
   // go to next page if possible.
   next = () => {
-    this.currentPage += 1;
+    sessionStorage.setItem(`pageTask${this.serverTaskName}`, ++this.currentPage);
     this.processTasks(true);
+    
   };
 
   // go to previous page if possible.
   previous = () => {
-    this.currentPage -= 1;
+    sessionStorage.setItem(`pageTask${this.serverTaskName}`, --this.currentPage);
     this.offset = this.state.tasksPerPage * this.currentPage;
     this.processTasks(true);
   };
 
-  getExecutionTime = (seconds) => {
-    return new Date(seconds * 1000).toISOString().substr(11, 8);
-  }
-
   processTasks = (clear = false) => {
+    
     if (this.debounced) {
       clearTimeout(this.debounced);
     }
-    this.debounced = setTimeout(() => {
-      const {server} = this.props;
-      this.props.loadTasks(
-        server,
-        this.state.keywordSearch,
-        this.currentPage,
-        "-status_changed"
-      );
-    }, clear ? 0 : 250);
+        this.debounced = setTimeout(() => {
+          const {server, loadTasks} = this.props;
+          loadTasks(
+            server,
+            this.state.keywordSearch,
+            this.currentPage,
+            "-status_changed"
+          );
+        }, clear);
+    // this.loadingScreen();
   };
 
   render() {
     let serverName = this.props.server.serverSettingName;
     const {tasks} = this.state;
     return (
-      <Card className="bp3-elevation-1">
-        <h5 className="bp3-heading">
+      <Card className="pt-elevation-4">
+        <h5>
           {" "}
           <div className="right-aligned-elem">
-            <Tag className="bp3-large">
+            <Tag className="pt-large">
               {this.currentPage}/{this.state.maxPages}
             </Tag>
           </div>
@@ -196,8 +220,9 @@ class _ServerTasks extends Component {
                 <InputGroup
                   onChange={this.updateSearch}
                   onKeyPress={this.handleEnterKeySearch}
-                  value={this.state.keywordSearch}
+                  value={this.state.keywordSearch || sessionStorage.getItem(`pageSearch${this.serverTaskName}`)}
                   placeholder="Enter Keywords..."
+                  defaultValue= {sessionStorage.getItem(`pageSearch${this.serverTaskName}`)}
                 />
               </ControlGroup>
               <div className="label-info-display">
@@ -209,7 +234,7 @@ class _ServerTasks extends Component {
             </div>
           </div>
           <div className="overflowed-table">
-            <table className="pool-list-table paginated-list-table bp3-html-table bp3=small bp3-html-table-bordered bp3-html-table-striped">
+            <table className="pool-list-table pt-table pt-bordered pt-striped pt-interactive">
               <thead>
                 <tr>
                   <th>
@@ -236,16 +261,10 @@ class _ServerTasks extends Component {
                       defaultMessage="Status"
                     />
                   </th>
-                  <th>
-                    <FormattedMessage
-                        id="plugins.capture.executionTime"
-                        defaultMessage="Execution Time"
-                    />
-                  </th>
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(tasks) && tasks.length > 0
+                {Array.isArray(tasks) && tasks.length > 0 && this.state.loading === false
                   ? tasks.map(task => {
                       let intent = Intent.PRIMARY;
                       switch (task.status) {
@@ -285,13 +304,45 @@ class _ServerTasks extends Component {
                           <td style={{textAlign: "center"}}>
                             <Tag intent={intent}>{task.status}</Tag>
                           </td>
-                          <td style={{textAlign: "center"}}>
-                            <Tag intent={intent}>{this.getExecutionTime(task.execution_time)}</Tag>
-                          </td>
                         </tr>
                       );
                     })
-                  : null}
+                    : this.state.loading === true ?
+                    <tr className='tableLoading'>
+                      <div class="middle">
+                          <div class="bar bar1"></div>
+                          <div class="bar bar2"></div>
+                          <div class="bar bar3"></div>
+                          <div class="bar bar4"></div>
+                          <div class="bar bar5"></div>
+                          <div class="bar bar6"></div>
+                          <div class="bar bar7"></div>
+                          <div class="bar bar8"></div>
+                      </div>
+                    </tr>
+                    :
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) != "" && tasks.length === 0 ?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                            <FormattedMessage
+                                id="app.common.searchResult"
+                                defaultMessage="No search result"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    sessionStorage.getItem(`pageSearch${this.serverTaskName}`) === "" && tasks.length === 0?
+                    <tr className='tableLoading'>
+                        <div class="middle searchResult">
+                        <FormattedMessage
+                                id="app.common.emptyArray"
+                                defaultMessage="Empty array"
+                            />
+                        </div>
+                    </tr>
+                    : 
+                    null
+                  }
               </tbody>
             </table>
           </div>
